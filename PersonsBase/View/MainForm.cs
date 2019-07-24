@@ -14,44 +14,38 @@ namespace PBase
    public partial class MainForm : Form
    {
       ///////////////// ОСНОВНЫЕ ОБЬЕКТЫ ////////////////////////////////
-      DataBaseClass db = DataBaseClass.getInstance();
-      private SortedList<string, Person> UserList
-      {
-         get
-         {
-            return db.GetCollectionRW();
-         }
-      }
-      public Options options; // Хранятся локальные настройки и параметры программы.
-      public Logic logic;       // Логика и управляющие методы программы.
+      readonly DataBaseClass _db = DataBaseClass.getInstance();
+      private SortedList<string, Person> UserList => _db.GetCollectionRW();
+      private Options _options; // Хранятся локальные настройки и параметры программы.
+      private Logic _logic;       // Логика и управляющие методы программы.
 
       ///////////////// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ////////////////////////////////
       public MainForm()
       {
          InitializeComponent();
-         options = new Options();
-         logic = new Logic(options, db);
+         _options = new Options();
+         _logic = new Logic(_options, _db);
       }
 
       private void MainForm_Load(object sender, EventArgs e)
       {
-         HelperMethods.DeSerialize<Options>(ref options, "Option.bin");
+         HelperMethods.DeSerialize<Options>(ref _options, "Option.bin");
 
          // Подписка на события в пользовательской Базе Данных
-         db.listChangedEvent += UpdateFindComboBox;       // Обновляем список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
-         db.listChangedEvent += UpdateUsersCountTextBox; // Обновляем Счетчик пользователей на гл странице.
-         db.OnListChanged(); // Событие запускающееся при изменении количества Клиентов в списке.
+         _db.listChangedEvent += UpdateFindComboBox;       // Обновляем список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
+         _db.listChangedEvent += UpdateUsersCountTextBox; // Обновляем Счетчик пользователей на гл странице.
+         _db.OnListChanged(); // Событие запускающееся при изменении количества Клиентов в списке.
       }
 
       private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
       {
          // Сохраняем настройки. 
-         HelperMethods.Serialize<Options>(options, "Option.bin");
+         HelperMethods.Serialize<Options>(_options, "Option.bin");
       }
 
       public void RunClientForm(string keyName)
       {
-         if (db.ContainsKey(keyName))
+         if (_db.ContainsKey(keyName))
          {
             ClientForm clientFrm = new ClientForm(keyName);
             clientFrm.ShowDialog();
@@ -63,7 +57,7 @@ namespace PBase
       }
 
       ///////////////// РАБОТА С MAIN FORM ////////////////////////////////
-      public void UpdateFindComboBox(object sender, EventArgs arg)
+      private void UpdateFindComboBox(object sender, EventArgs arg)
       {
          Action myDelegate = delegate ()
           {
@@ -99,7 +93,7 @@ namespace PBase
 
       private void UpdateUsersCountTextBox(object sender, EventArgs arg)
       {
-         textBox1.Text = db.GetNumberOfPersons().ToString();
+         textBox1.Text = _db.GetNumberOfPersons().ToString();
          this.Invalidate();
       }
 
@@ -110,7 +104,7 @@ namespace PBase
 
       private void button1_Click_1(object sender, EventArgs e)
       {
-         db.AddPerson(new Person("Трактирщик Мо"));
+         _db.AddPerson(new Person("Трактирщик Мо"));
       }
 
       private void comboBox_Find_SelectedIndexChanged(object sender, EventArgs e)

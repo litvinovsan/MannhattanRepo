@@ -12,10 +12,10 @@ namespace PBase
 {
    public partial class NumWorkoutForm : Form
    {
-      private AbonementBasic _abonement;
+      private readonly AbonementBasic _abonement;
       private TypeWorkout _selectedTypeWorkout;
       private int _selectedValue;
-      private string[] numberToAdd = { "1", "5", "10" };
+      private readonly object[] _numberToAdd = { "1", "5", "10" };
 
 
       public NumWorkoutForm(AbonementBasic abonement)
@@ -26,8 +26,8 @@ namespace PBase
          _selectedValue = 1;
          _selectedTypeWorkout = TypeWorkout.Персональная;
 
-         comboBox_num.Items.AddRange(numberToAdd);
-         comboBox_num.SelectedItem = numberToAdd[0];
+         comboBox_num.Items.AddRange(_numberToAdd);
+         comboBox_num.SelectedItem = _numberToAdd[0];
       }
 
       public void ApplyChanges()

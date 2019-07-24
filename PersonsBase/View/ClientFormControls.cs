@@ -15,29 +15,30 @@ namespace PBase
       // Создаем Контролы для Детальной информации
       // Создаются все контролы, а дальше раскидываются по Тэйбл Панелям
 
-      Action SaveDelegateChain; // Цепочка Делегатов для сохранения измененных данных.
+      private Action _saveDelegateChain; // Цепочка Делегатов для сохранения измененных данных.
 
       #region // Метод. Фамилия Имя Отчество
 
-      private string editedName; // Сохраняем новое редактированное имя.
-      Tuple<Label, Control> CreateNameField()
+      private string _editedName; // Сохраняем новое редактированное имя.
+
+      private Tuple<Label, Control> CreateNameField()
       {
          const string nameLabel = "Имя Клиента";
 
          Label lableType = CreateLabel(nameLabel);
          TextBox textbox = CreateTextBox(false);
-         editedName = _person.Name;
+         _editedName = _person.Name;
          // Инициализируем наши Контролы
          textbox.Text = _person.Name;
          // Подписываемся на событие по изменению
          textbox.TextChanged += Textbox_NameChanged;
 
-         SaveDelegateChain += () =>
+         _saveDelegateChain += () =>
          {
-            if (editedName != null && editedName != "" && _person.Name != editedName)
+            if (_editedName != null && _editedName != "" && _person.Name != _editedName)
             {
-               _dataBase.EditName(_person.Name, editedName);
-               SetControlBackColor(textbox, editedName, _person.Name);
+               _dataBase.EditName(_person.Name, _editedName);
+               SetControlBackColor(textbox, _editedName, _person.Name);
             }
          };
 
@@ -46,26 +47,26 @@ namespace PBase
       private void Textbox_NameChanged(object sender, EventArgs e)
       {
          var tb = (TextBox)sender;
-         editedName = tb.Text;
-         SetControlBackColor(tb, editedName, _person.Name);
-         IsChangedUpdateStatus(editedName, _person.Name);
+         _editedName = tb.Text;
+         SetControlBackColor(tb, _editedName, _person.Name);
+         IsChangedUpdateStatus(_editedName, _person.Name);
       }
 
       #endregion
 
       #region // Метод. Статус Клиента.
 
-      StatusPerson editedStatusPerson;
+      StatusPerson _editedStatusPerson;
       Tuple<Label, Control> CreateStatusField()
       {
          const string curentStatusLabel = "Текущий статус Клиента: ";
          Label lableType = CreateLabel(curentStatusLabel);
-         editedStatusPerson = _person.Status;
+         _editedStatusPerson = _person.Status;
          ComboBox comboStatus = CreateComboBox();
          // Инициализируем наши Контролы
          var array = Enum.GetNames(typeof(StatusPerson));
          // Удалим из Массива Активный и Заморожен если у клиента нет абонемента.
-         if (_person.abonementCurent == null)
+         if (_person.AbonementCurent == null)
          {
             var updatedarray = array.Where((x) => (x != StatusPerson.Активный.ToString()) && ((x != StatusPerson.Заморожен.ToString()))).Select(x => x);
             array = updatedarray.ToArray<string>();
@@ -76,14 +77,14 @@ namespace PBase
          comboStatus.SelectedItem = _person.Status.ToString(); // Выбор по умолчанию
          // Подписываемся на событие по изменению
          comboStatus.SelectedIndexChanged += ComboStatus_SelectedIndexChanged;
-         SaveDelegateChain += () =>
+         _saveDelegateChain += () =>
          {
-            if (editedStatusPerson != _person.Status)
+            if (_editedStatusPerson != _person.Status)
             {
-               _person.statusChanged -= UpdateControlState;
-               _person.Status = editedStatusPerson;
-               _person.statusChanged += UpdateControlState;
-               ComboBoxColor(comboStatus, _person.Status.ToString(), editedStatusPerson.ToString());
+               _person.StatusChanged -= UpdateControlState;
+               _person.Status = _editedStatusPerson;
+               _person.StatusChanged += UpdateControlState;
+               ComboBoxColor(comboStatus, _person.Status.ToString(), _editedStatusPerson.ToString());
                _person.OnStatusChanged();
             }
          };
@@ -94,33 +95,33 @@ namespace PBase
       {
          var tb = (ComboBox)sender;
          var editedStatus = (StatusPerson)Enum.Parse(typeof(StatusPerson), tb.SelectedItem.ToString());
-         editedStatusPerson = editedStatus;
-         IsChangedUpdateStatus(editedStatusPerson.ToString(), _person.Status.ToString());
-         ComboBoxColor(tb, _person.Status.ToString(), editedStatusPerson.ToString());
+         _editedStatusPerson = editedStatus;
+         IsChangedUpdateStatus(_editedStatusPerson.ToString(), _person.Status.ToString());
+         ComboBoxColor(tb, _person.Status.ToString(), _editedStatusPerson.ToString());
       }
       #endregion
 
       #region // Метод. Доступные Тренировки.
-      TypeWorkout editedTypeWorkout;
+      TypeWorkout _editedTypeWorkout;
       Tuple<Label, Control> CreateTypeWorkoutField()
       {
          const string labelText = "Доступные Тренировки: ";
          Label lableType = CreateLabel(labelText);
          ComboBox comboBox = CreateComboBox();
-         editedTypeWorkout = _person.abonementCurent.trainingsType;
+         _editedTypeWorkout = _person.AbonementCurent.trainingsType;
          // Инициализируем наши Контролы
          var array = Enum.GetNames(typeof(TypeWorkout));
          comboBox.Items.AddRange(array.ToArray<object>()); // Записываем Поля в Комбобокс
-         comboBox.SelectedItem = _person.abonementCurent.trainingsType.ToString(); // Выбор по умолчанию
+         comboBox.SelectedItem = _person.AbonementCurent.trainingsType.ToString(); // Выбор по умолчанию
          // Подписываемся на событие по изменению
          comboBox.SelectedIndexChanged += comboBox_TypeWorkout_SelectedIndexChanged;
 
-         SaveDelegateChain += () =>
+         _saveDelegateChain += () =>
          {
-            if (_person.abonementCurent != null && editedTypeWorkout != _person.abonementCurent.trainingsType)
+            if (_person.AbonementCurent != null && _editedTypeWorkout != _person.AbonementCurent.trainingsType)
             {
-               _person.abonementCurent.trainingsType = editedTypeWorkout;
-               ComboBoxColor(comboBox, editedTypeWorkout.ToString(), _person.abonementCurent.trainingsType.ToString());
+               _person.AbonementCurent.trainingsType = _editedTypeWorkout;
+               ComboBoxColor(comboBox, _editedTypeWorkout.ToString(), _person.AbonementCurent.trainingsType.ToString());
             }
          };
 
@@ -130,35 +131,36 @@ namespace PBase
       {
          var tb = (ComboBox)sender;
          var edited = (TypeWorkout)Enum.Parse(typeof(TypeWorkout), tb.SelectedItem.ToString());
-         editedTypeWorkout = edited;
-         ComboBoxColor(tb, editedTypeWorkout.ToString(), _person.abonementCurent.trainingsType.ToString());
-         IsChangedUpdateStatus(editedTypeWorkout.ToString(), _person.abonementCurent.trainingsType.ToString());
+         _editedTypeWorkout = edited;
+         ComboBoxColor(tb, _editedTypeWorkout.ToString(), _person.AbonementCurent.trainingsType.ToString());
+         IsChangedUpdateStatus(_editedTypeWorkout.ToString(), _person.AbonementCurent.trainingsType.ToString());
       }
 
       #endregion
 
       #region // Метод. Услуги СПА.
 
-      SpaService editedSpaService;
-      Tuple<Label, Control> CreateSpaServiceField()
+      SpaService _editedSpaService;
+
+      private Tuple<Label, Control> CreateSpaServiceField()
       {
          const string labelText = "Услуги: ";
          Label lableType = CreateLabel(labelText);
          var array = Enum.GetNames(typeof(SpaService));
          ComboBox comboBox = CreateComboBox();
-         editedSpaService = _person.abonementCurent.spa;
+         _editedSpaService = _person.AbonementCurent.spa;
          // Инициализируем наши Контролы
          comboBox.Items.AddRange(array.ToArray<object>()); // Записываем Поля в Комбобокс
-         comboBox.SelectedItem = _person.abonementCurent.spa.ToString(); // Выбор по умолчанию
+         comboBox.SelectedItem = _person.AbonementCurent.spa.ToString(); // Выбор по умолчанию
          // Подписываемся на событие по изменению
          comboBox.SelectedIndexChanged += comboBox_SpaService_SelectedIndexChanged;
 
-         SaveDelegateChain += () =>
+         _saveDelegateChain += () =>
          {
-            if (_person.abonementCurent != null && editedSpaService != _person.abonementCurent.spa)
+            if (_person.AbonementCurent != null && _editedSpaService != _person.AbonementCurent.spa)
             {
-               _person.abonementCurent.spa = editedSpaService;
-               ComboBoxColor(comboBox, _person.abonementCurent.spa.ToString(), comboBox.SelectedItem.ToString());
+               _person.AbonementCurent.spa = _editedSpaService;
+               ComboBoxColor(comboBox, _person.AbonementCurent.spa.ToString(), comboBox.SelectedItem.ToString());
             }
          };
 
@@ -168,34 +170,35 @@ namespace PBase
       {
          var tb = (ComboBox)sender;
          var edited = (SpaService)Enum.Parse(typeof(SpaService), tb.SelectedItem.ToString());
-         editedSpaService = edited;
-         ComboBoxColor(tb, _person.abonementCurent.spa.ToString(), tb.SelectedItem.ToString());
-         IsChangedUpdateStatus(_person.abonementCurent.spa.ToString(), tb.SelectedItem.ToString());
+         _editedSpaService = edited;
+         ComboBoxColor(tb, _person.AbonementCurent.spa.ToString(), tb.SelectedItem.ToString());
+         IsChangedUpdateStatus(_person.AbonementCurent.spa.ToString(), tb.SelectedItem.ToString());
       }
 
       #endregion
 
       #region // Метод. Статус Оплаты.
-      Pay editedPay;
-      Tuple<Label, Control> CreatePayServiceField()
+      Pay _editedPay;
+
+      private Tuple<Label, Control> CreatePayServiceField()
       {
          const string labelText = "Статус Оплаты: ";
          Label lableType = CreateLabel(labelText);
          ComboBox comboBox = CreateComboBox();
-         editedPay = _person.abonementCurent.payStatus;
+         _editedPay = _person.AbonementCurent.payStatus;
          // Инициализируем наши Контролы
          var array = Enum.GetNames(typeof(Pay));
          comboBox.Items.AddRange(array.ToArray<object>()); // Записываем Поля в Комбобокс
-         comboBox.SelectedItem = _person.abonementCurent.payStatus.ToString(); // Выбор по умолчанию
+         comboBox.SelectedItem = _person.AbonementCurent.payStatus.ToString(); // Выбор по умолчанию
          // Подписываемся на событие по изменению
          comboBox.SelectedIndexChanged += comboBox_Pay_SelectedIndexChanged;
 
-         SaveDelegateChain += () =>
+         _saveDelegateChain += () =>
          {
-            if (_person.abonementCurent != null && editedPay != _person.abonementCurent.payStatus)
+            if (_person.AbonementCurent != null && _editedPay != _person.AbonementCurent.payStatus)
             {
-               _person.abonementCurent.payStatus = editedPay;
-               ComboBoxColor(comboBox, _person.abonementCurent.payStatus.ToString(), comboBox.SelectedItem.ToString());
+               _person.AbonementCurent.payStatus = _editedPay;
+               ComboBoxColor(comboBox, _person.AbonementCurent.payStatus.ToString(), comboBox.SelectedItem.ToString());
             }
          };
 
@@ -205,35 +208,33 @@ namespace PBase
       {
          var tb = (ComboBox)sender;
          var edited = (Pay)Enum.Parse(typeof(Pay), tb.SelectedItem.ToString());
-         editedPay = edited;
-         ComboBoxColor(tb, _person.abonementCurent.payStatus.ToString(), tb.SelectedItem.ToString());
-         IsChangedUpdateStatus(_person.abonementCurent.payStatus.ToString(), tb.SelectedItem.ToString());
+         _editedPay = edited;
+         ComboBoxColor(tb, _person.AbonementCurent.payStatus.ToString(), tb.SelectedItem.ToString());
+         IsChangedUpdateStatus(_person.AbonementCurent.payStatus.ToString(), tb.SelectedItem.ToString());
       }
 
       #endregion
 
       #region // Метод. Время Тренировок
-      TimeForTr editedTimeForTr;
+      private TimeForTr _editedTimeForTr;
       Tuple<Label, Control> CreateTimeForTrField()
       {
          const string labelText = "Время Тренировок: ";
          Label lableType = CreateLabel(labelText);
          ComboBox comboBox = CreateComboBox();
-         editedTimeForTr = _person.abonementCurent.timeTraining;
+         _editedTimeForTr = _person.AbonementCurent.timeTraining;
          // Инициализируем наши Контролы
          var array = Enum.GetNames(typeof(TimeForTr));
          comboBox.Items.AddRange(array.ToArray<object>()); // Записываем Поля в Комбобокс
-         comboBox.SelectedItem = _person.abonementCurent.timeTraining.ToString(); // Выбор по умолчанию
+         comboBox.SelectedItem = _person.AbonementCurent.timeTraining.ToString(); // Выбор по умолчанию
          // Подписываемся на событие по изменению
          comboBox.SelectedIndexChanged += comboBox_TimeForTr_SelectedIndexChanged;
 
-         SaveDelegateChain += () =>
+         _saveDelegateChain += () =>
          {
-            if (_person.abonementCurent != null && editedTimeForTr != _person.abonementCurent.timeTraining)
-            {
-               _person.abonementCurent.timeTraining = editedTimeForTr;
-               ComboBoxColor(comboBox, _person.abonementCurent.timeTraining.ToString(), comboBox.SelectedItem.ToString());
-            }
+             if (_person.AbonementCurent == null || _editedTimeForTr == _person.AbonementCurent.timeTraining) return;
+             _person.AbonementCurent.timeTraining = _editedTimeForTr;
+            ComboBoxColor(comboBox, _person.AbonementCurent.timeTraining.ToString(), comboBox.SelectedItem.ToString());
          };
 
          return new Tuple<Label, Control>(lableType, comboBox);
@@ -242,14 +243,14 @@ namespace PBase
       {
          var tb = (ComboBox)sender;
          var edited = (TimeForTr)Enum.Parse(typeof(TimeForTr), tb.SelectedItem.ToString());
-         editedTimeForTr = edited;
-         ComboBoxColor(tb, _person.abonementCurent.timeTraining.ToString(), tb.SelectedItem.ToString());
-         IsChangedUpdateStatus(_person.abonementCurent.timeTraining.ToString(), tb.SelectedItem.ToString());
+         _editedTimeForTr = edited;
+         ComboBoxColor(tb, _person.AbonementCurent.timeTraining.ToString(), tb.SelectedItem.ToString());
+         IsChangedUpdateStatus(_person.AbonementCurent.timeTraining.ToString(), tb.SelectedItem.ToString());
       }
       #endregion
 
       #region // Метод. Тип Срок Клубной Карты
-      PeriodClubCard editedTypeClubCard;
+      PeriodClubCard _editedTypeClubCard;
       Tuple<Label, Control> CreatePeriodClubCardField()
       {
          // Этот метод отличается от других из-за Полей,присущих только данному классу. Например, Тип Абонемента на месяцы.
@@ -261,21 +262,19 @@ namespace PBase
          var array = Enum.GetNames(typeof(PeriodClubCard));
          comboBox.Items.AddRange(array.ToArray<object>()); // Записываем Поля в Комбобокс
 
-         if (_person.abonementCurent is ClubCardAbonement)
+         var clubCard = _person.AbonementCurent as ClubCardAbonement;
+         if (clubCard != null)
          {
-            var clubCard = (ClubCardAbonement)_person.abonementCurent;
-            comboBox.SelectedItem = clubCard.GetTypeClubCard().ToString(); // Выбор по умолчанию
-            editedTypeClubCard = clubCard.GetTypeClubCard();
+             comboBox.SelectedItem = clubCard.GetTypeClubCard().ToString(); // Выбор по умолчанию
+            _editedTypeClubCard = clubCard.GetTypeClubCard();
 
-            SaveDelegateChain += () =>
+            _saveDelegateChain += () =>
             {
-               if (_person.abonementCurent != null && editedTypeClubCard != clubCard.GetTypeClubCard())
-               {
-                  clubCard.SetTypeClubCard(editedTypeClubCard);
-                  ComboBoxColor(comboBox, clubCard.GetTypeClubCard().ToString(), editedTypeClubCard.ToString());
+                if (_person.AbonementCurent == null || _editedTypeClubCard == clubCard.GetTypeClubCard()) return;
+                clubCard.SetTypeClubCard(_editedTypeClubCard);
+               ComboBoxColor(comboBox, clubCard.GetTypeClubCard().ToString(), _editedTypeClubCard.ToString());
 
-                  (_person.abonementCurent as ClubCardAbonement).UpdateEndDate();
-               }
+               (_person.AbonementCurent as ClubCardAbonement)?.UpdateEndDate();
             };
          }
          // Подписываемся на событие по изменению комбобокса
@@ -286,9 +285,10 @@ namespace PBase
       private void comboBox_TypeClubCard_SelectedIndexChanged(object sender, EventArgs e)
       {
          var tb = (ComboBox)sender;
-         editedTypeClubCard = (PeriodClubCard)Enum.Parse(typeof(PeriodClubCard), tb.SelectedItem.ToString());
+         _editedTypeClubCard = (PeriodClubCard)Enum.Parse(typeof(PeriodClubCard), tb.SelectedItem.ToString());
 
-         var сard = _person.abonementCurent as ClubCardAbonement;
+         var сard = _person.AbonementCurent as ClubCardAbonement;
+         if (сard == null) return;
          ComboBoxColor(tb, сard.GetTypeClubCard().ToString(), tb.SelectedItem.ToString());
          IsChangedUpdateStatus(сard.GetTypeClubCard().ToString(), tb.SelectedItem.ToString());
       }
@@ -296,14 +296,14 @@ namespace PBase
 
       #region // Метод. Дата Окончания Карты
 
-      DateTime editedEndDate;
+      DateTime _editedEndDate;
       Tuple<Label, Control> CreateEndDateField()
       {
          const string labelText = "Дата Окончания Карты ";
          Label lableType = CreateLabel(labelText);
          DateTimePicker dateTime = CreateDateTimePicker();
-         dateTime.Value = _person.abonementCurent.endDate.Date;
-         editedEndDate = _person.abonementCurent.endDate.Date;
+         dateTime.Value = _person.AbonementCurent.endDate.Date;
+         _editedEndDate = _person.AbonementCurent.endDate.Date;
          //dateTime.ValueChanged += DateTime_EndDate_ValueChanged;
 
          //SaveDelegateChain += () =>
@@ -325,10 +325,11 @@ namespace PBase
       #endregion
 
       #region // Метод. Осталось Дней
-      Tuple<Label, Control> CreateRemainderDaysField()
+
+      private Tuple<Label, Control> CreateRemainderDaysField()
       {
          const string nameLabel = "Осталось Дней";
-         string tbInitialText = _person.abonementCurent.GetRemainderDays().ToString();
+         string tbInitialText = _person.AbonementCurent.GetRemainderDays().ToString();
 
          Label lableType = CreateLabel(nameLabel);
          TextBox textbox = CreateTextBox(true);
@@ -340,15 +341,16 @@ namespace PBase
 
       #region // Метод. Осталось Персональных тренировок
 
-      private int editedNumPersonalTr;
-      Tuple<Label, Control> CreateNumPersonalTrField()
+      private int _editedNumPersonalTr;
+
+      private Tuple<Label, Control> CreateNumPersonalTrField()
       {
          const string nameLabel = "Осталось Персональных";
-         string tbInitialText = _person.abonementCurent.NumPersonalTr.ToString();
+         string tbInitialText = _person.AbonementCurent.NumPersonalTr.ToString();
 
          Label lableType = CreateLabel(nameLabel);
          TextBox textbox = CreateTextBox(false);
-         editedNumPersonalTr = _person.abonementCurent.NumPersonalTr;
+         _editedNumPersonalTr = _person.AbonementCurent.NumPersonalTr;
          // Инициализируем наши Контролы
          textbox.Text = tbInitialText;
          textbox.MaxLength = 3;
@@ -356,12 +358,12 @@ namespace PBase
          textbox.KeyPress += Textbox_NumPersonalTr_KeyPress;
          textbox.TextChanged += Textbox_NumPersonalTrChanged;
 
-         SaveDelegateChain += () =>
+         _saveDelegateChain += () =>
          {
-            if (_person.abonementCurent.NumPersonalTr != editedNumPersonalTr && (editedNumPersonalTr >= 0))
+            if (_person.AbonementCurent.NumPersonalTr != _editedNumPersonalTr && (_editedNumPersonalTr >= 0))
             {
-               _person.abonementCurent.NumPersonalTr = editedNumPersonalTr;
-               SetControlBackColor(textbox, editedNumPersonalTr.ToString(), _person.abonementCurent.NumPersonalTr.ToString());
+               _person.AbonementCurent.NumPersonalTr = _editedNumPersonalTr;
+               SetControlBackColor(textbox, _editedNumPersonalTr.ToString(), _person.AbonementCurent.NumPersonalTr.ToString());
             }
          };
 
@@ -378,25 +380,25 @@ namespace PBase
       private void Textbox_NumPersonalTrChanged(object sender, EventArgs e)
       {
          var tb = (TextBox)sender;
-         Int32.TryParse(tb.Text, out editedNumPersonalTr);
-         SetControlBackColor(tb, editedNumPersonalTr.ToString(), _person.abonementCurent.NumPersonalTr.ToString());
-         isAnythingChanged = true;
+         Int32.TryParse(tb.Text, out _editedNumPersonalTr);
+         SetControlBackColor(tb, _editedNumPersonalTr.ToString(), _person.AbonementCurent.NumPersonalTr.ToString());
+         _isAnythingChanged = true;
 
       }
       #endregion
 
       #region // Метод. Осталось Аэробных тренировок
-      private int editedNumAerobicTr;
-      private bool NumAerobicTrChanged;
+      private int _editedNumAerobicTr;
+      private bool _numAerobicTrChanged;
       Tuple<Label, Control> CreateNumAerobicTrField()
       {
          const string nameLabel = "Осталось Аэробных";
-         NumAerobicTrChanged = false;
-         string tbInitialText = _person.abonementCurent.NumAerobicTr.ToString();
+         _numAerobicTrChanged = false;
+         string tbInitialText = _person.AbonementCurent.NumAerobicTr.ToString();
 
          Label lableType = CreateLabel(nameLabel);
          TextBox textbox = CreateTextBox(false);
-         editedNumAerobicTr = _person.abonementCurent.NumAerobicTr;
+         _editedNumAerobicTr = _person.AbonementCurent.NumAerobicTr;
          // Инициализируем наши Контролы
          textbox.Text = tbInitialText;
          textbox.MaxLength = 3;
@@ -404,12 +406,12 @@ namespace PBase
          textbox.KeyPress += Textbox_NumAerobicTr_KeyPress;
          textbox.TextChanged += Textbox_NumAerobicTrChanged;
 
-         SaveDelegateChain += () =>
+         _saveDelegateChain += () =>
          {
-            if (_person.abonementCurent.NumAerobicTr != editedNumAerobicTr && (editedNumAerobicTr >= 0) && NumAerobicTrChanged)
+            if (_person.AbonementCurent.NumAerobicTr != _editedNumAerobicTr && (_editedNumAerobicTr >= 0) && _numAerobicTrChanged)
             {
-               _person.abonementCurent.NumAerobicTr = editedNumAerobicTr;
-               SetControlBackColor(textbox, editedNumAerobicTr.ToString(), _person.abonementCurent.NumAerobicTr.ToString());
+               _person.AbonementCurent.NumAerobicTr = _editedNumAerobicTr;
+               SetControlBackColor(textbox, _editedNumAerobicTr.ToString(), _person.AbonementCurent.NumAerobicTr.ToString());
             }
          };
 
@@ -426,10 +428,10 @@ namespace PBase
       private void Textbox_NumAerobicTrChanged(object sender, EventArgs e)
       {
          var tb = (TextBox)sender;
-         isAnythingChanged = true;
-         NumAerobicTrChanged = true;
-         Int32.TryParse(tb.Text, out editedNumAerobicTr);
-         SetControlBackColor(tb, editedNumAerobicTr.ToString(), _person.abonementCurent.NumAerobicTr.ToString());
+         _isAnythingChanged = true;
+         _numAerobicTrChanged = true;
+         Int32.TryParse(tb.Text, out _editedNumAerobicTr);
+         SetControlBackColor(tb, _editedNumAerobicTr.ToString(), _person.AbonementCurent.NumAerobicTr.ToString());
       }
       #endregion
 
@@ -441,8 +443,8 @@ namespace PBase
          const string labelText = "Дата Покупки Карты ";
          Label lableType = CreateLabel(labelText);
          DateTimePicker dateTime = CreateDateTimePicker();
-         dateTime.Value = _person.abonementCurent.buyDate.Date;
-         editedEndDate = _person.abonementCurent.buyDate.Date;
+         dateTime.Value = _person.AbonementCurent.buyDate.Date;
+         _editedEndDate = _person.AbonementCurent.buyDate.Date;
          //dateTime.ValueChanged += DateTime_BuyDate_ValueChanged;
 
          //SaveDelegateChain += () =>
@@ -464,7 +466,7 @@ namespace PBase
       #endregion
 
       #region // Метод. Количество дней в Абонементе
-      DaysInAbon editedDaysInAbon;
+      DaysInAbon _editedDaysInAbon;
       Tuple<Label, Control> CreateNumberDaysInAbonField()
       {
          // Этот метод отличается от других из-за Полей,присущих только данному классу. Например, Количество дней в Абонементе
@@ -474,17 +476,17 @@ namespace PBase
          var array = Enum.GetNames(typeof(DaysInAbon));
          comboBox.Items.AddRange(array.ToArray<object>());
 
-         if (_person.abonementCurent is AbonementByDays)
+         if (_person.AbonementCurent is AbonementByDays)
          {
-            var abonement = (AbonementByDays)_person.abonementCurent;
+            var abonement = (AbonementByDays)_person.AbonementCurent;
             comboBox.SelectedItem = abonement.GetTypeAbonementByDays().ToString(); // Выбор по умолчанию
-            editedDaysInAbon = abonement.GetTypeAbonementByDays();
-            SaveDelegateChain += () =>
+            _editedDaysInAbon = abonement.GetTypeAbonementByDays();
+            _saveDelegateChain += () =>
             {
-               if (_person.abonementCurent != null && editedDaysInAbon != abonement.GetTypeAbonementByDays())
+               if (_person.AbonementCurent != null && _editedDaysInAbon != abonement.GetTypeAbonementByDays())
                {
-                  abonement.SetTypeAbonementByDays(editedDaysInAbon);
-                  ComboBoxColor(comboBox, abonement.GetTypeAbonementByDays().ToString(), editedDaysInAbon.ToString());
+                  abonement.SetTypeAbonementByDays(_editedDaysInAbon);
+                  ComboBoxColor(comboBox, abonement.GetTypeAbonementByDays().ToString(), _editedDaysInAbon.ToString());
                }
             };
          }
@@ -496,9 +498,10 @@ namespace PBase
       private void comboBox_DaysInAbon_SelectedIndexChanged(object sender, EventArgs e)
       {
          var tb = (ComboBox)sender;
-         editedDaysInAbon = (DaysInAbon)Enum.Parse(typeof(DaysInAbon), tb.SelectedItem.ToString());
+         _editedDaysInAbon = (DaysInAbon)Enum.Parse(typeof(DaysInAbon), tb.SelectedItem.ToString());
 
-         var сard = _person.abonementCurent as AbonementByDays;
+         var сard = _person.AbonementCurent as AbonementByDays;
+         if (сard == null) return;
          ComboBoxColor(tb, сard.GetTypeAbonementByDays().ToString(), tb.SelectedItem.ToString());
          IsChangedUpdateStatus(сard.GetTypeAbonementByDays().ToString(), tb.SelectedItem.ToString());
       }
@@ -508,13 +511,13 @@ namespace PBase
       // Поля персональных данных
       #region // Поле. Телефон
 
-      private string editedPhone;
+      private string _editedPhone;
       private void maskedTextBox_PhoneNumber_TextChanged(object sender, EventArgs e)
       {
          var tb = (MaskedTextBox)sender;
-         editedPhone = tb.Text;
-         SetControlBackColor(tb, editedPhone, _person.Phone);
-         IsChangedUpdateStatus(editedPhone, _person.Phone);
+         _editedPhone = tb.Text;
+         SetControlBackColor(tb, _editedPhone, _person.Phone);
+         IsChangedUpdateStatus(_editedPhone, _person.Phone);
       }
 
 
@@ -522,57 +525,57 @@ namespace PBase
 
       #region // Поле. Паспорт
 
-      private string editedPassport;
+      private string _editedPassport;
       private void maskedTex_Passport_TextChanged(object sender, EventArgs e)
       {
          var tb = (MaskedTextBox)sender;
-         editedPassport = tb.Text;
-         SetControlBackColor(tb, editedPassport, _person.Passport);
-         IsChangedUpdateStatus(editedPassport, _person.Passport);
+         _editedPassport = tb.Text;
+         SetControlBackColor(tb, _editedPassport, _person.Passport);
+         IsChangedUpdateStatus(_editedPassport, _person.Passport);
       }
       #endregion
 
       #region // Поле. Права
 
-      private string editedDriveID;
+      private string _editedDriveId;
       private void maskedTextBox_DriverID_TextChanged(object sender, EventArgs e)
       {
          var tb = (MaskedTextBox)sender;
-         editedDriveID = tb.Text;
-         SetControlBackColor(tb, editedDriveID, _person.DriverIdNum);
-         IsChangedUpdateStatus(editedDriveID, _person.DriverIdNum);
+         _editedDriveId = tb.Text;
+         SetControlBackColor(tb, _editedDriveId, _person.DriverIdNum);
+         IsChangedUpdateStatus(_editedDriveId, _person.DriverIdNum);
       }
       #endregion
 
       #region // Поле. День Рождения
-      DateTime editedDR;
+      DateTime _editedDr;
       private void dateTimePicker_birthDate_ValueChanged(object sender, EventArgs e)
       {
          var tb = (DateTimePicker)sender;
-         editedDR = tb.Value.Date;
-         isAnythingChanged = true;
+         _editedDr = tb.Value.Date;
+         _isAnythingChanged = true;
       }
 
       #endregion
 
       #region // Поле. Пол
-      Gender editedGender;
+      Gender _editedGender;
       private void comboBox_Gender_SelectedIndexChanged(object sender, EventArgs e)
       {
          var tb = (ComboBox)sender;
          var edited = (Gender)Enum.Parse(typeof(Gender), tb.SelectedItem.ToString());
-         editedGender = edited;
-         IsChangedUpdateStatus(editedGender.ToString(), _person.GenderType.ToString());
-         ComboBoxColor(tb, _person.GenderType.ToString(), editedGender.ToString());
+         _editedGender = edited;
+         IsChangedUpdateStatus(_editedGender.ToString(), _person.GenderType.ToString());
+         ComboBoxColor(tb, _person.GenderType.ToString(), _editedGender.ToString());
       }
       #endregion
 
       #region // Поле. Особые отметки
-      private string editedSpecialNote;
+      private string _editedSpecialNote;
       private void textBox_Notes_TextChanged(object sender, EventArgs e)
       {
          var tb = (TextBox)sender;
-         editedSpecialNote = tb.Text;
+         _editedSpecialNote = tb.Text;
       }
 
       #endregion
@@ -582,22 +585,22 @@ namespace PBase
       /// </summary>
       private void SaveUserData()
       {
-         if (editedPhone != _person.Phone) _person.Phone = editedPhone;
-         if (editedPassport != _person.Passport) _person.Passport = editedPassport;
-         if (editedDriveID != _person.DriverIdNum) _person.DriverIdNum = editedDriveID;
-         if (editedDR.CompareTo(_person.BirthDate) != 0) _person.BirthDate = editedDR;
-         if (editedGender != _person.GenderType) _person.GenderType = editedGender;
+         if (_editedPhone != _person.Phone) _person.Phone = _editedPhone;
+         if (_editedPassport != _person.Passport) _person.Passport = _editedPassport;
+         if (_editedDriveId != _person.DriverIdNum) _person.DriverIdNum = _editedDriveId;
+         if (_editedDr.CompareTo(_person.BirthDate) != 0) _person.BirthDate = _editedDr;
+         if (_editedGender != _person.GenderType) _person.GenderType = _editedGender;
          SaveSpecialNotes();
       }
       private void SaveSpecialNotes()
       {
-         if (editedSpecialNote != _person.SpecialNotes) _person.SpecialNotes = editedSpecialNote;
+         if (_editedSpecialNote != _person.SpecialNotes) _person.SpecialNotes = _editedSpecialNote;
       }
       private void IsChangedUpdateStatus(string oldArg, string newArg)
       {
          //if (newArg == oldArg) isAnythingChanged = false;
          //else isAnythingChanged = true;
-         if (newArg != oldArg) isAnythingChanged = true;
+         if (newArg != oldArg) _isAnythingChanged = true;
 
       }
       private void ComboBoxColor(ComboBox comboBox, string oldVal, string curVal)
@@ -637,7 +640,7 @@ namespace PBase
       // ComboBox
       private static ComboBox CreateComboBox()
       {
-         ComboBox cmbx = new ComboBox()
+         var cmbx = new ComboBox()
          {
             Dock = DockStyle.Fill,
             DropDownStyle = ComboBoxStyle.DropDown

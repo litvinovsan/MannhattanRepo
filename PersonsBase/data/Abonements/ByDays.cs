@@ -72,7 +72,7 @@ namespace PBase
       public override List<Tuple<string, string>> GetShortInfoList()
       {
          // Информация о текущем состоянии Абонемента. Добавляем всё что должно выводиться для Пользователя
-         List<Tuple<string, string>> result = new List<Tuple<string, string>>
+         var result = new List<Tuple<string, string>>
           {
               new Tuple<string, string>("Тип: ", AbonementName),
               new Tuple<string, string>("Доступные Тренировки ", trainingsType.ToString()),
@@ -101,6 +101,4 @@ namespace PBase
          DaysLeft = (int)numberDaysType;
       }
    }
-
-
 }

@@ -13,19 +13,18 @@ namespace PersonsBase.View
 {
    public partial class WorkoutForm : Form
    {
-      public TypeWorkout selectedTypeWorkout;
+      public TypeWorkout SelectedTypeWorkout;
 
-      private AbonementBasic _abonement;
       public WorkoutForm(AbonementBasic abonement)
       {
-         InitializeComponent();
-         _abonement = abonement;
-         if (_abonement.NumAerobicTr == 0)
+          InitializeComponent();
+         var abonement1 = abonement;
+         if (abonement1.NumAerobicTr == 0)
          {
             radioButton_aerob.Visible = false;
             pictureBox_aero.Visible = false;
          }
-         if (_abonement.NumPersonalTr == 0)
+         if (abonement1.NumPersonalTr == 0)
          {
             radioButton_personal.Visible = false;
             pictureBox_person.Visible = false;
@@ -45,15 +44,15 @@ namespace PersonsBase.View
          {
             if (radioButton.Name == radioButton_personal.Name)
             {
-               selectedTypeWorkout = TypeWorkout.Персональная;
+               SelectedTypeWorkout = TypeWorkout.Персональная;
             }
             else if (radioButton.Name == radioButton_aerob.Name)
             {
-               selectedTypeWorkout = TypeWorkout.Аэробный_Зал;
+               SelectedTypeWorkout = TypeWorkout.Аэробный_Зал;
             }
             else
             {
-               selectedTypeWorkout = TypeWorkout.Тренажерный_Зал;
+               SelectedTypeWorkout = TypeWorkout.Тренажерный_Зал;
             }
          }
       }

@@ -10,16 +10,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-// Success
+    //Home Branch 1
 namespace PBase
 {
    public partial class ClientForm : Form
    {
       ///////////////// ОСНОВНЫЕ ОБЬЕКТЫ ////////////////////////////////
-      [NonSerialized]
-      Person _person;
+      [NonSerialized] readonly Person _person;
       readonly DataBaseClass _dataBase = DataBaseClass.getInstance();
-      private bool isAnythingChanged;
+      private bool _isAnythingChanged;
 
       ///////////////// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ////////////////////////////////
       public ClientForm(Person person)
@@ -27,13 +26,13 @@ namespace PBase
          InitializeComponent();
          _person = person;
          groupBox_Info.Font = new Font("Arial", 10);
-         isAnythingChanged = false;
+         _isAnythingChanged = false;
       }
       public ClientForm(string keyName)
       {
          InitializeComponent();
          _person = _dataBase.GetCollectionRW()[keyName];
-         isAnythingChanged = false;
+         _isAnythingChanged = false;
       }
 
       private void ClientForm_Load(object sender, EventArgs e)
@@ -44,23 +43,23 @@ namespace PBase
 
          UpdateControlState(this, EventArgs.Empty);
 
-         SaveDelegateChain += SaveUserData; // Цепочка Делегатов для сохранения измененных данных.
-         _person.statusChanged += UpdateControlState;
+         _saveDelegateChain += SaveUserData; // Цепочка Делегатов для сохранения измененных данных.
+         _person.StatusChanged += UpdateControlState;
       }
 
 
       private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
       {
-         if (isAnythingChanged)
+         if (_isAnythingChanged)
          {
-            DialogResult dialogResult = MessageBox.Show("Сохранить изменения перед выходом?", "Данные Поменялись!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult dialogResult = MessageBox.Show(@"Сохранить изменения перед выходом?", @"Данные Поменялись!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
                SaveData();
             }
          }
          SaveSpecialNotes(); //Всегда сохраняем Особые отметки
-         isAnythingChanged = false;
+         _isAnythingChanged = false;
       }
 
       //////////// ЛОГИКА ФОРМЫ ////////////////////////////////////////////////////////
@@ -82,12 +81,12 @@ namespace PBase
                      button_Freeze.Text = "Заморозить";
 
                      // Кнопка Заморозка для РАЗОВОГО ЗАНЯТИЯ
-                     if (_person.abonementCurent is SingleVisit)
+                     if (_person.AbonementCurent is SingleVisit)
                      {
                         button_Freeze.Enabled = false;
                      }
                      // Кнопка Добавить для Клубной Карты
-                     if (_person.abonementCurent is ClubCardAbonement)
+                     if (_person.AbonementCurent is ClubCardAbonement)
                      {
                         button_add_dop_tren.Visible = true;
                      }
@@ -112,7 +111,7 @@ namespace PBase
                   {
                      button_Add_Abon.Enabled = false;
                      button_CheckInWorkout.Enabled = false;
-                     button_Freeze.Enabled = _person.abonementCurent != null;
+                     button_Freeze.Enabled = _person.AbonementCurent != null;
                      button_Freeze.Text = "Разморозить";
                      break;
                   }
@@ -177,9 +176,9 @@ namespace PBase
       // Сохранение данных 
       private void SaveData()
       {
-         SaveDelegateChain?.Invoke(); //Цепочка делегатов на сохранение всех полей
+         _saveDelegateChain?.Invoke(); //Цепочка делегатов на сохранение всех полей
          SaveSpecialNotes();
-         isAnythingChanged = false;
+         _isAnythingChanged = false;
       }
 
       /////////// ДАННЫЕ АБОНЕМЕНТА И КЛИЕНТА /////////////////////////////
@@ -199,11 +198,11 @@ namespace PBase
 
          // Паспорт
          maskedTextBox_Passport.Text = _person.Passport;
-         SetControlBackColor(maskedTextBox_Passport, editedPassport, _person.Passport);
+         SetControlBackColor(maskedTextBox_Passport, _editedPassport, _person.Passport);
 
          // Права
          maskedTextBox_DriverID.Text = _person.DriverIdNum;
-         SetControlBackColor(maskedTextBox_DriverID, editedDriveID, _person.DriverIdNum);
+         SetControlBackColor(maskedTextBox_DriverID, _editedDriveId, _person.DriverIdNum);
 
          // Персональный Номер
          textBox_Number.Text = _person.PersonalNumber.ToString();
@@ -218,7 +217,7 @@ namespace PBase
 
          // Особые Отметки
          textBox_Notes.Text = _person.SpecialNotes;
-         editedSpecialNote = _person.SpecialNotes;
+         _editedSpecialNote = _person.SpecialNotes;
 
          // Загрузка Фото
          if (_person.PathToPhoto != "")
@@ -226,19 +225,19 @@ namespace PBase
             pictureBox_ClientPhoto.Image = Image.FromFile(_person.PathToPhoto);
          }
 
-         isAnythingChanged = false;
+         _isAnythingChanged = false;
       }
       private void LoadShortInfo()
       {
          // Загрузка абонемента,если существует
-         List<Tuple<Label, Control>> labelTextBoxList = new List<Tuple<Label, Control>>();
-         if (_person.abonementCurent == null)
+         var labelTextBoxList = new List<Tuple<Label, Control>>();
+         if (_person.AbonementCurent == null)
          {
             labelTextBoxList.AddRange(TupleConverter(GetEmptyInfoList()));
          }
          else
          {
-            labelTextBoxList.AddRange(TupleConverter(_person.abonementCurent.GetShortInfoList()));
+            labelTextBoxList.AddRange(TupleConverter(_person.AbonementCurent.GetShortInfoList()));
             // Добавляем Поле Статуса. Делаем тут потому что Person.abonem не знает об этом.
             labelTextBoxList.Insert(1, (CreateRowInfo("Текущий статус Клиента", _person.Status.ToString())));
          }
@@ -248,21 +247,21 @@ namespace PBase
          if (groupBox_Info.Controls.Count != 0) groupBox_Info.Controls.Clear();
          groupBox_Info.Controls.Add(table); // Выводим на групбокс нашу новую ShortInfo Table
 
-         isAnythingChanged = false;
+         _isAnythingChanged = false;
       }
       private void LoadEditableData()
       {// Данные подробные,разрешено редактирование через события.
-         TableLayoutPanel table = CreateTable(SelectList(_person.abonementCurent));
+         TableLayoutPanel table = CreateTable(SelectList(_person.AbonementCurent));
          if (groupBox_Detailed.Controls.Count != 0) groupBox_Detailed.Controls.Clear();
 
          table.Font = new Font("Arial", 10);
 
          groupBox_Detailed.Controls.Add(table);
-         isAnythingChanged = false;
+         _isAnythingChanged = false;
       }
       private void UpdateEditableData()
       {
-         var listUpdated = SelectList(_person.abonementCurent);
+         var listUpdated = SelectList(_person.AbonementCurent);
          List<Control> lst = new List<Control>();
          ForAllControls(groupBox_Detailed, (x) =>
          {
@@ -275,7 +274,7 @@ namespace PBase
          {
             lst[i].Text = listUpdated[i].Item2.Text;
          }
-         isAnythingChanged = false;
+         _isAnythingChanged = false;
       }
 
       #region // Хелп Методы для Загрузки и обновления пользовательских данных
@@ -291,11 +290,11 @@ namespace PBase
          return result;
       }
       private TableLayoutPanel CreateTable(List<Tuple<Label, Control>> list)
-      {/// Создает таблицу с элементами из List. Таблица вида: Лэйбл - Значение.
-         TableLayoutPanel tableInfo = new TableLayoutPanel() { Dock = DockStyle.Fill };
+      {// Создает таблицу с элементами из List. Таблица вида: Лэйбл - Значение.
+         var tableInfo = new TableLayoutPanel() { Dock = DockStyle.Fill };
          // Базовая таблица. 1 стр, 2 стлб
-         tableInfo.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-         tableInfo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+         tableInfo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,45));
+         tableInfo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 55));
 
          for (int i = 0; i < list.Count; i++)
          {
@@ -326,7 +325,7 @@ namespace PBase
             BorderStyle = BorderStyle.FixedSingle,
             Text = " " + info.Replace("_", " "),
             Dock = DockStyle.Fill,
-            Font = new Font("Microsoft Sans Serif", 10F)
+            Font = new Font("Microsoft Sans Serif", 9F)
          };
 
          // Выполняем проверки на какие-либо ограничения. 
@@ -340,14 +339,14 @@ namespace PBase
          textBox_Name.Text = _person.Name;
          SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
          //Если Заморожен
-         if (_person.Status == StatusPerson.Заморожен && _person.abonementCurent != null)
+         if (_person.Status == StatusPerson.Заморожен && _person.AbonementCurent != null)
          {
             textBox_Name.ForeColor = Color.Green;
             // FIXME: Заморозка абонемента
             textBox_Name.Text = _person.Name + "  (Заморожен до " + "FIXME" + ")";
          }
 
-         if (_person.abonementCurent != null && !_person.abonementCurent.isActivated)
+         if (_person.AbonementCurent != null && !_person.AbonementCurent.isActivated)
          {
             textBox_Name.ForeColor = Color.Green;
             textBox_Name.Text = _person.Name + "      (Не Активирован)";
@@ -356,7 +355,7 @@ namespace PBase
 
       private List<Tuple<Label, Control>> TupleConverter(List<Tuple<string, string>> data)
       {// Преобразует Список вида List<Tuple<string, string>> в универсальный Список: List<Tuple<Label, Control>>
-         List<Tuple<Label, Control>> result = new List<Tuple<Label, Control>>();
+         var result = new List<Tuple<Label, Control>>();
 
          foreach (var item in data)
          {
@@ -530,8 +529,8 @@ namespace PBase
       }
       private void NoValidActions()
       {
-         MessageBox.Show(_person.abonementCurent.InfoWhenEnd, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-         _person.abonementCurent = null;
+         MessageBox.Show(_person.AbonementCurent.InfoWhenEnd, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+         _person.AbonementCurent = null;
          _person.Status = StatusPerson.Нет_Карты;
       }
       #endregion
@@ -540,16 +539,14 @@ namespace PBase
 
       private void button_CheckInWorkout_Click(object sender, EventArgs e)
       {// FIXME переписать попроще
-         _person.abonementCurent.TryActivate(); // Если не Активирован
+         _person.AbonementCurent.TryActivate(); // Если не Активирован
 
-         TypeWorkout typeWorkout = _person.abonementCurent.trainingsType;
-         string infoAerobic = "";
-         string infoPersonal = "";
-         var aerobic = _person.abonementCurent.NumAerobicTr;
-         var personal = _person.abonementCurent.NumPersonalTr;
+         TypeWorkout typeWorkout;
+         var aerobic = _person.AbonementCurent.NumAerobicTr;
+         var personal = _person.AbonementCurent.NumPersonalTr;
 
          // Если Кончился абонемент и не сработали проверки в других местах
-         if (!_person.abonementCurent.isValid())
+         if (!_person.AbonementCurent.isValid())
          {
             NoValidActions();
             return;
@@ -557,34 +554,34 @@ namespace PBase
 
          if (aerobic == 0 && personal == 0)
          {
-            typeWorkout = _person.abonementCurent.trainingsType;
+            typeWorkout = _person.AbonementCurent.trainingsType;
          }
          else
          {
-            using (WorkoutForm workoutForm = new WorkoutForm(_person.abonementCurent))
+            using (var workoutForm = new WorkoutForm(_person.AbonementCurent))
             {
                if (workoutForm.ShowDialog() == DialogResult.OK)
                {
-                  typeWorkout = workoutForm.selectedTypeWorkout;
+                  typeWorkout = workoutForm.SelectedTypeWorkout;
                }
                else return;
             }
          }
 
          // Учет посещения, обновление циферок
-         var isSuccess = _person.abonementCurent.CheckInWorkout(typeWorkout);
+         var isSuccess = _person.AbonementCurent.CheckInWorkout(typeWorkout);
 
          if (isSuccess)
          {
             // Дополнительная информация для вывода если успешный учет.
-            infoAerobic = (_person.abonementCurent.NumAerobicTr > 0) ? $"\r\nОсталось Аэробных: {_person.abonementCurent.NumAerobicTr}" : "";
-            infoPersonal = (_person.abonementCurent.NumPersonalTr > 0) ? $"\r\nОсталось Персональных: {_person.abonementCurent.NumPersonalTr}" : "";
+            var infoAerobic = (_person.AbonementCurent.NumAerobicTr > 0) ? $"\r\nОсталось Аэробных: {_person.AbonementCurent.NumAerobicTr}" : "";
+            var infoPersonal = (_person.AbonementCurent.NumPersonalTr > 0) ? $"\r\nОсталось Персональных: {_person.AbonementCurent.NumPersonalTr}" : "";
 
-            MessageBox.Show($"Осталось посещений: {_person.abonementCurent.DaysLeft}{infoAerobic}{infoPersonal}", $"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            if (!_person.abonementCurent.isValid())
+            MessageBox.Show($@"Осталось посещений: {_person.AbonementCurent.DaysLeft}{infoAerobic}{infoPersonal}", $"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (!_person.AbonementCurent.isValid())
             {
                _person.Status = StatusPerson.Нет_Карты;
-               _person.abonementCurent = null;
+               _person.AbonementCurent = null;
             }
             UpdateName();
             LoadShortInfo();
@@ -594,7 +591,6 @@ namespace PBase
          {
             NoValidActions();
          }
-
       }
 
       private void button_Cancel_Click(object sender, EventArgs e)
@@ -615,12 +611,12 @@ namespace PBase
       private void ClientForm_Resize(object sender, EventArgs e)
       {
          DisableSelectionComboBoxes(); // Это костыль 
-                                       // SetControlsColorDefault();
+        // SetControlsColorDefault();
       }
 
       private void button_Add_Abon_Click(object sender, EventArgs e)
       {
-         using (AbonementForm form = new AbonementForm(_person.Name))
+         using (var form = new AbonementForm(_person.Name))
          {
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -644,7 +640,7 @@ namespace PBase
 
       private void button_add_dop_tren_Click(object sender, EventArgs e)
       {
-         using (NumWorkoutForm form = new NumWorkoutForm(_person.abonementCurent))
+         using (NumWorkoutForm form = new NumWorkoutForm(_person.AbonementCurent))
          {
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -659,7 +655,6 @@ namespace PBase
             else return;
          }
          button_CheckInWorkout.Focus();
-
       }
 
       private void textBox_Name_TextChanged(object sender, EventArgs e)

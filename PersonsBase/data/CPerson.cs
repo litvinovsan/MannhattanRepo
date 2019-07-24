@@ -13,10 +13,10 @@ namespace PBase
    {
       //////// СОБЫТИЯ без флага НЕ СОЗДАВАТЬ !!!!!!   Проблемы с сериализацией //
       [field: NonSerialized()]
-      public event EventHandler statusChanged;
+      public event EventHandler StatusChanged;
       public void OnStatusChanged()
       {
-         statusChanged?.Invoke(this, EventArgs.Empty);
+         StatusChanged?.Invoke(this, EventArgs.Empty);
       }
 
       //[field: NonSerialized()]
@@ -29,17 +29,17 @@ namespace PBase
       /// Приватные поля
       private string _telephone;
       private string _driverIdNum;
-      private string name;
-      private StatusPerson status;
+      private string _name;
+      private StatusPerson _status;
 
       /// Публичные поля, доступные данные о Клиенте
       public string Name
       {
-         get { return name; }
+         get { return _name; }
          set
          {
-            name = HelperMethods.prepareName(value);
-            Key = name;
+            _name = HelperMethods.prepareName(value);
+            Key = _name;
             //  OnNameChanged();
          }
       }
@@ -50,11 +50,11 @@ namespace PBase
       {
          get
          {
-            return status;
+            return _status;
          }
          set
          {
-            status = value;
+            _status = value;
             OnStatusChanged();
          }
       }
@@ -81,8 +81,8 @@ namespace PBase
       public string PathToPhoto { get; set; } //FIXME: Добавить поддержку фотографий
       public string SpecialNotes { get; set; }
       //FIXME   добавить  List   даты покупок и тип абонементов
-      public AbonementBasic abonementCurent;
-      public Dictionary<string, AbonementBasic> abonementDict;
+      public AbonementBasic AbonementCurent;
+      public Dictionary<string, AbonementBasic> AbonementDict;
 
       /////////////////////////// КОНСТРУКТОРЫ.  ///////////////////////////
       public Person() //По умолчанию, для тестовых прогонов
@@ -97,8 +97,8 @@ namespace PBase
          Status = StatusPerson.Нет_Карты;
          PathToPhoto = "";
          SpecialNotes = "";
-         abonementCurent = null;
-         abonementDict = null;
+         AbonementCurent = null;
+         AbonementDict = null;
       }
       public Person(string nameFio)
       {
@@ -112,8 +112,8 @@ namespace PBase
          DriverIdNum = "";
          PathToPhoto = "";
          SpecialNotes = "";
-         abonementCurent = null;
-         abonementDict = null;
+         AbonementCurent = null;
+         AbonementDict = null;
       }
 
       /////////////////////////// МЕТОДЫ  ///////////////////////////
@@ -121,17 +121,17 @@ namespace PBase
       ///Обновляем статус клиента.
       public StatusPerson GetActualStatus()
       {
-         if (abonementCurent == null && (this.status == StatusPerson.Активный))
+         if (AbonementCurent == null && (this._status == StatusPerson.Активный))
          {
-            this.status = StatusPerson.Нет_Карты;
-            return status;
+            this._status = StatusPerson.Нет_Карты;
+            return _status;
          }
-         if (abonementCurent == null) return status;
-         if (abonementCurent.isValid() && this.status != StatusPerson.Заморожен && this.status != StatusPerson.Запрещён)
+         if (AbonementCurent == null) return _status;
+         if (AbonementCurent.isValid() && this._status != StatusPerson.Заморожен && this._status != StatusPerson.Запрещён)
          {
-            this.status = StatusPerson.Активный;
+            this._status = StatusPerson.Активный;
          }
-         return status;
+         return _status;
       }
 
       #region //Перегрузка операторов для сравнения клиентов
@@ -282,10 +282,10 @@ namespace PBase
          {
             var hashCode = (_telephone != null ? _telephone.GetHashCode() : 0);
             hashCode = (hashCode * 397) ^ (_driverIdNum != null ? _driverIdNum.GetHashCode() : 0);
-            hashCode = (hashCode * 397) ^ (name != null ? name.GetHashCode() : 0);
-            hashCode = (hashCode * 397) ^ (int)status;
+            hashCode = (hashCode * 397) ^ (_name != null ? _name.GetHashCode() : 0);
+            hashCode = (hashCode * 397) ^ (int)_status;
             hashCode = (hashCode * 397) ^ (int)GenderType;
-            hashCode = (hashCode * 397) ^ (abonementCurent != null ? abonementCurent.GetHashCode() : 0);
+            hashCode = (hashCode * 397) ^ (AbonementCurent != null ? AbonementCurent.GetHashCode() : 0);
             hashCode = (hashCode * 397) ^ PersonalNumber;
             hashCode = (hashCode * 397) ^ (Key != null ? Key.GetHashCode() : 0);
             hashCode = (hashCode * 397) ^ BirthDate.GetHashCode();

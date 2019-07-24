@@ -32,9 +32,6 @@ namespace PBase
       {
          InitializeComponent();
          _person = DataBaseObject.SetPersonLink(nameKey); // Получаем ссылку на обьект персоны
-
-
-
       }
 
       private void AbonementForm_Load(object sender, EventArgs e)
@@ -42,12 +39,11 @@ namespace PBase
          SetInitialValues();
 
          LoadDefaultValues();
-
       }
 
       private void SetInitialValues()
       {
-         if (_person.abonementCurent == null)
+         if (_person.AbonementCurent == null)
          {
             _selectedAbonementName = "Абонемент";// Вид Абонемента по Умолчанию
             _typeWorkout = TypeWorkout.Тренажерный_Зал;
@@ -59,23 +55,26 @@ namespace PBase
          }
          else // Абонемент Существует
          {
-            _selectedAbonementName = _person.abonementCurent.AbonementName;
-            _typeWorkout = _person.abonementCurent.trainingsType;
-            _timeTren = _person.abonementCurent.timeTraining;
-            _spa = _person.abonementCurent.spa;
-            _pay = _person.abonementCurent.payStatus;
-            if (_person.abonementCurent is AbonementByDays)
+            _selectedAbonementName = _person.AbonementCurent.AbonementName;
+            _typeWorkout = _person.AbonementCurent.trainingsType;
+            _timeTren = _person.AbonementCurent.timeTraining;
+            _spa = _person.AbonementCurent.spa;
+            _pay = _person.AbonementCurent.payStatus;
+            var days = _person.AbonementCurent as AbonementByDays;
+            if (days != null)
             {
-               _daysInAbon = (_person.abonementCurent as AbonementByDays).GetTypeAbonementByDays();
+               _daysInAbon = days.GetTypeAbonementByDays();
                radioButton_Abonement.Checked = true;
             }
-            if (_person.abonementCurent is ClubCardAbonement)
+
+            var abonement = _person.AbonementCurent as ClubCardAbonement;
+            if (abonement != null)
             {
-               _periodClubCard = (_person.abonementCurent as ClubCardAbonement).GetTypeClubCard();
+               _periodClubCard = abonement.GetTypeClubCard();
                radioButton_ClubCard.Checked = true;
 
             }
-            if (_person.abonementCurent is SingleVisit) radioButton_Single.Checked = true;
+            if (_person.AbonementCurent is SingleVisit) radioButton_Single.Checked = true;
          }
       }
 
@@ -119,30 +118,28 @@ namespace PBase
          {
             case "Клубная Карта":
                {
-                  _person.abonementCurent = new ClubCardAbonement(_pay, _timeTren, _typeWorkout, _spa, _periodClubCard);
+                  _person.AbonementCurent = new ClubCardAbonement(_pay, _timeTren, _typeWorkout, _spa, _periodClubCard);
                   break;
                }
             case "Абонемент":
                {
-                  _person.abonementCurent = new AbonementByDays(_pay, _timeTren, _typeWorkout, _spa, _daysInAbon);
+                  _person.AbonementCurent = new AbonementByDays(_pay, _timeTren, _typeWorkout, _spa, _daysInAbon);
                   break;
                }
             case "Разовое Занятие":
                {
-                  _person.abonementCurent = new SingleVisit(_typeWorkout, _spa, _pay, _timeTren);
+                  _person.AbonementCurent = new SingleVisit(_typeWorkout, _spa, _pay, _timeTren);
                   break;
                }
 
             default:
                break;
          }
-
-
       }
 
-      private T SetVariable<T>(ComboBox cmbx)
+      private static T SetVariable<T>(ComboBox cmbx)
       {
-         T tempVar = (T)Enum.Parse(typeof(T), cmbx.SelectedItem.ToString());
+         var tempVar = (T)Enum.Parse(typeof(T), cmbx.SelectedItem.ToString());
          return tempVar;
       }
 
