@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -81,6 +83,7 @@ namespace PBase
       }
       public string PathToPhoto { get; set; } //FIXME: Добавить поддержку фотографий
       public string SpecialNotes { get; set; }
+      public ObservableCollection<AbonementBasic> AbonementsQueue;
       public AbonementBasic AbonementCurent
       {
          get
@@ -89,54 +92,11 @@ namespace PBase
          }
          set
          {
-            if (AbonementsQueue == null) AbonementsQueue = new List<AbonementBasic>();
-
-            if (_abonementCurent == null)
-            {
-               _abonementCurent = value;
-               AbonementsQueue.Clear();
-            }
-            else // Изменяем уже существующий абонемент
-            {
-               // Заменяем существующий абонемент на null со смещением по списку
-               if (value == null)
-               {
-                  if (AbonementsQueue.Count > 0)
-                  {
-                     _abonementCurent = AbonementsQueue[0];
-                     AbonementsQueue.RemoveAt(0);
-                  }
-                  else
-                  {
-                     _abonementCurent = null;
-                  }
-               }
-               else
-               {
-                  // Добавляем новый абонемент в очередь
-                  AbonementsQueue.Add(value);
-               }
-            }
+            ValidateAbonementAdd(value);
          }
       }
-      public List<AbonementBasic> AbonementsQueue;
 
       /////////////////////////// КОНСТРУКТОРЫ.  ///////////////////////////
-      public Person() //По умолчанию, для тестовых прогонов
-      {
-         Name = $"Фамилия Имя Отчество";
-         PersonalNumber = 0;
-         BirthDate = DateTime.Parse($"01,01,1950");
-         GenderType = Gender.Неизвестен;
-         _phone = "";
-         Passport = "";
-         _driverIdNum = "";
-         Status = StatusPerson.Нет_Карты;
-         PathToPhoto = "";
-         SpecialNotes = "";
-         _abonementCurent = null;
-         AbonementsQueue = new List<AbonementBasic>();
-      }
       public Person(string nameFio)
       {
          Name = nameFio;
@@ -150,7 +110,7 @@ namespace PBase
          PathToPhoto = "";
          SpecialNotes = "";
          _abonementCurent = null;
-         AbonementsQueue = new List<AbonementBasic>();
+         AbonementsQueue = new ObservableCollection<AbonementBasic>();
       }
 
       /////////////////////////// МЕТОДЫ  ///////////////////////////
@@ -169,6 +129,33 @@ namespace PBase
             this._status = StatusPerson.Активный;
          }
          return _status;
+      }
+      private void ValidateAbonementAdd(AbonementBasic value)
+      {
+         //   if (AbonementsQueue == null) AbonementsQueue = new ObservableCollection<AbonementBasic>();
+
+         if (_abonementCurent == null)
+         {
+            _abonementCurent = value;
+            AbonementsQueue.Clear();
+         }
+         else // Изменяем уже существующий абонемент
+         {
+            if (value != null)
+            {
+               // Добавляем новый абонемент в очередь
+               AbonementsQueue.Add(value);
+            }
+            else if (value == null && AbonementsQueue.Count == 0)
+            {// Заменяем существующий абонемент на null со смещением по списку
+               _abonementCurent = null;
+            }
+            else
+            {
+               _abonementCurent = AbonementsQueue[0];
+               AbonementsQueue.RemoveAt(0);
+            }
+         }
       }
 
       #region //Перегрузка операторов для сравнения клиентов

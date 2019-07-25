@@ -1,6 +1,7 @@
 ﻿using PersonsBase.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -16,18 +17,11 @@ namespace PBase
    {
       ///////////////// ОСНОВНЫЕ ОБЬЕКТЫ ////////////////////////////////
       [NonSerialized]
-      readonly Person _person;
-      readonly DataBaseClass _dataBase = DataBaseClass.getInstance();
+      readonly private Person _person;
+      readonly private DataBaseClass _dataBase = DataBaseClass.getInstance();
       private bool _isAnythingChanged;
 
       ///////////////// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ////////////////////////////////
-      public ClientForm(Person person)
-      {
-         InitializeComponent();
-         _person = person;
-         groupBox_Info.Font = new Font("Arial", 10);
-         _isAnythingChanged = false;
-      }
       public ClientForm(string keyName)
       {
          InitializeComponent();
@@ -42,9 +36,15 @@ namespace PBase
          LoadEditableData();
 
          UpdateControlState(this, EventArgs.Empty);
-
+         LoadListboxQueue();
          _saveDelegateChain += SaveUserData; // Цепочка Делегатов для сохранения измененных данных.
          _person.StatusChanged += UpdateControlState;
+         _person.AbonementsQueue.CollectionChanged += AbonementsQueue_CollectionChanged; // Список Абонементов. Если изменился
+      }
+
+      private void LoadListboxQueue()
+      {
+         listBox_abonements.Items.AddRange(_person.AbonementsQueue.Select(x => x.AbonementName).ToArray());
       }
 
       private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -62,7 +62,19 @@ namespace PBase
       }
 
       //////////// ЛОГИКА ФОРМЫ ////////////////////////////////////////////////////////
-
+      private void AbonementsQueue_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+      {
+         switch (e.Action)
+         {
+            case NotifyCollectionChangedAction.Add: // если добавление
+               AbonementBasic item = e.NewItems[0] as AbonementBasic;
+               listBox_abonements.Items.Add(item.AbonementName);
+               break;
+            case NotifyCollectionChangedAction.Remove: // если удаление
+               listBox_abonements.Items.RemoveAt(0);
+               break;
+         }
+      }
       private void UpdateControlState(object sender, EventArgs arg)
       {
          // Различные изменения, которые зависят от СТАТУСА клиента.
@@ -93,8 +105,6 @@ namespace PBase
                      {
                         button_add_dop_tren.Visible = false;
                      }
-
-
                      break;
                   }
                case StatusPerson.Нет_Карты:
@@ -635,7 +645,7 @@ namespace PBase
          else
          {
             var result = MessageBox.Show($"Действует:  {_person.AbonementCurent.AbonementName}.\n\rДобавить новый абонемент к существующему?", "Добавление Абонемента", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if(result==DialogResult.Yes)
+            if (result == DialogResult.Yes)
             {
                CreateAbonementForm();
             }
