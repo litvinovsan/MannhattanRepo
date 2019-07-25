@@ -27,10 +27,11 @@ namespace PBase
       //}
 
       /// Приватные поля
-      private string _telephone;
+      private string _phone;
       private string _driverIdNum;
       private string _name;
       private StatusPerson _status;
+      private AbonementBasic _abonementCurent;
 
       /// Публичные поля, доступные данные о Клиенте
       public string Name
@@ -62,11 +63,11 @@ namespace PBase
       public Gender GenderType;
       public string Phone
       {
-         get { return _telephone; }
+         get { return _phone; }
          set
          {
             //TODO: Написать обработку номера телефона. Проверка на +7,8, пробелы, дефисы, так же на городской номер.
-            this._telephone = String.IsNullOrEmpty(value) ? "" : value;
+            this._phone = String.IsNullOrEmpty(value) ? "" : value;
          }
       }
       public string Passport { get; set; }
@@ -80,9 +81,45 @@ namespace PBase
       }
       public string PathToPhoto { get; set; } //FIXME: Добавить поддержку фотографий
       public string SpecialNotes { get; set; }
-      //FIXME   добавить  List   даты покупок и тип абонементов
-      public AbonementBasic AbonementCurent;
-      public Dictionary<string, AbonementBasic> AbonementDict;
+      public AbonementBasic AbonementCurent
+      {
+         get
+         {
+            return _abonementCurent;
+         }
+         set
+         {
+            if (AbonementsQueue == null) AbonementsQueue = new List<AbonementBasic>();
+
+            if (_abonementCurent == null)
+            {
+               _abonementCurent = value;
+               AbonementsQueue.Clear();
+            }
+            else // Изменяем уже существующий абонемент
+            {
+               // Заменяем существующий абонемент на null со смещением по списку
+               if (value == null)
+               {
+                  if (AbonementsQueue.Count > 0)
+                  {
+                     _abonementCurent = AbonementsQueue[0];
+                     AbonementsQueue.RemoveAt(0);
+                  }
+                  else
+                  {
+                     _abonementCurent = null;
+                  }
+               }
+               else
+               {
+                  // Добавляем новый абонемент в очередь
+                  AbonementsQueue.Add(value);
+               }
+            }
+         }
+      }
+      public List<AbonementBasic> AbonementsQueue;
 
       /////////////////////////// КОНСТРУКТОРЫ.  ///////////////////////////
       public Person() //По умолчанию, для тестовых прогонов
@@ -91,29 +128,29 @@ namespace PBase
          PersonalNumber = 0;
          BirthDate = DateTime.Parse($"01,01,1950");
          GenderType = Gender.Неизвестен;
-         Phone = "";
+         _phone = "";
          Passport = "";
-         DriverIdNum = "";
+         _driverIdNum = "";
          Status = StatusPerson.Нет_Карты;
          PathToPhoto = "";
          SpecialNotes = "";
-         AbonementCurent = null;
-         AbonementDict = null;
+         _abonementCurent = null;
+         AbonementsQueue = new List<AbonementBasic>();
       }
       public Person(string nameFio)
       {
          Name = nameFio;
          PersonalNumber = 0;
          Status = StatusPerson.Нет_Карты;
-         Phone = "";
+         _phone = "";
          GenderType = Gender.Неизвестен;
          BirthDate = DateTime.Parse("02.02.2000");
          Passport = "";
-         DriverIdNum = "";
+         _driverIdNum = "";
          PathToPhoto = "";
          SpecialNotes = "";
-         AbonementCurent = null;
-         AbonementDict = null;
+         _abonementCurent = null;
+         AbonementsQueue = new List<AbonementBasic>();
       }
 
       /////////////////////////// МЕТОДЫ  ///////////////////////////
@@ -280,7 +317,7 @@ namespace PBase
       {
          unchecked
          {
-            var hashCode = (_telephone != null ? _telephone.GetHashCode() : 0);
+            var hashCode = (_phone != null ? _phone.GetHashCode() : 0);
             hashCode = (hashCode * 397) ^ (_driverIdNum != null ? _driverIdNum.GetHashCode() : 0);
             hashCode = (hashCode * 397) ^ (_name != null ? _name.GetHashCode() : 0);
             hashCode = (hashCode * 397) ^ (int)_status;

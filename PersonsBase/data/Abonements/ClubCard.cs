@@ -58,13 +58,6 @@ namespace PBase
       public sealed override int NumPersonalTr { get; set; }
 
       // Методы
-      public override void ContinueAbonement()
-      {
-         //FIXME:  Написать функцию Продления абонемента для Клубной карты. 
-         //Можно создать нофую форму, передать туда параметры Pay payStatus, TimeForTr time, TypeWorkout typeTr, SpaService spa, PeriodClubCard periodInMonths
-         // Затем обновить их внутри текущего обьекта. И приплюсовать новую дату окончания к текущей.
-      }
-
       public override bool isValid()
       {
          // Если +, то DateTime.Now позднее endDate

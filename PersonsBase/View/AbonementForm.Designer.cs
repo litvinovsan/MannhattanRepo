@@ -88,7 +88,6 @@
          // 
          // button_Aplly
          // 
-         this.button_Aplly.DialogResult = System.Windows.Forms.DialogResult.OK;
          this.button_Aplly.Dock = System.Windows.Forms.DockStyle.Fill;
          this.button_Aplly.Location = new System.Drawing.Point(3, 3);
          this.button_Aplly.Name = "button_Aplly";

@@ -47,11 +47,7 @@ namespace PBase
          else return false;
       }
 
-      public override void ContinueAbonement()
-      {
-         //FIXME Непонятно, нужен ли этот метод тут
-         MessageBox.Show("Разовое Занятие");
-      }
+
 
       public override bool isValid()
       {

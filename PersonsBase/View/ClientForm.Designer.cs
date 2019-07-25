@@ -64,6 +64,8 @@ namespace PBase
          this.label1 = new System.Windows.Forms.Label();
          this.comboBox_Gender = new System.Windows.Forms.ComboBox();
          this.textBox_Number = new System.Windows.Forms.TextBox();
+         this.listBox_abonements = new System.Windows.Forms.ListBox();
+         this.groupBox3 = new System.Windows.Forms.GroupBox();
          this.tabControl1.SuspendLayout();
          this.tabPage1.SuspendLayout();
          this.groupBox6.SuspendLayout();
@@ -75,6 +77,7 @@ namespace PBase
          this.tableLayoutPanel4.SuspendLayout();
          this.groupBox2.SuspendLayout();
          this.tableLayoutPanel1.SuspendLayout();
+         this.groupBox3.SuspendLayout();
          this.SuspendLayout();
          // 
          // textBox_Name
@@ -116,6 +119,7 @@ namespace PBase
          // 
          // tabPage1
          // 
+         this.tabPage1.Controls.Add(this.groupBox3);
          this.tabPage1.Controls.Add(this.groupBox6);
          this.tabPage1.Controls.Add(this.groupBox4);
          this.tabPage1.Controls.Add(this.groupBox1);
@@ -295,7 +299,7 @@ namespace PBase
          this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
          this.tabPage2.Name = "tabPage2";
          this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-         this.tabPage2.Size = new System.Drawing.Size(939, 538);
+         this.tabPage2.Size = new System.Drawing.Size(950, 547);
          this.tabPage2.TabIndex = 1;
          this.tabPage2.Text = "Дополнительная";
          this.tabPage2.UseVisualStyleBackColor = true;
@@ -309,12 +313,12 @@ namespace PBase
          this.tableLayoutPanel4.Controls.Add(this.button_Cancel, 1, 0);
          this.tableLayoutPanel4.Controls.Add(this.button_SavePersonalData, 0, 0);
          this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-         this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 502);
+         this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 511);
          this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
          this.tableLayoutPanel4.Name = "tableLayoutPanel4";
          this.tableLayoutPanel4.RowCount = 1;
          this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-         this.tableLayoutPanel4.Size = new System.Drawing.Size(933, 34);
+         this.tableLayoutPanel4.Size = new System.Drawing.Size(944, 34);
          this.tableLayoutPanel4.TabIndex = 2;
          // 
          // button_Cancel
@@ -535,12 +539,34 @@ namespace PBase
          this.textBox_Number.TabIndex = 5;
          this.textBox_Number.Text = "123";
          // 
+         // listBox_abonements
+         // 
+         this.listBox_abonements.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.listBox_abonements.FormattingEnabled = true;
+         this.listBox_abonements.ItemHeight = 16;
+         this.listBox_abonements.Location = new System.Drawing.Point(3, 18);
+         this.listBox_abonements.Name = "listBox_abonements";
+         this.listBox_abonements.Size = new System.Drawing.Size(230, 129);
+         this.listBox_abonements.TabIndex = 11;
+         // 
+         // groupBox3
+         // 
+         this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+         this.groupBox3.Controls.Add(this.listBox_abonements);
+         this.groupBox3.Location = new System.Drawing.Point(711, 308);
+         this.groupBox3.Name = "groupBox3";
+         this.groupBox3.Size = new System.Drawing.Size(236, 150);
+         this.groupBox3.TabIndex = 11;
+         this.groupBox3.TabStop = false;
+         this.groupBox3.Text = "Привязанные Абонементы";
+         // 
          // ClientForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.ClientSize = new System.Drawing.Size(958, 576);
          this.Controls.Add(this.tabControl1);
+         this.DoubleBuffered = true;
          this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
          this.MaximizeBox = false;
          this.Name = "ClientForm";
@@ -564,6 +590,7 @@ namespace PBase
          this.groupBox2.ResumeLayout(false);
          this.tableLayoutPanel1.ResumeLayout(false);
          this.tableLayoutPanel1.PerformLayout();
+         this.groupBox3.ResumeLayout(false);
          this.ResumeLayout(false);
 
       }
@@ -620,5 +647,7 @@ namespace PBase
       private System.Windows.Forms.Button button_Cancel;
       private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
       private System.Windows.Forms.Button button_add_dop_tren;
+      private System.Windows.Forms.GroupBox groupBox3;
+      private System.Windows.Forms.ListBox listBox_abonements;
    }
 }

@@ -15,7 +15,8 @@ namespace PBase
    public partial class ClientForm : Form
    {
       ///////////////// ОСНОВНЫЕ ОБЬЕКТЫ ////////////////////////////////
-      [NonSerialized] readonly Person _person;
+      [NonSerialized]
+      readonly Person _person;
       readonly DataBaseClass _dataBase = DataBaseClass.getInstance();
       private bool _isAnythingChanged;
 
@@ -45,7 +46,6 @@ namespace PBase
          _saveDelegateChain += SaveUserData; // Цепочка Делегатов для сохранения измененных данных.
          _person.StatusChanged += UpdateControlState;
       }
-
 
       private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
       {
@@ -292,7 +292,7 @@ namespace PBase
       {// Создает таблицу с элементами из List. Таблица вида: Лэйбл - Значение.
          var tableInfo = new TableLayoutPanel() { Dock = DockStyle.Fill };
          // Базовая таблица. 1 стр, 2 стлб
-         tableInfo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,45));
+         tableInfo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45));
          tableInfo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 55));
 
          for (int i = 0; i < list.Count; i++)
@@ -448,6 +448,23 @@ namespace PBase
 
          return list;
       }
+      private void CreateAbonementForm()
+      {
+         using (var form = new AbonementForm(_person.Name))
+         {
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+               form.ApplyChanges();
+
+               // Обновляем Если выбрано что-то.
+               LoadUserData();
+               LoadShortInfo();
+               LoadEditableData();
+               UpdateControlState(this, EventArgs.Empty);
+            }
+         }
+      }
+
       #endregion
 
       #region // Разные мелкие методы По оформлению и тд
@@ -591,12 +608,10 @@ namespace PBase
             NoValidActions();
          }
       }
-
       private void button_Cancel_Click(object sender, EventArgs e)
       {
          this.Close();
       }
-
       private void button_SavePersonalData_Click(object sender, EventArgs e)
       {
          SaveData();
@@ -606,37 +621,32 @@ namespace PBase
          DisableSelectionComboBoxes();
          //  SetControlsColorDefault();
       }
-
       private void ClientForm_Resize(object sender, EventArgs e)
       {
          DisableSelectionComboBoxes(); // Это костыль 
-        // SetControlsColorDefault();
+                                       // SetControlsColorDefault();
       }
-
       private void button_Add_Abon_Click(object sender, EventArgs e)
       {
-         using (var form = new AbonementForm(_person.Name))
+         if (_person.AbonementCurent == null)
          {
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-               form.ApplyChanges();
-
-               // Обновляем Если выбрано что-то.
-               LoadUserData();
-               LoadShortInfo();
-               LoadEditableData();
-               UpdateControlState(this, EventArgs.Empty);
-            }
-            else return;
+            CreateAbonementForm();
          }
+         else
+         {
+            var result = MessageBox.Show($"Действует:  {_person.AbonementCurent.AbonementName}.\n\rДобавить новый абонемент к существующему?", "Добавление Абонемента", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if(result==DialogResult.Yes)
+            {
+               CreateAbonementForm();
+            }
+         }
+
          button_CheckInWorkout.Focus();
       }
-
       private void button_add_dop_tren_VisibleChanged(object sender, EventArgs e)
       {
          PersonCardioButton();
       }
-
       private void button_add_dop_tren_Click(object sender, EventArgs e)
       {
          using (NumWorkoutForm form = new NumWorkoutForm(_person.AbonementCurent))
@@ -655,12 +665,10 @@ namespace PBase
          }
          button_CheckInWorkout.Focus();
       }
-
       private void textBox_Name_TextChanged(object sender, EventArgs e)
       {
 
       }
-
       private void button_Change_Photo_Click(object sender, EventArgs e)
       {
 

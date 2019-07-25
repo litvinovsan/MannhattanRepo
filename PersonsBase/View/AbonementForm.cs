@@ -72,7 +72,6 @@ namespace PBase
             {
                _periodClubCard = abonement.GetTypeClubCard();
                radioButton_ClubCard.Checked = true;
-
             }
             if (_person.AbonementCurent is SingleVisit) radioButton_Single.Checked = true;
          }
@@ -161,6 +160,8 @@ namespace PBase
 
             radioButton_ClubCard.Checked = false;
             radioButton_Single.Checked = false;
+
+            comboBox_Abonem.SelectedItem = _daysInAbon.ToString();
          }
          else
          {
@@ -180,6 +181,8 @@ namespace PBase
 
             radioButton_Abonement.Checked = false;
             radioButton_Single.Checked = false;
+
+            comboBox_ClubCard.SelectedItem = _periodClubCard.ToString();
          }
          else
          {
@@ -235,8 +238,18 @@ namespace PBase
 
       private void button_Aplly_Click(object sender, EventArgs e)
       {
-
-        // this.DialogResult = DialogResult.Cancel;
+         if (radioButton_Abonement.Checked && _daysInAbon == 0)
+         {
+            MessageBox.Show("Выберите Количество посещений!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            return;
+         }
+         if (radioButton_ClubCard.Checked && _periodClubCard == 0)
+         {
+            MessageBox.Show("Выберите Длительность Клубной Карты!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            return;
+            
+         }
+         this.DialogResult = DialogResult.OK;// Cancel;
       }
    }
 }

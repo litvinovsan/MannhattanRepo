@@ -55,14 +55,6 @@ namespace PBase
          return ((DateTime.Now.Date.CompareTo(endDate.Date) <= 0) && (GetRemainderDays() > 0));
       }
 
-      public override void ContinueAbonement()
-      {
-         //FIXME:  Написать функцию Продления абонемента для Абонемента по занятиям. 
-         //Можно создать нофую форму, передать туда параметры Pay payStatus, TimeForTr time, TypeWorkout typeTr, SpaService spa, PeriodClubCard periodInMonths
-         // Затем обновить их внутри текущего обьекта. И приплюсовать новую дату окончания к текущей.
-         MessageBox.Show("Абонемент по дням");
-      }
-
       public override bool AddTrainingsToAbon(TypeWorkout type, int numberToAdd)
       {
          DaysLeft += numberToAdd;
