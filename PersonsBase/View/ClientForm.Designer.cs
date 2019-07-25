@@ -31,546 +31,540 @@ namespace PBase
       /// </summary>
       private void InitializeComponent()
       {
-            this.textBox_Name = new System.Windows.Forms.TextBox();
-            this.dateTimePicker_birthDate = new System.Windows.Forms.DateTimePicker();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.pictureBox_ClientPhoto = new System.Windows.Forms.PictureBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.button_CheckInWorkout = new System.Windows.Forms.Button();
-            this.button_Add_Abon = new System.Windows.Forms.Button();
-            this.button_Freeze = new System.Windows.Forms.Button();
-            this.button_add_dop_tren = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox_Notes = new System.Windows.Forms.TextBox();
-            this.groupBox_Info = new System.Windows.Forms.GroupBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.button_Cancel = new System.Windows.Forms.Button();
-            this.button_SavePersonalData = new System.Windows.Forms.Button();
-            this.groupBox_Detailed = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.maskedTextBox_PhoneNumber = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox_Passport = new System.Windows.Forms.MaskedTextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.maskedTextBox_DriverID = new System.Windows.Forms.MaskedTextBox();
-            this.label_Phone = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBox_Gender = new System.Windows.Forms.ComboBox();
-            this.textBox_Number = new System.Windows.Forms.TextBox();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).BeginInit();
-            this.groupBox4.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // textBox_Name
-            // 
-            this.textBox_Name.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox_Name.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBox_Name.Location = new System.Drawing.Point(2, 2);
-            this.textBox_Name.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox_Name.Name = "textBox_Name";
-            this.textBox_Name.Size = new System.Drawing.Size(698, 33);
-            this.textBox_Name.TabIndex = 1;
-            this.textBox_Name.Text = "ФИО";
-            this.textBox_Name.TextChanged += new System.EventHandler(this.textBox_Name_TextChanged);
-            // 
-            // dateTimePicker_birthDate
-            // 
-            this.dateTimePicker_birthDate.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.dateTimePicker_birthDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePicker_birthDate.Location = new System.Drawing.Point(120, 107);
-            this.dateTimePicker_birthDate.Margin = new System.Windows.Forms.Padding(2);
-            this.dateTimePicker_birthDate.MinimumSize = new System.Drawing.Size(115, 22);
-            this.dateTimePicker_birthDate.Name = "dateTimePicker_birthDate";
-            this.dateTimePicker_birthDate.Size = new System.Drawing.Size(166, 23);
-            this.dateTimePicker_birthDate.TabIndex = 3;
-            this.dateTimePicker_birthDate.ValueChanged += new System.EventHandler(this.dateTimePicker_birthDate_ValueChanged);
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(710, 461);
-            this.tabControl1.TabIndex = 2;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.groupBox6);
-            this.tabPage1.Controls.Add(this.groupBox4);
-            this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Controls.Add(this.groupBox_Info);
-            this.tabPage1.Controls.Add(this.textBox_Name);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Size = new System.Drawing.Size(702, 435);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Основная";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox6.Controls.Add(this.pictureBox_ClientPhoto);
-            this.groupBox6.Location = new System.Drawing.Point(525, 38);
-            this.groupBox6.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox6.Size = new System.Drawing.Size(177, 198);
-            this.groupBox6.TabIndex = 10;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Фото Клиента";
-            // 
-            // pictureBox_ClientPhoto
-            // 
-            this.pictureBox_ClientPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(4, 17);
-            this.pictureBox_ClientPhoto.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox_ClientPhoto.Name = "pictureBox_ClientPhoto";
-            this.pictureBox_ClientPhoto.Size = new System.Drawing.Size(168, 175);
-            this.pictureBox_ClientPhoto.TabIndex = 0;
-            this.pictureBox_ClientPhoto.TabStop = false;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.tableLayoutPanel2);
-            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox4.Location = new System.Drawing.Point(20, 38);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Size = new System.Drawing.Size(154, 322);
-            this.groupBox4.TabIndex = 9;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Действия";
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+         this.textBox_Name = new System.Windows.Forms.TextBox();
+         this.dateTimePicker_birthDate = new System.Windows.Forms.DateTimePicker();
+         this.tabControl1 = new System.Windows.Forms.TabControl();
+         this.tabPage1 = new System.Windows.Forms.TabPage();
+         this.groupBox6 = new System.Windows.Forms.GroupBox();
+         this.pictureBox_ClientPhoto = new System.Windows.Forms.PictureBox();
+         this.groupBox4 = new System.Windows.Forms.GroupBox();
+         this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+         this.button_CheckInWorkout = new System.Windows.Forms.Button();
+         this.button_Add_Abon = new System.Windows.Forms.Button();
+         this.button_Freeze = new System.Windows.Forms.Button();
+         this.button_add_dop_tren = new System.Windows.Forms.Button();
+         this.groupBox1 = new System.Windows.Forms.GroupBox();
+         this.textBox_Notes = new System.Windows.Forms.TextBox();
+         this.groupBox_Info = new System.Windows.Forms.GroupBox();
+         this.tabPage2 = new System.Windows.Forms.TabPage();
+         this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+         this.button_Cancel = new System.Windows.Forms.Button();
+         this.button_SavePersonalData = new System.Windows.Forms.Button();
+         this.groupBox_Detailed = new System.Windows.Forms.GroupBox();
+         this.groupBox2 = new System.Windows.Forms.GroupBox();
+         this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+         this.label4 = new System.Windows.Forms.Label();
+         this.label6 = new System.Windows.Forms.Label();
+         this.maskedTextBox_PhoneNumber = new System.Windows.Forms.MaskedTextBox();
+         this.maskedTextBox_Passport = new System.Windows.Forms.MaskedTextBox();
+         this.label3 = new System.Windows.Forms.Label();
+         this.maskedTextBox_DriverID = new System.Windows.Forms.MaskedTextBox();
+         this.label_Phone = new System.Windows.Forms.Label();
+         this.label5 = new System.Windows.Forms.Label();
+         this.label1 = new System.Windows.Forms.Label();
+         this.comboBox_Gender = new System.Windows.Forms.ComboBox();
+         this.textBox_Number = new System.Windows.Forms.TextBox();
+         this.tabControl1.SuspendLayout();
+         this.tabPage1.SuspendLayout();
+         this.groupBox6.SuspendLayout();
+         ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).BeginInit();
+         this.groupBox4.SuspendLayout();
+         this.tableLayoutPanel2.SuspendLayout();
+         this.groupBox1.SuspendLayout();
+         this.tabPage2.SuspendLayout();
+         this.tableLayoutPanel4.SuspendLayout();
+         this.groupBox2.SuspendLayout();
+         this.tableLayoutPanel1.SuspendLayout();
+         this.SuspendLayout();
+         // 
+         // textBox_Name
+         // 
+         this.textBox_Name.Dock = System.Windows.Forms.DockStyle.Top;
+         this.textBox_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.textBox_Name.ForeColor = System.Drawing.SystemColors.WindowText;
+         this.textBox_Name.Location = new System.Drawing.Point(3, 2);
+         this.textBox_Name.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.textBox_Name.Name = "textBox_Name";
+         this.textBox_Name.Size = new System.Drawing.Size(944, 38);
+         this.textBox_Name.TabIndex = 1;
+         this.textBox_Name.Text = "ФИО";
+         this.textBox_Name.TextChanged += new System.EventHandler(this.textBox_Name_TextChanged);
+         // 
+         // dateTimePicker_birthDate
+         // 
+         this.dateTimePicker_birthDate.Anchor = System.Windows.Forms.AnchorStyles.Left;
+         this.dateTimePicker_birthDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.dateTimePicker_birthDate.Location = new System.Drawing.Point(146, 120);
+         this.dateTimePicker_birthDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.dateTimePicker_birthDate.MinimumSize = new System.Drawing.Size(152, 22);
+         this.dateTimePicker_birthDate.Name = "dateTimePicker_birthDate";
+         this.dateTimePicker_birthDate.Size = new System.Drawing.Size(220, 26);
+         this.dateTimePicker_birthDate.TabIndex = 3;
+         this.dateTimePicker_birthDate.ValueChanged += new System.EventHandler(this.dateTimePicker_birthDate_ValueChanged);
+         // 
+         // tabControl1
+         // 
+         this.tabControl1.Controls.Add(this.tabPage1);
+         this.tabControl1.Controls.Add(this.tabPage2);
+         this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.tabControl1.Location = new System.Drawing.Point(0, 0);
+         this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.tabControl1.Name = "tabControl1";
+         this.tabControl1.SelectedIndex = 0;
+         this.tabControl1.Size = new System.Drawing.Size(958, 576);
+         this.tabControl1.TabIndex = 2;
+         // 
+         // tabPage1
+         // 
+         this.tabPage1.Controls.Add(this.groupBox6);
+         this.tabPage1.Controls.Add(this.groupBox4);
+         this.tabPage1.Controls.Add(this.groupBox1);
+         this.tabPage1.Controls.Add(this.groupBox_Info);
+         this.tabPage1.Controls.Add(this.textBox_Name);
+         this.tabPage1.Location = new System.Drawing.Point(4, 25);
+         this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.tabPage1.Name = "tabPage1";
+         this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.tabPage1.Size = new System.Drawing.Size(950, 547);
+         this.tabPage1.TabIndex = 0;
+         this.tabPage1.Text = "Основная";
+         this.tabPage1.UseVisualStyleBackColor = true;
+         // 
+         // groupBox6
+         // 
+         this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+         this.groupBox6.Controls.Add(this.pictureBox_ClientPhoto);
+         this.groupBox6.Location = new System.Drawing.Point(711, 47);
+         this.groupBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.groupBox6.Name = "groupBox6";
+         this.groupBox6.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.groupBox6.Size = new System.Drawing.Size(236, 244);
+         this.groupBox6.TabIndex = 10;
+         this.groupBox6.TabStop = false;
+         this.groupBox6.Text = "Фото Клиента";
+         // 
+         // pictureBox_ClientPhoto
+         // 
+         this.pictureBox_ClientPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(5, 21);
+         this.pictureBox_ClientPhoto.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.pictureBox_ClientPhoto.Name = "pictureBox_ClientPhoto";
+         this.pictureBox_ClientPhoto.Size = new System.Drawing.Size(223, 215);
+         this.pictureBox_ClientPhoto.TabIndex = 0;
+         this.pictureBox_ClientPhoto.TabStop = false;
+         // 
+         // groupBox4
+         // 
+         this.groupBox4.Controls.Add(this.tableLayoutPanel2);
+         this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.groupBox4.Location = new System.Drawing.Point(27, 47);
+         this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.groupBox4.Name = "groupBox4";
+         this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.groupBox4.Size = new System.Drawing.Size(205, 396);
+         this.groupBox4.TabIndex = 9;
+         this.groupBox4.TabStop = false;
+         this.groupBox4.Text = "Действия";
+         // 
+         // tableLayoutPanel2
+         // 
+         this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.button_CheckInWorkout, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.button_Add_Abon, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.button_Freeze, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.button_add_dop_tren, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(2, 15);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 4;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(150, 302);
-            this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // button_CheckInWorkout
-            // 
-            this.button_CheckInWorkout.AutoSize = true;
-            this.button_CheckInWorkout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button_CheckInWorkout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_CheckInWorkout.Location = new System.Drawing.Point(2, 2);
-            this.button_CheckInWorkout.Margin = new System.Windows.Forms.Padding(2);
-            this.button_CheckInWorkout.Name = "button_CheckInWorkout";
-            this.button_CheckInWorkout.Size = new System.Drawing.Size(146, 71);
-            this.button_CheckInWorkout.TabIndex = 3;
-            this.button_CheckInWorkout.Text = "Отметить Посещение";
-            this.button_CheckInWorkout.UseVisualStyleBackColor = true;
-            this.button_CheckInWorkout.Click += new System.EventHandler(this.button_CheckInWorkout_Click);
-            // 
-            // button_Add_Abon
-            // 
-            this.button_Add_Abon.AutoSize = true;
-            this.button_Add_Abon.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button_Add_Abon.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_Add_Abon.Location = new System.Drawing.Point(2, 152);
-            this.button_Add_Abon.Margin = new System.Windows.Forms.Padding(2);
-            this.button_Add_Abon.Name = "button_Add_Abon";
-            this.button_Add_Abon.Size = new System.Drawing.Size(146, 71);
-            this.button_Add_Abon.TabIndex = 4;
-            this.button_Add_Abon.Text = "Абонемент";
-            this.button_Add_Abon.UseVisualStyleBackColor = true;
-            this.button_Add_Abon.Click += new System.EventHandler(this.button_Add_Abon_Click);
-            // 
-            // button_Freeze
-            // 
-            this.button_Freeze.AutoSize = true;
-            this.button_Freeze.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button_Freeze.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_Freeze.Location = new System.Drawing.Point(2, 227);
-            this.button_Freeze.Margin = new System.Windows.Forms.Padding(2);
-            this.button_Freeze.Name = "button_Freeze";
-            this.button_Freeze.Size = new System.Drawing.Size(146, 73);
-            this.button_Freeze.TabIndex = 5;
-            this.button_Freeze.Text = "Заморозить";
-            this.button_Freeze.UseVisualStyleBackColor = true;
-            // 
-            // button_add_dop_tren
-            // 
-            this.button_add_dop_tren.AutoSize = true;
-            this.button_add_dop_tren.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button_add_dop_tren.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_add_dop_tren.Location = new System.Drawing.Point(2, 77);
-            this.button_add_dop_tren.Margin = new System.Windows.Forms.Padding(2);
-            this.button_add_dop_tren.Name = "button_add_dop_tren";
-            this.button_add_dop_tren.Size = new System.Drawing.Size(146, 71);
-            this.button_add_dop_tren.TabIndex = 6;
-            this.button_add_dop_tren.Text = "Добавить Тренировки";
-            this.button_add_dop_tren.UseVisualStyleBackColor = true;
-            this.button_add_dop_tren.Visible = false;
-            this.button_add_dop_tren.VisibleChanged += new System.EventHandler(this.button_add_dop_tren_VisibleChanged);
-            this.button_add_dop_tren.Click += new System.EventHandler(this.button_add_dop_tren_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.textBox_Notes);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.Location = new System.Drawing.Point(2, 363);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(698, 70);
-            this.groupBox1.TabIndex = 8;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Заметки";
-            // 
-            // textBox_Notes
-            // 
-            this.textBox_Notes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_Notes.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox_Notes.Location = new System.Drawing.Point(2, 15);
-            this.textBox_Notes.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox_Notes.Multiline = true;
-            this.textBox_Notes.Name = "textBox_Notes";
-            this.textBox_Notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_Notes.Size = new System.Drawing.Size(694, 53);
-            this.textBox_Notes.TabIndex = 5;
-            this.textBox_Notes.TextChanged += new System.EventHandler(this.textBox_Notes_TextChanged);
-            // 
-            // groupBox_Info
-            // 
-            this.groupBox_Info.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+         this.tableLayoutPanel2.ColumnCount = 1;
+         this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+         this.tableLayoutPanel2.Controls.Add(this.button_CheckInWorkout, 0, 0);
+         this.tableLayoutPanel2.Controls.Add(this.button_Add_Abon, 0, 2);
+         this.tableLayoutPanel2.Controls.Add(this.button_Freeze, 0, 3);
+         this.tableLayoutPanel2.Controls.Add(this.button_add_dop_tren, 0, 1);
+         this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 18);
+         this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+         this.tableLayoutPanel2.RowCount = 4;
+         this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+         this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+         this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+         this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+         this.tableLayoutPanel2.Size = new System.Drawing.Size(200, 372);
+         this.tableLayoutPanel2.TabIndex = 0;
+         // 
+         // button_CheckInWorkout
+         // 
+         this.button_CheckInWorkout.AutoSize = true;
+         this.button_CheckInWorkout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+         this.button_CheckInWorkout.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.button_CheckInWorkout.Location = new System.Drawing.Point(3, 2);
+         this.button_CheckInWorkout.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.button_CheckInWorkout.Name = "button_CheckInWorkout";
+         this.button_CheckInWorkout.Size = new System.Drawing.Size(194, 89);
+         this.button_CheckInWorkout.TabIndex = 3;
+         this.button_CheckInWorkout.Text = "Отметить Посещение";
+         this.button_CheckInWorkout.UseVisualStyleBackColor = true;
+         this.button_CheckInWorkout.Click += new System.EventHandler(this.button_CheckInWorkout_Click);
+         // 
+         // button_Add_Abon
+         // 
+         this.button_Add_Abon.AutoSize = true;
+         this.button_Add_Abon.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+         this.button_Add_Abon.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.button_Add_Abon.Location = new System.Drawing.Point(3, 188);
+         this.button_Add_Abon.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.button_Add_Abon.Name = "button_Add_Abon";
+         this.button_Add_Abon.Size = new System.Drawing.Size(194, 89);
+         this.button_Add_Abon.TabIndex = 4;
+         this.button_Add_Abon.Text = "Абонемент";
+         this.button_Add_Abon.UseVisualStyleBackColor = true;
+         this.button_Add_Abon.Click += new System.EventHandler(this.button_Add_Abon_Click);
+         // 
+         // button_Freeze
+         // 
+         this.button_Freeze.AutoSize = true;
+         this.button_Freeze.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+         this.button_Freeze.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.button_Freeze.Location = new System.Drawing.Point(3, 281);
+         this.button_Freeze.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.button_Freeze.Name = "button_Freeze";
+         this.button_Freeze.Size = new System.Drawing.Size(194, 89);
+         this.button_Freeze.TabIndex = 5;
+         this.button_Freeze.Text = "Заморозить";
+         this.button_Freeze.UseVisualStyleBackColor = true;
+         // 
+         // button_add_dop_tren
+         // 
+         this.button_add_dop_tren.AutoSize = true;
+         this.button_add_dop_tren.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+         this.button_add_dop_tren.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.button_add_dop_tren.Location = new System.Drawing.Point(3, 95);
+         this.button_add_dop_tren.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.button_add_dop_tren.Name = "button_add_dop_tren";
+         this.button_add_dop_tren.Size = new System.Drawing.Size(194, 89);
+         this.button_add_dop_tren.TabIndex = 6;
+         this.button_add_dop_tren.Text = "Добавить Тренировки";
+         this.button_add_dop_tren.UseVisualStyleBackColor = true;
+         this.button_add_dop_tren.Visible = false;
+         this.button_add_dop_tren.VisibleChanged += new System.EventHandler(this.button_add_dop_tren_VisibleChanged);
+         this.button_add_dop_tren.Click += new System.EventHandler(this.button_add_dop_tren_Click);
+         // 
+         // groupBox1
+         // 
+         this.groupBox1.Controls.Add(this.textBox_Notes);
+         this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+         this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.groupBox1.Location = new System.Drawing.Point(3, 459);
+         this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.groupBox1.Name = "groupBox1";
+         this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.groupBox1.Size = new System.Drawing.Size(944, 86);
+         this.groupBox1.TabIndex = 8;
+         this.groupBox1.TabStop = false;
+         this.groupBox1.Text = "Заметки";
+         // 
+         // textBox_Notes
+         // 
+         this.textBox_Notes.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.textBox_Notes.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.textBox_Notes.Location = new System.Drawing.Point(3, 17);
+         this.textBox_Notes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.textBox_Notes.Multiline = true;
+         this.textBox_Notes.Name = "textBox_Notes";
+         this.textBox_Notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+         this.textBox_Notes.Size = new System.Drawing.Size(938, 67);
+         this.textBox_Notes.TabIndex = 5;
+         this.textBox_Notes.TextChanged += new System.EventHandler(this.textBox_Notes_TextChanged);
+         // 
+         // groupBox_Info
+         // 
+         this.groupBox_Info.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox_Info.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox_Info.Location = new System.Drawing.Point(192, 38);
-            this.groupBox_Info.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox_Info.Name = "groupBox_Info";
-            this.groupBox_Info.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox_Info.Size = new System.Drawing.Size(328, 327);
-            this.groupBox_Info.TabIndex = 4;
-            this.groupBox_Info.TabStop = false;
-            this.groupBox_Info.Text = "Информация";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.tableLayoutPanel4);
-            this.tabPage2.Controls.Add(this.groupBox_Detailed);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(702, 435);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Дополнительная";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.ColumnCount = 3;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Controls.Add(this.button_Cancel, 1, 0);
-            this.tableLayoutPanel4.Controls.Add(this.button_SavePersonalData, 0, 0);
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(2, 405);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 1;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(698, 28);
-            this.tableLayoutPanel4.TabIndex = 2;
-            // 
-            // button_Cancel
-            // 
-            this.button_Cancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_Cancel.Location = new System.Drawing.Point(152, 2);
-            this.button_Cancel.Margin = new System.Windows.Forms.Padding(2);
-            this.button_Cancel.Name = "button_Cancel";
-            this.button_Cancel.Size = new System.Drawing.Size(146, 24);
-            this.button_Cancel.TabIndex = 3;
-            this.button_Cancel.Text = "Отмена";
-            this.button_Cancel.UseVisualStyleBackColor = true;
-            this.button_Cancel.Click += new System.EventHandler(this.button_Cancel_Click);
-            // 
-            // button_SavePersonalData
-            // 
-            this.button_SavePersonalData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_SavePersonalData.Location = new System.Drawing.Point(2, 2);
-            this.button_SavePersonalData.Margin = new System.Windows.Forms.Padding(2);
-            this.button_SavePersonalData.Name = "button_SavePersonalData";
-            this.button_SavePersonalData.Size = new System.Drawing.Size(146, 24);
-            this.button_SavePersonalData.TabIndex = 2;
-            this.button_SavePersonalData.Text = "Сохранить изменения";
-            this.button_SavePersonalData.UseVisualStyleBackColor = true;
-            this.button_SavePersonalData.Click += new System.EventHandler(this.button_SavePersonalData_Click);
-            // 
-            // groupBox_Detailed
-            // 
-            this.groupBox_Detailed.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+         this.groupBox_Info.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.groupBox_Info.Location = new System.Drawing.Point(256, 47);
+         this.groupBox_Info.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.groupBox_Info.Name = "groupBox_Info";
+         this.groupBox_Info.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.groupBox_Info.Size = new System.Drawing.Size(448, 411);
+         this.groupBox_Info.TabIndex = 4;
+         this.groupBox_Info.TabStop = false;
+         this.groupBox_Info.Text = "Информация";
+         // 
+         // tabPage2
+         // 
+         this.tabPage2.Controls.Add(this.tableLayoutPanel4);
+         this.tabPage2.Controls.Add(this.groupBox_Detailed);
+         this.tabPage2.Controls.Add(this.groupBox2);
+         this.tabPage2.Location = new System.Drawing.Point(4, 25);
+         this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.tabPage2.Name = "tabPage2";
+         this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.tabPage2.Size = new System.Drawing.Size(939, 538);
+         this.tabPage2.TabIndex = 1;
+         this.tabPage2.Text = "Дополнительная";
+         this.tabPage2.UseVisualStyleBackColor = true;
+         // 
+         // tableLayoutPanel4
+         // 
+         this.tableLayoutPanel4.ColumnCount = 3;
+         this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+         this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+         this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+         this.tableLayoutPanel4.Controls.Add(this.button_Cancel, 1, 0);
+         this.tableLayoutPanel4.Controls.Add(this.button_SavePersonalData, 0, 0);
+         this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+         this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 502);
+         this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+         this.tableLayoutPanel4.RowCount = 1;
+         this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+         this.tableLayoutPanel4.Size = new System.Drawing.Size(933, 34);
+         this.tableLayoutPanel4.TabIndex = 2;
+         // 
+         // button_Cancel
+         // 
+         this.button_Cancel.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.button_Cancel.Location = new System.Drawing.Point(203, 2);
+         this.button_Cancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.button_Cancel.Name = "button_Cancel";
+         this.button_Cancel.Size = new System.Drawing.Size(194, 30);
+         this.button_Cancel.TabIndex = 3;
+         this.button_Cancel.Text = "Отмена";
+         this.button_Cancel.UseVisualStyleBackColor = true;
+         this.button_Cancel.Click += new System.EventHandler(this.button_Cancel_Click);
+         // 
+         // button_SavePersonalData
+         // 
+         this.button_SavePersonalData.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.button_SavePersonalData.Location = new System.Drawing.Point(3, 2);
+         this.button_SavePersonalData.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.button_SavePersonalData.Name = "button_SavePersonalData";
+         this.button_SavePersonalData.Size = new System.Drawing.Size(194, 30);
+         this.button_SavePersonalData.TabIndex = 2;
+         this.button_SavePersonalData.Text = "Сохранить изменения";
+         this.button_SavePersonalData.UseVisualStyleBackColor = true;
+         this.button_SavePersonalData.Click += new System.EventHandler(this.button_SavePersonalData_Click);
+         // 
+         // groupBox_Detailed
+         // 
+         this.groupBox_Detailed.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox_Detailed.Location = new System.Drawing.Point(311, 7);
-            this.groupBox_Detailed.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox_Detailed.Name = "groupBox_Detailed";
-            this.groupBox_Detailed.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox_Detailed.Size = new System.Drawing.Size(384, 389);
-            this.groupBox_Detailed.TabIndex = 1;
-            this.groupBox_Detailed.TabStop = false;
-            this.groupBox_Detailed.Text = "Детальная информация";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+         this.groupBox_Detailed.Location = new System.Drawing.Point(415, 9);
+         this.groupBox_Detailed.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.groupBox_Detailed.Name = "groupBox_Detailed";
+         this.groupBox_Detailed.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.groupBox_Detailed.Size = new System.Drawing.Size(512, 479);
+         this.groupBox_Detailed.TabIndex = 1;
+         this.groupBox_Detailed.TabStop = false;
+         this.groupBox_Detailed.Text = "Детальная информация";
+         // 
+         // groupBox2
+         // 
+         this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox2.Controls.Add(this.tableLayoutPanel1);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox2.Location = new System.Drawing.Point(4, 5);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(296, 392);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Персональные данные";
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+         this.groupBox2.Controls.Add(this.tableLayoutPanel1);
+         this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.groupBox2.Location = new System.Drawing.Point(5, 6);
+         this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.groupBox2.Name = "groupBox2";
+         this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.groupBox2.Size = new System.Drawing.Size(395, 482);
+         this.groupBox2.TabIndex = 0;
+         this.groupBox2.TabStop = false;
+         this.groupBox2.Text = "Персональные данные";
+         // 
+         // tableLayoutPanel1
+         // 
+         this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.maskedTextBox_PhoneNumber, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.maskedTextBox_Passport, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.maskedTextBox_DriverID, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label_Phone, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.dateTimePicker_birthDate, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 13);
-            this.tableLayoutPanel1.Controls.Add(this.comboBox_Gender, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.textBox_Number, 1, 13);
-            this.tableLayoutPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(4, 24);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 15;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(288, 167);
-            this.tableLayoutPanel1.TabIndex = 1;
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(2, 111);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(99, 15);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "День Рождения";
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(2, 57);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(114, 15);
-            this.label6.TabIndex = 2;
-            this.label6.Text = "Права";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // maskedTextBox_PhoneNumber
-            // 
-            this.maskedTextBox_PhoneNumber.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.maskedTextBox_PhoneNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maskedTextBox_PhoneNumber.Location = new System.Drawing.Point(120, 2);
-            this.maskedTextBox_PhoneNumber.Margin = new System.Windows.Forms.Padding(2);
-            this.maskedTextBox_PhoneNumber.Mask = "8(999) 000-00-00";
-            this.maskedTextBox_PhoneNumber.Name = "maskedTextBox_PhoneNumber";
-            this.maskedTextBox_PhoneNumber.Size = new System.Drawing.Size(166, 23);
-            this.maskedTextBox_PhoneNumber.TabIndex = 6;
-            this.maskedTextBox_PhoneNumber.TextChanged += new System.EventHandler(this.maskedTextBox_PhoneNumber_TextChanged);
-            // 
-            // maskedTextBox_Passport
-            // 
-            this.maskedTextBox_Passport.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.maskedTextBox_Passport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maskedTextBox_Passport.Location = new System.Drawing.Point(120, 29);
-            this.maskedTextBox_Passport.Margin = new System.Windows.Forms.Padding(2);
-            this.maskedTextBox_Passport.Mask = "9999   № 999999";
-            this.maskedTextBox_Passport.Name = "maskedTextBox_Passport";
-            this.maskedTextBox_Passport.Size = new System.Drawing.Size(166, 21);
-            this.maskedTextBox_Passport.TabIndex = 4;
-            this.maskedTextBox_Passport.TextChanged += new System.EventHandler(this.maskedTex_Passport_TextChanged);
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(2, 32);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 15);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Паспорт";
-            // 
-            // maskedTextBox_DriverID
-            // 
-            this.maskedTextBox_DriverID.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.maskedTextBox_DriverID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maskedTextBox_DriverID.Location = new System.Drawing.Point(120, 54);
-            this.maskedTextBox_DriverID.Margin = new System.Windows.Forms.Padding(2);
-            this.maskedTextBox_DriverID.Mask = "9999   № 999999";
-            this.maskedTextBox_DriverID.Name = "maskedTextBox_DriverID";
-            this.maskedTextBox_DriverID.Size = new System.Drawing.Size(166, 21);
-            this.maskedTextBox_DriverID.TabIndex = 0;
-            this.maskedTextBox_DriverID.TextChanged += new System.EventHandler(this.maskedTextBox_DriverID_TextChanged);
-            // 
-            // label_Phone
-            // 
-            this.label_Phone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label_Phone.AutoSize = true;
-            this.label_Phone.Location = new System.Drawing.Point(2, 6);
-            this.label_Phone.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label_Phone.Name = "label_Phone";
-            this.label_Phone.Size = new System.Drawing.Size(114, 15);
-            this.label_Phone.TabIndex = 7;
-            this.label_Phone.Text = "Телефон";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(2, 83);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(30, 15);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Пол";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(2, 138);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(114, 15);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Табельный Номер";
-            // 
-            // comboBox_Gender
-            // 
-            this.comboBox_Gender.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.comboBox_Gender.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBox_Gender.FormattingEnabled = true;
-            this.comboBox_Gender.Location = new System.Drawing.Point(120, 79);
-            this.comboBox_Gender.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBox_Gender.Name = "comboBox_Gender";
-            this.comboBox_Gender.Size = new System.Drawing.Size(166, 24);
-            this.comboBox_Gender.TabIndex = 2;
-            this.comboBox_Gender.SelectedIndexChanged += new System.EventHandler(this.comboBox_Gender_SelectedIndexChanged);
-            // 
-            // textBox_Number
-            // 
-            this.textBox_Number.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.textBox_Number.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox_Number.Location = new System.Drawing.Point(120, 134);
-            this.textBox_Number.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox_Number.Name = "textBox_Number";
-            this.textBox_Number.ReadOnly = true;
-            this.textBox_Number.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.textBox_Number.Size = new System.Drawing.Size(166, 23);
-            this.textBox_Number.TabIndex = 5;
-            this.textBox_Number.Text = "123";
-            // 
-            // ClientForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(710, 461);
-            this.Controls.Add(this.tabControl1);
-            this.Margin = new System.Windows.Forms.Padding(2);
-            this.MaximizeBox = false;
-            this.Name = "ClientForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Карточка Клиента";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ClientForm_FormClosing);
-            this.Load += new System.EventHandler(this.ClientForm_Load);
-            this.Resize += new System.EventHandler(this.ClientForm_Resize);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.ResumeLayout(false);
+         this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+         this.tableLayoutPanel1.ColumnCount = 2;
+         this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+         this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+         this.tableLayoutPanel1.Controls.Add(this.label4, 0, 6);
+         this.tableLayoutPanel1.Controls.Add(this.label6, 0, 4);
+         this.tableLayoutPanel1.Controls.Add(this.maskedTextBox_PhoneNumber, 1, 2);
+         this.tableLayoutPanel1.Controls.Add(this.maskedTextBox_Passport, 1, 3);
+         this.tableLayoutPanel1.Controls.Add(this.label3, 0, 3);
+         this.tableLayoutPanel1.Controls.Add(this.maskedTextBox_DriverID, 1, 4);
+         this.tableLayoutPanel1.Controls.Add(this.label_Phone, 0, 2);
+         this.tableLayoutPanel1.Controls.Add(this.dateTimePicker_birthDate, 1, 6);
+         this.tableLayoutPanel1.Controls.Add(this.label5, 0, 5);
+         this.tableLayoutPanel1.Controls.Add(this.label1, 0, 13);
+         this.tableLayoutPanel1.Controls.Add(this.comboBox_Gender, 1, 5);
+         this.tableLayoutPanel1.Controls.Add(this.textBox_Number, 1, 13);
+         this.tableLayoutPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.tableLayoutPanel1.Location = new System.Drawing.Point(5, 30);
+         this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+         this.tableLayoutPanel1.RowCount = 15;
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+         this.tableLayoutPanel1.Size = new System.Drawing.Size(384, 206);
+         this.tableLayoutPanel1.TabIndex = 1;
+         // 
+         // label4
+         // 
+         this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
+         this.label4.AutoSize = true;
+         this.label4.Location = new System.Drawing.Point(3, 124);
+         this.label4.Name = "label4";
+         this.label4.Size = new System.Drawing.Size(119, 18);
+         this.label4.TabIndex = 5;
+         this.label4.Text = "День Рождения";
+         // 
+         // label6
+         // 
+         this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+         this.label6.AutoSize = true;
+         this.label6.Location = new System.Drawing.Point(3, 63);
+         this.label6.Name = "label6";
+         this.label6.Size = new System.Drawing.Size(137, 18);
+         this.label6.TabIndex = 2;
+         this.label6.Text = "Права";
+         this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+         // 
+         // maskedTextBox_PhoneNumber
+         // 
+         this.maskedTextBox_PhoneNumber.Anchor = System.Windows.Forms.AnchorStyles.Left;
+         this.maskedTextBox_PhoneNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.maskedTextBox_PhoneNumber.Location = new System.Drawing.Point(146, 2);
+         this.maskedTextBox_PhoneNumber.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.maskedTextBox_PhoneNumber.Mask = "8(999) 000-00-00";
+         this.maskedTextBox_PhoneNumber.Name = "maskedTextBox_PhoneNumber";
+         this.maskedTextBox_PhoneNumber.Size = new System.Drawing.Size(220, 26);
+         this.maskedTextBox_PhoneNumber.TabIndex = 6;
+         this.maskedTextBox_PhoneNumber.TextChanged += new System.EventHandler(this.maskedTextBox_PhoneNumber_TextChanged);
+         // 
+         // maskedTextBox_Passport
+         // 
+         this.maskedTextBox_Passport.Anchor = System.Windows.Forms.AnchorStyles.Left;
+         this.maskedTextBox_Passport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.maskedTextBox_Passport.Location = new System.Drawing.Point(146, 32);
+         this.maskedTextBox_Passport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.maskedTextBox_Passport.Mask = "9999   № 999999";
+         this.maskedTextBox_Passport.Name = "maskedTextBox_Passport";
+         this.maskedTextBox_Passport.Size = new System.Drawing.Size(220, 24);
+         this.maskedTextBox_Passport.TabIndex = 4;
+         this.maskedTextBox_Passport.TextChanged += new System.EventHandler(this.maskedTex_Passport_TextChanged);
+         // 
+         // label3
+         // 
+         this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
+         this.label3.AutoSize = true;
+         this.label3.Location = new System.Drawing.Point(3, 35);
+         this.label3.Name = "label3";
+         this.label3.Size = new System.Drawing.Size(67, 18);
+         this.label3.TabIndex = 8;
+         this.label3.Text = "Паспорт";
+         // 
+         // maskedTextBox_DriverID
+         // 
+         this.maskedTextBox_DriverID.Anchor = System.Windows.Forms.AnchorStyles.Left;
+         this.maskedTextBox_DriverID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.maskedTextBox_DriverID.Location = new System.Drawing.Point(146, 60);
+         this.maskedTextBox_DriverID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.maskedTextBox_DriverID.Mask = "9999   № 999999";
+         this.maskedTextBox_DriverID.Name = "maskedTextBox_DriverID";
+         this.maskedTextBox_DriverID.Size = new System.Drawing.Size(220, 24);
+         this.maskedTextBox_DriverID.TabIndex = 0;
+         this.maskedTextBox_DriverID.TextChanged += new System.EventHandler(this.maskedTextBox_DriverID_TextChanged);
+         // 
+         // label_Phone
+         // 
+         this.label_Phone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+         this.label_Phone.AutoSize = true;
+         this.label_Phone.Location = new System.Drawing.Point(3, 6);
+         this.label_Phone.Name = "label_Phone";
+         this.label_Phone.Size = new System.Drawing.Size(137, 18);
+         this.label_Phone.TabIndex = 7;
+         this.label_Phone.Text = "Телефон";
+         // 
+         // label5
+         // 
+         this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
+         this.label5.AutoSize = true;
+         this.label5.Location = new System.Drawing.Point(3, 93);
+         this.label5.Name = "label5";
+         this.label5.Size = new System.Drawing.Size(37, 18);
+         this.label5.TabIndex = 7;
+         this.label5.Text = "Пол";
+         // 
+         // label1
+         // 
+         this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+         this.label1.AutoSize = true;
+         this.label1.Location = new System.Drawing.Point(3, 154);
+         this.label1.Name = "label1";
+         this.label1.Size = new System.Drawing.Size(137, 18);
+         this.label1.TabIndex = 4;
+         this.label1.Text = "Табельный Номер";
+         // 
+         // comboBox_Gender
+         // 
+         this.comboBox_Gender.Anchor = System.Windows.Forms.AnchorStyles.Left;
+         this.comboBox_Gender.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.comboBox_Gender.FormattingEnabled = true;
+         this.comboBox_Gender.Location = new System.Drawing.Point(146, 88);
+         this.comboBox_Gender.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.comboBox_Gender.Name = "comboBox_Gender";
+         this.comboBox_Gender.Size = new System.Drawing.Size(220, 28);
+         this.comboBox_Gender.TabIndex = 2;
+         this.comboBox_Gender.SelectedIndexChanged += new System.EventHandler(this.comboBox_Gender_SelectedIndexChanged);
+         // 
+         // textBox_Number
+         // 
+         this.textBox_Number.Anchor = System.Windows.Forms.AnchorStyles.Left;
+         this.textBox_Number.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.textBox_Number.Location = new System.Drawing.Point(146, 150);
+         this.textBox_Number.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.textBox_Number.Name = "textBox_Number";
+         this.textBox_Number.ReadOnly = true;
+         this.textBox_Number.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+         this.textBox_Number.Size = new System.Drawing.Size(220, 26);
+         this.textBox_Number.TabIndex = 5;
+         this.textBox_Number.Text = "123";
+         // 
+         // ClientForm
+         // 
+         this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+         this.ClientSize = new System.Drawing.Size(958, 576);
+         this.Controls.Add(this.tabControl1);
+         this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+         this.MaximizeBox = false;
+         this.Name = "ClientForm";
+         this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+         this.Text = "Карточка Клиента";
+         this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ClientForm_FormClosing);
+         this.Load += new System.EventHandler(this.ClientForm_Load);
+         this.Resize += new System.EventHandler(this.ClientForm_Resize);
+         this.tabControl1.ResumeLayout(false);
+         this.tabPage1.ResumeLayout(false);
+         this.tabPage1.PerformLayout();
+         this.groupBox6.ResumeLayout(false);
+         ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).EndInit();
+         this.groupBox4.ResumeLayout(false);
+         this.tableLayoutPanel2.ResumeLayout(false);
+         this.tableLayoutPanel2.PerformLayout();
+         this.groupBox1.ResumeLayout(false);
+         this.groupBox1.PerformLayout();
+         this.tabPage2.ResumeLayout(false);
+         this.tableLayoutPanel4.ResumeLayout(false);
+         this.groupBox2.ResumeLayout(false);
+         this.tableLayoutPanel1.ResumeLayout(false);
+         this.tableLayoutPanel1.PerformLayout();
+         this.ResumeLayout(false);
 
       }
 
