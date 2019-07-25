@@ -36,6 +36,7 @@ namespace PBase
          this.tabControl1 = new System.Windows.Forms.TabControl();
          this.tabPage1 = new System.Windows.Forms.TabPage();
          this.groupBox3 = new System.Windows.Forms.GroupBox();
+         this.button__remove_abon = new System.Windows.Forms.Button();
          this.listBox_abonements = new System.Windows.Forms.ListBox();
          this.groupBox6 = new System.Windows.Forms.GroupBox();
          this.pictureBox_ClientPhoto = new System.Windows.Forms.PictureBox();
@@ -66,7 +67,6 @@ namespace PBase
          this.label1 = new System.Windows.Forms.Label();
          this.comboBox_Gender = new System.Windows.Forms.ComboBox();
          this.textBox_Number = new System.Windows.Forms.TextBox();
-         this.button__remove_abon = new System.Windows.Forms.Button();
          this.tabControl1.SuspendLayout();
          this.tabPage1.SuspendLayout();
          this.groupBox3.SuspendLayout();
@@ -115,7 +115,7 @@ namespace PBase
          this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
          this.tabControl1.Name = "tabControl1";
          this.tabControl1.SelectedIndex = 0;
-         this.tabControl1.Size = new System.Drawing.Size(898, 576);
+         this.tabControl1.Size = new System.Drawing.Size(912, 576);
          this.tabControl1.TabIndex = 2;
          // 
          // tabPage1
@@ -147,6 +147,15 @@ namespace PBase
          this.groupBox3.TabStop = false;
          this.groupBox3.Text = "Абонементы";
          // 
+         // button__remove_abon
+         // 
+         this.button__remove_abon.Location = new System.Drawing.Point(19, 150);
+         this.button__remove_abon.Name = "button__remove_abon";
+         this.button__remove_abon.Size = new System.Drawing.Size(200, 35);
+         this.button__remove_abon.TabIndex = 1;
+         this.button__remove_abon.Text = "Удалить";
+         this.button__remove_abon.UseVisualStyleBackColor = true;
+         // 
          // listBox_abonements
          // 
          this.listBox_abonements.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -154,9 +163,9 @@ namespace PBase
             | System.Windows.Forms.AnchorStyles.Right)));
          this.listBox_abonements.FormattingEnabled = true;
          this.listBox_abonements.ItemHeight = 16;
-         this.listBox_abonements.Location = new System.Drawing.Point(6, 28);
+         this.listBox_abonements.Location = new System.Drawing.Point(19, 28);
          this.listBox_abonements.Name = "listBox_abonements";
-         this.listBox_abonements.Size = new System.Drawing.Size(224, 116);
+         this.listBox_abonements.Size = new System.Drawing.Size(200, 116);
          this.listBox_abonements.TabIndex = 0;
          // 
          // groupBox6
@@ -175,10 +184,10 @@ namespace PBase
          // pictureBox_ClientPhoto
          // 
          this.pictureBox_ClientPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(36, 18);
+         this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(19, 18);
          this.pictureBox_ClientPhoto.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
          this.pictureBox_ClientPhoto.Name = "pictureBox_ClientPhoto";
-         this.pictureBox_ClientPhoto.Size = new System.Drawing.Size(173, 184);
+         this.pictureBox_ClientPhoto.Size = new System.Drawing.Size(200, 184);
          this.pictureBox_ClientPhoto.TabIndex = 0;
          this.pictureBox_ClientPhoto.TabStop = false;
          // 
@@ -324,7 +333,7 @@ namespace PBase
          this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
          this.tabPage2.Name = "tabPage2";
          this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-         this.tabPage2.Size = new System.Drawing.Size(890, 547);
+         this.tabPage2.Size = new System.Drawing.Size(904, 547);
          this.tabPage2.TabIndex = 1;
          this.tabPage2.Text = "Дополнительная";
          this.tabPage2.UseVisualStyleBackColor = true;
@@ -343,7 +352,7 @@ namespace PBase
          this.tableLayoutPanel4.Name = "tableLayoutPanel4";
          this.tableLayoutPanel4.RowCount = 1;
          this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-         this.tableLayoutPanel4.Size = new System.Drawing.Size(884, 34);
+         this.tableLayoutPanel4.Size = new System.Drawing.Size(898, 34);
          this.tableLayoutPanel4.TabIndex = 2;
          // 
          // button_Cancel
@@ -379,7 +388,7 @@ namespace PBase
          this.groupBox_Detailed.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
          this.groupBox_Detailed.Name = "groupBox_Detailed";
          this.groupBox_Detailed.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-         this.groupBox_Detailed.Size = new System.Drawing.Size(512, 479);
+         this.groupBox_Detailed.Size = new System.Drawing.Size(481, 479);
          this.groupBox_Detailed.TabIndex = 1;
          this.groupBox_Detailed.TabStop = false;
          this.groupBox_Detailed.Text = "Детальная информация";
@@ -564,20 +573,11 @@ namespace PBase
          this.textBox_Number.TabIndex = 5;
          this.textBox_Number.Text = "123";
          // 
-         // button__remove_abon
-         // 
-         this.button__remove_abon.Location = new System.Drawing.Point(6, 150);
-         this.button__remove_abon.Name = "button__remove_abon";
-         this.button__remove_abon.Size = new System.Drawing.Size(224, 35);
-         this.button__remove_abon.TabIndex = 1;
-         this.button__remove_abon.Text = "Удалить";
-         this.button__remove_abon.UseVisualStyleBackColor = true;
-         // 
          // ClientForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(898, 576);
+         this.ClientSize = new System.Drawing.Size(912, 576);
          this.Controls.Add(this.tabControl1);
          this.DoubleBuffered = true;
          this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
