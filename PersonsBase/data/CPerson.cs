@@ -48,7 +48,6 @@ namespace PBase
       }
       public int PersonalNumber { get; set; }
       public string Key { get; private set; }
-
       public StatusPerson Status
       {
          get
@@ -116,7 +115,7 @@ namespace PBase
       /////////////////////////// МЕТОДЫ  ///////////////////////////
       /// 
       ///Обновляем статус клиента.
-      public StatusPerson GetActualStatus()
+      public StatusPerson UpdateActualStatus()
       {
          if (AbonementCurent == null && (this._status == StatusPerson.Активный))
          {
@@ -132,18 +131,14 @@ namespace PBase
       }
       private void ValidateAbonementAdd(AbonementBasic value)
       {
-         //   if (AbonementsQueue == null) AbonementsQueue = new ObservableCollection<AbonementBasic>();
-
          if (_abonementCurent == null)
          {
             _abonementCurent = value;
-            AbonementsQueue.Clear();
          }
          else // Изменяем уже существующий абонемент
          {
             if (value != null)
             {
-               // Добавляем новый абонемент в очередь
                AbonementsQueue.Add(value);
             }
             else if (value == null && AbonementsQueue.Count == 0)

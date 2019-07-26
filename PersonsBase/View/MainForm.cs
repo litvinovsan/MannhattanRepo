@@ -75,7 +75,6 @@ namespace PBase
          {
             myDelegate();
          }
-
       }
 
       public void ClearFindCombo()
@@ -105,6 +104,7 @@ namespace PBase
       private void button1_Click_1(object sender, EventArgs e)
       {
          _db.AddPerson(new Person("Трактирщик Мо"));
+         _db.AddPerson(new Person("Гомер Симпсон"));
       }
 
       private void comboBox_Find_SelectedIndexChanged(object sender, EventArgs e)
@@ -117,11 +117,17 @@ namespace PBase
          {
             MessageBox.Show(ex.Message);
          }
-      }
-
-      private void button2_Click(object sender, EventArgs e)
-      {
-
+         // FIXME: Сделать проверку на Enter
+         /*
+           if (Char.IsDigit(e.KeyChar) == true) return;
+            if (e.KeyChar == Convert.ToChar(Keys.Back)) return;
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                _viewForm.OnSendCommand(textBox_WriteCMD.Text);
+                return;
+            }
+                e.Handled = true;
+          */
       }
    }
 }

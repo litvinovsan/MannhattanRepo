@@ -79,15 +79,6 @@ namespace PBase
          bool result;
          try
          {
-            #region  Рабочий код,но без проверок на успешность.Переписывает файл нулями если ошибка сериализации.
-            //Formatter = new BinaryFormatter();
-            //using (FileStream fileStream = new FileStream("ClientsDataBase.bin", FileMode.OpenOrCreate, FileAccess.Write))
-            //{// Сначала записывать поток во временный файл.Если сериализация успешна - то менять оригинальный файл на временный.Переименованием.
-            //   Formatter.Serialize(fileStream, dataBase);
-            //   Console.WriteLine("  Объект сериализован"); //FIXME
-            //}
-            //result = true;
-            #endregion
             using (MemoryStream ms = new MemoryStream())
             {
                Formatter = new BinaryFormatter();

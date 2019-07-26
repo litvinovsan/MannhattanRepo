@@ -74,6 +74,9 @@ namespace PBase
                listBox_abonements.Items.RemoveAt(0);
                break;
          }
+
+         //if (_person.AbonementsQueue.Count > 0) groupBox_abonList.Visible = true;
+         //else groupBox_abonList.Visible = false;
       }
       private void UpdateControlState(object sender, EventArgs arg)
       {
@@ -81,7 +84,7 @@ namespace PBase
          Action myDelegate = delegate ()
          {
             // Вкл/Выкл Кнопки ЗАМОРОЗКА и ПОСЕЩЕНИЕ если проблемы с абонементом
-            switch (_person.GetActualStatus())
+            switch (_person.UpdateActualStatus())
             {
                case StatusPerson.Активный:
                   {
@@ -105,6 +108,10 @@ namespace PBase
                      {
                         button_add_dop_tren.Visible = false;
                      }
+                     //// Список абонементов
+                     //if (_person.AbonementsQueue.Count > 0) groupBox_abonList.Visible = true;
+                     //else groupBox_abonList.Visible = false;
+
                      break;
                   }
                case StatusPerson.Нет_Карты:
@@ -120,7 +127,7 @@ namespace PBase
                   {
                      button_Add_Abon.Enabled = false;
                      button_CheckInWorkout.Enabled = false;
-                     button_Freeze.Enabled = _person.AbonementCurent != null;
+                     button_Freeze.Enabled = isCurrentAbonementExist();
                      button_Freeze.Text = "Разморозить";
                      break;
                   }
@@ -197,7 +204,7 @@ namespace PBase
       {
          // Загружаем данные на Вкладку Редактирование, в Группу Персональных данных
 
-         _person.GetActualStatus(); // Обновляем текущий статус
+         _person.UpdateActualStatus(); // Обновляем текущий статус
          // Имя Клиента на форме.
          UpdateName();
 
@@ -237,26 +244,41 @@ namespace PBase
          _isAnythingChanged = false;
       }
       private void LoadShortInfo()
-      {
-         // Загрузка абонемента,если существует
-         var labelTextBoxList = new List<Tuple<Label, Control>>();
-         if (_person.AbonementCurent == null)
+      { //FIXME Мерцание
+         Action myDelegate = delegate ()
          {
-            labelTextBoxList.AddRange(TupleConverter(GetEmptyInfoList()));
+            var labelTextBoxList = new List<Tuple<Label, Control>>();
+            if (!isCurrentAbonementExist())
+            {
+               labelTextBoxList.AddRange(TupleConverter(GetEmptyInfoList()));
+            }
+            else
+            {
+               labelTextBoxList.AddRange(TupleConverter(_person.AbonementCurent.GetShortInfoList()));
+               // Добавляем Поле Статуса. Делаем тут потому что Person.abonem не знает об этом.
+               labelTextBoxList.Insert(1, (CreateRowInfo("Текущий статус Клиента", _person.Status.ToString())));
+            }
+
+            // Отрисовка Short Info
+            var table = CreateTable(labelTextBoxList); // Создаем таблицу c элементами из списка. Таблица: Лэйбл - Текстбокс
+            if (groupBox_Info.Controls.Count != 0)
+            {
+               groupBox_Info.Controls.Clear();
+            }
+
+            groupBox_Info.Controls.Add(table); // Выводим на групбокс нашу новую ShortInfo Table
+
+            _isAnythingChanged = false;
+         };
+
+         if (InvokeRequired)
+         {
+            Invoke(myDelegate);
          }
          else
          {
-            labelTextBoxList.AddRange(TupleConverter(_person.AbonementCurent.GetShortInfoList()));
-            // Добавляем Поле Статуса. Делаем тут потому что Person.abonem не знает об этом.
-            labelTextBoxList.Insert(1, (CreateRowInfo("Текущий статус Клиента", _person.Status.ToString())));
+            myDelegate();
          }
-
-         // Отрисовка Short Info
-         var table = CreateTable(labelTextBoxList); // Создаем таблицу c элементами из списка. Таблица: Лэйбл - Текстбокс
-         if (groupBox_Info.Controls.Count != 0) groupBox_Info.Controls.Clear();
-         groupBox_Info.Controls.Add(table); // Выводим на групбокс нашу новую ShortInfo Table
-
-         _isAnythingChanged = false;
       }
       private void LoadEditableData()
       {// Данные подробные,разрешено редактирование через события.
@@ -345,23 +367,30 @@ namespace PBase
       private void UpdateName()
       {
          this.Text = "Карточка Клиента:    " + _person.Name;// Имя формы
-         textBox_Name.Text = _person.Name;
-         SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
+         if (textBox_Name.Text != _person.Name)
+         {
+            textBox_Name.Text = _person.Name;
+            SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
+         }
+
          //Если Заморожен
-         if (_person.Status == StatusPerson.Заморожен && _person.AbonementCurent != null)
+         if (_person.Status == StatusPerson.Заморожен && isCurrentAbonementExist())
          {
             textBox_Name.ForeColor = Color.Green;
             // FIXME: Заморозка абонемента
             textBox_Name.Text = _person.Name + "  (Заморожен до " + "FIXME" + ")";
          }
 
-         if (_person.AbonementCurent != null && !_person.AbonementCurent.isActivated)
+         if (isCurrentAbonementExist() && !_person.AbonementCurent.isActivated)
          {
             textBox_Name.ForeColor = Color.Green;
             textBox_Name.Text = _person.Name + "      (Не Активирован)";
          }
       }
-
+      private bool isCurrentAbonementExist()
+      {
+         return _person.AbonementCurent != null;
+      }
       private List<Tuple<Label, Control>> TupleConverter(List<Tuple<string, string>> data)
       {// Преобразует Список вида List<Tuple<string, string>> в универсальный Список: List<Tuple<Label, Control>>
          var result = new List<Tuple<Label, Control>>();
@@ -467,7 +496,10 @@ namespace PBase
                form.ApplyChanges();
 
                // Обновляем Если выбрано что-то.
-               LoadUserData();
+               //LoadUserData();
+               _person.UpdateActualStatus(); // Обновляем текущий статус
+               UpdateName();
+
                LoadShortInfo();
                LoadEditableData();
                UpdateControlState(this, EventArgs.Empty);
@@ -522,7 +554,9 @@ namespace PBase
             ForAllControls(c, action);
          }
       }
-
+      /// <summary>
+      /// Снимает выделение по всем контролам в групбоксе
+      /// </summary>
       public void DisableSelectionComboBoxes()
       {
          ForAllControls(groupBox_Detailed, (x) =>
@@ -633,8 +667,7 @@ namespace PBase
       }
       private void ClientForm_Resize(object sender, EventArgs e)
       {
-         DisableSelectionComboBoxes(); // Это костыль 
-                                       // SetControlsColorDefault();
+         DisableSelectionComboBoxes();
       }
       private void button_Add_Abon_Click(object sender, EventArgs e)
       {
@@ -666,7 +699,7 @@ namespace PBase
                form.ApplyChanges();
 
                // Обновляем Если выбрано что-то.
-               LoadUserData();
+               _person.UpdateActualStatus(); // Обновляем текущий статус
                LoadShortInfo();
                LoadEditableData();
                UpdateControlState(this, EventArgs.Empty);
@@ -679,9 +712,32 @@ namespace PBase
       {
 
       }
-      private void button_Change_Photo_Click(object sender, EventArgs e)
+      private void button__remove_abon_Click(object sender, EventArgs e)
       {
+         var selectedIndex = listBox_abonements.SelectedIndex;
+         if (selectedIndex == -1) MessageBox.Show("Выберите Абонемент для удаления!");
+         else
+         {
+            _person.AbonementsQueue.RemoveAt(selectedIndex);
+            MessageBox.Show("Запись Удалена!");
+         }
+      }
 
+      private /*async*/ void button_remove_current_abon_Click(object sender, EventArgs e)
+      {
+         if (_person.AbonementCurent == null) return;
+         var result = MessageBox.Show($"Будет удаленo:  {_person.AbonementCurent.AbonementName}.\n\rПродолжить?", "Удаление Абонемента!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+         if (result == DialogResult.Yes)
+         {
+            _person.AbonementCurent = null;
+            _person.UpdateActualStatus(); // Обновляем текущий статус
+
+            UpdateName();
+            LoadShortInfo();
+            //await Task.Run(() => LoadShortInfo());
+            LoadEditableData();
+            UpdateControlState(this, EventArgs.Empty);
+         }
       }
    }
 }
