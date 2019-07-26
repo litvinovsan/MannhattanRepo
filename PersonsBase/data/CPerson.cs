@@ -68,7 +68,7 @@ namespace PBase
          set
          {
             //TODO: Написать обработку номера телефона. Проверка на +7,8, пробелы, дефисы, так же на городской номер.
-            this._phone = String.IsNullOrEmpty(value) ? "" : value;
+            this._phone = string.IsNullOrEmpty(value) ? "" : value;
          }
       }
       public string Passport { get; set; }
@@ -141,7 +141,7 @@ namespace PBase
             {
                AbonementsQueue.Add(value);
             }
-            else if (value == null && AbonementsQueue.Count == 0)
+            else if (AbonementsQueue.Count == 0)
             {// Заменяем существующий абонемент на null со смещением по списку
                _abonementCurent = null;
             }
@@ -165,15 +165,12 @@ namespace PBase
          bool phoneResult = false;
          bool fullNameResult = false;
          bool driverIdResult = false;
-         bool personalNumber = false;
 
          if (other.PersonalNumber == 0 && this.PersonalNumber == 0)
          {
-            personalNumber = true;
          }
          else
          {
-            personalNumber = other.PersonalNumber == this.PersonalNumber;
          }
 
          if (other.Passport == null && this.Passport == null)

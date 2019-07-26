@@ -1,6 +1,7 @@
 ﻿using PersonsBase.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
@@ -17,8 +18,8 @@ namespace PBase
    {
       ///////////////// ОСНОВНЫЕ ОБЬЕКТЫ ////////////////////////////////
       [NonSerialized]
-      readonly private Person _person;
-      readonly private DataBaseClass _dataBase = DataBaseClass.getInstance();
+      private readonly Person _person;
+      private readonly DataBaseClass _dataBase = DataBaseClass.getInstance();
       private bool _isAnythingChanged;
 
       ///////////////// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ////////////////////////////////
@@ -39,11 +40,13 @@ namespace PBase
          LoadListboxQueue();
          _saveDelegateChain += SaveUserData; // Цепочка Делегатов для сохранения измененных данных.
          _person.StatusChanged += UpdateControlState;
+            if(_person.AbonementsQueue == null) _person.AbonementsQueue=new ObservableCollection<AbonementBasic>();
          _person.AbonementsQueue.CollectionChanged += AbonementsQueue_CollectionChanged; // Список Абонементов. Если изменился
       }
 
       private void LoadListboxQueue()
       {
+          if (_person.AbonementsQueue == null) return;
          listBox_abonements.Items.AddRange(_person.AbonementsQueue.Select(x => x.AbonementName).ToArray());
       }
 
@@ -92,7 +95,7 @@ namespace PBase
                      button_CheckInWorkout.Enabled = true;
 
                      button_Freeze.Enabled = true;
-                     button_Freeze.Text = "Заморозить";
+                     button_Freeze.Text = @"Заморозить";
 
                      // Кнопка Заморозка для РАЗОВОГО ЗАНЯТИЯ
                      if (_person.AbonementCurent is SingleVisit)
@@ -127,7 +130,7 @@ namespace PBase
                   {
                      button_Add_Abon.Enabled = false;
                      button_CheckInWorkout.Enabled = false;
-                     button_Freeze.Enabled = isCurrentAbonementExist();
+                     button_Freeze.Enabled = IsCurrentAbonementExist();
                      button_Freeze.Text = "Разморозить";
                      break;
                   }
@@ -248,7 +251,7 @@ namespace PBase
          Action myDelegate = delegate ()
          {
             var labelTextBoxList = new List<Tuple<Label, Control>>();
-            if (!isCurrentAbonementExist())
+            if (!IsCurrentAbonementExist())
             {
                labelTextBoxList.AddRange(TupleConverter(GetEmptyInfoList()));
             }
@@ -311,7 +314,7 @@ namespace PBase
       #region // Хелп Методы для Загрузки и обновления пользовательских данных
       private List<Tuple<string, string>> GetEmptyInfoList()
       {  /// Лист по-умолчанию. Отображается на стартовой странице карточки Кл, если не прикреплен абонемент.
-         List<Tuple<string, string>> result = new List<Tuple<string, string>>
+         var result = new List<Tuple<string, string>>
           {
               new Tuple<string, string>("Текущий статус Клиента", _person.Status.ToString()),
               new Tuple<string, string>("Абонемент ", "Нет"),
@@ -374,24 +377,24 @@ namespace PBase
          }
 
          //Если Заморожен
-         if (_person.Status == StatusPerson.Заморожен && isCurrentAbonementExist())
+         if (_person.Status == StatusPerson.Заморожен && IsCurrentAbonementExist())
          {
             textBox_Name.ForeColor = Color.Green;
             // FIXME: Заморозка абонемента
             textBox_Name.Text = _person.Name + "  (Заморожен до " + "FIXME" + ")";
          }
 
-         if (isCurrentAbonementExist() && !_person.AbonementCurent.isActivated)
+         if (IsCurrentAbonementExist() && !_person.AbonementCurent.isActivated)
          {
             textBox_Name.ForeColor = Color.Green;
             textBox_Name.Text = _person.Name + "      (Не Активирован)";
          }
       }
-      private bool isCurrentAbonementExist()
+      private bool IsCurrentAbonementExist()
       {
          return _person.AbonementCurent != null;
       }
-      private List<Tuple<Label, Control>> TupleConverter(List<Tuple<string, string>> data)
+      private IEnumerable<Tuple<Label, Control>> TupleConverter(IEnumerable<Tuple<string, string>> data)
       {// Преобразует Список вида List<Tuple<string, string>> в универсальный Список: List<Tuple<Label, Control>>
          var result = new List<Tuple<Label, Control>>();
 
