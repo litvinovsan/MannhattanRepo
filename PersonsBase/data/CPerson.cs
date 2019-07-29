@@ -165,12 +165,15 @@ namespace PBase
          bool phoneResult = false;
          bool fullNameResult = false;
          bool driverIdResult = false;
+         bool personalNumber = false;
 
          if (other.PersonalNumber == 0 && this.PersonalNumber == 0)
          {
+            personalNumber = true;
          }
          else
          {
+            personalNumber = other.PersonalNumber == this.PersonalNumber;
          }
 
          if (other.Passport == null && this.Passport == null)
