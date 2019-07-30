@@ -47,7 +47,7 @@ namespace PBase
       {
          if (_db.ContainsKey(keyName))
          {
-            ClientForm clientFrm = new ClientForm(keyName);
+            ClientForm clientFrm = new ClientForm(keyName, _options);
             clientFrm.ShowDialog();
          }
          else

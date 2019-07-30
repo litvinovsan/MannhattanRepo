@@ -66,6 +66,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="data\Options.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="View\ClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +98,12 @@
     <Compile Include="View\NumWorkoutForm.Designer.cs">
       <DependentUpon>NumWorkoutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\PwdForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\PwdForm.Designer.cs">
+      <DependentUpon>PwdForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\TypeWorkoutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +112,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Resources\Personal.png" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\NumWorkoutForm.resx">
       <DependentUpon>NumWorkoutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\PwdForm.resx">
+      <DependentUpon>PwdForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\TypeWorkoutForm.resx">
       <DependentUpon>TypeWorkoutForm.cs</DependentUpon>

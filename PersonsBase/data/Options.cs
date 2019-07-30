@@ -18,12 +18,37 @@ namespace PBase
       public Administrator adminCurrent;
       public List<Administrator> adminsList;
       public List<Trener> trenersList;
-            
-      public Options()
+      всегда null
+      public readonly string passwordRootString = "1234";
+
+      private bool _isPasswordValid = false;
+
+      ////////////////  События ///////////////////////////////////////
+      [field: NonSerialized()]
+      public event EventHandler PasswordChangedEvent;
+      public void OnPwdRootChanged()
       {
-         adminsList = new List<Administrator>();
-         trenersList = new List<Trener>();
+         PasswordChangedEvent?.Invoke(this, EventArgs.Empty);
       }
-      /// Методы
+
+      ////////////////  Свойства ///////////////////////////////////////
+      public bool IsPasswordValid
+      {
+         get
+         {
+            return _isPasswordValid;
+         }
+         set
+         {
+            _isPasswordValid = value;
+            OnPwdRootChanged();
+         }
+      }
+
+      ////////////////  Методы ///////////////////////////////////////
+      public bool CheckPassword(string inputPass)
+      {
+         return (inputPass == passwordRootString);
+      }
    }
 }

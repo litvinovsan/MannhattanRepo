@@ -40,7 +40,7 @@ namespace PBase
       /// <summary>
       /// Абонемент не кончился по Дате или Посещениям?
       /// </summary>
-      abstract public bool isValid(); // FIXME. Для всех методов дописать проверку на непустую очередь абонементов.
+      abstract public bool isValid(); 
       /// <summary>
       /// Активация абонемента. Устанавливается дата окончания.
       /// </summary>

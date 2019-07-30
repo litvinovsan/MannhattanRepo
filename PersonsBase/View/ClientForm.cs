@@ -21,13 +21,15 @@ namespace PBase
       private readonly Person _person;
       private readonly DataBaseClass _dataBase = DataBaseClass.getInstance();
       private bool _isAnythingChanged;
+      private Options _options;
 
       ///////////////// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ////////////////////////////////
-      public ClientForm(string keyName)
+      public ClientForm(string keyName, Options opt)
       {
          InitializeComponent();
          _person = _dataBase.GetCollectionRW()[keyName];
          _isAnythingChanged = false;
+         _options = opt;
       }
 
       private void ClientForm_Load(object sender, EventArgs e)
@@ -40,13 +42,13 @@ namespace PBase
          LoadListboxQueue();
          _saveDelegateChain += SaveUserData; // Цепочка Делегатов для сохранения измененных данных.
          _person.StatusChanged += UpdateControlState;
-            if(_person.AbonementsQueue == null) _person.AbonementsQueue=new ObservableCollection<AbonementBasic>();
+         if (_person.AbonementsQueue == null) _person.AbonementsQueue = new ObservableCollection<AbonementBasic>();
          _person.AbonementsQueue.CollectionChanged += AbonementsQueue_CollectionChanged; // Список Абонементов. Если изменился
       }
 
       private void LoadListboxQueue()
       {
-          if (_person.AbonementsQueue == null) return;
+         if (_person.AbonementsQueue == null) return;
          listBox_abonements.Items.AddRange(_person.AbonementsQueue.Select(x => x.AbonementName).ToArray());
       }
 
@@ -726,7 +728,7 @@ namespace PBase
          }
       }
 
-      private /*async*/ void button_remove_current_abon_Click(object sender, EventArgs e)
+      private void button_remove_current_abon_Click(object sender, EventArgs e)
       {
          if (_person.AbonementCurent == null) return;
          var result = MessageBox.Show($"Будет удаленo:  {_person.AbonementCurent.AbonementName}.\n\rПродолжить?", "Удаление Абонемента!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -737,9 +739,23 @@ namespace PBase
 
             UpdateName();
             LoadShortInfo();
-            //await Task.Run(() => LoadShortInfo());
             LoadEditableData();
             UpdateControlState(this, EventArgs.Empty);
+         }
+      }
+
+      private void button_Password_Click(object sender, EventArgs e)
+      {
+         if (_options.IsPasswordValid == true) // Заблокировать пароль в этом случае
+         {
+            _options.IsPasswordValid = false;
+            button2.Text = "Изменить данные (нужен пароль)";
+         }
+         else
+         {
+            button2.Text = "Заблокировать данные";
+            PwdForm pwd = new PwdForm(_options);
+            pwd.ShowDialog();
          }
       }
    }
