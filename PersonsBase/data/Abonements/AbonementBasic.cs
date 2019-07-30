@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PBase
 {
@@ -29,11 +25,11 @@ namespace PBase
       public AbonementBasic(Pay payStatus, TimeForTr time, TypeWorkout tr, SpaService spa)
       {
          this.payStatus = payStatus;
-         this.timeTraining = time;
-         this.trainingsType = tr;
+         timeTraining = time;
+         trainingsType = tr;
          this.spa = spa;
-         this.isActivated = false;
-         this.buyDate = DateTime.Now.Date;
+         isActivated = false;
+         buyDate = DateTime.Now.Date;
       }
 
       //Методы

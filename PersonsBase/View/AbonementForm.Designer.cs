@@ -1,11 +1,14 @@
-﻿namespace PBase
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace PBase
 {
    partial class AbonementForm
    {
       /// <summary>
       /// Required designer variable.
       /// </summary>
-      private System.ComponentModel.IContainer components = null;
+      private IContainer components = null;
 
       /// <summary>
       /// Clean up any resources being used.
@@ -475,33 +478,33 @@
 
       #endregion
 
-      private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-      private System.Windows.Forms.Button button_Aplly;
-      private System.Windows.Forms.Button button2_Cancel;
-      private System.Windows.Forms.GroupBox groupBox3;
-      private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-      private System.Windows.Forms.Panel panel_AbonType;
-      private System.Windows.Forms.ComboBox comboBox_Abonem;
-      private System.Windows.Forms.RadioButton radioButton_Abonement;
-      private System.Windows.Forms.Panel panel_ClubCardType;
-      private System.Windows.Forms.RadioButton radioButton_ClubCard;
-      private System.Windows.Forms.ComboBox comboBox_ClubCard;
-      private System.Windows.Forms.RadioButton radioButton_Single;
-      private System.Windows.Forms.GroupBox groupBox4;
-      private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-      private System.Windows.Forms.Panel panel_TypeTren;
-      private System.Windows.Forms.ComboBox comboBox_TypeTren;
-      private System.Windows.Forms.Label label2;
-      private System.Windows.Forms.Panel panel_Spa;
-      private System.Windows.Forms.ComboBox comboBox_spa;
-      private System.Windows.Forms.Label label4;
-      private System.Windows.Forms.Panel panel_TimeTren;
-      private System.Windows.Forms.ComboBox comboBox_time;
-      private System.Windows.Forms.Label label3;
-      private System.Windows.Forms.Panel panel_PayStatus;
-      private System.Windows.Forms.Label label5;
-      private System.Windows.Forms.ComboBox comboBox_Pay;
-      private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-      private System.Windows.Forms.Panel panel1;
+      private TableLayoutPanel tableLayoutPanel1;
+      private Button button_Aplly;
+      private Button button2_Cancel;
+      private GroupBox groupBox3;
+      private TableLayoutPanel tableLayoutPanel2;
+      private Panel panel_AbonType;
+      private ComboBox comboBox_Abonem;
+      private RadioButton radioButton_Abonement;
+      private Panel panel_ClubCardType;
+      private RadioButton radioButton_ClubCard;
+      private ComboBox comboBox_ClubCard;
+      private RadioButton radioButton_Single;
+      private GroupBox groupBox4;
+      private TableLayoutPanel tableLayoutPanel3;
+      private Panel panel_TypeTren;
+      private ComboBox comboBox_TypeTren;
+      private Label label2;
+      private Panel panel_Spa;
+      private ComboBox comboBox_spa;
+      private Label label4;
+      private Panel panel_TimeTren;
+      private ComboBox comboBox_time;
+      private Label label3;
+      private Panel panel_PayStatus;
+      private Label label5;
+      private ComboBox comboBox_Pay;
+      private FlowLayoutPanel flowLayoutPanel1;
+      private Panel panel1;
    }
 }

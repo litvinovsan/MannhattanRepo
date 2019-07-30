@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PBase
@@ -130,9 +124,6 @@ namespace PBase
                   _person.AbonementCurent = new SingleVisit(_typeWorkout, _spa, _pay, _timeTren);
                   break;
                }
-
-            default:
-               break;
          }
       }
 
@@ -249,7 +240,7 @@ namespace PBase
             return;
             
          }
-         this.DialogResult = DialogResult.OK;// Cancel;
+         DialogResult = DialogResult.OK;// Cancel;
       }
    }
 }

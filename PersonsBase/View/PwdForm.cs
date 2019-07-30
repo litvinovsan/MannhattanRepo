@@ -1,20 +1,13 @@
-﻿using PBase;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using PBase;
 
 namespace PersonsBase.View
 {
    public partial class PwdForm : Form
    {
-      private Options _options;
-      private string _passwordToCheck; // Пароль суперпользователя
+      private readonly Options _options;
       public PwdForm(Options opt)
       {
          InitializeComponent();
@@ -32,26 +25,26 @@ namespace PersonsBase.View
       }
 
       private void CkeckPwd()
-      { Не работает пароль.passwordRootString null
+      { 
          if (_options.CheckPassword(textBox_pwd.Text))
          {
             _options.IsPasswordValid = true;
     
             label1.ForeColor = Color.Black;
-            label1.Text = "Введите пароль Администратора";
-            this.Close();
+            label1.Text = @"Введите пароль Администратора";
+            Close();
          }
          else
          {
             label1.ForeColor = Color.Red;
-            label1.Text = "Неправильный пароль";
+            label1.Text = @"Неправильный пароль";
             _options.IsPasswordValid = false;
          }
       }
 
       private void button_Cancel_Click(object sender, EventArgs e)
       {
-         this.Close();
+         Close();
       }
 
       private void textBox_pwd_KeyPress(object sender, KeyPressEventArgs e)

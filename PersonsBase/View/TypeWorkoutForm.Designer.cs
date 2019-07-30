@@ -1,11 +1,14 @@
-﻿namespace PersonsBase.View
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace PersonsBase.View
 {
    partial class WorkoutForm
    {
       /// <summary>
       /// Required designer variable.
       /// </summary>
-      private System.ComponentModel.IContainer components = null;
+      private IContainer components = null;
 
       /// <summary>
       /// Clean up any resources being used.
@@ -223,16 +226,16 @@
 
       #endregion
 
-      private System.Windows.Forms.Button button_Ok;
-      private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-      private System.Windows.Forms.Button button_Cancel;
-      private System.Windows.Forms.GroupBox groupBox1;
-      private System.Windows.Forms.RadioButton radioButton_tren;
-      private System.Windows.Forms.RadioButton radioButton_aerob;
-      private System.Windows.Forms.RadioButton radioButton_personal;
-      private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-      private System.Windows.Forms.PictureBox pictureBox_person;
-      private System.Windows.Forms.PictureBox pictureBox_aero;
-      private System.Windows.Forms.PictureBox pictureBox_tren;
+      private Button button_Ok;
+      private TableLayoutPanel tableLayoutPanel1;
+      private Button button_Cancel;
+      private GroupBox groupBox1;
+      private RadioButton radioButton_tren;
+      private RadioButton radioButton_aerob;
+      private RadioButton radioButton_personal;
+      private TableLayoutPanel tableLayoutPanel2;
+      private PictureBox pictureBox_person;
+      private PictureBox pictureBox_aero;
+      private PictureBox pictureBox_tren;
    }
 }

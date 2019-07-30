@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PBase
 {
@@ -39,12 +35,13 @@ namespace PBase
 
       public override bool CheckInWorkout(TypeWorkout type)
       {
-         if (DaysLeft > 0)
+          if (DaysLeft > 0)
          {
             DaysLeft--;
             return true;
          }
-         else return false;
+
+          return false;
       }
 
 
@@ -68,13 +65,13 @@ namespace PBase
          List<Tuple<string, string>> result = new List<Tuple<string, string>>
           {
               new Tuple<string, string>("Тип: ", AbonementName),
-              new Tuple<string, string>("Доступные Тренировки ", this.trainingsType.ToString()),
-              new Tuple<string, string>("Услуги", this.spa.ToString())
+              new Tuple<string, string>("Доступные Тренировки ", trainingsType.ToString()),
+              new Tuple<string, string>("Услуги", spa.ToString())
           };
 
          if (NumPersonalTr > 0) { result.Add(new Tuple<string, string>("Осталось Персональных", NumPersonalTr.ToString())); }
          if (NumAerobicTr > 0) { result.Add(new Tuple<string, string>("Осталось Аэробных", NumAerobicTr.ToString())); }
-         if (payStatus == Pay.Не_Оплачено) { result.Add(new Tuple<string, string>("Статус Оплаты ", this.payStatus.ToString())); }
+         if (payStatus == Pay.Не_Оплачено) { result.Add(new Tuple<string, string>("Статус Оплаты ", payStatus.ToString())); }
 
          return result;
       }

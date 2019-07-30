@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PBase
@@ -24,35 +20,35 @@ namespace PBase
       /// <returns></returns>
       public static string prepareName(string fio)
       {
-         string Surname = "";
-         string FirstName = "";
-         string SecondName = "";
+         string surname = "";
+         string firstName = "";
+         string secondName = "";
 
          string minimumSpaces = Regex.Replace(fio.ToLower().Trim(), @"[^\S\r\n]+", " "); // Уплотняем пробелы
          string[] fioArray = minimumSpaces.Split(' ');
 
          if (fioArray.Length == 1 && fioArray[0].Length >= 1) //Фамилия
          {
-            Surname = char.ToUpper(fioArray[0][0]) + fioArray[0].Remove(0, 1);
+            surname = char.ToUpper(fioArray[0][0]) + fioArray[0].Remove(0, 1);
          }
          else if (fioArray.Length == 2 && fioArray[0].Length > 1 && fioArray[1].Length > 1) // Фамилия Имя
          {
-            Surname = char.ToUpper(fioArray[0][0]) + fioArray[0].Remove(0, 1);
-            FirstName = char.ToUpper(fioArray[1][0]) + fioArray[1].Remove(0, 1);
+            surname = char.ToUpper(fioArray[0][0]) + fioArray[0].Remove(0, 1);
+            firstName = char.ToUpper(fioArray[1][0]) + fioArray[1].Remove(0, 1);
          }
          else // Фамилия Имя Отчество
          {
             if (fioArray[0].Length > 1 && fioArray[1].Length > 1 && fioArray[2].Length > 1)
             {
-               Surname = char.ToUpper(fioArray[0][0]) + fioArray[0].Remove(0, 1);
-               FirstName = char.ToUpper(fioArray[1][0]) + fioArray[1].Remove(0, 1);
-               SecondName = char.ToUpper(fioArray[2][0]) + fioArray[2].Remove(0, 1);
+               surname = char.ToUpper(fioArray[0][0]) + fioArray[0].Remove(0, 1);
+               firstName = char.ToUpper(fioArray[1][0]) + fioArray[1].Remove(0, 1);
+               secondName = char.ToUpper(fioArray[2][0]) + fioArray[2].Remove(0, 1);
             }
          }
-         return string.Format("{0} {1} {2}", Surname, FirstName, SecondName).Trim();
+         return $"{surname} {firstName} {secondName}".Trim();
       }
 
-      public static string preparePhoneNumber(string phoneNumber)
+      public static string PreparePhoneNumber(string phoneNumber)
       {
          //FIXME 
          return "todo";

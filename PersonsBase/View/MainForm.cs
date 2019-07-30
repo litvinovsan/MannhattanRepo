@@ -1,12 +1,6 @@
-﻿using PBase;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PBase
@@ -14,9 +8,9 @@ namespace PBase
    public partial class MainForm : Form
    {
       ///////////////// ОСНОВНЫЕ ОБЬЕКТЫ ////////////////////////////////
-      readonly DataBaseClass _db = DataBaseClass.getInstance();
-      private SortedList<string, Person> UserList => _db.GetCollectionRW();
-      private Options _options; // Хранятся локальные настройки и параметры программы.
+      readonly DataBaseClass _db = DataBaseClass.GetInstance();
+      private SortedList<string, Person> UserList => _db.GetCollectionRw();
+      private readonly Options _options; // Хранятся локальные настройки и параметры программы.
       private Logic _logic;       // Логика и управляющие методы программы.
 
       ///////////////// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ////////////////////////////////
@@ -29,21 +23,24 @@ namespace PBase
 
       private void MainForm_Load(object sender, EventArgs e)
       {
-         HelperMethods.DeSerialize<Options>(ref _options, "Option.bin");
-
-         // Подписка на события в пользовательской Базе Данных
-         _db.listChangedEvent += UpdateFindComboBox;       // Обновляем список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
-         _db.listChangedEvent += UpdateUsersCountTextBox; // Обновляем Счетчик пользователей на гл странице.
+        // Использовать выборочное сохранение обьектов в Options. Весь класс сериализовать не рекомендуется т.к. перетирается пароль
+       //  HelperMethods.DeSerialize(ref _options, "Option.bin");
+       // FIXME проверка если опшин пароль равен нулю - прописать ручками умолчальный
+         
+       // Подписка на события в пользовательской Базе Данных
+         _db.ListChangedEvent += UpdateFindComboBox;       // Обновляем список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
+         _db.ListChangedEvent += UpdateFindComboBoxMenu;
+         _db.ListChangedEvent += UpdateUsersCountTextBox; // Обновляем Счетчик пользователей на гл странице.
          _db.OnListChanged(); // Событие запускающееся при изменении количества Клиентов в списке.
       }
 
       private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
       {
          // Сохраняем настройки. 
-         HelperMethods.Serialize<Options>(_options, "Option.bin");
+         //  HelperMethods.Serialize(_options, "Option.bin");
       }
 
-      public void RunClientForm(string keyName)
+      private void RunClientForm(string keyName)
       {
          if (_db.ContainsKey(keyName))
          {
@@ -52,19 +49,19 @@ namespace PBase
          }
          else
          {
-            MessageBox.Show("Ошибка. Неправильное имя клиента");
+            MessageBox.Show(@"Ошибка. Неправильное имя клиента");
          }
       }
 
       ///////////////// РАБОТА С MAIN FORM ////////////////////////////////
       private void UpdateFindComboBox(object sender, EventArgs arg)
       {
-         Action myDelegate = delegate ()
-          {
+         Action myDelegate = delegate
+         {
              comboBox_Find.Items.Clear();
 
-             comboBox_Find.Items.AddRange(UserList.Values.Select(c => c.Name).ToArray<string>());
-             this.Invalidate();
+             comboBox_Find.Items.AddRange(UserList.Values.Select(c => c.Name).ToArray());
+             Invalidate();
           };
 
          if (InvokeRequired)
@@ -76,10 +73,29 @@ namespace PBase
             myDelegate();
          }
       }
-
-      public void ClearFindCombo()
+      private void UpdateFindComboBoxMenu(object sender, EventArgs arg)
       {
-         Action myDelegate = delegate () { this.comboBox_Find.SelectedText = ""; };
+          Action myDelegate = delegate
+          {
+              toolStripComboBox1.Items.Clear();
+
+              toolStripComboBox1.Items.AddRange(UserList.Values.Select(c => c.Name).ToArray());
+              Invalidate();
+          };
+
+          if (InvokeRequired)
+          {
+              Invoke(myDelegate);
+          }
+          else
+          {
+              myDelegate();
+          }
+      }
+
+        public void ClearFindCombo()
+      {
+         Action myDelegate = delegate { comboBox_Find.SelectedText = ""; };
          if (InvokeRequired)
          {
             Invoke(myDelegate);
@@ -93,7 +109,7 @@ namespace PBase
       private void UpdateUsersCountTextBox(object sender, EventArgs arg)
       {
          textBox1.Text = _db.GetNumberOfPersons().ToString();
-         this.Invalidate();
+         Invalidate();
       }
 
       private void выходToolStripMenuItem_Click(object sender, EventArgs e)
@@ -129,5 +145,28 @@ namespace PBase
                 e.Handled = true;
           */
       }
-   }
+
+        private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                RunClientForm(toolStripComboBox1.SelectedItem.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            // FIXME: Сделать проверку на Enter
+            /*
+              if (Char.IsDigit(e.KeyChar) == true) return;
+               if (e.KeyChar == Convert.ToChar(Keys.Back)) return;
+               if (e.KeyChar == Convert.ToChar(Keys.Enter))
+               {
+                   _viewForm.OnSendCommand(textBox_WriteCMD.Text);
+                   return;
+               }
+                   e.Handled = true;
+             */
+        }
+    }
 }
