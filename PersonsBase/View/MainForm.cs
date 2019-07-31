@@ -23,13 +23,12 @@ namespace PBase
 
       private void MainForm_Load(object sender, EventArgs e)
       {
-        // Использовать выборочное сохранение обьектов в Options. Весь класс сериализовать не рекомендуется т.к. перетирается пароль
-       //  HelperMethods.DeSerialize(ref _options, "Option.bin");
-       // FIXME проверка если опшин пароль равен нулю - прописать ручками умолчальный
-         
-       // Подписка на события в пользовательской Базе Данных
-         _db.ListChangedEvent += UpdateFindComboBox;       // Обновляем список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
-         _db.ListChangedEvent += UpdateFindComboBoxMenu;
+         // Использовать выборочное сохранение обьектов в Options. Весь класс сериализовать не рекомендуется т.к. перетирается пароль
+         //  HelperMethods.DeSerialize(ref _options, "Option.bin");
+         // FIXME проверка если опшин пароль равен нулю - прописать ручками умолчальный
+
+         // Подписка на события в пользовательской Базе Данных
+         _db.ListChangedEvent += UpdateFindComboBoxMenu;  // Обновляем список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
          _db.ListChangedEvent += UpdateUsersCountTextBox; // Обновляем Счетчик пользователей на гл странице.
          _db.OnListChanged(); // Событие запускающееся при изменении количества Клиентов в списке.
       }
@@ -54,15 +53,16 @@ namespace PBase
       }
 
       ///////////////// РАБОТА С MAIN FORM ////////////////////////////////
-      private void UpdateFindComboBox(object sender, EventArgs arg)
+      
+      private void UpdateFindComboBoxMenu(object sender, EventArgs arg)
       {
          Action myDelegate = delegate
          {
-             comboBox_Find.Items.Clear();
+            toolStripComboBox1.Items.Clear();
 
-             comboBox_Find.Items.AddRange(UserList.Values.Select(c => c.Name).ToArray());
-             Invalidate();
-          };
+            toolStripComboBox1.Items.AddRange(UserList.Values.Select(c => c.Name).ToArray());
+            Invalidate();
+         };
 
          if (InvokeRequired)
          {
@@ -73,29 +73,10 @@ namespace PBase
             myDelegate();
          }
       }
-      private void UpdateFindComboBoxMenu(object sender, EventArgs arg)
+
+      public void ClearFindCombo()
       {
-          Action myDelegate = delegate
-          {
-              toolStripComboBox1.Items.Clear();
-
-              toolStripComboBox1.Items.AddRange(UserList.Values.Select(c => c.Name).ToArray());
-              Invalidate();
-          };
-
-          if (InvokeRequired)
-          {
-              Invoke(myDelegate);
-          }
-          else
-          {
-              myDelegate();
-          }
-      }
-
-        public void ClearFindCombo()
-      {
-         Action myDelegate = delegate { comboBox_Find.SelectedText = ""; };
+         Action myDelegate = delegate { toolStripComboBox1.SelectedText = ""; };
          if (InvokeRequired)
          {
             Invoke(myDelegate);
@@ -123,11 +104,11 @@ namespace PBase
          _db.AddPerson(new Person("Гомер Симпсон"));
       }
 
-      private void comboBox_Find_SelectedIndexChanged(object sender, EventArgs e)
+      private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
       {
          try
          {
-            RunClientForm(comboBox_Find.SelectedItem.ToString());
+            RunClientForm(toolStripComboBox1.SelectedItem.ToString());
          }
          catch (Exception ex)
          {
@@ -145,28 +126,5 @@ namespace PBase
                 e.Handled = true;
           */
       }
-
-        private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                RunClientForm(toolStripComboBox1.SelectedItem.ToString());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            // FIXME: Сделать проверку на Enter
-            /*
-              if (Char.IsDigit(e.KeyChar) == true) return;
-               if (e.KeyChar == Convert.ToChar(Keys.Back)) return;
-               if (e.KeyChar == Convert.ToChar(Keys.Enter))
-               {
-                   _viewForm.OnSendCommand(textBox_WriteCMD.Text);
-                   return;
-               }
-                   e.Handled = true;
-             */
-        }
-    }
+   }
 }
