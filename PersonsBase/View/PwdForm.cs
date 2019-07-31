@@ -24,21 +24,23 @@ namespace PersonsBase.View
          CkeckPwd();
       }
 
-      private void CkeckPwd()
-      { 
+      private bool CkeckPwd()
+      {
          if (_options.CheckPassword(textBox_pwd.Text))
          {
             _options.IsPasswordValid = true;
-    
+
             label1.ForeColor = Color.Black;
             label1.Text = @"Введите пароль Администратора";
             Close();
+            return true;
          }
          else
          {
             label1.ForeColor = Color.Red;
             label1.Text = @"Неправильный пароль";
             _options.IsPasswordValid = false;
+            return false;
          }
       }
 

@@ -35,8 +35,13 @@ namespace PBase
 
          UpdateControlState(this, EventArgs.Empty);
          LoadListboxQueue();
+
+         // Подписка на События
          _saveDelegateChain += SaveUserData; // Цепочка Делегатов для сохранения измененных данных.
          _person.StatusChanged += UpdateControlState;
+         _options.PasswordChangedEvent += PasswordChangedEvent;
+
+         // Очередь абонементов
          if (_person.AbonementsQueue == null) _person.AbonementsQueue = new ObservableCollection<AbonementBasic>();
          _person.AbonementsQueue.CollectionChanged += AbonementsQueue_CollectionChanged; // Список Абонементов. Если изменился
       }
@@ -78,8 +83,8 @@ namespace PBase
                break;
          }
 
-         //if (_person.AbonementsQueue.Count > 0) groupBox_abonList.Visible = true;
-         //else groupBox_abonList.Visible = false;
+         if (_person.AbonementsQueue.Count > 0) groupBox_abonList.Visible = true;
+         else groupBox_abonList.Visible = false;
       }
       private void UpdateControlState(object sender, EventArgs arg)
       {
@@ -102,6 +107,12 @@ namespace PBase
                      {
                         button_Freeze.Enabled = false;
                      }
+                     // Кнопка Заморозка для АБОНЕМЕНТА
+                     if (_person.AbonementCurent is AbonementByDays)
+                     {
+                        button_Freeze.Enabled = false;
+                     }
+
                      // Кнопка Добавить для Клубной Карты
                      if (_person.AbonementCurent is ClubCardAbonement)
                      {
@@ -111,9 +122,9 @@ namespace PBase
                      {
                         button_add_dop_tren.Visible = false;
                      }
-                     //// Список абонементов
-                     //if (_person.AbonementsQueue.Count > 0) groupBox_abonList.Visible = true;
-                     //else groupBox_abonList.Visible = false;
+                     // Список абонементов скрывается если:
+                     if (_person.AbonementsQueue.Count > 0) groupBox_abonList.Visible = true;
+                     else groupBox_abonList.Visible = false;
 
                      break;
                   }
@@ -168,7 +179,21 @@ namespace PBase
             myDelegate();
          }
       }
-
+      private void PasswordChangedEvent(object sender, EventArgs e)
+      {
+         if (_options.IsPasswordValid)
+         {
+            button__remove_abon.Enabled = true;
+            button1.Enabled = true;
+            groupBox_Detailed.Enabled = true;
+         }
+         else
+         {
+            button__remove_abon.Enabled = false;
+            button1.Enabled = false;
+            groupBox_Detailed.Enabled = false;
+         }
+      }
       // Перенастраивает контейнер для отображения Кнопки Добавить Аэробную или Персональную тренировку
       private void PersonCardioButton()
       {
@@ -309,7 +334,7 @@ namespace PBase
 
       #region // Хелп Методы для Загрузки и обновления пользовательских данных
       private IEnumerable<Tuple<string, string>> GetEmptyInfoList()
-      { 
+      {
          var result = new List<Tuple<string, string>>
           {
               new Tuple<string, string>("Текущий статус Клиента", _person.Status.ToString()),
@@ -566,10 +591,6 @@ namespace PBase
                (x as ComboBox).Select(0, 0);
                (x as ComboBox).BackColor = SystemColors.Window;
             }
-            if (x is TextBox)
-            {
-               (x as TextBox).BackColor = SystemColors.Window;
-            }
          });
       }
       public void SetControlsColorDefault()
@@ -751,6 +772,11 @@ namespace PBase
             PwdForm pwd = new PwdForm(_options);
             pwd.ShowDialog();
          }
+      }
+
+      private void button_Freeze_Click(object sender, EventArgs e)
+      {
+
       }
    }
 }
