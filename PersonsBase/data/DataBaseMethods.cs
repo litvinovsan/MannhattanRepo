@@ -34,7 +34,7 @@ namespace PBase
 
             foreach (var item in inputDict)
             {
-               var tempResponse = ResponseCode.NoDuplicate;
+               ResponseCode tempResponse;
                if (item.Value.Equals(person, out tempResponse))
                {
                   containsCopy = true;
@@ -91,17 +91,15 @@ namespace PBase
       public static bool EditDriveId(ref Person person, string newDriverId)
       {
          bool result = false;
-         if (person != null)
+         if (person == null) return false;
+         try
          {
-            try
-            {
-               person.DriverIdNum = newDriverId;
-               result = true;
-            }
-            catch (Exception e)
-            {
-                // ignored
-            }
+             person.DriverIdNum = newDriverId;
+             result = true;
+         }
+         catch (Exception)
+         {
+             // ignored
          }
          return result;
       }
@@ -133,7 +131,7 @@ namespace PBase
                person.PersonalNumber = newNumber;
                result = true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignored
             }
@@ -210,7 +208,10 @@ namespace PBase
                person.Passport = newPassport;
                result = true;
             }
-            catch (Exception e) { }
+            catch (Exception)
+            {
+                // ignored
+            }
          }
          return result;
       }

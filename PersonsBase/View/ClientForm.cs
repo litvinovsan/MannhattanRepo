@@ -227,7 +227,7 @@ namespace PBase
 
          // Пол
          comboBox_Gender.Items.Clear();
-         comboBox_Gender.Items.AddRange(Enum.GetNames(typeof(Gender))); // Обновляем комбобокс
+         comboBox_Gender.Items.AddRange(Enum.GetNames(typeof(Gender)).ToArray<object>()); // Обновляем комбобокс
          comboBox_Gender.SelectedItem = _person.GenderType.ToString();
 
          // Особые Отметки
