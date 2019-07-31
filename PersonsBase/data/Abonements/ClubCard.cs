@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PBase
 {
@@ -79,7 +75,7 @@ namespace PBase
 
       private void UpdateDaysLeft()
       {
-         DaysLeft = (int)(endDate.Date - DateTime.Now.Date).Days;
+         DaysLeft = (endDate.Date - DateTime.Now.Date).Days;
       }
 
       public override bool CheckInWorkout(TypeWorkout type)
@@ -155,16 +151,16 @@ namespace PBase
          List<Tuple<string, string>> result = new List<Tuple<string, string>>
           {
               new Tuple<string, string>("Тип: ", AbonementName),
-              new Tuple<string, string>("Доступные Тренировки ", this.trainingsType.ToString()),
-              new Tuple<string, string>("Время Тренировок ", this.timeTraining.ToString()),
-              new Tuple<string, string>("Услуги", this.spa.ToString()),
-              new Tuple<string, string>("Срок Клубной Карты", this.numberMonths.ToString() +"  мес."),
-              new Tuple<string, string>("Дата Окончания Карты", this.endDate.Date.ToString("d")),
+              new Tuple<string, string>("Доступные Тренировки ", trainingsType.ToString()),
+              new Tuple<string, string>("Время Тренировок ", timeTraining.ToString()),
+              new Tuple<string, string>("Услуги", spa.ToString()),
+              new Tuple<string, string>("Срок Клубной Карты", numberMonths +"  мес."),
+              new Tuple<string, string>("Дата Окончания Карты", endDate.Date.ToString("d")),
               new Tuple<string, string>("Осталось Дней", GetRemainderDays().ToString())
           };
          if (NumPersonalTr > 0) { result.Add(new Tuple<string, string>("Осталось Персональных", NumPersonalTr.ToString())); }
          if (NumAerobicTr > 0) { result.Add(new Tuple<string, string>("Осталось Аэробных", NumAerobicTr.ToString())); }
-         if (this.payStatus == Pay.Не_Оплачено) { result.Add(new Tuple<string, string>("Статус Оплаты ", this.payStatus.ToString())); }
+         if (payStatus == Pay.Не_Оплачено) { result.Add(new Tuple<string, string>("Статус Оплаты ", payStatus.ToString())); }
 
          return result;
       }

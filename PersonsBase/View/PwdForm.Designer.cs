@@ -1,11 +1,14 @@
-﻿namespace PersonsBase.View
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace PersonsBase.View
 {
    partial class PwdForm
    {
       /// <summary>
       /// Required designer variable.
       /// </summary>
-      private System.ComponentModel.IContainer components = null;
+      private IContainer components = null;
 
       /// <summary>
       /// Clean up any resources being used.
@@ -98,9 +101,9 @@
 
       #endregion
 
-      private System.Windows.Forms.TextBox textBox_pwd;
-      private System.Windows.Forms.Button button_Cancel;
-      private System.Windows.Forms.Button button_Ok;
-      private System.Windows.Forms.Label label1;
+      private TextBox textBox_pwd;
+      private Button button_Cancel;
+      private Button button_Ok;
+      private Label label1;
    }
 }

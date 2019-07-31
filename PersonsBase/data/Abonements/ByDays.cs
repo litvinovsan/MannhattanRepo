@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PBase
 {
@@ -15,7 +11,7 @@ namespace PBase
           : base(payStatus, time, typeTr, spa)
       {
          DaysLeft = (int)numDays;
-         typeAbonement = numDays;
+         TypeAbonement = numDays;
          NumAerobicTr = 0;  // Нужны тут только из-за абстракции. 
          NumPersonalTr = 0; // Нужны тут только из-за абстракции. 
          endDate = DateTime.Now.AddMonths(2).Date;
@@ -24,9 +20,9 @@ namespace PBase
       // Свойства
       public sealed override int NumAerobicTr { get; set; }
       public sealed override int NumPersonalTr { get; set; }
-      public override string AbonementName { get { return "Абонемент"; } }
+      public override string AbonementName => "Абонемент";
       public override string InfoWhenEnd => "Абонемент Закончился!";
-      private DaysInAbon typeAbonement { get; set; }
+      private DaysInAbon TypeAbonement { get; set; }
 
       // Методы
       public override void TryActivate()
@@ -41,7 +37,7 @@ namespace PBase
          bool result = false;
          if (isValid())
          {
-            this.DaysLeft--;
+            DaysLeft--;
             result = true;
          }
          return result;
@@ -73,23 +69,23 @@ namespace PBase
               new Tuple<string, string>("Услуги", spa.ToString()),
               new Tuple<string, string>("Дата Окончания", endDate.ToString("d"))
           };
-         if (payStatus == Pay.Не_Оплачено) { result.Add(new Tuple<string, string>("Статус Оплаты ", this.payStatus.ToString())); }
+         if (payStatus == Pay.Не_Оплачено) { result.Add(new Tuple<string, string>("Статус Оплаты ", payStatus.ToString())); }
          return result;
       }
 
       public override int GetRemainderDays()
       {
-         return (this.DaysLeft > 0) ? this.DaysLeft : 0;
+         return (DaysLeft > 0) ? DaysLeft : 0;
       }
 
       public DaysInAbon GetTypeAbonementByDays()
       {
-         return typeAbonement;
+         return TypeAbonement;
       }
 
       public void SetTypeAbonementByDays(DaysInAbon numberDaysType)
       {
-         this.typeAbonement = numberDaysType;
+         TypeAbonement = numberDaysType;
          DaysLeft = (int)numberDaysType;
       }
    }

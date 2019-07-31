@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PBase
 {
@@ -13,8 +11,6 @@ namespace PBase
       /// Полная и сама долгая проверка.
       /// Проверяются все значимые поля для создания персоны по базе.Возвращает статус Success/Duplicate или указывает на повторяющееся поле.
       /// </summary>
-      /// <param name="person"></param>
-      /// <returns></returns>
       public static bool IsContainsCopyOfValues(SortedList<string, Person> inputDict, Person person, out ResponseCode response)
       {
          bool containsCopy = false;
@@ -22,8 +18,7 @@ namespace PBase
          //Если пустая коллекция
          if (inputDict.Count == 0)
          {
-            containsCopy = false;
-            response = ResponseCode.NoDuplicate;
+             response = ResponseCode.NoDuplicate;
             return false;
          }
 
@@ -37,7 +32,7 @@ namespace PBase
          {
             //Ищем по Значению: Tel, Passp, Drive, ID,
 
-            foreach (KeyValuePair<string, Person> item in inputDict)
+            foreach (var item in inputDict)
             {
                var tempResponse = ResponseCode.NoDuplicate;
                if (item.Value.Equals(person, out tempResponse))
@@ -105,6 +100,7 @@ namespace PBase
             }
             catch (Exception e)
             {
+                // ignored
             }
          }
          return result;
@@ -117,9 +113,12 @@ namespace PBase
          {
             try
             {
-               result = (Person)inputCollection.Values.Single(x => x.PersonalNumber == number);
+               result = inputCollection.Values.Single(x => x.PersonalNumber == number);
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
          }
          return result;
       }
@@ -134,7 +133,10 @@ namespace PBase
                person.PersonalNumber = newNumber;
                result = true;
             }
-            catch (Exception e) { }
+            catch (Exception e)
+            {
+                // ignored
+            }
          }
          return result;
       }
@@ -147,9 +149,12 @@ namespace PBase
             string fname = HelperMethods.prepareName(fullName);
             try
             {
-               result = (Person)inputCollection.Values.Single(x => x.Name == fname);
+               result = inputCollection.Values.Single(x => x.Name == fname);
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
          }
          return result;
       }
@@ -166,18 +171,13 @@ namespace PBase
          {
             string localKey = HelperMethods.prepareName(key);
             // Копируем данные текущей персоны
-            Person personForEdit = null; // Копия текущей персоны                                                                        
+            Person personForEdit; // Копия текущей персоны                                                                        
             result = inputCollection.TryGetValue(localKey, out personForEdit);
             if (result)
             {
                personForEdit.Name = newName;
                inputCollection.Remove(localKey);
                inputCollection.Add(personForEdit.Key, personForEdit);
-               result = true;
-            }
-            else
-            {
-               result = false;
             }
          }
          return result;
@@ -190,9 +190,12 @@ namespace PBase
          {
             try
             {
-               result = (Person)inputCollection.Values.Single(x => x.Passport == passp);
+               result = inputCollection.Values.Single(x => x.Passport == passp);
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
          }
          return result;
       }
@@ -219,9 +222,12 @@ namespace PBase
          {
             try
             {
-               result = (Person)inputCollection.Values.Single(x => x.Phone == telnumber);
+               result = inputCollection.Values.Single(x => x.Phone == telnumber);
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
          }
          return result;
       }
@@ -236,7 +242,10 @@ namespace PBase
                person.Passport = newPhone;
                result = true;
             }
-            catch (Exception e) { }
+            catch (Exception)
+            {
+                // ignored
+            }
          }
          return result;
       }

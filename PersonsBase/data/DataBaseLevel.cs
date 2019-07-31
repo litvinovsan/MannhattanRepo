@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PBase
@@ -20,24 +16,24 @@ namespace PBase
       ///////////////////////////// ОБЬЕКТЫ ///////////////////////////
       [NonSerialized]
       private object locker = new object();               // блокировка коллекции на время сериализации.
-      private static SortedList<string, Person> dataBase; //Хранение клиентской базы
+      private static SortedList<string, Person> _dataBase; //Хранение клиентской базы
       [NonSerialized]
-      private static DataBaseClass dbInstance;                 //Singleton. DataBase dataBase = DataBase.getInstance();      
+      private static DataBaseClass _dbInstance;                 //Singleton. DataBase dataBase = DataBase.getInstance();      
       [NonSerialized]
-      private string nameToShow;     // При записи Имени, вызывается форма Клиента
+      private string _nameToShow;     // При записи Имени, вызывается форма Клиента
       [NonSerialized]
-      private BinaryFormatter Formatter;
+      private BinaryFormatter _formatter;
       public string NameToShow
       {
          get
          {
-            return nameToShow;
+            return _nameToShow;
          }
          set
          {
-            if (dataBase.ContainsKey(value))
+            if (_dataBase.ContainsKey(value))
             {
-               nameToShow = value;
+               _nameToShow = value;
             }
          }
       }
@@ -45,34 +41,33 @@ namespace PBase
       /////////////////////////// КОНСТРУКТОР ///////////////////////////
       private DataBaseClass()
       {
-         dataBase = new SortedList<string, Person>(StringComparer.OrdinalIgnoreCase);
-         HelperMethods.DeSerialize<SortedList<string, Person>>(ref dataBase, "ClientsDataBase.bin");
+         _dataBase = new SortedList<string, Person>(StringComparer.OrdinalIgnoreCase);
+         HelperMethods.DeSerialize(ref _dataBase, "ClientsDataBase.bin");
       }
 
       ~DataBaseClass()
       {
-         HelperMethods.Serialize<SortedList<string, Person>>(dataBase, "ClientsDataBase.bin");
+         HelperMethods.Serialize(_dataBase, "ClientsDataBase.bin");
       }
 
-      public static DataBaseClass getInstance()
-      /// Return instanse of data base,which contains all clients
+      public static DataBaseClass GetInstance()
       {
-          return dbInstance ?? (dbInstance = new DataBaseClass());
+          return _dbInstance ?? (_dbInstance = new DataBaseClass());
       }
       
       /// /////////////////////////// CОБЫТИЯ ///////////////////////////
       public delegate void MyEventDelegate(object sender, EventArgs e);
-      public event MyEventDelegate listChangedEvent;
+      public event MyEventDelegate ListChangedEvent;
       public void OnListChanged()
       {
-        listChangedEvent?.Invoke(this, EventArgs.Empty);
+        ListChangedEvent?.Invoke(this, EventArgs.Empty);
       }
       
       /*/////////////////////////// МЕТОДЫ     ///////////////////////////*/
 
-      public SortedList<string, Person> GetCollectionRW()
+      public SortedList<string, Person> GetCollectionRw()
       {
-         return (SortedList<string, Person>)dataBase;
+         return _dataBase;
       }
       public bool Serialize()
       {
@@ -81,12 +76,12 @@ namespace PBase
          {
             using (MemoryStream ms = new MemoryStream())
             {
-               Formatter = new BinaryFormatter();
-               Formatter.Serialize(ms, dataBase);// Если ошибка, вываливаемся тут и не стираем файл базы
+               _formatter = new BinaryFormatter();
+               _formatter.Serialize(ms, _dataBase);// Если ошибка, вываливаемся тут и не стираем файл базы
                // Сохраняем в файл поток из памяти
                using (FileStream fileStream = new FileStream("ClientsDataBase.bin", FileMode.OpenOrCreate, FileAccess.Write))
                {
-                  Formatter.Serialize(fileStream, dataBase);
+                  _formatter.Serialize(fileStream, _dataBase);
                }
                result = true;
             }
@@ -103,18 +98,18 @@ namespace PBase
 
       public bool DeSerialize()
       {
-         dataBase.Clear();
+         _dataBase.Clear();
          try
          {
-            Formatter = new BinaryFormatter();
+            _formatter = new BinaryFormatter();
             using (FileStream fileStream = new FileStream("ClientsDataBase.bin", FileMode.OpenOrCreate, FileAccess.Read))
             {
-               dataBase = (SortedList<string, Person>)Formatter.Deserialize(fileStream);
-               Console.WriteLine("  Объект десериализован " + dataBase.Count.ToString() + "клиентов.");
+               _dataBase = (SortedList<string, Person>)_formatter.Deserialize(fileStream);
+               Console.WriteLine("  Объект десериализован " + _dataBase.Count + "клиентов.");
             }
             return true;
          }
-         catch (Exception e)
+         catch (Exception)
          {
             return false;
          }
@@ -130,12 +125,12 @@ namespace PBase
       
          lock (locker)
          {
-           var containsCopy = DataMethods.IsContainsCopyOfValues(dataBase, person, out response);
+           bool containsCopy = DataMethods.IsContainsCopyOfValues(_dataBase, person, out response);
             if (containsCopy == false && (!string.IsNullOrEmpty(person.Key)))
             {
                try
                {
-                  dataBase.Add(person.Key, person);
+                  _dataBase.Add(person.Key, person);
                   response = ResponseCode.Success;
                   OnListChanged();
                }
@@ -156,11 +151,11 @@ namespace PBase
          lock (locker)
          {
             Person tempPerson;                   
-            if (dataBase.TryGetValue(key, out tempPerson))
+            if (_dataBase.TryGetValue(key, out tempPerson))
             {
                try
                {
-                  if (dataBase.Remove(key))
+                  if (_dataBase.Remove(key))
                   {
                      result = ResponseCode.Success;
                      OnListChanged();
@@ -180,8 +175,8 @@ namespace PBase
       public bool EditName(string lastName, string newName)
       {
          bool result = false;
-         result = DataMethods.EditName(dataBase, lastName, newName);
-         if (result == true) OnListChanged();
+         result = DataMethods.EditName(_dataBase, lastName, newName);
+         if (result) OnListChanged();
          return result;
       }
 
@@ -191,12 +186,12 @@ namespace PBase
       /// <returns></returns>
       public int GetNumberOfPersons()
       {
-         return dataBase.Count;
+         return _dataBase.Count;
       }
 
       public bool ContainsKey(string key)
       {
-         return dataBase.ContainsKey(key);
+         return _dataBase.ContainsKey(key);
       }
 
       public void AddTestCollection()

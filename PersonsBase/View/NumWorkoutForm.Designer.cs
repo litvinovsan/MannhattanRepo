@@ -1,11 +1,14 @@
-﻿namespace PBase
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace PBase
 {
    partial class NumWorkoutForm
    {
       /// <summary>
       /// Required designer variable.
       /// </summary>
-      private System.ComponentModel.IContainer components = null;
+      private IContainer components = null;
 
       /// <summary>
       /// Clean up any resources being used.
@@ -143,12 +146,12 @@
       }
 
       #endregion
-      private System.Windows.Forms.ComboBox comboBox_num;
-      private System.Windows.Forms.Button button1;
-      private System.Windows.Forms.Button button2;
-      private System.Windows.Forms.GroupBox groupBox1;
-      private System.Windows.Forms.GroupBox groupBox2;
-      private System.Windows.Forms.RadioButton radioButton_personal;
-      private System.Windows.Forms.RadioButton radioButton_aerob;
+      private ComboBox comboBox_num;
+      private Button button1;
+      private Button button2;
+      private GroupBox groupBox1;
+      private GroupBox groupBox2;
+      private RadioButton radioButton_personal;
+      private RadioButton radioButton_aerob;
    }
 }

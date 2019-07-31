@@ -1,35 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace PBase
 {
    public static class DataBaseObject
    {
-      public static readonly DataBaseClass _dataBase;
-      public static SortedList<string, Person> _collectionObj;
+      private static readonly DataBaseClass DataBase;
+      private static readonly SortedList<string, Person> CollectionObj;
 
-      public static Person _person;
+      private static Person _person;
 
       static DataBaseObject()
       {
-         _dataBase = DataBaseClass.getInstance();
-         _collectionObj = _dataBase.GetCollectionRW();
+         DataBase = DataBaseClass.GetInstance();
+         CollectionObj = DataBase.GetCollectionRw();
       }
 
       /// <summary>
       /// Настраиваем статический класс DataBaseObject на конкретную Персону
       /// </summary>
-      public static Person SetPersonLink(string Name)
+      public static Person SetPersonLink(string name)
       {
-         if (_dataBase.ContainsKey(Name))
-         {
-            _person = _collectionObj[Name];
-            return _person;
-         }
-         else return null;
+          if (DataBase.ContainsKey(name))
+          {
+              _person = CollectionObj[name];
+              return _person;
+          }
+
+          return null;
       }
    }
 }

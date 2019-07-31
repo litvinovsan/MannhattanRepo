@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PBase
@@ -68,8 +63,8 @@ namespace PBase
          // Удалим из Массива Активный и Заморожен если у клиента нет абонемента.
          if (_person.AbonementCurent == null)
          {
-            var updatedarray = array.Where((x) => (x != StatusPerson.Активный.ToString()) && ((x != StatusPerson.Заморожен.ToString()))).Select(x => x);
-            array = updatedarray.ToArray<string>();
+            var updatedarray = array.Where(x => (x != StatusPerson.Активный.ToString()) && ((x != StatusPerson.Заморожен.ToString()))).Select(x => x);
+            array = updatedarray.ToArray();
          }
 
          // Записываем Поля в Комбобокс
@@ -297,7 +292,8 @@ namespace PBase
       #region // Метод. Дата Окончания Карты
 
       DateTime _editedEndDate;
-      Tuple<Label, Control> CreateEndDateField()
+
+      private Tuple<Label, Control> CreateEndDateField()
       {
          const string labelText = "Дата Окончания Карты ";
          Label lableType = CreateLabel(labelText);
@@ -437,7 +433,7 @@ namespace PBase
 
       #region // Метод. Дата Покупки Карты
 
-      //DateTime editedBuyDate;
+      DateTime editedBuyDate;
       private Tuple<Label, Control> CreateBuyDateField()
       {
          const string labelText = "Дата Покупки Карты ";
@@ -616,31 +612,31 @@ namespace PBase
       // TextBox
       private static TextBox CreateTextBox(bool isReadOnly)
       {
-         return new TextBox()
+         return new TextBox
          {
             BorderStyle = BorderStyle.Fixed3D,
             ReadOnly = isReadOnly,
             Dock = DockStyle.Fill,
             TextAlign=HorizontalAlignment.Center,
-            Font = new Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)))
+            Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 204)
          };
       }
       // Label
       private static Label CreateLabel(string labelText)
       {
-         return new Label()
+         return new Label
          {
             Text = labelText,
             Anchor = AnchorStyles.Left,
             AutoSize = true,
             TextAlign = ContentAlignment.TopLeft,
-            Font = new Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)))
+            Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 204)
          };
       }
       // ComboBox
       private static ComboBox CreateComboBox()
       {
-         var cmbx = new ComboBox()
+         var cmbx = new ComboBox
          {
             Dock = DockStyle.Fill,
             DropDownStyle = ComboBoxStyle.DropDown
@@ -651,7 +647,7 @@ namespace PBase
       // DateTimePicker
       private static DateTimePicker CreateDateTimePicker()
       {
-         return new DateTimePicker()
+         return new DateTimePicker
          {
             Dock = DockStyle.Fill,
             Format = DateTimePickerFormat.Custom,

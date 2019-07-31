@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PBase
 {
@@ -14,7 +8,7 @@ namespace PBase
    public class Person : IEquatable<Person>
    {
       //////// СОБЫТИЯ без флага НЕ СОЗДАВАТЬ !!!!!!   Проблемы с сериализацией //
-      [field: NonSerialized()]
+      [field: NonSerialized]
       public event EventHandler StatusChanged;
       public void OnStatusChanged()
       {
@@ -68,7 +62,7 @@ namespace PBase
          set
          {
             //TODO: Написать обработку номера телефона. Проверка на +7,8, пробелы, дефисы, так же на городской номер.
-            this._phone = string.IsNullOrEmpty(value) ? "" : value;
+            _phone = string.IsNullOrEmpty(value) ? "" : value;
          }
       }
       public string Passport { get; set; }
@@ -117,15 +111,15 @@ namespace PBase
       ///Обновляем статус клиента.
       public StatusPerson UpdateActualStatus()
       {
-         if (AbonementCurent == null && (this._status == StatusPerson.Активный))
+         if (AbonementCurent == null && (_status == StatusPerson.Активный))
          {
-            this._status = StatusPerson.Нет_Карты;
+            _status = StatusPerson.Нет_Карты;
             return _status;
          }
          if (AbonementCurent == null) return _status;
-         if (AbonementCurent.isValid() && this._status != StatusPerson.Заморожен && this._status != StatusPerson.Запрещён)
+         if (AbonementCurent.isValid() && _status != StatusPerson.Заморожен && _status != StatusPerson.Запрещён)
          {
-            this._status = StatusPerson.Активный;
+            _status = StatusPerson.Активный;
          }
          return _status;
       }
@@ -167,64 +161,59 @@ namespace PBase
          bool driverIdResult = false;
          bool personalNumber = false;
 
-         if (other.PersonalNumber == 0 && this.PersonalNumber == 0)
+         if (other.PersonalNumber == 0 && PersonalNumber == 0)
          {
             personalNumber = true;
          }
          else
          {
-            personalNumber = other.PersonalNumber == this.PersonalNumber;
+            personalNumber = other.PersonalNumber == PersonalNumber;
          }
 
-         if (other.Passport == null && this.Passport == null)
+         if (other.Passport == null && Passport == null)
          {
             passpResult = true;
          }
          else
          {
-            passpResult = (other.Passport == this.Passport);
+            passpResult = (other.Passport == Passport);
          }
 
-         if (other.Phone == null && this.Phone == null)
+         if (other.Phone == null && Phone == null)
          {
             phoneResult = true;
          }
          else
          {
-            phoneResult = (other.Phone == this.Phone);
+            phoneResult = (other.Phone == Phone);
          }
 
-         if (other.Name == null && this.Name == null)
+         if (other.Name == null && Name == null)
          {
             fullNameResult = true;
          }
          else
          {
-            fullNameResult = (this.Name == other.Name);
+            fullNameResult = (Name == other.Name);
          }
 
-
-         if (other.DriverIdNum == null && this.DriverIdNum == null)
+         if (other.DriverIdNum == null && DriverIdNum == null)
          {
             driverIdResult = true;
          }
          else
          {
-            driverIdResult = (this.DriverIdNum == other.DriverIdNum);
+            driverIdResult = (DriverIdNum == other.DriverIdNum);
          }
 
-         if (driverIdResult && fullNameResult && phoneResult && passpResult)
-            return true;
-         else
-            return false;
+         return driverIdResult && fullNameResult && phoneResult && passpResult;
       }
       /// <summary>
       /// Возвращает true если обнаружено совпадение по какому-либо полю. Так же возвращает код совпадающего поля.
       /// </summary>
       public bool Equals(Person other, out ResponseCode response)
       {
-         //TODO /*this.Id == other.Id &&*/
-         response = ResponseCode.Fail;
+          response = ResponseCode.Fail;
          if (other == null) return false;
 
          if (Equals(other))
@@ -232,57 +221,50 @@ namespace PBase
             response = ResponseCode.Duplicate;
             return true;
          }
-         else
+
+         if (PersonalNumber != 0 && other.PersonalNumber != 0 && PersonalNumber == other.PersonalNumber)
          {
-            if (this.PersonalNumber != 0 && other.PersonalNumber != 0 && this.PersonalNumber == other.PersonalNumber)
-            {
-               response = ResponseCode.IdNumberExist;
-               return true;
-            }
-            else if (this.Name == other.Name)
-            {
-               response = ResponseCode.KeyExist;
-               return true;
-            }
-            else
-            {
-               if (this.Phone != "" && other.Phone != "" && this.Phone == other.Phone)
-               {
-                  response = ResponseCode.PhoneExist;
-                  return true;
-               }
-               else
-               {
-                  if (this.Passport != "" && other.Passport != "" && this.Passport == other.Passport)
-                  {
-                     response = ResponseCode.PassportExist;
-                     return true;
-                  }
-                  else
-                  {
-                     if (this.DriverIdNum != "" && other.DriverIdNum != "" && this.DriverIdNum == other.DriverIdNum)
-                     {
-                        response = ResponseCode.DriverIdExist;
-                        return true;
-                     }
-                  }
-               }
-            }
-            response = ResponseCode.NoDuplicate;
-            return false;
+             response = ResponseCode.IdNumberExist;
+             return true;
          }
+
+         if (Name == other.Name)
+         {
+             response = ResponseCode.KeyExist;
+             return true;
+         }
+
+         if (Phone != "" && other.Phone != "" && Phone == other.Phone)
+         {
+             response = ResponseCode.PhoneExist;
+             return true;
+         }
+
+         if (Passport != "" && other.Passport != "" && Passport == other.Passport)
+         {
+             response = ResponseCode.PassportExist;
+             return true;
+         }
+
+         if (DriverIdNum != "" && other.DriverIdNum != "" && DriverIdNum == other.DriverIdNum)
+         {
+             response = ResponseCode.DriverIdExist;
+             return true;
+         }
+         response = ResponseCode.NoDuplicate;
+         return false;
       }
       public static bool operator ==(Person person1, Person person2)
       {
          if (((object)person1) == null || ((object)person2) == null)
-            return Object.Equals(person1, person2);
+            return Equals(person1, person2);
 
          return person1.Equals(person2);
       }
       public static bool operator !=(Person person1, Person person2)
       {
          if (((object)person1) == null || ((object)person2) == null)
-            return !Object.Equals(person1, person2);
+            return !Equals(person1, person2);
 
          return !(person1.Equals(person2));
       }
@@ -291,10 +273,11 @@ namespace PBase
       {
          if (ReferenceEquals(null, obj)) return false;
          if (ReferenceEquals(this, obj)) return true;
-         if (obj.GetType() != this.GetType()) return false;
+         if (obj.GetType() != GetType()) return false;
          return Equals((Person)obj);
       }
 
+      [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
       public override int GetHashCode()
       {
          unchecked
