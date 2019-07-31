@@ -47,7 +47,7 @@ namespace PBase
          var list = new List<string>();
          foreach (var x in _person.AbonementsQueue) list.Add(x.AbonementName);
 
-         listBox_abonements.Items.AddRange(list.ToArray());
+         listBox_abonements.Items.AddRange(list.ToArray<object>());
       }
 
       private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -227,7 +227,7 @@ namespace PBase
 
          // Пол
          comboBox_Gender.Items.Clear();
-         comboBox_Gender.Items.AddRange(Enum.GetNames(typeof(Gender))); // Обновляем комбобокс
+         comboBox_Gender.Items.AddRange(Enum.GetNames(typeof(Gender)).ToArray<object>()); // Обновляем комбобокс
          comboBox_Gender.SelectedItem = _person.GenderType.ToString();
 
          // Особые Отметки

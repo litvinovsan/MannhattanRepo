@@ -174,8 +174,7 @@ namespace PBase
 
       public bool EditName(string lastName, string newName)
       {
-         bool result = false;
-         result = DataMethods.EditName(_dataBase, lastName, newName);
+         bool result = DataMethods.EditName(_dataBase, lastName, newName);
          if (result) OnListChanged();
          return result;
       }

@@ -60,7 +60,7 @@ namespace PBase
          {
             toolStripComboBox1.Items.Clear();
 
-            toolStripComboBox1.Items.AddRange(UserList.Values.Select(c => c.Name).ToArray());
+            toolStripComboBox1.Items.AddRange(UserList.Values.Select(c => c.Name).ToArray<object>());
             Invalidate();
          };
 
@@ -76,7 +76,7 @@ namespace PBase
 
       public void ClearFindCombo()
       {
-         Action myDelegate = delegate { toolStripComboBox1.SelectedText = ""; };
+         Action myDelegate = () => toolStripComboBox1.SelectedText = "";
          if (InvokeRequired)
          {
             Invoke(myDelegate);

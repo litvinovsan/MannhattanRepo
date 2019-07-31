@@ -5,12 +5,10 @@ using System.Collections.Generic;
 namespace PBase
 {
 
-    /// <summary>
     /// Хранятся настройки приложения, а так же общие структуры, списки,и прочие данные.
     /// Использовать выборочное сохранение обьектов в Options. Весь класс сериализовать не рекомендуется т.к. перетирается пароль
     //  HelperMethods.DeSerialize(ref _options, "Option.bin");
     //  FIXME проверка если опшин пароль равен нулю - прописать ручками умолчальный
-    /// </summary>
     [Serializable]
    public class Options
    {
