@@ -227,8 +227,8 @@ namespace PBase
 
          _saveDelegateChain += () =>
          {
-             if (_person.AbonementCurent == null || _editedTimeForTr == _person.AbonementCurent.timeTraining) return;
-             _person.AbonementCurent.timeTraining = _editedTimeForTr;
+            if (_person.AbonementCurent == null || _editedTimeForTr == _person.AbonementCurent.timeTraining) return;
+            _person.AbonementCurent.timeTraining = _editedTimeForTr;
             ComboBoxColor(comboBox, _person.AbonementCurent.timeTraining.ToString(), comboBox.SelectedItem.ToString());
          };
 
@@ -260,13 +260,13 @@ namespace PBase
          var clubCard = _person.AbonementCurent as ClubCardAbonement;
          if (clubCard != null)
          {
-             comboBox.SelectedItem = clubCard.GetTypeClubCard().ToString(); // Выбор по умолчанию
+            comboBox.SelectedItem = clubCard.GetTypeClubCard().ToString(); // Выбор по умолчанию
             _editedTypeClubCard = clubCard.GetTypeClubCard();
 
             _saveDelegateChain += () =>
             {
-                if (_person.AbonementCurent == null || _editedTypeClubCard == clubCard.GetTypeClubCard()) return;
-                clubCard.SetTypeClubCard(_editedTypeClubCard);
+               if (_person.AbonementCurent == null || _editedTypeClubCard == clubCard.GetTypeClubCard()) return;
+               clubCard.SetTypeClubCard(_editedTypeClubCard);
                ComboBoxColor(comboBox, clubCard.GetTypeClubCard().ToString(), _editedTypeClubCard.ToString());
 
                (_person.AbonementCurent as ClubCardAbonement)?.UpdateEndDate();
@@ -298,25 +298,30 @@ namespace PBase
          const string labelText = "Дата Окончания Карты ";
          Label lableType = CreateLabel(labelText);
          DateTimePicker dateTime = CreateDateTimePicker();
+
+         _person.AbonementCurent.endDate = (_person.AbonementCurent.endDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? _person.AbonementCurent.endDate.Date : dateTime.Value;
+
+
          dateTime.Value = _person.AbonementCurent.endDate.Date;
          _editedEndDate = _person.AbonementCurent.endDate.Date;
-         //dateTime.ValueChanged += DateTime_EndDate_ValueChanged;
 
-         //SaveDelegateChain += () =>
-         //{
-         //   if (_person.abonementCurent != null && editedEndDate.CompareTo(_person.abonementCurent.endDate.Date) != 0) 
-         //   {
-         //      _person.abonementCurent.endDate = editedEndDate;
-         //   };
-         //};
+         dateTime.ValueChanged += DateTime_EndDate_ValueChanged;
+
+         _saveDelegateChain += () =>
+         {
+            if (IsCurrentAbonementExist() && _editedEndDate.CompareTo(_person.AbonementCurent.endDate.Date) != 0)
+            {
+               _person.AbonementCurent.endDate = _editedEndDate;
+            };
+         };
          return new Tuple<Label, Control>(lableType, dateTime);
       }
 
-      //private void DateTime_EndDate_ValueChanged(object sender, EventArgs e)
-      //{
-      //   var tb = (DateTimePicker)sender;
-      //   editedEndDate = tb.Value.Date;
-      //}
+      private void DateTime_EndDate_ValueChanged(object sender, EventArgs e)
+      {
+         var tb = (DateTimePicker)sender;
+         _editedEndDate = tb.Value.Date;
+      }
 
       #endregion
 
@@ -433,31 +438,34 @@ namespace PBase
 
       #region // Метод. Дата Покупки Карты
 
-      DateTime editedBuyDate;
+      private DateTime _editedBuyDate;
       private Tuple<Label, Control> CreateBuyDateField()
       {
          const string labelText = "Дата Покупки Карты ";
          Label lableType = CreateLabel(labelText);
          DateTimePicker dateTime = CreateDateTimePicker();
-         dateTime.Value = _person.AbonementCurent.buyDate.Date;
-         _editedEndDate = _person.AbonementCurent.buyDate.Date;
-         //dateTime.ValueChanged += DateTime_BuyDate_ValueChanged;
+         _person.AbonementCurent.buyDate = (_person.AbonementCurent.buyDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? _person.AbonementCurent.buyDate.Date : dateTime.Value;
 
-         //SaveDelegateChain += () =>
-         //{
-         //   if (_person.abonementCurent != null && editedBuyDate.CompareTo(_person.abonementCurent.buyDate.Date) != 0) 
-         //   {
-         //      _person.abonementCurent.buyDate = editedBuyDate;
-         //   };
-         //};
+         dateTime.Value = _person.AbonementCurent.buyDate.Date;
+         _editedBuyDate = _person.AbonementCurent.buyDate.Date;
+
+         dateTime.ValueChanged += DateTime_BuyDate_ValueChanged;
+
+         _saveDelegateChain += () =>
+         {
+            if (IsCurrentAbonementExist() && _editedBuyDate.CompareTo(_person.AbonementCurent.buyDate.Date) != 0)
+            {
+               _person.AbonementCurent.buyDate = _editedBuyDate;
+            };
+         };
          return new Tuple<Label, Control>(lableType, dateTime);
       }
 
-      //private void DateTime_BuyDate_ValueChanged(object sender, EventArgs e)
-      //{
-      //   var tb = (DateTimePicker)sender;
-      //   editedBuyDate = tb.Value.Date;
-      //}
+      private void DateTime_BuyDate_ValueChanged(object sender, EventArgs e)
+      {
+         var tb = (DateTimePicker)sender;
+         _editedBuyDate = tb.Value.Date;
+      }
 
       #endregion
 
@@ -617,7 +625,7 @@ namespace PBase
             BorderStyle = BorderStyle.Fixed3D,
             ReadOnly = isReadOnly,
             Dock = DockStyle.Fill,
-            TextAlign=HorizontalAlignment.Center,
+            TextAlign = HorizontalAlignment.Center,
             Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 204)
          };
       }
@@ -651,7 +659,8 @@ namespace PBase
          {
             Dock = DockStyle.Fill,
             Format = DateTimePickerFormat.Custom,
-            CustomFormat = "dd MMM yyyy"
+            CustomFormat = "dd MMM yyyy",
+            Value = DateTime.Now
          };
       }
    }

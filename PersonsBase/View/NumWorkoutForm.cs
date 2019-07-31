@@ -26,7 +26,7 @@ namespace PBase
       public void ApplyChanges()
       {
 
-
+         if (_abonement == null) return;
          if (_selectedTypeWorkout == TypeWorkout.Персональная)
          {
             _abonement.NumPersonalTr += _selectedValue;
@@ -44,8 +44,8 @@ namespace PBase
 
       private void button1_Click(object sender, EventArgs e)
       {
-       // _selectedValue = Int32.Parse(comboBox_num.SelectedItem.ToString());
-      //   var tmp = comboBox_num.SelectedValue.ToString();
+         // _selectedValue = Int32.Parse(comboBox_num.SelectedItem.ToString());
+         //   var tmp = comboBox_num.SelectedValue.ToString();
       }
 
       private void radioButtons_CheckedChanged(object sender, EventArgs e)

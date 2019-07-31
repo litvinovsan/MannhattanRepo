@@ -44,6 +44,7 @@ namespace PBase
          // Очередь абонементов
          if (_person.AbonementsQueue == null) _person.AbonementsQueue = new ObservableCollection<AbonementBasic>();
          _person.AbonementsQueue.CollectionChanged += AbonementsQueue_CollectionChanged; // Список Абонементов. Если изменился
+
       }
 
       private void LoadListboxQueue()
@@ -83,14 +84,25 @@ namespace PBase
                break;
          }
 
-         if (_person.AbonementsQueue.Count > 0) groupBox_abonList.Visible = true;
-         else groupBox_abonList.Visible = false;
+         // Скрытие Списка абонементов
+         //HideQueueAbonements();
       }
       private void UpdateControlState(object sender, EventArgs arg)
       {
          // Различные изменения, которые зависят от СТАТУСА клиента.
          Action myDelegate = delegate
          {
+            // По умолчанию для всех карт
+            button_add_dop_tren.Visible = false;
+            button_CheckInWorkout.Enabled = false;
+            button_CheckInWorkout.Visible = false;
+            button_Add_Abon.Enabled = false;
+            button_Freeze.Enabled = false;
+            button_Freeze.Visible = false;
+
+            groupBox_abonList.Visible = false;
+
+
             // Вкл/Выкл Кнопки ЗАМОРОЗКА и ПОСЕЩЕНИЕ если проблемы с абонементом
             switch (_person.UpdateActualStatus())
             {
@@ -98,19 +110,15 @@ namespace PBase
                   {
                      button_Add_Abon.Enabled = true;
                      button_CheckInWorkout.Enabled = true;
+                     button_CheckInWorkout.Visible = true;
+                     groupBox_abonList.Visible = true;
 
-                     button_Freeze.Enabled = true;
-                     button_Freeze.Text = @"Заморозить";
-
-                     // Кнопка Заморозка для РАЗОВОГО ЗАНЯТИЯ
-                     if (_person.AbonementCurent is SingleVisit)
+                     // Кнопка Заморозка Клубной Карты
+                     if (_person.AbonementCurent is ClubCardAbonement)
                      {
-                        button_Freeze.Enabled = false;
-                     }
-                     // Кнопка Заморозка для АБОНЕМЕНТА
-                     if (_person.AbonementCurent is AbonementByDays)
-                     {
-                        button_Freeze.Enabled = false;
+                        button_Freeze.Visible = true;
+                        button_Freeze.Enabled = true;
+                        button_Freeze.Text = @"Заморозить";
                      }
 
                      // Кнопка Добавить для Клубной Карты
@@ -118,56 +126,41 @@ namespace PBase
                      {
                         button_add_dop_tren.Visible = true;
                      }
-                     else
-                     {
-                        button_add_dop_tren.Visible = false;
-                     }
-                     // Список абонементов скрывается если:
-                     if (_person.AbonementsQueue.Count > 0) groupBox_abonList.Visible = true;
-                     else groupBox_abonList.Visible = false;
+
+                     // HideQueueAbonements();
 
                      break;
                   }
                case StatusPerson.Нет_Карты:
                   {
                      button_Add_Abon.Enabled = true;
-                     button_CheckInWorkout.Enabled = false;
-
-                     button_Freeze.Enabled = false;
                      button_Freeze.Text = @"Заморозить";
                      break;
                   }
                case StatusPerson.Заморожен:
                   {
-                     button_Add_Abon.Enabled = false;
-                     button_CheckInWorkout.Enabled = false;
+                     button_Freeze.Visible = IsCurrentAbonementExist();
                      button_Freeze.Enabled = IsCurrentAbonementExist();
                      button_Freeze.Text = @"Разморозить";
+
+                     groupBox_abonList.Visible = true;
                      break;
                   }
                case StatusPerson.Гостевой:
                   {
                      button_Add_Abon.Enabled = true;
-                     button_CheckInWorkout.Enabled = false;
-                     button_Freeze.Enabled = false;
                      break;
                   }
                case StatusPerson.Запрещён:
                   {
-                     button_Add_Abon.Enabled = false;
-                     button_CheckInWorkout.Enabled = false;
-                     button_Freeze.Enabled = false;
                      break;
                   }
                case StatusPerson.Вероятный_Клиент:
                   {
                      button_Add_Abon.Enabled = true;
-                     button_CheckInWorkout.Enabled = false;
-                     button_Freeze.Enabled = false;
                      break;
                   }
             }
-            PersonCardioButton();
          };
 
          if (InvokeRequired)
@@ -179,6 +172,14 @@ namespace PBase
             myDelegate();
          }
       }
+
+      private void HideQueueAbonements()
+      {
+         // Список абонементов скрывается если:
+         if (_person.AbonementsQueue.Count > 0) groupBox_abonList.Visible = true;
+         else groupBox_abonList.Visible = false;
+      }
+
       private void PasswordChangedEvent(object sender, EventArgs e)
       {
          if (_options.IsPasswordValid)
@@ -192,24 +193,6 @@ namespace PBase
             button__remove_abon.Enabled = false;
             button1.Enabled = false;
             groupBox_Detailed.Enabled = false;
-         }
-      }
-      // Перенастраивает контейнер для отображения Кнопки Добавить Аэробную или Персональную тренировку
-      private void PersonCardioButton()
-      {
-         if (button_add_dop_tren.Visible)
-         {
-            tableLayoutPanel2.RowStyles[0] = new RowStyle(SizeType.Percent, 25);
-            tableLayoutPanel2.RowStyles[1] = new RowStyle(SizeType.Percent, 25);
-            tableLayoutPanel2.RowStyles[2] = new RowStyle(SizeType.Percent, 25);
-            tableLayoutPanel2.RowStyles[3] = new RowStyle(SizeType.Percent, 25);
-         }
-         else
-         {
-            tableLayoutPanel2.RowStyles[0] = new RowStyle(SizeType.Percent, 100);
-            tableLayoutPanel2.RowStyles[1] = new RowStyle(SizeType.Percent, 0);
-            tableLayoutPanel2.RowStyles[2] = new RowStyle(SizeType.Percent, 100);
-            tableLayoutPanel2.RowStyles[3] = new RowStyle(SizeType.Percent, 100);
          }
       }
 
@@ -706,10 +689,7 @@ namespace PBase
 
          button_CheckInWorkout.Focus();
       }
-      private void button_add_dop_tren_VisibleChanged(object sender, EventArgs e)
-      {
-         PersonCardioButton();
-      }
+
       private void button_add_dop_tren_Click(object sender, EventArgs e)
       {
          using (NumWorkoutForm form = new NumWorkoutForm(_person.AbonementCurent))
