@@ -7,7 +7,7 @@ namespace PBase
 
     /// Хранятся настройки приложения, а так же общие структуры, списки,и прочие данные.
     /// Использовать выборочное сохранение обьектов в Options. Весь класс сериализовать не рекомендуется т.к. перетирается пароль
-    //  HelperMethods.DeSerialize(ref _options, "Option.bin");
+    //  Methods.DeSerialize(ref _options, "Option.bin");
     //  FIXME проверка если опшин пароль равен нулю - прописать ручками умолчальный
     [Serializable]
    public class Options

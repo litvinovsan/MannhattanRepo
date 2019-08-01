@@ -33,7 +33,7 @@ namespace PBase
             if (_editedName != null && _editedName != "" && _person.Name != _editedName)
             {
                _dataBase.EditName(_person.Name, _editedName);
-               SetControlBackColor(textbox, _editedName, _person.Name);
+               Methods.SetControlBackColor(textbox, _editedName, _person.Name);
             }
          };
 
@@ -43,7 +43,7 @@ namespace PBase
       {
          var tb = (TextBox)sender;
          _editedName = tb.Text;
-         SetControlBackColor(tb, _editedName, _person.Name);
+         Methods.SetControlBackColor(tb, _editedName, _person.Name);
          IsChangedUpdateStatus(_editedName, _person.Name);
       }
 
@@ -309,7 +309,7 @@ namespace PBase
 
          _saveDelegateChain += () =>
          {
-            if (IsCurrentAbonementExist() && _editedEndDate.CompareTo(_person.AbonementCurent.endDate.Date) != 0)
+            if (_person.IsCurrentAbonementExist() && _editedEndDate.CompareTo(_person.AbonementCurent.endDate.Date) != 0)
             {
                _person.AbonementCurent.endDate = _editedEndDate;
             };
@@ -364,7 +364,7 @@ namespace PBase
             if (_person.AbonementCurent.NumPersonalTr != _editedNumPersonalTr && (_editedNumPersonalTr >= 0))
             {
                _person.AbonementCurent.NumPersonalTr = _editedNumPersonalTr;
-               SetControlBackColor(textbox, _editedNumPersonalTr.ToString(), _person.AbonementCurent.NumPersonalTr.ToString());
+               Methods.SetControlBackColor(textbox, _editedNumPersonalTr.ToString(), _person.AbonementCurent.NumPersonalTr.ToString());
             }
          };
 
@@ -382,7 +382,7 @@ namespace PBase
       {
          var tb = (TextBox)sender;
          Int32.TryParse(tb.Text, out _editedNumPersonalTr);
-         SetControlBackColor(tb, _editedNumPersonalTr.ToString(), _person.AbonementCurent.NumPersonalTr.ToString());
+         Methods.SetControlBackColor(tb, _editedNumPersonalTr.ToString(), _person.AbonementCurent.NumPersonalTr.ToString());
          _isAnythingChanged = true;
 
       }
@@ -412,7 +412,7 @@ namespace PBase
             if (_person.AbonementCurent.NumAerobicTr != _editedNumAerobicTr && (_editedNumAerobicTr >= 0) && _numAerobicTrChanged)
             {
                _person.AbonementCurent.NumAerobicTr = _editedNumAerobicTr;
-               SetControlBackColor(textbox, _editedNumAerobicTr.ToString(), _person.AbonementCurent.NumAerobicTr.ToString());
+               Methods.SetControlBackColor(textbox, _editedNumAerobicTr.ToString(), _person.AbonementCurent.NumAerobicTr.ToString());
             }
          };
 
@@ -432,7 +432,7 @@ namespace PBase
          _isAnythingChanged = true;
          _numAerobicTrChanged = true;
          Int32.TryParse(tb.Text, out _editedNumAerobicTr);
-         SetControlBackColor(tb, _editedNumAerobicTr.ToString(), _person.AbonementCurent.NumAerobicTr.ToString());
+         Methods.SetControlBackColor(tb, _editedNumAerobicTr.ToString(), _person.AbonementCurent.NumAerobicTr.ToString());
       }
       #endregion
 
@@ -453,7 +453,7 @@ namespace PBase
 
          _saveDelegateChain += () =>
          {
-            if (IsCurrentAbonementExist() && _editedBuyDate.CompareTo(_person.AbonementCurent.buyDate.Date) != 0)
+            if (_person.IsCurrentAbonementExist() && _editedBuyDate.CompareTo(_person.AbonementCurent.buyDate.Date) != 0)
             {
                _person.AbonementCurent.buyDate = _editedBuyDate;
             };
@@ -520,7 +520,7 @@ namespace PBase
       {
          var tb = (MaskedTextBox)sender;
          _editedPhone = tb.Text;
-         SetControlBackColor(tb, _editedPhone, _person.Phone);
+         Methods.SetControlBackColor(tb, _editedPhone, _person.Phone);
          IsChangedUpdateStatus(_editedPhone, _person.Phone);
       }
 
@@ -534,7 +534,7 @@ namespace PBase
       {
          var tb = (MaskedTextBox)sender;
          _editedPassport = tb.Text;
-         SetControlBackColor(tb, _editedPassport, _person.Passport);
+         Methods.SetControlBackColor(tb, _editedPassport, _person.Passport);
          IsChangedUpdateStatus(_editedPassport, _person.Passport);
       }
       #endregion
@@ -546,7 +546,7 @@ namespace PBase
       {
          var tb = (MaskedTextBox)sender;
          _editedDriveId = tb.Text;
-         SetControlBackColor(tb, _editedDriveId, _person.DriverIdNum);
+         Methods.SetControlBackColor(tb, _editedDriveId, _person.DriverIdNum);
          IsChangedUpdateStatus(_editedDriveId, _person.DriverIdNum);
       }
       #endregion
@@ -609,7 +609,7 @@ namespace PBase
       }
       private void ComboBoxColor(ComboBox comboBox, string oldVal, string curVal)
       {
-         SetControlBackColor(comboBox, curVal, oldVal);
+         Methods.SetControlBackColor(comboBox, curVal, oldVal);
          comboBox.SelectionLength = 0;
          comboBox.Select(0, 0);
          button_SavePersonalData.Focus(); // Cнимаем выделение сменой фокуса.

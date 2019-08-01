@@ -35,7 +35,7 @@ namespace PBase
          get { return _name; }
          set
          {
-            _name = HelperMethods.prepareName(value);
+            _name = Methods.prepareName(value);
             Key = _name;
             //  OnNameChanged();
          }
@@ -122,6 +122,10 @@ namespace PBase
             _status = StatusPerson.Активный;
          }
          return _status;
+      }
+      public bool IsCurrentAbonementExist()
+      {
+         return AbonementCurent != null;
       }
       private void ValidateAbonementAdd(AbonementBasic value)
       {

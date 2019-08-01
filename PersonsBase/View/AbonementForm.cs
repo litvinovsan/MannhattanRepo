@@ -40,6 +40,7 @@ namespace PBase
          if (_person.AbonementCurent == null)
          {
             _selectedAbonementName = "Абонемент";// Вид Абонемента по Умолчанию
+            radioButton_Abonement.Checked = true;
             _typeWorkout = TypeWorkout.Тренажерный_Зал;
             _timeTren = TimeForTr.День;
             _spa = SpaService.Спа;

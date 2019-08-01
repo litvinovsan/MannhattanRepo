@@ -42,12 +42,12 @@ namespace PBase
       private DataBaseClass()
       {
          _dataBase = new SortedList<string, Person>(StringComparer.OrdinalIgnoreCase);
-         HelperMethods.DeSerialize(ref _dataBase, "ClientsDataBase.bin");
+         Methods.DeSerialize(ref _dataBase, "ClientsDataBase.bin");
       }
 
       ~DataBaseClass()
       {
-         HelperMethods.Serialize(_dataBase, "ClientsDataBase.bin");
+         Methods.Serialize(_dataBase, "ClientsDataBase.bin");
       }
 
       public static DataBaseClass GetInstance()

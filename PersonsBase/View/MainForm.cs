@@ -24,7 +24,7 @@ namespace PBase
       private void MainForm_Load(object sender, EventArgs e)
       {
          // Использовать выборочное сохранение обьектов в Options. Весь класс сериализовать не рекомендуется т.к. перетирается пароль
-         //  HelperMethods.DeSerialize(ref _options, "Option.bin");
+         //  Methods.DeSerialize(ref _options, "Option.bin");
          // FIXME проверка если опшин пароль равен нулю - прописать ручками умолчальный
 
          // Подписка на события в пользовательской Базе Данных
@@ -36,7 +36,7 @@ namespace PBase
       private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
       {
          // Сохраняем настройки. 
-         //  HelperMethods.Serialize(_options, "Option.bin");
+         //  Methods.Serialize(_options, "Option.bin");
       }
 
       private void RunClientForm(string keyName)

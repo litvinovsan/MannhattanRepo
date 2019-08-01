@@ -144,7 +144,7 @@ namespace PBase
          Person result = null;
          if (inputCollection != null && !string.IsNullOrEmpty(fullName) && inputCollection.Count > 0)
          {
-            string fname = HelperMethods.prepareName(fullName);
+            string fname = Methods.prepareName(fullName);
             try
             {
                result = inputCollection.Values.Single(x => x.Name == fname);
@@ -163,11 +163,11 @@ namespace PBase
       public static bool EditName(SortedList<string, Person> inputCollection, string key, string newFullName)
       {
          bool result = false;
-         string newName = HelperMethods.prepareName(newFullName);
+         string newName = Methods.prepareName(newFullName);
 
          if (inputCollection != null && inputCollection.Count > 0 && !string.IsNullOrEmpty(newName) && newName != "")
          {
-            string localKey = HelperMethods.prepareName(key);
+            string localKey = Methods.prepareName(key);
             // Копируем данные текущей персоны
             Person personForEdit; // Копия текущей персоны                                                                        
             result = inputCollection.TryGetValue(localKey, out personForEdit);

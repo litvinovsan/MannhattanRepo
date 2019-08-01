@@ -94,14 +94,11 @@ namespace PBase
          {
             // По умолчанию для всех карт
             button_add_dop_tren.Visible = false;
-            button_CheckInWorkout.Enabled = false;
             button_CheckInWorkout.Visible = false;
             button_Add_Abon.Enabled = false;
-            button_Freeze.Enabled = false;
             button_Freeze.Visible = false;
 
             groupBox_abonList.Visible = false;
-
 
             // Вкл/Выкл Кнопки ЗАМОРОЗКА и ПОСЕЩЕНИЕ если проблемы с абонементом
             switch (_person.UpdateActualStatus())
@@ -109,7 +106,6 @@ namespace PBase
                case StatusPerson.Активный:
                   {
                      button_Add_Abon.Enabled = true;
-                     button_CheckInWorkout.Enabled = true;
                      button_CheckInWorkout.Visible = true;
                      groupBox_abonList.Visible = true;
 
@@ -117,7 +113,6 @@ namespace PBase
                      if (_person.AbonementCurent is ClubCardAbonement)
                      {
                         button_Freeze.Visible = true;
-                        button_Freeze.Enabled = true;
                         button_Freeze.Text = @"Заморозить";
                      }
 
@@ -128,7 +123,6 @@ namespace PBase
                      }
 
                      // HideQueueAbonements();
-
                      break;
                   }
                case StatusPerson.Нет_Карты:
@@ -139,8 +133,8 @@ namespace PBase
                   }
                case StatusPerson.Заморожен:
                   {
-                     button_Freeze.Visible = IsCurrentAbonementExist();
-                     button_Freeze.Enabled = IsCurrentAbonementExist();
+                     button_Freeze.Visible = _person.IsCurrentAbonementExist();
+                     // button_Freeze.Enabled = IsCurrentAbonementExist();
                      button_Freeze.Text = @"Разморозить";
 
                      groupBox_abonList.Visible = true;
@@ -217,15 +211,15 @@ namespace PBase
 
          // Телефон
          maskedTextBox_PhoneNumber.Text = _person.Phone;
-         SetControlBackColor(maskedTextBox_PhoneNumber, maskedTextBox_PhoneNumber.Text, _person.Phone);
+         Methods.SetControlBackColor(maskedTextBox_PhoneNumber, maskedTextBox_PhoneNumber.Text, _person.Phone);
 
          // Паспорт
          maskedTextBox_Passport.Text = _person.Passport;
-         SetControlBackColor(maskedTextBox_Passport, _editedPassport, _person.Passport);
+         Methods.SetControlBackColor(maskedTextBox_Passport, _editedPassport, _person.Passport);
 
          // Права
          maskedTextBox_DriverID.Text = _person.DriverIdNum;
-         SetControlBackColor(maskedTextBox_DriverID, _editedDriveId, _person.DriverIdNum);
+         Methods.SetControlBackColor(maskedTextBox_DriverID, _editedDriveId, _person.DriverIdNum);
 
          // Персональный Номер
          textBox_Number.Text = _person.PersonalNumber.ToString();
@@ -255,19 +249,19 @@ namespace PBase
          Action myDelegate = delegate
          {
             var labelTextBoxList = new List<Tuple<Label, Control>>();
-            if (!IsCurrentAbonementExist())
+            if (!_person.IsCurrentAbonementExist())
             {
-               labelTextBoxList.AddRange(TupleConverter(GetEmptyInfoList()));
+               labelTextBoxList.AddRange(Methods.TupleConverter(Methods.GetEmptyInfoList(_person)));
             }
             else
             {
-               labelTextBoxList.AddRange(TupleConverter(_person.AbonementCurent.GetShortInfoList()));
+               labelTextBoxList.AddRange(Methods.TupleConverter(_person.AbonementCurent.GetShortInfoList()));
                // Добавляем Поле Статуса. Делаем тут потому что Person.abonem не знает об этом.
-               labelTextBoxList.Insert(1, (CreateRowInfo("Текущий статус Клиента", _person.Status.ToString())));
+               labelTextBoxList.Insert(1, (Methods.CreateRowInfo("Текущий статус Клиента", _person.Status.ToString())));
             }
 
             // Отрисовка Short Info
-            var table = CreateTable(labelTextBoxList); // Создаем таблицу c элементами из списка. Таблица: Лэйбл - Текстбокс
+            var table = Methods.CreateTable(labelTextBoxList); // Создаем таблицу c элементами из списка. Таблица: Лэйбл - Текстбокс
             if (groupBox_Info.Controls.Count != 0)
             {
                groupBox_Info.Controls.Clear();
@@ -289,7 +283,7 @@ namespace PBase
       }
       private void LoadEditableData()
       {// Данные подробные,разрешено редактирование через события.
-         TableLayoutPanel table = CreateTable(SelectList(_person.AbonementCurent));
+         TableLayoutPanel table = Methods.CreateTable(SelectList(_person.AbonementCurent));
          if (groupBox_Detailed.Controls.Count != 0) groupBox_Detailed.Controls.Clear();
 
          table.Font = new Font("Arial", 10);
@@ -301,12 +295,10 @@ namespace PBase
       {
          var listUpdated = SelectList(_person.AbonementCurent);
          List<Control> lst = new List<Control>();
-         ForAllControls(groupBox_Detailed, x =>
+         Methods.ForAllControls(groupBox_Detailed, x =>
          {
             if (x is TextBox || x is ComboBox) lst.Add(x); //Получили только нужные Контролы в массив lst
          });
-
-         // if (lst.Count != listUpdated.Count) return; // Для безопасности
 
          for (int i = 0; i < lst.Count; i++)
          {
@@ -316,104 +308,32 @@ namespace PBase
       }
 
       #region // Хелп Методы для Загрузки и обновления пользовательских данных
-      private IEnumerable<Tuple<string, string>> GetEmptyInfoList()
-      {
-         var result = new List<Tuple<string, string>>
-          {
-              new Tuple<string, string>("Текущий статус Клиента", _person.Status.ToString()),
-              new Tuple<string, string>("Абонемент ", "Нет"),
-              new Tuple<string, string>("Клубная Карта ", "Нет ")
-          };
 
-         return result;
-      }
-      private TableLayoutPanel CreateTable(List<Tuple<Label, Control>> list)
-      {// Создает таблицу с элементами из List. Таблица вида: Лэйбл - Значение.
-         var tableInfo = new TableLayoutPanel { Dock = DockStyle.Fill };
-         // Базовая таблица. 1 стр, 2 стлб
-         tableInfo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45));
-         tableInfo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 55));
-
-         for (int i = 0; i < list.Count; i++)
-         {
-            tableInfo.RowStyles.Add(new RowStyle(SizeType.Absolute, 30));
-            tableInfo.Controls.Add(list[i].Item1, 0, i);
-            tableInfo.Controls.Add(list[i].Item2, 1, i);
-         }
-
-         // Пустые элементы. Без них сьезжает вся разметка.
-         tableInfo.Controls.Add(new Panel(), 0, list.Count);
-         tableInfo.Controls.Add(new Panel(), 1, list.Count);
-
-         return tableInfo;
-      }
-      private Tuple<Label, Control> CreateRowInfo(string label, string info)
-      {// Создаем экземпляры Label и TextBox. Настройка отображения и свойст тут
-         Label lb = new Label
-         {
-            Text = label,
-            Anchor = AnchorStyles.Left,
-            AutoSize = true,
-            TextAlign = ContentAlignment.TopLeft
-         };
-
-         TextBox tb = new TextBox
-         {
-            BackColor = Color.AliceBlue,
-            BorderStyle = BorderStyle.FixedSingle,
-            Text = " " + info.Replace("_", " "),
-            Dock = DockStyle.Fill,
-            Font = new Font("Microsoft Sans Serif", 9F)
-         };
-
-         // Выполняем проверки на какие-либо ограничения. 
-         if (info == "Не_Оплачено") tb.BackColor = Color.LightPink;
-
-         return Tuple.Create<Label, Control>(lb, tb);
-      }
       private void UpdateName()
       {
          Text = "Карточка Клиента:    " + _person.Name;// Имя формы
          if (textBox_Name.Text != _person.Name)
          {
             textBox_Name.Text = _person.Name;
-            SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
+            Methods.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
          }
 
          //Если Заморожен
-         if (_person.Status == StatusPerson.Заморожен && IsCurrentAbonementExist())
+         if (_person.Status == StatusPerson.Заморожен && _person.IsCurrentAbonementExist())
          {
             textBox_Name.ForeColor = Color.Green;
             // FIXME: Заморозка абонемента
             textBox_Name.Text = _person.Name + "  (Заморожен до " + "FIXME" + ")";
          }
 
-         if (IsCurrentAbonementExist() && !_person.AbonementCurent.isActivated)
+         if (_person.IsCurrentAbonementExist() && !_person.AbonementCurent.isActivated)
          {
             textBox_Name.ForeColor = Color.Green;
             textBox_Name.Text = _person.Name + "      (Не Активирован)";
          }
       }
-      private bool IsCurrentAbonementExist()
-      {
-         return _person.AbonementCurent != null;
-      }
-      private IEnumerable<Tuple<Label, Control>> TupleConverter(IEnumerable<Tuple<string, string>> data)
-      {// Преобразует Список вида List<Tuple<string, string>> в универсальный Список: List<Tuple<Label, Control>>
-         var result = new List<Tuple<Label, Control>>();
 
-         foreach (var item in data)
-         {
-            result.Add(CreateRowInfo(item.Item1, item.Item2));
-         }
-         // Выделяем жирным первую строку
-         result[0].Item1.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point, 204);
-         result[0].Item2.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point, 204);
-         result[0].Item1.ForeColor = Color.FromArgb(0, 64, 64);
-         result[0].Item2.ForeColor = Color.FromArgb(0, 64, 64);
 
-         return result;
-      }
       private List<Tuple<Label, Control>> SelectList(AbonementBasic currentAbon)
       {
          List<Tuple<Label, Control>> listResult;
@@ -501,9 +421,7 @@ namespace PBase
             if (form.ShowDialog() == DialogResult.OK)
             {
                form.ApplyChanges();
-
                // Обновляем Если выбрано что-то.
-               //LoadUserData();
                _person.UpdateActualStatus(); // Обновляем текущий статус
                UpdateName();
 
@@ -514,88 +432,13 @@ namespace PBase
          }
       }
 
-      #endregion
-
-      #region // Разные мелкие методы По оформлению и тд
-      /// <summary>
-      /// Задает Цвет Текстбоксам и другим элементам. Зеленый если == , Красный если != аргументы. 
-      /// </summary>
-      private void SetFontColor(Control ctrl, string actual, string expected)
-      {
-         ctrl.ForeColor = actual == expected ? Color.Green : Color.Red;
-      }
-      /// <summary>
-      /// // Задает Цвет clrSuccess если == , И clrFail если != аргументы.
-      /// </summary>
-      private void SetControlBackColor(Control ctrl, string current, string expected, Color clrSuccess, Color clrFail)
-      {
-         ctrl.BackColor = current == expected ? clrSuccess : clrFail;
-      }
-      /// <summary>
-      /// // Задает Цвет SystemColors.Window если == , И Yellow если != аргументы.
-      /// </summary>
-      private void SetControlBackColor(Control ctrl, string current, string expected)
-      {
-         Color clrSuccess = SystemColors.Window;
-         Color clrFail = Color.Yellow;
-         ctrl.BackColor = current == expected ? clrSuccess : clrFail;
-      }
-      /// <summary>  
-      /// Задает Цвет clr если == , Красный если != аргументы.
-      /// </summary>
-      private void SetControlBackColor(Control ctrl, string current, string expected, Color clrFail)
-      { // Задает Цвет clrFail если != аргументы.
-         if (current != expected)
-         {
-            ctrl.BackColor = clrFail;
-         } // SystemColors.Window
-      }
-      /// <summary>
-      /// Перебираем все контролы рекурсивно. Выполняем для каждого действие action
-      /// </summary>
-      public void ForAllControls(Control parent, Action<Control> action)
-      {
-         foreach (Control c in parent.Controls)
-         {
-            action(c);
-            ForAllControls(c, action);
-         }
-      }
-      /// <summary>
-      /// Снимает выделение по всем контролам в групбоксе
-      /// </summary>
-      public void DisableSelectionComboBoxes()
-      {
-         ForAllControls(groupBox_Detailed, x =>
-         {
-            if (x is ComboBox)
-            {
-               (x as ComboBox).SelectionLength = 0;
-               (x as ComboBox).Select(0, 0);
-               (x as ComboBox).BackColor = SystemColors.Window;
-            }
-         });
-      }
-      public void SetControlsColorDefault()
-      {
-         ForAllControls(groupBox_Detailed, x =>
-         {
-            if (x is ComboBox)
-            {
-               (x as ComboBox).BackColor = SystemColors.Window;
-            }
-            if (x is TextBox)
-            {
-               (x as TextBox).BackColor = SystemColors.Window;
-            }
-         });
-      }
       private void NoValidActions()
       {
          MessageBox.Show(_person.AbonementCurent.InfoWhenEnd, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
          _person.AbonementCurent = null;
          _person.Status = StatusPerson.Нет_Карты;
       }
+
       #endregion
 
       //////////// СТАНДАРТНЫЕ ОБРАБОТЧИКИ ///////////////////////////////////////////////
@@ -665,12 +508,13 @@ namespace PBase
          LoadUserData();
          LoadShortInfo();
          UpdateEditableData();
-         DisableSelectionComboBoxes();
+         //Methods.ClearSelection(groupBox_Detailed);
+         Close();
          //  SetControlsColorDefault();
       }
       private void ClientForm_Resize(object sender, EventArgs e)
       {
-         DisableSelectionComboBoxes();
+         Methods.ClearSelection(groupBox_Detailed);
       }
       private void button_Add_Abon_Click(object sender, EventArgs e)
       {
@@ -708,10 +552,7 @@ namespace PBase
          }
          button_CheckInWorkout.Focus();
       }
-      private void textBox_Name_TextChanged(object sender, EventArgs e)
-      {
-
-      }
+   
       private void button__remove_abon_Click(object sender, EventArgs e)
       {
          var selectedIndex = listBox_abonements.SelectedIndex;
@@ -722,7 +563,6 @@ namespace PBase
             MessageBox.Show("Запись Удалена!");
          }
       }
-
       private void button_remove_current_abon_Click(object sender, EventArgs e)
       {
          if (_person.AbonementCurent == null) return;
@@ -753,7 +593,6 @@ namespace PBase
             pwd.ShowDialog();
          }
       }
-
       private void button_Freeze_Click(object sender, EventArgs e)
       {
 
