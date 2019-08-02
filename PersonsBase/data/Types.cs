@@ -86,4 +86,11 @@ namespace PBase
       На_10_посещений = 10,
       На_12_посещений = 12
    }
+
+   [Serializable]
+   public enum FreezeLenghtMont
+   {
+      На_1_Месяц = 1,
+      На_2_Месяца = 2,
+   }
 }

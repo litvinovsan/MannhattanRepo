@@ -66,6 +66,12 @@ namespace PBase
             var updatedarray = array.Where(x => (x != StatusPerson.Активный.ToString()) && ((x != StatusPerson.Заморожен.ToString()))).Select(x => x);
             array = updatedarray.ToArray();
          }
+         // Удалим из Массива Заморожен если не Клубная Карта .
+         if (!(_person.AbonementCurent is ClubCardA))
+         {
+            var updatedarray = array.Where(x => (x != StatusPerson.Заморожен.ToString())).Select(x => x);
+            array = updatedarray.ToArray();
+         }
 
          // Записываем Поля в Комбобокс
          comboStatus.Items.AddRange(array);
@@ -257,7 +263,7 @@ namespace PBase
          var array = Enum.GetNames(typeof(PeriodClubCard));
          comboBox.Items.AddRange(array.ToArray<object>()); // Записываем Поля в Комбобокс
 
-         var clubCard = _person.AbonementCurent as ClubCardAbonement;
+         var clubCard = _person.AbonementCurent as ClubCardA;
          if (clubCard != null)
          {
             comboBox.SelectedItem = clubCard.GetTypeClubCard().ToString(); // Выбор по умолчанию
@@ -269,7 +275,7 @@ namespace PBase
                clubCard.SetTypeClubCard(_editedTypeClubCard);
                ComboBoxColor(comboBox, clubCard.GetTypeClubCard().ToString(), _editedTypeClubCard.ToString());
 
-               (_person.AbonementCurent as ClubCardAbonement)?.UpdateEndDate();
+               (_person.AbonementCurent as ClubCardA)?.UpdateEndDate();
             };
          }
          // Подписываемся на событие по изменению комбобокса
@@ -282,7 +288,7 @@ namespace PBase
          var tb = (ComboBox)sender;
          _editedTypeClubCard = (PeriodClubCard)Enum.Parse(typeof(PeriodClubCard), tb.SelectedItem.ToString());
 
-         var сard = _person.AbonementCurent as ClubCardAbonement;
+         var сard = _person.AbonementCurent as ClubCardA;
          if (сard == null) return;
          ComboBoxColor(tb, сard.GetTypeClubCard().ToString(), tb.SelectedItem.ToString());
          IsChangedUpdateStatus(сard.GetTypeClubCard().ToString(), tb.SelectedItem.ToString());
@@ -309,7 +315,7 @@ namespace PBase
 
          _saveDelegateChain += () =>
          {
-            if (_person.IsCurrentAbonementExist() && _editedEndDate.CompareTo(_person.AbonementCurent.endDate.Date) != 0)
+            if (_person.IsAbonementExist() && _editedEndDate.CompareTo(_person.AbonementCurent.endDate.Date) != 0)
             {
                _person.AbonementCurent.endDate = _editedEndDate;
             };
@@ -453,7 +459,7 @@ namespace PBase
 
          _saveDelegateChain += () =>
          {
-            if (_person.IsCurrentAbonementExist() && _editedBuyDate.CompareTo(_person.AbonementCurent.buyDate.Date) != 0)
+            if (_person.IsAbonementExist() && _editedBuyDate.CompareTo(_person.AbonementCurent.buyDate.Date) != 0)
             {
                _person.AbonementCurent.buyDate = _editedBuyDate;
             };

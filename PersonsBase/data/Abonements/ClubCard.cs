@@ -4,26 +4,13 @@ using System.Collections.Generic;
 namespace PBase
 {
    [Serializable]
-   public class ClubCardAbonement : AbonementBasic //Безлимитный Абонемент
+   public class ClubCardA : AbonementBasic //Безлимитный Абонемент
    {
-      // Конструктор
-      public ClubCardAbonement(Pay payStatus, TimeForTr time, TypeWorkout typeTr, SpaService spa, PeriodClubCard periodInMonths)
-         : base(payStatus, time, typeTr, spa)
-      {
-         numberMonths = (int)periodInMonths;
-         numAerobicTr = numberMonths * 10;
-         NumPersonalTr = 0;
-         periodAbonem = periodInMonths;
-
-         endDate = DateTime.Now.AddMonths(numberMonths).Date;
-         UpdateDaysLeft();
-      }
-
       // Свойства
       private int numberMonths;
       private int numAerobicTr;
       private PeriodClubCard periodAbonem;
-      private PeriodClubCard PeriodAbonem
+      public PeriodClubCard PeriodAbonem
       {
          get
          {
@@ -52,6 +39,19 @@ namespace PBase
          }
       }
       public sealed override int NumPersonalTr { get; set; }
+      public Freeze Freeze;
+
+      // Конструктор
+      public ClubCardA(Pay payStatus, TimeForTr time, TypeWorkout typeTr, SpaService spa, PeriodClubCard periodInMonths)
+         : base(payStatus, time, typeTr, spa)
+      {
+         numberMonths = (int)periodInMonths;
+         numAerobicTr = numberMonths * 10;
+         NumPersonalTr = 0;
+         periodAbonem = periodInMonths;
+         endDate = DateTime.Now.AddMonths(numberMonths).Date;
+         UpdateDaysLeft();
+      }
 
       // Методы
       public override bool isValid()
@@ -60,8 +60,6 @@ namespace PBase
          // Если 0, то даты совпали
          // Если -, то DateTime.Now раньше Конца абонемента
          var checkDate = (DateTime.Now.Date.CompareTo(endDate.Date) <= 0);
-         var checkWorkouts = (NumAerobicTr > 0 || NumPersonalTr > 0);
-
          return checkDate;
       }
 
@@ -125,7 +123,6 @@ namespace PBase
          {
             case TypeWorkout.Аэробный_Зал:
                {
-
                   NumAerobicTr += numberToAdd;
                   result = true;
                   break;
@@ -185,13 +182,6 @@ namespace PBase
       public void SetTypeClubCard(PeriodClubCard newTypeCC)
       {
          PeriodAbonem = newTypeCC;
-         //numberMonths = (int)newTypeCC;
-      }
-      public bool ShowSelectWindow()
-      {
-         bool result = (NumAerobicTr > 0 && NumPersonalTr > 0);
-
-         return result;
       }
    }
 

@@ -62,7 +62,7 @@ namespace PBase
                radioButton_Abonement.Checked = true;
             }
 
-            var abonement = _person.AbonementCurent as ClubCardAbonement;
+            var abonement = _person.AbonementCurent as ClubCardA;
             if (abonement != null)
             {
                _periodClubCard = abonement.GetTypeClubCard();
@@ -112,7 +112,7 @@ namespace PBase
          {
             case "Клубная Карта":
                {
-                  _person.AbonementCurent = new ClubCardAbonement(_pay, _timeTren, _typeWorkout, _spa, _periodClubCard);
+                  _person.AbonementCurent = new ClubCardA(_pay, _timeTren, _typeWorkout, _spa, _periodClubCard);
                   break;
                }
             case "Абонемент":

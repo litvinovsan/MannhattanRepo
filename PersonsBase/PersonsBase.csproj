@@ -51,6 +51,7 @@
     <Compile Include="data\Abonements\AbonementBasic.cs" />
     <Compile Include="data\Abonements\ByDays.cs" />
     <Compile Include="data\Abonements\ClubCard.cs" />
+    <Compile Include="data\Abonements\Freeze.cs" />
     <Compile Include="data\Abonements\SingleVisit.cs" />
     <Compile Include="data\CAdministrator.cs" />
     <Compile Include="data\DataBaseObject.cs" />

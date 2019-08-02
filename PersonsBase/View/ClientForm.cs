@@ -15,8 +15,8 @@ namespace PBase
       [NonSerialized]
       private readonly Person _person;
       private readonly DataBaseClass _dataBase = DataBaseClass.GetInstance();
-      private bool _isAnythingChanged;
       private readonly Options _options;
+      private bool _isAnythingChanged;
 
       ///////////////// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ////////////////////////////////
       public ClientForm(string keyName, Options opt)
@@ -91,7 +91,7 @@ namespace PBase
       {
          // Различные изменения, которые зависят от СТАТУСА клиента.
          Action myDelegate = delegate
-         {
+         {// FIXME     Попробовать логику наоборот.Включать всё, а в свитче выключать если надо.Может уменьшит мерцание
             // По умолчанию для всех карт
             button_add_dop_tren.Visible = false;
             button_CheckInWorkout.Visible = false;
@@ -110,32 +110,24 @@ namespace PBase
                      groupBox_abonList.Visible = true;
 
                      // Кнопка Заморозка Клубной Карты
-                     if (_person.AbonementCurent is ClubCardAbonement)
+                     if ((_person.AbonementCurent is ClubCardA) &&
+                        (_person.AbonementCurent as ClubCardA).PeriodAbonem != PeriodClubCard.На_1_Месяц)
                      {
                         button_Freeze.Visible = true;
-                        button_Freeze.Text = @"Заморозить";
-                     }
-
-                     // Кнопка Добавить для Клубной Карты
-                     if (_person.AbonementCurent is ClubCardAbonement)
-                     {
+                        // Кнопка Добавить для Клубной Карты
                         button_add_dop_tren.Visible = true;
                      }
-
                      // HideQueueAbonements();
                      break;
                   }
                case StatusPerson.Нет_Карты:
                   {
                      button_Add_Abon.Enabled = true;
-                     button_Freeze.Text = @"Заморозить";
                      break;
                   }
                case StatusPerson.Заморожен:
                   {
-                     button_Freeze.Visible = _person.IsCurrentAbonementExist();
-                     // button_Freeze.Enabled = IsCurrentAbonementExist();
-                     button_Freeze.Text = @"Разморозить";
+                     button_Freeze.Visible = _person.IsAbonementExist();
 
                      groupBox_abonList.Visible = true;
                      break;
@@ -155,6 +147,7 @@ namespace PBase
                      break;
                   }
             }
+            UpdateNameText();
          };
 
          if (InvokeRequired)
@@ -207,7 +200,7 @@ namespace PBase
 
          _person.UpdateActualStatus(); // Обновляем текущий статус
          // Имя Клиента на форме.
-         UpdateName();
+         UpdateNameText();
 
          // Телефон
          maskedTextBox_PhoneNumber.Text = _person.Phone;
@@ -249,7 +242,7 @@ namespace PBase
          Action myDelegate = delegate
          {
             var labelTextBoxList = new List<Tuple<Label, Control>>();
-            if (!_person.IsCurrentAbonementExist())
+            if (!_person.IsAbonementExist())
             {
                labelTextBoxList.AddRange(Methods.TupleConverter(Methods.GetEmptyInfoList(_person)));
             }
@@ -309,7 +302,7 @@ namespace PBase
 
       #region // Хелп Методы для Загрузки и обновления пользовательских данных
 
-      private void UpdateName()
+      private void UpdateNameText()
       {
          Text = "Карточка Клиента:    " + _person.Name;// Имя формы
          if (textBox_Name.Text != _person.Name)
@@ -318,21 +311,39 @@ namespace PBase
             Methods.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
          }
 
-         //Если Заморожен
-         if (_person.Status == StatusPerson.Заморожен && _person.IsCurrentAbonementExist())
+         // Если Заморожен
+         if (_person.Status == StatusPerson.Заморожен && _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA)
          {
-            textBox_Name.ForeColor = Color.Green;
-            // FIXME: Заморозка абонемента
-            textBox_Name.Text = _person.Name + "  (Заморожен до " + "FIXME" + ")";
+            textBox_Name.ForeColor = Color.Yellow;
+            string dateEnd = (_person.AbonementCurent as ClubCardA).Freeze?.FreezeEndDate.Date.ToString("d");
+            textBox_Name.Text = _person.Name + "   (Заморожен до " + dateEnd + " )";
          }
 
-         if (_person.IsCurrentAbonementExist() && !_person.AbonementCurent.isActivated)
+         // Заморозка запланирована в будущем
+         if (_person.AbonementCurent is ClubCardA)
+         {
+            var card = _person.AbonementCurent as ClubCardA;
+            var check = (card != null) && (card.Freeze != null);
+
+            if (check)
+            {
+               if (card.Freeze.IsConfigured())
+               {
+                  textBox_Name.ForeColor = Color.Yellow;
+                  textBox_Name.Text = _person.Name + "   (Запланирована Заморозка)";
+               }
+
+            }
+
+         }
+
+         // Не Активирован
+         if (_person.IsAbonementExist() && !_person.AbonementCurent.isActivated)
          {
             textBox_Name.ForeColor = Color.Green;
-            textBox_Name.Text = _person.Name + "      (Не Активирован)";
+            textBox_Name.Text = _person.Name + "   (Не Активирован)";
          }
       }
-
 
       private List<Tuple<Label, Control>> SelectList(AbonementBasic currentAbon)
       {
@@ -341,7 +352,7 @@ namespace PBase
          {
             listResult = CreateListAbonement();
          }
-         else if (currentAbon is ClubCardAbonement)
+         else if (currentAbon is ClubCardA)
          {
             listResult = CreateListClubCard();
          }
@@ -423,7 +434,7 @@ namespace PBase
                form.ApplyChanges();
                // Обновляем Если выбрано что-то.
                _person.UpdateActualStatus(); // Обновляем текущий статус
-               UpdateName();
+               UpdateNameText();
 
                LoadShortInfo();
                LoadEditableData();
@@ -489,7 +500,7 @@ namespace PBase
                _person.Status = StatusPerson.Нет_Карты;
                _person.AbonementCurent = null;
             }
-            UpdateName();
+            UpdateNameText();
             LoadShortInfo();
             LoadEditableData();
          }
@@ -508,8 +519,8 @@ namespace PBase
          LoadUserData();
          LoadShortInfo();
          UpdateEditableData();
-         //Methods.ClearSelection(groupBox_Detailed);
-         Close();
+         Methods.ClearSelection(groupBox_Detailed);
+
          //  SetControlsColorDefault();
       }
       private void ClientForm_Resize(object sender, EventArgs e)
@@ -552,7 +563,7 @@ namespace PBase
          }
          button_CheckInWorkout.Focus();
       }
-   
+
       private void button__remove_abon_Click(object sender, EventArgs e)
       {
          var selectedIndex = listBox_abonements.SelectedIndex;
@@ -572,7 +583,7 @@ namespace PBase
             _person.AbonementCurent = null;
             _person.UpdateActualStatus(); // Обновляем текущий статус
 
-            UpdateName();
+            UpdateNameText();
             LoadShortInfo();
             LoadEditableData();
             UpdateControlState(this, EventArgs.Empty);
@@ -595,6 +606,44 @@ namespace PBase
       }
       private void button_Freeze_Click(object sender, EventArgs e)
       {
+         var status = _person.Status;
+
+         if (status == StatusPerson.Заморожен)
+         {
+            _person.Status = StatusPerson.Активный;
+         }
+         else
+         {
+            var abon = _person.AbonementCurent as ClubCardA;
+
+
+            abon.Freeze = new Freeze(abon.PeriodAbonem, 0, DateTime.Parse("10.08.2019"));
+            var t = abon.Freeze.IsConfigured();
+            var d = Freeze._totalDays;
+
+            abon.Freeze = new Freeze(abon.PeriodAbonem, 5, DateTime.Parse("10.04.2010"));
+            t = abon.Freeze.IsConfigured();
+            d = Freeze._totalDays;
+
+            abon.Freeze = new Freeze(abon.PeriodAbonem, 95, DateTime.Parse("10.08.2019"));
+            t = abon.Freeze.IsConfigured();
+            d = Freeze._totalDays;
+
+            abon.Freeze = new Freeze(abon.PeriodAbonem, 5, DateTime.Parse("3.08.2019"));
+            t = abon.Freeze.IsConfigured();
+            d = Freeze._totalDays;
+
+            if (abon.Freeze.IsConfigured())
+            {
+               _person.Status = StatusPerson.Заморожен;
+            }
+         }
+
+
+
+
+
+
 
       }
    }

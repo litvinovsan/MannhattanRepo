@@ -15,13 +15,6 @@ namespace PBase
          StatusChanged?.Invoke(this, EventArgs.Empty);
       }
 
-      //[field: NonSerialized()]
-      //public event EventHandler nameChanged;
-      //public void OnNameChanged()
-      //{
-      //   if (nameChanged != null) nameChanged(this, EventArgs.Empty);
-      //}
-
       /// Приватные поля
       private string _phone;
       private string _driverIdNum;
@@ -37,7 +30,6 @@ namespace PBase
          {
             _name = Methods.prepareName(value);
             Key = _name;
-            //  OnNameChanged();
          }
       }
       public int PersonalNumber { get; set; }
@@ -111,19 +103,38 @@ namespace PBase
       ///Обновляем статус клиента.
       public StatusPerson UpdateActualStatus()
       {
-         if (AbonementCurent == null && (_status == StatusPerson.Активный))
+         if (Status == StatusPerson.Запрещён) return Status;
+
+         if (AbonementCurent == null)
          {
-            _status = StatusPerson.Нет_Карты;
-            return _status;
+            if (Status == StatusPerson.Активный || Status == StatusPerson.Заморожен) _status = StatusPerson.Нет_Карты;
          }
-         if (AbonementCurent == null) return _status;
-         if (AbonementCurent.isValid() && _status != StatusPerson.Заморожен && _status != StatusPerson.Запрещён)
+         else
          {
-            _status = StatusPerson.Активный;
+            if (AbonementCurent.isValid())
+            {
+               ClubCardA clubCard = _abonementCurent as ClubCardA;
+               if (clubCard != null && clubCard.Freeze != null)
+               {
+                  if (clubCard.Freeze.IsFreezedNow()) // Если Заморожен или обьект заморозки не создан
+                  {
+                     _status = StatusPerson.Заморожен;
+                  }
+               }
+
+               if (_status != StatusPerson.Заморожен)
+               {
+                  _status = StatusPerson.Активный;
+               }
+            }
+            else // Кончился Абонемент
+            {
+               _status = StatusPerson.Нет_Карты;
+            }
          }
-         return _status;
+         return Status;
       }
-      public bool IsCurrentAbonementExist()
+      public bool IsAbonementExist()
       {
          return AbonementCurent != null;
       }
@@ -217,7 +228,7 @@ namespace PBase
       /// </summary>
       public bool Equals(Person other, out ResponseCode response)
       {
-          response = ResponseCode.Fail;
+         response = ResponseCode.Fail;
          if (other == null) return false;
 
          if (Equals(other))
@@ -228,32 +239,32 @@ namespace PBase
 
          if (PersonalNumber != 0 && other.PersonalNumber != 0 && PersonalNumber == other.PersonalNumber)
          {
-             response = ResponseCode.IdNumberExist;
-             return true;
+            response = ResponseCode.IdNumberExist;
+            return true;
          }
 
          if (Name == other.Name)
          {
-             response = ResponseCode.KeyExist;
-             return true;
+            response = ResponseCode.KeyExist;
+            return true;
          }
 
          if (Phone != "" && other.Phone != "" && Phone == other.Phone)
          {
-             response = ResponseCode.PhoneExist;
-             return true;
+            response = ResponseCode.PhoneExist;
+            return true;
          }
 
          if (Passport != "" && other.Passport != "" && Passport == other.Passport)
          {
-             response = ResponseCode.PassportExist;
-             return true;
+            response = ResponseCode.PassportExist;
+            return true;
          }
 
          if (DriverIdNum != "" && other.DriverIdNum != "" && DriverIdNum == other.DriverIdNum)
          {
-             response = ResponseCode.DriverIdExist;
-             return true;
+            response = ResponseCode.DriverIdExist;
+            return true;
          }
          response = ResponseCode.NoDuplicate;
          return false;
