@@ -44,10 +44,11 @@ namespace PBase
          this.groupBox6 = new System.Windows.Forms.GroupBox();
          this.pictureBox_ClientPhoto = new System.Windows.Forms.PictureBox();
          this.groupBox4 = new System.Windows.Forms.GroupBox();
+         this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
          this.button_CheckInWorkout = new System.Windows.Forms.Button();
+         this.button_add_dop_tren = new System.Windows.Forms.Button();
          this.button_Add_Abon = new System.Windows.Forms.Button();
          this.button_Freeze = new System.Windows.Forms.Button();
-         this.button_add_dop_tren = new System.Windows.Forms.Button();
          this.groupBox1 = new System.Windows.Forms.GroupBox();
          this.textBox_Notes = new System.Windows.Forms.TextBox();
          this.groupBox_Info = new System.Windows.Forms.GroupBox();
@@ -72,32 +73,31 @@ namespace PBase
          this.button2 = new System.Windows.Forms.Button();
          this.button_Cancel = new System.Windows.Forms.Button();
          this.button_SavePersonalData = new System.Windows.Forms.Button();
-         this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
          this.tabControl1.SuspendLayout();
          this.tabPage1.SuspendLayout();
          this.groupBox_abonList.SuspendLayout();
          this.groupBox6.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).BeginInit();
          this.groupBox4.SuspendLayout();
+         this.flowLayoutPanel1.SuspendLayout();
          this.groupBox1.SuspendLayout();
          this.tabPage2.SuspendLayout();
          this.groupBox2.SuspendLayout();
          this.tableLayoutPanel1.SuspendLayout();
          this.tableLayoutPanel4.SuspendLayout();
          this.panel1.SuspendLayout();
-         this.flowLayoutPanel1.SuspendLayout();
          this.SuspendLayout();
          // 
          // textBox_Name
          // 
-         this.textBox_Name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+         this.textBox_Name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
          this.textBox_Name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.textBox_Name.Font = new System.Drawing.Font("Arial", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.textBox_Name.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
          this.textBox_Name.Location = new System.Drawing.Point(7, 2);
          this.textBox_Name.Margin = new System.Windows.Forms.Padding(2);
          this.textBox_Name.Name = "textBox_Name";
-         this.textBox_Name.Size = new System.Drawing.Size(829, 34);
+         this.textBox_Name.Size = new System.Drawing.Size(829, 32);
          this.textBox_Name.TabIndex = 1;
          this.textBox_Name.Text = "ФИО";
          // 
@@ -115,8 +115,8 @@ namespace PBase
          // 
          // tabControl1
          // 
-         this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+         this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
          this.tabControl1.Controls.Add(this.tabPage1);
          this.tabControl1.Controls.Add(this.tabPage2);
@@ -186,8 +186,8 @@ namespace PBase
          // 
          // listBox_abonements
          // 
-         this.listBox_abonements.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+         this.listBox_abonements.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
          this.listBox_abonements.FormattingEnabled = true;
          this.listBox_abonements.ItemHeight = 15;
@@ -233,6 +233,19 @@ namespace PBase
          this.groupBox4.TabStop = false;
          this.groupBox4.Text = "Действия";
          // 
+         // flowLayoutPanel1
+         // 
+         this.flowLayoutPanel1.Controls.Add(this.button_CheckInWorkout);
+         this.flowLayoutPanel1.Controls.Add(this.button_add_dop_tren);
+         this.flowLayoutPanel1.Controls.Add(this.button_Add_Abon);
+         this.flowLayoutPanel1.Controls.Add(this.button_Freeze);
+         this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+         this.flowLayoutPanel1.Location = new System.Drawing.Point(2, 15);
+         this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+         this.flowLayoutPanel1.Size = new System.Drawing.Size(169, 316);
+         this.flowLayoutPanel1.TabIndex = 0;
+         // 
          // button_CheckInWorkout
          // 
          this.button_CheckInWorkout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -245,6 +258,20 @@ namespace PBase
          this.button_CheckInWorkout.Text = "Отметить Посещение";
          this.button_CheckInWorkout.UseVisualStyleBackColor = true;
          this.button_CheckInWorkout.Click += new System.EventHandler(this.button_CheckInWorkout_Click);
+         // 
+         // button_add_dop_tren
+         // 
+         this.button_add_dop_tren.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+         this.button_add_dop_tren.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.button_add_dop_tren.Location = new System.Drawing.Point(2, 69);
+         this.button_add_dop_tren.Margin = new System.Windows.Forms.Padding(2);
+         this.button_add_dop_tren.Name = "button_add_dop_tren";
+         this.button_add_dop_tren.Size = new System.Drawing.Size(165, 63);
+         this.button_add_dop_tren.TabIndex = 6;
+         this.button_add_dop_tren.Text = "Добавить Тренировки";
+         this.button_add_dop_tren.UseVisualStyleBackColor = true;
+         this.button_add_dop_tren.Visible = false;
+         this.button_add_dop_tren.Click += new System.EventHandler(this.button_add_dop_tren_Click);
          // 
          // button_Add_Abon
          // 
@@ -272,24 +299,10 @@ namespace PBase
          this.button_Freeze.UseVisualStyleBackColor = true;
          this.button_Freeze.Click += new System.EventHandler(this.button_Freeze_Click);
          // 
-         // button_add_dop_tren
-         // 
-         this.button_add_dop_tren.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-         this.button_add_dop_tren.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.button_add_dop_tren.Location = new System.Drawing.Point(2, 69);
-         this.button_add_dop_tren.Margin = new System.Windows.Forms.Padding(2);
-         this.button_add_dop_tren.Name = "button_add_dop_tren";
-         this.button_add_dop_tren.Size = new System.Drawing.Size(165, 63);
-         this.button_add_dop_tren.TabIndex = 6;
-         this.button_add_dop_tren.Text = "Добавить Тренировки";
-         this.button_add_dop_tren.UseVisualStyleBackColor = true;
-         this.button_add_dop_tren.Visible = false;
-         this.button_add_dop_tren.Click += new System.EventHandler(this.button_add_dop_tren_Click);
-         // 
          // groupBox1
          // 
-         this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+         this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
          this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
          this.groupBox1.Controls.Add(this.textBox_Notes);
@@ -320,7 +333,7 @@ namespace PBase
          // 
          // groupBox_Info
          // 
-         this.groupBox_Info.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+         this.groupBox_Info.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
          this.groupBox_Info.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
          this.groupBox_Info.Location = new System.Drawing.Point(192, 38);
@@ -347,8 +360,8 @@ namespace PBase
          // 
          // groupBox_Detailed
          // 
-         this.groupBox_Detailed.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+         this.groupBox_Detailed.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
          this.groupBox_Detailed.Enabled = false;
          this.groupBox_Detailed.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -363,7 +376,7 @@ namespace PBase
          // 
          // groupBox2
          // 
-         this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+         this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
          this.groupBox2.Controls.Add(this.tableLayoutPanel1);
          this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -378,7 +391,7 @@ namespace PBase
          // 
          // tableLayoutPanel1
          // 
-         this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+         this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
          this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
          this.tableLayoutPanel1.ColumnCount = 2;
@@ -629,19 +642,6 @@ namespace PBase
          this.button_SavePersonalData.UseVisualStyleBackColor = true;
          this.button_SavePersonalData.Click += new System.EventHandler(this.button_SavePersonalData_Click);
          // 
-         // flowLayoutPanel1
-         // 
-         this.flowLayoutPanel1.Controls.Add(this.button_CheckInWorkout);
-         this.flowLayoutPanel1.Controls.Add(this.button_add_dop_tren);
-         this.flowLayoutPanel1.Controls.Add(this.button_Add_Abon);
-         this.flowLayoutPanel1.Controls.Add(this.button_Freeze);
-         this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-         this.flowLayoutPanel1.Location = new System.Drawing.Point(2, 15);
-         this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-         this.flowLayoutPanel1.Size = new System.Drawing.Size(169, 316);
-         this.flowLayoutPanel1.TabIndex = 0;
-         // 
          // ClientForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -665,6 +665,7 @@ namespace PBase
          this.groupBox6.ResumeLayout(false);
          ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).EndInit();
          this.groupBox4.ResumeLayout(false);
+         this.flowLayoutPanel1.ResumeLayout(false);
          this.groupBox1.ResumeLayout(false);
          this.groupBox1.PerformLayout();
          this.tabPage2.ResumeLayout(false);
@@ -673,7 +674,6 @@ namespace PBase
          this.tableLayoutPanel1.PerformLayout();
          this.tableLayoutPanel4.ResumeLayout(false);
          this.panel1.ResumeLayout(false);
-         this.flowLayoutPanel1.ResumeLayout(false);
          this.ResumeLayout(false);
          this.PerformLayout();
 

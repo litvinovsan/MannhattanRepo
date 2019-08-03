@@ -3,28 +3,27 @@
 namespace PBase
 {
    [Serializable]
-   public class Freeze
+   public class FreezeClass
    {
+      // Поля и Свойства
       private int _freezeDays;
+      private int _totalDays;         // Счетчик дней заморозки
+
       private readonly int _maxDaysAvailable;
+      private readonly DateTime _dateDefault;
 
       private DateTime _freezeStartDate;
 
       private const int MaxDaysMonth36 = 30;
       private const int MaxDaysMonth12 = 45;
 
-      private readonly DateTime _dateDefault = DateTime.Parse("11.11.1111").Date;
-
-      public static int TotalDays;         // Потрачено дней заморозки
-
       public DateTime FreezeEndDate;
-
-      private DateTime FreezeStartDate
+      public DateTime FreezeStartDate
       {
          get
          {
             return _freezeStartDate;
-         } 
+         }
          set
          {
             // Дата заморозки ещё в будущем 
@@ -42,15 +41,12 @@ namespace PBase
 
       private int FreezeDays
       {
-         get
-         {
-             return _freezeDays;
-         }
+         get { return _freezeDays; }
          set
          {
-            if (IsPossibleFreezing(value))
+            if (IsPossibleToFreeze(value))
             {
-               TotalDays += value;
+               _totalDays += value;
                _freezeDays = value;
             }
             else
@@ -60,58 +56,68 @@ namespace PBase
          }
       }
 
-      private bool IsPossibleFreezing(int numDays, DateTime dateStart)
+      // Конструктор
+      public FreezeClass(PeriodClubCard period)
       {
-         if (numDays == 0) return false;
-         var temp = numDays + TotalDays;
-         var dateCmpr = (DateTime.Now.Date.CompareTo(dateStart.Date) <= 0);// Дата заморозки в будущем
-         return (temp <= _maxDaysAvailable) && (TotalDays <= _maxDaysAvailable) && dateCmpr;
-      }
+         _maxDaysAvailable = GetMaxDays(period);
+         _totalDays = 0;
+         _dateDefault = DateTime.Parse("11.11.1111").Date;
 
-      private bool IsPossibleFreezing(int numDays)
-      {
-         if (numDays == 0) return false;
-         int temp = numDays + TotalDays;
-         return (temp <= _maxDaysAvailable) && (TotalDays <= _maxDaysAvailable);
-      }
-
-      public Freeze(PeriodClubCard period, int numDays, DateTime startDate)
-      {
-          _maxDaysAvailable = GetMaxDaysForFreeze(period);
-
-         if (IsPossibleFreezing(numDays, startDate))
-         {
-            FreezeDays = numDays;
-            FreezeStartDate = startDate;
-            FreezeEndDate = FreezeStartDate.AddDays(numDays);
-         }
-         else
-         {
-            FreezeDays = 0;
-            FreezeStartDate = _dateDefault;
-            FreezeEndDate = _dateDefault;
-         }
+         FreezeDays = 0;
+         FreezeStartDate = _dateDefault;
+         FreezeEndDate = _dateDefault;
       }
 
       /// <summary>
       /// Возвращает true если Клиент в Заморозке на сегодняшнюю дату
       /// </summary>
-      /// <returns></returns>
       public bool IsFreezedNow()
       {
          bool result = (FreezeDays > 0) && (DateTime.Now.CompareTo(FreezeStartDate) >= 0) && (DateTime.Now.CompareTo(FreezeEndDate) <= 0);
 
          return result;
       }
+      /// <summary>
+      /// Заморозка настроена успешно
+      /// </summary>
       public bool IsConfigured()
       {
          return (FreezeDays != 0) && (FreezeStartDate != _dateDefault) && (FreezeEndDate != _dateDefault);
       }
-      public int GetRemainDays()
+      public int GetRemainDays() // Сколько осталось дней заморозки в абонементе
       {
-         return _maxDaysAvailable - TotalDays;
+         return _maxDaysAvailable - _totalDays;
       }
-      private int GetMaxDaysForFreeze(PeriodClubCard period)
+      public int GetSpentDays() // Сколько использовано дней заморозки уже
+      {
+         return _totalDays;
+      }
+      public int GetDaysToFreeze() // Сколько Дней запланировано
+      {
+         return FreezeDays;
+      }
+      public bool TryConfigure(int numDays, DateTime startDate)
+      {
+         bool result = false;
+
+         if (IsPossibleToFreeze(numDays, startDate))
+         {
+            FreezeDays = numDays;
+            FreezeStartDate = startDate;
+            FreezeEndDate = FreezeStartDate.AddDays(numDays);
+            result = true;
+         }
+         return result;
+      }
+      public void Remove()
+      {
+         _totalDays = 0;
+         FreezeDays = 0;
+         FreezeStartDate = _dateDefault;
+         FreezeEndDate = _dateDefault;
+      }
+
+      private int GetMaxDays(PeriodClubCard period)
       {
          var per12 = PeriodClubCard.На_12_Месяцев;
          var per6 = PeriodClubCard.На_6_Месяцев;
@@ -128,7 +134,19 @@ namespace PBase
          }
          return result;
       }
-
+      private bool IsPossibleToFreeze(int numDays, DateTime dateStart)
+      {
+         if (numDays == 0) return false;
+         var temp = numDays + _totalDays;
+         var dateCmpr = (DateTime.Now.Date.CompareTo(dateStart.Date) <= 0);// Дата заморозки в будущем
+         return (temp <= _maxDaysAvailable) && (_totalDays <= _maxDaysAvailable) && dateCmpr;
+      }
+      private bool IsPossibleToFreeze(int numDays)
+      {
+         if (numDays == 0) return false;
+         int temp = numDays + _totalDays;
+         return (temp <= _maxDaysAvailable) && (_totalDays <= _maxDaysAvailable);
+      }
    }
 }
 // Если +, то DateTime.Now.CompareTo позднее endDate

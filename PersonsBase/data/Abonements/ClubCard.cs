@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace PBase
 {
@@ -39,8 +40,9 @@ namespace PBase
          }
       }
       public sealed override int NumPersonalTr { get; set; }
-      public Freeze Freeze;
 
+      public FreezeClass Freeze;
+      //public 
       // Конструктор
       public ClubCardA(Pay payStatus, TimeForTr time, TypeWorkout typeTr, SpaService spa, PeriodClubCard periodInMonths)
          : base(payStatus, time, typeTr, spa)
@@ -74,7 +76,7 @@ namespace PBase
       private void UpdateDaysLeft()
       {
          int numFreezDays = 0;
-         if (Freeze != null) numFreezDays = Freeze.TotalDays; //Вычитаем дни заморозки
+         if (Freeze != null) numFreezDays = Freeze.GetSpentDays(); //Вычитаем дни заморозки
          DaysLeft = (endDate.Date - DateTime.Now.Date).Days - numFreezDays;
       }
 
@@ -85,29 +87,29 @@ namespace PBase
          if (!isValid()) return false;
          switch (type)
          {
-             case TypeWorkout.Аэробный_Зал:
-             {
-                 if (NumAerobicTr > 0)
-                 {
+            case TypeWorkout.Аэробный_Зал:
+               {
+                  if (NumAerobicTr > 0)
+                  {
                      --NumAerobicTr;
                      result = true;
-                 }
-                 break;
-             }
-             case TypeWorkout.Персональная:
-             {
-                 if (NumPersonalTr > 0)
-                 {
+                  }
+                  break;
+               }
+            case TypeWorkout.Персональная:
+               {
+                  if (NumPersonalTr > 0)
+                  {
                      --NumPersonalTr;
                      result = true;
-                 }
-                 break;
-             }
-             default:
-             {
-                 result = true;
-                 break;
-             }
+                  }
+                  break;
+               }
+            default:
+               {
+                  result = true;
+                  break;
+               }
          }
          return result;
       }
@@ -182,6 +184,30 @@ namespace PBase
       public void SetTypeClubCard(PeriodClubCard newTypeCc)
       {
          PeriodAbonem = newTypeCc;
+      }
+      public bool TryFreezeClubCard(int numDays, DateTime startDate)
+      {
+         bool result = false;
+
+         if (Freeze == null)
+         {
+            Freeze = new FreezeClass(PeriodAbonem);
+         }
+
+         bool isConfigured = Freeze.TryConfigure(numDays, startDate);
+
+         if (isConfigured)
+         {
+            MessageBox.Show($"Заморозка начинается c {startDate.ToString("d")}.\n\rОсталось дней: {Freeze.GetRemainDays()} ");
+
+            endDate = endDate.AddDays(numDays);
+            result = true;
+         }
+         else
+         {
+            MessageBox.Show($"Ошибка! Возможно, не хватает дней или не корректная дата.\n\rОсталось дней: {Freeze.GetRemainDays()}");
+         }
+         return result;
       }
    }
 
