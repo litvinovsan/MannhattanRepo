@@ -314,8 +314,8 @@ namespace PBase
          // Если Заморожен
          if (_person.Status == StatusPerson.Заморожен && _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA)
          {
-            textBox_Name.ForeColor = Color.Yellow;
-            string dateEnd = (_person.AbonementCurent as ClubCardA).Freeze?.FreezeEndDate.Date.ToString("d");
+            textBox_Name.ForeColor = Color.SeaGreen;
+            string dateEnd = (_person.AbonementCurent as ClubCardA).freeze?.FreezeEndDate.Date.ToString("d");
             textBox_Name.Text = _person.Name + "   (Заморожен до " + dateEnd + " )";
          }
 
@@ -323,18 +323,16 @@ namespace PBase
          if (_person.AbonementCurent is ClubCardA)
          {
             var card = _person.AbonementCurent as ClubCardA;
-            var check = (card != null) && (card.Freeze != null);
+            var check = (card != null) && (card.freeze != null);
 
             if (check)
             {
-               if (card.Freeze.IsConfigured())
+               if (card.freeze.IsConfigured())
                {
-                  textBox_Name.ForeColor = Color.Yellow;
+                  textBox_Name.ForeColor = Color.SeaGreen;
                   textBox_Name.Text = _person.Name + "   (Запланирована Заморозка)";
                }
-
             }
-
          }
 
          // Не Активирован
@@ -608,43 +606,28 @@ namespace PBase
       {
          var status = _person.Status;
 
-         if (status == StatusPerson.Заморожен)
+         if (status != StatusPerson.Заморожен)
          {
-            _person.Status = StatusPerson.Активный;
-         }
-         else
-         {
+            var numDays = 28;
+            var startDate = DateTime.Parse("13.08.2019").Date;
+
             var abon = _person.AbonementCurent as ClubCardA;
+            abon.freeze = new Freeze(abon.PeriodAbonem, numDays, startDate);
+            var success = abon.freeze.IsConfigured();
 
-
-            abon.Freeze = new Freeze(abon.PeriodAbonem, 0, DateTime.Parse("10.08.2019"));
-            var t = abon.Freeze.IsConfigured();
-            var d = Freeze._totalDays;
-
-            abon.Freeze = new Freeze(abon.PeriodAbonem, 5, DateTime.Parse("10.04.2010"));
-            t = abon.Freeze.IsConfigured();
-            d = Freeze._totalDays;
-
-            abon.Freeze = new Freeze(abon.PeriodAbonem, 95, DateTime.Parse("10.08.2019"));
-            t = abon.Freeze.IsConfigured();
-            d = Freeze._totalDays;
-
-            abon.Freeze = new Freeze(abon.PeriodAbonem, 5, DateTime.Parse("3.08.2019"));
-            t = abon.Freeze.IsConfigured();
-            d = Freeze._totalDays;
-
-            if (abon.Freeze.IsConfigured())
+            if (success)
             {
-               _person.Status = StatusPerson.Заморожен;
+               MessageBox.Show($"Заморозка Клубной Карты начинается {startDate.ToString("d")}.\n\rОсталось дней заморозки: {abon.freeze.GetRemainDays()} ");
+               _person.AbonementCurent.endDate = _person.AbonementCurent.endDate.AddDays(numDays);
+               LoadUserData();
+               LoadShortInfo();
+               UpdateEditableData();
+            }
+            else
+            {
+               MessageBox.Show("Все дни Заморозки Потрачены!");
             }
          }
-
-
-
-
-
-
-
       }
    }
 }

@@ -39,7 +39,7 @@ namespace PBase
          }
       }
       public sealed override int NumPersonalTr { get; set; }
-      public Freeze Freeze;
+      public Freeze freeze;
 
       // Конструктор
       public ClubCardA(Pay payStatus, TimeForTr time, TypeWorkout typeTr, SpaService spa, PeriodClubCard periodInMonths)
@@ -73,7 +73,9 @@ namespace PBase
 
       private void UpdateDaysLeft()
       {
-         DaysLeft = (endDate.Date - DateTime.Now.Date).Days;
+         int numFreezDays = 0;
+         if (freeze != null) numFreezDays = Freeze.TotalDays; //Вычитаем дни заморозки
+         DaysLeft = (endDate.Date - DateTime.Now.Date).Days - numFreezDays;
       }
 
       public override bool CheckInWorkout(TypeWorkout type)

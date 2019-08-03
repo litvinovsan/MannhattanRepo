@@ -114,9 +114,9 @@ namespace PBase
             if (AbonementCurent.isValid())
             {
                ClubCardA clubCard = _abonementCurent as ClubCardA;
-               if (clubCard != null && clubCard.Freeze != null)
+               if (clubCard != null && clubCard.freeze != null)
                {
-                  if (clubCard.Freeze.IsFreezedNow()) // Если Заморожен или обьект заморозки не создан
+                  if (clubCard.freeze.IsFreezedNow()) // Если Заморожен или обьект заморозки не создан
                   {
                      _status = StatusPerson.Заморожен;
                   }
