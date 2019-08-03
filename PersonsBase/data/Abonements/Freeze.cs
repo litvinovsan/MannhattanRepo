@@ -6,23 +6,25 @@ namespace PBase
    public class Freeze
    {
       private int _freezeDays;
-      private int _maxDaysAvailable;
+      private readonly int _maxDaysAvailable;
 
       private DateTime _freezeStartDate;
 
-      private const int _maxDaysMonth_3_6 = 30;
-      private const int _maxDaysMonth_12 = 45;
+      private const int MaxDaysMonth36 = 30;
+      private const int MaxDaysMonth12 = 45;
 
       private readonly DateTime _dateDefault = DateTime.Parse("11.11.1111").Date;
-      private readonly PeriodClubCard _period;
 
-      public static int TotalDays = 0;         // Потрачено дней заморозки
+      public static int TotalDays;         // Потрачено дней заморозки
 
       public DateTime FreezeEndDate;
 
-      public DateTime FreezeStartDate
+      private DateTime FreezeStartDate
       {
-         get => _freezeStartDate;
+         get
+         {
+            return _freezeStartDate;
+         } 
          set
          {
             // Дата заморозки ещё в будущем 
@@ -38,9 +40,12 @@ namespace PBase
          }
       }
 
-      public int FreezeDays
+      private int FreezeDays
       {
-         get => _freezeDays;
+         get
+         {
+             return _freezeDays;
+         }
          set
          {
             if (IsPossibleFreezing(value))
@@ -54,24 +59,25 @@ namespace PBase
             }
          }
       }
-      public bool IsPossibleFreezing(int numDays, DateTime dateStart)
+
+      private bool IsPossibleFreezing(int numDays, DateTime dateStart)
       {
          if (numDays == 0) return false;
          var temp = numDays + TotalDays;
          var dateCmpr = (DateTime.Now.Date.CompareTo(dateStart.Date) <= 0);// Дата заморозки в будущем
          return (temp <= _maxDaysAvailable) && (TotalDays <= _maxDaysAvailable) && dateCmpr;
       }
-      public bool IsPossibleFreezing(int numDays)
+
+      private bool IsPossibleFreezing(int numDays)
       {
          if (numDays == 0) return false;
-         var temp = numDays + TotalDays;
+         int temp = numDays + TotalDays;
          return (temp <= _maxDaysAvailable) && (TotalDays <= _maxDaysAvailable);
       }
 
       public Freeze(PeriodClubCard period, int numDays, DateTime startDate)
       {
-         _period = period;
-         _maxDaysAvailable = GetMaxDaysForFreeze(period);
+          _maxDaysAvailable = GetMaxDaysForFreeze(period);
 
          if (IsPossibleFreezing(numDays, startDate))
          {
@@ -114,11 +120,11 @@ namespace PBase
          int result = 0;
          if (period == per12)
          {
-            result = _maxDaysMonth_12;
+            result = MaxDaysMonth12;
          }
          if (period == per6 || period == per3)
          {
-            result = _maxDaysMonth_3_6;
+            result = MaxDaysMonth36;
          }
          return result;
       }

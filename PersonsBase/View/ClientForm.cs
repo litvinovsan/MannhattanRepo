@@ -162,9 +162,8 @@ namespace PBase
 
       private void HideQueueAbonements()
       {
-         // Список абонементов скрывается если:
-         if (_person.AbonementsQueue.Count > 0) groupBox_abonList.Visible = true;
-         else groupBox_abonList.Visible = false;
+          // Список абонементов скрывается если:
+          groupBox_abonList.Visible = _person.AbonementsQueue.Count > 0;
       }
 
       private void PasswordChangedEvent(object sender, EventArgs e)
@@ -304,7 +303,7 @@ namespace PBase
 
       private void UpdateNameText()
       {
-         Text = "Карточка Клиента:    " + _person.Name;// Имя формы
+         Text = @"Карточка Клиента:    " + _person.Name;// Имя формы
          if (textBox_Name.Text != _person.Name)
          {
             textBox_Name.Text = _person.Name;
@@ -315,31 +314,26 @@ namespace PBase
          if (_person.Status == StatusPerson.Заморожен && _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA)
          {
             textBox_Name.ForeColor = Color.SeaGreen;
-            string dateEnd = (_person.AbonementCurent as ClubCardA).freeze?.FreezeEndDate.Date.ToString("d");
-            textBox_Name.Text = _person.Name + "   (Заморожен до " + dateEnd + " )";
+            string dateEnd = ((ClubCardA) _person.AbonementCurent).Freeze?.FreezeEndDate.Date.ToString("d");
+            textBox_Name.Text = _person.Name + @"   (Заморожен до " + dateEnd + @" )";
          }
 
          // Заморозка запланирована в будущем
-         if (_person.AbonementCurent is ClubCardA)
+         var card = _person.AbonementCurent as ClubCardA;
+         if (card?.Freeze != null)
          {
-            var card = _person.AbonementCurent as ClubCardA;
-            var check = (card != null) && (card.freeze != null);
-
-            if (check)
-            {
-               if (card.freeze.IsConfigured())
-               {
-                  textBox_Name.ForeColor = Color.SeaGreen;
-                  textBox_Name.Text = _person.Name + "   (Запланирована Заморозка)";
-               }
-            }
+             if (card.Freeze.IsConfigured())
+             {
+                 textBox_Name.ForeColor = Color.SeaGreen;
+                 textBox_Name.Text = _person.Name + @"   (Запланирована Заморозка)";
+             }
          }
 
          // Не Активирован
          if (_person.IsAbonementExist() && !_person.AbonementCurent.isActivated)
          {
             textBox_Name.ForeColor = Color.Green;
-            textBox_Name.Text = _person.Name + "   (Не Активирован)";
+            textBox_Name.Text = _person.Name + @"   (Не Активирован)";
          }
       }
 
@@ -443,7 +437,7 @@ namespace PBase
 
       private void NoValidActions()
       {
-         MessageBox.Show(_person.AbonementCurent.InfoWhenEnd, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+         MessageBox.Show(_person.AbonementCurent.InfoWhenEnd, @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
          _person.AbonementCurent = null;
          _person.Status = StatusPerson.Нет_Карты;
       }
@@ -492,7 +486,7 @@ namespace PBase
             var infoAerobic = (_person.AbonementCurent.NumAerobicTr > 0) ? $"\r\nОсталось Аэробных: {_person.AbonementCurent.NumAerobicTr}" : "";
             var infoPersonal = (_person.AbonementCurent.NumPersonalTr > 0) ? $"\r\nОсталось Персональных: {_person.AbonementCurent.NumPersonalTr}" : "";
 
-            MessageBox.Show($@"Осталось посещений: {_person.AbonementCurent.DaysLeft}{infoAerobic}{infoPersonal}", "Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($@"Осталось посещений: {_person.AbonementCurent.DaysLeft}{infoAerobic}{infoPersonal}", @"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (!_person.AbonementCurent.isValid())
             {
                _person.Status = StatusPerson.Нет_Карты;
@@ -565,11 +559,11 @@ namespace PBase
       private void button__remove_abon_Click(object sender, EventArgs e)
       {
          var selectedIndex = listBox_abonements.SelectedIndex;
-         if (selectedIndex == -1) MessageBox.Show("Выберите Абонемент для удаления!");
+         if (selectedIndex == -1) MessageBox.Show(@"Выберите Абонемент для удаления!");
          else
          {
             _person.AbonementsQueue.RemoveAt(selectedIndex);
-            MessageBox.Show("Запись Удалена!");
+            MessageBox.Show(@"Запись Удалена!");
          }
       }
       private void button_remove_current_abon_Click(object sender, EventArgs e)
@@ -612,20 +606,22 @@ namespace PBase
             var startDate = DateTime.Parse("13.08.2019").Date;
 
             var abon = _person.AbonementCurent as ClubCardA;
-            abon.freeze = new Freeze(abon.PeriodAbonem, numDays, startDate);
-            var success = abon.freeze.IsConfigured();
+            if (abon == null) return;
+            abon.Freeze = new Freeze(abon.PeriodAbonem, numDays, startDate);
+            bool success = abon.Freeze.IsConfigured();
 
             if (success)
             {
-               MessageBox.Show($"Заморозка Клубной Карты начинается {startDate.ToString("d")}.\n\rОсталось дней заморозки: {abon.freeze.GetRemainDays()} ");
-               _person.AbonementCurent.endDate = _person.AbonementCurent.endDate.AddDays(numDays);
-               LoadUserData();
-               LoadShortInfo();
-               UpdateEditableData();
+                MessageBox.Show(
+                    $"Заморозка Клубной Карты начинается {startDate.ToString("d")}.\n\rОсталось дней заморозки: {abon.Freeze.GetRemainDays()} ");
+                _person.AbonementCurent.endDate = _person.AbonementCurent.endDate.AddDays(numDays);
+                LoadUserData();
+                LoadShortInfo();
+                UpdateEditableData();
             }
             else
             {
-               MessageBox.Show("Все дни Заморозки Потрачены!");
+                MessageBox.Show(@"Все дни Заморозки Потрачены!");
             }
          }
       }
