@@ -22,6 +22,7 @@ namespace PBase
             periodAbonem = value;
             _numberMonths = (int)periodAbonem;
             _numAerobicTr = _numberMonths * 10;
+            SetNewEndDate();
          }
       }
       public override string AbonementName => "Клубная Карта";

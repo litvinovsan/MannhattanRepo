@@ -275,7 +275,7 @@ namespace PBase
                clubCard.SetTypeClubCard(_editedTypeClubCard);
                ComboBoxColor(comboBox, clubCard.GetTypeClubCard().ToString(), _editedTypeClubCard.ToString());
 
-               (_person.AbonementCurent as ClubCardA)?.SetNewEndDate();
+              // (_person.AbonementCurent as ClubCardA)?.SetNewEndDate();
             };
          }
          // Подписываемся на событие по изменению комбобокса
@@ -283,6 +283,7 @@ namespace PBase
 
          return new Tuple<Label, Control>(lableType, comboBox);
       }
+      private bool typeClubCardChanged = false; // Костыль для того чтобы при изменении Длительности карты - не слетало количество дней. Так как Дата перетирается в следующем поле Дата Окончания в цепочке делегатов.
       private void comboBox_TypeClubCard_SelectedIndexChanged(object sender, EventArgs e)
       {
          var tb = (ComboBox)sender;
@@ -292,6 +293,7 @@ namespace PBase
          if (сard == null) return;
          ComboBoxColor(tb, сard.GetTypeClubCard().ToString(), tb.SelectedItem.ToString());
          IsChangedUpdateStatus(сard.GetTypeClubCard().ToString(), tb.SelectedItem.ToString());
+         typeClubCardChanged = true;
       }
       #endregion
 
@@ -315,7 +317,7 @@ namespace PBase
 
          _saveDelegateChain += () =>
          {
-            if (_person.IsAbonementExist() && _editedEndDate.CompareTo(_person.AbonementCurent.EndDate.Date) != 0)
+            if (_person.IsAbonementExist() && (_editedEndDate.CompareTo(_person.AbonementCurent.EndDate.Date) != 0)&& !typeClubCardChanged)
             {
                _person.AbonementCurent.EndDate = _editedEndDate;
             };
@@ -450,10 +452,10 @@ namespace PBase
          const string labelText = "Дата Покупки Карты ";
          Label lableType = CreateLabel(labelText);
          DateTimePicker dateTime = CreateDateTimePicker();
-         _person.AbonementCurent.buyDate = (_person.AbonementCurent.buyDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? _person.AbonementCurent.buyDate.Date : dateTime.Value;
+         var init = (_person.AbonementCurent.buyDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? _person.AbonementCurent.buyDate.Date : dateTime.Value;
 
-         dateTime.Value = _person.AbonementCurent.buyDate.Date;
-         _editedBuyDate = _person.AbonementCurent.buyDate.Date;
+         dateTime.Value = init;
+         _editedBuyDate = init;
 
          dateTime.ValueChanged += DateTime_BuyDate_ValueChanged;
 
