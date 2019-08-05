@@ -8,6 +8,13 @@ namespace PBase
    [Serializable]
    public abstract class AbonementBasic
    {
+      [field: NonSerialized]
+      public event EventHandler EndDateChanged;
+      public void OnEndDateChanged()
+      {
+         EndDateChanged?.Invoke(this, EventArgs.Empty);
+      }
+
       abstract public string AbonementName { get; }
       abstract public string InfoWhenEnd { get; }
       abstract public int NumAerobicTr { get; set; } // Количество Аэробных тренировок. 10 в клубн карте,каждый месяц
@@ -20,7 +27,15 @@ namespace PBase
       private DateTime endDate;             // Дата завершения абонемента. 
       public bool isActivated;             // Активирован? Дата окончания отсчитывается с момента
       public int DaysLeft { get; set; }  //Дней до конца абонемента, от активации,т.е. с первого посещения. 
-      public DateTime EndDate { get => endDate; set => endDate = value; }
+      public DateTime EndDate
+      {
+         get => endDate;
+         set
+         {
+            endDate = value;
+            OnEndDateChanged();
+         }
+      }
 
       // Конструктор
       public AbonementBasic(Pay payStatus, TimeForTr time, TypeWorkout tr, SpaService spa)
@@ -37,7 +52,7 @@ namespace PBase
       /// <summary>
       /// Абонемент не кончился по Дате или Посещениям?
       /// </summary>
-      abstract public bool isValid(); 
+      abstract public bool isValid();
       /// <summary>
       /// Активация абонемента. Устанавливается дата окончания.
       /// </summary>

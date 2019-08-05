@@ -334,7 +334,10 @@ namespace PBase
          {
             textBox_Name.ForeColor = Color.Green;
             textBox_Name.Text = _person.Name + @"   (Не Активирован)";
+            button_Freeze.Enabled = false;
          }
+         else button_Freeze.Enabled = true;
+
       }
 
       private List<Tuple<Label, Control>> SelectList(AbonementBasic currentAbon)
@@ -602,7 +605,7 @@ namespace PBase
 
          if (status != StatusPerson.Заморожен)
          {
-            var numDays = 30;
+            var numDays = 14;
             var startDate = DateTime.Parse("13.08.2019").Date;
 
             if ((_person.AbonementCurent as ClubCardA).TryFreezeClubCard(numDays, startDate))
@@ -611,7 +614,7 @@ namespace PBase
                LoadShortInfo();
                UpdateEditableData();
             }
-            (_person.AbonementCurent as ClubCardA).Freeze.Remove();
+            
          }
          else
          {

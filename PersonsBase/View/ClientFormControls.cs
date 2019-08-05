@@ -275,7 +275,7 @@ namespace PBase
                clubCard.SetTypeClubCard(_editedTypeClubCard);
                ComboBoxColor(comboBox, clubCard.GetTypeClubCard().ToString(), _editedTypeClubCard.ToString());
 
-               (_person.AbonementCurent as ClubCardA)?.UpdateEndDate();
+               (_person.AbonementCurent as ClubCardA)?.SetNewEndDate();
             };
          }
          // Подписываемся на событие по изменению комбобокса
@@ -305,11 +305,11 @@ namespace PBase
          Label lableType = CreateLabel(labelText);
          DateTimePicker dateTime = CreateDateTimePicker();
 
-         _person.AbonementCurent.EndDate = (_person.AbonementCurent.EndDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? _person.AbonementCurent.EndDate.Date : dateTime.Value;
+        var initDate = (_person.AbonementCurent.EndDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? _person.AbonementCurent.EndDate.Date : dateTime.Value;
 
 
-         dateTime.Value = _person.AbonementCurent.EndDate.Date;
-         _editedEndDate = _person.AbonementCurent.EndDate.Date;
+         dateTime.Value = initDate;
+         _editedEndDate = initDate;
 
          dateTime.ValueChanged += DateTime_EndDate_ValueChanged;
 

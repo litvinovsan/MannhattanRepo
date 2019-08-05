@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace PBase
 {
@@ -115,6 +116,7 @@ namespace PBase
          FreezeDays = 0;
          FreezeStartDate = _dateDefault;
          FreezeEndDate = _dateDefault;
+         MessageBox.Show("Удалены все заморозки!");
       }
 
       private int GetMaxDays(PeriodClubCard period)

@@ -42,7 +42,7 @@ namespace PBase
       public sealed override int NumPersonalTr { get; set; }
 
       public FreezeClass Freeze;
-      //public 
+
       // Конструктор
       public ClubCardA(Pay payStatus, TimeForTr time, TypeWorkout typeTr, SpaService spa, PeriodClubCard periodInMonths)
          : base(payStatus, time, typeTr, spa)
@@ -51,8 +51,17 @@ namespace PBase
          _numAerobicTr = _numberMonths * 10;
          NumPersonalTr = 0;
          periodAbonem = periodInMonths;
+
+         EndDateChanged += CalculateDaysLeft;
          EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
-         UpdateDaysLeft();
+
+      }
+
+      private void CalculateDaysLeft(object sender, EventArgs e)
+      {
+         int numFreezDays = 0;
+         if (Freeze != null) numFreezDays = Freeze.GetSpentDays(); //Вычитаем дни заморозки
+         DaysLeft = (EndDate.Date - DateTime.Now.Date).Days - numFreezDays;
       }
 
       // Методы
@@ -70,15 +79,8 @@ namespace PBase
          if (isActivated) return; // Уже Активирован.
          isActivated = true;
          EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
-         UpdateDaysLeft();
       }
 
-      private void UpdateDaysLeft()
-      {
-         int numFreezDays = 0;
-         if (Freeze != null) numFreezDays = Freeze.GetSpentDays(); //Вычитаем дни заморозки
-         DaysLeft = (EndDate.Date - DateTime.Now.Date).Days - numFreezDays;
-      }
 
       public override bool CheckInWorkout(TypeWorkout type)
       {
@@ -166,14 +168,13 @@ namespace PBase
 
       public override int GetRemainderDays()
       {
-         UpdateDaysLeft();
+
          return DaysLeft;
       }
 
-      public void UpdateEndDate()
+      public void SetNewEndDate()
       {
          EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
-         UpdateDaysLeft();
       }
 
       public PeriodClubCard GetTypeClubCard()
@@ -198,9 +199,8 @@ namespace PBase
 
          if (isConfigured)
          {
-            MessageBox.Show($"Заморозка начинается c {startDate.ToString("d")}.\n\rОсталось дней: {Freeze.GetRemainDays()} ");
-
             EndDate = EndDate.AddDays(numDays);
+            MessageBox.Show($"Заморозка начинается c {startDate.ToString("d")}.\n\rОсталось дней: {Freeze.GetRemainDays()} ");
             result = true;
          }
          else
