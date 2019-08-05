@@ -14,7 +14,7 @@ namespace PBase
          numAerobicTr = 0;
          numPersonalTr = 0;
          DaysLeft = 1;
-         endDate = DateTime.Now.Date;
+         EndDate = DateTime.Now.Date;
       }
 
       // Свойства
@@ -30,7 +30,7 @@ namespace PBase
       {
          if (isActivated) return; // Уже Активирован.
          isActivated = true;
-         endDate = DateTime.Now.Date;
+         EndDate = DateTime.Now.Date;
       }
 
       public override bool CheckInWorkout(TypeWorkout type)

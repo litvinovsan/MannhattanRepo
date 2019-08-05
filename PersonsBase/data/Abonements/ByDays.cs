@@ -6,6 +6,8 @@ namespace PBase
    [Serializable]
    public class AbonementByDays : AbonementBasic //Абонемент на несколько занятий
    {
+      private const int ValidityPeriod = 2;
+
       // Конструктор
       public AbonementByDays(Pay payStatus, TimeForTr time, TypeWorkout typeTr, SpaService spa, DaysInAbon numDays)
           : base(payStatus, time, typeTr, spa)
@@ -14,7 +16,7 @@ namespace PBase
          TypeAbonement = numDays;
          NumAerobicTr = 0;  // Нужны тут только из-за абстракции. 
          NumPersonalTr = 0; // Нужны тут только из-за абстракции. 
-         endDate = DateTime.Now.AddMonths(2).Date;
+         EndDate = DateTime.Now.AddMonths(2).Date;
       }
 
       // Свойства
@@ -29,7 +31,7 @@ namespace PBase
       {
          if (isActivated) return; // Уже Активирован.
          isActivated = true;
-         endDate = DateTime.Now.AddMonths(2).Date;
+         EndDate = DateTime.Now.AddMonths(ValidityPeriod).Date;
       }
 
       public override bool CheckInWorkout(TypeWorkout type)
@@ -48,7 +50,7 @@ namespace PBase
          // Если +, то DateTime.Now позднее endDate
          // Если 0, то даты совпали
          // Если -, то DateTime.Now раньше Конца абонемента
-         return ((DateTime.Now.Date.CompareTo(endDate.Date) <= 0) && (GetRemainderDays() > 0));
+         return ((DateTime.Now.Date.CompareTo(EndDate.Date) <= 0) && (GetRemainderDays() > 0));
       }
 
       public override bool AddTrainingsToAbon(TypeWorkout type, int numberToAdd)
@@ -67,7 +69,7 @@ namespace PBase
               new Tuple<string, string>("Время Тренировок ", timeTraining.ToString()),
               new Tuple<string, string>("Осталось Занятий", GetRemainderDays().ToString()),
               new Tuple<string, string>("Услуги", spa.ToString()),
-              new Tuple<string, string>("Дата Окончания", endDate.ToString("d"))
+              new Tuple<string, string>("Дата Окончания", EndDate.ToString("d"))
           };
          if (payStatus == Pay.Не_Оплачено) { result.Add(new Tuple<string, string>("Статус Оплаты ", payStatus.ToString())); }
          return result;

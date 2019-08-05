@@ -17,9 +17,10 @@ namespace PBase
       public TimeForTr timeTraining;       // Время занятий
       public TypeWorkout trainingsType;    // Доступные тренировки
       public DateTime buyDate;             // Дата покупки
-      public DateTime endDate;             // Дата завершения абонемента. 
+      private DateTime endDate;             // Дата завершения абонемента. 
       public bool isActivated;             // Активирован? Дата окончания отсчитывается с момента
       public int DaysLeft { get; set; }  //Дней до конца абонемента, от активации,т.е. с первого посещения. 
+      public DateTime EndDate { get => endDate; set => endDate = value; }
 
       // Конструктор
       public AbonementBasic(Pay payStatus, TimeForTr time, TypeWorkout tr, SpaService spa)

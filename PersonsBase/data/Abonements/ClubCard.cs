@@ -51,7 +51,7 @@ namespace PBase
          _numAerobicTr = _numberMonths * 10;
          NumPersonalTr = 0;
          periodAbonem = periodInMonths;
-         endDate = DateTime.Now.AddMonths(_numberMonths).Date;
+         EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
          UpdateDaysLeft();
       }
 
@@ -61,7 +61,7 @@ namespace PBase
          // Если +, то DateTime.Now позднее endDate
          // Если 0, то даты совпали
          // Если -, то DateTime.Now раньше Конца абонемента
-         var checkDate = (DateTime.Now.Date.CompareTo(endDate.Date) <= 0);
+         var checkDate = (DateTime.Now.Date.CompareTo(EndDate.Date) <= 0);
          return checkDate;
       }
 
@@ -69,7 +69,7 @@ namespace PBase
       {
          if (isActivated) return; // Уже Активирован.
          isActivated = true;
-         endDate = DateTime.Now.AddMonths(_numberMonths).Date;
+         EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
          UpdateDaysLeft();
       }
 
@@ -77,7 +77,7 @@ namespace PBase
       {
          int numFreezDays = 0;
          if (Freeze != null) numFreezDays = Freeze.GetSpentDays(); //Вычитаем дни заморозки
-         DaysLeft = (endDate.Date - DateTime.Now.Date).Days - numFreezDays;
+         DaysLeft = (EndDate.Date - DateTime.Now.Date).Days - numFreezDays;
       }
 
       public override bool CheckInWorkout(TypeWorkout type)
@@ -154,7 +154,7 @@ namespace PBase
               new Tuple<string, string>("Время Тренировок ", timeTraining.ToString()),
               new Tuple<string, string>("Услуги", spa.ToString()),
               new Tuple<string, string>("Срок Клубной Карты", _numberMonths +"  мес."),
-              new Tuple<string, string>("Дата Окончания Карты", endDate.Date.ToString("d")),
+              new Tuple<string, string>("Дата Окончания Карты", EndDate.Date.ToString("d")),
               new Tuple<string, string>("Осталось Дней", GetRemainderDays().ToString())
           };
          if (NumPersonalTr > 0) { result.Add(new Tuple<string, string>("Осталось Персональных", NumPersonalTr.ToString())); }
@@ -172,7 +172,7 @@ namespace PBase
 
       public void UpdateEndDate()
       {
-         endDate = DateTime.Now.AddMonths(_numberMonths).Date;
+         EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
          UpdateDaysLeft();
       }
 
@@ -200,7 +200,7 @@ namespace PBase
          {
             MessageBox.Show($"Заморозка начинается c {startDate.ToString("d")}.\n\rОсталось дней: {Freeze.GetRemainDays()} ");
 
-            endDate = endDate.AddDays(numDays);
+            EndDate = EndDate.AddDays(numDays);
             result = true;
          }
          else

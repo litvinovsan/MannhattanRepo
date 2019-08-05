@@ -305,19 +305,19 @@ namespace PBase
          Label lableType = CreateLabel(labelText);
          DateTimePicker dateTime = CreateDateTimePicker();
 
-         _person.AbonementCurent.endDate = (_person.AbonementCurent.endDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? _person.AbonementCurent.endDate.Date : dateTime.Value;
+         _person.AbonementCurent.EndDate = (_person.AbonementCurent.EndDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? _person.AbonementCurent.EndDate.Date : dateTime.Value;
 
 
-         dateTime.Value = _person.AbonementCurent.endDate.Date;
-         _editedEndDate = _person.AbonementCurent.endDate.Date;
+         dateTime.Value = _person.AbonementCurent.EndDate.Date;
+         _editedEndDate = _person.AbonementCurent.EndDate.Date;
 
          dateTime.ValueChanged += DateTime_EndDate_ValueChanged;
 
          _saveDelegateChain += () =>
          {
-            if (_person.IsAbonementExist() && _editedEndDate.CompareTo(_person.AbonementCurent.endDate.Date) != 0)
+            if (_person.IsAbonementExist() && _editedEndDate.CompareTo(_person.AbonementCurent.EndDate.Date) != 0)
             {
-               _person.AbonementCurent.endDate = _editedEndDate;
+               _person.AbonementCurent.EndDate = _editedEndDate;
             };
          };
          return new Tuple<Label, Control>(lableType, dateTime);
