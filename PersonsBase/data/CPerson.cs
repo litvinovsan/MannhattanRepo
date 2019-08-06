@@ -111,7 +111,7 @@ namespace PBase
          }
          else
          {
-            if (AbonementCurent.isValid())
+            if (AbonementCurent.IsValid())
             {
                ClubCardA clubCard = _abonementCurent as ClubCardA;
                if (clubCard?.Freeze != null)

@@ -31,13 +31,15 @@ namespace PBase
       {
          if (isActivated) return; // Уже Активирован.
          isActivated = true;
-         EndDate = DateTime.Now.AddMonths(ValidityPeriod).Date;
+         var date = DateTime.Now.AddMonths(ValidityPeriod).Date;
+         if (EndDate.Date.CompareTo(date) != 0)
+            EndDate = date;
       }
 
       public override bool CheckInWorkout(TypeWorkout type)
       {
          bool result = false;
-         if (isValid())
+         if (IsValid())
          {
             DaysLeft--;
             result = true;
@@ -45,9 +47,9 @@ namespace PBase
          return result;
       }
 
-      public override bool isValid()
+      public override bool IsValid()
       {
-         // Если +, то DateTime.Now позднее endDate
+         // Если +, то DateTime.Now позднее _endDate
          // Если 0, то даты совпали
          // Если -, то DateTime.Now раньше Конца абонемента
          return ((DateTime.Now.Date.CompareTo(EndDate.Date) <= 0) && (GetRemainderDays() > 0));

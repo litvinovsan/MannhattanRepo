@@ -15,24 +15,28 @@ namespace PBase
          EndDateChanged?.Invoke(this, EventArgs.Empty);
       }
 
-      abstract public string AbonementName { get; }
-      abstract public string InfoWhenEnd { get; }
-      abstract public int NumAerobicTr { get; set; } // Количество Аэробных тренировок. 10 в клубн карте,каждый месяц
-      abstract public int NumPersonalTr { get; set; } // Количество Персональных тренировок. Могут быть добавлены к Клубному абонементу.
+      public abstract string AbonementName { get; }
+      public abstract string InfoWhenEnd { get; }
+      public abstract int NumAerobicTr { get; set; } // Количество Аэробных тренировок. 10 в клубн карте,каждый месяц
+      public abstract int NumPersonalTr { get; set; } // Количество Персональных тренировок. Могут быть добавлены к Клубному абонементу.
       public SpaService spa;               // Услуги спа
       public Pay payStatus;                // Оплачен?
       public TimeForTr timeTraining;       // Время занятий
       public TypeWorkout trainingsType;    // Доступные тренировки
       public DateTime buyDate;             // Дата покупки
-      private DateTime endDate;             // Дата завершения абонемента. 
       public bool isActivated;             // Активирован? Дата окончания отсчитывается с момента
       public int DaysLeft { get; set; }  //Дней до конца абонемента, от активации,т.е. с первого посещения. 
+
+      private DateTime _endDate;             // Дата завершения абонемента. 
       public DateTime EndDate
       {
-         get => endDate;
+         get
+         {
+            return _endDate;
+         }
          set
          {
-            endDate = value;
+            _endDate = value;
             OnEndDateChanged();
          }
       }
@@ -52,24 +56,24 @@ namespace PBase
       /// <summary>
       /// Абонемент не кончился по Дате или Посещениям?
       /// </summary>
-      abstract public bool isValid();
+      public abstract bool IsValid();
       /// <summary>
       /// Активация абонемента. Устанавливается дата окончания.
       /// </summary>
-      abstract public void TryActivate();
+      public abstract void TryActivate();
       /// <summary>
       /// Отметить и Учесть посещение в абонементе
       /// </summary>
-      abstract public bool CheckInWorkout(TypeWorkout type);
+      public abstract bool CheckInWorkout(TypeWorkout type);
       /// <summary>
       ///  Добавление Персональных или Аэробных тренировок к текущему абонементу.  
       /// </summary>
-      abstract public bool AddTrainingsToAbon(TypeWorkout type, int numberToAdd);
-      abstract public List<Tuple<string, string>> GetShortInfoList();
+      public abstract bool AddTrainingsToAbon(TypeWorkout type, int numberToAdd);
+      public abstract List<Tuple<string, string>> GetShortInfoList();
       /// <summary>
       /// Получить оставшиеся в абонементе дни
       /// </summary>
       /// <returns></returns>
-      abstract public int GetRemainderDays(); // Осталось дней
+      public abstract int GetRemainderDays(); // Осталось дней
    }
 }

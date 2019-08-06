@@ -151,6 +151,6 @@ namespace PBase
       }
    }
 }
-// Если +, то DateTime.Now.CompareTo позднее endDate
+// Если +, то DateTime.Now.CompareTo позднее _endDate
 // Если 0, то даты совпали
 // Если -, то DateTime.Now раньше Конца абонемента

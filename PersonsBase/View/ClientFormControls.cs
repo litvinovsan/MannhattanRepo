@@ -275,7 +275,7 @@ namespace PBase
                clubCard.SetTypeClubCard(_editedTypeClubCard);
                ComboBoxColor(comboBox, clubCard.GetTypeClubCard().ToString(), _editedTypeClubCard.ToString());
 
-              // (_person.AbonementCurent as ClubCardA)?.SetNewEndDate();
+               // (_person.AbonementCurent as ClubCardA)?.SetNewEndDate();
             };
          }
          // Подписываемся на событие по изменению комбобокса
@@ -307,7 +307,7 @@ namespace PBase
          Label lableType = CreateLabel(labelText);
          DateTimePicker dateTime = CreateDateTimePicker();
 
-        var initDate = (_person.AbonementCurent.EndDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? _person.AbonementCurent.EndDate.Date : dateTime.Value;
+         var initDate = (_person.AbonementCurent.EndDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? _person.AbonementCurent.EndDate.Date : dateTime.Value;
 
 
          dateTime.Value = initDate;
@@ -317,7 +317,7 @@ namespace PBase
 
          _saveDelegateChain += () =>
          {
-            if (_person.IsAbonementExist() && (_editedEndDate.CompareTo(_person.AbonementCurent.EndDate.Date) != 0)&& !typeClubCardChanged)
+            if (_person.IsAbonementExist() && (_editedEndDate.CompareTo(_person.AbonementCurent.EndDate.Date) != 0) && !typeClubCardChanged)
             {
                _person.AbonementCurent.EndDate = _editedEndDate;
             };
@@ -335,16 +335,44 @@ namespace PBase
 
       #region // Метод. Осталось Дней
 
+      private int _editedNumRemainder;
       private Tuple<Label, Control> CreateRemainderDaysField()
       {
          const string nameLabel = "Осталось Дней";
          string tbInitialText = _person.AbonementCurent.GetRemainderDays().ToString();
-
+         _editedNumRemainder = _person.AbonementCurent.GetRemainderDays();
          Label lableType = CreateLabel(nameLabel);
-         TextBox textbox = CreateTextBox(true);
+         TextBox textbox = CreateTextBox(false);
+
          // Инициализируем наши Контролы
          textbox.Text = tbInitialText;
+         textbox.MaxLength = 3;
+         // Подписываемся на событие по изменению
+         textbox.KeyPress += Textbox_KeyPress;
+         textbox.TextChanged += Textbox_Remainder_TextChanged;
+
+         _saveDelegateChain += () =>
+         {
+            if (_person.AbonementCurent.GetRemainderDays() != _editedNumRemainder && (_editedNumRemainder >= 0) && !typeClubCardChanged)
+            {
+               _person.AbonementCurent.DaysLeft = _editedNumRemainder;
+               Methods.SetControlBackColor(textbox, _editedNumRemainder.ToString(), _person.AbonementCurent.GetRemainderDays().ToString());
+            }
+         };
          return new Tuple<Label, Control>(lableType, textbox);
+      }
+
+      private void Textbox_Remainder_TextChanged(object sender, EventArgs e)
+      {
+         var tb = (TextBox)sender;
+         Int32.TryParse(tb.Text, out _editedNumRemainder);
+         Methods.SetControlBackColor(tb, _editedNumRemainder.ToString(), _person.AbonementCurent.GetRemainderDays().ToString());
+         _isAnythingChanged = true;
+      }
+
+      private void Textbox_KeyPress(object sender, KeyPressEventArgs e)
+      {
+         CheckForDigits(e);
       }
       #endregion
 
@@ -380,11 +408,7 @@ namespace PBase
       }
       private void Textbox_NumPersonalTr_KeyPress(object sender, KeyPressEventArgs e)
       {
-         char number = e.KeyChar;
-         if (!Char.IsDigit(number) && number != 8) // цифры и клавиша BackSpace
-         {
-            e.Handled = true;
-         }
+         CheckForDigits(e);
       }
       private void Textbox_NumPersonalTrChanged(object sender, EventArgs e)
       {
@@ -428,11 +452,7 @@ namespace PBase
       }
       private void Textbox_NumAerobicTr_KeyPress(object sender, KeyPressEventArgs e)
       {
-         char number = e.KeyChar;
-         if (!Char.IsDigit(number) && number != 8) // цифры и клавиша BackSpace
-         {
-            e.Handled = true;
-         }
+         CheckForDigits(e);
       }
       private void Textbox_NumAerobicTrChanged(object sender, EventArgs e)
       {
@@ -671,5 +691,17 @@ namespace PBase
             Value = DateTime.Now
          };
       }
+
+
+      // Разное
+      private static void CheckForDigits(KeyPressEventArgs e)
+      {
+         char number = e.KeyChar;
+         if (!Char.IsDigit(number) && number != 8) // цифры и клавиша BackSpace
+         {
+            e.Handled = true;
+         }
+      }
+
    }
 }

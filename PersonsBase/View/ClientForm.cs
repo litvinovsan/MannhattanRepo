@@ -188,6 +188,7 @@ namespace PBase
          _saveDelegateChain?.Invoke(); //Цепочка делегатов на сохранение всех полей
          SaveSpecialNotes();
          _isAnythingChanged = false;
+         typeClubCardChanged = false;
       }
 
       /////////// ДАННЫЕ АБОНЕМЕНТА И КЛИЕНТА /////////////////////////////
@@ -458,7 +459,7 @@ namespace PBase
          int personal = _person.AbonementCurent.NumPersonalTr;
 
          // Если Кончился абонемент и не сработали проверки в других местах
-         if (!_person.AbonementCurent.isValid())
+         if (!_person.AbonementCurent.IsValid())
          {
             NoValidActions();
             return;
@@ -490,7 +491,7 @@ namespace PBase
             var infoPersonal = (_person.AbonementCurent.NumPersonalTr > 0) ? $"\r\nОсталось Персональных: {_person.AbonementCurent.NumPersonalTr}" : "";
 
             MessageBox.Show($@"Осталось посещений: {_person.AbonementCurent.GetRemainderDays()}{infoAerobic}{infoPersonal}", @"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            if (!_person.AbonementCurent.isValid())
+            if (!_person.AbonementCurent.IsValid())
             {
                _person.Status = StatusPerson.Нет_Карты;
                _person.AbonementCurent = null;
@@ -516,7 +517,7 @@ namespace PBase
          UpdateEditableData();
          Methods.ClearSelection(groupBox_Detailed);
 
-         //  SetControlsColorDefault();
+         // Methods.SetControlsColorDefault(groupBox_Detailed);
       }
       private void ClientForm_Resize(object sender, EventArgs e)
       {
@@ -590,13 +591,14 @@ namespace PBase
          if (_options.IsPasswordValid) // Заблокировать пароль в этом случае
          {
             _options.IsPasswordValid = false;
-            button2.Text = @"Изменить данные (нужен пароль)";
+            button2.Text = @"Изменить данные";
          }
          else
          {
-            button2.Text = @"Заблокировать данные";
             PwdForm pwd = new PwdForm(_options);
-            pwd.ShowDialog();
+            var dlgResult = pwd.ShowDialog();
+            if(dlgResult!=DialogResult.Cancel)
+            button2.Text = @"Заблокировать данные";
          }
       }
       private void button_Freeze_Click(object sender, EventArgs e)
@@ -614,7 +616,7 @@ namespace PBase
                LoadShortInfo();
                UpdateEditableData();
             }
-            
+
          }
          else
          {
@@ -622,6 +624,6 @@ namespace PBase
          }
       }
 
-     
+
    }
 }

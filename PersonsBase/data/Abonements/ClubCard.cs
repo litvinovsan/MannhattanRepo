@@ -10,6 +10,7 @@ namespace PBase
       // Свойства
       private int _numberMonths;
       private int _numAerobicTr;
+
       private PeriodClubCard periodAbonem;
       public PeriodClubCard PeriodAbonem
       {
@@ -55,7 +56,7 @@ namespace PBase
 
          EndDateChanged += CalculateDaysLeft;
          EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
-
+         
       }
 
       private void CalculateDaysLeft(object sender, EventArgs e)
@@ -66,9 +67,9 @@ namespace PBase
       }
 
       // Методы
-      public override bool isValid()
+      public override bool IsValid()
       {
-         // Если +, то DateTime.Now позднее endDate
+         // Если +, то DateTime.Now позднее _endDate
          // Если 0, то даты совпали
          // Если -, то DateTime.Now раньше Конца абонемента
          var checkDate = (DateTime.Now.Date.CompareTo(EndDate.Date) <= 0);
@@ -79,15 +80,14 @@ namespace PBase
       {
          if (isActivated) return; // Уже Активирован.
          isActivated = true;
-         EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
+         SetNewEndDate();
       }
-
 
       public override bool CheckInWorkout(TypeWorkout type)
       {
          bool result = false;
 
-         if (!isValid()) return false;
+         if (!IsValid()) return false;
          switch (type)
          {
             case TypeWorkout.Аэробный_Зал:
@@ -169,13 +169,14 @@ namespace PBase
 
       public override int GetRemainderDays()
       {
-
          return DaysLeft;
       }
 
       public void SetNewEndDate()
       {
-         EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
+         var date = DateTime.Now.AddMonths(_numberMonths).Date;
+         if (EndDate.Date.CompareTo(date) != 0)
+            EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
       }
 
       public PeriodClubCard GetTypeClubCard()
@@ -211,5 +212,4 @@ namespace PBase
          return result;
       }
    }
-
 }

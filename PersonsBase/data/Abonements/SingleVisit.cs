@@ -46,7 +46,7 @@ namespace PBase
 
 
 
-      public override bool isValid()
+      public override bool IsValid()
       {
          return (DaysLeft > 0);
       }
