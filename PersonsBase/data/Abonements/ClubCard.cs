@@ -56,7 +56,6 @@ namespace PBase
 
          EndDateChanged += CalculateDaysLeft;
          EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
-         
       }
 
       private void CalculateDaysLeft(object sender, EventArgs e)

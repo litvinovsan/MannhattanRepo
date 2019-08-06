@@ -597,8 +597,8 @@ namespace PBase
          {
             PwdForm pwd = new PwdForm(_options);
             var dlgResult = pwd.ShowDialog();
-            if(dlgResult!=DialogResult.Cancel)
-            button2.Text = @"Заблокировать данные";
+            if (dlgResult == DialogResult.OK) button2.Text = @"Заблокировать данные";
+            else button2.Text = @"Изменить данные";
          }
       }
       private void button_Freeze_Click(object sender, EventArgs e)
