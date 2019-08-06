@@ -54,9 +54,11 @@ namespace PersonsBase.View
          // 
          this.button_Ok.DialogResult = System.Windows.Forms.DialogResult.OK;
          this.button_Ok.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.button_Ok.Location = new System.Drawing.Point(3, 3);
+         this.button_Ok.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.button_Ok.Location = new System.Drawing.Point(2, 2);
+         this.button_Ok.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
          this.button_Ok.Name = "button_Ok";
-         this.button_Ok.Size = new System.Drawing.Size(249, 38);
+         this.button_Ok.Size = new System.Drawing.Size(187, 32);
          this.button_Ok.TabIndex = 0;
          this.button_Ok.Text = "Применить";
          this.button_Ok.UseVisualStyleBackColor = true;
@@ -70,11 +72,12 @@ namespace PersonsBase.View
          this.tableLayoutPanel1.Controls.Add(this.button_Ok, 0, 0);
          this.tableLayoutPanel1.Controls.Add(this.button_Cancel, 1, 0);
          this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-         this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 172);
+         this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 140);
+         this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
          this.tableLayoutPanel1.Name = "tableLayoutPanel1";
          this.tableLayoutPanel1.RowCount = 1;
          this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-         this.tableLayoutPanel1.Size = new System.Drawing.Size(510, 44);
+         this.tableLayoutPanel1.Size = new System.Drawing.Size(382, 36);
          this.tableLayoutPanel1.TabIndex = 1;
          // 
          // button_Cancel
@@ -82,9 +85,11 @@ namespace PersonsBase.View
          this.button_Cancel.AutoSize = true;
          this.button_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
          this.button_Cancel.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.button_Cancel.Location = new System.Drawing.Point(258, 3);
+         this.button_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.button_Cancel.Location = new System.Drawing.Point(193, 2);
+         this.button_Cancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
          this.button_Cancel.Name = "button_Cancel";
-         this.button_Cancel.Size = new System.Drawing.Size(249, 38);
+         this.button_Cancel.Size = new System.Drawing.Size(187, 32);
          this.button_Cancel.TabIndex = 1;
          this.button_Cancel.Text = "Отмена";
          this.button_Cancel.UseVisualStyleBackColor = true;
@@ -95,8 +100,10 @@ namespace PersonsBase.View
          this.groupBox1.Controls.Add(this.tableLayoutPanel2);
          this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
          this.groupBox1.Location = new System.Drawing.Point(0, 0);
+         this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
          this.groupBox1.Name = "groupBox1";
-         this.groupBox1.Size = new System.Drawing.Size(510, 172);
+         this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+         this.groupBox1.Size = new System.Drawing.Size(382, 140);
          this.groupBox1.TabIndex = 2;
          this.groupBox1.TabStop = false;
          // 
@@ -112,14 +119,15 @@ namespace PersonsBase.View
          this.tableLayoutPanel2.Controls.Add(this.pictureBox_aero, 0, 1);
          this.tableLayoutPanel2.Controls.Add(this.pictureBox_tren, 0, 2);
          this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 18);
+         this.tableLayoutPanel2.Location = new System.Drawing.Point(2, 15);
+         this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
          this.tableLayoutPanel2.Name = "tableLayoutPanel2";
          this.tableLayoutPanel2.RowCount = 4;
          this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
          this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
          this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
          this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-         this.tableLayoutPanel2.Size = new System.Drawing.Size(504, 151);
+         this.tableLayoutPanel2.Size = new System.Drawing.Size(378, 123);
          this.tableLayoutPanel2.TabIndex = 3;
          // 
          // radioButton_personal
@@ -127,9 +135,10 @@ namespace PersonsBase.View
          this.radioButton_personal.AutoSize = true;
          this.radioButton_personal.Dock = System.Windows.Forms.DockStyle.Left;
          this.radioButton_personal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.radioButton_personal.Location = new System.Drawing.Point(88, 3);
+         this.radioButton_personal.Location = new System.Drawing.Point(65, 2);
+         this.radioButton_personal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
          this.radioButton_personal.Name = "radioButton_personal";
-         this.radioButton_personal.Size = new System.Drawing.Size(162, 42);
+         this.radioButton_personal.Size = new System.Drawing.Size(138, 34);
          this.radioButton_personal.TabIndex = 0;
          this.radioButton_personal.TabStop = true;
          this.radioButton_personal.Text = "Персональная";
@@ -141,9 +150,10 @@ namespace PersonsBase.View
          this.radioButton_aerob.AutoSize = true;
          this.radioButton_aerob.Dock = System.Windows.Forms.DockStyle.Left;
          this.radioButton_aerob.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.radioButton_aerob.Location = new System.Drawing.Point(88, 51);
+         this.radioButton_aerob.Location = new System.Drawing.Point(65, 40);
+         this.radioButton_aerob.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
          this.radioButton_aerob.Name = "radioButton_aerob";
-         this.radioButton_aerob.Size = new System.Drawing.Size(119, 42);
+         this.radioButton_aerob.Size = new System.Drawing.Size(101, 34);
          this.radioButton_aerob.TabIndex = 1;
          this.radioButton_aerob.TabStop = true;
          this.radioButton_aerob.Text = "Аэробная";
@@ -155,9 +165,10 @@ namespace PersonsBase.View
          this.radioButton_tren.AutoSize = true;
          this.radioButton_tren.Dock = System.Windows.Forms.DockStyle.Left;
          this.radioButton_tren.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.radioButton_tren.Location = new System.Drawing.Point(88, 99);
+         this.radioButton_tren.Location = new System.Drawing.Point(65, 78);
+         this.radioButton_tren.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
          this.radioButton_tren.Name = "radioButton_tren";
-         this.radioButton_tren.Size = new System.Drawing.Size(200, 43);
+         this.radioButton_tren.Size = new System.Drawing.Size(164, 35);
          this.radioButton_tren.TabIndex = 2;
          this.radioButton_tren.TabStop = true;
          this.radioButton_tren.Text = "Тренажерный Зал";
@@ -169,9 +180,10 @@ namespace PersonsBase.View
          // 
          this.pictureBox_person.BackColor = System.Drawing.Color.White;
          this.pictureBox_person.Image = global::PersonsBase.Properties.Resources.Personal;
-         this.pictureBox_person.Location = new System.Drawing.Point(3, 3);
+         this.pictureBox_person.Location = new System.Drawing.Point(2, 2);
+         this.pictureBox_person.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
          this.pictureBox_person.Name = "pictureBox_person";
-         this.pictureBox_person.Size = new System.Drawing.Size(75, 42);
+         this.pictureBox_person.Size = new System.Drawing.Size(56, 34);
          this.pictureBox_person.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
          this.pictureBox_person.TabIndex = 3;
          this.pictureBox_person.TabStop = false;
@@ -180,9 +192,10 @@ namespace PersonsBase.View
          // 
          this.pictureBox_aero.BackColor = System.Drawing.Color.White;
          this.pictureBox_aero.Image = global::PersonsBase.Properties.Resources.Aerob;
-         this.pictureBox_aero.Location = new System.Drawing.Point(3, 51);
+         this.pictureBox_aero.Location = new System.Drawing.Point(2, 40);
+         this.pictureBox_aero.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
          this.pictureBox_aero.Name = "pictureBox_aero";
-         this.pictureBox_aero.Size = new System.Drawing.Size(75, 42);
+         this.pictureBox_aero.Size = new System.Drawing.Size(56, 34);
          this.pictureBox_aero.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
          this.pictureBox_aero.TabIndex = 4;
          this.pictureBox_aero.TabStop = false;
@@ -191,20 +204,22 @@ namespace PersonsBase.View
          // 
          this.pictureBox_tren.BackColor = System.Drawing.Color.White;
          this.pictureBox_tren.Image = global::PersonsBase.Properties.Resources.TrenZal;
-         this.pictureBox_tren.Location = new System.Drawing.Point(3, 99);
+         this.pictureBox_tren.Location = new System.Drawing.Point(2, 78);
+         this.pictureBox_tren.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
          this.pictureBox_tren.Name = "pictureBox_tren";
-         this.pictureBox_tren.Size = new System.Drawing.Size(75, 43);
+         this.pictureBox_tren.Size = new System.Drawing.Size(56, 35);
          this.pictureBox_tren.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
          this.pictureBox_tren.TabIndex = 5;
          this.pictureBox_tren.TabStop = false;
          // 
          // WorkoutForm
          // 
-         this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(510, 216);
+         this.ClientSize = new System.Drawing.Size(382, 176);
          this.Controls.Add(this.groupBox1);
          this.Controls.Add(this.tableLayoutPanel1);
+         this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
          this.MaximizeBox = false;
          this.MinimizeBox = false;
          this.Name = "WorkoutForm";

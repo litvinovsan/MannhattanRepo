@@ -616,14 +616,11 @@ namespace PBase
                LoadShortInfo();
                UpdateEditableData();
             }
-
          }
          else
          {
             MessageBox.Show(@"Сейчас абонемент заморожен!");
          }
       }
-
-
    }
 }

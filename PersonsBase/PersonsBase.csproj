@@ -82,6 +82,12 @@
     <Compile Include="View\ClientFormControls.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="View\FreezeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FreezeForm.Designer.cs">
+      <DependentUpon>FreezeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\ClientForm.resx">
       <DependentUpon>ClientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FreezeForm.resx">
+      <DependentUpon>FreezeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

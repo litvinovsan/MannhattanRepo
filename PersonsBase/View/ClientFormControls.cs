@@ -94,11 +94,7 @@ namespace PBase
       }
       private void ComboStatus_SelectedIndexChanged(object sender, EventArgs e)
       {
-         var tb = (ComboBox)sender;
-         var editedStatus = (StatusPerson)Enum.Parse(typeof(StatusPerson), tb.SelectedItem.ToString());
-         _editedStatusPerson = editedStatus;
-         IsChangedUpdateStatus(_editedStatusPerson.ToString(), _person.Status.ToString());
-         ComboBoxColor(tb, _person.Status.ToString(), _editedStatusPerson.ToString());
+         ComboChangedMethod<StatusPerson>(sender, out _editedStatusPerson, _person.Status);
       }
       #endregion
 
@@ -130,11 +126,7 @@ namespace PBase
       }
       private void comboBox_TypeWorkout_SelectedIndexChanged(object sender, EventArgs e)
       {
-         var tb = (ComboBox)sender;
-         var edited = (TypeWorkout)Enum.Parse(typeof(TypeWorkout), tb.SelectedItem.ToString());
-         _editedTypeWorkout = edited;
-         ComboBoxColor(tb, _editedTypeWorkout.ToString(), _person.AbonementCurent.trainingsType.ToString());
-         IsChangedUpdateStatus(_editedTypeWorkout.ToString(), _person.AbonementCurent.trainingsType.ToString());
+         ComboChangedMethod<TypeWorkout>(sender, out _editedTypeWorkout, _person.AbonementCurent.trainingsType);
       }
 
       #endregion
@@ -169,11 +161,7 @@ namespace PBase
       }
       private void comboBox_SpaService_SelectedIndexChanged(object sender, EventArgs e)
       {
-         var tb = (ComboBox)sender;
-         var edited = (SpaService)Enum.Parse(typeof(SpaService), tb.SelectedItem.ToString());
-         _editedSpaService = edited;
-         ComboBoxColor(tb, _person.AbonementCurent.spa.ToString(), tb.SelectedItem.ToString());
-         IsChangedUpdateStatus(_person.AbonementCurent.spa.ToString(), tb.SelectedItem.ToString());
+         ComboChangedMethod<SpaService>(sender, out _editedSpaService, _person.AbonementCurent.spa);
       }
 
       #endregion
@@ -207,11 +195,7 @@ namespace PBase
       }
       private void comboBox_Pay_SelectedIndexChanged(object sender, EventArgs e)
       {
-         var tb = (ComboBox)sender;
-         var edited = (Pay)Enum.Parse(typeof(Pay), tb.SelectedItem.ToString());
-         _editedPay = edited;
-         ComboBoxColor(tb, _person.AbonementCurent.payStatus.ToString(), tb.SelectedItem.ToString());
-         IsChangedUpdateStatus(_person.AbonementCurent.payStatus.ToString(), tb.SelectedItem.ToString());
+         ComboChangedMethod<Pay>(sender, out _editedPay, _person.AbonementCurent.payStatus);
       }
 
       #endregion
@@ -242,11 +226,7 @@ namespace PBase
       }
       private void comboBox_TimeForTr_SelectedIndexChanged(object sender, EventArgs e)
       {
-         var tb = (ComboBox)sender;
-         var edited = (TimeForTr)Enum.Parse(typeof(TimeForTr), tb.SelectedItem.ToString());
-         _editedTimeForTr = edited;
-         ComboBoxColor(tb, _person.AbonementCurent.timeTraining.ToString(), tb.SelectedItem.ToString());
-         IsChangedUpdateStatus(_person.AbonementCurent.timeTraining.ToString(), tb.SelectedItem.ToString());
+         ComboChangedMethod<TimeForTr>(sender, out _editedTimeForTr, _person.AbonementCurent.timeTraining);
       }
       #endregion
 
@@ -594,11 +574,7 @@ namespace PBase
       Gender _editedGender;
       private void comboBox_Gender_SelectedIndexChanged(object sender, EventArgs e)
       {
-         var tb = (ComboBox)sender;
-         var edited = (Gender)Enum.Parse(typeof(Gender), tb.SelectedItem.ToString());
-         _editedGender = edited;
-         IsChangedUpdateStatus(_editedGender.ToString(), _person.GenderType.ToString());
-         ComboBoxColor(tb, _person.GenderType.ToString(), _editedGender.ToString());
+         ComboChangedMethod<Gender>(sender, out _editedGender, _person.GenderType);
       }
       #endregion
 
@@ -702,6 +678,14 @@ namespace PBase
             e.Handled = true;
          }
       }
+      private void ComboChangedMethod<T>(object sender, out T editedVar, T originVar)
+      {
+         var tb = (ComboBox)sender;
+         var edited = (T)Enum.Parse(typeof(T), tb.SelectedItem.ToString());
+         editedVar = edited;
 
+         ComboBoxColor(tb, originVar.ToString(), tb.SelectedItem.ToString());
+         IsChangedUpdateStatus(originVar.ToString(), tb.SelectedItem.ToString());
+      }
    }
 }
