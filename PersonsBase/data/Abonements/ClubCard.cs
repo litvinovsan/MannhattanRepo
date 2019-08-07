@@ -187,28 +187,5 @@ namespace PBase
       {
          PeriodAbonem = newTypeCc;
       }
-      public bool TryFreezeClubCard(int numDays, DateTime startDate)
-      {
-         bool result = false;
-
-         if (Freeze == null)
-         {
-            Freeze = new FreezeClass(PeriodAbonem);
-         }
-
-         bool isConfigured = Freeze.TryConfigure(numDays, startDate);
-
-         if (isConfigured)
-         {
-            EndDate = EndDate.AddDays(numDays);
-            MessageBox.Show($"Заморозка начинается c {startDate.ToString("d")}.\n\rОсталось дней: {Freeze.GetRemainDays()} ");
-            result = true;
-         }
-         else
-         {
-            MessageBox.Show($"Ошибка! Возможно, не хватает дней или не корректная дата.\n\rОсталось дней: {Freeze.GetRemainDays()}");
-         }
-         return result;
-      }
    }
 }

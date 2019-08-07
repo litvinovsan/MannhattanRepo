@@ -120,6 +120,7 @@ namespace PBase
                   {
                      _status = StatusPerson.Заморожен;
                   }
+                  else _status = StatusPerson.Активный;
                }
 
                if (_status != StatusPerson.Заморожен)

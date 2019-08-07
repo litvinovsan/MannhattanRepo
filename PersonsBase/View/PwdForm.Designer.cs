@@ -39,11 +39,11 @@ namespace PersonsBase.View
          // 
          // textBox_pwd
          // 
-         this.textBox_pwd.Location = new System.Drawing.Point(74, 19);
-         this.textBox_pwd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+         this.textBox_pwd.Location = new System.Drawing.Point(12, 38);
+         this.textBox_pwd.Margin = new System.Windows.Forms.Padding(2);
          this.textBox_pwd.Name = "textBox_pwd";
          this.textBox_pwd.PasswordChar = '*';
-         this.textBox_pwd.Size = new System.Drawing.Size(153, 20);
+         this.textBox_pwd.Size = new System.Drawing.Size(215, 20);
          this.textBox_pwd.TabIndex = 5;
          this.textBox_pwd.UseSystemPasswordChar = true;
          this.textBox_pwd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_pwd_KeyPress);
@@ -51,8 +51,8 @@ namespace PersonsBase.View
          // button_Cancel
          // 
          this.button_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-         this.button_Cancel.Location = new System.Drawing.Point(131, 56);
-         this.button_Cancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+         this.button_Cancel.Location = new System.Drawing.Point(131, 62);
+         this.button_Cancel.Margin = new System.Windows.Forms.Padding(2);
          this.button_Cancel.Name = "button_Cancel";
          this.button_Cancel.Size = new System.Drawing.Size(96, 28);
          this.button_Cancel.TabIndex = 7;
@@ -62,9 +62,8 @@ namespace PersonsBase.View
          // 
          // button_Ok
          // 
-         this.button_Ok.DialogResult = System.Windows.Forms.DialogResult.OK;
-         this.button_Ok.Location = new System.Drawing.Point(11, 56);
-         this.button_Ok.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+         this.button_Ok.Location = new System.Drawing.Point(11, 62);
+         this.button_Ok.Margin = new System.Windows.Forms.Padding(2);
          this.button_Ok.Name = "button_Ok";
          this.button_Ok.Size = new System.Drawing.Size(96, 28);
          this.button_Ok.TabIndex = 6;
@@ -92,7 +91,7 @@ namespace PersonsBase.View
          this.Controls.Add(this.button_Cancel);
          this.Controls.Add(this.button_Ok);
          this.Controls.Add(this.label1);
-         this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+         this.Margin = new System.Windows.Forms.Padding(2);
          this.MaximizeBox = false;
          this.MaximumSize = new System.Drawing.Size(259, 159);
          this.MinimizeBox = false;

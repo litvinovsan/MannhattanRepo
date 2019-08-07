@@ -83,6 +83,12 @@ namespace PBase
             if (_editedStatusPerson != _person.Status)
             {
                _person.StatusChanged -= UpdateControlState;
+
+               // Костыль для того чтобы изменение Ручками сбрасывало заморозку
+               if (_editedStatusPerson == StatusPerson.Активный && _person.Status == StatusPerson.Заморожен && (_person.AbonementCurent is ClubCardA))
+               {
+                  (_person.AbonementCurent as ClubCardA).Freeze = null;
+               }
                _person.Status = _editedStatusPerson;
                _person.StatusChanged += UpdateControlState;
                ComboBoxColor(comboStatus, _person.Status.ToString(), _editedStatusPerson.ToString());

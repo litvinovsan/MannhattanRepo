@@ -305,14 +305,20 @@ namespace PBase
       private void UpdateNameText()
       {
          Text = @"Карточка Клиента:    " + _person.Name;// Имя формы
-         if (textBox_Name.Text != _person.Name)
+
+         textBox_Name.Text = _person.Name;
+         Methods.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
+
+
+         // Если Запрещен 
+         if (_person.Status == StatusPerson.Запрещён)
          {
             textBox_Name.Text = _person.Name;
             Methods.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
+            return;
          }
-
          // Если Заморожен
-         if (_person.Status == StatusPerson.Заморожен && _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA)
+         if (_person.Status == StatusPerson.Заморожен && _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA && _person.Status != StatusPerson.Вероятный_Клиент && _person.Status != StatusPerson.Гостевой)
          {
             textBox_Name.ForeColor = Color.SeaGreen;
             string dateEnd = ((ClubCardA)_person.AbonementCurent).Freeze?.FreezeEndDate.Date.ToString("d");
@@ -321,7 +327,7 @@ namespace PBase
 
          // Заморозка запланирована в будущем
          var card = _person.AbonementCurent as ClubCardA;
-         if (card?.Freeze != null && (_person.Status != StatusPerson.Заморожен))
+         if (card?.Freeze != null && (_person.Status != StatusPerson.Заморожен) && _person.Status != StatusPerson.Вероятный_Клиент && _person.Status != StatusPerson.Гостевой)
          {
             if (card.Freeze.IsConfigured())
             {
@@ -579,15 +585,16 @@ namespace PBase
             _person.AbonementCurent = null;
             _person.UpdateActualStatus(); // Обновляем текущий статус
 
-            UpdateNameText();
             LoadShortInfo();
             LoadEditableData();
             UpdateControlState(this, EventArgs.Empty);
+            //UpdateNameText();
          }
       }
 
       private void button_Password_Click(object sender, EventArgs e)
       {
+         // FIXME глюк с двойным нажатием 
          if (_options.IsPasswordValid) // Заблокировать пароль в этом случае
          {
             _options.IsPasswordValid = false;
@@ -607,20 +614,27 @@ namespace PBase
 
          if (status != StatusPerson.Заморожен)
          {
-            var numDays = 14;
-            var startDate = DateTime.Parse("13.08.2019").Date;
-
-            if ((_person.AbonementCurent as ClubCardA).TryFreezeClubCard(numDays, startDate))
-            {
-               LoadUserData();
-               LoadShortInfo();
-               UpdateEditableData();
-            }
+            var dlgResult = RunFreezeForm();
+            if (dlgResult == DialogResult.Cancel) return;
          }
          else
          {
-            MessageBox.Show(@"Сейчас абонемент заморожен!");
+            MessageBox.Show(@"Сейчас абонемент заморожен!", "", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            if (_options.IsPasswordValid)
+            {
+               RunFreezeForm();
+            }
          }
+         LoadUserData();
+         LoadShortInfo();
+         UpdateEditableData();
+      }
+
+      private DialogResult RunFreezeForm()
+      {
+         if (!(_person.AbonementCurent is ClubCardA _clubCard)) return DialogResult.Cancel;
+         FreezeForm freezeForm = new FreezeForm(_clubCard, _options.IsPasswordValid);
+         return freezeForm.ShowDialog();
       }
    }
 }
