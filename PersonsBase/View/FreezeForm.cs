@@ -39,7 +39,7 @@ namespace PersonsBase.View
          // Заполнение комбобокса Количества дней для заморозки
          var maxDaysAvailable = _clubCard.Freeze.GetRemainDays();
          InitComboBox(maxDaysAvailable);
-       
+
          // Текущая дата
          dateTimePicker_startFreeze.Value = DateTime.Now.Date;
 
@@ -91,7 +91,8 @@ namespace PersonsBase.View
             if (isConfigured)
             {
                _clubCard.EndDate = _clubCard.EndDate.AddDays(numDays);
-               MessageBox.Show($"Заморозка начинается c {startDate.ToString("d")}.\n\rОсталось дней: {_clubCard.Freeze.GetRemainDays()} ", "Заморожено!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               MessageBox.Show($"Заморозка начинается c {startDate.ToString("d")}.\n\rОсталось дней: {_clubCard.Freeze.GetRemainDays()} ", "Установка Заморозки", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               this.DialogResult = DialogResult.OK;
             }
             else
             {
@@ -103,11 +104,14 @@ namespace PersonsBase.View
 
       private bool GetFreezeParams(out int numDays, out DateTime startDate)
       {
-         numDays = int.Parse(comboBox_toFreeze.Text);
          startDate = dateTimePicker_startFreeze.Value.Date;
+         var numResult = int.TryParse(comboBox_toFreeze.Text, out numDays); // Если не осталось дней
+         if (!numResult) return false;
+
          if (DateTime.Now.Date.CompareTo(startDate) > 0)
          {
             MessageBox.Show("Дата должна быть позднее сегодняшнего дня!", "Выберите Дату!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            dateTimePicker_startFreeze.Value = DateTime.Now.Date;
             return false;
          }
          if (DateTime.Now.Date.CompareTo(startDate) == 0)
