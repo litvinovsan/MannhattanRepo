@@ -44,7 +44,12 @@ namespace PBase
          // Очередь абонементов
          if (_person.AbonementsQueue == null) _person.AbonementsQueue = new ObservableCollection<AbonementBasic>();
          _person.AbonementsQueue.CollectionChanged += AbonementsQueue_CollectionChanged; // Список Абонементов. Если изменился
+         _person.AbonementsQueue.CollectionChanged += ShowAbonementList;
+      }
 
+      private void ShowAbonementList(object sender, NotifyCollectionChangedEventArgs e)
+      {
+         groupBox_abonList.Visible = _person.AbonementsQueue.Count > 0;
       }
 
       private void LoadListboxQueue()
@@ -54,6 +59,8 @@ namespace PBase
          foreach (var x in _person.AbonementsQueue) list.Add(x.AbonementName);
 
          listBox_abonements.Items.AddRange(list.ToArray<object>());
+         // Отображение Группы списка абонементов
+         groupBox_abonList.Visible = (list.Count > 0) ? true : false;
       }
 
       private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -83,9 +90,6 @@ namespace PBase
                listBox_abonements.Items.RemoveAt(0);
                break;
          }
-
-         // Скрытие Списка абонементов
-         //HideQueueAbonements();
       }
       private void UpdateControlState(object sender, EventArgs arg)
       {
@@ -117,7 +121,6 @@ namespace PBase
                         // Кнопка Добавить для Клубной Карты
                         button_add_dop_tren.Visible = true;
                      }
-                     // HideQueueAbonements();
                      break;
                   }
                case StatusPerson.Нет_Карты:
@@ -160,25 +163,19 @@ namespace PBase
          }
       }
 
-      private void HideQueueAbonements()
-      {
-         // Список абонементов скрывается если:
-         groupBox_abonList.Visible = _person.AbonementsQueue.Count > 0;
-      }
-
       private void PasswordChangedEvent(object sender, EventArgs e)
       {
          if (_options.IsPasswordValid)
          {
-            button__remove_abon.Enabled = true;
-            button1.Enabled = true;
+            button_RemoveCurrentAbon.Visible = true;
             groupBox_Detailed.Enabled = true;
+            button__remove_abon.Enabled = true;
          }
          else
          {
-            button__remove_abon.Enabled = false;
-            button1.Enabled = false;
+            button_RemoveCurrentAbon.Visible = false;
             groupBox_Detailed.Enabled = false;
+            button__remove_abon.Enabled = false;
          }
       }
 
@@ -594,18 +591,14 @@ namespace PBase
 
       private void button_Password_Click(object sender, EventArgs e)
       {
-         // FIXME глюк с двойным нажатием 
-         if (_options.IsPasswordValid) // Заблокировать пароль в этом случае
+         if (_options.IsPasswordValid) // Повторное нажатие Блокирует данные
          {
             _options.IsPasswordValid = false;
-            button2.Text = @"Изменить данные";
          }
          else
-         {
+         {  // Проверка Пароля.
             PwdForm pwd = new PwdForm(_options);
-            var dlgResult = pwd.ShowDialog();
-            if (dlgResult == DialogResult.OK) button2.Text = @"Заблокировать данные";
-            else button2.Text = @"Изменить данные";
+            pwd.ShowDialog();
          }
       }
       private void button_Freeze_Click(object sender, EventArgs e)

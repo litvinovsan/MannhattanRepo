@@ -5,11 +5,11 @@ using System.Collections.Generic;
 namespace PBase
 {
 
-    /// Хранятся настройки приложения, а так же общие структуры, списки,и прочие данные.
-    /// Использовать выборочное сохранение обьектов в Options. Весь класс сериализовать не рекомендуется т.к. перетирается пароль
-    //  Methods.DeSerialize(ref _options, "Option.bin");
-    //  FIXME проверка если опшин пароль равен нулю - прописать ручками умолчальный
-    [Serializable]
+   /// Хранятся настройки приложения, а так же общие структуры, списки,и прочие данные.
+   /// Использовать выборочное сохранение обьектов в Options. Весь класс сериализовать не рекомендуется т.к. перетирается пароль
+   //  Methods.DeSerialize(ref _options, "Option.bin");
+   //  FIXME проверка если опшин пароль равен нулю - прописать ручками умолчальный
+   [Serializable]
    public class Options
    {
       public Administrator adminCurrent;
@@ -23,7 +23,8 @@ namespace PBase
 
       public Options()
       {
-          _passwordRootString= "1234";
+         _isPasswordValid = false;
+         _passwordRootString = "1234";
       }
 
       ////////////////  События ///////////////////////////////////////
@@ -49,7 +50,7 @@ namespace PBase
       }
 
       ////////////////  Методы ///////////////////////////////////////
-      public  bool CheckPassword(string inputPass)
+      public bool CheckPassword(string inputPass)
       {
          return (inputPass == _passwordRootString);
       }

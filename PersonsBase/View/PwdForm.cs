@@ -32,6 +32,7 @@ namespace PersonsBase.View
 
             label1.ForeColor = Color.Black;
             label1.Text = @"Введите пароль Администратора";
+            MessageBox.Show("Правильный Пароль!");
             Close();
             return true;
          }

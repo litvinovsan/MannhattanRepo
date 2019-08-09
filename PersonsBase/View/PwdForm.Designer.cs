@@ -50,7 +50,6 @@ namespace PersonsBase.View
          // 
          // button_Cancel
          // 
-         this.button_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
          this.button_Cancel.Location = new System.Drawing.Point(131, 62);
          this.button_Cancel.Margin = new System.Windows.Forms.Padding(2);
          this.button_Cancel.Name = "button_Cancel";
