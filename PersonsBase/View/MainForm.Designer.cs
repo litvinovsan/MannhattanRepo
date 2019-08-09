@@ -51,12 +51,17 @@ namespace PBase
          this.button2 = new System.Windows.Forms.Button();
          this.button1 = new System.Windows.Forms.Button();
          this.tabPage_Otchet = new System.Windows.Forms.TabPage();
+         this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+         this.groupBox1 = new System.Windows.Forms.GroupBox();
+         this.label3 = new System.Windows.Forms.Label();
+         this.textBox2 = new System.Windows.Forms.TextBox();
+         this.label_Time = new System.Windows.Forms.Label();
          this.menuStrip1.SuspendLayout();
          this.tabControl1.SuspendLayout();
          this.tabPage_Visit.SuspendLayout();
-         this.panel1.SuspendLayout();
          this.tableLayoutPanel1.SuspendLayout();
          this.tabPage_Abonements.SuspendLayout();
+         this.groupBox1.SuspendLayout();
          this.SuspendLayout();
          // 
          // label1
@@ -77,7 +82,7 @@ namespace PBase
          this.menuStrip1.Location = new System.Drawing.Point(0, 0);
          this.menuStrip1.Name = "menuStrip1";
          this.menuStrip1.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
-         this.menuStrip1.Size = new System.Drawing.Size(736, 30);
+         this.menuStrip1.Size = new System.Drawing.Size(1042, 30);
          this.menuStrip1.TabIndex = 2;
          this.menuStrip1.Text = "menuStrip1";
          // 
@@ -128,48 +133,47 @@ namespace PBase
          this.tabControl1.Location = new System.Drawing.Point(12, 37);
          this.tabControl1.Name = "tabControl1";
          this.tabControl1.SelectedIndex = 0;
-         this.tabControl1.Size = new System.Drawing.Size(719, 401);
+         this.tabControl1.Size = new System.Drawing.Size(1025, 522);
          this.tabControl1.TabIndex = 3;
          // 
          // tabPage_Visit
          // 
          this.tabPage_Visit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.tabPage_Visit.Controls.Add(this.groupBox1);
          this.tabPage_Visit.Controls.Add(this.panel1);
          this.tabPage_Visit.Controls.Add(this.tableLayoutPanel1);
          this.tabPage_Visit.Location = new System.Drawing.Point(4, 22);
          this.tabPage_Visit.Name = "tabPage_Visit";
          this.tabPage_Visit.Padding = new System.Windows.Forms.Padding(3);
-         this.tabPage_Visit.Size = new System.Drawing.Size(711, 375);
+         this.tabPage_Visit.Size = new System.Drawing.Size(1017, 496);
          this.tabPage_Visit.TabIndex = 0;
          this.tabPage_Visit.Text = "Посещение";
          this.tabPage_Visit.UseVisualStyleBackColor = true;
          // 
          // panel1
          // 
-         this.panel1.Controls.Add(this.textBox1);
-         this.panel1.Controls.Add(this.label2);
          this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-         this.panel1.Location = new System.Drawing.Point(3, 321);
+         this.panel1.Location = new System.Drawing.Point(3, 448);
          this.panel1.Name = "panel1";
-         this.panel1.Size = new System.Drawing.Size(701, 47);
+         this.panel1.Size = new System.Drawing.Size(1007, 41);
          this.panel1.TabIndex = 1;
          // 
          // textBox1
          // 
          this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.textBox1.Location = new System.Drawing.Point(132, 22);
+         this.textBox1.Location = new System.Drawing.Point(6, 97);
          this.textBox1.Name = "textBox1";
-         this.textBox1.Size = new System.Drawing.Size(100, 20);
+         this.textBox1.Size = new System.Drawing.Size(161, 20);
          this.textBox1.TabIndex = 1;
          // 
          // label2
          // 
          this.label2.AutoSize = true;
-         this.label2.Location = new System.Drawing.Point(3, 24);
+         this.label2.Location = new System.Drawing.Point(6, 81);
          this.label2.Name = "label2";
-         this.label2.Size = new System.Drawing.Size(93, 13);
+         this.label2.Size = new System.Drawing.Size(98, 13);
          this.label2.TabIndex = 0;
-         this.label2.Text = "Записей в Базе: ";
+         this.label2.Text = "Клиентов в Базе: ";
          // 
          // tableLayoutPanel1
          // 
@@ -191,7 +195,7 @@ namespace PBase
          this.tableLayoutPanel1.RowCount = 2;
          this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
          this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-         this.tableLayoutPanel1.Size = new System.Drawing.Size(701, 309);
+         this.tableLayoutPanel1.Size = new System.Drawing.Size(802, 417);
          this.tableLayoutPanel1.TabIndex = 0;
          // 
          // label_tren_zal
@@ -199,9 +203,9 @@ namespace PBase
          this.label_tren_zal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
          this.label_tren_zal.AutoSize = true;
-         this.label_tren_zal.Location = new System.Drawing.Point(470, 3);
+         this.label_tren_zal.Location = new System.Drawing.Point(538, 3);
          this.label_tren_zal.Name = "label_tren_zal";
-         this.label_tren_zal.Size = new System.Drawing.Size(225, 13);
+         this.label_tren_zal.Size = new System.Drawing.Size(258, 13);
          this.label_tren_zal.TabIndex = 3;
          this.label_tren_zal.Text = "Тренажерный зал";
          // 
@@ -210,9 +214,9 @@ namespace PBase
          this.label_personal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
          this.label_personal.AutoSize = true;
-         this.label_personal.Location = new System.Drawing.Point(238, 3);
+         this.label_personal.Location = new System.Drawing.Point(272, 3);
          this.label_personal.Name = "label_personal";
-         this.label_personal.Size = new System.Drawing.Size(223, 13);
+         this.label_personal.Size = new System.Drawing.Size(257, 13);
          this.label_personal.TabIndex = 2;
          this.label_personal.Text = "Персональные";
          // 
@@ -223,7 +227,7 @@ namespace PBase
          this.label_group.AutoSize = true;
          this.label_group.Location = new System.Drawing.Point(6, 3);
          this.label_group.Name = "label_group";
-         this.label_group.Size = new System.Drawing.Size(223, 13);
+         this.label_group.Size = new System.Drawing.Size(257, 13);
          this.label_group.TabIndex = 1;
          this.label_group.Text = "Группы";
          // 
@@ -232,9 +236,9 @@ namespace PBase
          this.listView_Tren_Zal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-         this.listView_Tren_Zal.Location = new System.Drawing.Point(470, 29);
+         this.listView_Tren_Zal.Location = new System.Drawing.Point(538, 29);
          this.listView_Tren_Zal.Name = "listView_Tren_Zal";
-         this.listView_Tren_Zal.Size = new System.Drawing.Size(225, 274);
+         this.listView_Tren_Zal.Size = new System.Drawing.Size(258, 382);
          this.listView_Tren_Zal.TabIndex = 2;
          this.listView_Tren_Zal.UseCompatibleStateImageBehavior = false;
          // 
@@ -279,11 +283,63 @@ namespace PBase
          this.tabPage_Otchet.Text = "Отчеты";
          this.tabPage_Otchet.UseVisualStyleBackColor = true;
          // 
+         // monthCalendar1
+         // 
+         this.monthCalendar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+         this.monthCalendar1.Location = new System.Drawing.Point(6, 240);
+         this.monthCalendar1.Name = "monthCalendar1";
+         this.monthCalendar1.TabIndex = 2;
+         // 
+         // groupBox1
+         // 
+         this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+         this.groupBox1.Controls.Add(this.label_Time);
+         this.groupBox1.Controls.Add(this.textBox2);
+         this.groupBox1.Controls.Add(this.label3);
+         this.groupBox1.Controls.Add(this.monthCalendar1);
+         this.groupBox1.Controls.Add(this.textBox1);
+         this.groupBox1.Controls.Add(this.label2);
+         this.groupBox1.Location = new System.Drawing.Point(829, 6);
+         this.groupBox1.Name = "groupBox1";
+         this.groupBox1.Size = new System.Drawing.Size(178, 414);
+         this.groupBox1.TabIndex = 3;
+         this.groupBox1.TabStop = false;
+         this.groupBox1.Text = "Текущие данные";
+         // 
+         // label3
+         // 
+         this.label3.AutoSize = true;
+         this.label3.Location = new System.Drawing.Point(3, 132);
+         this.label3.Name = "label3";
+         this.label3.Size = new System.Drawing.Size(133, 13);
+         this.label3.TabIndex = 3;
+         this.label3.Text = "Посетителей за Сегодня";
+         // 
+         // textBox2
+         // 
+         this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.textBox2.Location = new System.Drawing.Point(6, 148);
+         this.textBox2.Name = "textBox2";
+         this.textBox2.Size = new System.Drawing.Size(161, 20);
+         this.textBox2.TabIndex = 4;
+         // 
+         // label_Time
+         // 
+         this.label_Time.AutoSize = true;
+         this.label_Time.Font = new System.Drawing.Font("Comic Sans MS", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.label_Time.ForeColor = System.Drawing.Color.Navy;
+         this.label_Time.Location = new System.Drawing.Point(6, 26);
+         this.label_Time.Name = "label_Time";
+         this.label_Time.Size = new System.Drawing.Size(140, 42);
+         this.label_Time.TabIndex = 5;
+         this.label_Time.Text = "15:25:00";
+         // 
          // MainForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(736, 441);
+         this.ClientSize = new System.Drawing.Size(1042, 562);
          this.Controls.Add(this.tabControl1);
          this.Controls.Add(this.label1);
          this.Controls.Add(this.menuStrip1);
@@ -300,11 +356,11 @@ namespace PBase
          this.tabControl1.ResumeLayout(false);
          this.tabPage_Visit.ResumeLayout(false);
          this.tabPage_Visit.PerformLayout();
-         this.panel1.ResumeLayout(false);
-         this.panel1.PerformLayout();
          this.tableLayoutPanel1.ResumeLayout(false);
          this.tableLayoutPanel1.PerformLayout();
          this.tabPage_Abonements.ResumeLayout(false);
+         this.groupBox1.ResumeLayout(false);
+         this.groupBox1.PerformLayout();
          this.ResumeLayout(false);
          this.PerformLayout();
 
@@ -332,5 +388,10 @@ namespace PBase
       private Label label2;
       private Button button2;
         private ToolStripComboBox toolStripComboBox1;
-    }
+      private MonthCalendar monthCalendar1;
+      private GroupBox groupBox1;
+      private Label label_Time;
+      private TextBox textBox2;
+      private Label label3;
+   }
 }

@@ -12,6 +12,7 @@ namespace PBase
       private SortedList<string, Person> UserList => _db.GetCollectionRw();
       private readonly Options _options; // Хранятся локальные настройки и параметры программы.
       private Logic _logic;       // Логика и управляющие методы программы.
+      private Timer _time = new Timer();
 
       ///////////////// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ////////////////////////////////
       public MainForm()
@@ -31,6 +32,12 @@ namespace PBase
          _db.ListChangedEvent += UpdateFindComboBoxMenu;  // Обновляем список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
          _db.ListChangedEvent += UpdateUsersCountTextBox; // Обновляем Счетчик пользователей на гл странице.
          _db.OnListChanged(); // Событие запускающееся при изменении количества Клиентов в списке.
+
+         // Инициализация Таймера для Часов
+         _time.Interval = 1000;
+         _time.Tick += _time_ClockTick;
+         _time.Start();
+
       }
 
       private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -53,7 +60,7 @@ namespace PBase
       }
 
       ///////////////// РАБОТА С MAIN FORM ////////////////////////////////
-      
+
       private void UpdateFindComboBoxMenu(object sender, EventArgs arg)
       {
          Action myDelegate = delegate
@@ -125,6 +132,47 @@ namespace PBase
             }
                 e.Handled = true;
           */
+      }
+
+      private void _time_ClockTick(object sender, EventArgs e)
+      {
+         int h = DateTime.Now.Hour;
+         int m = DateTime.Now.Minute;
+         int s = DateTime.Now.Second;
+
+         string _time = "";
+         if (h < 10)
+         {
+            _time += "0" + h;
+         }
+         else
+         {
+            _time += h;
+         }
+
+         _time += ":";
+
+         if (m < 10)
+         {
+            _time += "0" + m;
+         }
+         else
+         {
+            _time += m;
+         }
+
+         _time += ":";
+
+         if (s < 10)
+         {
+            _time += "0" + s;
+         }
+         else
+         {
+            _time += s;
+         }
+
+         label_Time.Text = _time;
       }
    }
 }
