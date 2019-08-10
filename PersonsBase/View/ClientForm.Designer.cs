@@ -469,6 +469,7 @@ namespace PBase
          this.button_photo.TabIndex = 4;
          this.button_photo.Text = "Фото";
          this.button_photo.UseVisualStyleBackColor = true;
+         this.button_photo.Click += new System.EventHandler(this.button_photo_Click);
          // 
          // maskedTextBox_PhoneNumber
          // 
@@ -613,7 +614,7 @@ namespace PBase
          this.button2.Size = new System.Drawing.Size(175, 34);
          this.button2.TabIndex = 5;
          this.button2.TabStop = false;
-         this.button2.Text = "Супер Пользователь";
+         this.button2.Text = "Доступ Руководителя";
          this.button2.UseVisualStyleBackColor = false;
          this.button2.Click += new System.EventHandler(this.button_Password_Click);
          // 

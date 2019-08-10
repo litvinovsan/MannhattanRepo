@@ -629,5 +629,10 @@ namespace PBase
          FreezeForm freezeForm = new FreezeForm(_clubCard, _options.IsPasswordValid);
          return freezeForm.ShowDialog();
       }
+
+      private void button_photo_Click(object sender, EventArgs e)
+      {
+
+      }
    }
 }
