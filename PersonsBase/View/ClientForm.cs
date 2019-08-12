@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.View;
@@ -75,6 +76,13 @@ namespace PBase
          }
          SaveSpecialNotes(); //Всегда сохраняем Особые отметки
          _isAnythingChanged = false;
+
+         // Освобождаем память от изображения
+         if (pictureBox_ClientPhoto.Image != null)
+         {
+            pictureBox_ClientPhoto.Image.Dispose();
+            pictureBox_ClientPhoto.Image = null;
+         }
       }
 
       //////////// ЛОГИКА ФОРМЫ ////////////////////////////////////////////////////////
@@ -227,13 +235,38 @@ namespace PBase
          _editedSpecialNote = _person.SpecialNotes;
 
          // Загрузка Фото
-         if (_person.PathToPhoto != "")
-         {
-            pictureBox_ClientPhoto.Image = Image.FromFile(_person.PathToPhoto);
-         }
+         TryLoadPhoto();
 
          _isAnythingChanged = false;
       }
+
+      private void TryLoadPhoto()
+      {
+         if (_person.PathToPhoto != "")
+         {
+            try
+            {
+               if (Photo.IsPhotoExist(_person.PathToPhoto))
+               {
+                  pictureBox_ClientPhoto.Image = Photo.OpenPhoto(_person.PathToPhoto);
+                  pictureBox_ClientPhoto.Invalidate();
+                  this.Invalidate();
+               }
+               else
+               {
+                  _person.PathToPhoto = "";
+                  pictureBox_ClientPhoto.Image = null;
+               }
+            }
+            catch
+            {
+               pictureBox_ClientPhoto.Image = null;
+               _person.PathToPhoto = "";
+            }
+            pictureBox_ClientPhoto.Refresh();
+         }
+      }
+
       private void LoadShortInfo()
       { //FIXME Мерцание
          Action myDelegate = delegate
@@ -628,6 +661,18 @@ namespace PBase
          if (!(_person.AbonementCurent is ClubCardA _clubCard)) return DialogResult.Cancel;
          FreezeForm freezeForm = new FreezeForm(_clubCard, _options.IsPasswordValid);
          return freezeForm.ShowDialog();
+      }
+
+      private void button_photo_Click(object sender, EventArgs e)
+      {
+         var statusPhoto = Photo.OpenPhoto(out Image img, out string pathDummy);
+         if(statusPhoto)
+         {
+            _person.PathToPhoto = Photo.SaveToStdFolder(img, _person.Name);
+
+            TryLoadPhoto();
+         }
+
       }
    }
 }

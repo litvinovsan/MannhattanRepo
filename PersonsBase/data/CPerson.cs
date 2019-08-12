@@ -66,7 +66,7 @@ namespace PBase
             _driverIdNum = value;
          }
       }
-      public string PathToPhoto { get; set; } //FIXME: Добавить поддержку фотографий
+      public string PathToPhoto { get; set; } 
       public string SpecialNotes { get; set; }
       public ObservableCollection<AbonementBasic> AbonementsQueue;
       public AbonementBasic AbonementCurent

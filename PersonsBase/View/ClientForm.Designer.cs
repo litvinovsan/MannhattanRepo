@@ -41,6 +41,7 @@ namespace PBase
          this.button__remove_abon = new System.Windows.Forms.Button();
          this.listBox_abonements = new System.Windows.Forms.ListBox();
          this.groupBox6 = new System.Windows.Forms.GroupBox();
+         this.button_photo = new System.Windows.Forms.Button();
          this.pictureBox_ClientPhoto = new System.Windows.Forms.PictureBox();
          this.groupBox4 = new System.Windows.Forms.GroupBox();
          this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -58,7 +59,6 @@ namespace PBase
          this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
          this.label4 = new System.Windows.Forms.Label();
          this.label6 = new System.Windows.Forms.Label();
-         this.button_photo = new System.Windows.Forms.Button();
          this.maskedTextBox_PhoneNumber = new System.Windows.Forms.MaskedTextBox();
          this.maskedTextBox_Passport = new System.Windows.Forms.MaskedTextBox();
          this.label3 = new System.Windows.Forms.Label();
@@ -198,6 +198,18 @@ namespace PBase
          this.groupBox6.TabStop = false;
          this.groupBox6.Text = "Фото Клиента";
          // 
+         // button_photo
+         // 
+         this.button_photo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.button_photo.Location = new System.Drawing.Point(24, 169);
+         this.button_photo.Margin = new System.Windows.Forms.Padding(2);
+         this.button_photo.Name = "button_photo";
+         this.button_photo.Size = new System.Drawing.Size(132, 26);
+         this.button_photo.TabIndex = 4;
+         this.button_photo.Text = "Фото";
+         this.button_photo.UseVisualStyleBackColor = true;
+         this.button_photo.Click += new System.EventHandler(this.button_photo_Click);
+         // 
          // pictureBox_ClientPhoto
          // 
          this.pictureBox_ClientPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -205,6 +217,7 @@ namespace PBase
          this.pictureBox_ClientPhoto.Margin = new System.Windows.Forms.Padding(2);
          this.pictureBox_ClientPhoto.Name = "pictureBox_ClientPhoto";
          this.pictureBox_ClientPhoto.Size = new System.Drawing.Size(132, 147);
+         this.pictureBox_ClientPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
          this.pictureBox_ClientPhoto.TabIndex = 0;
          this.pictureBox_ClientPhoto.TabStop = false;
          // 
@@ -457,18 +470,6 @@ namespace PBase
          this.label6.TabIndex = 2;
          this.label6.Text = "Права";
          this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-         // 
-         // button_photo
-         // 
-         this.button_photo.Enabled = false;
-         this.button_photo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.button_photo.Location = new System.Drawing.Point(24, 169);
-         this.button_photo.Margin = new System.Windows.Forms.Padding(2);
-         this.button_photo.Name = "button_photo";
-         this.button_photo.Size = new System.Drawing.Size(132, 26);
-         this.button_photo.TabIndex = 4;
-         this.button_photo.Text = "Фото";
-         this.button_photo.UseVisualStyleBackColor = true;
          // 
          // maskedTextBox_PhoneNumber
          // 
