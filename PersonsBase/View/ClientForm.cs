@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.View;
@@ -33,25 +34,26 @@ namespace PBase
          LoadShortInfo();
          LoadEditableData();
 
+         TryLoadPhoto();
+
          UpdateControlState(this, EventArgs.Empty);
          LoadListboxQueue();
 
          // Подписка на События
          _saveDelegateChain += SaveUserData; // Цепочка Делегатов для сохранения измененных данных.
          _person.StatusChanged += UpdateControlState;
+         _person.PathToPhotoChanged += PathToPhotoChangedMethod;
          _options.PasswordChangedEvent += PasswordChangedEvent;
 
-         // Очередь абонементов
+         // Собития Очередь абонементов
          if (_person.AbonementsQueue == null) _person.AbonementsQueue = new ObservableCollection<AbonementBasic>();
          _person.AbonementsQueue.CollectionChanged += AbonementsQueue_CollectionChanged; // Список Абонементов. Если изменился
          _person.AbonementsQueue.CollectionChanged += ShowAbonementList;
       }
 
-      private void ShowAbonementList(object sender, NotifyCollectionChangedEventArgs e)
-      {
-         groupBox_abonList.Visible = _person.AbonementsQueue.Count > 0;
-      }
 
+
+     
       private void LoadListboxQueue()
       {
          if (_person.AbonementsQueue == null) return;
@@ -75,6 +77,13 @@ namespace PBase
          }
          SaveSpecialNotes(); //Всегда сохраняем Особые отметки
          _isAnythingChanged = false;
+
+         // Освобождаем память от изображения
+         if (pictureBox_ClientPhoto.Image != null)
+         {
+            pictureBox_ClientPhoto.Image.Dispose();
+            pictureBox_ClientPhoto.Image = null;
+         }
       }
 
       //////////// ЛОГИКА ФОРМЫ ////////////////////////////////////////////////////////
@@ -162,7 +171,10 @@ namespace PBase
             myDelegate();
          }
       }
-
+      private void ShowAbonementList(object sender, NotifyCollectionChangedEventArgs e)
+      {
+         groupBox_abonList.Visible = _person.AbonementsQueue.Count > 0;
+      }
       private void PasswordChangedEvent(object sender, EventArgs e)
       {
          if (_options.IsPasswordValid)
@@ -178,7 +190,10 @@ namespace PBase
             button__remove_abon.Enabled = false;
          }
       }
-
+      private void PathToPhotoChangedMethod(object sender, EventArgs e)
+      {
+         TryLoadPhoto();
+      }
       // Сохранение данных 
       private void SaveData()
       {
@@ -226,14 +241,36 @@ namespace PBase
          textBox_Notes.Text = _person.SpecialNotes;
          _editedSpecialNote = _person.SpecialNotes;
 
-         // Загрузка Фото
-         if (_person.PathToPhoto != "")
-         {
-            pictureBox_ClientPhoto.Image = Image.FromFile(_person.PathToPhoto);
-         }
-
          _isAnythingChanged = false;
       }
+
+      private void TryLoadPhoto()
+      {
+         if (_person.PathToPhoto != "")
+         {
+            try
+            {
+               if (Photo.IsPhotoExist(_person.PathToPhoto))
+               {
+                  pictureBox_ClientPhoto.Image = Photo.OpenPhoto(_person.PathToPhoto);
+                  pictureBox_ClientPhoto.Invalidate();
+                  this.Invalidate();
+               }
+               else
+               {
+                  _person.PathToPhoto = "";
+                  pictureBox_ClientPhoto.Image = null;
+               }
+            }
+            catch
+            {
+               pictureBox_ClientPhoto.Image = null;
+               MessageBox.Show("Ошибка Открытия Файла Изображения");
+            }
+            pictureBox_ClientPhoto.Refresh();
+         }
+      }
+
       private void LoadShortInfo()
       { //FIXME Мерцание
          Action myDelegate = delegate
@@ -632,6 +669,11 @@ namespace PBase
 
       private void button_photo_Click(object sender, EventArgs e)
       {
+         var success = Photo.OpenPhoto(out Image img, out string pathDummy);
+         if (success)
+         {
+            _person.PathToPhoto = Photo.SaveToPicturesFolder(img, _person.Name);
+         }
 
       }
    }

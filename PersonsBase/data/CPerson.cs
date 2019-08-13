@@ -8,6 +8,8 @@ namespace PBase
    public class Person : IEquatable<Person>
    {
       //////// СОБЫТИЯ без флага НЕ СОЗДАВАТЬ !!!!!!   Проблемы с сериализацией //
+
+      // Статус
       [field: NonSerialized]
       public event EventHandler StatusChanged;
       public void OnStatusChanged()
@@ -15,10 +17,19 @@ namespace PBase
          StatusChanged?.Invoke(this, EventArgs.Empty);
       }
 
+      // Фото Клиента
+      [field: NonSerialized]
+      public event EventHandler PathToPhotoChanged;
+      public void OnPathPhotoChanged()
+      {
+         PathToPhotoChanged?.Invoke(this, EventArgs.Empty);
+      }
+
       /// Приватные поля
       private string _phone;
       private string _driverIdNum;
       private string _name;
+      private string _pathToPhoto;
       private StatusPerson _status;
       private AbonementBasic _abonementCurent;
 
@@ -53,7 +64,6 @@ namespace PBase
          get { return _phone; }
          set
          {
-            //TODO: Написать обработку номера телефона. Проверка на +7,8, пробелы, дефисы, так же на городской номер.
             _phone = string.IsNullOrEmpty(value) ? "" : value;
          }
       }
@@ -66,7 +76,19 @@ namespace PBase
             _driverIdNum = value;
          }
       }
-      public string PathToPhoto { get; set; } //FIXME: Добавить поддержку фотографий
+      public string PathToPhoto
+      {
+         get
+         {
+            return _pathToPhoto;
+         }
+
+         set
+         {
+            _pathToPhoto = value;
+            OnPathPhotoChanged();
+         }
+      }
       public string SpecialNotes { get; set; }
       public ObservableCollection<AbonementBasic> AbonementsQueue;
       public AbonementBasic AbonementCurent
@@ -92,7 +114,7 @@ namespace PBase
          BirthDate = DateTime.Parse("02.02.2000");
          Passport = "";
          _driverIdNum = "";
-         PathToPhoto = "";
+         _pathToPhoto = "";
          SpecialNotes = "";
          _abonementCurent = null;
          AbonementsQueue = new ObservableCollection<AbonementBasic>();

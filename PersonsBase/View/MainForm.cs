@@ -12,6 +12,7 @@ namespace PBase
       private SortedList<string, Person> UserList => _db.GetCollectionRw();
       private readonly Options _options; // Хранятся локальные настройки и параметры программы.
       private Logic _logic;       // Логика и управляющие методы программы.
+      private Photo _photo;
       private Timer _time = new Timer();
 
       ///////////////// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ////////////////////////////////
@@ -20,6 +21,7 @@ namespace PBase
          InitializeComponent();
          _options = new Options();
          _logic = new Logic(_options, _db);
+         _photo = new Photo();
       }
 
       private void MainForm_Load(object sender, EventArgs e)
