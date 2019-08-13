@@ -51,9 +51,6 @@ namespace PBase
          _person.AbonementsQueue.CollectionChanged += ShowAbonementList;
       }
 
-
-
-     
       private void LoadListboxQueue()
       {
          if (_person.AbonementsQueue == null) return;
@@ -111,8 +108,6 @@ namespace PBase
             button_Add_Abon.Enabled = false;
             button_Freeze.Visible = false;
 
-            groupBox_abonList.Visible = false;
-
             // Вкл/Выкл Кнопки ЗАМОРОЗКА и ПОСЕЩЕНИЕ если проблемы с абонементом
             switch (_person.UpdateActualStatus())
             {
@@ -120,7 +115,6 @@ namespace PBase
                   {
                      button_Add_Abon.Enabled = true;
                      button_CheckInWorkout.Visible = true;
-                     groupBox_abonList.Visible = true;
 
                      // Кнопка Заморозка Клубной Карты
                      if ((_person.AbonementCurent is ClubCardA) &&
@@ -140,8 +134,6 @@ namespace PBase
                case StatusPerson.Заморожен:
                   {
                      button_Freeze.Visible = _person.IsAbonementExist();
-
-                     groupBox_abonList.Visible = true;
                      break;
                   }
                case StatusPerson.Гостевой:
@@ -622,7 +614,6 @@ namespace PBase
             LoadShortInfo();
             LoadEditableData();
             UpdateControlState(this, EventArgs.Empty);
-            //UpdateNameText();
          }
       }
 
