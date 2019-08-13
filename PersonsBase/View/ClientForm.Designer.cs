@@ -97,7 +97,7 @@ namespace PBase
          this.textBox_Name.Location = new System.Drawing.Point(7, 2);
          this.textBox_Name.Margin = new System.Windows.Forms.Padding(2);
          this.textBox_Name.Name = "textBox_Name";
-         this.textBox_Name.Size = new System.Drawing.Size(922, 32);
+         this.textBox_Name.Size = new System.Drawing.Size(1009, 32);
          this.textBox_Name.TabIndex = 1;
          this.textBox_Name.Text = "ФИО";
          // 
@@ -125,7 +125,7 @@ namespace PBase
          this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
          this.tabControl1.Name = "tabControl1";
          this.tabControl1.SelectedIndex = 0;
-         this.tabControl1.Size = new System.Drawing.Size(948, 516);
+         this.tabControl1.Size = new System.Drawing.Size(1035, 553);
          this.tabControl1.TabIndex = 2;
          // 
          // tabPage1
@@ -140,7 +140,7 @@ namespace PBase
          this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
          this.tabPage1.Name = "tabPage1";
          this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-         this.tabPage1.Size = new System.Drawing.Size(940, 488);
+         this.tabPage1.Size = new System.Drawing.Size(1027, 525);
          this.tabPage1.TabIndex = 0;
          this.tabPage1.Text = "Основная";
          this.tabPage1.UseVisualStyleBackColor = true;
@@ -150,11 +150,11 @@ namespace PBase
          this.groupBox_abonList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
          this.groupBox_abonList.Controls.Add(this.button__remove_abon);
          this.groupBox_abonList.Controls.Add(this.listBox_abonements);
-         this.groupBox_abonList.Location = new System.Drawing.Point(752, 273);
+         this.groupBox_abonList.Location = new System.Drawing.Point(820, 273);
          this.groupBox_abonList.Margin = new System.Windows.Forms.Padding(2);
          this.groupBox_abonList.Name = "groupBox_abonList";
          this.groupBox_abonList.Padding = new System.Windows.Forms.Padding(2);
-         this.groupBox_abonList.Size = new System.Drawing.Size(177, 110);
+         this.groupBox_abonList.Size = new System.Drawing.Size(196, 110);
          this.groupBox_abonList.TabIndex = 11;
          this.groupBox_abonList.TabStop = false;
          this.groupBox_abonList.Text = "Абонементы:";
@@ -167,7 +167,7 @@ namespace PBase
          this.button__remove_abon.Location = new System.Drawing.Point(2, 84);
          this.button__remove_abon.Margin = new System.Windows.Forms.Padding(2);
          this.button__remove_abon.Name = "button__remove_abon";
-         this.button__remove_abon.Size = new System.Drawing.Size(173, 24);
+         this.button__remove_abon.Size = new System.Drawing.Size(192, 24);
          this.button__remove_abon.TabIndex = 1;
          this.button__remove_abon.Text = "Удалить";
          this.button__remove_abon.UseVisualStyleBackColor = true;
@@ -181,7 +181,7 @@ namespace PBase
          this.listBox_abonements.Location = new System.Drawing.Point(2, 16);
          this.listBox_abonements.Margin = new System.Windows.Forms.Padding(2);
          this.listBox_abonements.Name = "listBox_abonements";
-         this.listBox_abonements.Size = new System.Drawing.Size(173, 64);
+         this.listBox_abonements.Size = new System.Drawing.Size(192, 64);
          this.listBox_abonements.TabIndex = 0;
          // 
          // groupBox6
@@ -189,11 +189,11 @@ namespace PBase
          this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
          this.groupBox6.Controls.Add(this.button_photo);
          this.groupBox6.Controls.Add(this.pictureBox_ClientPhoto);
-         this.groupBox6.Location = new System.Drawing.Point(752, 38);
+         this.groupBox6.Location = new System.Drawing.Point(820, 38);
          this.groupBox6.Margin = new System.Windows.Forms.Padding(2);
          this.groupBox6.Name = "groupBox6";
          this.groupBox6.Padding = new System.Windows.Forms.Padding(2);
-         this.groupBox6.Size = new System.Drawing.Size(177, 214);
+         this.groupBox6.Size = new System.Drawing.Size(196, 231);
          this.groupBox6.TabIndex = 10;
          this.groupBox6.TabStop = false;
          this.groupBox6.Text = "Фото Клиента";
@@ -201,10 +201,10 @@ namespace PBase
          // button_photo
          // 
          this.button_photo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.button_photo.Location = new System.Drawing.Point(24, 169);
+         this.button_photo.Location = new System.Drawing.Point(4, 201);
          this.button_photo.Margin = new System.Windows.Forms.Padding(2);
          this.button_photo.Name = "button_photo";
-         this.button_photo.Size = new System.Drawing.Size(132, 26);
+         this.button_photo.Size = new System.Drawing.Size(188, 26);
          this.button_photo.TabIndex = 4;
          this.button_photo.Text = "Фото";
          this.button_photo.UseVisualStyleBackColor = true;
@@ -213,10 +213,10 @@ namespace PBase
          // pictureBox_ClientPhoto
          // 
          this.pictureBox_ClientPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(24, 18);
+         this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(4, 18);
          this.pictureBox_ClientPhoto.Margin = new System.Windows.Forms.Padding(2);
          this.pictureBox_ClientPhoto.Name = "pictureBox_ClientPhoto";
-         this.pictureBox_ClientPhoto.Size = new System.Drawing.Size(132, 147);
+         this.pictureBox_ClientPhoto.Size = new System.Drawing.Size(188, 179);
          this.pictureBox_ClientPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
          this.pictureBox_ClientPhoto.TabIndex = 0;
          this.pictureBox_ClientPhoto.TabStop = false;
@@ -328,7 +328,7 @@ namespace PBase
          this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
          this.groupBox1.Name = "groupBox1";
          this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-         this.groupBox1.Size = new System.Drawing.Size(936, 99);
+         this.groupBox1.Size = new System.Drawing.Size(1023, 136);
          this.groupBox1.TabIndex = 8;
          this.groupBox1.TabStop = false;
          // 
@@ -342,7 +342,7 @@ namespace PBase
          this.textBox_Notes.Multiline = true;
          this.textBox_Notes.Name = "textBox_Notes";
          this.textBox_Notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-         this.textBox_Notes.Size = new System.Drawing.Size(932, 82);
+         this.textBox_Notes.Size = new System.Drawing.Size(1019, 119);
          this.textBox_Notes.TabIndex = 5;
          this.textBox_Notes.Text = "Заметки о Клиенте";
          this.textBox_Notes.TextChanged += new System.EventHandler(this.textBox_Notes_TextChanged);
@@ -356,7 +356,7 @@ namespace PBase
          this.groupBox_Info.Margin = new System.Windows.Forms.Padding(2);
          this.groupBox_Info.Name = "groupBox_Info";
          this.groupBox_Info.Padding = new System.Windows.Forms.Padding(2);
-         this.groupBox_Info.Size = new System.Drawing.Size(554, 345);
+         this.groupBox_Info.Size = new System.Drawing.Size(624, 345);
          this.groupBox_Info.TabIndex = 4;
          this.groupBox_Info.TabStop = false;
          this.groupBox_Info.Text = "Информация";
@@ -369,7 +369,7 @@ namespace PBase
          this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
          this.tabPage2.Name = "tabPage2";
          this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-         this.tabPage2.Size = new System.Drawing.Size(940, 488);
+         this.tabPage2.Size = new System.Drawing.Size(1027, 525);
          this.tabPage2.TabIndex = 1;
          this.tabPage2.Text = "Дополнительная";
          this.tabPage2.UseVisualStyleBackColor = true;
@@ -385,7 +385,7 @@ namespace PBase
          this.groupBox_Detailed.Margin = new System.Windows.Forms.Padding(2);
          this.groupBox_Detailed.Name = "groupBox_Detailed";
          this.groupBox_Detailed.Padding = new System.Windows.Forms.Padding(2);
-         this.groupBox_Detailed.Size = new System.Drawing.Size(531, 382);
+         this.groupBox_Detailed.Size = new System.Drawing.Size(705, 419);
          this.groupBox_Detailed.TabIndex = 1;
          this.groupBox_Detailed.TabStop = false;
          this.groupBox_Detailed.Text = "Детальная информация";
@@ -400,7 +400,7 @@ namespace PBase
          this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
          this.groupBox2.Name = "groupBox2";
          this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-         this.groupBox2.Size = new System.Drawing.Size(296, 384);
+         this.groupBox2.Size = new System.Drawing.Size(296, 421);
          this.groupBox2.TabIndex = 0;
          this.groupBox2.TabStop = false;
          this.groupBox2.Text = "Персональные данные";
@@ -587,19 +587,19 @@ namespace PBase
          this.tableLayoutPanel4.Controls.Add(this.button_Cancel, 1, 0);
          this.tableLayoutPanel4.Controls.Add(this.button_SavePersonalData, 0, 0);
          this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-         this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 520);
+         this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 557);
          this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
          this.tableLayoutPanel4.Name = "tableLayoutPanel4";
          this.tableLayoutPanel4.RowCount = 1;
          this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-         this.tableLayoutPanel4.Size = new System.Drawing.Size(948, 40);
+         this.tableLayoutPanel4.Size = new System.Drawing.Size(1035, 40);
          this.tableLayoutPanel4.TabIndex = 2;
          // 
          // panel1
          // 
          this.panel1.Controls.Add(this.button2);
          this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-         this.panel1.Location = new System.Drawing.Point(726, 3);
+         this.panel1.Location = new System.Drawing.Point(813, 3);
          this.panel1.Name = "panel1";
          this.panel1.Size = new System.Drawing.Size(219, 34);
          this.panel1.TabIndex = 0;
@@ -648,7 +648,7 @@ namespace PBase
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(948, 560);
+         this.ClientSize = new System.Drawing.Size(1035, 597);
          this.Controls.Add(this.tableLayoutPanel4);
          this.Controls.Add(this.tabControl1);
          this.DoubleBuffered = true;

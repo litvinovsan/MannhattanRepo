@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PBase
-{
+{// FIXME Сделать переименование файлов фотографий при переименовании имени
+
    public class Photo
    {
       public readonly string FolderName = "UsersPhoto";
@@ -76,9 +77,14 @@ namespace PBase
             img = Image.FromStream(fs);
          }
          return img;
+         /*
+          Image tmp = Image.FromFile(@"C:\pics\logo.png");
+          Image CurrentWM = new Bitmap(tmp);
+          tmp.Dispose();
+          */
       }
 
-      public static string SaveToStdFolder(Image inputImg, string fileName)
+      public static string SaveToPicturesFolder(Image inputImg, string fileName)
       {
          string pth = PathToPhotoDir + fileName?.Trim() + ".jpg";
          Bitmap bmp;
