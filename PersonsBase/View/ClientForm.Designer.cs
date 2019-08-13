@@ -157,7 +157,7 @@ namespace PBase
          this.groupBox_abonList.Size = new System.Drawing.Size(196, 110);
          this.groupBox_abonList.TabIndex = 11;
          this.groupBox_abonList.TabStop = false;
-         this.groupBox_abonList.Text = "Абонементы:";
+         this.groupBox_abonList.Text = "Следующий Абонемент:";
          this.groupBox_abonList.Visible = false;
          // 
          // button__remove_abon

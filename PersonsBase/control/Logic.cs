@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PersonsBase.View;
+using System;
 using System.Collections.Generic;
 
 namespace PBase
@@ -21,7 +22,18 @@ namespace PBase
       }
 
       // МЕТОДЫ
+      public void AccessRoot()
+      {
+         if (_options.IsPasswordValid) // Повторное нажатие Блокирует данные
+         {
+            _options.IsPasswordValid = false;
+         }
+         else
+         {  // Проверка Пароля.
+            PwdForm pwd = new PwdForm(_options);
+            pwd.ShowDialog();
+         }
+      }
 
-      
    }
 }

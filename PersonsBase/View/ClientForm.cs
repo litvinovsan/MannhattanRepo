@@ -17,15 +17,17 @@ namespace PBase
       private readonly Person _person;
       private readonly DataBaseClass _dataBase = DataBaseClass.GetInstance();
       private readonly Options _options;
+      private readonly Logic _logic;
       private bool _isAnythingChanged;
 
       ///////////////// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ////////////////////////////////
-      public ClientForm(string keyName, Options opt)
+      public ClientForm(string keyName, Options opt, Logic lgc)
       {
          InitializeComponent();
          _person = _dataBase.GetCollectionRw()[keyName];
          _isAnythingChanged = false;
          _options = opt;
+         _logic = lgc;
       }
 
       private void ClientForm_Load(object sender, EventArgs e)
@@ -356,7 +358,7 @@ namespace PBase
             if (card.Freeze.IsConfigured())
             {
                textBox_Name.ForeColor = Color.SeaGreen;
-               textBox_Name.Text = _person.Name + $"   (Заморозка c {card.Freeze.FreezeStartDate.Date.ToString("d")}, на {card.Freeze.GetDaysToFreeze()} дней)";
+               textBox_Name.Text = _person.Name + $"   (Заморозка c {card.Freeze.FreezeStartDate.Date.ToString("d")}, дней: {card.Freeze.GetDaysToFreeze()} )";
             }
          }
 
@@ -617,16 +619,11 @@ namespace PBase
 
       private void button_Password_Click(object sender, EventArgs e)
       {
-         if (_options.IsPasswordValid) // Повторное нажатие Блокирует данные
-         {
-            _options.IsPasswordValid = false;
-         }
-         else
-         {  // Проверка Пароля.
-            PwdForm pwd = new PwdForm(_options);
-            pwd.ShowDialog();
-         }
+         _logic.AccessRoot();
       }
+
+
+
       private void button_Freeze_Click(object sender, EventArgs e)
       {
          var status = _person.Status;

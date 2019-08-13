@@ -52,7 +52,7 @@ namespace PBase
       {
          if (_db.ContainsKey(keyName))
          {
-            ClientForm clientFrm = new ClientForm(keyName, _options);
+            ClientForm clientFrm = new ClientForm(keyName, _options, _logic);
             clientFrm.ShowDialog();
          }
          else
@@ -109,8 +109,7 @@ namespace PBase
 
       private void button1_Click_1(object sender, EventArgs e)
       {
-         _db.AddPerson(new Person("Трактирщик Мо"));
-         _db.AddPerson(new Person("Гомер Симпсон"));
+
       }
 
       private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -123,17 +122,6 @@ namespace PBase
          {
             MessageBox.Show(ex.Message);
          }
-         // FIXME: Сделать проверку на Enter
-         /*
-           if (Char.IsDigit(e.KeyChar) == true) return;
-            if (e.KeyChar == Convert.ToChar(Keys.Back)) return;
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))
-            {
-                _viewForm.OnSendCommand(textBox_WriteCMD.Text);
-                return;
-            }
-                e.Handled = true;
-          */
       }
 
       private void _time_ClockTick(object sender, EventArgs e)
@@ -175,6 +163,28 @@ namespace PBase
          }
 
          label_Time.Text = _time;
+      }
+
+      private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
+      {
+
+      }
+
+      private void конфигураторОтчетовToolStripMenuItem_Click(object sender, EventArgs e)
+      {
+
+      }
+
+
+      private void добавитьКлиентаToolStripMenuItem_Click(object sender, EventArgs e)
+      {
+         _db.AddPerson(new Person("Трактирщик Мо"));
+         _db.AddPerson(new Person("Гомер Симпсон"));
+      }
+
+      private void руководительToolStripMenuItem1_Click(object sender, EventArgs e)
+      {
+         _logic.AccessRoot();
       }
    }
 }
