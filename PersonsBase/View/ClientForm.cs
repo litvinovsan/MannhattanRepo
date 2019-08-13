@@ -101,19 +101,17 @@ namespace PBase
       {
          // Различные изменения, которые зависят от СТАТУСА клиента.
          Action myDelegate = delegate
-         {// FIXME     Попробовать логику наоборот.Включать всё, а в свитче выключать если надо.Может уменьшит мерцание
+         {
             // По умолчанию для всех карт
             button_add_dop_tren.Visible = false;
             button_CheckInWorkout.Visible = false;
-            button_Add_Abon.Enabled = false;
             button_Freeze.Visible = false;
-
+            button_Add_Abon.Enabled = true;
             // Вкл/Выкл Кнопки ЗАМОРОЗКА и ПОСЕЩЕНИЕ если проблемы с абонементом
             switch (_person.UpdateActualStatus())
             {
                case StatusPerson.Активный:
                   {
-                     button_Add_Abon.Enabled = true;
                      button_CheckInWorkout.Visible = true;
 
                      // Кнопка Заморозка Клубной Карты
@@ -128,7 +126,7 @@ namespace PBase
                   }
                case StatusPerson.Нет_Карты:
                   {
-                     button_Add_Abon.Enabled = true;
+
                      break;
                   }
                case StatusPerson.Заморожен:
@@ -143,11 +141,11 @@ namespace PBase
                   }
                case StatusPerson.Запрещён:
                   {
+                     button_Add_Abon.Enabled = false;
                      break;
                   }
                case StatusPerson.Вероятный_Клиент:
                   {
-                     button_Add_Abon.Enabled = true;
                      break;
                   }
             }
