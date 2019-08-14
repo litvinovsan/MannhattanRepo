@@ -133,7 +133,8 @@ namespace PBase
                   }
                case StatusPerson.Заморожен:
                   {
-                     button_Freeze.Visible = _person.IsAbonementExist();
+                      button_Add_Abon.Enabled = false;
+                      button_Freeze.Visible = _person.IsAbonementExist();
                      break;
                   }
                case StatusPerson.Гостевой:
@@ -617,8 +618,10 @@ namespace PBase
 
       private DialogResult RunFreezeForm()
       {
-         if (!(_person.AbonementCurent is ClubCardA _clubCard)) return DialogResult.Cancel;
-         FreezeForm freezeForm = new FreezeForm(_clubCard, _options.IsPasswordValid);
+          
+         if (!(_person.AbonementCurent is ClubCardA)) return DialogResult.Cancel;
+         ClubCardA clubCard = ((ClubCardA) _person.AbonementCurent);
+         FreezeForm freezeForm = new FreezeForm(clubCard, _options.IsPasswordValid);
          return freezeForm.ShowDialog();
       }
 
