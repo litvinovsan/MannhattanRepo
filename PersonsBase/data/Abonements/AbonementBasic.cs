@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PersonsBase.View;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -77,26 +78,52 @@ namespace PBase
       /// <returns></returns>
       public abstract int GetRemainderDays(); // Осталось дней
 
-      //public bool TrySelectWorkoutType(out TypeWorkout typeWrk)
-      //{
-      //   bool result = false;
+      private bool TrySelectWorkoutType(out TypeWorkout typeWrk)
+      {
+         bool result = false;
+         typeWrk = TypeWorkout.Тренажерный_Зал;
 
-      //   if (NumAerobicTr == 0 && NumPersonalTr == 0)
-      //   {
-      //      typeWrk = trainingsType;
-      //   }
-      //   else
-      //   {
-      //      using (var workoutForm = new WorkoutForm(AbonementCurent))
-      //      {
-      //         if (workoutForm.ShowDialog() == DialogResult.OK)
-      //         {
-      //            typeWrk = workoutForm.SelectedTypeWorkout;
-      //         }
-      //      }
-      //   }
+         if (NumAerobicTr == 0 && NumPersonalTr == 0)
+         {
+            typeWrk = trainingsType;
+            result = true;
+         }
+         else
+         {
+            using (var workoutForm = new WorkoutForm(this))
+            {
+               if (workoutForm.ShowDialog() == DialogResult.OK)
+               {
+                  typeWrk = workoutForm.SelectedTypeWorkout;
+                  result = true;
+               }
+            }
+         }
+         return result;
+      }
 
-      //   return result;
-      //}
+      public bool TryCheckInWorkout()
+      {
+         bool isSuccess = false;
+         TypeWorkout typeWorkout;
+
+         if (TrySelectWorkoutType(out typeWorkout))
+         {
+            // Учет посещения, обновление циферок
+            isSuccess = CheckInWorkout(typeWorkout);
+         }
+
+         if (isSuccess)
+         {
+            // Дополнительная информация для вывода если успешный учет.
+            var infoAerobic = (NumAerobicTr > 0) ? $"\r\nОсталось Аэробных: {NumAerobicTr}" : "";
+            var infoPersonal = (NumPersonalTr > 0) ? $"\r\nОсталось Персональных: {NumPersonalTr}" : "";
+
+            MessageBox.Show($@"Осталось посещений: {GetRemainderDays()}{infoAerobic}{infoPersonal}", @"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+         }
+         return isSuccess;
+      }
    }
 }

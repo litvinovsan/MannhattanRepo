@@ -232,8 +232,6 @@ namespace PBase
          // Особые Отметки
          textBox_Notes.Text = _person.SpecialNotes;
          _editedSpecialNote = _person.SpecialNotes;
-
-         _isAnythingChanged = false;
       }
 
       private void TryLoadPhoto()
@@ -483,60 +481,32 @@ namespace PBase
       //////////// СТАНДАРТНЫЕ ОБРАБОТЧИКИ ///////////////////////////////////////////////
 
       private void button_CheckInWorkout_Click(object sender, EventArgs e)
-      {// FIXME переписать попроще
+      {
          _person.AbonementCurent.TryActivate(); // Если не Активирован
 
          // Если Кончился абонемент и не сработали проверки в других местах
          if (!_person.AbonementCurent.IsValid())
          {
             NoValidActions();
+            MessageBox.Show("Cтранная Ошибка Учета Посещений.");
             return;
          }
 
-         TypeWorkout typeWorkout;
-         int aerobic = _person.AbonementCurent.NumAerobicTr;
-         int personal = _person.AbonementCurent.NumPersonalTr;
-
-         if (aerobic == 0 && personal == 0)
+         if (_person.AbonementCurent.TryCheckInWorkout())
          {
-            typeWorkout = _person.AbonementCurent.trainingsType;
-         }
-         else
-         {
-            using (var workoutForm = new WorkoutForm(_person.AbonementCurent))
-            {
-               if (workoutForm.ShowDialog() == DialogResult.OK)
-               {
-                  typeWorkout = workoutForm.SelectedTypeWorkout;
-               }
-               else return;
-            }
-         }
-
-         // Учет посещения, обновление циферок
-         var isSuccess = _person.AbonementCurent.CheckInWorkout(typeWorkout);
-
-         if (isSuccess)
-         {
-            // Дополнительная информация для вывода если успешный учет.
-            var infoAerobic = (_person.AbonementCurent.NumAerobicTr > 0) ? $"\r\nОсталось Аэробных: {_person.AbonementCurent.NumAerobicTr}" : "";
-            var infoPersonal = (_person.AbonementCurent.NumPersonalTr > 0) ? $"\r\nОсталось Персональных: {_person.AbonementCurent.NumPersonalTr}" : "";
-
-            MessageBox.Show($@"Осталось посещений: {_person.AbonementCurent.GetRemainderDays()}{infoAerobic}{infoPersonal}", @"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (!_person.AbonementCurent.IsValid())
             {
                _person.Status = StatusPerson.Нет_Карты;
                _person.AbonementCurent = null;
             }
-            UpdateNameText();
-            LoadShortInfo();
-            LoadEditableData();
          }
-         else
-         {
-            NoValidActions();
-         }
+         UpdateNameText();
+         LoadShortInfo();
+         LoadEditableData();
+         UpdateControlState(this, EventArgs.Empty);
+         button_CheckInWorkout.Focus();
       }
+
       private void button_Cancel_Click(object sender, EventArgs e)
       {
          Close();

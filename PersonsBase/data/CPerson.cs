@@ -153,6 +153,7 @@ namespace PBase
             else // Кончился Абонемент
             {
                _status = StatusPerson.Нет_Карты;
+               AbonementCurent = null;
             }
          }
          return Status;
