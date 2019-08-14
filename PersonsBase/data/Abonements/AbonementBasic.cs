@@ -12,7 +12,8 @@ namespace PBase
    {
       [field: NonSerialized]
       public event EventHandler EndDateChanged;
-      public void OnEndDateChanged()
+
+      private void OnEndDateChanged()
       {
          EndDateChanged?.Invoke(this, EventArgs.Empty);
       }
@@ -44,7 +45,7 @@ namespace PBase
       }
 
       // Конструктор
-      public AbonementBasic(Pay payStatus, TimeForTr time, TypeWorkout tr, SpaService spa)
+      protected AbonementBasic(Pay payStatus, TimeForTr time, TypeWorkout tr, SpaService spa)
       {
          this.payStatus = payStatus;
          timeTraining = time;
@@ -66,7 +67,7 @@ namespace PBase
       /// <summary>
       /// Отметить и Учесть посещение в абонементе
       /// </summary>
-      public abstract bool CheckInWorkout(TypeWorkout type);
+      protected abstract bool CheckInWorkout(TypeWorkout type);
       /// <summary>
       ///  Добавление Персональных или Аэробных тренировок к текущему абонементу.  
       /// </summary>
@@ -120,8 +121,6 @@ namespace PBase
             var infoPersonal = (NumPersonalTr > 0) ? $"\r\nОсталось Персональных: {NumPersonalTr}" : "";
 
             MessageBox.Show($@"Осталось посещений: {GetRemainderDays()}{infoAerobic}{infoPersonal}", @"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
          }
          return isSuccess;
       }

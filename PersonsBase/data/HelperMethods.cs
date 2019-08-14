@@ -20,7 +20,7 @@ namespace PBase
       /// </summary>
       /// <param name="fio"></param>
       /// <returns></returns>
-      public static string prepareName(string fio)
+      public static string PrepareName(string fio)
       {
          string surname = "";
          string firstName = "";
@@ -261,39 +261,39 @@ namespace PBase
          int m = DateTime.Now.Minute;
          int s = DateTime.Now.Second;
 
-         string _time = "";
+         string time = "";
          if (h < 10)
          {
-            _time += "0" + h;
+            time += "0" + h;
          }
          else
          {
-            _time += h;
+            time += h;
          }
 
-         _time += ":";
+         time += ":";
 
          if (m < 10)
          {
-            _time += "0" + m;
+            time += "0" + m;
          }
          else
          {
-            _time += m;
+            time += m;
          }
 
-         _time += ":";
+         time += ":";
 
          if (s < 10)
          {
-            _time += "0" + s;
+            time += "0" + s;
          }
          else
          {
-            _time += s;
+            time += s;
          }
 
-         return _time;
+         return time;
       }
       #endregion
    }

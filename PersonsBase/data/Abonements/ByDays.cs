@@ -36,7 +36,7 @@ namespace PBase
             EndDate = date;
       }
 
-      public override bool CheckInWorkout(TypeWorkout type)
+      protected override bool CheckInWorkout(TypeWorkout type)
       {
          bool result = false;
          if (IsValid())

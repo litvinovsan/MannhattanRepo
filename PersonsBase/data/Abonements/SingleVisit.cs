@@ -11,17 +11,17 @@ namespace PBase
       public SingleVisit(TypeWorkout typeTr, SpaService spa, Pay payStatus, TimeForTr time)
          : base(payStatus, time, typeTr, spa)
       {
-         numAerobicTr = 0;
-         numPersonalTr = 0;
+         _numAerobicTr = 0;
+         _numPersonalTr = 0;
          DaysLeft = 1;
          EndDate = DateTime.Now.Date;
       }
 
       // Свойства
-      private int numAerobicTr;
-      private int numPersonalTr;
-      public sealed override int NumAerobicTr { get { return numAerobicTr; } set { if (numAerobicTr >= 0) numAerobicTr = value; } }
-      public sealed override int NumPersonalTr { get { return numPersonalTr; } set { if (numPersonalTr >= 0) numPersonalTr = value; } }
+      private int _numAerobicTr;
+      private int _numPersonalTr;
+      public sealed override int NumAerobicTr { get { return _numAerobicTr; } set { if (_numAerobicTr >= 0) _numAerobicTr = value; } }
+      public sealed override int NumPersonalTr { get { return _numPersonalTr; } set { if (_numPersonalTr >= 0) _numPersonalTr = value; } }
       public override string AbonementName => "Разовое Занятие";
       public override string InfoWhenEnd => "Нет активных разовых посещений!";
 
@@ -33,7 +33,7 @@ namespace PBase
          EndDate = DateTime.Now.Date;
       }
 
-      public override bool CheckInWorkout(TypeWorkout type)
+      protected override bool CheckInWorkout(TypeWorkout type)
       {
           if (DaysLeft > 0)
          {

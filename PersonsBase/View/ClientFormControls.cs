@@ -70,7 +70,7 @@ namespace PBase
          if (!(_person.AbonementCurent is ClubCardA))
          {
             var updatedarray = array.Where(x => (x != StatusPerson.Заморожен.ToString())).Select(x => x);
-            array = updatedarray.ToArray();
+            array = updatedarray.ToArray<string>();
          }
 
          // Записываем Поля в Комбобокс

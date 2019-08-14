@@ -42,7 +42,7 @@ namespace PBase
          get { return _name; }
          set
          {
-            _name = Methods.prepareName(value);
+            _name = Methods.PrepareName(value);
             Key = _name;
          }
       }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 
 namespace PBase
@@ -18,8 +17,6 @@ namespace PBase
       private static SortedList<string, Person> _dataBase; //Хранение клиентской базы
       [NonSerialized]
       private static DataBaseClass _dbInstance;                 //Singleton. DataBase dataBase = DataBase.getInstance();      
-      [NonSerialized]
-      private BinaryFormatter _formatter;
 
       /////////////////////////// КОНСТРУКТОР ///////////////////////////
       private DataBaseClass()

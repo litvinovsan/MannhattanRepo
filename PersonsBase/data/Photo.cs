@@ -12,18 +12,18 @@ namespace PBase
 
    public class Photo
    {
-      private readonly string FolderName = "UsersPhoto";
-      private static string PathToPhotoDir;
+       private const string FolderName = "UsersPhoto";
+       private static string _pathToPhotoDir;
 
       // Конструктор
       public Photo()
       {
          CreateFoldert(FolderName);
-         PathToPhotoDir = Directory.GetCurrentDirectory() + "\\" + FolderName + "\\";
+         _pathToPhotoDir = Directory.GetCurrentDirectory() + "\\" + FolderName + "\\";
       }
 
       // Методы
-      public void CreateFoldert(string fldrName)
+      private void CreateFoldert(string fldrName)
       {
          if (!Directory.Exists(fldrName)) Directory.CreateDirectory(fldrName);
       }
@@ -86,7 +86,7 @@ namespace PBase
 
       public static string SaveToPicturesFolder(Image inputImg, string fileName)
       {
-         string pth = PathToPhotoDir + fileName?.Trim() + ".jpg";
+         string pth = _pathToPhotoDir + fileName?.Trim() + ".jpg";
          Bitmap bmp;
 
          if (inputImg == null) return "";

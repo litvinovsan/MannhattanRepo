@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace PBase
 {
@@ -11,17 +10,17 @@ namespace PBase
       private int _numberMonths;
       private int _numAerobicTr;
 
-      private PeriodClubCard periodAbonem;
+      private PeriodClubCard _periodAbonem;
       public PeriodClubCard PeriodAbonem
       {
          get
          {
-            return periodAbonem;
+            return _periodAbonem;
          }
          set
          {
-            periodAbonem = value;
-            _numberMonths = (int)periodAbonem;
+            _periodAbonem = value;
+            _numberMonths = (int)_periodAbonem;
             _numAerobicTr = _numberMonths * 10;
             SetNewEndDate();
          }
@@ -52,7 +51,7 @@ namespace PBase
          _numberMonths = (int)periodInMonths;
          _numAerobicTr = _numberMonths * 10;
          NumPersonalTr = 0;
-         periodAbonem = periodInMonths;
+         _periodAbonem = periodInMonths;
 
          EndDateChanged += CalculateDaysLeft;
          EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
@@ -82,7 +81,7 @@ namespace PBase
          SetNewEndDate();
       }
 
-      public override bool CheckInWorkout(TypeWorkout type)
+      protected override bool CheckInWorkout(TypeWorkout type)
       {
          bool result = false;
 
@@ -171,7 +170,7 @@ namespace PBase
          return DaysLeft;
       }
 
-      public void SetNewEndDate()
+      private void SetNewEndDate()
       {
          var date = DateTime.Now.AddMonths(_numberMonths).Date;
          if (EndDate.Date.CompareTo(date) != 0)
