@@ -253,7 +253,48 @@ namespace PBase
             }
          });
       }
-      
+
+      // Часы. Подготовка строки 
+      public static string ClockProcessing()
+      {
+         int h = DateTime.Now.Hour;
+         int m = DateTime.Now.Minute;
+         int s = DateTime.Now.Second;
+
+         string _time = "";
+         if (h < 10)
+         {
+            _time += "0" + h;
+         }
+         else
+         {
+            _time += h;
+         }
+
+         _time += ":";
+
+         if (m < 10)
+         {
+            _time += "0" + m;
+         }
+         else
+         {
+            _time += m;
+         }
+
+         _time += ":";
+
+         if (s < 10)
+         {
+            _time += "0" + s;
+         }
+         else
+         {
+            _time += s;
+         }
+
+         return _time;
+      }
       #endregion
    }
 }

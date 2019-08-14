@@ -12,7 +12,6 @@ namespace PBase
    [Serializable]
    public class DataBaseClass
    {
-
       ///////////////////////////// ОБЬЕКТЫ ///////////////////////////
       [NonSerialized]
       private object locker = new object();               // блокировка коллекции на время сериализации.
@@ -20,23 +19,7 @@ namespace PBase
       [NonSerialized]
       private static DataBaseClass _dbInstance;                 //Singleton. DataBase dataBase = DataBase.getInstance();      
       [NonSerialized]
-      private string _nameToShow;     // При записи Имени, вызывается форма Клиента
-      [NonSerialized]
       private BinaryFormatter _formatter;
-      public string NameToShow
-      {
-         get
-         {
-            return _nameToShow;
-         }
-         set
-         {
-            if (_dataBase.ContainsKey(value))
-            {
-               _nameToShow = value;
-            }
-         }
-      }
 
       /////////////////////////// КОНСТРУКТОР ///////////////////////////
       private DataBaseClass()
@@ -52,69 +35,26 @@ namespace PBase
 
       public static DataBaseClass GetInstance()
       {
-          return _dbInstance ?? (_dbInstance = new DataBaseClass());
+         return _dbInstance ?? (_dbInstance = new DataBaseClass());
       }
-      
+
       /// /////////////////////////// CОБЫТИЯ ///////////////////////////
+
+      // Список Клиентов
       public delegate void MyEventDelegate(object sender, EventArgs e);
       public event MyEventDelegate ListChangedEvent;
       public void OnListChanged()
       {
-        ListChangedEvent?.Invoke(this, EventArgs.Empty);
+         ListChangedEvent?.Invoke(this, EventArgs.Empty);
       }
-      
+
       /*/////////////////////////// МЕТОДЫ     ///////////////////////////*/
 
       public SortedList<string, Person> GetCollectionRw()
       {
          return _dataBase;
       }
-      public bool Serialize()
-      {
-         bool result;
-         try
-         {
-            using (MemoryStream ms = new MemoryStream())
-            {
-               _formatter = new BinaryFormatter();
-               _formatter.Serialize(ms, _dataBase);// Если ошибка, вываливаемся тут и не стираем файл базы
-               // Сохраняем в файл поток из памяти
-               using (FileStream fileStream = new FileStream("ClientsDataBase.bin", FileMode.OpenOrCreate, FileAccess.Write))
-               {
-                  _formatter.Serialize(fileStream, _dataBase);
-               }
-               result = true;
-            }
-         }
-         catch (Exception e)
-         {
-
-            MessageBox.Show(e.Message);
-            result = false;
-         }
-
-         return result;
-      }
-
-      public bool DeSerialize()
-      {
-         _dataBase.Clear();
-         try
-         {
-            _formatter = new BinaryFormatter();
-            using (FileStream fileStream = new FileStream("ClientsDataBase.bin", FileMode.OpenOrCreate, FileAccess.Read))
-            {
-               _dataBase = (SortedList<string, Person>)_formatter.Deserialize(fileStream);
-               Console.WriteLine("  Объект десериализован " + _dataBase.Count + "клиентов.");
-            }
-            return true;
-         }
-         catch (Exception)
-         {
-            return false;
-         }
-      }
-
+      
       /// <summary>
       /// Возвращает ответ Базы Данных об успешности Добавления новой персоны.
       /// Возвращает Success если Клиента добавили и Код Поля- ошибки или Fail в непонятных случаях.
@@ -122,10 +62,10 @@ namespace PBase
       public ResponseCode AddPerson(Person person)
       {
          ResponseCode response = ResponseCode.Fail;
-      
+
          lock (locker)
          {
-           bool containsCopy = DataMethods.IsContainsCopyOfValues(_dataBase, person, out response);
+            bool containsCopy = DataMethods.IsContainsCopyOfValues(_dataBase, person, out response);
             if (containsCopy == false && (!string.IsNullOrEmpty(person.Key)))
             {
                try
@@ -147,10 +87,10 @@ namespace PBase
       public ResponseCode RemovePerson(string key)
       {
          ResponseCode result = ResponseCode.Fail;
-        
+
          lock (locker)
          {
-            Person tempPerson;                   
+            Person tempPerson;
             if (_dataBase.TryGetValue(key, out tempPerson))
             {
                try
@@ -199,7 +139,7 @@ namespace PBase
          {
             PersonalNumber = 1,
             Status = StatusPerson.Активный,
-            BirthDate = DateTime.Parse("11.01.2001"),
+            BirthDate = DateTime.Now,
             Passport = "7605898456",
             SpecialNotes = "Тестовый Гусь. Активный клиент.",
             Phone = "9144071960"

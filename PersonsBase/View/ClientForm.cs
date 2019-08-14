@@ -486,16 +486,16 @@ namespace PBase
       {// FIXME переписать попроще
          _person.AbonementCurent.TryActivate(); // Если не Активирован
 
-         TypeWorkout typeWorkout;
-         int aerobic = _person.AbonementCurent.NumAerobicTr;
-         int personal = _person.AbonementCurent.NumPersonalTr;
-
          // Если Кончился абонемент и не сработали проверки в других местах
          if (!_person.AbonementCurent.IsValid())
          {
             NoValidActions();
             return;
          }
+
+         TypeWorkout typeWorkout;
+         int aerobic = _person.AbonementCurent.NumAerobicTr;
+         int personal = _person.AbonementCurent.NumPersonalTr;
 
          if (aerobic == 0 && personal == 0)
          {
@@ -655,7 +655,9 @@ namespace PBase
 
       private void button_photo_Click(object sender, EventArgs e)
       {
-         var success = Photo.OpenPhoto(out Image img, out string pathDummy);
+         Image img;
+         string pathDummy;
+         var success = Photo.OpenPhoto(out img, out pathDummy);
          if (success)
          {
             _person.PathToPhoto = Photo.SaveToPicturesFolder(img, _person.Name);

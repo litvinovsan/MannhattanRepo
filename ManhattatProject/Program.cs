@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows.Forms;
 using PBase;
 
@@ -12,9 +13,20 @@ namespace ManhattatProject
       [STAThread]
       static void Main()
       {
-         Application.EnableVisualStyles();
-         Application.SetCompatibleTextRenderingDefault(false);
-         Application.Run(new MainForm());
+         bool oneonly;
+         Mutex m = new Mutex(true, "ManhattatProject", out oneonly);
+
+         if (oneonly)
+         {
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainForm());
+         }
+         else
+         {
+            MessageBox.Show("Это приложение уже запущено");
+         }
       }
    }
 }

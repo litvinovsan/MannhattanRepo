@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace PBase
 {
@@ -75,5 +76,27 @@ namespace PBase
       /// </summary>
       /// <returns></returns>
       public abstract int GetRemainderDays(); // Осталось дней
+
+      //public bool TrySelectWorkoutType(out TypeWorkout typeWrk)
+      //{
+      //   bool result = false;
+
+      //   if (NumAerobicTr == 0 && NumPersonalTr == 0)
+      //   {
+      //      typeWrk = trainingsType;
+      //   }
+      //   else
+      //   {
+      //      using (var workoutForm = new WorkoutForm(AbonementCurent))
+      //      {
+      //         if (workoutForm.ShowDialog() == DialogResult.OK)
+      //         {
+      //            typeWrk = workoutForm.SelectedTypeWorkout;
+      //         }
+      //      }
+      //   }
+
+      //   return result;
+      //}
    }
 }

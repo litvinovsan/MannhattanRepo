@@ -15,6 +15,8 @@ namespace PBase
       private Photo _photo;
       private Timer _time = new Timer();
 
+      
+
       ///////////////// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ////////////////////////////////
       public MainForm()
       {
@@ -31,15 +33,35 @@ namespace PBase
          // FIXME проверка если опшин пароль равен нулю - прописать ручками умолчальный
 
          // Подписка на события в пользовательской Базе Данных
-         _db.ListChangedEvent += UpdateFindComboBoxMenu;  // Обновляем список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
-         _db.ListChangedEvent += UpdateUsersCountTextBox; // Обновляем Счетчик пользователей на гл странице.
+         _db.ListChangedEvent += UpdateFindComboBoxMenu;  // Список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
+         _db.ListChangedEvent += UpdateUsersCountTextBox; // Счетчик пользователей
+         _db.ListChangedEvent += UpdateBirthDateComboBox; // Поле Сегодняшних Дней рождений
          _db.OnListChanged(); // Событие запускающееся при изменении количества Клиентов в списке.
 
-         // Инициализация Таймера для Часов
-         _time.Interval = 1000;
-         _time.Tick += _time_ClockTick;
-         _time.Start();
+         comboBox_BDay.SelectedIndexChanged += new EventHandler(comboBox_BDay_SelectedIndexChanged);
 
+         // Инициализация Таймера для Часов
+         StartTimer();
+
+      }
+      private void UpdateBirthDateComboBox(object sender, EventArgs e)
+      {
+         Action myDelegate = delegate
+         {
+            comboBox_BDay.Items.Clear();
+            label4.Text = "Дней Рождения: 0";
+            var array = UserList.Values.Where(c => c.BirthDate.ToString("M") == DateTime.Today.ToString("M")).Select(c => c.Name).ToArray<object>();
+            if (array.Length != 0)
+            {
+               comboBox_BDay.Items.AddRange(array);
+               comboBox_BDay.SelectedIndex = 0;
+               label4.Text = "Дней Рождения: " + array.Length.ToString();
+            }
+            Invalidate();
+         };
+
+         if (InvokeRequired) Invoke(myDelegate);
+         else myDelegate();
       }
 
       private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -50,19 +72,26 @@ namespace PBase
 
       private void RunClientForm(string keyName)
       {
-         if (_db.ContainsKey(keyName))
+         try
          {
-            ClientForm clientFrm = new ClientForm(keyName, _options, _logic);
-            clientFrm.ShowDialog();
+            if (_db.ContainsKey(keyName))
+            {
+               ClientForm clientFrm = new ClientForm(keyName, _options, _logic);
+               clientFrm.ShowDialog();
+            }
+            else
+            {
+               MessageBox.Show(@"Ошибка. Неправильное имя клиента");
+            }
          }
-         else
+         catch (Exception ex)
          {
-            MessageBox.Show(@"Ошибка. Неправильное имя клиента");
+            MessageBox.Show(ex.Message);
          }
       }
 
       ///////////////// РАБОТА С MAIN FORM ////////////////////////////////
-
+     
       private void UpdateFindComboBoxMenu(object sender, EventArgs arg)
       {
          Action myDelegate = delegate
@@ -73,14 +102,8 @@ namespace PBase
             Invalidate();
          };
 
-         if (InvokeRequired)
-         {
-            Invoke(myDelegate);
-         }
-         else
-         {
-            myDelegate();
-         }
+         if (InvokeRequired) Invoke(myDelegate);
+         else myDelegate();
       }
 
       public void ClearFindCombo()
@@ -114,55 +137,25 @@ namespace PBase
 
       private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
       {
-         try
-         {
-            RunClientForm(toolStripComboBox1.SelectedItem.ToString());
-         }
-         catch (Exception ex)
-         {
-            MessageBox.Show(ex.Message);
-         }
-      }
 
+         RunClientForm(toolStripComboBox1.SelectedItem.ToString());
+
+      }
+      private void comboBox_BDay_SelectedIndexChanged(object sender, EventArgs e)
+      {
+
+         RunClientForm(comboBox_BDay.SelectedItem.ToString());
+
+      }
+      private void StartTimer()
+      {
+         _time.Interval = 1000;
+         _time.Tick += _time_ClockTick;
+         _time.Start();
+      }
       private void _time_ClockTick(object sender, EventArgs e)
       {
-         int h = DateTime.Now.Hour;
-         int m = DateTime.Now.Minute;
-         int s = DateTime.Now.Second;
-
-         string _time = "";
-         if (h < 10)
-         {
-            _time += "0" + h;
-         }
-         else
-         {
-            _time += h;
-         }
-
-         _time += ":";
-
-         if (m < 10)
-         {
-            _time += "0" + m;
-         }
-         else
-         {
-            _time += m;
-         }
-
-         _time += ":";
-
-         if (s < 10)
-         {
-            _time += "0" + s;
-         }
-         else
-         {
-            _time += s;
-         }
-
-         label_Time.Text = _time;
+         label_Time.Text = Methods.ClockProcessing();
       }
 
       private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
@@ -186,5 +179,8 @@ namespace PBase
       {
          _logic.AccessRoot();
       }
+
+
    }
 }
+// FIXME добавить пиктограммы и иконки везде в менюхах и на формах

@@ -34,13 +34,22 @@ namespace PBase
          this.label1 = new System.Windows.Forms.Label();
          this.menuStrip1 = new System.Windows.Forms.MenuStrip();
          this.конфигурацииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+         this.руководительToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
          this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+         this.клиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+         this.продатьАбонементToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+         this.добавитьКлиентаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+         this.удалитьКлиентаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+         this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+         this.конфигураторОтчетовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
          this.groupBox1 = new System.Windows.Forms.GroupBox();
+         this.comboBox_BDay = new System.Windows.Forms.ComboBox();
          this.label_Time = new System.Windows.Forms.Label();
-         this.textBox2 = new System.Windows.Forms.TextBox();
-         this.label3 = new System.Windows.Forms.Label();
+         this.textBox_PeopleForDay = new System.Windows.Forms.TextBox();
+         this.label4 = new System.Windows.Forms.Label();
+         this.label_ClientsPerDay = new System.Windows.Forms.Label();
          this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
          this.textBox1 = new System.Windows.Forms.TextBox();
          this.label2 = new System.Windows.Forms.Label();
@@ -49,15 +58,7 @@ namespace PBase
          this.label_personal = new System.Windows.Forms.Label();
          this.label_group = new System.Windows.Forms.Label();
          this.listView_Tren_Zal = new System.Windows.Forms.ListView();
-         this.клиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-         this.добавитьКлиентаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-         this.удалитьКлиентаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-         this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-         this.конфигураторОтчетовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-         this.продатьАбонементToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-         this.руководительToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-         this.label4 = new System.Windows.Forms.Label();
-         this.comboBox_BDay = new System.Windows.Forms.ComboBox();
+         this.списокКлиентовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.menuStrip1.SuspendLayout();
          this.groupBox1.SuspendLayout();
          this.tableLayoutPanel1.SuspendLayout();
@@ -98,19 +99,71 @@ namespace PBase
          this.конфигурацииToolStripMenuItem.Size = new System.Drawing.Size(60, 28);
          this.конфигурацииToolStripMenuItem.Text = "Меню";
          // 
+         // руководительToolStripMenuItem1
+         // 
+         this.руководительToolStripMenuItem1.Name = "руководительToolStripMenuItem1";
+         this.руководительToolStripMenuItem1.Size = new System.Drawing.Size(166, 24);
+         this.руководительToolStripMenuItem1.Text = "Руководитель";
+         this.руководительToolStripMenuItem1.Click += new System.EventHandler(this.руководительToolStripMenuItem1_Click);
+         // 
          // настройкиToolStripMenuItem
          // 
          this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-         this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+         this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
          this.настройкиToolStripMenuItem.Text = "Настройки";
          this.настройкиToolStripMenuItem.Click += new System.EventHandler(this.настройкиToolStripMenuItem_Click);
          // 
          // выходToolStripMenuItem
          // 
          this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-         this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+         this.выходToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
          this.выходToolStripMenuItem.Text = "Выход";
          this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
+         // 
+         // клиентыToolStripMenuItem
+         // 
+         this.клиентыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.продатьАбонементToolStripMenuItem,
+            this.добавитьКлиентаToolStripMenuItem,
+            this.списокКлиентовToolStripMenuItem,
+            this.удалитьКлиентаToolStripMenuItem});
+         this.клиентыToolStripMenuItem.Name = "клиентыToolStripMenuItem";
+         this.клиентыToolStripMenuItem.Size = new System.Drawing.Size(75, 28);
+         this.клиентыToolStripMenuItem.Text = "Клиенты";
+         // 
+         // продатьАбонементToolStripMenuItem
+         // 
+         this.продатьАбонементToolStripMenuItem.Name = "продатьАбонементToolStripMenuItem";
+         this.продатьАбонементToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
+         this.продатьАбонементToolStripMenuItem.Text = "Продать Абонемент";
+         // 
+         // добавитьКлиентаToolStripMenuItem
+         // 
+         this.добавитьКлиентаToolStripMenuItem.Name = "добавитьКлиентаToolStripMenuItem";
+         this.добавитьКлиентаToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
+         this.добавитьКлиентаToolStripMenuItem.Text = "Добавить Клиента";
+         this.добавитьКлиентаToolStripMenuItem.Click += new System.EventHandler(this.добавитьКлиентаToolStripMenuItem_Click);
+         // 
+         // удалитьКлиентаToolStripMenuItem
+         // 
+         this.удалитьКлиентаToolStripMenuItem.Name = "удалитьКлиентаToolStripMenuItem";
+         this.удалитьКлиентаToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
+         this.удалитьКлиентаToolStripMenuItem.Text = "Удалить Клиента";
+         // 
+         // отчетыToolStripMenuItem
+         // 
+         this.отчетыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.конфигураторОтчетовToolStripMenuItem});
+         this.отчетыToolStripMenuItem.Name = "отчетыToolStripMenuItem";
+         this.отчетыToolStripMenuItem.Size = new System.Drawing.Size(69, 28);
+         this.отчетыToolStripMenuItem.Text = "Отчеты";
+         // 
+         // конфигураторОтчетовToolStripMenuItem
+         // 
+         this.конфигураторОтчетовToolStripMenuItem.Name = "конфигураторОтчетовToolStripMenuItem";
+         this.конфигураторОтчетовToolStripMenuItem.Size = new System.Drawing.Size(226, 24);
+         this.конфигураторОтчетовToolStripMenuItem.Text = "Конфигуратор Отчетов";
+         this.конфигураторОтчетовToolStripMenuItem.Click += new System.EventHandler(this.конфигураторОтчетовToolStripMenuItem_Click);
          // 
          // toolStripComboBox1
          // 
@@ -133,9 +186,9 @@ namespace PBase
             | System.Windows.Forms.AnchorStyles.Right)));
          this.groupBox1.Controls.Add(this.comboBox_BDay);
          this.groupBox1.Controls.Add(this.label_Time);
-         this.groupBox1.Controls.Add(this.textBox2);
+         this.groupBox1.Controls.Add(this.textBox_PeopleForDay);
          this.groupBox1.Controls.Add(this.label4);
-         this.groupBox1.Controls.Add(this.label3);
+         this.groupBox1.Controls.Add(this.label_ClientsPerDay);
          this.groupBox1.Controls.Add(this.monthCalendar1);
          this.groupBox1.Controls.Add(this.textBox1);
          this.groupBox1.Controls.Add(this.label2);
@@ -146,6 +199,18 @@ namespace PBase
          this.groupBox1.TabIndex = 3;
          this.groupBox1.TabStop = false;
          this.groupBox1.Text = "Сейчас:";
+         // 
+         // comboBox_BDay
+         // 
+         this.comboBox_BDay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+         this.comboBox_BDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
+         this.comboBox_BDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.comboBox_BDay.FormattingEnabled = true;
+         this.comboBox_BDay.Location = new System.Drawing.Point(6, 94);
+         this.comboBox_BDay.Name = "comboBox_BDay";
+         this.comboBox_BDay.Size = new System.Drawing.Size(161, 24);
+         this.comboBox_BDay.Sorted = true;
+         this.comboBox_BDay.TabIndex = 6;
          // 
          // label_Time
          // 
@@ -158,28 +223,37 @@ namespace PBase
          this.label_Time.TabIndex = 5;
          this.label_Time.Text = "15:25:00";
          // 
-         // textBox2
+         // textBox_PeopleForDay
          // 
-         this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+         this.textBox_PeopleForDay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-         this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.textBox2.Location = new System.Drawing.Point(6, 161);
-         this.textBox2.Name = "textBox2";
-         this.textBox2.Size = new System.Drawing.Size(161, 23);
-         this.textBox2.TabIndex = 4;
-         this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+         this.textBox_PeopleForDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.textBox_PeopleForDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.textBox_PeopleForDay.Location = new System.Drawing.Point(6, 161);
+         this.textBox_PeopleForDay.Name = "textBox_PeopleForDay";
+         this.textBox_PeopleForDay.Size = new System.Drawing.Size(161, 23);
+         this.textBox_PeopleForDay.TabIndex = 4;
+         this.textBox_PeopleForDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
          // 
-         // label3
+         // label4
          // 
-         this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+         this.label4.AutoSize = true;
+         this.label4.Location = new System.Drawing.Point(6, 73);
+         this.label4.Name = "label4";
+         this.label4.Size = new System.Drawing.Size(116, 17);
+         this.label4.TabIndex = 3;
+         this.label4.Text = "День Рождения:";
+         // 
+         // label_ClientsPerDay
+         // 
+         this.label_ClientsPerDay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-         this.label3.AutoSize = true;
-         this.label3.Location = new System.Drawing.Point(6, 145);
-         this.label3.Name = "label3";
-         this.label3.Size = new System.Drawing.Size(132, 17);
-         this.label3.TabIndex = 3;
-         this.label3.Text = "Клиентов за День:";
+         this.label_ClientsPerDay.AutoSize = true;
+         this.label_ClientsPerDay.Location = new System.Drawing.Point(6, 145);
+         this.label_ClientsPerDay.Name = "label_ClientsPerDay";
+         this.label_ClientsPerDay.Size = new System.Drawing.Size(132, 17);
+         this.label_ClientsPerDay.TabIndex = 3;
+         this.label_ClientsPerDay.Text = "Клиентов за День:";
          // 
          // monthCalendar1
          // 
@@ -279,77 +353,11 @@ namespace PBase
          this.listView_Tren_Zal.TabIndex = 2;
          this.listView_Tren_Zal.UseCompatibleStateImageBehavior = false;
          // 
-         // клиентыToolStripMenuItem
+         // списокКлиентовToolStripMenuItem
          // 
-         this.клиентыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.продатьАбонементToolStripMenuItem,
-            this.добавитьКлиентаToolStripMenuItem,
-            this.удалитьКлиентаToolStripMenuItem});
-         this.клиентыToolStripMenuItem.Name = "клиентыToolStripMenuItem";
-         this.клиентыToolStripMenuItem.Size = new System.Drawing.Size(75, 28);
-         this.клиентыToolStripMenuItem.Text = "Клиенты";
-         // 
-         // добавитьКлиентаToolStripMenuItem
-         // 
-         this.добавитьКлиентаToolStripMenuItem.Name = "добавитьКлиентаToolStripMenuItem";
-         this.добавитьКлиентаToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
-         this.добавитьКлиентаToolStripMenuItem.Text = "Добавить Клиента";
-         this.добавитьКлиентаToolStripMenuItem.Click += new System.EventHandler(this.добавитьКлиентаToolStripMenuItem_Click);
-         // 
-         // удалитьКлиентаToolStripMenuItem
-         // 
-         this.удалитьКлиентаToolStripMenuItem.Name = "удалитьКлиентаToolStripMenuItem";
-         this.удалитьКлиентаToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
-         this.удалитьКлиентаToolStripMenuItem.Text = "Удалить Клиента";
-         // 
-         // отчетыToolStripMenuItem
-         // 
-         this.отчетыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.конфигураторОтчетовToolStripMenuItem});
-         this.отчетыToolStripMenuItem.Name = "отчетыToolStripMenuItem";
-         this.отчетыToolStripMenuItem.Size = new System.Drawing.Size(69, 28);
-         this.отчетыToolStripMenuItem.Text = "Отчеты";
-         // 
-         // конфигураторОтчетовToolStripMenuItem
-         // 
-         this.конфигураторОтчетовToolStripMenuItem.Name = "конфигураторОтчетовToolStripMenuItem";
-         this.конфигураторОтчетовToolStripMenuItem.Size = new System.Drawing.Size(226, 24);
-         this.конфигураторОтчетовToolStripMenuItem.Text = "Конфигуратор Отчетов";
-         this.конфигураторОтчетовToolStripMenuItem.Click += new System.EventHandler(this.конфигураторОтчетовToolStripMenuItem_Click);
-         // 
-         // продатьАбонементToolStripMenuItem
-         // 
-         this.продатьАбонементToolStripMenuItem.Name = "продатьАбонементToolStripMenuItem";
-         this.продатьАбонементToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
-         this.продатьАбонементToolStripMenuItem.Text = "Продать Абонемент";
-         // 
-         // руководительToolStripMenuItem1
-         // 
-         this.руководительToolStripMenuItem1.Name = "руководительToolStripMenuItem1";
-         this.руководительToolStripMenuItem1.Size = new System.Drawing.Size(180, 24);
-         this.руководительToolStripMenuItem1.Text = "Руководитель";
-         this.руководительToolStripMenuItem1.Click += new System.EventHandler(this.руководительToolStripMenuItem1_Click);
-         // 
-         // label4
-         // 
-         this.label4.AutoSize = true;
-         this.label4.Location = new System.Drawing.Point(6, 73);
-         this.label4.Name = "label4";
-         this.label4.Size = new System.Drawing.Size(116, 17);
-         this.label4.TabIndex = 3;
-         this.label4.Text = "День Рождения:";
-         // 
-         // comboBox_BDay
-         // 
-         this.comboBox_BDay.DropDownWidth = 200;
-         this.comboBox_BDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
-         this.comboBox_BDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.comboBox_BDay.FormattingEnabled = true;
-         this.comboBox_BDay.Location = new System.Drawing.Point(6, 94);
-         this.comboBox_BDay.Name = "comboBox_BDay";
-         this.comboBox_BDay.Size = new System.Drawing.Size(161, 24);
-         this.comboBox_BDay.Sorted = true;
-         this.comboBox_BDay.TabIndex = 6;
+         this.списокКлиентовToolStripMenuItem.Name = "списокКлиентовToolStripMenuItem";
+         this.списокКлиентовToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
+         this.списокКлиентовToolStripMenuItem.Text = "Список Клиентов";
          // 
          // MainForm
          // 
@@ -397,8 +405,8 @@ namespace PBase
       private MonthCalendar monthCalendar1;
       private GroupBox groupBox1;
       private Label label_Time;
-      private TextBox textBox2;
-      private Label label3;
+      private TextBox textBox_PeopleForDay;
+      private Label label_ClientsPerDay;
       private ToolStripMenuItem клиентыToolStripMenuItem;
       private ToolStripMenuItem добавитьКлиентаToolStripMenuItem;
       private ToolStripMenuItem удалитьКлиентаToolStripMenuItem;
@@ -408,5 +416,6 @@ namespace PBase
       private ToolStripMenuItem продатьАбонементToolStripMenuItem;
       private ComboBox comboBox_BDay;
       private Label label4;
+      private ToolStripMenuItem списокКлиентовToolStripMenuItem;
    }
 }

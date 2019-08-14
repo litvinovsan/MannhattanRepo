@@ -12,8 +12,8 @@ namespace PBase
 
    public class Photo
    {
-      public readonly string FolderName = "UsersPhoto";
-      public static string PathToPhotoDir;
+      private readonly string FolderName = "UsersPhoto";
+      private static string PathToPhotoDir;
 
       // Конструктор
       public Photo()

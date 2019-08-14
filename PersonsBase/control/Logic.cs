@@ -7,17 +7,14 @@ namespace PBase
    [Serializable]
    public class Logic
    {
-      Options _options;
-
+      private Options _options;
       private DataBaseClass _dataBase;
-     // MainForm _mainForm; // Передается на всякий случай сюда, в дальнейшем, грохнуть
-      SortedList<string, Person> _collection;
+      private SortedList<string, Person> _collection;
 
-      public Logic(Options opt, DataBaseClass dataB/*, MainForm mf*/)
+      public Logic(Options opt, DataBaseClass dataB)
       {
          _options = opt;
          _dataBase = dataB;
-        // _mainForm = mf;
          _collection = _dataBase.GetCollectionRw();
       }
 
