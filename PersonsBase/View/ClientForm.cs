@@ -190,7 +190,6 @@ namespace PBase
       private void SaveData()
       {
          _saveDelegateChain?.Invoke(); //Цепочка делегатов на сохранение всех полей
-         SaveSpecialNotes();
          _isAnythingChanged = false;
          typeClubCardChanged = false;
       }

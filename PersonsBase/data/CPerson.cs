@@ -153,7 +153,8 @@ namespace PBase
             else // Кончился Абонемент
             {
                _status = StatusPerson.Нет_Карты;
-               AbonementCurent = null;
+               // FIXME Надо придумать способ когда нужно удалять абонемент
+              // AbonementCurent = null;
             }
          }
          return Status;
