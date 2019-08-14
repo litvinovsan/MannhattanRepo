@@ -47,7 +47,7 @@ namespace PBase
          _person.PathToPhotoChanged += PathToPhotoChangedMethod;
          _options.PasswordChangedEvent += PasswordChangedEvent;
 
-         // Собития Очередь абонементов
+         // События Очередь абонементов
          if (_person.AbonementsQueue == null) _person.AbonementsQueue = new ObservableCollection<AbonementBasic>();
          _person.AbonementsQueue.CollectionChanged += AbonementsQueue_CollectionChanged; // Список Абонементов. Если изменился
          _person.AbonementsQueue.CollectionChanged += ShowAbonementList;

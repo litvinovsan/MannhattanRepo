@@ -7,7 +7,7 @@ namespace PBase
    [Serializable]
    public class Person : IEquatable<Person>
    {
-      //////// СОБЫТИЯ без флага НЕ СОЗДАВАТЬ !!!!!!   Проблемы с сериализацией //
+      //////// СОБЫТИЯ //////////////////////////////////////
 
       // Статус
       [field: NonSerialized]
@@ -25,7 +25,10 @@ namespace PBase
          PathToPhotoChanged?.Invoke(this, EventArgs.Empty);
       }
 
-      /// Приватные поля
+
+      ///////////////////////////////////////////////////////
+      
+         /// Приватные поля
       private string _phone;
       private string _driverIdNum;
       private string _name;
@@ -98,7 +101,7 @@ namespace PBase
             return _abonementCurent;
          }
          set
-         {
+         { // FIXME  Добавить событие на изменение абонемента
             ValidateAbonementAdd(value);
          }
       }

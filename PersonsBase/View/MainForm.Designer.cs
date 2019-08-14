@@ -35,7 +35,6 @@ namespace PBase
          this.menuStrip1 = new System.Windows.Forms.MenuStrip();
          this.конфигурацииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.руководительToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-         this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.клиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.продатьАбонементToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,7 +92,6 @@ namespace PBase
          // 
          this.конфигурацииToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.руководительToolStripMenuItem1,
-            this.настройкиToolStripMenuItem,
             this.выходToolStripMenuItem});
          this.конфигурацииToolStripMenuItem.Name = "конфигурацииToolStripMenuItem";
          this.конфигурацииToolStripMenuItem.Size = new System.Drawing.Size(60, 28);
@@ -105,13 +103,6 @@ namespace PBase
          this.руководительToolStripMenuItem1.Size = new System.Drawing.Size(166, 24);
          this.руководительToolStripMenuItem1.Text = "Руководитель";
          this.руководительToolStripMenuItem1.Click += new System.EventHandler(this.руководительToolStripMenuItem1_Click);
-         // 
-         // настройкиToolStripMenuItem
-         // 
-         this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-         this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
-         this.настройкиToolStripMenuItem.Text = "Настройки";
-         this.настройкиToolStripMenuItem.Click += new System.EventHandler(this.настройкиToolStripMenuItem_Click);
          // 
          // выходToolStripMenuItem
          // 
@@ -398,7 +389,6 @@ namespace PBase
       private Label label_tren_zal;
       private Label label_personal;
       private Label label_group;
-      private ToolStripMenuItem настройкиToolStripMenuItem;
       private TextBox textBox1;
       private Label label2;
         private ToolStripComboBox toolStripComboBox1;
