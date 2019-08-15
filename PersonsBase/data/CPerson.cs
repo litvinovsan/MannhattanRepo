@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PersonsBase.data;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 
@@ -27,8 +29,8 @@ namespace PBase
 
 
       ///////////////////////////////////////////////////////
-      
-         /// Приватные поля
+
+      /// Приватные поля
       private string _phone;
       private string _driverIdNum;
       private string _name;
@@ -105,7 +107,7 @@ namespace PBase
             ValidateAbonementAdd(value);
          }
       }
-
+      public List<Visit> Visits;
       /////////////////////////// КОНСТРУКТОРЫ.  ///////////////////////////
       public Person(string nameFio)
       {
@@ -121,6 +123,7 @@ namespace PBase
          SpecialNotes = "";
          _abonementCurent = null;
          AbonementsQueue = new ObservableCollection<AbonementBasic>();
+         Visits = new List<Visit>();
       }
 
       /////////////////////////// МЕТОДЫ  ///////////////////////////
@@ -157,14 +160,21 @@ namespace PBase
             {
                _status = StatusPerson.Нет_Карты;
                // FIXME Надо придумать способ когда нужно удалять абонемент
-              // AbonementCurent = null;
+               // AbonementCurent = null;
             }
          }
          return Status;
       }
       public bool IsAbonementExist()
-      {
+      {// FIXME сделать тут проверку валидности абонемента по всем полям. Дата,занятия,дни
          return AbonementCurent != null;
+      }
+      public void WriteVisitToLog(TypeWorkout selectedType)
+      {
+         if (Visits == null) Visits = new List<Visit>(); // Проверка на случай сериализации
+
+         Visit todayVisit = new Visit(_abonementCurent, selectedType);
+         Visits.Add(todayVisit);
       }
       private void ValidateAbonementAdd(AbonementBasic value)
       {

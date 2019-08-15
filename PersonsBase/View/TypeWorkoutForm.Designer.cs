@@ -62,7 +62,6 @@ namespace PersonsBase.View
          this.button_Ok.TabIndex = 0;
          this.button_Ok.Text = "Применить";
          this.button_Ok.UseVisualStyleBackColor = true;
-         this.button_Ok.Click += new System.EventHandler(this.button_Ok_Click);
          // 
          // tableLayoutPanel1
          // 
@@ -226,7 +225,6 @@ namespace PersonsBase.View
          this.ShowIcon = false;
          this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
          this.Text = "Выберите Тренировку";
-         this.Load += new System.EventHandler(this.WorkoutForm_Load);
          this.tableLayoutPanel1.ResumeLayout(false);
          this.tableLayoutPanel1.PerformLayout();
          this.groupBox1.ResumeLayout(false);

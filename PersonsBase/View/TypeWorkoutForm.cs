@@ -7,17 +7,20 @@ namespace PersonsBase.View
    public partial class WorkoutForm : Form
    {
       public TypeWorkout SelectedTypeWorkout;
+      public Trener SelectedTrener;
 
       public WorkoutForm(AbonementBasic abonement)
       {
-          InitializeComponent();
-         var abonement1 = abonement;
-         if (abonement1.NumAerobicTr == 0)
+         InitializeComponent();
+
+         SelectedTrener = new Trener();
+
+         if (abonement.NumAerobicTr == 0)
          {
             radioButton_aerob.Visible = false;
             pictureBox_aero.Visible = false;
          }
-         if (abonement1.NumPersonalTr == 0)
+         if (abonement.NumPersonalTr == 0)
          {
             radioButton_personal.Visible = false;
             pictureBox_person.Visible = false;
@@ -48,16 +51,6 @@ namespace PersonsBase.View
                SelectedTypeWorkout = TypeWorkout.Тренажерный_Зал;
             }
          }
-      }
-
-      private void WorkoutForm_Load(object sender, EventArgs e)
-      {
-
-      }
-
-      private void button_Ok_Click(object sender, EventArgs e)
-      {
-
       }
    }
 }

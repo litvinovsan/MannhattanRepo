@@ -7,10 +7,14 @@ namespace PBase
    {
       public string Name { get; set; }
       public string Phone { get; set; }
-
+      public string Notes { get; set; }
       public Trener(string name)
       {
          Name = name;
+      }
+      public Trener()
+      {
+         Name = "Dummy";
       }
    }
 }

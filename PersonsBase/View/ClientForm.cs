@@ -133,8 +133,8 @@ namespace PBase
                   }
                case StatusPerson.Заморожен:
                   {
-                      button_Add_Abon.Enabled = false;
-                      button_Freeze.Visible = _person.IsAbonementExist();
+                     button_Add_Abon.Enabled = false;
+                     button_Freeze.Visible = _person.IsAbonementExist();
                      break;
                   }
                case StatusPerson.Гостевой:
@@ -233,7 +233,6 @@ namespace PBase
          textBox_Notes.Text = _person.SpecialNotes;
          _editedSpecialNote = _person.SpecialNotes;
       }
-
       private void TryLoadPhoto()
       {
          if (_person.PathToPhoto != "")
@@ -260,7 +259,6 @@ namespace PBase
             pictureBox_ClientPhoto.Refresh();
          }
       }
-
       private void LoadShortInfo()
       { //FIXME Мерцание
          Action myDelegate = delegate
@@ -274,7 +272,8 @@ namespace PBase
             {
                labelTextBoxList.AddRange(Methods.TupleConverter(_person.AbonementCurent.GetShortInfoList()));
                // Добавляем Поле Статуса. Делаем тут потому что Person.abonem не знает об этом.
-               labelTextBoxList.Insert(1, (Methods.CreateRowInfo("Текущий статус Клиента", _person.Status.ToString())));
+               var status = _person.Status.ToString();
+               labelTextBoxList.Insert(1, Methods.CreateRowInfo("Текущий статус Клиента", status));
             }
 
             // Отрисовка Short Info
@@ -492,19 +491,30 @@ namespace PBase
             return;
          }
 
-         if (_person.AbonementCurent.TryCheckInWorkout())
+         CheckInLogic();
+         _person.UpdateActualStatus();
+         UpdateNameText();
+         LoadShortInfo();
+         LoadEditableData();
+         UpdateControlState(this, EventArgs.Empty);
+         button_CheckInWorkout.Focus();
+      }
+      private void CheckInLogic()
+      {
+         TypeWorkout selectedWorkout;
+         bool isSuccess = _person.AbonementCurent.TryCheckInWorkout(out selectedWorkout);
+         if (isSuccess)
          {
+            // Добавляем запись в Журнал Посещений Клиента.
+            _person.WriteVisitToLog(selectedWorkout);
+
+            // Если закончился Абонемент
             if (!_person.AbonementCurent.IsValid())
             {
                _person.Status = StatusPerson.Нет_Карты;
                _person.AbonementCurent = null;
             }
          }
-         UpdateNameText();
-         LoadShortInfo();
-         LoadEditableData();
-         UpdateControlState(this, EventArgs.Empty);
-         button_CheckInWorkout.Focus();
       }
 
       private void button_Cancel_Click(object sender, EventArgs e)
@@ -592,8 +602,6 @@ namespace PBase
          _logic.AccessRoot();
       }
 
-
-
       private void button_Freeze_Click(object sender, EventArgs e)
       {
          var status = _person.Status;
@@ -618,9 +626,9 @@ namespace PBase
 
       private DialogResult RunFreezeForm()
       {
-          
+
          if (!(_person.AbonementCurent is ClubCardA)) return DialogResult.Cancel;
-         ClubCardA clubCard = ((ClubCardA) _person.AbonementCurent);
+         ClubCardA clubCard = ((ClubCardA)_person.AbonementCurent);
          FreezeForm freezeForm = new FreezeForm(clubCard, _options.IsPasswordValid);
          return freezeForm.ShowDialog();
       }

@@ -103,15 +103,15 @@ namespace PBase
          return result;
       }
 
-      public bool TryCheckInWorkout()
+      public bool TryCheckInWorkout(out TypeWorkout selectedWorkout)
       {
          bool isSuccess = false;
-         TypeWorkout typeWorkout;
+         //TypeWorkout typeWorkout;
 
-         if (TrySelectWorkoutType(out typeWorkout))
+         if (TrySelectWorkoutType(out selectedWorkout))
          {
             // Учет посещения, обновление циферок
-            isSuccess = CheckInWorkout(typeWorkout);
+            isSuccess = CheckInWorkout(selectedWorkout);
          }
 
          if (isSuccess)
