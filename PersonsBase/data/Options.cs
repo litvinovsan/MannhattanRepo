@@ -31,15 +31,15 @@ namespace PBase
          trenersList = new List<Trener>();
 
          // Временные поля
-         adminsList.Add(new Administrator("Admin 1"));
-         adminsList.Add(new Administrator("Admin 2"));
+         //adminsList.Add(new Administrator("Admin 1"));
+         //adminsList.Add(new Administrator("Admin 2"));
 
-         trenersList.Add(new Trener("Trener 1"));
-         trenersList.Add(new Trener("Trener 2"));
-         trenersList.Add(new Trener("Trener 3"));
-         trenersList.Add(new Trener("Trener 4"));
-         trenersList.Add(new Trener("Trener 5"));
-         trenersList.Add(new Trener("Trener 6"));
+         //trenersList.Add(new Trener("Trener 1"));
+         //trenersList.Add(new Trener("Trener 2"));
+         //trenersList.Add(new Trener("Trener 3"));
+         //trenersList.Add(new Trener("Trener 4"));
+         //trenersList.Add(new Trener("Trener 5"));
+         //trenersList.Add(new Trener("Trener 6"));
 
          GroupTrainingsList.Add(new Tuple<MyTime, string>(new MyTime(9, 10), "Беговая"));
          GroupTrainingsList.Add(new Tuple<MyTime, string>(new MyTime(MyTime.Hours[1], MyTime.Minutes[4]), "Памп"));
