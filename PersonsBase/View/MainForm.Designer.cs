@@ -42,7 +42,7 @@ namespace PBase
          this.удалитьКлиентаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.конфигураторОтчетовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-         this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+         this.сomboBox_UserList = new System.Windows.Forms.ToolStripComboBox();
          this.groupBox1 = new System.Windows.Forms.GroupBox();
          this.comboBox_BDay = new System.Windows.Forms.ComboBox();
          this.label_Time = new System.Windows.Forms.Label();
@@ -80,7 +80,7 @@ namespace PBase
             this.конфигурацииToolStripMenuItem,
             this.клиентыToolStripMenuItem,
             this.отчетыToolStripMenuItem,
-            this.toolStripComboBox1});
+            this.сomboBox_UserList});
          this.menuStrip1.Location = new System.Drawing.Point(0, 0);
          this.menuStrip1.Name = "menuStrip1";
          this.menuStrip1.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
@@ -158,18 +158,18 @@ namespace PBase
          // 
          // toolStripComboBox1
          // 
-         this.toolStripComboBox1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-         this.toolStripComboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-         this.toolStripComboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-         this.toolStripComboBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-         this.toolStripComboBox1.DropDownWidth = 200;
-         this.toolStripComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-         this.toolStripComboBox1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-         this.toolStripComboBox1.IntegralHeight = false;
-         this.toolStripComboBox1.Name = "toolStripComboBox1";
-         this.toolStripComboBox1.Size = new System.Drawing.Size(400, 28);
-         this.toolStripComboBox1.Sorted = true;
-         this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
+         this.сomboBox_UserList.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+         this.сomboBox_UserList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+         this.сomboBox_UserList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+         this.сomboBox_UserList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+         this.сomboBox_UserList.DropDownWidth = 200;
+         this.сomboBox_UserList.FlatStyle = System.Windows.Forms.FlatStyle.System;
+         this.сomboBox_UserList.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+         this.сomboBox_UserList.IntegralHeight = false;
+         this.сomboBox_UserList.Name = "toolStripComboBox1";
+         this.сomboBox_UserList.Size = new System.Drawing.Size(400, 28);
+         this.сomboBox_UserList.Sorted = true;
+         this.сomboBox_UserList.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
          // 
          // groupBox1
          // 
@@ -391,7 +391,7 @@ namespace PBase
       private Label label_group;
       private TextBox textBox1;
       private Label label2;
-        private ToolStripComboBox toolStripComboBox1;
+        private ToolStripComboBox сomboBox_UserList;
       private MonthCalendar monthCalendar1;
       private GroupBox groupBox1;
       private Label label_Time;

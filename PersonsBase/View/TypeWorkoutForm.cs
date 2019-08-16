@@ -7,25 +7,22 @@ namespace PersonsBase.View
 {
    public partial class WorkoutForm : Form
    {
-      //private TypeWorkout _selectedTypeWorkout;
-      //private Trener _selectedTrener;
       public CWorkoutOptions SelectedOptions;
 
       public WorkoutForm(AbonementBasic abonement)
       {
          InitializeComponent();
+
          SelectedOptions = new CWorkoutOptions();
 
-         if (abonement.NumAerobicTr == 0)
-         {
-            panel_aero.Visible = false;
-            this.Height = this.Height - panel_aero.Height;
-         }
-         if (abonement.NumPersonalTr == 0)
-         {
-            panel_personal.Visible = false;
-            this.Height = this.Height - panel_personal.Height;
-         }
+         // Скрываем Панели с РадиоБатоннами
+         panel_aero.Visible = (abonement.NumAerobicTr == 0) ? false : true;
+         panel_personal.Visible = (abonement.NumPersonalTr == 0) ? false : true;
+
+         // Меняем размеры формы
+         if (abonement.NumAerobicTr == 0) this.Height = this.Height - panel_aero.Height;
+         if (abonement.NumPersonalTr == 0) this.Height = this.Height - panel_personal.Height;
+
       }
 
       private void radioButtons_CheckedChanged(object sender, EventArgs e)

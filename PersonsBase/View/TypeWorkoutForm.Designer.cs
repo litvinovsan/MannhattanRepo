@@ -45,8 +45,11 @@ namespace PersonsBase.View
          this.panel_personal = new System.Windows.Forms.Panel();
          this.radioButton_personal = new System.Windows.Forms.RadioButton();
          this.pictureBox_person = new System.Windows.Forms.PictureBox();
-         this.groupBox_SelectOption = new System.Windows.Forms.GroupBox();
-         this.comboBox_select = new System.Windows.Forms.ComboBox();
+         this.groupBox_SelectTrener = new System.Windows.Forms.GroupBox();
+         this.comboBox_select_Trener = new System.Windows.Forms.ComboBox();
+         this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+         this.groupBox2 = new System.Windows.Forms.GroupBox();
+         this.comboBox1 = new System.Windows.Forms.ComboBox();
          this.tableLayoutPanel1.SuspendLayout();
          this.groupBox1.SuspendLayout();
          this.flowLayoutPanel1.SuspendLayout();
@@ -56,7 +59,9 @@ namespace PersonsBase.View
          ((System.ComponentModel.ISupportInitialize)(this.pictureBox_aero)).BeginInit();
          this.panel_personal.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.pictureBox_person)).BeginInit();
-         this.groupBox_SelectOption.SuspendLayout();
+         this.groupBox_SelectTrener.SuspendLayout();
+         this.flowLayoutPanel2.SuspendLayout();
+         this.groupBox2.SuspendLayout();
          this.SuspendLayout();
          // 
          // button_Ok
@@ -67,7 +72,7 @@ namespace PersonsBase.View
          this.button_Ok.Location = new System.Drawing.Point(2, 2);
          this.button_Ok.Margin = new System.Windows.Forms.Padding(2);
          this.button_Ok.Name = "button_Ok";
-         this.button_Ok.Size = new System.Drawing.Size(140, 32);
+         this.button_Ok.Size = new System.Drawing.Size(313, 32);
          this.button_Ok.TabIndex = 0;
          this.button_Ok.Text = "Применить";
          this.button_Ok.UseVisualStyleBackColor = true;
@@ -80,12 +85,12 @@ namespace PersonsBase.View
          this.tableLayoutPanel1.Controls.Add(this.button_Ok, 0, 0);
          this.tableLayoutPanel1.Controls.Add(this.button_Cancel, 1, 0);
          this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-         this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 265);
+         this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 196);
          this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
          this.tableLayoutPanel1.Name = "tableLayoutPanel1";
          this.tableLayoutPanel1.RowCount = 1;
          this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-         this.tableLayoutPanel1.Size = new System.Drawing.Size(288, 36);
+         this.tableLayoutPanel1.Size = new System.Drawing.Size(634, 36);
          this.tableLayoutPanel1.TabIndex = 1;
          // 
          // button_Cancel
@@ -94,10 +99,10 @@ namespace PersonsBase.View
          this.button_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
          this.button_Cancel.Dock = System.Windows.Forms.DockStyle.Fill;
          this.button_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.button_Cancel.Location = new System.Drawing.Point(146, 2);
+         this.button_Cancel.Location = new System.Drawing.Point(319, 2);
          this.button_Cancel.Margin = new System.Windows.Forms.Padding(2);
          this.button_Cancel.Name = "button_Cancel";
-         this.button_Cancel.Size = new System.Drawing.Size(140, 32);
+         this.button_Cancel.Size = new System.Drawing.Size(313, 32);
          this.button_Cancel.TabIndex = 1;
          this.button_Cancel.Text = "Отмена";
          this.button_Cancel.UseVisualStyleBackColor = true;
@@ -105,13 +110,14 @@ namespace PersonsBase.View
          // 
          // groupBox1
          // 
+         this.groupBox1.Controls.Add(this.flowLayoutPanel2);
          this.groupBox1.Controls.Add(this.flowLayoutPanel1);
          this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
          this.groupBox1.Location = new System.Drawing.Point(0, 0);
          this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
          this.groupBox1.Name = "groupBox1";
          this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-         this.groupBox1.Size = new System.Drawing.Size(288, 265);
+         this.groupBox1.Size = new System.Drawing.Size(634, 196);
          this.groupBox1.TabIndex = 2;
          this.groupBox1.TabStop = false;
          // 
@@ -120,11 +126,9 @@ namespace PersonsBase.View
          this.flowLayoutPanel1.Controls.Add(this.panel_tren);
          this.flowLayoutPanel1.Controls.Add(this.panel_aero);
          this.flowLayoutPanel1.Controls.Add(this.panel_personal);
-         this.flowLayoutPanel1.Controls.Add(this.groupBox_SelectOption);
-         this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
          this.flowLayoutPanel1.Location = new System.Drawing.Point(2, 15);
          this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-         this.flowLayoutPanel1.Size = new System.Drawing.Size(284, 248);
+         this.flowLayoutPanel1.Size = new System.Drawing.Size(289, 275);
          this.flowLayoutPanel1.TabIndex = 10;
          // 
          // panel_tren
@@ -244,35 +248,67 @@ namespace PersonsBase.View
          this.pictureBox_person.TabIndex = 3;
          this.pictureBox_person.TabStop = false;
          // 
-         // groupBox_SelectOption
+         // groupBox_SelectTrener
          // 
-         this.groupBox_SelectOption.Controls.Add(this.comboBox_select);
-         this.groupBox_SelectOption.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.groupBox_SelectOption.Location = new System.Drawing.Point(3, 174);
-         this.groupBox_SelectOption.Name = "groupBox_SelectOption";
-         this.groupBox_SelectOption.Size = new System.Drawing.Size(269, 62);
-         this.groupBox_SelectOption.TabIndex = 6;
-         this.groupBox_SelectOption.TabStop = false;
-         this.groupBox_SelectOption.Text = "Выберите Тренера или Время";
+         this.groupBox_SelectTrener.Controls.Add(this.comboBox_select_Trener);
+         this.groupBox_SelectTrener.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.groupBox_SelectTrener.Location = new System.Drawing.Point(3, 77);
+         this.groupBox_SelectTrener.Name = "groupBox_SelectTrener";
+         this.groupBox_SelectTrener.Size = new System.Drawing.Size(318, 71);
+         this.groupBox_SelectTrener.TabIndex = 6;
+         this.groupBox_SelectTrener.TabStop = false;
+         this.groupBox_SelectTrener.Text = "Групповая Тренировка";
          // 
-         // comboBox_select
+         // comboBox_select_Trener
          // 
-         this.comboBox_select.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+         this.comboBox_select_Trener.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-         this.comboBox_select.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-         this.comboBox_select.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.comboBox_select.FormattingEnabled = true;
-         this.comboBox_select.Location = new System.Drawing.Point(7, 32);
-         this.comboBox_select.Name = "comboBox_select";
-         this.comboBox_select.Size = new System.Drawing.Size(256, 28);
-         this.comboBox_select.TabIndex = 0;
+         this.comboBox_select_Trener.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+         this.comboBox_select_Trener.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.comboBox_select_Trener.FormattingEnabled = true;
+         this.comboBox_select_Trener.Location = new System.Drawing.Point(1, 37);
+         this.comboBox_select_Trener.Name = "comboBox_select_Trener";
+         this.comboBox_select_Trener.Size = new System.Drawing.Size(311, 28);
+         this.comboBox_select_Trener.TabIndex = 0;
+         // 
+         // flowLayoutPanel2
+         // 
+         this.flowLayoutPanel2.Controls.Add(this.groupBox2);
+         this.flowLayoutPanel2.Controls.Add(this.groupBox_SelectTrener);
+         this.flowLayoutPanel2.Location = new System.Drawing.Point(297, 15);
+         this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+         this.flowLayoutPanel2.Size = new System.Drawing.Size(329, 181);
+         this.flowLayoutPanel2.TabIndex = 11;
+         // 
+         // groupBox2
+         // 
+         this.groupBox2.Controls.Add(this.comboBox1);
+         this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.groupBox2.Location = new System.Drawing.Point(3, 3);
+         this.groupBox2.Name = "groupBox2";
+         this.groupBox2.Size = new System.Drawing.Size(318, 68);
+         this.groupBox2.TabIndex = 7;
+         this.groupBox2.TabStop = false;
+         this.groupBox2.Text = "Тренер";
+         // 
+         // comboBox1
+         // 
+         this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+         this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+         this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.comboBox1.FormattingEnabled = true;
+         this.comboBox1.Location = new System.Drawing.Point(1, 34);
+         this.comboBox1.Name = "comboBox1";
+         this.comboBox1.Size = new System.Drawing.Size(311, 28);
+         this.comboBox1.TabIndex = 0;
          // 
          // WorkoutForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-         this.ClientSize = new System.Drawing.Size(288, 301);
+         this.ClientSize = new System.Drawing.Size(634, 232);
          this.Controls.Add(this.groupBox1);
          this.Controls.Add(this.tableLayoutPanel1);
          this.Margin = new System.Windows.Forms.Padding(2);
@@ -281,7 +317,7 @@ namespace PersonsBase.View
          this.Name = "WorkoutForm";
          this.ShowIcon = false;
          this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-         this.Text = "Выберите Тренировку";
+         this.Text = "Настройте Тренировку";
          this.tableLayoutPanel1.ResumeLayout(false);
          this.tableLayoutPanel1.PerformLayout();
          this.groupBox1.ResumeLayout(false);
@@ -295,7 +331,9 @@ namespace PersonsBase.View
          this.panel_personal.ResumeLayout(false);
          this.panel_personal.PerformLayout();
          ((System.ComponentModel.ISupportInitialize)(this.pictureBox_person)).EndInit();
-         this.groupBox_SelectOption.ResumeLayout(false);
+         this.groupBox_SelectTrener.ResumeLayout(false);
+         this.flowLayoutPanel2.ResumeLayout(false);
+         this.groupBox2.ResumeLayout(false);
          this.ResumeLayout(false);
 
       }
@@ -312,11 +350,14 @@ namespace PersonsBase.View
       private PictureBox pictureBox_person;
       private PictureBox pictureBox_aero;
       private PictureBox pictureBox_tren;
-      private GroupBox groupBox_SelectOption;
+      private GroupBox groupBox_SelectTrener;
       private Panel panel_personal;
       private Panel panel_tren;
       private Panel panel_aero;
       private FlowLayoutPanel flowLayoutPanel1;
-      private ComboBox comboBox_select;
+      private ComboBox comboBox_select_Trener;
+      private FlowLayoutPanel flowLayoutPanel2;
+      private GroupBox groupBox2;
+      private ComboBox comboBox1;
    }
 }

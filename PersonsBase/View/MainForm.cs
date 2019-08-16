@@ -104,9 +104,9 @@ namespace PBase
       {
          Action myDelegate = delegate
          {
-            toolStripComboBox1.Items.Clear();
+            сomboBox_UserList.Items.Clear();
 
-            toolStripComboBox1.Items.AddRange(UserList.Values.Select(c => c.Name).ToArray<object>());
+            сomboBox_UserList.Items.AddRange(UserList.Values.Select(c => c.Name).ToArray<object>());
             Invalidate();
          };
 
@@ -116,7 +116,7 @@ namespace PBase
 
       public void ClearFindCombo()
       {
-         Action myDelegate = () => toolStripComboBox1.SelectedText = "";
+         Action myDelegate = () => сomboBox_UserList.SelectedText = "";
          if (InvokeRequired)
          {
             Invoke(myDelegate);
@@ -146,7 +146,7 @@ namespace PBase
       private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
       {
 
-         RunClientForm(toolStripComboBox1.SelectedItem.ToString());
+         RunClientForm(сomboBox_UserList.SelectedItem.ToString());
 
       }
       private void comboBox_BDay_SelectedIndexChanged(object sender, EventArgs e)
