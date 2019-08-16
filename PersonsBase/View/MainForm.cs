@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PersonsBase.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -10,7 +11,7 @@ namespace PBase
       ///////////////// ОСНОВНЫЕ ОБЬЕКТЫ ////////////////////////////////
       readonly DataBaseClass _db = DataBaseClass.GetInstance();
       private SortedList<string, Person> UserList => _db.GetCollectionRw();
-      private readonly Options _options; // Хранятся локальные настройки и параметры программы.
+      private Options _options; // Хранятся локальные настройки и параметры программы.
       private Logic _logic;       // Логика и управляющие методы программы.
       private Photo _photo;
       private Timer _time = new Timer();
@@ -29,7 +30,7 @@ namespace PBase
       private void MainForm_Load(object sender, EventArgs e)
       {
          // Использовать выборочное сохранение обьектов в Options. Весь класс сериализовать не рекомендуется т.к. перетирается пароль
-         //  Methods.DeSerialize(ref _options, "Option.bin");
+          Methods.DeSerialize(ref _options, "Option.bin");
          // FIXME проверка если опшин пароль равен нулю - прописать ручками умолчальный
 
          // Подписка на события в пользовательской Базе Данных
@@ -37,13 +38,19 @@ namespace PBase
          _db.ListChangedEvent += UpdateUsersCountTextBox; // Счетчик пользователей
          _db.ListChangedEvent += UpdateBirthDateComboBox; // Поле Сегодняшних Дней рождений
          _db.OnListChanged(); // Событие запускающееся при изменении количества Клиентов в списке.
-
          comboBox_BDay.SelectedIndexChanged += new EventHandler(comboBox_BDay_SelectedIndexChanged);
+         PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
 
          // Инициализация Таймера для Часов
          StartTimer();
 
       }
+
+      private void PwdForm_LockChangedEvent()
+      {
+        // MessageBox.Show("Изменен Пароль В гл Форме");
+      }
+
       private void UpdateBirthDateComboBox(object sender, EventArgs e)
       {
          Action myDelegate = delegate
@@ -67,7 +74,8 @@ namespace PBase
       private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
       {
          // Сохраняем настройки. 
-         //  Methods.Serialize(_options, "Option.bin");
+       
+          Methods.Serialize(_options, "Option.bin");
       }
 
       private void RunClientForm(string keyName)

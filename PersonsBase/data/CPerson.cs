@@ -48,22 +48,7 @@ namespace PBase
             Key = _name;
          }
       }
-      public int PersonalNumber { get; set; }
       public string Key { get; private set; }
-      public StatusPerson Status
-      {
-         get
-         {
-            return _status;
-         }
-         set
-         {
-            _status = value;
-            OnStatusChanged();
-         }
-      }
-      public DateTime BirthDate { get; set; }
-      public Gender GenderType;
       public string Phone
       {
          get { return _phone; }
@@ -95,6 +80,21 @@ namespace PBase
          }
       }
       public string SpecialNotes { get; set; }
+      public int PersonalNumber { get; set; }
+      public StatusPerson Status
+      {
+         get
+         {
+            return _status;
+         }
+         set
+         {
+            _status = value;
+            OnStatusChanged();
+         }
+      }
+      public DateTime BirthDate { get; set; }
+      public Gender GenderType;
       public ObservableCollection<AbonementBasic> AbonementsQueue;
       public AbonementBasic AbonementCurent
       {

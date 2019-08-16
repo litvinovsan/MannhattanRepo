@@ -13,10 +13,10 @@ namespace PBase
    public partial class ClientForm : Form
    {
       ///////////////// ОСНОВНЫЕ ОБЬЕКТЫ ////////////////////////////////
-      [NonSerialized]
+
       private readonly Person _person;
       private readonly DataBaseClass _dataBase = DataBaseClass.GetInstance();
-      private readonly Options _options;
+      private Options _options;
       private readonly Logic _logic;
       private bool _isAnythingChanged;
 
@@ -45,12 +45,29 @@ namespace PBase
          _saveDelegateChain += SaveUserData; // Цепочка Делегатов для сохранения измененных данных.
          _person.StatusChanged += UpdateControlState;
          _person.PathToPhotoChanged += PathToPhotoChangedMethod;
-         _options.PasswordChangedEvent += PasswordChangedEvent;
+         PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
 
          // События Очередь абонементов
          if (_person.AbonementsQueue == null) _person.AbonementsQueue = new ObservableCollection<AbonementBasic>();
          _person.AbonementsQueue.CollectionChanged += AbonementsQueue_CollectionChanged; // Список Абонементов. Если изменился
          _person.AbonementsQueue.CollectionChanged += ShowAbonementList;
+      }
+
+      private void PwdForm_LockChangedEvent()
+      {
+         if (PwdForm.IsPassUnLocked())
+         {
+            button_RemoveCurrentAbon.Visible = true;
+            groupBox_Detailed.Enabled = true;
+            button__remove_abon.Enabled = true;
+         }
+         else
+         {
+            button_RemoveCurrentAbon.Visible = false;
+            groupBox_Detailed.Enabled = false;
+            button__remove_abon.Enabled = false;
+         }
+         Invalidate();
       }
 
       private void LoadListboxQueue()
@@ -167,21 +184,6 @@ namespace PBase
       private void ShowAbonementList(object sender, NotifyCollectionChangedEventArgs e)
       {
          groupBox_abonList.Visible = _person.AbonementsQueue.Count > 0;
-      }
-      private void PasswordChangedEvent(object sender, EventArgs e)
-      {
-         if (_options.IsPasswordValid)
-         {
-            button_RemoveCurrentAbon.Visible = true;
-            groupBox_Detailed.Enabled = true;
-            button__remove_abon.Enabled = true;
-         }
-         else
-         {
-            button_RemoveCurrentAbon.Visible = false;
-            groupBox_Detailed.Enabled = false;
-            button__remove_abon.Enabled = false;
-         }
       }
       private void PathToPhotoChangedMethod(object sender, EventArgs e)
       {
@@ -613,11 +615,9 @@ namespace PBase
          }
          else
          {
-            MessageBox.Show(@"Сейчас абонемент заморожен!", "", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-            if (_options.IsPasswordValid)
-            {
-               RunFreezeForm();
-            }
+            MessageBox.Show(@"Сейчас абонемент заморожен! Добавление новой заморозки удалит предыдущую!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            RunFreezeForm();
+
          }
          LoadUserData();
          LoadShortInfo();
@@ -629,7 +629,7 @@ namespace PBase
 
          if (!(_person.AbonementCurent is ClubCardA)) return DialogResult.Cancel;
          ClubCardA clubCard = ((ClubCardA)_person.AbonementCurent);
-         FreezeForm freezeForm = new FreezeForm(clubCard, _options.IsPasswordValid);
+         FreezeForm freezeForm = new FreezeForm(clubCard);
          return freezeForm.ShowDialog();
       }
 

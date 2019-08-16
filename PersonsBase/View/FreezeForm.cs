@@ -14,14 +14,12 @@ namespace PersonsBase.View
    public partial class FreezeForm : Form
    {
       private ClubCardA _clubCard;
-      private bool _passCorrect;
 
 
-      public FreezeForm(ClubCardA clubCard, bool passwordCorrect)
+      public FreezeForm(ClubCardA clubCard)
       {
          InitializeComponent();
          _clubCard = clubCard;
-         _passCorrect = passwordCorrect;
       }
 
 
@@ -44,7 +42,7 @@ namespace PersonsBase.View
          dateTimePicker_startFreeze.Value = DateTime.Now.Date;
 
          // Кнопка удаления заморозки
-         buttonClearFreeze.Visible = _passCorrect ? true : false;
+         buttonClearFreeze.Visible = PwdForm.IsPassUnLocked() ? true : false;
       }
 
       private void InitComboBox(int maxDaysAvailable)

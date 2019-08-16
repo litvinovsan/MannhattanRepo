@@ -21,16 +21,12 @@ namespace PBase
       // МЕТОДЫ
       public void AccessRoot()
       {
-         if (_options.IsPasswordValid) // Повторное нажатие Блокирует данные
-         {
-            _options.IsPasswordValid = false;
-         }
+         if (PwdForm.IsPassUnLocked()) PwdForm.LockPassword();
          else
-         {  // Проверка Пароля.
+         {
             PwdForm pwd = new PwdForm(_options);
             pwd.ShowDialog();
          }
       }
-
    }
 }

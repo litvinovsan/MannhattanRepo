@@ -4,15 +4,15 @@ namespace PBase
 {
    public static class DataBaseObject
    {
-      private static readonly DataBaseClass DataBase;
-      private static readonly SortedList<string, Person> CollectionObj;
+      private static readonly DataBaseClass _dataBase;
+      private static readonly SortedList<string, Person> _collectionObj;
 
       private static Person _person;
 
       static DataBaseObject()
       {
-         DataBase = DataBaseClass.GetInstance();
-         CollectionObj = DataBase.GetCollectionRw();
+         _dataBase = DataBaseClass.GetInstance();
+         _collectionObj = _dataBase.GetCollectionRw();
       }
 
       /// <summary>
@@ -20,9 +20,9 @@ namespace PBase
       /// </summary>
       public static Person SetPersonLink(string name)
       {
-          if (DataBase.ContainsKey(name))
+          if (_dataBase.ContainsKey(name))
           {
-              _person = CollectionObj[name];
+              _person = _collectionObj[name];
               return _person;
           }
 

@@ -7,11 +7,44 @@ namespace PersonsBase.View
 {
    public partial class PwdForm : Form
    {
-      private readonly Options _options;
+      // Событие ИЗМЕНЕНИЕ Состояния блокировки
+      public delegate void LockChangedDelegate();
+      public static event LockChangedDelegate LockChangedEvent;
+      private static void OnLockStateChanged()
+      {
+         var tmp = LockChangedEvent;
+         if (tmp != null) tmp();
+      }
+
+      private Options _options;
+      private static string _correctPassword = "1234";
+      private static bool _unLocked;
+      private static bool UnLocked
+      {
+         get { return _unLocked; }
+         set
+         {
+            if (_unLocked != value)
+            {
+               _unLocked = value;
+               OnLockStateChanged();
+            }
+         }
+      }
+
+
       public PwdForm(Options opt)
       {
          InitializeComponent();
          _options = opt;
+      }
+      public static bool IsPassUnLocked()
+      {
+         return _unLocked;
+      }
+      public static void LockPassword()
+      {
+         UnLocked = false;
       }
 
       private void PwdForm_Load(object sender, EventArgs e)
@@ -26,13 +59,11 @@ namespace PersonsBase.View
 
       private bool CkeckPwd()
       {
-         if (_options.CheckPassword(textBox_pwd.Text))
+         if (textBox_pwd.Text == _correctPassword)
          {
-            _options.IsPasswordValid = true;
-
+            UnLocked = true;
             label1.ForeColor = Color.Black;
             label1.Text = @"Введите пароль Администратора";
-            MessageBox.Show("Правильный Пароль!");
             Close();
             return true;
          }
@@ -40,7 +71,7 @@ namespace PersonsBase.View
          {
             label1.ForeColor = Color.Red;
             label1.Text = @"Неправильный пароль";
-            _options.IsPasswordValid = false;
+            UnLocked = false;
             return false;
          }
       }

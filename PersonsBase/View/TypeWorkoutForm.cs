@@ -13,17 +13,15 @@ namespace PersonsBase.View
       {
          InitializeComponent();
 
-         SelectedTrener = new Trener();
-
          if (abonement.NumAerobicTr == 0)
          {
-            radioButton_aerob.Visible = false;
-            pictureBox_aero.Visible = false;
+            panel_aero.Visible = false;
+            this.Height = this.Height - panel_aero.Height;
          }
          if (abonement.NumPersonalTr == 0)
          {
-            radioButton_personal.Visible = false;
-            pictureBox_person.Visible = false;
+            panel_personal.Visible = false;
+            this.Height = this.Height - panel_personal.Height;
          }
       }
 
@@ -36,19 +34,26 @@ namespace PersonsBase.View
       {
          // приводим отправителя к элементу типа RadioButton
          RadioButton radioButton = (RadioButton)sender;
+
          if (radioButton.Checked)
          {
             if (radioButton.Name == radioButton_personal.Name)
             {
                SelectedTypeWorkout = TypeWorkout.Персональная;
+               radioButton_aerob.Checked = false;
+               radioButton_tren.Checked = false;
             }
             else if (radioButton.Name == radioButton_aerob.Name)
             {
                SelectedTypeWorkout = TypeWorkout.Аэробный_Зал;
+               radioButton_personal.Checked = false;
+               radioButton_tren.Checked = false;
             }
             else
             {
                SelectedTypeWorkout = TypeWorkout.Тренажерный_Зал;
+               radioButton_personal.Checked = false;
+               radioButton_aerob.Checked = false;
             }
          }
       }
