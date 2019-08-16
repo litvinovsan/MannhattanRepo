@@ -80,12 +80,12 @@ namespace PersonsBase.View
          this.tableLayoutPanel1.Controls.Add(this.button_Ok, 0, 0);
          this.tableLayoutPanel1.Controls.Add(this.button_Cancel, 1, 0);
          this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-         this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 267);
+         this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 265);
          this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
          this.tableLayoutPanel1.Name = "tableLayoutPanel1";
          this.tableLayoutPanel1.RowCount = 1;
          this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-         this.tableLayoutPanel1.Size = new System.Drawing.Size(289, 36);
+         this.tableLayoutPanel1.Size = new System.Drawing.Size(288, 36);
          this.tableLayoutPanel1.TabIndex = 1;
          // 
          // button_Cancel
@@ -97,7 +97,7 @@ namespace PersonsBase.View
          this.button_Cancel.Location = new System.Drawing.Point(146, 2);
          this.button_Cancel.Margin = new System.Windows.Forms.Padding(2);
          this.button_Cancel.Name = "button_Cancel";
-         this.button_Cancel.Size = new System.Drawing.Size(141, 32);
+         this.button_Cancel.Size = new System.Drawing.Size(140, 32);
          this.button_Cancel.TabIndex = 1;
          this.button_Cancel.Text = "Отмена";
          this.button_Cancel.UseVisualStyleBackColor = true;
@@ -111,7 +111,7 @@ namespace PersonsBase.View
          this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
          this.groupBox1.Name = "groupBox1";
          this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-         this.groupBox1.Size = new System.Drawing.Size(289, 267);
+         this.groupBox1.Size = new System.Drawing.Size(288, 265);
          this.groupBox1.TabIndex = 2;
          this.groupBox1.TabStop = false;
          // 
@@ -124,7 +124,7 @@ namespace PersonsBase.View
          this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
          this.flowLayoutPanel1.Location = new System.Drawing.Point(2, 15);
          this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-         this.flowLayoutPanel1.Size = new System.Drawing.Size(285, 250);
+         this.flowLayoutPanel1.Size = new System.Drawing.Size(284, 248);
          this.flowLayoutPanel1.TabIndex = 10;
          // 
          // panel_tren
@@ -272,7 +272,7 @@ namespace PersonsBase.View
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-         this.ClientSize = new System.Drawing.Size(289, 303);
+         this.ClientSize = new System.Drawing.Size(288, 301);
          this.Controls.Add(this.groupBox1);
          this.Controls.Add(this.tableLayoutPanel1);
          this.Margin = new System.Windows.Forms.Padding(2);

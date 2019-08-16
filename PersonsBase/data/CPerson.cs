@@ -169,11 +169,11 @@ namespace PBase
       {// FIXME сделать тут проверку валидности абонемента по всем полям. Дата,занятия,дни
          return AbonementCurent != null;
       }
-      public void WriteVisitToLog(TypeWorkout selectedType)
+      public void SaveVisit(CWorkoutOptions selectedOptions)
       {
          if (Visits == null) Visits = new List<Visit>(); // Проверка на случай сериализации
 
-         Visit todayVisit = new Visit(_abonementCurent, selectedType);
+         Visit todayVisit = new Visit(_abonementCurent, selectedOptions);
          Visits.Add(todayVisit);
       }
       private void ValidateAbonementAdd(AbonementBasic value)

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using PersonsBase.data;
 using PersonsBase.View;
 
 namespace PBase
@@ -493,22 +494,28 @@ namespace PBase
             return;
          }
 
+         // Отмечаем посещение
          CheckInLogic();
+
+
+         // Обновление всех полей и состояний
          _person.UpdateActualStatus();
          UpdateNameText();
          LoadShortInfo();
          LoadEditableData();
          UpdateControlState(this, EventArgs.Empty);
+
+         // Перенос Фокуса на кнопку 
          button_CheckInWorkout.Focus();
       }
       private void CheckInLogic()
       {
-         TypeWorkout selectedWorkout;
-         bool isSuccess = _person.AbonementCurent.TryCheckInWorkout(out selectedWorkout);
+         CWorkoutOptions workoutOptions;
+         bool isSuccess = _person.AbonementCurent.TryCheckInWorkout(out workoutOptions);
          if (isSuccess)
          {
             // Добавляем запись в Журнал Посещений Клиента.
-            _person.WriteVisitToLog(selectedWorkout);
+            _person.SaveVisit(workoutOptions);
 
             // Если закончился Абонемент
             if (!_person.AbonementCurent.IsValid())

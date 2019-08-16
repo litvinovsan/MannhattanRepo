@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PersonsBase.data;
+using System;
 using System.Collections.Generic;
 // ReSharper disable All
 
@@ -22,13 +23,27 @@ namespace PBase
 
       public Options()
       {
+         adminsList = new List<Administrator>();
+         trenersList = new List<Trener>();
+         adminsList.Add(new Administrator("Admin 1"));
+         adminsList.Add(new Administrator("Admin 2"));
+         adminsList.Add(new Administrator("Admin 3"));
+         adminsList.Add(new Administrator("Admin 4"));
 
+         trenersList.Add(new Trener("Trener 1"));
+         trenersList.Add(new Trener("Trener 2"));
+         trenersList.Add(new Trener("Trener 3"));
+         trenersList.Add(new Trener("Trener 4"));
+         trenersList.Add(new Trener("Trener 5"));
+         trenersList.Add(new Trener("Trener 6"));
       }
 
       ////////////////  Свойства ///////////////////////////////////////
-      
+
 
       ////////////////  Методы ///////////////////////////////////////
-  
+
    }
+
+   
 }

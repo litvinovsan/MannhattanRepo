@@ -9,20 +9,37 @@ namespace PersonsBase.data
    {
       private TypeWorkout _typeWorkout;
       private DateTime _dateTimeVisit;
-     
 
-      public List<Tuple<string, string>> SummaryAbonInfo;
+      public TypeWorkout TypeWorkout
+      {
+         get
+         {
+            return _typeWorkout;
+         }
+      }
+      public DateTime DateTimeVisit
+      {
+         get
+         {
+            return _dateTimeVisit;
+         }
+      }
 
-      public TypeWorkout TypeWorkout { get => _typeWorkout; }
-      public DateTime DateTimeVisit { get => _dateTimeVisit; }
-      
+      public readonly List<Tuple<string, string>> SummaryAbonInfo;
+      public readonly CGroupTraining GroupTrainingValues;
+      public readonly Trener PTrener;
 
       // Конструкторы
-      public Visit(AbonementBasic abon, TypeWorkout typeWorkout)
+      public Visit(AbonementBasic abon, CWorkoutOptions workoutOptions)
       {
+         _typeWorkout = workoutOptions.TypeWorkout;
          _dateTimeVisit = DateTime.Now;
-         _typeWorkout = typeWorkout;
+
          SummaryAbonInfo = abon.GetShortInfoList();
+
+         GroupTrainingValues = workoutOptions.GroupTraining;
+
+         PTrener = workoutOptions.PersonalTrener;
       }
    }
 }

@@ -93,4 +93,20 @@ namespace PBase
       На_1_Месяц = 1,
       На_2_Месяца = 2,
    }
+
+   [Serializable]
+   public class MyTime
+   {
+      public static int[] Hours = { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 };
+      public static int[] Minutes = { 0, 10, 20, 30, 40, 50 };
+
+      public int Hour;
+      public int Minute;
+      public MyTime(int h, int m)
+      {
+         Hour = h;
+         Minute = m;
+
+      }
+   }
 }

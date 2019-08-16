@@ -1,4 +1,5 @@
-﻿using PersonsBase.View;
+﻿using PersonsBase.data;
+using PersonsBase.View;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -10,14 +11,16 @@ namespace PBase
    [Serializable]
    public abstract class AbonementBasic
    {
+      // СОБЫТИЯ
       [field: NonSerialized]
       public event EventHandler EndDateChanged;
-
       private void OnEndDateChanged()
       {
          EndDateChanged?.Invoke(this, EventArgs.Empty);
       }
 
+
+      // ПОЛЯ и СВОЙСТВА
       public abstract string AbonementName { get; }
       public abstract string InfoWhenEnd { get; }
       public abstract int NumAerobicTr { get; set; } // Количество Аэробных тренировок. 10 в клубн карте,каждый месяц
@@ -44,7 +47,7 @@ namespace PBase
          }
       }
 
-      // Конструктор
+      // КОНСТРУКТОР
       protected AbonementBasic(Pay payStatus, TimeForTr time, TypeWorkout tr, SpaService spa)
       {
          this.payStatus = payStatus;
@@ -55,7 +58,8 @@ namespace PBase
          buyDate = DateTime.Now.Date;
       }
 
-      //Методы
+      //МЕТОДЫ АБСТРАКТНЫЕ
+
       /// <summary>
       /// Абонемент не кончился по Дате или Посещениям?
       /// </summary>
@@ -79,14 +83,19 @@ namespace PBase
       /// <returns></returns>
       public abstract int GetRemainderDays(); // Осталось дней
 
-      private bool TrySelectWorkoutType(out TypeWorkout typeWrk)
+
+      // МЕТОДЫ с РЕАЛИЗАЦИЕЙ
+      private bool GetWorkoutOptions(out CWorkoutOptions options)
       {
          bool result = false;
-         typeWrk = TypeWorkout.Тренажерный_Зал;
+         options = new CWorkoutOptions();
 
          if (NumAerobicTr == 0 && NumPersonalTr == 0)
          {
-            typeWrk = trainingsType;
+            options.TypeWorkout = trainingsType;
+            options.GroupTraining = new CGroupTraining(); // dummy
+            options.PersonalTrener = new Trener();              // dummy
+
             result = true;
          }
          else
@@ -95,7 +104,7 @@ namespace PBase
             {
                if (workoutForm.ShowDialog() == DialogResult.OK)
                {
-                  typeWrk = workoutForm.SelectedTypeWorkout;
+                  options = workoutForm.SelectedOptions;
                   result = true;
                }
             }
@@ -103,15 +112,13 @@ namespace PBase
          return result;
       }
 
-      public bool TryCheckInWorkout(out TypeWorkout selectedWorkout)
+      public bool TryCheckInWorkout(out CWorkoutOptions selectedOptions)
       {
          bool isSuccess = false;
-         //TypeWorkout typeWorkout;
 
-         if (TrySelectWorkoutType(out selectedWorkout))
+         if (GetWorkoutOptions(out selectedOptions))
          {
-            // Учет посещения, обновление циферок
-            isSuccess = CheckInWorkout(selectedWorkout);
+            isSuccess = CheckInWorkout(selectedOptions.TypeWorkout);// Учет посещения, обновление циферок
          }
 
          if (isSuccess)
