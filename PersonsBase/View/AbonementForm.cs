@@ -25,7 +25,7 @@ namespace PBase
       public AbonementForm(string nameKey)
       {
          InitializeComponent();
-         _person = DataBaseObject.SetPersonLink(nameKey); // Получаем ссылку на обьект персоны
+         _person = DataBaseObject.GetPersonLink(nameKey); // Получаем ссылку на обьект персоны
       }
 
       private void AbonementForm_Load(object sender, EventArgs e)

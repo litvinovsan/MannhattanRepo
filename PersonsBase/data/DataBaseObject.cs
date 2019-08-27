@@ -12,13 +12,13 @@ namespace PBase
       static DataBaseObject()
       {
          _dataBase = DataBaseClass.GetInstance();
-         _collectionObj = _dataBase.GetCollectionRw();
+         _collectionObj = _dataBase.GetPersonsList();
       }
 
       /// <summary>
       /// Настраиваем статический класс DataBaseObject на конкретную Персону
       /// </summary>
-      public static Person SetPersonLink(string name)
+      public static Person GetPersonLink(string name)
       {
           if (_dataBase.ContainsKey(name))
           {

@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PBase
-{// FIXME Сделать переименование файлов фотографий при переименовании имени
-
+{
+// FIXME Сделать переименование файлов фотографий при переименовании имени
    public class Photo
    {
        private const string FolderName = "UsersPhoto";

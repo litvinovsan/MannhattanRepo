@@ -33,9 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -64,6 +69,7 @@
     <Compile Include="data\CPerson.cs" />
     <Compile Include="data\CTrener.cs" />
     <Compile Include="data\Visit.cs" />
+    <Compile Include="myStd\SerializeOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -85,6 +91,7 @@
     <Compile Include="View\ClientFormControls.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="View\FormFactory.cs" />
     <Compile Include="View\FreezeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,11 +110,11 @@
     <Compile Include="View\AbonementForm.Designer.cs">
       <DependentUpon>AbonementForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\NumWorkoutForm.cs">
+    <Compile Include="View\AddNumWrkForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\NumWorkoutForm.Designer.cs">
-      <DependentUpon>NumWorkoutForm.cs</DependentUpon>
+    <Compile Include="View\AddNumWrkForm.Designer.cs">
+      <DependentUpon>AddNumWrkForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\PwdForm.cs">
       <SubType>Form</SubType>
@@ -124,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -151,8 +159,8 @@
     <EmbeddedResource Include="View\AbonementForm.resx">
       <DependentUpon>AbonementForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\NumWorkoutForm.resx">
-      <DependentUpon>NumWorkoutForm.cs</DependentUpon>
+    <EmbeddedResource Include="View\AddNumWrkForm.resx">
+      <DependentUpon>AddNumWrkForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\PwdForm.resx">
       <DependentUpon>PwdForm.cs</DependentUpon>

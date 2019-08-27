@@ -6,189 +6,205 @@ using System.Windows.Forms;
 
 namespace PBase
 {
-   public partial class MainForm : Form
-   {
-      ///////////////// ОСНОВНЫЕ ОБЬЕКТЫ ////////////////////////////////
-      readonly DataBaseClass _db = DataBaseClass.GetInstance();
-      private SortedList<string, Person> UserList => _db.GetCollectionRw();
-      private Options _options; // Хранятся локальные настройки и параметры программы.
-      private Logic _logic;       // Логика и управляющие методы программы.
-      private Photo _photo;
-      private Timer _time = new Timer();
+    public partial class MainForm : Form
+    {
+        ///////////////// ОСНОВНЫЕ ОБЬЕКТЫ ////////////////////////////////
+        readonly DataBaseClass _db = DataBaseClass.GetInstance();
+        private SortedList<string, Person> UserList => _db.GetPersonsList();
+        private Options _options; // Хранятся локальные настройки и параметры программы.
+        private Logic _logic;       // Логика и управляющие методы программы.
+        private Photo _photo;
+        private Timer _time = new Timer();
 
-      
 
-      ///////////////// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ////////////////////////////////
-      public MainForm()
-      {
-         InitializeComponent();
-         _options = new Options();
-         _logic = new Logic(_options, _db);
-         _photo = new Photo();
-      }
 
-      private void MainForm_Load(object sender, EventArgs e)
-      {
-         // Использовать выборочное сохранение обьектов в Options. Весь класс сериализовать не рекомендуется т.к. перетирается пароль
-          Methods.DeSerialize(ref _options, "Option.bin");
-         // FIXME проверка если опшин пароль равен нулю - прописать ручками умолчальный
+        ///////////////// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ////////////////////////////////
+        public MainForm()
+        {
+            InitializeComponent();
+            _options = new Options();
+            _logic = new Logic(_options, _db);
+            _photo = new Photo();
+        }
 
-         // Подписка на события в пользовательской Базе Данных
-         _db.ListChangedEvent += UpdateFindComboBoxMenu;  // Список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
-         _db.ListChangedEvent += UpdateUsersCountTextBox; // Счетчик пользователей
-         _db.ListChangedEvent += UpdateBirthDateComboBox; // Поле Сегодняшних Дней рождений
-         _db.OnListChanged(); // Событие запускающееся при изменении количества Клиентов в списке.
-         comboBox_BDay.SelectedIndexChanged += new EventHandler(comboBox_BDay_SelectedIndexChanged);
-         PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            Methods.DeSerialize(ref _options, "Option.bin");
 
-         // Инициализация Таймера для Часов
-         StartTimer();
+            // Подписка на события в пользовательской Базе Данных
+            _db.ListChangedEvent += UpdateFindComboBoxMenu;  // Список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
+            _db.ListChangedEvent += UpdateUsersCountTextBox; // Счетчик пользователей
+            _db.ListChangedEvent += UpdateBirthDateComboBox; // Поле Сегодняшних Дней рождений
+            _db.OnListChanged(); // Событие запускающееся при изменении количества Клиентов в списке.
+            comboBox_BDay.SelectedIndexChanged += new EventHandler(comboBox_BDay_SelectedIndexChanged);
+            PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
 
-      }
+            // Инициализация Таймера для Часов
+            StartTimer();
 
-      private void PwdForm_LockChangedEvent()
-      {
-        // MessageBox.Show("Изменен Пароль В гл Форме");
-      }
+            // FIXME временная инициализация полей
+            var admins = _db.GetAdmins();
+            var treners = _db.GetTreners();
+            var schedule = _db.GetGroupTrainings();
+            var curAdmin = _db.GetCurrentAdmin();
 
-      private void UpdateBirthDateComboBox(object sender, EventArgs e)
-      {
-         Action myDelegate = delegate
-         {
-            comboBox_BDay.Items.Clear();
-            label4.Text = "Дней Рождения: 0";
-            var array = UserList.Values.Where(c => c.BirthDate.ToString("M") == DateTime.Today.ToString("M")).Select(c => c.Name).ToArray<object>();
-            if (array.Length != 0)
+            curAdmin = new Administrator("Администратор 1");
+            //
+            admins.Add(new Administrator("Администрато 1"));
+            admins.Add(new Administrator("Администрато 2"));
+            admins.Add(new Administrator("Администрато 3"));
+            admins.Add(new Administrator("Администрато 4"));
+
+            //
+            treners.Add(new Trener("Трене 1"));
+            treners.Add(new Trener("Трене 2"));
+            treners.Add(new Trener("Трене 3"));
+            treners.Add(new Trener("Трене 4"));
+
+            //
+            schedule.Add(new Tuple<MyTime, string>(new MyTime(9, 10), "Беговая"));
+            schedule.Add(new Tuple<MyTime, string>(new MyTime(MyTime.Hours[1], MyTime.Minutes[4]), "Памп"));
+            schedule.Add(new Tuple<MyTime, string>(new MyTime(16, 0), "Йога"));
+        }
+
+        private void PwdForm_LockChangedEvent()
+        {
+            // MessageBox.Show("Изменен Пароль В гл Форме");
+        }
+
+        private void UpdateBirthDateComboBox(object sender, EventArgs e)
+        {
+            Action myDelegate = delegate
             {
-               comboBox_BDay.Items.AddRange(array);
-               comboBox_BDay.SelectedIndex = 0;
-               label4.Text = "Дней Рождения: " + array.Length.ToString();
+                comboBox_BDay.Items.Clear();
+                label4.Text = "Дней Рождения: 0";
+                var array = UserList.Values.Where(c => c.BirthDate.ToString("M") == DateTime.Today.ToString("M")).Select(c => c.Name).ToArray<object>();
+                if (array.Length != 0)
+                {
+                    comboBox_BDay.Items.AddRange(array);
+                    comboBox_BDay.SelectedIndex = 0;
+                    label4.Text = "Дней Рождения: " + array.Length.ToString();
+                }
+                Invalidate();
+            };
+
+            if (InvokeRequired) Invoke(myDelegate);
+            else myDelegate();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Сохраняем настройки. 
+
+            Methods.Serialize(_options, "Option.bin");
+        }
+
+        private void RunClientForm(string keyName)
+        {
+            try
+            {
+                if (_db.ContainsKey(keyName))
+                {
+                    ClientForm clientFrm = new ClientForm(keyName, _options, _logic);
+                    clientFrm.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show(@"Ошибка. Неправильное имя клиента");
+                }
             }
-            Invalidate();
-         };
-
-         if (InvokeRequired) Invoke(myDelegate);
-         else myDelegate();
-      }
-
-      private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-      {
-         // Сохраняем настройки. 
-       
-          Methods.Serialize(_options, "Option.bin");
-      }
-
-      private void RunClientForm(string keyName)
-      {
-         try
-         {
-            if (_db.ContainsKey(keyName))
+            catch (Exception ex)
             {
-               ClientForm clientFrm = new ClientForm(keyName, _options, _logic);
-               clientFrm.ShowDialog();
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        ///////////////// РАБОТА С MAIN FORM ////////////////////////////////
+
+        private void UpdateFindComboBoxMenu(object sender, EventArgs arg)
+        {
+            Action myDelegate = delegate
+            {
+                сomboBox_UserList.Items.Clear();
+
+                сomboBox_UserList.Items.AddRange(UserList.Values.Select(c => c.Name).ToArray<object>());
+                Invalidate();
+            };
+
+            if (InvokeRequired) Invoke(myDelegate);
+            else myDelegate();
+        }
+
+        public void ClearFindCombo()
+        {
+            Action myDelegate = () => сomboBox_UserList.SelectedText = "";
+            if (InvokeRequired)
+            {
+                Invoke(myDelegate);
             }
             else
             {
-               MessageBox.Show(@"Ошибка. Неправильное имя клиента");
+                myDelegate();
             }
-         }
-         catch (Exception ex)
-         {
-            MessageBox.Show(ex.Message);
-         }
-      }
+        }
 
-      ///////////////// РАБОТА С MAIN FORM ////////////////////////////////
-     
-      private void UpdateFindComboBoxMenu(object sender, EventArgs arg)
-      {
-         Action myDelegate = delegate
-         {
-            сomboBox_UserList.Items.Clear();
-
-            сomboBox_UserList.Items.AddRange(UserList.Values.Select(c => c.Name).ToArray<object>());
+        private void UpdateUsersCountTextBox(object sender, EventArgs arg)
+        {
+            textBox1.Text = _db.GetNumberOfPersons().ToString();
             Invalidate();
-         };
+        }
 
-         if (InvokeRequired) Invoke(myDelegate);
-         else myDelegate();
-      }
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
 
-      public void ClearFindCombo()
-      {
-         Action myDelegate = () => сomboBox_UserList.SelectedText = "";
-         if (InvokeRequired)
-         {
-            Invoke(myDelegate);
-         }
-         else
-         {
-            myDelegate();
-         }
-      }
+        private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
-      private void UpdateUsersCountTextBox(object sender, EventArgs arg)
-      {
-         textBox1.Text = _db.GetNumberOfPersons().ToString();
-         Invalidate();
-      }
+            RunClientForm(сomboBox_UserList.SelectedItem.ToString());
 
-      private void выходToolStripMenuItem_Click(object sender, EventArgs e)
-      {
-         Application.Exit();
-      }
+        }
+        private void comboBox_BDay_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
-      private void button1_Click_1(object sender, EventArgs e)
-      {
+            RunClientForm(comboBox_BDay.SelectedItem.ToString());
 
-      }
+        }
+        private void StartTimer()
+        {
+            _time.Interval = 1000;
+            _time.Tick += _time_ClockTick;
+            _time.Start();
+        }
+        private void _time_ClockTick(object sender, EventArgs e)
+        {
+            label_Time.Text = Methods.ClockProcessing();
+        }
 
-      private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
-      {
+        private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
-         RunClientForm(сomboBox_UserList.SelectedItem.ToString());
+        }
 
-      }
-      private void comboBox_BDay_SelectedIndexChanged(object sender, EventArgs e)
-      {
+        private void конфигураторОтчетовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
-         RunClientForm(comboBox_BDay.SelectedItem.ToString());
-
-      }
-      private void StartTimer()
-      {
-         _time.Interval = 1000;
-         _time.Tick += _time_ClockTick;
-         _time.Start();
-      }
-      private void _time_ClockTick(object sender, EventArgs e)
-      {
-         label_Time.Text = Methods.ClockProcessing();
-      }
-
-      private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
-      {
-
-      }
-
-      private void конфигураторОтчетовToolStripMenuItem_Click(object sender, EventArgs e)
-      {
-
-      }
+        }
 
 
-      private void добавитьКлиентаToolStripMenuItem_Click(object sender, EventArgs e)
-      {
-         _db.AddPerson(new Person("Трактирщик Мо"));
-         _db.AddPerson(new Person("Гомер Симпсон"));
-      }
+        private void добавитьКлиентаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _db.AddPerson(new Person("Трактирщик Мо"));
+            _db.AddPerson(new Person("Гомер Симпсон"));
+        }
 
-      private void руководительToolStripMenuItem1_Click(object sender, EventArgs e)
-      {
-         _logic.AccessRoot();
-      }
+        private void руководительToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            _logic.AccessRoot();
+        }
 
 
-   }
+    }
 }
 // FIXME добавить пиктограммы и иконки везде в менюхах и на формах

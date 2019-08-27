@@ -50,17 +50,9 @@ namespace PBase
          return $"{surname} {firstName} {secondName}".Trim();
       }
 
-      public static string PreparePhoneNumber(string phoneNumber)
-      {
-         //FIXME 
-         return "todo";
-      }
-
-
       // Сериализация обьектов
       public static bool Serialize<T>(T objectToSerialize, string nameFile)
       {
-
          try
          {
             using (MemoryStream ms = new MemoryStream())

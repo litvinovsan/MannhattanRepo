@@ -15,7 +15,7 @@ namespace PBase
       {
          _options = opt;
          _dataBase = dataB;
-         _collection = _dataBase.GetCollectionRw();
+         _collection = _dataBase.GetPersonsList();
       }
 
       // МЕТОДЫ
