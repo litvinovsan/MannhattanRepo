@@ -11,114 +11,116 @@ using PBase;
 
 namespace PersonsBase.View
 {
-   public partial class FreezeForm : Form
-   {
-      private ClubCardA _clubCard;
+    public partial class FreezeForm : Form
+    {
+        private ClubCardA _clubCard;
 
 
-      public FreezeForm(ClubCardA clubCard)
-      {
-         InitializeComponent();
-         _clubCard = clubCard;
-      }
+        public FreezeForm(ClubCardA clubCard)
+        {
+            InitializeComponent();
+            _clubCard = clubCard;
+        }
 
 
-      private void FreezeForm_Load(object sender, EventArgs e)
-      {
-         // Экземпляр класса заморозки. Создаем если не существует 
-         InitializeFreezeObject();
+        private void FreezeForm_Load(object sender, EventArgs e)
+        {
+            // Экземпляр класса заморозки. Создаем если не существует 
+            InitializeFreezeObject();
 
-         // Заголовок Формы
-         this.Text = "Карта " + _clubCard.GetTypeClubCard().ToString().Replace("_", " ");
+            // Заголовок Формы
+            this.Text = "Карта " + _clubCard.GetTypeClubCard().ToString().Replace("_", " ");
 
-         // Доступно Дней      
-         textBox_available.Text = _clubCard.Freeze.GetRemainDays().ToString();
+            // Доступно Дней      
+            textBox_available.Text = _clubCard.Freeze.GetRemainDays().ToString();
 
-         // Заполнение комбобокса Количества дней для заморозки
-         var maxDaysAvailable = _clubCard.Freeze.GetRemainDays();
-         InitComboBox(maxDaysAvailable);
+            // Заполнение комбобокса Количества дней для заморозки
+            var maxDaysAvailable = _clubCard.Freeze.GetRemainDays();
+            InitComboBox(maxDaysAvailable);
 
-         // Текущая дата
-         dateTimePicker_startFreeze.Value = DateTime.Now.Date;
+            // Текущая дата
+            dateTimePicker_startFreeze.Value = DateTime.Now.Date;
 
-         // Кнопка удаления заморозки
-         buttonClearFreeze.Visible = PwdForm.IsPassUnLocked() ? true : false;
-      }
+            // Кнопка удаления заморозки
+            buttonClearFreeze.Visible = PwdForm.IsPassUnLocked() ? true : false;
+        }
 
-      private void InitComboBox(int maxDaysAvailable)
-      {
-         if (maxDaysAvailable != 0)
-         {
-            comboBox_toFreeze.Items.Clear();
-            for (int i = 1; i <= maxDaysAvailable; i++)
-            {
-               comboBox_toFreeze.Items.Add(i.ToString());
-            }
-         }
-         else
-         {
-            comboBox_toFreeze.Items.Clear();
-            comboBox_toFreeze.Items.Add("Нет Дней");
-         }
-         comboBox_toFreeze.SelectedIndex = 0;
-      }
-
-      private void InitializeFreezeObject()
-      {
-         if (_clubCard.Freeze == null)
-         {
-            _clubCard.Freeze = new FreezeClass(_clubCard.GetTypeClubCard());
-         }
-      }
-
-      private void buttonClearFreeze_Click(object sender, EventArgs e)
-      {
-         if (_clubCard.Freeze != null)
-         {
-            _clubCard.Freeze.Remove();
-         }
-      }
-
-      private void button_Freeze_Click(object sender, EventArgs e)
-      {
-         int numDays;
-         DateTime startDate;
-         if (GetFreezeParams(out numDays, out startDate))
-         {
-            bool isConfigured = _clubCard.Freeze.TryConfigure(numDays, startDate);
-            if (isConfigured)
-            {
-               _clubCard.EndDate = _clubCard.EndDate.AddDays(numDays);
-               MessageBox.Show($"Заморозка начинается c {startDate.ToString("d")}.\n\rОсталось дней: {_clubCard.Freeze.GetRemainDays()} ", "Установка Заморозки", MessageBoxButtons.OK, MessageBoxIcon.Information);
-               this.DialogResult = DialogResult.OK;
+        private void InitComboBox(int maxDaysAvailable)
+        {
+            if (maxDaysAvailable != 0)
+            {   // FIXME Проверить этот кусок. Удалить закоментированное
+                comboBox_toFreeze.Items.Clear();
+                var nums = Enumerable.Range(1, maxDaysAvailable).Select(x => (object)x).ToArray();
+                comboBox_toFreeze.Items.AddRange(nums);
+                //for (int i = 1; i <= maxDaysAvailable; i++)
+                //{
+                //    comboBox_toFreeze.Items.Add(i.ToString());
+                //}
             }
             else
             {
-               MessageBox.Show($"Ошибка! Возможно, не хватает дней или не корректная дата.\n\rОсталось дней: {_clubCard.Freeze.GetRemainDays()}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-               return;
+                comboBox_toFreeze.Items.Clear();
+                comboBox_toFreeze.Items.Add("Нет Дней");
             }
-         }
-      }
+            comboBox_toFreeze.SelectedIndex = 0;
+        }
 
-      private bool GetFreezeParams(out int numDays, out DateTime startDate)
-      {
-         startDate = dateTimePicker_startFreeze.Value.Date;
-         var numResult = int.TryParse(comboBox_toFreeze.Text, out numDays); // Если не осталось дней
-         if (!numResult) return false;
+        private void InitializeFreezeObject()
+        {
+            if (_clubCard.Freeze == null)
+            {
+                _clubCard.Freeze = new FreezeClass(_clubCard.GetTypeClubCard());
+            }
+        }
 
-         if (DateTime.Now.Date.CompareTo(startDate) > 0)
-         {
-            MessageBox.Show("Дата должна быть позднее сегодняшнего дня!", "Выберите Дату!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            dateTimePicker_startFreeze.Value = DateTime.Now.Date;
-            return false;
-         }
-         if (DateTime.Now.Date.CompareTo(startDate) == 0)
-         {
-            var result = MessageBox.Show("Заморозить Карту с Сегодняшнего дня?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.No) return false;
-         }
+        private void buttonClearFreeze_Click(object sender, EventArgs e)
+        {
+            if (_clubCard.Freeze != null)
+            {
+                _clubCard.Freeze.Remove();
+            }
+        }
 
-         return true;
-      }
-   }
+        private void button_Freeze_Click(object sender, EventArgs e)
+        {
+            int numDays;
+            DateTime startDate;
+            if (GetFreezeParams(out numDays, out startDate))
+            {
+                bool isConfigured = _clubCard.Freeze.TryConfigure(numDays, startDate);
+                if (isConfigured)
+                {
+                    _clubCard.EndDate = _clubCard.EndDate.AddDays(numDays);
+                    MessageBox.Show($"Заморозка начинается c {startDate.ToString("d")}.\n\rОсталось дней: {_clubCard.Freeze.GetRemainDays()} ", "Установка Заморозки", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    MessageBox.Show($"Ошибка! Возможно, не хватает дней или не корректная дата.\n\rОсталось дней: {_clubCard.Freeze.GetRemainDays()}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+        }
+
+        private bool GetFreezeParams(out int numDays, out DateTime startDate)
+        {
+            startDate = dateTimePicker_startFreeze.Value.Date;
+            var numResult = int.TryParse(comboBox_toFreeze.Text, out numDays); // Если не осталось дней
+            if (!numResult) return false;
+
+            if (DateTime.Now.Date.CompareTo(startDate) > 0)
+            {
+                MessageBox.Show("Дата должна быть позднее сегодняшнего дня!", "Выберите Дату!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dateTimePicker_startFreeze.Value = DateTime.Now.Date;
+                return false;
+            }
+            if (DateTime.Now.Date.CompareTo(startDate) == 0)
+            {
+                var result = MessageBox.Show("Заморозить Карту с Сегодняшнего дня?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.No) return false;
+            }
+
+            return true;
+        }
+    }
 }

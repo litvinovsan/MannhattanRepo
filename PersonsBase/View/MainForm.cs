@@ -10,7 +10,7 @@ namespace PBase
     {
         ///////////////// ОСНОВНЫЕ ОБЬЕКТЫ ////////////////////////////////
         readonly DataBaseClass _db = DataBaseClass.GetInstance();
-        private SortedList<string, Person> UserList => _db.GetPersonsList();
+        private SortedList<string, Person> UserList => _db.GetListPersons();
         private Options _options; // Хранятся локальные настройки и параметры программы.
         private Logic _logic;       // Логика и управляющие методы программы.
         private Photo _photo;
@@ -43,28 +43,28 @@ namespace PBase
             StartTimer();
 
             // FIXME временная инициализация полей
-            var admins = _db.GetAdmins();
-            var treners = _db.GetTreners();
-            var schedule = _db.GetGroupTrainings();
-            var curAdmin = _db.GetCurrentAdmin();
+            //var admins = _db.GetManhattanInfo().Admins;
+            //var treners = _db.GetManhattanInfo().Treners;
+            //var schedule = _db.GetManhattanInfo().Schedule;
+            //var curAdmin = _db.GetManhattanInfo().CurrentAdmin;
 
-            curAdmin = new Administrator("Администратор 1");
-            //
-            admins.Add(new Administrator("Администрато 1"));
-            admins.Add(new Administrator("Администрато 2"));
-            admins.Add(new Administrator("Администрато 3"));
-            admins.Add(new Administrator("Администрато 4"));
+            //curAdmin = new Administrator("Администратор 1");
+            ////
+            //admins.Add(new Administrator("Администрато 1"));
+            //admins.Add(new Administrator("Администрато 2"));
+            //admins.Add(new Administrator("Администрато 3"));
+            //admins.Add(new Administrator("Администрато 4"));
 
-            //
-            treners.Add(new Trener("Трене 1"));
-            treners.Add(new Trener("Трене 2"));
-            treners.Add(new Trener("Трене 3"));
-            treners.Add(new Trener("Трене 4"));
+            ////
+            //treners.Add(new Trener("Трене 1"));
+            //treners.Add(new Trener("Трене 2"));
+            //treners.Add(new Trener("Трене 3"));
+            //treners.Add(new Trener("Трене 4"));
 
-            //
-            schedule.Add(new Tuple<MyTime, string>(new MyTime(9, 10), "Беговая"));
-            schedule.Add(new Tuple<MyTime, string>(new MyTime(MyTime.Hours[1], MyTime.Minutes[4]), "Памп"));
-            schedule.Add(new Tuple<MyTime, string>(new MyTime(16, 0), "Йога"));
+
+            //schedule.Add(new Tuple<MyTime, string>(new MyTime(9, 10), "Беговая"));
+            //schedule.Add(new Tuple<MyTime, string>(new MyTime(MyTime.Hours[1], MyTime.Minutes[4]), "Памп"));
+            //schedule.Add(new Tuple<MyTime, string>(new MyTime(16, 0), "Йога"));
         }
 
         private void PwdForm_LockChangedEvent()
@@ -179,7 +179,7 @@ namespace PBase
         }
         private void _time_ClockTick(object sender, EventArgs e)
         {
-            label_Time.Text = Methods.ClockProcessing();
+            label_Time.Text = Methods.ClockFormating();
         }
 
         private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
@@ -195,16 +195,17 @@ namespace PBase
 
         private void добавитьКлиентаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _db.AddPerson(new Person("Трактирщик Мо"));
-            _db.AddPerson(new Person("Гомер Симпсон"));
+            _db.PersonAdd(new Person("Трактирщик Мо"));
+            _db.PersonAdd(new Person("Гомер Симпсон"));
         }
 
         private void руководительToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             _logic.AccessRoot();
+            // FIXME Создать форму Руководителя. Создание расписания 08:30 - Беговая
+            // FIXME в форме руководителя Списки Тренеров и Администраторов
+            // FIXME  Выбор текущего администратора
         }
-
-
     }
 }
 // FIXME добавить пиктограммы и иконки везде в менюхах и на формах

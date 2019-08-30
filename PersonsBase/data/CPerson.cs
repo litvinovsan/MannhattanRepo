@@ -180,7 +180,7 @@ namespace PBase
         {// FIXME сделать тут проверку валидности абонемента по всем полям. Дата,занятия,дни
             return AbonementCurent != null;
         }
-        public void AddToJournal(CWorkoutOptions selectedOptions)
+        public void AddToJournal(WorkoutOptions selectedOptions)
         {
             if (JournalVisits == null) JournalVisits = new List<Visit>(); // Проверка на случай сериализации
 

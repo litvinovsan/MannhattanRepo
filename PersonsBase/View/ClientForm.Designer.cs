@@ -286,7 +286,7 @@ namespace PBase
          this.button_Add_Abon.TabIndex = 4;
          this.button_Add_Abon.Text = "Добавить Абонемент";
          this.button_Add_Abon.UseVisualStyleBackColor = true;
-         this.button_Add_Abon.Click += new System.EventHandler(this.button_Add_Abon_Click);
+         this.button_Add_Abon.Click += new System.EventHandler(this.button_Add_New_Abon_Click);
          // 
          // button_Freeze
          // 

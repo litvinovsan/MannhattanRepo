@@ -32,7 +32,7 @@ namespace PBase
          {
             if (_editedName != null && _editedName != "" && _person.Name != _editedName)
             {
-               _dataBase.EditName(_person.Name, _editedName);
+               _dataBase.PersonEditName(_person.Name, _editedName);
                Methods.SetControlBackColor(textbox, _editedName, _person.Name);
             }
          };

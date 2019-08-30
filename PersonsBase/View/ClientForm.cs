@@ -25,7 +25,7 @@ namespace PBase
         public ClientForm(string keyName, Options opt, Logic lgc)
         {
             InitializeComponent();
-            _person = _dataBase.GetPersonsList()[keyName];
+            _person = _dataBase.GetListPersons()[keyName];
             _isAnythingChanged = false;
             _options = opt;
             _logic = lgc;
@@ -453,23 +453,6 @@ namespace PBase
 
             return list;
         }
-        private void CreateAbonementForm()
-        {
-            using (var form = new AbonementForm(_person.Name))
-            {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    form.ApplyChanges();
-                    // Обновляем Если выбрано что-то.
-                    _person.UpdateActualStatus(); // Обновляем текущий статус
-                    UpdateNameText();
-
-                    LoadShortInfo();
-                    LoadEditableData();
-                    UpdateControlState(this, EventArgs.Empty);
-                }
-            }
-        }
 
         private void NoValidActions()
         {
@@ -485,7 +468,7 @@ namespace PBase
         private void button_CheckInWorkout_Click(object sender, EventArgs e)
         {
             _person.AbonementCurent.TryActivate(); // Если не Активирован
-
+            // FIXME Перенести в Логику
             // Если Кончился абонемент и не сработали проверки в других местах
             if (!_person.AbonementCurent.IsValid())
             {
@@ -511,7 +494,7 @@ namespace PBase
 
         private void CheckInLogic()
         {
-            CWorkoutOptions selectedOptions;
+            WorkoutOptions selectedOptions;
 
             bool isSuccess = false;
 
@@ -540,22 +523,22 @@ namespace PBase
             }
         }
 
-        private bool GetWorkoutOptions(out CWorkoutOptions options)
+        private bool GetWorkoutOptions(out WorkoutOptions options)
         {
             bool result = false;
-            options = new CWorkoutOptions();
+            options = new WorkoutOptions();
 
             if (_person.AbonementCurent.NumAerobicTr == 0 && _person.AbonementCurent.NumPersonalTr == 0)
             {
                 options.TypeWorkout = _person.AbonementCurent.trainingsType;
-                options.GroupTraining = new CGroupTraining(); // dummy
+                options.GroupTraining = new Group(); // dummy
                 options.PersonalTrener = new Trener();              // dummy
 
                 result = true;
             }
             else
             {
-                using (var workoutForm = new WorkoutForm(_person.AbonementCurent))
+                using (var workoutForm = new TypeWorkoutForm(_person.Name))
                 {
                     if (workoutForm.ShowDialog() == DialogResult.OK)
                     {
@@ -584,32 +567,45 @@ namespace PBase
         {
             Methods.ClearSelection(groupBox_Detailed);
         }
-        private void button_Add_Abon_Click(object sender, EventArgs e)
+        private void button_Add_New_Abon_Click(object sender, EventArgs e)
         {
+            //FIXME перенести всё это в Логику.
+            DialogResult dialogResult = DialogResult.Cancel;
             if (_person.AbonementCurent == null)
             {
-                CreateAbonementForm();
+                dialogResult = FormsRunner.CreateAbonementForm(_person.Name);
             }
             else
             {
                 var result = MessageBox.Show($"Действует:  {_person.AbonementCurent.AbonementName}.\n\rДобавить новый абонемент к существующему?", "Добавление Абонемента", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    CreateAbonementForm();
+                    dialogResult = FormsRunner.CreateAbonementForm(_person.Name);
                 }
+            }
+
+            if (dialogResult == DialogResult.OK)
+            {
+                // Обновляем Если выбрано что-то.
+                _person.UpdateActualStatus(); // Обновляем текущий статус
+                UpdateNameText();
+
+                LoadShortInfo();
+                LoadEditableData();
+                UpdateControlState(this, EventArgs.Empty);
             }
 
             button_CheckInWorkout.Focus();
         }
 
         private void button_add_dop_tren_Click(object sender, EventArgs e)
-        {
+        {//FIXME  Перенести в Логику. 
             using (NumWorkoutForm form = new NumWorkoutForm(_person.AbonementCurent))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     form.ApplyChanges();
-
+                    // FIXME Убрать эти функции отсюда, возвращать диалог резалт
                     // Обновляем Если выбрано что-то.
                     _person.UpdateActualStatus(); // Обновляем текущий статус
                     LoadShortInfo();
@@ -657,27 +653,18 @@ namespace PBase
 
             if (status != StatusPerson.Заморожен)
             {
-                var dlgResult = RunFreezeForm();
+                var dlgResult = FormsRunner.RunFreezeForm(_person.Name);
                 if (dlgResult == DialogResult.Cancel) return;
             }
             else
             {
                 MessageBox.Show(@"Сейчас абонемент заморожен! Добавление новой заморозки удалит предыдущую!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                RunFreezeForm();
+                FormsRunner.RunFreezeForm(_person.Name);
 
             }
             LoadUserData();
             LoadShortInfo();
             UpdateEditableData();
-        }
-
-        private DialogResult RunFreezeForm()
-        {
-
-            if (!(_person.AbonementCurent is ClubCardA)) return DialogResult.Cancel;
-            ClubCardA clubCard = ((ClubCardA)_person.AbonementCurent);
-            FreezeForm freezeForm = new FreezeForm(clubCard);
-            return freezeForm.ShowDialog();
         }
 
         private void button_photo_Click(object sender, EventArgs e)

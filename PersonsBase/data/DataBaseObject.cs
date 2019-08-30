@@ -1,32 +1,38 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace PBase
 {
-   public static class DataBaseObject
-   {
-      private static readonly DataBaseClass _dataBase;
-      private static readonly SortedList<string, Person> _collectionObj;
+    public static class DataObjects
+    {
+        private static readonly DataBaseClass _dataBase;
+        private static readonly SortedList<string, Person> _collectionObj;
 
-      private static Person _person;
+        private static Person _person;
 
-      static DataBaseObject()
-      {
-         _dataBase = DataBaseClass.GetInstance();
-         _collectionObj = _dataBase.GetPersonsList();
-      }
+        private static ManhattanInfo _manhattanInfo;
 
-      /// <summary>
-      /// Настраиваем статический класс DataBaseObject на конкретную Персону
-      /// </summary>
-      public static Person GetPersonLink(string name)
-      {
-          if (_dataBase.ContainsKey(name))
-          {
-              _person = _collectionObj[name];
-              return _person;
-          }
+        static DataObjects()
+        {
+            _dataBase = DataBaseClass.GetInstance();
+            _collectionObj = _dataBase.GetListPersons();
+            _manhattanInfo = _dataBase.GetManhattanInfo();
+        }
 
-          return null;
-      }
-   }
+        public static Person GetPersonLink(string name)
+        {
+            if (_dataBase.ContainsKey(name))
+            {
+                _person = _collectionObj[name];
+                return _person;
+            }
+            return null;
+        }
+
+        public static ManhattanInfo GetManhattanInfo()
+        {
+            return _manhattanInfo;
+        }
+
+    }
 }

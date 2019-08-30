@@ -82,9 +82,5 @@ namespace PBase
         /// </summary>
         /// <returns></returns>
         public abstract int GetRemainderDays(); // Осталось дней
-
-
-        // МЕТОДЫ с РЕАЛИЗАЦИЕЙ
-
     }
 }

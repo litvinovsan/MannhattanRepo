@@ -61,7 +61,7 @@
     <Compile Include="data\CAdministrator.cs" />
     <Compile Include="data\CWorkout.cs" />
     <Compile Include="data\DataBaseObject.cs" />
-    <Compile Include="data\HelperMethods.cs" />
+    <Compile Include="data\Helpers.cs" />
     <Compile Include="data\Photo.cs" />
     <Compile Include="data\Types.cs" />
     <Compile Include="data\DataBaseLevel.cs" />
@@ -91,7 +91,7 @@
     <Compile Include="View\ClientFormControls.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\FormFactory.cs" />
+    <Compile Include="View\FormsRunner.cs" />
     <Compile Include="View\FreezeForm.cs">
       <SubType>Form</SubType>
     </Compile>

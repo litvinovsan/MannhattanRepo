@@ -17,8 +17,8 @@ namespace PersonsBase.View
       }
 
       private Options _options;
-      private static string _correctPassword = "1234";
-      private static bool _unLocked;
+      private static string _correctPassword = "1234"; // FIXME Перенести пароль "1234" в Опции
+        private static bool _unLocked;
       private static bool UnLocked
       {
          get { return _unLocked; }
