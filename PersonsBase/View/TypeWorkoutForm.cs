@@ -12,7 +12,7 @@ namespace PersonsBase.View
         private Person _person;
         private AbonementBasic _abonement;
         private List<Trener> _treners;
-        private List<Tuple<MyTime, string>> _schedule; // 8:00 - Беговая
+        private List<EntryInSchedule> _schedule; // 8:00 - Беговая
         private ManhattanInfo _manhattanInfo;
         private string selectedTrenerName;
         private string selectedGroupTimeName;
@@ -43,7 +43,7 @@ namespace PersonsBase.View
         private void TypeWorkoutForm_Load(object sender, EventArgs e)
         {
             List<string> ActualTrenersNames = _treners.Select(x => x.Name).ToList<string>();
-            List<string> ActualGroupTimeNames = _schedule.Select(x => $"{x.Item1.SelectedTime} - {x.Item2}").ToList<string>();
+            List<string> ActualGroupTimeNames = _schedule.Select(x => $"{x.Time.SelectedTime} - {x.NameWorkout}").ToList<string>();
 
             // Смотрим Прошлый визит Клиента
             Visit lastVisit = null;
@@ -60,7 +60,7 @@ namespace PersonsBase.View
                             if (lastVisit.GroupWorkout.Trener != null)
                                 lastTrener = (ActualTrenersNames.Contains(lastVisit.GroupWorkout.Trener.Name)) ? lastVisit.GroupWorkout.Trener.Name : "";
                             if (lastVisit.GroupWorkout != null)
-                                lastGroupTimeName = (ActualGroupTimeNames.Contains(lastVisit.GroupWorkout.GetTimeName())) ? lastVisit.GroupWorkout.GetTimeName() : "";
+                                lastGroupTimeName = (ActualGroupTimeNames.Contains(lastVisit.GroupWorkout.GetTimeAndNameStr())) ? lastVisit.GroupWorkout.GetTimeAndNameStr() : "";
                             break;
                         }
                     case TypeWorkout.Персональная:
@@ -142,7 +142,7 @@ namespace PersonsBase.View
             if (SelectedOptions.TypeWorkout == TypeWorkout.Аэробный_Зал)
             {
                 SelectedOptions.GroupTraining.Trener = _treners.Find(x => x.Name == selectedTrenerName);
-                SelectedOptions.GroupTraining.SetTimeName(selectedGroupTimeName);
+                SelectedOptions.GroupTraining.SetTimeAndNameString(selectedGroupTimeName);
             }
             else
             {

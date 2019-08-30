@@ -6,6 +6,8 @@ namespace PBase
     /// Вспомогательные Общедоступные Структуры и Классы
     /// </summary>
 
+    #region /// СТРУКТУРЫ ///
+
     [Serializable]
     public enum Gender
     {
@@ -94,9 +96,16 @@ namespace PBase
         На_2_Месяца = 2,
     }
 
+    #endregion
+
+    #region /// КЛАССЫ ///
+
+
     [Serializable]
     public class MyTime
     {
+        // FIXME: Проверить решарпером.
+        // FIXME: Оптимизировать после добавления формы ввода расписания
         public static int[] Hours = { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 };
         public static int[] Minutes = { 0, 10, 20, 30, 40, 50 };
 
@@ -110,4 +119,31 @@ namespace PBase
             SelectedTime = Methods.ClockFormating(Hour, Minute);
         }
     }
+
+    [Serializable]
+    public class EntryInSchedule // Одна запись в планировщике
+    {
+        private MyTime _time;
+        private string _nameWorkout;
+
+        // ПУБЛИЧНЫЕ
+        public MyTime Time
+        {
+            get { return _time; }
+            set
+            {
+                _time = value;
+            }
+        }
+        public string NameWorkout { get => _nameWorkout; set => _nameWorkout = value; }
+
+        // КОНСТРУКТОР
+        public EntryInSchedule(MyTime time, string nameWorkout)
+        {
+            _time = time;
+            _nameWorkout = nameWorkout;
+        }
+    }
+
+    #endregion
 }

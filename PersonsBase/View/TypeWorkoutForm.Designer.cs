@@ -50,6 +50,8 @@ namespace PersonsBase.View
             this.panel_personal = new System.Windows.Forms.Panel();
             this.radioButton_personal = new System.Windows.Forms.RadioButton();
             this.pictureBox_person = new System.Windows.Forms.PictureBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -62,6 +64,8 @@ namespace PersonsBase.View
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_aero)).BeginInit();
             this.panel_personal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_person)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_Ok
@@ -73,7 +77,7 @@ namespace PersonsBase.View
             this.button_Ok.Location = new System.Drawing.Point(2, 2);
             this.button_Ok.Margin = new System.Windows.Forms.Padding(2);
             this.button_Ok.Name = "button_Ok";
-            this.button_Ok.Size = new System.Drawing.Size(293, 32);
+            this.button_Ok.Size = new System.Drawing.Size(313, 32);
             this.button_Ok.TabIndex = 0;
             this.button_Ok.Text = "Применить";
             this.button_Ok.UseVisualStyleBackColor = true;
@@ -87,12 +91,12 @@ namespace PersonsBase.View
             this.tableLayoutPanel1.Controls.Add(this.button_Ok, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.button_Cancel, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 223);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 269);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(595, 36);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(635, 36);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // button_Cancel
@@ -101,24 +105,24 @@ namespace PersonsBase.View
             this.button_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button_Cancel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_Cancel.Location = new System.Drawing.Point(299, 2);
+            this.button_Cancel.Location = new System.Drawing.Point(319, 2);
             this.button_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.button_Cancel.Name = "button_Cancel";
-            this.button_Cancel.Size = new System.Drawing.Size(294, 32);
+            this.button_Cancel.Size = new System.Drawing.Size(314, 32);
             this.button_Cancel.TabIndex = 1;
             this.button_Cancel.Text = "Отмена";
             this.button_Cancel.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.flowLayoutPanel2);
-            this.groupBox1.Controls.Add(this.flowLayoutPanel1);
+            this.groupBox1.Controls.Add(this.groupBox3);
+            this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(595, 223);
+            this.groupBox1.Size = new System.Drawing.Size(635, 269);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             // 
@@ -126,10 +130,9 @@ namespace PersonsBase.View
             // 
             this.flowLayoutPanel2.Controls.Add(this.groupBox_TrenerName);
             this.flowLayoutPanel2.Controls.Add(this.groupBox_SelectWorkout);
-            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(309, 15);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(14, 19);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(284, 206);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(284, 212);
             this.flowLayoutPanel2.TabIndex = 11;
             // 
             // groupBox_TrenerName
@@ -187,8 +190,7 @@ namespace PersonsBase.View
             this.flowLayoutPanel1.Controls.Add(this.panel_tren);
             this.flowLayoutPanel1.Controls.Add(this.panel_aero);
             this.flowLayoutPanel1.Controls.Add(this.panel_personal);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(2, 15);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(6, 25);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(287, 206);
             this.flowLayoutPanel1.TabIndex = 10;
@@ -311,12 +313,32 @@ namespace PersonsBase.View
             this.pictureBox_person.TabIndex = 3;
             this.pictureBox_person.TabStop = false;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.flowLayoutPanel1);
+            this.groupBox2.Location = new System.Drawing.Point(12, 18);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(304, 241);
+            this.groupBox2.TabIndex = 12;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Тип Тренировки:";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.flowLayoutPanel2);
+            this.groupBox3.Location = new System.Drawing.Point(322, 18);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(304, 241);
+            this.groupBox3.TabIndex = 12;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Дополнительно:";
+            // 
             // TypeWorkoutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(595, 259);
+            this.ClientSize = new System.Drawing.Size(635, 305);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.DoubleBuffered = true;
@@ -344,6 +366,8 @@ namespace PersonsBase.View
             this.panel_personal.ResumeLayout(false);
             this.panel_personal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_person)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
       }
@@ -369,5 +393,7 @@ namespace PersonsBase.View
       private FlowLayoutPanel flowLayoutPanel2;
       private GroupBox groupBox_TrenerName;
       private ComboBox comboBox_treners;
-   }
+        private GroupBox groupBox3;
+        private GroupBox groupBox2;
+    }
 }

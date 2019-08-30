@@ -10,53 +10,58 @@ namespace PersonsBase.data
     [Serializable]
     public class Group
     {
-        public string TrainingsName { get; set; }
-        public string Notes { get; set; }
+        public string WorkoutName { get; set; }
         public Trener Trener { get; set; }
         public MyTime StartTime { get; set; }
-        public string TimeName
+        public string Notes { get; set; }
+        public string TimeAndNameString
         {
-            get { return timeName; }
+            get { return timeAndName; }
             set
             {
-                timeName = value;
+                timeAndName = value;
             }
         }
+        private string timeAndName;
 
-        private string timeName;
-
+        // Конструкторы
         public Group(string nameTraining, MyTime startTime)
         {
-            TrainingsName = nameTraining;
+            WorkoutName = nameTraining;
             StartTime = startTime;
         }
         public Group()
         {
-            TrainingsName = "Dummy";
-            StartTime = new MyTime(8, 0);
-        }
-        public string GetTimeName()
-        {
-            TimeName = $"{StartTime.SelectedTime} - {TrainingsName}";
-            return TimeName;
+            WorkoutName = "";
+            StartTime = new MyTime(0, 0);
         }
 
-        public void SetTimeName(string timeName)
+        // Методы
+        public string GetTimeAndNameStr()
         {
-            if (string.IsNullOrEmpty(timeName)) return;
+            TimeAndNameString = $"{StartTime.SelectedTime} - {WorkoutName}";
+            return TimeAndNameString;
+        }
+
+        public void SetTimeAndNameString(string timeAndName)
+        {
+            if (string.IsNullOrEmpty(timeAndName)) return;
             // Заново парсим строку, на всякий случай чтобы привести время к формату
-            var Args = timeName.Split('-');
+            var Args = timeAndName.Split('-');
             var timeArg = Args[0].Trim();
             var nameArg = Args[1].Trim();
             var time = timeArg.Split(':');
 
             StartTime = new MyTime(int.Parse(time[0].Trim()), int.Parse(time[1].Trim()));
-            TrainingsName = nameArg.Trim();
+            WorkoutName = nameArg.Trim();
 
-            TimeName = $"{StartTime.SelectedTime} - {TrainingsName}";
+            TimeAndNameString = $"{StartTime.SelectedTime} - {WorkoutName}";
         }
     }
 
+    /// <summary>
+    ///  Класс для передачи выбранных параметров Тренировки во время Отмечания тренировки. 
+    /// </summary>
     [Serializable]
     public class WorkoutOptions
     {

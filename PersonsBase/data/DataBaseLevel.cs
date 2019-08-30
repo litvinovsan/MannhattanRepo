@@ -26,7 +26,7 @@ namespace PBase
         // Текущий Администратор на Ресепшн
         private static Administrator _adminCurrent;
         // Список ежедневных Групповых Тренировок
-        private static List<Tuple<MyTime, string>> _groupScheduleList;
+        private static List<EntryInSchedule> _groupScheduleList;
         // Данные вспомогательные. Списки тренеров, Админов и т д
         private static ManhattanInfo _manhattanInfo;
 
@@ -41,7 +41,7 @@ namespace PBase
 
         #region/// КОНСТРУКТОР и ДЕСТРУКТОР //////////////////////
         private DataBaseClass()
-        {
+        {// FIXME Вытащить имена файлов сериализации в настройки или ресурсы
             // База Клиентов
             _dataBaseList = new SortedList<string, Person>(StringComparer.OrdinalIgnoreCase);
             lock (locker) { Methods.DeSerialize(ref _dataBaseList, "ClientsDataBase.bin"); }
@@ -59,7 +59,7 @@ namespace PBase
             Methods.DeSerialize(ref _adminCurrent, "adminToday.bin");
 
             // Список ежедневных Групповых Тренировок
-            _groupScheduleList = new List<Tuple<MyTime, string>>();
+            _groupScheduleList = new List<EntryInSchedule>();
             Methods.DeSerialize(ref _groupScheduleList, "GroupSchedule.bin");
 
             // Cтруктура для удобства доступа
@@ -70,9 +70,7 @@ namespace PBase
         {
             // База Клиентов
             lock (locker)
-            {
-                Methods.Serialize(_dataBaseList, "ClientsDataBase.bin");
-            }
+            { Methods.Serialize(_dataBaseList, "ClientsDataBase.bin"); }
 
             // База Тренеров
             Methods.Serialize(_trenersList, "TrenersDataBase.bin");
@@ -178,9 +176,9 @@ namespace PBase
     [Serializable]
     public class ManhattanInfo
     {
-        public List<Administrator> Admins;
         public List<Trener> Treners;
-        public List<Tuple<MyTime, string>> Schedule;
+        public List<EntryInSchedule> Schedule;
+        public List<Administrator> Admins;
         public Administrator CurrentAdmin;
     }
 }

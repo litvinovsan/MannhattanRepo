@@ -45,7 +45,7 @@ namespace PBase
             // FIXME временная инициализация полей
             //var admins = _db.GetManhattanInfo().Admins;
             //var treners = _db.GetManhattanInfo().Treners;
-            //var schedule = _db.GetManhattanInfo().Schedule;
+            var schedule = _db.GetManhattanInfo().Schedule;
             //var curAdmin = _db.GetManhattanInfo().CurrentAdmin;
 
             //curAdmin = new Administrator("Администратор 1");
@@ -62,9 +62,10 @@ namespace PBase
             //treners.Add(new Trener("Трене 4"));
 
 
-            //schedule.Add(new Tuple<MyTime, string>(new MyTime(9, 10), "Беговая"));
-            //schedule.Add(new Tuple<MyTime, string>(new MyTime(MyTime.Hours[1], MyTime.Minutes[4]), "Памп"));
-            //schedule.Add(new Tuple<MyTime, string>(new MyTime(16, 0), "Йога"));
+            schedule.Add(new EntryInSchedule(new MyTime(8, 0), "Беговая"));
+            schedule.Add(new EntryInSchedule(new MyTime(11, 30), "Йога"));
+            schedule.Add(new EntryInSchedule(new MyTime(15, 0), "Растяжка"));
+            schedule.Add(new EntryInSchedule(new MyTime(20, 10), "Пампинг"));
         }
 
         private void PwdForm_LockChangedEvent()

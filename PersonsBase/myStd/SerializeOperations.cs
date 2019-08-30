@@ -76,11 +76,9 @@ namespace PBase
 
                 using (FileStream file = new FileStream(nameOutFile, FileMode.Create, FileAccess.Write))
                 {
-                    using (StreamWriter streamWriter = new StreamWriter(file))
-                    {
-                        streamWriter.Write(objectAsJson);
-                        result = true;
-                    }
+                    StreamWriter streamWriter = new StreamWriter(file);
+                    streamWriter.Write(objectAsJson);
+                    result = true;
                 }
             }
             catch (Exception ex)
