@@ -65,18 +65,28 @@ namespace PBase
             return groupsDict;
         }
 
-        public static void AddTextToList( ListView listViewIn, ListViewGroup toGroup, string message, bool showTime)
+        public static void AddTextToList(ListView listViewIn, ListViewGroup toGroup, string message, bool showTime)
         {
             //listViewIn.Items.Add(new ListViewItem(message, toGroup));
+            if (!listViewIn.Groups.Contains(toGroup))
+                AddGroup(listViewIn, toGroup.Header);
 
-            if (listViewIn.Groups.Contains(toGroup))
-                listViewIn.Items.Add(new NameItem(message, toGroup, showTime));
-            else
-                listViewIn.Items.Add(new NameItem(message, showTime));
+            listViewIn.Items.Add(new NameItem(message, toGroup, showTime));
 
             listViewIn.Update();
         }
-        public static void AddTextToList( ListView listViewIn, string message, bool showTime)
+        public static void AddTextToList(ListView listViewIn, string newGroupName, string message, bool showTime)
+        {
+            var groups = GetGroupsDict(listViewIn);
+            if (!groups.Keys.Contains(newGroupName))
+            {
+                AddGroup(listViewIn, newGroupName);
+            }
+            listViewIn.Items.Add(new NameItem(message, GetGroupsDict(listViewIn)[newGroupName], showTime));
+
+            listViewIn.Update();
+        }
+        public static void AddTextToList(ListView listViewIn, string message, bool showTime)
         {
             listViewIn.Items.Add(new NameItem(message, showTime));
             listViewIn.Update();
@@ -134,11 +144,11 @@ namespace PBase
         }
 
         /// Для автоматического изменения размера последней колонки. Подписаться на событие 
-        private void SizeLastColumn(ListView lv)
+        public static void SizeLastColumn(ListView lv)
         {
             lv.Columns[lv.Columns.Count - 1].Width = -2;
         }
-        private void listView1_Resize_1(object sender, EventArgs e)
+        public static void ListView_Resize_Event1(object sender, EventArgs e)
         {
             SizeLastColumn((ListView)sender);
         }

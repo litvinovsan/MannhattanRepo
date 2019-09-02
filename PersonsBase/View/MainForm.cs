@@ -15,13 +15,15 @@ namespace PBase
     {
         #region /// ОСНОВНЫЕ ОБЬЕКТЫ ///
         readonly DataBaseClass _db = DataBaseClass.GetInstance();
+
         private SortedList<string, Person> UserList => _db.GetListPersons();
+        private Dictionary<TypeWorkout, MyListViewDelegate> ListViewSelector; // Для заполнения 1 из 3х списков с Клиентами
+
         private Options _options; // Хранятся локальные настройки и параметры программы.
         private Logic _logic;       // Логика и управляющие методы программы.
         private Photo _photo;
         private Timer _time = new Timer();
 
-        private Dictionary<TypeWorkout, MyListViewDelegate> ListViewSelector; // Для заполнения 1 из 3х списков с Клиентами
 
         #endregion
 
@@ -29,7 +31,6 @@ namespace PBase
 
 
         public MainForm()
-
         {
             InitializeComponent();
             _options = Options.GetInstance();
@@ -62,6 +63,16 @@ namespace PBase
 
             // Инициализация Таймера для Часов
             StartTimer();
+
+            // Инициализация 3х Списков Клиентов
+            //   Изменение размера приводит к увеличению последней колонки до максимума
+            MyListView.SizeLastColumn(listView_Gym_Zal);
+            MyListView.SizeLastColumn(listView_Group);
+            MyListView.SizeLastColumn(listView_Personal);
+
+            // this.listView_Gym_Zal.Resize += MyListView.ListView_Resize_Event1;
+            // this.listView_Group.Resize += MyListView.ListView_Resize_Event1;
+            // this.listView_Personal.Resize += MyListView.ListView_Resize_Event1;
 
             #region Temp
             // FIXME временная инициализация полей
@@ -112,48 +123,33 @@ namespace PBase
             _time.Start();
         }
 
-        #endregion
-
-        #region /// ОБРАБОТЧИКИ ///
-
-
         private void AddToGymList(string namePerson, WorkoutOptions arg)
         {
             MyListView.AddTextToList(listView_Gym_Zal, namePerson, true);
         }
         private void AddToGroupList(string namePerson, WorkoutOptions arg)
         {
-            MyListView.AddTextToList(listView_Group, namePerson, true);
-
+            var groupName = arg.GroupTraining.GetTimeAndNameStr();
+            MyListView.AddTextToList(listView_Group, groupName, namePerson, false);
+            
         }
         private void AddToPersonalnList(string namePerson, WorkoutOptions arg)
         {
-            var currentGroups = MyListView.GetGroupsDict(listView_Personal);
-            if (currentGroups.ContainsKey(arg.PersonalTrener.Name))
-            {
-                MyListView.AddTextToList(listView_Personal, currentGroups[arg.PersonalTrener.Name], namePerson, true);
-            }
-            else
-            {
-
-            }
-
-
+            MyListView.AddTextToList(listView_Personal, arg.PersonalTrener.Name, namePerson, true);
         }
+
+        #endregion
+
+        #region /// ОБРАБОТЧИКИ ///
+
+
+
 
         private void AddPersonToTable(string name, PersonsBase.data.WorkoutOptions arg)
         {
             ListViewSelector[arg.TypeWorkout].Invoke(name, arg);
         }
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-            listView_Gym_Zal.Items.Add("08:20");
-            listView_Gym_Zal.Items.Add("  ");
-            listView_Gym_Zal.Items.Add("Кроссфит");
-            listView_Gym_Zal.Items.Add("ddddd");
-
-        }
+        
         private void PwdForm_LockChangedEvent()
         {
             // MessageBox.Show("Изменен Пароль В гл Форме");
@@ -249,8 +245,14 @@ namespace PBase
             // FIXME  Выбор текущего администратора
         }
 
+
         #endregion
 
-
+        private void MainForm_ResizeEnd(object sender, EventArgs e)
+        {
+            MyListView.SizeLastColumn(listView_Gym_Zal);
+            MyListView.SizeLastColumn(listView_Group);
+            MyListView.SizeLastColumn(listView_Personal);
+        }
     }
 }

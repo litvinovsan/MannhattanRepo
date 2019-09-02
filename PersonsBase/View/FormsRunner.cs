@@ -71,12 +71,10 @@ namespace PersonsBase.View
         /// <summary>
         ///  Возвращает  DialogResult.OK Если успешно всё выбрали
         /// </summary>
-        public static DialogResult RunWorkoutOptionsForm(out WorkoutOptions optionsWorkout, string personName)
+        public static DialogResult RunWorkoutOptionsForm(ref WorkoutOptions optionsWorkout, string personName)
         {
-            var _person = DataObjects.GetPersonLink(personName);
-
             DialogResult dlgReult = DialogResult.Cancel;
-            optionsWorkout = new WorkoutOptions();
+           
             var workoutForm = new TypeWorkoutForm(personName);
 
             dlgReult = workoutForm.ShowDialog();

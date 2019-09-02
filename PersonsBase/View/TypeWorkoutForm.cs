@@ -32,12 +32,9 @@ namespace PersonsBase.View
             _schedule = _manhattanInfo.Schedule;
 
             // Скрываем Панели с РадиоБатоннами
-            panel_aero.Visible = (_abonement.NumAerobicTr == 0) ? false : true;
-            panel_personal.Visible = (_abonement.NumPersonalTr == 0) ? false : true;
+            panel_aero.Visible = (_abonement.trainingsType == TypeWorkout.Аэробный_Зал || (_abonement.NumAerobicTr != 0)) ? true : false;
+            panel_personal.Visible = (_abonement.trainingsType == TypeWorkout.Персональная || (_abonement.NumPersonalTr != 0)) ? true : false;
 
-            // Меняем Высоту формы
-            if (_abonement.NumAerobicTr == 0) this.Height = this.Height - panel_aero.Height;
-            if (_abonement.NumPersonalTr == 0) this.Height = this.Height - panel_personal.Height;
         }
 
         private void TypeWorkoutForm_Load(object sender, EventArgs e)
@@ -138,7 +135,11 @@ namespace PersonsBase.View
 
         private void button_Ok_Click(object sender, EventArgs e)
         {
-
+            if (radioButton_tren.Checked == false && radioButton_aerob.Checked == false && radioButton_personal.Checked == false)
+            {
+                MessageBox.Show("Выберите один из вариантов");
+                return;
+            }
             if (SelectedOptions.TypeWorkout == TypeWorkout.Аэробный_Зал)
             {
                 SelectedOptions.GroupTraining.Trener = _treners.Find(x => x.Name == selectedTrenerName);
@@ -148,6 +149,7 @@ namespace PersonsBase.View
             {
                 SelectedOptions.PersonalTrener = _treners.Find(x => x.Name == selectedTrenerName);
             }
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
     }
 }

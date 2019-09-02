@@ -39,8 +39,6 @@ namespace PBase
             VisitEvent?.Invoke(personName, workout);
         }
 
-
-
         #endregion
 
         #region /// КОНСТРУКТОР ////
@@ -64,9 +62,14 @@ namespace PBase
 
             var selectedOptions = new WorkoutOptions();
 
-            // Если нечего выбирать и доступен только актуальный режим тренировок.
-            if (_person.AbonementCurent.NumAerobicTr == 0 &&
-                _person.AbonementCurent.NumPersonalTr == 0)
+            // Условия для отображения\не отображения окна с выбором
+            var isSingleVisit = _person.AbonementCurent is SingleVisit;
+            var isByDays = _person.AbonementCurent is AbonementByDays;
+            var isClubCard = _person.AbonementCurent is ClubCardA;
+            var isTrenZallOnly = _person.AbonementCurent.trainingsType == TypeWorkout.Тренажерный_Зал;
+            var isNoAeroAndPerson = (_person.AbonementCurent.NumAerobicTr + _person.AbonementCurent.NumPersonalTr) == 0;
+
+            if (((isSingleVisit || isByDays) && isTrenZallOnly) || (isClubCard && isNoAeroAndPerson))
             {
                 selectedOptions.TypeWorkout = _person.AbonementCurent.trainingsType;
                 selectedOptions.GroupTraining = new Group();  // dummy
@@ -74,7 +77,7 @@ namespace PBase
             }
             else
             {
-                var dlgResult = FormsRunner.RunWorkoutOptionsForm(out selectedOptions, _person.Name);
+                var dlgResult = FormsRunner.RunWorkoutOptionsForm(ref selectedOptions, _person.Name);
                 if (dlgResult == DialogResult.Cancel) return false;
             }
 
