@@ -7,7 +7,6 @@ using System.Windows.Forms;
 namespace PBase
 {
 
-    // Или интерфейс
     [Serializable]
     public abstract class AbonementBasic
     {
@@ -22,7 +21,7 @@ namespace PBase
 
         // ПОЛЯ и СВОЙСТВА
         public abstract string AbonementName { get; }
-        public abstract string InfoWhenEnd { get; }
+        public abstract string InfoMessageEnd { get; }
         public abstract int NumAerobicTr { get; set; } // Количество Аэробных тренировок. 10 в клубн карте,каждый месяц
         public abstract int NumPersonalTr { get; set; } // Количество Персональных тренировок. Могут быть добавлены к Клубному абонементу.
         public SpaService spa;               // Услуги спа

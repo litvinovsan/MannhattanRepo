@@ -23,7 +23,7 @@ namespace PBase
         public sealed override int NumAerobicTr { get { return _numAerobicTr; } set { if (_numAerobicTr >= 0) _numAerobicTr = value; } }
         public sealed override int NumPersonalTr { get { return _numPersonalTr; } set { if (_numPersonalTr >= 0) _numPersonalTr = value; } }
         public override string AbonementName => "Разовое Занятие";
-        public override string InfoWhenEnd => "Нет активных разовых посещений!";
+        public override string InfoMessageEnd => "Нет активных разовых посещений!";
 
         // Методы
         public override void TryActivate()

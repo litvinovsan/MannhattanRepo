@@ -27,7 +27,7 @@ namespace PBase
         #endregion
 
         #region /// КОНСТРУКТОР ///////////////////////////
-        public Options()
+        private Options()
         {
 
 

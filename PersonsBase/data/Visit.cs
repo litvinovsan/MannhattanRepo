@@ -39,9 +39,7 @@ namespace PersonsBase.data
             _dateTimeVisit = DateTime.Now;
 
             SummaryAbonInfo = abon.GetShortInfoList();
-
             GroupWorkout = workoutOptions.GroupTraining;
-
             Trener = workoutOptions.PersonalTrener;
         }
     }

@@ -11,17 +11,32 @@ namespace PersonsBase.View
 {
     public class FormsRunner
     {
-        private Options _options;
-        private DataBaseClass _dataBase;
+        //private Options _options;
+        //private DataBaseClass _dataBase;
 
         public FormsRunner()
         {
-            _options = Options.GetInstance();
-            _dataBase = DataBaseClass.GetInstance();
+            //_options = Options.GetInstance();
+            //_dataBase = DataBaseClass.GetInstance();
             //_person = DataObjects.GetPersonLink(nameKey); // Получаем ссылку на обьект персоны
         }
 
-        #region /// Форма Создания Абонемента ///
+        #region /// КАРТОЧКА КЛИЕНТА ///
+        public static void RunClientForm(string keyName)
+        {
+            if (DataBaseClass.GetInstance().ContainsKey(keyName))
+            {
+                ClientForm clientFrm = new ClientForm(keyName);
+                clientFrm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show(@"Ошибка. Неправильное имя клиента");
+            }
+        }
+        #endregion
+
+        #region /// СОЗДАНИЕ АБОНЕМЕНТА ///
         public static DialogResult CreateAbonementForm(string personName)
         {
             DialogResult result = DialogResult.Cancel;
@@ -38,10 +53,10 @@ namespace PersonsBase.View
 
         #endregion
 
-        #region /// Форма Опции ЗАМОРОЗКИ Абонемента ///
+        #region /// ЗАМОРОЗКА Абонемента ///
 
         public static DialogResult RunFreezeForm(string personName)
-        {
+        {// Cохраняет напрямую в Абонемент
             Person _person = DataObjects.GetPersonLink(personName);
             if (!(_person.AbonementCurent is ClubCardA)) return DialogResult.Cancel;
             ClubCardA clubCard = ((ClubCardA)_person.AbonementCurent);
@@ -51,12 +66,12 @@ namespace PersonsBase.View
 
         #endregion
 
-        #region /// Форма Выбор ТИПА Тренировки ///
+        #region /// ВЫБОР ТИПА ТРЕНИРОВКИ ///
 
         /// <summary>
         ///  Возвращает  DialogResult.OK Если успешно всё выбрали
         /// </summary>
-        public DialogResult RunWorkoutOptionsForm(out WorkoutOptions optionsWorkout, string personName)
+        public static DialogResult RunWorkoutOptionsForm(out WorkoutOptions optionsWorkout, string personName)
         {
             var _person = DataObjects.GetPersonLink(personName);
 

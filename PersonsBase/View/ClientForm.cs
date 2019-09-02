@@ -22,13 +22,13 @@ namespace PBase
         private bool _isAnythingChanged;
 
         ///////////////// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ////////////////////////////////
-        public ClientForm(string keyName, Options opt, Logic lgc)
+        public ClientForm(string keyName)
         {
             InitializeComponent();
             _person = _dataBase.GetListPersons()[keyName];
             _isAnythingChanged = false;
-            _options = opt;
-            _logic = lgc;
+            _options = Options.GetInstance();
+            _logic = Logic.GetInstance();
         }
 
         private void ClientForm_Load(object sender, EventArgs e)
@@ -40,7 +40,7 @@ namespace PBase
             TryLoadPhoto();
 
             UpdateControlState(this, EventArgs.Empty);
-            LoadListboxQueue();
+            LoadListBoxQueue();
 
             // Подписка на События
             _saveDelegateChain += SaveUserData; // Цепочка Делегатов для сохранения измененных данных.
@@ -71,7 +71,7 @@ namespace PBase
             Invalidate();
         }
 
-        private void LoadListboxQueue()
+        private void LoadListBoxQueue()
         {
             if (_person.AbonementsQueue == null) return;
             var list = new List<string>();
@@ -454,101 +454,27 @@ namespace PBase
             return list;
         }
 
-        private void NoValidActions()
-        {
-            MessageBox.Show(_person.AbonementCurent.InfoWhenEnd, @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            _person.AbonementCurent = null;
-            _person.Status = StatusPerson.Нет_Карты;
-        }
-
         #endregion
 
         //////////// СТАНДАРТНЫЕ ОБРАБОТЧИКИ ///////////////////////////////////////////////
 
         private void button_CheckInWorkout_Click(object sender, EventArgs e)
         {
-            _person.AbonementCurent.TryActivate(); // Если не Активирован
-            // FIXME Перенести в Логику
-            // Если Кончился абонемент и не сработали проверки в других местах
-            if (!_person.AbonementCurent.IsValid())
+            var result = _logic.CheckInWorkout(_person.Name);
+
+            if (result)
             {
-                NoValidActions();
-                MessageBox.Show("Cтранная Ошибка Учета Посещений.");
-                return;
+                // Обновление всех полей и состояний
+                _person.UpdateActualStatus();
+                UpdateNameText();
+                LoadShortInfo();
+                LoadEditableData();
+                UpdateControlState(this, EventArgs.Empty);
             }
-
-            // Отмечаем посещение
-            CheckInLogic();
-
-
-            // Обновление всех полей и состояний
-            _person.UpdateActualStatus();
-            UpdateNameText();
-            LoadShortInfo();
-            LoadEditableData();
-            UpdateControlState(this, EventArgs.Empty);
-
             // Перенос Фокуса на кнопку 
             button_CheckInWorkout.Focus();
         }
 
-        private void CheckInLogic()
-        {
-            WorkoutOptions selectedOptions;
-
-            bool isSuccess = false;
-
-            if (GetWorkoutOptions(out selectedOptions))
-            {
-                isSuccess = _person.AbonementCurent.CheckInWorkout(selectedOptions.TypeWorkout);// Учет посещения, обновление циферок
-            }
-
-            if (isSuccess)
-            {
-                // Дополнительная информация для вывода если успешный учет.
-                var infoAerobic = (_person.AbonementCurent.NumAerobicTr > 0) ? $"\r\nОсталось Аэробных: {_person.AbonementCurent.NumAerobicTr}" : "";
-                var infoPersonal = (_person.AbonementCurent.NumPersonalTr > 0) ? $"\r\nОсталось Персональных: {_person.AbonementCurent.NumPersonalTr}" : "";
-
-                MessageBox.Show($@"Осталось посещений: {_person.AbonementCurent.GetRemainderDays()}{infoAerobic}{infoPersonal}", @"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Добавляем запись в Журнал Посещений Клиента.
-                _person.AddToJournal(selectedOptions);
-
-                // Если закончился Абонемент
-                if (!_person.AbonementCurent.IsValid())
-                {
-                    _person.Status = StatusPerson.Нет_Карты;
-                    _person.AbonementCurent = null;
-                }
-            }
-        }
-
-        private bool GetWorkoutOptions(out WorkoutOptions options)
-        {
-            bool result = false;
-            options = new WorkoutOptions();
-
-            if (_person.AbonementCurent.NumAerobicTr == 0 && _person.AbonementCurent.NumPersonalTr == 0)
-            {
-                options.TypeWorkout = _person.AbonementCurent.trainingsType;
-                options.GroupTraining = new Group(); // dummy
-                options.PersonalTrener = new Trener();              // dummy
-
-                result = true;
-            }
-            else
-            {
-                using (var workoutForm = new TypeWorkoutForm(_person.Name))
-                {
-                    if (workoutForm.ShowDialog() == DialogResult.OK)
-                    {
-                        options = workoutForm.SelectedOptions;
-                        result = true;
-                    }
-                }
-            }
-            return result;
-        }
         private void button_Cancel_Click(object sender, EventArgs e)
         {
             Close();

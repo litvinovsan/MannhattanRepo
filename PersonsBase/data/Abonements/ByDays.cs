@@ -23,7 +23,7 @@ namespace PBase
         public sealed override int NumAerobicTr { get; set; }
         public sealed override int NumPersonalTr { get; set; }
         public override string AbonementName => "Абонемент";
-        public override string InfoWhenEnd => "Абонемент Закончился!";
+        public override string InfoMessageEnd => "Абонемент Закончился!";
         private DaysInAbon TypeAbonement { get; set; }
 
         // Методы

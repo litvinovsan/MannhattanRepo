@@ -26,7 +26,7 @@ namespace PBase
             }
         }
         public override string AbonementName => "Клубная Карта";
-        public override string InfoWhenEnd => "Клубная Карта Закончилась!";
+        public override string InfoMessageEnd => "Клубная Карта Закончилась!";
 
         public override int NumAerobicTr
         {
