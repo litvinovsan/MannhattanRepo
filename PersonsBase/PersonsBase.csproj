@@ -83,6 +83,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="View\BossForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\BossForm.Designer.cs">
+      <DependentUpon>BossForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\ClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,6 +153,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\BossForm.resx">
+      <DependentUpon>BossForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ClientForm.resx">
       <DependentUpon>ClientForm.cs</DependentUpon>

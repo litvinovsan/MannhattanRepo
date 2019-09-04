@@ -23,7 +23,7 @@ namespace PBase
         private Logic _logic;       // Логика и управляющие методы программы.
         private Photo _photo;
         private Timer _time = new Timer();
-
+        private int totalPersonToday = 0;
 
         #endregion
 
@@ -60,6 +60,7 @@ namespace PBase
             PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
 
             _logic.VisitEvent += AddPersonToTable;
+            _logic.VisitEvent += UpdateDailyCounter;
 
             // Инициализация Таймера для Часов
             StartTimer();
@@ -126,12 +127,13 @@ namespace PBase
         private void AddToGymList(string namePerson, WorkoutOptions arg)
         {
             MyListView.AddTextToList(listView_Gym_Zal, namePerson, true);
+            MyListView.AlternateColors(listView_Gym_Zal);
         }
         private void AddToGroupList(string namePerson, WorkoutOptions arg)
         {
             var groupName = arg.GroupTraining.GetTimeAndNameStr();
             MyListView.AddTextToList(listView_Group, groupName, namePerson, false);
-            
+
         }
         private void AddToPersonalnList(string namePerson, WorkoutOptions arg)
         {
@@ -142,14 +144,23 @@ namespace PBase
 
         #region /// ОБРАБОТЧИКИ ///
 
-
-
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            MyListView.SizeLastColumn(listView_Gym_Zal);
+            MyListView.SizeLastColumn(listView_Group);
+            MyListView.SizeLastColumn(listView_Personal);
+        }
 
         private void AddPersonToTable(string name, PersonsBase.data.WorkoutOptions arg)
         {
             ListViewSelector[arg.TypeWorkout].Invoke(name, arg);
         }
-        
+        private void UpdateDailyCounter(string arg1, WorkoutOptions arg2)
+        {
+            totalPersonToday++;
+            textBox_PeopleForDay.Text = totalPersonToday.ToString();
+        }
+
         private void PwdForm_LockChangedEvent()
         {
             // MessageBox.Show("Изменен Пароль В гл Форме");
@@ -240,7 +251,12 @@ namespace PBase
         private void руководительToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             _logic.AccessRoot();
-            // FIXME Создать форму Руководителя. Создание расписания 08:30 - Беговая
+            if (PwdForm.IsPassUnLocked())
+            {
+                var result = FormsRunner.CreateBossForm();
+            }
+
+            // FIXME Создание расписания 08:30 - Беговая
             // FIXME в форме руководителя Списки Тренеров и Администраторов
             // FIXME  Выбор текущего администратора
         }
@@ -248,11 +264,6 @@ namespace PBase
 
         #endregion
 
-        private void MainForm_ResizeEnd(object sender, EventArgs e)
-        {
-            MyListView.SizeLastColumn(listView_Gym_Zal);
-            MyListView.SizeLastColumn(listView_Group);
-            MyListView.SizeLastColumn(listView_Personal);
-        }
+
     }
 }

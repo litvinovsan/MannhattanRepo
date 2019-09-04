@@ -36,6 +36,23 @@ namespace PersonsBase.View
         }
         #endregion
 
+        #region /// СТРАНИЦА РУКОВОДИТЕЛЯ ///
+        public static DialogResult CreateBossForm()
+        {
+            DialogResult result = DialogResult.Cancel;
+            using (var form = new BossForm())
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    result = DialogResult.OK;
+                }
+            }
+            return result;
+        }
+
+        #endregion
+
+
         #region /// СОЗДАНИЕ АБОНЕМЕНТА ///
         public static DialogResult CreateAbonementForm(string personName)
         {

@@ -42,6 +42,7 @@ namespace PBase
         #region/// КОНСТРУКТОР и ДЕСТРУКТОР //////////////////////
         private DataBaseClass()
         {// FIXME Вытащить имена файлов сериализации в настройки или ресурсы
+            // FIXME Засунуть всю сериализацию в один метод
             // База Клиентов
             _dataBaseList = new SortedList<string, Person>(StringComparer.OrdinalIgnoreCase);
             lock (locker) { Methods.DeSerialize(ref _dataBaseList, "ClientsDataBase.bin"); }
