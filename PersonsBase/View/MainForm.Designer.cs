@@ -322,7 +322,7 @@ namespace PBase
             this.column_Time,
             this.column_Persons});
             this.listView_Gym_Zal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView_Gym_Zal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listView_Gym_Zal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView_Gym_Zal.FullRowSelect = true;
             this.listView_Gym_Zal.GridLines = true;
             listViewGroup1.Header = "ListViewGroup";
@@ -355,7 +355,7 @@ namespace PBase
             this.columnHeader1,
             this.columnHeader2});
             this.listView_Personal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView_Personal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listView_Personal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView_Personal.FullRowSelect = true;
             this.listView_Personal.GridLines = true;
             this.listView_Personal.Location = new System.Drawing.Point(288, 31);
@@ -382,7 +382,7 @@ namespace PBase
             this.columnHeader4,
             this.columnHeader3});
             this.listView_Group.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView_Group.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listView_Group.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView_Group.FullRowSelect = true;
             this.listView_Group.GridLines = true;
             this.listView_Group.Location = new System.Drawing.Point(6, 31);
