@@ -63,6 +63,7 @@
     <Compile Include="data\DataBaseObject.cs" />
     <Compile Include="data\Helpers.cs" />
     <Compile Include="data\Photo.cs" />
+    <Compile Include="data\ScheduleNote.cs" />
     <Compile Include="data\Types.cs" />
     <Compile Include="data\DataBaseLevel.cs" />
     <Compile Include="data\DataBaseMethods.cs" />
@@ -129,16 +130,17 @@
     <Compile Include="View\PwdForm.Designer.cs">
       <DependentUpon>PwdForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\TypeWorkoutForm.cs">
+    <Compile Include="View\WorkoutForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\TypeWorkoutForm.Designer.cs">
-      <DependentUpon>TypeWorkoutForm.cs</DependentUpon>
+    <Compile Include="View\WorkoutForm.Designer.cs">
+      <DependentUpon>WorkoutForm.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\PBase.MyTime.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -175,8 +177,8 @@
     <EmbeddedResource Include="View\PwdForm.resx">
       <DependentUpon>PwdForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\TypeWorkoutForm.resx">
-      <DependentUpon>TypeWorkoutForm.cs</DependentUpon>
+    <EmbeddedResource Include="View\WorkoutForm.resx">
+      <DependentUpon>WorkoutForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

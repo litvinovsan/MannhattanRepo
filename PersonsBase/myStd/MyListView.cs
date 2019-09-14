@@ -5,12 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
-
+using static System.Windows.Forms.ListViewItem;
 
 namespace PBase
 {
-    public class MyListView
+    public class MyListViewEx
     {
+        #region /// ОБЩИЕ МЕТОДЫ ДЛЯ LIST VIEW /// 
+
+        // Колонки
         public static void AddColumns(ListView listView, string[] columns)
         {
             ColumnHeader columnHeader = new ColumnHeader();
@@ -19,10 +22,12 @@ namespace PBase
                 columnHeader.Text = item;
                 listView.Columns.Add(columnHeader);
             }
-            // 
+
+            // Подгоняем размер последней колонки по ширине
             listView.Columns[listView.Columns.Count - 1].Width = -2;
         }
 
+        // Группы
         public static void AddGroups(ListView listView, string[] groups)
         {
             listView.ShowGroups = true;
@@ -39,12 +44,9 @@ namespace PBase
             ListViewGroup listViewGroup = new ListViewGroup(group, HorizontalAlignment.Left);
             listView.Groups.Add(listViewGroup);
         }
-
         /// <summary>
         /// Возвращает коллекцию: ЗаголовокГруппы - Ссылка на группу
         /// </summary>
-        /// <param name="listView"></param>
-        /// <returns></returns>
         public static Dictionary<string, ListViewGroup> GetGroupsDict(ListView listView)
         {
             Dictionary<string, ListViewGroup> groupsDict = new Dictionary<string, ListViewGroup>();
@@ -65,37 +67,64 @@ namespace PBase
             return groupsDict;
         }
 
-        public static void AddTextToList(ListView listViewIn, ListViewGroup toGroup, string message, bool showTime)
+        // Разные методы
+
+        /// Для автоматического изменения размера последней колонки. Подписаться на событие изменения размера формы
+        public static void SizeLastColumn(ListView lv)
         {
-            //listViewIn.Items.Add(new ListViewItem(message, toGroup));
-            if (!listViewIn.Groups.Contains(toGroup))
-                AddGroup(listViewIn, toGroup.Header);
-
-            listViewIn.Items.Add(new NameItem(message, toGroup, showTime));
-
-            listViewIn.Update();
+            lv.Columns[lv.Columns.Count - 1].Width = -2;
         }
-        public static void AddTextToList(ListView listViewIn, string newGroupName, string message, bool showTime)
+        public static void ListView_Resize_Event1(object sender, EventArgs e)
         {
-            var groups = GetGroupsDict(listViewIn);
-            if (!groups.Keys.Contains(newGroupName))
+            SizeLastColumn((ListView)sender);
+        }
+        public static bool GetSelectedItems(ListView lv, ref ListView.SelectedListViewItemCollection selected)
+        {
+            bool check = (lv.SelectedItems.Count > 0);
+            selected = check ? lv.SelectedItems : null;
+
+            return check;
+        }
+        /// <summary>
+        /// Массив содержит текст выбранной строки. Первый элемент -1ая колонка. Итд..
+        /// </summary>
+        /// <param name="lv"></param>
+        /// <returns></returns>
+        public static string[] GetSelectedText(ListView lv)
+        {
+            string[] result = null;
+            if (lv.SelectedItems.Count != 0)
             {
-                AddGroup(listViewIn, newGroupName);
+                List<string> temp = new List<string>();
+                //temp.Add(lv.SelectedItems[0].Text);
+                foreach (ListViewSubItem item in lv.SelectedItems[0].SubItems)
+                {
+                    temp.Add(item.Text);
+                }
+                result = temp.ToArray<string>();
             }
-            listViewIn.Items.Add(new NameItem(message, GetGroupsDict(listViewIn)[newGroupName], showTime));
 
-            listViewIn.Update();
+            return result;
         }
-        public static void AddTextToList(ListView listViewIn, string message, bool showTime)
+        /// <summary>
+        /// Удаляет выбранный элемент из списка Лист Вью. Автоматическое обновление
+        /// </summary>
+        /// <param name="lv"></param>
+        /// <returns></returns>
+        public static bool RemoveSelectedItem(ListView lv)
         {
-            listViewIn.Items.Add(new NameItem(message, showTime));
-            listViewIn.Update();
+            bool result = false;
+            if (lv.SelectedItems.Count > 0)
+            {
+                var listViewitem = lv.SelectedItems[0];
+                lv.Items.Remove(listViewitem);
+                result = true;
+            }
+            return result;
         }
-
         /// <summary>
         /// Задает Полосатый текст в Листе
         /// </summary>
-        /// <param name="listView"></param>
         public static void AlternateColors(ListView listView)
         {
             for (int i = 0; i <= listView.Items.Count - 1; i++)
@@ -107,52 +136,104 @@ namespace PBase
             }
         }
 
-        class NameItem : ListViewItem
+        #endregion
+
+        #region /// ДОБАВЛЕНИЕ ИМЕНИ И ВРЕМЕНИ В КОЛОНКИ LIST VIEW /// 
+        public static void AddNameToList(ListView listViewIn, ListViewGroup toGroup, string personName, bool showTime)
         {
-            // Доступные варианты строки
-            // Время  |  Имя Клиента
-            //        |  Имя Клиента
-            private DateTime _dateTime;
-            private string _message;
+            if (!listViewIn.Groups.Contains(toGroup))
+                AddGroup(listViewIn, toGroup.Header);
 
-            public NameItem(string name)
+            listViewIn.Items.Add(new NameItem(personName, toGroup, showTime));
+
+            listViewIn.Update();
+        }
+        public static void AddNameToList(ListView listViewIn, string newGroupName, string personName, bool showTime)
+        {
+            var groups = GetGroupsDict(listViewIn);
+            if (!groups.Keys.Contains(newGroupName))
             {
-                _dateTime = DateTime.Now;
-                _message = name;
-
-                Text = _dateTime.ToString("HH:mm");
-                // SubItems.Add(messageType.ToString());
-                SubItems.Add(name);
+                AddGroup(listViewIn, newGroupName);
             }
-            public NameItem(string name, ListViewGroup group, bool showTime)
-            {
-                _dateTime = DateTime.Now;
-                _message = name;
-                Text = (showTime) ? _dateTime.ToString("HH:mm") : "";
-                if (group != null) Group = group;
+            listViewIn.Items.Add(new NameItem(personName, GetGroupsDict(listViewIn)[newGroupName], showTime));
 
-                SubItems.Add(name);
-            }
-            public NameItem(string name, bool showTime)
-            {
-                _dateTime = DateTime.Now;
-                _message = name;
-                Text = (showTime) ? _dateTime.ToString("HH:mm") : "";
-
-                SubItems.Add(name);
-            }
+            listViewIn.Update();
+        }
+        public static void AddNameToList(ListView listViewIn, string personName, bool showTime)
+        {
+            listViewIn.Items.Add(new NameItem(personName, showTime));
+            listViewIn.Update();
         }
 
-        /// Для автоматического изменения размера последней колонки. Подписаться на событие 
-        public static void SizeLastColumn(ListView lv)
+        #endregion
+
+        #region /// ДОБАВЛЕНИЕ Времени И Названия тренировки В КОЛОНКИ LIST VIEW /// 
+
+        public static void AddScheduleNote(ListView listViewIn, ScheduleNote scheduleNote)
         {
-            lv.Columns[lv.Columns.Count - 1].Width = -2;
+            listViewIn.Items.Add(new ScheduleNoteItem(scheduleNote));
+            listViewIn.Update();
         }
-        public static void ListView_Resize_Event1(object sender, EventArgs e)
+
+        public static void AddScheduleNotes(ListView listViewIn, List<ScheduleNote> notes)
         {
-            SizeLastColumn((ListView)sender);
+            if (notes == null || notes.Count == 0) return;
+
+            foreach (var item in notes)
+            {
+                listViewIn.Items.Add(new ScheduleNoteItem(item));
+            }
+            listViewIn.Update();
+        }
+        #endregion
+    }
+
+    // Вспомогательный класс для добавления Имени и текущего времени в ЛВ
+    class NameItem : ListViewItem
+    {
+        // Доступные варианты строки
+        // Время  |  Имя Клиента
+        //        |  Имя Клиента
+        private DateTime _dateTime;
+        private string _message;
+
+        public NameItem(string name)
+        {
+            _dateTime = DateTime.Now;
+            _message = name;
+
+            Text = _dateTime.ToString("HH:mm");
+            // SubItems.Add(messageType.ToString());
+            SubItems.Add(name);
+        }
+        public NameItem(string name, ListViewGroup group, bool showTime)
+        {
+            _dateTime = DateTime.Now;
+            _message = name;
+            Text = (showTime) ? _dateTime.ToString("HH:mm") : "";
+            if (group != null) Group = group;
+
+            SubItems.Add(name);
+        }
+        public NameItem(string name, bool showTime)
+        {
+            _dateTime = DateTime.Now;
+            _message = name;
+            Text = (showTime) ? _dateTime.ToString("HH:mm") : "";
+
+            SubItems.Add(name);
         }
     }
 
+    // Вспомогательный класс для добавления в ЛВ заметок о Времени и Названии групповой тренировки
+    class ScheduleNoteItem : ListViewItem
+    {
+        // Врема начала и название тренировки
+        public ScheduleNoteItem(ScheduleNote note)
+        {
+            Text = note.Time.HourMinuteTime;
+            SubItems.Add(note.WorkoutsName);
+        }
+    }
 }
 

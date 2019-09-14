@@ -104,46 +104,36 @@ namespace PBase
     [Serializable]
     public class MyTime
     {
-        // FIXME: Проверить решарпером.
-        // FIXME: Оптимизировать после добавления формы ввода расписания
-        public static int[] Hours = { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 };
-        public static int[] Minutes = { 0, 10, 20, 30, 40, 50 };
+        public readonly static string[] Hours = { "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21" };
+        public readonly static string[] Minutes = { "00", "10", "20", "30", "40", "50" };
 
         public readonly int Hour;
         public readonly int Minute;
-        public string SelectedTime;
+        public string HourMinuteTime;
         public MyTime(int h, int m)
         {
             Hour = h;
             Minute = m;
-            SelectedTime = Methods.ClockFormating(Hour, Minute);
+            HourMinuteTime = Methods.ClockFormating(Hour, Minute);
         }
-    }
-
-    [Serializable]
-    public class EntryInSchedule // Одна запись в планировщике
-    {
-        private MyTime _time;
-        private string _nameWorkout;
-
-        // ПУБЛИЧНЫЕ
-        public MyTime Time
+        public MyTime(string HM) // 08:30
         {
-            get { return _time; }
-            set
+            if (string.IsNullOrEmpty(HM) || !HM.Contains(":"))
             {
-                _time = value;
+                Hour = 0;
+                Minute = 0;
             }
-        }
-        public string NameWorkout { get => _nameWorkout; set => _nameWorkout = value; }
+            else
+            {
+                var time = HM.Split(':');
+                Hour = int.Parse(time[0].Trim());
+                Minute = int.Parse(time[1].Trim());
+            }
 
-        // КОНСТРУКТОР
-        public EntryInSchedule(MyTime time, string nameWorkout)
-        {
-            _time = time;
-            _nameWorkout = nameWorkout;
+            HourMinuteTime = Methods.ClockFormating(Hour, Minute);
         }
     }
+
 
     #endregion
 }

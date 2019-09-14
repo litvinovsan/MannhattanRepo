@@ -43,6 +43,9 @@ namespace PersonsBase.View
         {
             return _unLocked;
         }
+        /// <summary>
+        /// Запрещает доступ босса без ввода пароля
+        /// </summary>
         public static void LockPassword()
         {
             UnLocked = false;

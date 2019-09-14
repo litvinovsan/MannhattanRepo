@@ -92,7 +92,7 @@ namespace PersonsBase.View
         {
             DialogResult dlgReult = DialogResult.Cancel;
            
-            var workoutForm = new TypeWorkoutForm(personName);
+            var workoutForm = new WorkoutForm(personName);
 
             dlgReult = workoutForm.ShowDialog();
             if (dlgReult == DialogResult.OK)

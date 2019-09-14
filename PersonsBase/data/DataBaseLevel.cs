@@ -26,7 +26,7 @@ namespace PBase
         // Текущий Администратор на Ресепшн
         private static Administrator _adminCurrent;
         // Список ежедневных Групповых Тренировок
-        private static List<EntryInSchedule> _groupScheduleList;
+        private static List<ScheduleNote> _groupScheduleList;
         // Данные вспомогательные. Списки тренеров, Админов и т д
         private static ManhattanInfo _manhattanInfo;
 
@@ -60,11 +60,17 @@ namespace PBase
             Methods.DeSerialize(ref _adminCurrent, "adminToday.bin");
 
             // Список ежедневных Групповых Тренировок
-            _groupScheduleList = new List<EntryInSchedule>();
+            _groupScheduleList = new List<ScheduleNote>();
             Methods.DeSerialize(ref _groupScheduleList, "GroupSchedule.bin");
 
             // Cтруктура для удобства доступа
-            _manhattanInfo = new ManhattanInfo { Admins = _adminsList, Treners = _trenersList, Schedule = _groupScheduleList, CurrentAdmin = _adminCurrent };
+            _manhattanInfo = new ManhattanInfo
+            {
+                Admins = _adminsList,
+                Treners = _trenersList,
+                Schedule = _groupScheduleList,
+                CurrentAdmin = _adminCurrent
+            };
         }
 
         ~DataBaseClass()
@@ -178,7 +184,7 @@ namespace PBase
     public class ManhattanInfo
     {
         public List<Trener> Treners;
-        public List<EntryInSchedule> Schedule;
+        public List<ScheduleNote> Schedule;
         public List<Administrator> Admins;
         public Administrator CurrentAdmin;
     }

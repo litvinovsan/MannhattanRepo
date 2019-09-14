@@ -66,13 +66,14 @@ namespace PBase
             var isSingleVisit = _person.AbonementCurent is SingleVisit;
             var isByDays = _person.AbonementCurent is AbonementByDays;
             var isClubCard = _person.AbonementCurent is ClubCardA;
+
             var isTrenZallOnly = _person.AbonementCurent.trainingsType == TypeWorkout.Тренажерный_Зал;
             var isNoAeroAndPerson = (_person.AbonementCurent.NumAerobicTr + _person.AbonementCurent.NumPersonalTr) == 0;
 
             if (((isSingleVisit || isByDays) && isTrenZallOnly) || (isClubCard && isNoAeroAndPerson))
             {
                 selectedOptions.TypeWorkout = _person.AbonementCurent.trainingsType;
-                selectedOptions.GroupTraining = new Group();  // dummy
+                selectedOptions.GroupInfo = new Group();  // dummy
                 selectedOptions.PersonalTrener = new Trener();// dummy
             }
             else
@@ -124,6 +125,37 @@ namespace PBase
             FormsRunner.RunPasswordForm();
         }
 
+        public static bool SchedulesAddNote(MyTime time, ScheduleNote sch)
+        {
+            var _manhattanInfo = DataObjects.GetManhattanInfo();
+
+            //  Проверка. Содержит ли список запись с добавляемым временем
+            var isExist = _manhattanInfo.Schedule.Exists(x => (x.Time.HourMinuteTime.Equals(time.HourMinuteTime) && (x.WorkoutsName.Equals(sch.WorkoutsName))));
+            if (isExist)
+            {
+                MessageBox.Show("Такая тренировка уже существует. Измените время или название!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+
+            _manhattanInfo.Schedule.Add(sch);
+            return true;
+        }
+
+        public static bool SchedulesRemoveNote(MyTime time, ScheduleNote sch)
+        {
+            var _manhattanInfo = DataObjects.GetManhattanInfo();
+
+            //  Проверка. Содержит ли список запись с добавляемым временем
+            var isExist = _manhattanInfo.Schedule.Exists(x => (x.Time.HourMinuteTime.Equals(time.HourMinuteTime) && (x.WorkoutsName.Equals(sch.WorkoutsName))));
+            if (isExist)
+            {
+                MessageBox.Show("Такая тренировка уже существует. Измените время или название!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+
+            _manhattanInfo.Schedule.Add(sch);
+            return true;
+        }
         #endregion
     }
 }

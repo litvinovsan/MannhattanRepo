@@ -7,20 +7,20 @@ using System.Linq;
 
 namespace PersonsBase.View
 {
-    public partial class TypeWorkoutForm : Form
+    public partial class WorkoutForm : Form
     {
         private Person _person;
         private AbonementBasic _abonement;
         private List<Trener> _treners;
-        private List<EntryInSchedule> _schedule; // 8:00 - Беговая
+        private List<ScheduleNote> _schedule; // 8:00 - Беговая
         private ManhattanInfo _manhattanInfo;
-        private string selectedTrenerName;
-        private string selectedGroupTimeName;
+        private string _selectedTrenerName;
+        private string _selectedGroupTimeName;
 
         // Итоговые Выбранные Данные
         public WorkoutOptions SelectedOptions;
 
-        public TypeWorkoutForm(string personName)
+        public WorkoutForm(string personName)
         {
             InitializeComponent();
             SelectedOptions = new WorkoutOptions();// Обьект по умолчанию
@@ -32,15 +32,15 @@ namespace PersonsBase.View
             _schedule = _manhattanInfo.Schedule;
 
             // Скрываем Панели с РадиоБатоннами
+            panel_tren.Visible = (_abonement is SingleVisit) && ((_abonement.NumAerobicTr == 0) && (_abonement.NumPersonalTr == 0)) ? false : true;
             panel_aero.Visible = (_abonement.trainingsType == TypeWorkout.Аэробный_Зал || (_abonement.NumAerobicTr != 0)) ? true : false;
             panel_personal.Visible = (_abonement.trainingsType == TypeWorkout.Персональная || (_abonement.NumPersonalTr != 0)) ? true : false;
-
         }
 
-        private void TypeWorkoutForm_Load(object sender, EventArgs e)
+        private void WorkoutForm_Load(object sender, EventArgs e)
         {
             List<string> ActualTrenersNames = _treners.Select(x => x.Name).ToList<string>();
-            List<string> ActualGroupTimeNames = _schedule.Select(x => $"{x.Time.SelectedTime} - {x.NameWorkout}").ToList<string>();
+            List<string> ActualSchedule = _schedule.Select(x => $"{x.Time.HourMinuteTime} - {x.WorkoutsName}").ToList<string>();
 
             // Смотрим Прошлый визит Клиента
             Visit lastVisit = null;
@@ -54,16 +54,20 @@ namespace PersonsBase.View
                 {
                     case TypeWorkout.Аэробный_Зал:
                         {
-                            if (lastVisit.GroupWorkout.Trener != null)
-                                lastTrener = (ActualTrenersNames.Contains(lastVisit.GroupWorkout.Trener.Name)) ? lastVisit.GroupWorkout.Trener.Name : "";
-                            if (lastVisit.GroupWorkout != null)
-                                lastGroupTimeName = (ActualGroupTimeNames.Contains(lastVisit.GroupWorkout.GetTimeAndNameStr())) ? lastVisit.GroupWorkout.GetTimeAndNameStr() : "";
+                            if (lastVisit.GroupInfo != null)
+                            {
+                                var timeNameString = lastVisit.GroupInfo.scheduleNote.GetTimeAndNameStr();
+                                lastGroupTimeName = (ActualSchedule.Contains(timeNameString)) ? timeNameString : "";
+
+                                if (lastVisit.GroupInfo.Trener != null)
+                                    lastTrener = (ActualTrenersNames.Contains(lastVisit.GroupInfo.Trener.Name)) ? lastVisit.GroupInfo.Trener.Name : "";
+                            }
                             break;
                         }
                     case TypeWorkout.Персональная:
                         {
-                            if (lastVisit.Trener != null)
-                                lastTrener = (ActualTrenersNames.Contains(lastVisit.Trener.Name)) ? lastVisit.Trener.Name : "";
+                            if (lastVisit.TrenerIfPersonal != null)
+                                lastTrener = (ActualTrenersNames.Contains(lastVisit.TrenerIfPersonal.Name)) ? lastVisit.TrenerIfPersonal.Name : "";
                             break;
                         }
                     default:
@@ -83,7 +87,7 @@ namespace PersonsBase.View
             if (_schedule.Count > 0)
             {
                 comboBox_Time_Name_Workout.Items.Clear();
-                comboBox_Time_Name_Workout.Items.AddRange(ActualGroupTimeNames.ToArray<object>());
+                comboBox_Time_Name_Workout.Items.AddRange(ActualSchedule.ToArray<object>());
                 comboBox_Time_Name_Workout.SelectedItem = lastGroupTimeName;
             }
         }
@@ -124,13 +128,13 @@ namespace PersonsBase.View
         private void comboBox_treners_SelectedIndexChanged(object sender, EventArgs e)
         {
             var combo = (ComboBox)sender;
-            selectedTrenerName = combo.SelectedItem.ToString();
+            _selectedTrenerName = combo.SelectedItem.ToString();
         }
 
         private void comboBox_Time_Name_Workout_SelectedIndexChanged(object sender, EventArgs e)
         {
             var combo = (ComboBox)sender;
-            selectedGroupTimeName = combo.SelectedItem.ToString();
+            _selectedGroupTimeName = combo.SelectedItem.ToString();
         }
 
         private void button_Ok_Click(object sender, EventArgs e)
@@ -142,12 +146,12 @@ namespace PersonsBase.View
             }
             if (SelectedOptions.TypeWorkout == TypeWorkout.Аэробный_Зал)
             {
-                SelectedOptions.GroupTraining.Trener = _treners.Find(x => x.Name == selectedTrenerName);
-                SelectedOptions.GroupTraining.SetTimeAndNameString(selectedGroupTimeName);
+                SelectedOptions.GroupInfo.Trener = _treners.Find(x => x.Name == _selectedTrenerName);
+                SelectedOptions.GroupInfo.scheduleNote.SetTimeAndNameString(_selectedGroupTimeName);
             }
             else
             {
-                SelectedOptions.PersonalTrener = _treners.Find(x => x.Name == selectedTrenerName);
+                SelectedOptions.PersonalTrener = _treners.Find(x => x.Name == _selectedTrenerName);
             }
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }

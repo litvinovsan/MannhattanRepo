@@ -183,9 +183,7 @@ namespace PBase
         public void AddToJournal(WorkoutOptions selectedOptions)
         {
             if (JournalVisits == null) JournalVisits = new List<Visit>(); // Проверка на случай сериализации
-
-            Visit todayVisit = new Visit(_abonementCurent, selectedOptions);
-            JournalVisits.Add(todayVisit);
+            JournalVisits.Add(new Visit(_abonementCurent, selectedOptions));
         }
 
         // Приватные

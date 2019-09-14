@@ -27,10 +27,9 @@ namespace PersonsBase.data
                 return _dateTimeVisit;
             }
         }
-
+        public readonly Group GroupInfo;
+        public readonly Trener TrenerIfPersonal;
         public readonly List<Tuple<string, string>> SummaryAbonInfo;// Название - Значение
-        public readonly Group GroupWorkout;
-        public readonly Trener Trener;
 
         // Конструкторы
         public Visit(AbonementBasic abon, WorkoutOptions workoutOptions)
@@ -39,8 +38,8 @@ namespace PersonsBase.data
             _dateTimeVisit = DateTime.Now;
 
             SummaryAbonInfo = abon.GetShortInfoList();
-            GroupWorkout = workoutOptions.GroupTraining;
-            Trener = workoutOptions.PersonalTrener;
+            GroupInfo = workoutOptions.GroupInfo;
+            TrenerIfPersonal = workoutOptions.PersonalTrener;
         }
     }
 }

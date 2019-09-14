@@ -67,13 +67,13 @@ namespace PBase
 
             // Инициализация 3х Списков Клиентов
             //   Изменение размера приводит к увеличению последней колонки до максимума
-            MyListView.SizeLastColumn(listView_Gym_Zal);
-            MyListView.SizeLastColumn(listView_Group);
-            MyListView.SizeLastColumn(listView_Personal);
+            MyListViewEx.SizeLastColumn(listView_Gym_Zal);
+            MyListViewEx.SizeLastColumn(listView_Group);
+            MyListViewEx.SizeLastColumn(listView_Personal);
 
-            // this.listView_Gym_Zal.Resize += MyListView.ListView_Resize_Event1;
-            // this.listView_Group.Resize += MyListView.ListView_Resize_Event1;
-            // this.listView_Personal.Resize += MyListView.ListView_Resize_Event1;
+            // this.listView_Gym_Zal.Resize += MyListViewEx.ListView_Resize_Event1;
+            // this.listView_Group.Resize += MyListViewEx.ListView_Resize_Event1;
+            // this.listView_Personal.Resize += MyListViewEx.ListView_Resize_Event1;
 
             #region Temp
             // FIXME временная инициализация полей
@@ -90,16 +90,16 @@ namespace PBase
             //admins.Add(new Administrator("Администрато 4"));
 
             ////
-            //treners.Add(new Trener("Трене 1"));
-            //treners.Add(new Trener("Трене 2"));
-            //treners.Add(new Trener("Трене 3"));
-            //treners.Add(new Trener("Трене 4"));
+            //treners.Add(new TrenerIfPersonal("Трене 1"));
+            //treners.Add(new TrenerIfPersonal("Трене 2"));
+            //treners.Add(new TrenerIfPersonal("Трене 3"));
+            //treners.Add(new TrenerIfPersonal("Трене 4"));
 
 
-            //schedule.Add(new EntryInSchedule(new MyTime(8, 0), "Беговая"));
-            //schedule.Add(new EntryInSchedule(new MyTime(11, 30), "Йога"));
-            //schedule.Add(new EntryInSchedule(new MyTime(15, 0), "Растяжка"));
-            //schedule.Add(new EntryInSchedule(new MyTime(20, 10), "Пампинг"));
+            //schedule.Add(new ScheduleNote(new MyTime(8, 0), "Беговая"));
+            //schedule.Add(new ScheduleNote(new MyTime(11, 30), "Йога"));
+            //schedule.Add(new ScheduleNote(new MyTime(15, 0), "Растяжка"));
+            //schedule.Add(new ScheduleNote(new MyTime(20, 10), "Пампинг"));
             #endregion
         }
 
@@ -126,18 +126,17 @@ namespace PBase
 
         private void AddToGymList(string namePerson, WorkoutOptions arg)
         {
-            MyListView.AddTextToList(listView_Gym_Zal, namePerson, true);
-            MyListView.AlternateColors(listView_Gym_Zal);
+            MyListViewEx.AddNameToList(listView_Gym_Zal, namePerson, true);
+            MyListViewEx.AlternateColors(listView_Gym_Zal);
         }
         private void AddToGroupList(string namePerson, WorkoutOptions arg)
         {
-            var groupName = arg.GroupTraining.GetTimeAndNameStr();
-            MyListView.AddTextToList(listView_Group, groupName, namePerson, false);
-
+            var groupName = arg.GroupInfo.scheduleNote.GetTimeAndNameStr();
+            MyListViewEx.AddNameToList(listView_Group, groupName, namePerson, false);
         }
         private void AddToPersonalnList(string namePerson, WorkoutOptions arg)
         {
-            MyListView.AddTextToList(listView_Personal, arg.PersonalTrener.Name, namePerson, true);
+            MyListViewEx.AddNameToList(listView_Personal, arg.PersonalTrener.Name, namePerson, true);
         }
 
         #endregion
@@ -146,9 +145,9 @@ namespace PBase
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
-            MyListView.SizeLastColumn(listView_Gym_Zal);
-            MyListView.SizeLastColumn(listView_Group);
-            MyListView.SizeLastColumn(listView_Personal);
+            MyListViewEx.SizeLastColumn(listView_Gym_Zal);
+            MyListViewEx.SizeLastColumn(listView_Group);
+            MyListViewEx.SizeLastColumn(listView_Personal);
         }
 
         private void AddPersonToTable(string name, PersonsBase.data.WorkoutOptions arg)
@@ -262,8 +261,12 @@ namespace PBase
         }
 
 
+
         #endregion
 
+        private void listView_Gym_Zal_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+        }
     }
 }

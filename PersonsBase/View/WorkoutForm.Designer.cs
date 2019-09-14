@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace PersonsBase.View
 {
-   partial class TypeWorkoutForm
+   partial class WorkoutForm
    {
       /// <summary>
       /// Required designer variable.
@@ -71,7 +71,6 @@ namespace PersonsBase.View
             // button_Ok
             // 
             this.button_Ok.AutoSize = true;
-            
             this.button_Ok.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_Ok.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_Ok.Location = new System.Drawing.Point(2, 2);
@@ -91,7 +90,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel1.Controls.Add(this.button_Ok, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.button_Cancel, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 290);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 276);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
@@ -122,7 +121,7 @@ namespace PersonsBase.View
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(635, 290);
+            this.groupBox1.Size = new System.Drawing.Size(635, 276);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             // 
@@ -192,6 +191,7 @@ namespace PersonsBase.View
             this.comboBox_Time_Name_Workout.Location = new System.Drawing.Point(1, 26);
             this.comboBox_Time_Name_Workout.Name = "comboBox_Time_Name_Workout";
             this.comboBox_Time_Name_Workout.Size = new System.Drawing.Size(262, 28);
+            this.comboBox_Time_Name_Workout.Sorted = true;
             this.comboBox_Time_Name_Workout.TabIndex = 0;
             this.comboBox_Time_Name_Workout.SelectedIndexChanged += new System.EventHandler(this.comboBox_Time_Name_Workout_SelectedIndexChanged);
             // 
@@ -333,23 +333,23 @@ namespace PersonsBase.View
             this.pictureBox_person.TabIndex = 3;
             this.pictureBox_person.TabStop = false;
             // 
-            // TypeWorkoutForm
+            // WorkoutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(635, 326);
+            this.ClientSize = new System.Drawing.Size(635, 312);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "TypeWorkoutForm";
+            this.Name = "WorkoutForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Настройте Тренировку";
-            this.Load += new System.EventHandler(this.TypeWorkoutForm_Load);
+            this.Load += new System.EventHandler(this.WorkoutForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);

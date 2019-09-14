@@ -31,9 +31,8 @@ namespace PBase
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.конфигурацииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,9 +65,9 @@ namespace PBase
             this.listView_Group = new System.Windows.Forms.ListView();
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label_tren_zal = new System.Windows.Forms.Label();
             this.label_group = new System.Windows.Forms.Label();
             this.label_personal = new System.Windows.Forms.Label();
+            this.label_tren_zal = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -95,7 +94,7 @@ namespace PBase
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
-            this.menuStrip1.Size = new System.Drawing.Size(1026, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1011, 30);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -201,7 +200,7 @@ namespace PBase
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.Location = new System.Drawing.Point(836, 46);
+            this.groupBox1.Location = new System.Drawing.Point(821, 46);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(178, 410);
             this.groupBox1.TabIndex = 3;
@@ -300,21 +299,21 @@ namespace PBase
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble;
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.29412F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.23039F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.47549F));
             this.tableLayoutPanel1.Controls.Add(this.listView_Gym_Zal, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.listView_Personal, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.listView_Group, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label_tren_zal, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.label_group, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label_personal, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label_tren_zal, 2, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 53);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(818, 403);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(803, 403);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // listView_Gym_Zal
@@ -326,18 +325,19 @@ namespace PBase
             this.listView_Gym_Zal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView_Gym_Zal.FullRowSelect = true;
             this.listView_Gym_Zal.GridLines = true;
-            listViewGroup1.Header = "ListViewGroup";
-            listViewGroup1.Name = "listViewGroup1";
+            listViewGroup3.Header = "ListViewGroup";
+            listViewGroup3.Name = "listViewGroup1";
             this.listView_Gym_Zal.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1});
-            this.listView_Gym_Zal.Location = new System.Drawing.Point(548, 38);
+            listViewGroup3});
+            this.listView_Gym_Zal.Location = new System.Drawing.Point(545, 31);
             this.listView_Gym_Zal.MultiSelect = false;
             this.listView_Gym_Zal.Name = "listView_Gym_Zal";
             this.listView_Gym_Zal.ShowGroups = false;
-            this.listView_Gym_Zal.Size = new System.Drawing.Size(264, 359);
+            this.listView_Gym_Zal.Size = new System.Drawing.Size(252, 366);
             this.listView_Gym_Zal.TabIndex = 2;
             this.listView_Gym_Zal.UseCompatibleStateImageBehavior = false;
             this.listView_Gym_Zal.View = System.Windows.Forms.View.Details;
+            this.listView_Gym_Zal.SelectedIndexChanged += new System.EventHandler(this.listView_Gym_Zal_SelectedIndexChanged);
             // 
             // column_Time
             // 
@@ -358,14 +358,14 @@ namespace PBase
             this.listView_Personal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView_Personal.FullRowSelect = true;
             this.listView_Personal.GridLines = true;
-            listViewGroup2.Header = "ListViewGroup";
-            listViewGroup2.Name = "listViewGroup1";
+            listViewGroup4.Header = "ListViewGroup";
+            listViewGroup4.Name = "listViewGroup1";
             this.listView_Personal.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup2});
-            this.listView_Personal.Location = new System.Drawing.Point(277, 38);
+            listViewGroup4});
+            this.listView_Personal.Location = new System.Drawing.Point(288, 31);
             this.listView_Personal.MultiSelect = false;
             this.listView_Personal.Name = "listView_Personal";
-            this.listView_Personal.Size = new System.Drawing.Size(262, 359);
+            this.listView_Personal.Size = new System.Drawing.Size(248, 366);
             this.listView_Personal.TabIndex = 2;
             this.listView_Personal.UseCompatibleStateImageBehavior = false;
             this.listView_Personal.View = System.Windows.Forms.View.Details;
@@ -389,14 +389,10 @@ namespace PBase
             this.listView_Group.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView_Group.FullRowSelect = true;
             this.listView_Group.GridLines = true;
-            listViewGroup3.Header = "ListViewGroup";
-            listViewGroup3.Name = "listViewGroup1";
-            this.listView_Group.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup3});
-            this.listView_Group.Location = new System.Drawing.Point(6, 38);
+            this.listView_Group.Location = new System.Drawing.Point(6, 31);
             this.listView_Group.MultiSelect = false;
             this.listView_Group.Name = "listView_Group";
-            this.listView_Group.Size = new System.Drawing.Size(262, 359);
+            this.listView_Group.Size = new System.Drawing.Size(273, 366);
             this.listView_Group.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.listView_Group.TabIndex = 2;
             this.listView_Group.UseCompatibleStateImageBehavior = false;
@@ -404,23 +400,13 @@ namespace PBase
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "Время";
-            this.columnHeader4.Width = 52;
+            this.columnHeader4.Text = "";
+            this.columnHeader4.Width = 67;
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "АЗ:";
+            this.columnHeader3.Text = "";
             this.columnHeader3.Width = 189;
-            // 
-            // label_tren_zal
-            // 
-            this.label_tren_zal.AutoSize = true;
-            this.label_tren_zal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_tren_zal.Location = new System.Drawing.Point(548, 3);
-            this.label_tren_zal.Name = "label_tren_zal";
-            this.label_tren_zal.Size = new System.Drawing.Size(127, 17);
-            this.label_tren_zal.TabIndex = 3;
-            this.label_tren_zal.Text = "Тренажерный зал";
             // 
             // label_group
             // 
@@ -437,17 +423,27 @@ namespace PBase
             // 
             this.label_personal.AutoSize = true;
             this.label_personal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_personal.Location = new System.Drawing.Point(277, 3);
+            this.label_personal.Location = new System.Drawing.Point(288, 3);
             this.label_personal.Name = "label_personal";
             this.label_personal.Size = new System.Drawing.Size(106, 17);
             this.label_personal.TabIndex = 2;
             this.label_personal.Text = "Персональные";
             // 
+            // label_tren_zal
+            // 
+            this.label_tren_zal.AutoSize = true;
+            this.label_tren_zal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_tren_zal.Location = new System.Drawing.Point(545, 3);
+            this.label_tren_zal.Name = "label_tren_zal";
+            this.label_tren_zal.Size = new System.Drawing.Size(127, 17);
+            this.label_tren_zal.TabIndex = 3;
+            this.label_tren_zal.Text = "Тренажерный зал";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1026, 468);
+            this.ClientSize = new System.Drawing.Size(1011, 468);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);

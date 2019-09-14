@@ -101,6 +101,9 @@ namespace PBase
                 pictureBox_ClientPhoto.Image.Dispose();
                 pictureBox_ClientPhoto.Image = null;
             }
+            
+            // Блокируем админскую учетку на всякий случай
+            PwdForm.LockPassword();
         }
 
         //////////// ЛОГИКА ФОРМЫ ////////////////////////////////////////////////////////
