@@ -67,17 +67,37 @@ namespace PBase
             return groupsDict;
         }
 
-        // Разные методы
+        // Работа со списком
+        /// <summary>
+        /// Добавляет Текст в список с одной колонкой
+        /// </summary>
+        /// <param name="listViewIn"></param>
+        /// <param name="message"></param>
+        public static void AddNote(ListView listViewIn, string message)
+        {
+            listViewIn.Items.Add(new ListViewItem(message));
+            listViewIn.Update();
+        }
+        public static void AddNote(ListView listViewIn, string messageColumn1, string messageColumn2)
+        {
+            ListViewItem item = new ListViewItem();
+            item.Text = messageColumn1;
+            item.SubItems.Add(messageColumn2);
 
-        /// Для автоматического изменения размера последней колонки. Подписаться на событие изменения размера формы
-        public static void SizeLastColumn(ListView lv)
-        {
-            lv.Columns[lv.Columns.Count - 1].Width = -2;
+            listViewIn.Items.Add(item);
+            listViewIn.Update();
         }
-        public static void ListView_Resize_Event1(object sender, EventArgs e)
+        public static void AddNotes(ListView listViewIn, List<string> notes)
         {
-            SizeLastColumn((ListView)sender);
+            if (notes == null || notes.Count == 0) return;
+
+            foreach (var item in notes)
+            {
+                listViewIn.Items.Add(item);
+            }
+            listViewIn.Update();
         }
+
         public static bool GetSelectedItems(ListView lv, ref ListView.SelectedListViewItemCollection selected)
         {
             bool check = (lv.SelectedItems.Count > 0);
@@ -85,8 +105,25 @@ namespace PBase
 
             return check;
         }
+
+
+
+        /// Для автоматического Увеличения размера последней колонки. Подписаться на событие изменения размера формы
+        public static void MaximizeLastColumn(ListView lv)
+        {
+            lv.Columns[lv.Columns.Count - 1].Width = -2;
+        }
+        public static void MaximizeFirstColumn(ListView lv)
+        {
+            lv.Columns[0].Width = -2;
+        }
+        public static void ListView_Resize_Event1(object sender, EventArgs e)
+        {
+            MaximizeLastColumn((ListView)sender);
+        }
+
         /// <summary>
-        /// Массив содержит текст выбранной строки. Первый элемент -1ая колонка. Итд..
+        /// Массив содержит текст выбранной строки. Первый элемент это 1ая колонка. Итд..
         /// </summary>
         /// <param name="lv"></param>
         /// <returns></returns>
@@ -96,7 +133,6 @@ namespace PBase
             if (lv.SelectedItems.Count != 0)
             {
                 List<string> temp = new List<string>();
-                //temp.Add(lv.SelectedItems[0].Text);
                 foreach (ListViewSubItem item in lv.SelectedItems[0].SubItems)
                 {
                     temp.Add(item.Text);
@@ -106,6 +142,7 @@ namespace PBase
 
             return result;
         }
+
         /// <summary>
         /// Удаляет выбранный элемент из списка Лист Вью. Автоматическое обновление
         /// </summary>
@@ -122,6 +159,7 @@ namespace PBase
             }
             return result;
         }
+
         /// <summary>
         /// Задает Полосатый текст в Листе
         /// </summary>
@@ -135,36 +173,35 @@ namespace PBase
                     listView.Items[i].BackColor = Color.LightGray;
             }
         }
-
         #endregion
 
-        #region /// ДОБАВЛЕНИЕ ИМЕНИ И ВРЕМЕНИ В КОЛОНКИ LIST VIEW /// 
-        public static void AddNameToList(ListView listViewIn, ListViewGroup toGroup, string personName, bool showTime)
+        #region /// ДОБАВЛЕНИЕ ИМЕНИ И ВРЕМЕНИ В КОЛОНКИ LIST VIEW на главной форме /// 
+
+        public static void AddNameTime(ListView listViewIn, ListViewGroup toGroup, string personName, bool showTime)
         {
             if (!listViewIn.Groups.Contains(toGroup))
                 AddGroup(listViewIn, toGroup.Header);
 
-            listViewIn.Items.Add(new NameItem(personName, toGroup, showTime));
+            listViewIn.Items.Add(new NameTimeItem(personName, toGroup, showTime));
 
             listViewIn.Update();
         }
-        public static void AddNameToList(ListView listViewIn, string newGroupName, string personName, bool showTime)
+        public static void AddNameTime(ListView listViewIn, string newGroupName, string personName, bool showTime)
         {
             var groups = GetGroupsDict(listViewIn);
             if (!groups.Keys.Contains(newGroupName))
             {
                 AddGroup(listViewIn, newGroupName);
             }
-            listViewIn.Items.Add(new NameItem(personName, GetGroupsDict(listViewIn)[newGroupName], showTime));
+            listViewIn.Items.Add(new NameTimeItem(personName, GetGroupsDict(listViewIn)[newGroupName], showTime));
 
             listViewIn.Update();
         }
-        public static void AddNameToList(ListView listViewIn, string personName, bool showTime)
+        public static void AddNameTime(ListView listViewIn, string personName, bool showTime)
         {
-            listViewIn.Items.Add(new NameItem(personName, showTime));
+            listViewIn.Items.Add(new NameTimeItem(personName, showTime));
             listViewIn.Update();
         }
-
         #endregion
 
         #region /// ДОБАВЛЕНИЕ Времени И Названия тренировки В КОЛОНКИ LIST VIEW /// 
@@ -189,7 +226,7 @@ namespace PBase
     }
 
     // Вспомогательный класс для добавления Имени и текущего времени в ЛВ
-    class NameItem : ListViewItem
+    class NameTimeItem : ListViewItem
     {
         // Доступные варианты строки
         // Время  |  Имя Клиента
@@ -197,7 +234,7 @@ namespace PBase
         private DateTime _dateTime;
         private string _message;
 
-        public NameItem(string name)
+        public NameTimeItem(string name)
         {
             _dateTime = DateTime.Now;
             _message = name;
@@ -206,7 +243,7 @@ namespace PBase
             // SubItems.Add(messageType.ToString());
             SubItems.Add(name);
         }
-        public NameItem(string name, ListViewGroup group, bool showTime)
+        public NameTimeItem(string name, ListViewGroup group, bool showTime)
         {
             _dateTime = DateTime.Now;
             _message = name;
@@ -215,7 +252,7 @@ namespace PBase
 
             SubItems.Add(name);
         }
-        public NameItem(string name, bool showTime)
+        public NameTimeItem(string name, bool showTime)
         {
             _dateTime = DateTime.Now;
             _message = name;

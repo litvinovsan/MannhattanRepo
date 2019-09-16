@@ -67,9 +67,9 @@ namespace PBase
 
             // Инициализация 3х Списков Клиентов
             //   Изменение размера приводит к увеличению последней колонки до максимума
-            MyListViewEx.SizeLastColumn(listView_Gym_Zal);
-            MyListViewEx.SizeLastColumn(listView_Group);
-            MyListViewEx.SizeLastColumn(listView_Personal);
+            MyListViewEx.MaximizeLastColumn(listView_Gym_Zal);
+            MyListViewEx.MaximizeLastColumn(listView_Group);
+            MyListViewEx.MaximizeLastColumn(listView_Personal);
 
             // this.listView_Gym_Zal.Resize += MyListViewEx.ListView_Resize_Event1;
             // this.listView_Group.Resize += MyListViewEx.ListView_Resize_Event1;
@@ -126,17 +126,17 @@ namespace PBase
 
         private void AddToGymList(string namePerson, WorkoutOptions arg)
         {
-            MyListViewEx.AddNameToList(listView_Gym_Zal, namePerson, true);
+            MyListViewEx.AddNameTime(listView_Gym_Zal, namePerson, true);
             MyListViewEx.AlternateColors(listView_Gym_Zal);
         }
         private void AddToGroupList(string namePerson, WorkoutOptions arg)
         {
             var groupName = arg.GroupInfo.scheduleNote.GetTimeAndNameStr();
-            MyListViewEx.AddNameToList(listView_Group, groupName, namePerson, false);
+            MyListViewEx.AddNameTime(listView_Group, groupName, namePerson, false);
         }
         private void AddToPersonalnList(string namePerson, WorkoutOptions arg)
         {
-            MyListViewEx.AddNameToList(listView_Personal, arg.PersonalTrener.Name, namePerson, true);
+            MyListViewEx.AddNameTime(listView_Personal, arg.PersonalTrener.Name, namePerson, true);
         }
 
         #endregion
@@ -145,9 +145,9 @@ namespace PBase
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
-            MyListViewEx.SizeLastColumn(listView_Gym_Zal);
-            MyListViewEx.SizeLastColumn(listView_Group);
-            MyListViewEx.SizeLastColumn(listView_Personal);
+            MyListViewEx.MaximizeLastColumn(listView_Gym_Zal);
+            MyListViewEx.MaximizeLastColumn(listView_Group);
+            MyListViewEx.MaximizeLastColumn(listView_Personal);
         }
 
         private void AddPersonToTable(string name, PersonsBase.data.WorkoutOptions arg)

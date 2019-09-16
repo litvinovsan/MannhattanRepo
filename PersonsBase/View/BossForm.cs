@@ -11,11 +11,14 @@ using System.Windows.Forms;
 
 namespace PersonsBase.View
 {
+
     public partial class BossForm : Form
     {
         private Options _options;
         private DataBaseClass _dataBase;
         private ManhattanInfo _manhattanInfo;
+        private Employee _employee;
+
 
         #region /// КОНСТРУКТОР. ЗАГРУЗКА. ЗАКРЫТИЕ /// 
         public BossForm()
@@ -35,8 +38,16 @@ namespace PersonsBase.View
             comboBox_time_M.SelectedIndex = 0;
 
             //Заполнение Лист Вью Расписание
-            MyListViewEx.SizeLastColumn(listView_schedule);
+            MyListViewEx.MaximizeLastColumn(listView_schedule);
             MyListViewEx.AddScheduleNotes(listView_schedule, _manhattanInfo.Schedule);
+
+            //Заполнение Лист Вью Список Тренеров
+            MyListViewEx.MaximizeFirstColumn(listView_Tren);
+            MyListViewEx.AddNotes(listView_Tren, _manhattanInfo.Treners.Select(x => x.Name).ToList<string>());
+
+            //Заполнение Лист Вью Список Админов
+            MyListViewEx.MaximizeFirstColumn(listView_Admins);
+            MyListViewEx.AddNotes(listView_Admins, _manhattanInfo.Admins.Select(x => x.Name).ToList<string>());
         }
         private void BossForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -46,8 +57,14 @@ namespace PersonsBase.View
         #endregion
 
         #region /// ОБРАБОТЧИКИ ///
+        private void BossForm_SizeChanged(object sender, EventArgs e)
+        {
+            MyListViewEx.MaximizeLastColumn(listView_schedule);
+            MyListViewEx.MaximizeFirstColumn(listView_Tren);
+            MyListViewEx.MaximizeFirstColumn(listView_Admins);
+        }
 
-        private void button_add_Click(object sender, EventArgs e)
+        private void button_add_sched_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBox_nameTren.Text))
             {
@@ -57,7 +74,7 @@ namespace PersonsBase.View
 
             var time = new MyTime($"{comboBox_time_H.Text}:{comboBox_time_M.Text}");
             var sch = new ScheduleNote(time, textBox_nameTren.Text);
-            bool isSuccess = Logic.SchedulesAddNote(time, sch);
+            bool isSuccess = Logic.SchedulesAdd2DataBase(time, sch);
             if (isSuccess) MyListViewEx.AddScheduleNote(listView_schedule, sch);
         }
 
@@ -69,7 +86,7 @@ namespace PersonsBase.View
             var isSuccess = MyListViewEx.GetSelectedItems(listView_schedule, ref selectedListViewItem);
 
             // ДеАктивация/Активация кнопки Удалить из расписания
-            button_remove.Enabled = isSuccess;
+            button_remove_sched.Enabled = isSuccess;
 
             if (!isSuccess) return; //выход Если ничего не выбрано
 
@@ -83,7 +100,7 @@ namespace PersonsBase.View
 
 
 
-        private void button_remove_Click(object sender, EventArgs e)
+        private void button_remove_sched_Click(object sender, EventArgs e)
         {
             var itemRow = MyListViewEx.GetSelectedText(listView_schedule);
             if (itemRow == null) return;
@@ -91,15 +108,99 @@ namespace PersonsBase.View
             var selectedTime = itemRow[0];
             var name = itemRow[1];
 
-            var time = new MyTime(selectedTime);
-            var schl = new ScheduleNote(time, name);
-
-            var b = _manhattanInfo.Schedule.RemoveAll(x => x.GetTimeAndNameStr().Equals(schl.GetTimeAndNameStr()));
-
+            Logic.SchedulesRemoveDataBase(selectedTime, name);
             MyListViewEx.RemoveSelectedItem(listView_schedule);
 
         }
+        private void button_AddEmploee_Click(object sender, EventArgs e)
+        {
+            // Входная проверка
+            if (string.IsNullOrEmpty(textBox_FiO.Text) || string.IsNullOrWhiteSpace(textBox_FiO.Text))
+            {
+                MessageBox.Show("Введите Имя работника", "Не корректные данные", MessageBoxButtons.OK, MessageBoxIcon.None);
+                return;
+            }
+
+            var empl = GetCurrentEmploeeInfo();
+            var isSuccess = Logic.EmployeeAdd2DataBase(empl);
+
+            if (!isSuccess) return; // Если не добаавили в базу работника(Уже существует). Выходим
+
+            // В какой лист добавлять. Тренер или Админ
+            ListView lv = (empl.isTrener) ? listView_Tren : listView_Admins;
+            // Добавляем в список
+            MyListViewEx.AddNote(lv, empl.Name);
+        }
+
+
+
+        private void maskedTextBox_phone_TextChanged(object sender, EventArgs e)
+        {
+            var tb = (MaskedTextBox)sender;
+            //_editedPhone = tb.Text;
+            //  Methods.SetControlBackColor(tb, _editedPhone, _person.Phone);
+        }
+
+        private void listView_Tren_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedListViewItem = new ListView.SelectedListViewItemCollection((ListView)sender);
+
+            var isSuccess = MyListViewEx.GetSelectedItems((ListView)sender, ref selectedListViewItem);
+
+            // ДеАктивация/Активация кнопки Удалить из расписания
+            button_Remove_Trener.Enabled = isSuccess;
+
+            if (!isSuccess) return; //выход Если ничего не выбрано
+
+            itemRow = MyListViewEx.GetSelectedText(listView_schedule);
+            if (itemRow == null) return;
+            // Отображаем выбранный элемент в окне редактирования
+            comboBox_time_H.Text = itemRow[0].Split(':')[0];
+            comboBox_time_M.Text = itemRow[0].Split(':')[1];
+            textBox_nameTren.Text = itemRow[1];
+        }
+
+        private void listView_Admin_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_Remove_Trener_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_Remove_Admin_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            GetRadioBstate();
+        }
 
         #endregion
+
+        #region /// МЕТОДЫ ///
+        private bool GetRadioBstate()
+        {
+            _employee.isTrener = radioButton_tren.Checked;
+            return _employee.isTrener;
+        }
+        private Employee GetCurrentEmploeeInfo()
+        {
+            // Сбор информации о текущем Работнике
+            _employee.isTrener = GetRadioBstate();
+            _employee.Name = Methods.PrepareName(textBox_FiO.Text);
+            _employee.Phone = maskedTextBox_phone.Text;
+            // Обновляем имя на форме если оно написано с ошибками
+            if (!_employee.Name.Equals(textBox_FiO.Text)) textBox_FiO.Text = _employee.Name;
+
+            return _employee;
+        }
+        #endregion
+
+
     }
 }

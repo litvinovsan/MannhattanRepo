@@ -125,7 +125,8 @@ namespace PBase
             FormsRunner.RunPasswordForm();
         }
 
-        public static bool SchedulesAddNote(MyTime time, ScheduleNote sch)
+        #region /// ФОРМА Босса /// 
+        public static bool SchedulesAdd2DataBase(MyTime time, ScheduleNote sch)
         {
             var _manhattanInfo = DataObjects.GetManhattanInfo();
 
@@ -141,21 +142,71 @@ namespace PBase
             return true;
         }
 
-        public static bool SchedulesRemoveNote(MyTime time, ScheduleNote sch)
+        public static int SchedulesRemoveDataBase(string time, string nameWorkout)
+        {
+            int result = 0;
+            var _manhattanInfo = DataObjects.GetManhattanInfo();
+
+            //  Проверка. Содержит ли список запись с временем
+            var isExist = _manhattanInfo.Schedule.Exists(x => (x.Time.HourMinuteTime.Equals(time) && (x.WorkoutsName.Equals(nameWorkout))));
+            var schl = new ScheduleNote(new MyTime(time), nameWorkout);
+
+            if (isExist)
+            {
+                result = _manhattanInfo.Schedule.RemoveAll(x => x.GetTimeAndNameStr().Equals(schl.GetTimeAndNameStr()));
+            }
+
+            return result;
+        }
+
+        // Работники Тренеры Админ
+        public static bool EmployeeAdd2DataBase(Employee emploerToAdd)
         {
             var _manhattanInfo = DataObjects.GetManhattanInfo();
 
-            //  Проверка. Содержит ли список запись с добавляемым временем
-            var isExist = _manhattanInfo.Schedule.Exists(x => (x.Time.HourMinuteTime.Equals(time.HourMinuteTime) && (x.WorkoutsName.Equals(sch.WorkoutsName))));
+            bool isTrener = emploerToAdd.isTrener;
+            bool isExist = false;
+
+            //  Проверка. Содержится ли в списках такое имя. Если да - выходим.
+            isExist = isTrener ? _manhattanInfo.Treners.Exists(x => (x.Name.Equals(emploerToAdd.Name))) : _manhattanInfo.Admins.Exists(x => (x.Name.Equals(emploerToAdd.Name)));
+
             if (isExist)
             {
-                MessageBox.Show("Такая тренировка уже существует. Измените время или название!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Такое имя уже существует!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
 
-            _manhattanInfo.Schedule.Add(sch);
+            if (isTrener)
+                _manhattanInfo.Treners.Add(new Trener(emploerToAdd.Name) { Phone = emploerToAdd.Phone });
+            else
+                _manhattanInfo.Admins.Add(new Administrator(emploerToAdd.Name) { Phone = emploerToAdd.Phone });
+
             return true;
         }
+
+        public static void EmployeeRemoveDataBase(string name, bool isTrener)
+        {
+            var _manhattanInfo = DataObjects.GetManhattanInfo();
+
+            bool isExist = false;
+
+            //  Проверка. Содержит ли список
+            isExist = isTrener ? _manhattanInfo.Treners.Exists(x => (x.Name.Equals(name))) : _manhattanInfo.Admins.Exists(x => (x.Name.Equals(name)));
+
+            if (!isExist) return; // нет такого имени в списке базы данных
+
+            if (isTrener)
+            {
+                _manhattanInfo.Treners.RemoveAll(x => x.Name.Equals(name));
+            }
+            else
+            {
+                _manhattanInfo.Admins.RemoveAll(x => x.Name.Equals(name));
+            }
+        }
+        #endregion
+
+
         #endregion
     }
 }

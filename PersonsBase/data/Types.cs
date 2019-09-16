@@ -6,7 +6,7 @@ namespace PBase
     /// Вспомогательные Общедоступные Структуры и Классы
     /// </summary>
 
-    #region /// СТРУКТУРЫ ///
+    #region /// СТРУКТУРЫ и ОБЬЕДИНЕНИЯ ///
 
     [Serializable]
     public enum Gender
@@ -94,6 +94,14 @@ namespace PBase
     {
         На_1_Месяц = 1,
         На_2_Месяца = 2,
+    }
+
+    [Serializable]
+    public struct Employee
+    {
+        public string Name;
+        public string Phone;
+        public bool isTrener;
     }
 
     #endregion
