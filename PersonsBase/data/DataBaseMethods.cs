@@ -35,7 +35,8 @@ namespace PBase
                 //Ищем по Значению: Tel, Passp, Drive, ID,
                 foreach (var item in inputDict)
                 {
-                    if (item.Value.Equals(person, out ResponseCode tempResponse))
+                    ResponseCode tempResponse;
+                    if (item.Value.Equals(person, out tempResponse))
                     {
                         containsCopy = true;
                         response = tempResponse;

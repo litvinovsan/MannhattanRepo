@@ -10,23 +10,9 @@ namespace PersonsBase.data
     [Serializable]
     public class Visit
     {
-        private TypeWorkout _typeWorkout;
-        private DateTime _dateTimeVisit;
+        public TypeWorkout TypeWorkout { get; }
 
-        public TypeWorkout TypeWorkout
-        {
-            get
-            {
-                return _typeWorkout;
-            }
-        }
-        public DateTime DateTimeVisit
-        {
-            get
-            {
-                return _dateTimeVisit;
-            }
-        }
+        public DateTime DateTimeVisit { get; }
         public readonly Group GroupInfo;
         public readonly Trener TrenerIfPersonal;
         public readonly List<Tuple<string, string>> SummaryAbonInfo;// Название - Значение
@@ -34,8 +20,8 @@ namespace PersonsBase.data
         // Конструкторы
         public Visit(AbonementBasic abon, WorkoutOptions workoutOptions)
         {
-            _typeWorkout = workoutOptions.TypeWorkout;
-            _dateTimeVisit = DateTime.Now;
+            TypeWorkout = workoutOptions.TypeWorkout;
+            DateTimeVisit = DateTime.Now;
 
             SummaryAbonInfo = abon.GetShortInfoList();
             GroupInfo = workoutOptions.GroupInfo;

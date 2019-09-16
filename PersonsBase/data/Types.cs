@@ -101,7 +101,7 @@ namespace PBase
     {
         public string Name;
         public string Phone;
-        public bool isTrener;
+        public bool IsTrener;
     }
 
     #endregion
@@ -112,33 +112,31 @@ namespace PBase
     [Serializable]
     public class MyTime
     {
-        public readonly static string[] Hours = { "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21" };
-        public readonly static string[] Minutes = { "00", "10", "20", "30", "40", "50" };
+        public static readonly string[] Hours = { "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21" };
+        public static readonly string[] Minutes = { "00", "10", "20", "30", "40", "50" };
 
-        public readonly int Hour;
-        public readonly int Minute;
-        public string HourMinuteTime;
+        public readonly string HourMinuteTime;
         public MyTime(int h, int m)
         {
-            Hour = h;
-            Minute = m;
-            HourMinuteTime = Methods.ClockFormating(Hour, Minute);
+            HourMinuteTime = Methods.ClockFormating(h, m);
         }
         public MyTime(string HM) // 08:30
         {
+            int hour;
+            int minute;
             if (string.IsNullOrEmpty(HM) || !HM.Contains(":"))
             {
-                Hour = 0;
-                Minute = 0;
+                hour = 0;
+                minute = 0;
             }
             else
             {
                 var time = HM.Split(':');
-                Hour = int.Parse(time[0].Trim());
-                Minute = int.Parse(time[1].Trim());
+                hour = int.Parse(time[0].Trim());
+                minute = int.Parse(time[1].Trim());
             }
 
-            HourMinuteTime = Methods.ClockFormating(Hour, Minute);
+            HourMinuteTime = Methods.ClockFormating(hour, minute);
         }
     }
 

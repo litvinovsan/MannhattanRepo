@@ -226,44 +226,43 @@ namespace PBase
     }
 
     // Вспомогательный класс для добавления Имени и текущего времени в ЛВ
-    class NameTimeItem : ListViewItem
+    public class NameTimeItem : ListViewItem
     {
         // Доступные варианты строки
         // Время  |  Имя Клиента
         //        |  Имя Клиента
-        private DateTime _dateTime;
         private string _message;
 
         public NameTimeItem(string name)
         {
-            _dateTime = DateTime.Now;
+            var dateTime = DateTime.Now;
             _message = name;
 
-            Text = _dateTime.ToString("HH:mm");
+            Text = dateTime.ToString("HH:mm");
             // SubItems.Add(messageType.ToString());
             SubItems.Add(name);
         }
         public NameTimeItem(string name, ListViewGroup group, bool showTime)
         {
-            _dateTime = DateTime.Now;
+            var dateTime = DateTime.Now;
             _message = name;
-            Text = (showTime) ? _dateTime.ToString("HH:mm") : "";
+            Text = (showTime) ? dateTime.ToString("HH:mm") : "";
             if (group != null) Group = group;
 
             SubItems.Add(name);
         }
         public NameTimeItem(string name, bool showTime)
         {
-            _dateTime = DateTime.Now;
+            var dateTime = DateTime.Now;
             _message = name;
-            Text = (showTime) ? _dateTime.ToString("HH:mm") : "";
+            Text = (showTime) ? dateTime.ToString("HH:mm") : "";
 
             SubItems.Add(name);
         }
     }
 
     // Вспомогательный класс для добавления в ЛВ заметок о Времени и Названии групповой тренировки
-    class ScheduleNoteItem : ListViewItem
+   public class ScheduleNoteItem : ListViewItem
     {
         // Врема начала и название тренировки
         public ScheduleNoteItem(ScheduleNote note)

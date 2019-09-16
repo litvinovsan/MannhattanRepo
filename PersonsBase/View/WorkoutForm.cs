@@ -9,16 +9,16 @@ namespace PersonsBase.View
 {
     public partial class WorkoutForm : Form
     {
-        private Person _person;
+        private readonly Person _person;
         private AbonementBasic _abonement;
-        private List<Trener> _treners;
-        private List<ScheduleNote> _schedule; // 8:00 - Беговая
-        private ManhattanInfo _manhattanInfo;
+        private readonly List<Trener> _treners;
+        private readonly List<ScheduleNote> _schedule; // 8:00 - Беговая
+        private readonly ManhattanInfo _manhattanInfo;
         private string _selectedTrenerName;
         private string _selectedGroupTimeName;
 
         // Итоговые Выбранные Данные
-        public WorkoutOptions SelectedOptions;
+        public readonly WorkoutOptions SelectedOptions;
 
         public WorkoutForm(string personName)
         {
@@ -32,24 +32,23 @@ namespace PersonsBase.View
             _schedule = _manhattanInfo.Schedule;
 
             // Скрываем Панели с РадиоБатоннами
-            panel_tren.Visible = (_abonement is SingleVisit) && ((_abonement.NumAerobicTr == 0) && (_abonement.NumPersonalTr == 0)) ? false : true;
+            panel_tren.Visible = (!(_abonement is SingleVisit)) || ((_abonement.NumAerobicTr != 0) || (_abonement.NumPersonalTr != 0));
             panel_aero.Visible = (_abonement.trainingsType == TypeWorkout.Аэробный_Зал || (_abonement.NumAerobicTr != 0)) ? true : false;
             panel_personal.Visible = (_abonement.trainingsType == TypeWorkout.Персональная || (_abonement.NumPersonalTr != 0)) ? true : false;
         }
 
         private void WorkoutForm_Load(object sender, EventArgs e)
         {
-            List<string> ActualTrenersNames = _treners.Select(x => x.Name).ToList<string>();
-            List<string> ActualSchedule = _schedule.Select(x => $"{x.Time.HourMinuteTime} - {x.WorkoutsName}").ToList<string>();
+            List<string> actualTrenersNames = _treners.Select(x => x.Name).ToList<string>();
+            List<string> actualSchedule = _schedule.Select(x => $"{x.Time.HourMinuteTime} - {x.WorkoutsName}").ToList<string>();
 
             // Смотрим Прошлый визит Клиента
-            Visit lastVisit = null;
             string lastTrener = "";
             string lastGroupTimeName = "";
 
             if (_person.JournalVisits != null && _person.JournalVisits.Count > 0)
             {
-                lastVisit = _person.JournalVisits.Last();
+                var lastVisit = _person.JournalVisits.Last();
                 switch (lastVisit.TypeWorkout)
                 {
                     case TypeWorkout.Аэробный_Зал:
@@ -57,17 +56,17 @@ namespace PersonsBase.View
                             if (lastVisit.GroupInfo != null)
                             {
                                 var timeNameString = lastVisit.GroupInfo.scheduleNote.GetTimeAndNameStr();
-                                lastGroupTimeName = (ActualSchedule.Contains(timeNameString)) ? timeNameString : "";
+                                lastGroupTimeName = (actualSchedule.Contains(timeNameString)) ? timeNameString : "";
 
                                 if (lastVisit.GroupInfo.Trener != null)
-                                    lastTrener = (ActualTrenersNames.Contains(lastVisit.GroupInfo.Trener.Name)) ? lastVisit.GroupInfo.Trener.Name : "";
+                                    lastTrener = (actualTrenersNames.Contains(lastVisit.GroupInfo.Trener.Name)) ? lastVisit.GroupInfo.Trener.Name : "";
                             }
                             break;
                         }
                     case TypeWorkout.Персональная:
                         {
                             if (lastVisit.TrenerIfPersonal != null)
-                                lastTrener = (ActualTrenersNames.Contains(lastVisit.TrenerIfPersonal.Name)) ? lastVisit.TrenerIfPersonal.Name : "";
+                                lastTrener = (actualTrenersNames.Contains(lastVisit.TrenerIfPersonal.Name)) ? lastVisit.TrenerIfPersonal.Name : "";
                             break;
                         }
                     default:
@@ -79,7 +78,7 @@ namespace PersonsBase.View
             if (_treners.Count > 0)
             {
                 comboBox_treners.Items.Clear();
-                comboBox_treners.Items.AddRange(ActualTrenersNames.ToArray<object>());  // Заполняем комбобокс
+                comboBox_treners.Items.AddRange(actualTrenersNames.ToArray<object>());  // Заполняем комбобокс
                 comboBox_treners.SelectedItem = lastTrener;
             }
 
@@ -87,7 +86,7 @@ namespace PersonsBase.View
             if (_schedule.Count > 0)
             {
                 comboBox_Time_Name_Workout.Items.Clear();
-                comboBox_Time_Name_Workout.Items.AddRange(ActualSchedule.ToArray<object>());
+                comboBox_Time_Name_Workout.Items.AddRange(actualSchedule.ToArray<object>());
                 comboBox_Time_Name_Workout.SelectedItem = lastGroupTimeName;
             }
         }

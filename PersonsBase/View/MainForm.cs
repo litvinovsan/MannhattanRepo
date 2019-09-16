@@ -14,16 +14,17 @@ namespace PBase
     public partial class MainForm : Form
     {
         #region /// ОСНОВНЫЕ ОБЬЕКТЫ ///
-        readonly DataBaseClass _db = DataBaseClass.GetInstance();
+
+        private readonly DataBaseClass _db = DataBaseClass.GetInstance();
 
         private SortedList<string, Person> UserList => _db.GetListPersons();
-        private Dictionary<TypeWorkout, MyListViewDelegate> ListViewSelector; // Для заполнения 1 из 3х списков с Клиентами
+        private readonly Dictionary<TypeWorkout, MyListViewDelegate> _listViewSelector; // Для заполнения 1 из 3х списков с Клиентами
 
         private Options _options; // Хранятся локальные настройки и параметры программы.
-        private Logic _logic;       // Логика и управляющие методы программы.
+        private readonly Logic _logic;       // Логика и управляющие методы программы.
         private Photo _photo;
-        private Timer _time = new Timer();
-        private int totalPersonToday = 0;
+        private readonly Timer _time = new Timer();
+        private int _totalPersonToday;
 
         #endregion
 
@@ -37,7 +38,7 @@ namespace PBase
             _logic = Logic.GetInstance();
             _photo = new Photo();
 
-            ListViewSelector = new Dictionary<TypeWorkout, MyListViewDelegate>
+            _listViewSelector = new Dictionary<TypeWorkout, MyListViewDelegate>
             {
                 { TypeWorkout.Аэробный_Зал,AddToGroupList },
                 { TypeWorkout.Персональная,AddToPersonalnList },
@@ -70,37 +71,7 @@ namespace PBase
             MyListViewEx.MaximizeLastColumn(listView_Gym_Zal);
             MyListViewEx.MaximizeLastColumn(listView_Group);
             MyListViewEx.MaximizeLastColumn(listView_Personal);
-
-            // this.listView_Gym_Zal.Resize += MyListViewEx.ListView_Resize_Event1;
-            // this.listView_Group.Resize += MyListViewEx.ListView_Resize_Event1;
-            // this.listView_Personal.Resize += MyListViewEx.ListView_Resize_Event1;
-
-            #region Temp
-            // FIXME временная инициализация полей
-            //var admins = _db.GetManhattanInfo().Admins;
-            //var treners = _db.GetManhattanInfo().Treners;
-            //var schedule = _db.GetManhattanInfo().Schedule;
-            //var curAdmin = _db.GetManhattanInfo().CurrentAdmin;
-
-            //curAdmin = new Administrator("Администратор 1");
-            ////
-            //admins.Add(new Administrator("Администрато 1"));
-            //admins.Add(new Administrator("Администрато 2"));
-            //admins.Add(new Administrator("Администрато 3"));
-            //admins.Add(new Administrator("Администрато 4"));
-
-            ////
-            //treners.Add(new TrenerIfPersonal("Трене 1"));
-            //treners.Add(new TrenerIfPersonal("Трене 2"));
-            //treners.Add(new TrenerIfPersonal("Трене 3"));
-            //treners.Add(new TrenerIfPersonal("Трене 4"));
-
-
-            //schedule.Add(new ScheduleNote(new MyTime(8, 0), "Беговая"));
-            //schedule.Add(new ScheduleNote(new MyTime(11, 30), "Йога"));
-            //schedule.Add(new ScheduleNote(new MyTime(15, 0), "Растяжка"));
-            //schedule.Add(new ScheduleNote(new MyTime(20, 10), "Пампинг"));
-            #endregion
+         
         }
 
 
@@ -150,14 +121,14 @@ namespace PBase
             MyListViewEx.MaximizeLastColumn(listView_Personal);
         }
 
-        private void AddPersonToTable(string name, PersonsBase.data.WorkoutOptions arg)
+        private void AddPersonToTable(string name, WorkoutOptions arg)
         {
-            ListViewSelector[arg.TypeWorkout].Invoke(name, arg);
+            _listViewSelector[arg.TypeWorkout].Invoke(name, arg);
         }
         private void UpdateDailyCounter(string arg1, WorkoutOptions arg2)
         {
-            totalPersonToday++;
-            textBox_PeopleForDay.Text = totalPersonToday.ToString();
+            _totalPersonToday++;
+            textBox_PeopleForDay.Text = _totalPersonToday.ToString();
         }
 
         private void PwdForm_LockChangedEvent()
@@ -255,8 +226,7 @@ namespace PBase
                 var result = FormsRunner.CreateBossForm();
             }
 
-            // FIXME Создание расписания 08:30 - Беговая
-            // FIXME в форме руководителя Списки Тренеров и Администраторов
+
             // FIXME  Выбор текущего администратора
         }
 

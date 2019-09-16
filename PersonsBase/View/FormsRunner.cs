@@ -74,9 +74,9 @@ namespace PersonsBase.View
 
         public static DialogResult RunFreezeForm(string personName)
         {// Cохраняет напрямую в Абонемент
-            Person _person = DataObjects.GetPersonLink(personName);
-            if (!(_person.AbonementCurent is ClubCardA)) return DialogResult.Cancel;
-            ClubCardA clubCard = ((ClubCardA)_person.AbonementCurent);
+            Person person = DataObjects.GetPersonLink(personName);
+            if (!(person.AbonementCurent is ClubCardA)) return DialogResult.Cancel;
+            ClubCardA clubCard = ((ClubCardA)person.AbonementCurent);
             FreezeForm freezeForm = new FreezeForm(clubCard);
             return freezeForm.ShowDialog();
         }

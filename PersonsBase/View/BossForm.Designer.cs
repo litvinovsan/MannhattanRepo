@@ -85,7 +85,7 @@
             this.groupBox1.Controls.Add(this.listView_schedule);
             this.groupBox1.Location = new System.Drawing.Point(260, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(687, 399);
+            this.groupBox1.Size = new System.Drawing.Size(687, 400);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Расписание Групповых тренировок";
@@ -107,7 +107,7 @@
             this.listView_schedule.MultiSelect = false;
             this.listView_schedule.Name = "listView_schedule";
             this.listView_schedule.ShowGroups = false;
-            this.listView_schedule.Size = new System.Drawing.Size(678, 376);
+            this.listView_schedule.Size = new System.Drawing.Size(678, 377);
             this.listView_schedule.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listView_schedule.TabIndex = 3;
             this.listView_schedule.UseCompatibleStateImageBehavior = false;
@@ -147,7 +147,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(963, 443);
+            this.tabControl1.Size = new System.Drawing.Size(963, 444);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -157,7 +157,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(955, 414);
+            this.tabPage1.Size = new System.Drawing.Size(955, 415);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Расписание";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -255,7 +255,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(955, 414);
+            this.tabPage2.Size = new System.Drawing.Size(955, 415);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Персонал";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -274,7 +274,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(949, 408);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(949, 409);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // groupBox3
@@ -284,7 +284,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(619, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(327, 402);
+            this.groupBox3.Size = new System.Drawing.Size(327, 403);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Администраторы:";
@@ -305,12 +305,13 @@
             this.listView_Admins.MultiSelect = false;
             this.listView_Admins.Name = "listView_Admins";
             this.listView_Admins.ShowGroups = false;
-            this.listView_Admins.Size = new System.Drawing.Size(314, 339);
+            this.listView_Admins.Size = new System.Drawing.Size(314, 340);
             this.listView_Admins.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listView_Admins.TabIndex = 6;
             this.listView_Admins.UseCompatibleStateImageBehavior = false;
             this.listView_Admins.View = System.Windows.Forms.View.Details;
             this.listView_Admins.SelectedIndexChanged += new System.EventHandler(this.listView_Admin_SelectedIndexChanged);
+            this.listView_Admins.Leave += new System.EventHandler(this.listView_Admins_Leave);
             // 
             // columnHeader2
             // 
@@ -321,7 +322,7 @@
             this.button_Remove_Admin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button_Remove_Admin.Enabled = false;
-            this.button_Remove_Admin.Location = new System.Drawing.Point(6, 367);
+            this.button_Remove_Admin.Location = new System.Drawing.Point(6, 368);
             this.button_Remove_Admin.Name = "button_Remove_Admin";
             this.button_Remove_Admin.Size = new System.Drawing.Size(314, 29);
             this.button_Remove_Admin.TabIndex = 5;
@@ -336,7 +337,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(287, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(326, 402);
+            this.groupBox2.Size = new System.Drawing.Size(326, 403);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Тренерский состав:";
@@ -346,7 +347,7 @@
             this.button_Remove_Trener.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button_Remove_Trener.Enabled = false;
-            this.button_Remove_Trener.Location = new System.Drawing.Point(6, 367);
+            this.button_Remove_Trener.Location = new System.Drawing.Point(6, 368);
             this.button_Remove_Trener.Name = "button_Remove_Trener";
             this.button_Remove_Trener.Size = new System.Drawing.Size(314, 29);
             this.button_Remove_Trener.TabIndex = 5;
@@ -370,12 +371,13 @@
             this.listView_Tren.MultiSelect = false;
             this.listView_Tren.Name = "listView_Tren";
             this.listView_Tren.ShowGroups = false;
-            this.listView_Tren.Size = new System.Drawing.Size(314, 339);
+            this.listView_Tren.Size = new System.Drawing.Size(314, 340);
             this.listView_Tren.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listView_Tren.TabIndex = 4;
             this.listView_Tren.UseCompatibleStateImageBehavior = false;
             this.listView_Tren.View = System.Windows.Forms.View.Details;
             this.listView_Tren.SelectedIndexChanged += new System.EventHandler(this.listView_Tren_SelectedIndexChanged);
+            this.listView_Tren.Leave += new System.EventHandler(this.listView_Tren_Leave);
             // 
             // columnHeader1
             // 
@@ -390,7 +392,7 @@
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox6.Location = new System.Drawing.Point(3, 3);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(278, 402);
+            this.groupBox6.Size = new System.Drawing.Size(278, 403);
             this.groupBox6.TabIndex = 2;
             this.groupBox6.TabStop = false;
             // 
@@ -492,7 +494,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(963, 443);
+            this.ClientSize = new System.Drawing.Size(963, 444);
             this.Controls.Add(this.tabControl1);
             this.MinimumSize = new System.Drawing.Size(876, 482);
             this.Name = "BossForm";

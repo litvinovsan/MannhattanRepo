@@ -560,15 +560,13 @@ namespace PBase
         {
             if (_person.AbonementCurent == null) return;
             var result = MessageBox.Show($"Будет удаленo:  {_person.AbonementCurent.AbonementName}.\n\rПродолжить?", "Удаление Абонемента!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
-                _person.AbonementCurent = null;
-                _person.UpdateActualStatus(); // Обновляем текущий статус
+            if (result != DialogResult.Yes) return;
+            _person.AbonementCurent = null;
+            _person.UpdateActualStatus(); // Обновляем текущий статус
 
-                LoadShortInfo();
-                LoadEditableData();
-                UpdateControlState(this, EventArgs.Empty);
-            }
+            LoadShortInfo();
+            LoadEditableData();
+            UpdateControlState(this, EventArgs.Empty);
         }
 
         private void button_Password_Click(object sender, EventArgs e)

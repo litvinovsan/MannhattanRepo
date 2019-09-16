@@ -34,7 +34,8 @@ namespace PBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
         [field: NonSerialized]
         public event Action<string, WorkoutOptions> VisitEvent;
-        public void OnVisitedChanged(string personName, WorkoutOptions workout)
+
+        private void OnVisitedChanged(string personName, WorkoutOptions workout)
         {
             VisitEvent?.Invoke(personName, workout);
         }
@@ -55,66 +56,60 @@ namespace PBase
 
         public bool CheckInWorkout(string personName)
         {
-            Person _person = DataObjects.GetPersonLink(personName);
-            _person.AbonementCurent.TryActivate(); // Если не Активирован
+            Person person = DataObjects.GetPersonLink(personName);
+            person.AbonementCurent.TryActivate(); // Если не Активирован
 
-            if (!IsAbonementValid(ref _person)) return false;
+            if (!IsAbonementValid(ref person)) return false;
 
             var selectedOptions = new WorkoutOptions();
 
             // Условия для отображения\не отображения окна с выбором
-            var isSingleVisit = _person.AbonementCurent is SingleVisit;
-            var isByDays = _person.AbonementCurent is AbonementByDays;
-            var isClubCard = _person.AbonementCurent is ClubCardA;
+            var isSingleVisit = person.AbonementCurent is SingleVisit;
+            var isByDays = person.AbonementCurent is AbonementByDays;
+            var isClubCard = person.AbonementCurent is ClubCardA;
 
-            var isTrenZallOnly = _person.AbonementCurent.trainingsType == TypeWorkout.Тренажерный_Зал;
-            var isNoAeroAndPerson = (_person.AbonementCurent.NumAerobicTr + _person.AbonementCurent.NumPersonalTr) == 0;
+            var isTrenZallOnly = person.AbonementCurent.trainingsType == TypeWorkout.Тренажерный_Зал;
+            var isNoAeroAndPerson = (person.AbonementCurent.NumAerobicTr + person.AbonementCurent.NumPersonalTr) == 0;
 
             if (((isSingleVisit || isByDays) && isTrenZallOnly) || (isClubCard && isNoAeroAndPerson))
             {
-                selectedOptions.TypeWorkout = _person.AbonementCurent.trainingsType;
+                selectedOptions.TypeWorkout = person.AbonementCurent.trainingsType;
                 selectedOptions.GroupInfo = new Group();  // dummy
                 selectedOptions.PersonalTrener = new Trener();// dummy
             }
             else
             {
-                var dlgResult = FormsRunner.RunWorkoutOptionsForm(ref selectedOptions, _person.Name);
+                var dlgResult = FormsRunner.RunWorkoutOptionsForm(ref selectedOptions, person.Name);
                 if (dlgResult == DialogResult.Cancel) return false;
             }
 
-            bool isSuccess = _person.AbonementCurent.CheckInWorkout(selectedOptions.TypeWorkout);
+            bool isSuccess = person.AbonementCurent.CheckInWorkout(selectedOptions.TypeWorkout);
             if (isSuccess)
             {
                 // Дополнительная информация для вывода если успешный учет.
-                var infoAerobic = (_person.AbonementCurent.NumAerobicTr > 0) ? $"\r\nОсталось Аэробных: {_person.AbonementCurent.NumAerobicTr}" : "";
-                var infoPersonal = (_person.AbonementCurent.NumPersonalTr > 0) ? $"\r\nОсталось Персональных: {_person.AbonementCurent.NumPersonalTr}" : "";
+                var infoAerobic = (person.AbonementCurent.NumAerobicTr > 0) ? $"\r\nОсталось Аэробных: {person.AbonementCurent.NumAerobicTr}" : "";
+                var infoPersonal = (person.AbonementCurent.NumPersonalTr > 0) ? $"\r\nОсталось Персональных: {person.AbonementCurent.NumPersonalTr}" : "";
 
-                MessageBox.Show($@"Осталось посещений: {_person.AbonementCurent.GetRemainderDays()}{infoAerobic}{infoPersonal}", @"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($@"Осталось посещений: {person.AbonementCurent.GetRemainderDays()}{infoAerobic}{infoPersonal}", @"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                _person.AddToJournal(selectedOptions);
+                person.AddToJournal(selectedOptions);
 
                 OnVisitedChanged(personName, selectedOptions);
 
-                IsAbonementValid(ref _person);
+                IsAbonementValid(ref person);
                 return true;
             }
             else return false;
         }
 
-        private static bool IsAbonementValid(ref Person _person)
+        private static bool IsAbonementValid(ref Person person)
         {
-            bool result = true;
             // Если Кончился абонемент и не сработали проверки в других местах
-            if (!_person.AbonementCurent.IsValid())
-            {
-                _person.AbonementCurent = null;
-                if (_person.AbonementCurent == null)
-                {
-                    _person.Status = StatusPerson.Нет_Карты;
-                    result = false;
-                }
-            }
-            return result;
+            if (person.AbonementCurent.IsValid()) return true;
+            person.AbonementCurent = null;
+            if (person.AbonementCurent != null) return true;
+            person.Status = StatusPerson.Нет_Карты;
+            return false;
         }
 
         /// <summary>
@@ -128,32 +123,32 @@ namespace PBase
         #region /// ФОРМА Босса /// 
         public static bool SchedulesAdd2DataBase(MyTime time, ScheduleNote sch)
         {
-            var _manhattanInfo = DataObjects.GetManhattanInfo();
+            var manhattanInfo = DataObjects.GetManhattanInfo();
 
             //  Проверка. Содержит ли список запись с добавляемым временем
-            var isExist = _manhattanInfo.Schedule.Exists(x => (x.Time.HourMinuteTime.Equals(time.HourMinuteTime) && (x.WorkoutsName.Equals(sch.WorkoutsName))));
+            bool isExist = manhattanInfo.Schedule.Exists(x => (x.Time.HourMinuteTime.Equals(time.HourMinuteTime) && (x.WorkoutsName.Equals(sch.WorkoutsName))));
             if (isExist)
             {
                 MessageBox.Show("Такая тренировка уже существует. Измените время или название!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
 
-            _manhattanInfo.Schedule.Add(sch);
+            manhattanInfo.Schedule.Add(sch);
             return true;
         }
 
         public static int SchedulesRemoveDataBase(string time, string nameWorkout)
         {
             int result = 0;
-            var _manhattanInfo = DataObjects.GetManhattanInfo();
+            var manhattanInfo = DataObjects.GetManhattanInfo();
 
             //  Проверка. Содержит ли список запись с временем
-            var isExist = _manhattanInfo.Schedule.Exists(x => (x.Time.HourMinuteTime.Equals(time) && (x.WorkoutsName.Equals(nameWorkout))));
+            var isExist = manhattanInfo.Schedule.Exists(x => (x.Time.HourMinuteTime.Equals(time) && (x.WorkoutsName.Equals(nameWorkout))));
             var schl = new ScheduleNote(new MyTime(time), nameWorkout);
 
             if (isExist)
             {
-                result = _manhattanInfo.Schedule.RemoveAll(x => x.GetTimeAndNameStr().Equals(schl.GetTimeAndNameStr()));
+                result = manhattanInfo.Schedule.RemoveAll(x => x.GetTimeAndNameStr().Equals(schl.GetTimeAndNameStr()));
             }
 
             return result;
@@ -162,13 +157,13 @@ namespace PBase
         // Работники Тренеры Админ
         public static bool EmployeeAdd2DataBase(Employee emploerToAdd)
         {
-            var _manhattanInfo = DataObjects.GetManhattanInfo();
+            var manhattanInfo = DataObjects.GetManhattanInfo();
 
-            bool isTrener = emploerToAdd.isTrener;
+            bool isTrener = emploerToAdd.IsTrener;
             bool isExist = false;
 
             //  Проверка. Содержится ли в списках такое имя. Если да - выходим.
-            isExist = isTrener ? _manhattanInfo.Treners.Exists(x => (x.Name.Equals(emploerToAdd.Name))) : _manhattanInfo.Admins.Exists(x => (x.Name.Equals(emploerToAdd.Name)));
+            isExist = isTrener ? manhattanInfo.Treners.Exists(x => (x.Name.Equals(emploerToAdd.Name))) : manhattanInfo.Admins.Exists(x => (x.Name.Equals(emploerToAdd.Name)));
 
             if (isExist)
             {
@@ -177,31 +172,31 @@ namespace PBase
             }
 
             if (isTrener)
-                _manhattanInfo.Treners.Add(new Trener(emploerToAdd.Name) { Phone = emploerToAdd.Phone });
+                manhattanInfo.Treners.Add(new Trener(emploerToAdd.Name) { Phone = emploerToAdd.Phone });
             else
-                _manhattanInfo.Admins.Add(new Administrator(emploerToAdd.Name) { Phone = emploerToAdd.Phone });
+                manhattanInfo.Admins.Add(new Administrator(emploerToAdd.Name) { Phone = emploerToAdd.Phone });
 
             return true;
         }
 
         public static void EmployeeRemoveDataBase(string name, bool isTrener)
         {
-            var _manhattanInfo = DataObjects.GetManhattanInfo();
+            var manhattanInfo = DataObjects.GetManhattanInfo();
 
             bool isExist = false;
 
             //  Проверка. Содержит ли список
-            isExist = isTrener ? _manhattanInfo.Treners.Exists(x => (x.Name.Equals(name))) : _manhattanInfo.Admins.Exists(x => (x.Name.Equals(name)));
+            isExist = isTrener ? manhattanInfo.Treners.Exists(x => (x.Name.Equals(name))) : manhattanInfo.Admins.Exists(x => (x.Name.Equals(name)));
 
             if (!isExist) return; // нет такого имени в списке базы данных
 
             if (isTrener)
             {
-                _manhattanInfo.Treners.RemoveAll(x => x.Name.Equals(name));
+                manhattanInfo.Treners.RemoveAll(x => x.Name.Equals(name));
             }
             else
             {
-                _manhattanInfo.Admins.RemoveAll(x => x.Name.Equals(name));
+                manhattanInfo.Admins.RemoveAll(x => x.Name.Equals(name));
             }
         }
         #endregion

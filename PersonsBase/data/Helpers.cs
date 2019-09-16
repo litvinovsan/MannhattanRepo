@@ -12,7 +12,7 @@ namespace PBase
     /// Вспомогательные и универсальные методы, которые неразместить в конкретных классах.
     /// </summary>
     [Serializable]
-    static class Methods
+    public static class Methods
     {
 
         /// <summary>
