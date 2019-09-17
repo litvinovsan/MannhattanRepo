@@ -17,7 +17,6 @@ namespace PBase
 
         private readonly Person _person;
         private readonly DataBaseClass _dataBase = DataBaseClass.GetInstance();
-        private Options _options;
         private readonly Logic _logic;
         private bool _isAnythingChanged;
 
@@ -27,7 +26,6 @@ namespace PBase
             InitializeComponent();
             _person = DataBaseClass.GetListPersons()[keyName];
             _isAnythingChanged = false;
-            _options = Options.GetInstance();
             _logic = Logic.GetInstance();
         }
 
@@ -79,7 +77,7 @@ namespace PBase
 
             listBox_abonements.Items.AddRange(list.ToArray<object>());
             // Отображение Группы списка абонементов
-            groupBox_abonList.Visible = (list.Count > 0) ? true : false;
+            groupBox_abonList.Visible = (list.Count > 0);
         }
 
         private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -198,7 +196,7 @@ namespace PBase
         {
             _saveDelegateChain?.Invoke(); //Цепочка делегатов на сохранение всех полей
             _isAnythingChanged = false;
-            typeClubCardChanged = false;
+            _typeClubCardChanged = false;
         }
 
         /////////// ДАННЫЕ АБОНЕМЕНТА И КЛИЕНТА /////////////////////////////

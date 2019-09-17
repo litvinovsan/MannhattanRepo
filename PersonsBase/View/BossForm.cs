@@ -206,11 +206,13 @@ namespace PersonsBase.View
         private void groupBox_Tren_Leave(object sender, EventArgs e)
         {
             button_Remove_Trener.Enabled = false;
+            listView_Tren.SelectedIndices.Clear();
         }
 
         private void groupBox_Admin_Leave(object sender, EventArgs e)
         {
             button_Remove_Admin.Enabled = false;
+            listView_Admins.SelectedIndices.Clear();
         }
 
         #endregion

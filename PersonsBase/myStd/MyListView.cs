@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Runtime.Serialization;
 using static System.Windows.Forms.ListViewItem;
 
 namespace PBase
@@ -223,6 +224,7 @@ namespace PBase
     }
 
     // Вспомогательный класс для добавления Имени и текущего времени в ЛВ
+    [Serializable]
     public class NameTimeItem : ListViewItem
     {
         // Доступные варианты строки
@@ -256,16 +258,25 @@ namespace PBase
 
             SubItems.Add(name);
         }
+
+        protected NameTimeItem(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
     }
 
     // Вспомогательный класс для добавления в ЛВ заметок о Времени и Названии групповой тренировки
-   public class ScheduleNoteItem : ListViewItem
+    [Serializable]
+    public class ScheduleNoteItem : ListViewItem
     {
         // Врема начала и название тренировки
         public ScheduleNoteItem(ScheduleNote note)
         {
             Text = note.Time.HourMinuteTime;
             SubItems.Add(note.WorkoutsName);
+        }
+
+        protected ScheduleNoteItem(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
         }
     }
 }

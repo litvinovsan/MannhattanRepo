@@ -11,10 +11,12 @@ namespace PBase
       public Trener(string name, string phone)
       {
          Name = name;
+         Phone = phone;
       }
       public Trener()
       {
          Name = "";
+         Phone = "";
       }
    }
 }

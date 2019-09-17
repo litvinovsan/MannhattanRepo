@@ -292,7 +292,6 @@
             // 
             // listView_Admins
             // 
-            this.listView_Admins.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.listView_Admins.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -358,7 +357,6 @@
             // 
             // listView_Tren
             // 
-            this.listView_Tren.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.listView_Tren.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -496,6 +494,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(963, 444);
             this.Controls.Add(this.tabControl1);
+            this.DoubleBuffered = true;
             this.MinimumSize = new System.Drawing.Size(876, 482);
             this.Name = "BossForm";
             this.Text = "Настройки для Самого Лучшего Руководителя";

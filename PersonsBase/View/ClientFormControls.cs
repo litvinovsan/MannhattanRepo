@@ -59,7 +59,7 @@ namespace PBase
          _editedStatusPerson = _person.Status;
          ComboBox comboStatus = CreateComboBox();
          // Инициализируем наши Контролы
-         var array = Enum.GetNames(typeof(StatusPerson));
+         string[] array = Enum.GetNames(typeof(StatusPerson));
          // Удалим из Массива Активный и Заморожен если у клиента нет абонемента.
          if (_person.AbonementCurent == null)
          {
@@ -232,7 +232,7 @@ namespace PBase
       }
       private void comboBox_TimeForTr_SelectedIndexChanged(object sender, EventArgs e)
       {
-         ComboChangedMethod<TimeForTr>(sender, out _editedTimeForTr, _person.AbonementCurent.timeTraining);
+         ComboChangedMethod(sender, out _editedTimeForTr, _person.AbonementCurent.timeTraining);
       }
       #endregion
 
@@ -269,7 +269,7 @@ namespace PBase
 
          return new Tuple<Label, Control>(lableType, comboBox);
       }
-      private bool typeClubCardChanged = false; // Костыль для того чтобы при изменении Длительности карты - не слетало количество дней. Так как Дата перетирается в следующем поле Дата Окончания в цепочке делегатов.
+      private bool _typeClubCardChanged = false; // Костыль для того чтобы при изменении Длительности карты - не слетало количество дней. Так как Дата перетирается в следующем поле Дата Окончания в цепочке делегатов.
       private void comboBox_TypeClubCard_SelectedIndexChanged(object sender, EventArgs e)
       {
          var tb = (ComboBox)sender;
@@ -279,7 +279,7 @@ namespace PBase
          if (сard == null) return;
          ComboBoxColor(tb, сard.GetTypeClubCard().ToString(), tb.SelectedItem.ToString());
          IsChangedUpdateStatus(сard.GetTypeClubCard().ToString(), tb.SelectedItem.ToString());
-         typeClubCardChanged = true;
+         _typeClubCardChanged = true;
       }
       #endregion
 
@@ -303,10 +303,10 @@ namespace PBase
 
          _saveDelegateChain += () =>
          {
-            if (_person.IsAbonementExist() && (_editedEndDate.CompareTo(_person.AbonementCurent.EndDate.Date) != 0) && !typeClubCardChanged)
+            if (_person.IsAbonementExist() && (_editedEndDate.CompareTo(_person.AbonementCurent.EndDate.Date) != 0) && !_typeClubCardChanged)
             {
                _person.AbonementCurent.EndDate = _editedEndDate;
-            };
+            }
          };
          return new Tuple<Label, Control>(lableType, dateTime);
       }
@@ -339,7 +339,7 @@ namespace PBase
 
          _saveDelegateChain += () =>
          {
-            if (_person.AbonementCurent.GetRemainderDays() != _editedNumRemainder && (_editedNumRemainder >= 0) && !typeClubCardChanged)
+            if (_person.AbonementCurent.GetRemainderDays() != _editedNumRemainder && (_editedNumRemainder >= 0) && !_typeClubCardChanged)
             {
                _person.AbonementCurent.DaysLeft = _editedNumRemainder;
                Methods.SetControlBackColor(textbox, _editedNumRemainder.ToString(), _person.AbonementCurent.GetRemainderDays().ToString());
@@ -470,7 +470,7 @@ namespace PBase
             if (_person.IsAbonementExist() && _editedBuyDate.CompareTo(_person.AbonementCurent.buyDate.Date) != 0)
             {
                _person.AbonementCurent.buyDate = _editedBuyDate;
-            };
+            }
          };
          return new Tuple<Label, Control>(lableType, dateTime);
       }
@@ -580,7 +580,7 @@ namespace PBase
       Gender _editedGender;
       private void comboBox_Gender_SelectedIndexChanged(object sender, EventArgs e)
       {
-         ComboChangedMethod<Gender>(sender, out _editedGender, _person.GenderType);
+         ComboChangedMethod(sender, out _editedGender, _person.GenderType);
       }
       #endregion
 

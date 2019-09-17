@@ -161,15 +161,11 @@ namespace PBase
             var manhattanInfo = DataObjects.GetManhattanInfo();
 
             bool isTrener = emploerToAdd.IsTrener;
-            bool isExist = false;
 
             //  Проверка. Содержится ли в списках такое имя. Если да - выходим.
-            isExist = IsEmploeeExists(emploerToAdd, manhattanInfo);
-
-            if (isExist)
+            if (IsEmploeeExists(emploerToAdd, manhattanInfo))
             {
                 string oldPhone = GetPhoneFromBase(emploerToAdd, manhattanInfo);
-
                 bool phoneNotChanged = emploerToAdd.Phone.Equals(oldPhone);
 
                 if (phoneNotChanged)
@@ -187,12 +183,13 @@ namespace PBase
                 {
                     FindAdminInBase(emploerToAdd, manhattanInfo).Phone = emploerToAdd.Phone;
                 }
+                return false;// Чтобы не добавлялся ещё один элемент в список. т.к. он уже есть
             }
             else
             {
                 AddEmploee(emploerToAdd, manhattanInfo);
+                return true;
             }
-            return true;
         }
 
         private static void AddEmploee(Employee emploerToAdd, ManhattanInfo manhattanInfo)

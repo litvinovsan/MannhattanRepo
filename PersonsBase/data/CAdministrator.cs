@@ -10,6 +10,7 @@ namespace PBase
       public Administrator(string name, string phone)
       {
          Name = name;
+         Phone = phone;
       }
    }
 }
