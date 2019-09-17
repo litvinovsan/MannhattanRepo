@@ -204,15 +204,7 @@ namespace PersonsBase.View
         {
             GetRadioBstate();
         }
-        private void listView_Tren_Leave(object sender, EventArgs e)
-        {
-            button_Remove_Trener.Enabled = false;
-        }
-
-        private void listView_Admins_Leave(object sender, EventArgs e)
-        {
-            button_Remove_Admin.Enabled = false;
-        }
+       
         #endregion
 
         #region /// МЕТОДЫ ///
@@ -234,8 +226,17 @@ namespace PersonsBase.View
             return _employee;
         }
 
+
         #endregion
 
-       
+        private void groupBox_Tren_Leave(object sender, EventArgs e)
+        {
+            button_Remove_Trener.Enabled = false;
+        }
+
+        private void groupBox_Admin_Leave(object sender, EventArgs e)
+        {
+            button_Remove_Admin.Enabled = false;
+        }
     }
 }

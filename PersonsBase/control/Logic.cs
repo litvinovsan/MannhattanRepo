@@ -167,8 +167,23 @@ namespace PBase
 
             if (isExist)
             {
-                MessageBox.Show("Такое имя уже существует!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return false;
+                string oldPhone;
+                if (isTrener)
+                {
+                    oldPhone = manhattanInfo.Treners.Find((x => x.Name.Equals(emploerToAdd.Name))).Phone;
+                }
+                else
+                {
+                    oldPhone = manhattanInfo.Admins.Find((x => x.Name.Equals(emploerToAdd.Name))).Phone;
+                }
+
+                bool phoneNotChanged = emploerToAdd.Phone.Equals(oldPhone);
+
+                if (phoneNotChanged)
+                {
+                    MessageBox.Show("Такое имя уже существует!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
+                }
             }
 
             if (isTrener)

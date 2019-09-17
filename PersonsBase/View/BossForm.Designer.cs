@@ -288,6 +288,7 @@
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Администраторы:";
+            this.groupBox3.Leave += new System.EventHandler(this.groupBox_Admin_Leave);
             // 
             // listView_Admins
             // 
@@ -311,7 +312,6 @@
             this.listView_Admins.UseCompatibleStateImageBehavior = false;
             this.listView_Admins.View = System.Windows.Forms.View.Details;
             this.listView_Admins.SelectedIndexChanged += new System.EventHandler(this.listView_Admin_SelectedIndexChanged);
-            this.listView_Admins.Leave += new System.EventHandler(this.listView_Admins_Leave);
             // 
             // columnHeader2
             // 
@@ -341,6 +341,7 @@
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Тренерский состав:";
+            this.groupBox2.Leave += new System.EventHandler(this.groupBox_Tren_Leave);
             // 
             // button_Remove_Trener
             // 
@@ -377,7 +378,6 @@
             this.listView_Tren.UseCompatibleStateImageBehavior = false;
             this.listView_Tren.View = System.Windows.Forms.View.Details;
             this.listView_Tren.SelectedIndexChanged += new System.EventHandler(this.listView_Tren_SelectedIndexChanged);
-            this.listView_Tren.Leave += new System.EventHandler(this.listView_Tren_Leave);
             // 
             // columnHeader1
             // 
