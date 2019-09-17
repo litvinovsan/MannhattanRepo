@@ -7,7 +7,7 @@ namespace PBase
    {
       public string Name { get; set; }
       public string Phone { get; set; }
-      public Administrator(string name)
+      public Administrator(string name, string phone)
       {
          Name = name;
       }

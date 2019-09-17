@@ -78,7 +78,6 @@ namespace PersonsBase.View
             if (isSuccess) MyListViewEx.AddScheduleNote(listView_schedule, sch);
         }
 
-
         private void listView_schedule_SelectedIndexChanged(object sender, EventArgs e)
         {
             var selectedListViewItem = new ListView.SelectedListViewItemCollection(listView_schedule);
@@ -204,7 +203,16 @@ namespace PersonsBase.View
         {
             GetRadioBstate();
         }
-       
+        private void groupBox_Tren_Leave(object sender, EventArgs e)
+        {
+            button_Remove_Trener.Enabled = false;
+        }
+
+        private void groupBox_Admin_Leave(object sender, EventArgs e)
+        {
+            button_Remove_Admin.Enabled = false;
+        }
+
         #endregion
 
         #region /// МЕТОДЫ ///
@@ -229,14 +237,6 @@ namespace PersonsBase.View
 
         #endregion
 
-        private void groupBox_Tren_Leave(object sender, EventArgs e)
-        {
-            button_Remove_Trener.Enabled = false;
-        }
-
-        private void groupBox_Admin_Leave(object sender, EventArgs e)
-        {
-            button_Remove_Admin.Enabled = false;
-        }
+       
     }
 }

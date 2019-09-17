@@ -24,7 +24,7 @@ namespace PersonsBase.View
         #region /// КАРТОЧКА КЛИЕНТА ///
         public static void RunClientForm(string keyName)
         {
-            if (DataBaseClass.GetInstance().ContainsKey(keyName))
+            if (DataBaseClass.ContainsKey(keyName))
             {
                 ClientForm clientFrm = new ClientForm(keyName);
                 clientFrm.ShowDialog();

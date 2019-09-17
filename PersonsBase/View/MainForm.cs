@@ -17,7 +17,7 @@ namespace PBase
 
         private readonly DataBaseClass _db = DataBaseClass.GetInstance();
 
-        private SortedList<string, Person> UserList => _db.GetListPersons();
+        private SortedList<string, Person> UserList => DataBaseClass.GetListPersons();
         private readonly Dictionary<TypeWorkout, MyListViewDelegate> _listViewSelector; // Для заполнения 1 из 3х списков с Клиентами
 
         private Options _options; // Хранятся локальные настройки и параметры программы.
@@ -181,7 +181,7 @@ namespace PBase
         }
         private void UpdateUsersCountTextBox(object sender, EventArgs arg)
         {
-            textBox1.Text = _db.GetNumberOfPersons().ToString();
+            textBox1.Text = DataBaseClass.GetNumberOfPersons().ToString();
             Invalidate();
         }
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
@@ -220,7 +220,7 @@ namespace PBase
 
         private void руководительToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            _logic.AccessRoot();
+            Logic.AccessRoot();
             if (PwdForm.IsPassUnLocked())
             {
                 var result = FormsRunner.CreateBossForm();

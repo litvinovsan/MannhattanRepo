@@ -25,7 +25,7 @@ namespace PBase
         public ClientForm(string keyName)
         {
             InitializeComponent();
-            _person = _dataBase.GetListPersons()[keyName];
+            _person = DataBaseClass.GetListPersons()[keyName];
             _isAnythingChanged = false;
             _options = Options.GetInstance();
             _logic = Logic.GetInstance();
@@ -571,7 +571,7 @@ namespace PBase
 
         private void button_Password_Click(object sender, EventArgs e)
         {
-            _logic.AccessRoot();
+            Logic.AccessRoot();
         }
 
         private void button_Freeze_Click(object sender, EventArgs e)

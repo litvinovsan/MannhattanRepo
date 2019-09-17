@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using static PBase.DataBaseClass;
 
 namespace PBase
 {
     public static class DataObjects
     {
-        private static readonly DataBaseClass DataBase;
         private static readonly SortedList<string, Person> CollectionObj;
 
         private static Person _person;
@@ -14,14 +14,13 @@ namespace PBase
 
         static DataObjects()
         {
-            DataBase = DataBaseClass.GetInstance();
-            CollectionObj = DataBase.GetListPersons();
-            ManhattanInfo = DataBase.GetManhattanInfo();
+            CollectionObj = GetListPersons();
+            ManhattanInfo = DataBaseClass.GetManhattanInfo();
         }
 
         public static Person GetPersonLink(string name)
         {
-            if (!DataBase.ContainsKey(name)) return null;
+            if (!ContainsKey(name)) return null;
             _person = CollectionObj[name];
             return _person;
         }

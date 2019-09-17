@@ -9,7 +9,7 @@ using static System.Windows.Forms.ListViewItem;
 
 namespace PBase
 {
-    public class MyListViewEx
+    public static class MyListViewEx
     {
         #region /// ОБЩИЕ МЕТОДЫ ДЛЯ LIST VIEW /// 
 
@@ -71,8 +71,6 @@ namespace PBase
         /// <summary>
         /// Добавляет Текст в список с одной колонкой
         /// </summary>
-        /// <param name="listViewIn"></param>
-        /// <param name="message"></param>
         public static void AddNote(ListView listViewIn, string message)
         {
             listViewIn.Items.Add(new ListViewItem(message));
@@ -80,8 +78,7 @@ namespace PBase
         }
         public static void AddNote(ListView listViewIn, string messageColumn1, string messageColumn2)
         {
-            ListViewItem item = new ListViewItem();
-            item.Text = messageColumn1;
+            ListViewItem item = new ListViewItem {Text = messageColumn1};
             item.SubItems.Add(messageColumn2);
 
             listViewIn.Items.Add(item);

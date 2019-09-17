@@ -56,7 +56,7 @@ namespace PBase
             Methods.DeSerialize(ref _adminsList, "AdminsDataBase.bin");
 
             // Текущий Администратор на Ресепшн
-            _adminCurrent = new Administrator("Dummy");
+            _adminCurrent = new Administrator("Dummy","");
             Methods.DeSerialize(ref _adminCurrent, "adminToday.bin");
 
             // Список ежедневных Групповых Тренировок
@@ -103,11 +103,11 @@ namespace PBase
         #region/// МЕТОДЫ ///////////////////////////
 
         // Доступ к Коллекциям и Спискам Клиентов, Тренеров, Администраторов, Тренировок
-        public SortedList<string, Person> GetListPersons()
+        public static SortedList<string, Person> GetListPersons()
         {
             return _dataBaseList;
         }
-        public ManhattanInfo GetManhattanInfo()
+        public static ManhattanInfo GetManhattanInfo()
         {
             return _manhattanInfo;
         }
@@ -169,11 +169,11 @@ namespace PBase
             return result;
         }
         /// Returns numberof elements in collection
-        public int GetNumberOfPersons()
+        public static int GetNumberOfPersons()
         {
             return _dataBaseList.Count;
         }
-        public bool ContainsKey(string personName)
+        public static bool ContainsKey(string personName)
         {
             return _dataBaseList.ContainsKey(personName);
         }
