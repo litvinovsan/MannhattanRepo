@@ -1,48 +1,16 @@
-﻿using PersonsBase.data;
-using PersonsBase.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
+using PersonsBase.data;
+using PersonsBase.View;
 
 namespace PBase
 {
     [Serializable]
     public class Logic
     {
-        #region/// ОБЬЕКТЫ Приватные //////////////////////////////
-
-        [NonSerialized]
-        private static Logic _logicInstance;  //Singleton.
-
-        private Options _options;
-        private DataBaseClass _dataBase;
-        private SortedList<string, Person> _persons;
-
-        #endregion
-
-        #region/// Синглтон ////
-        public static Logic GetInstance()
-        {
-            return _logicInstance ?? (_logicInstance = new Logic());
-        }
-        #endregion
-
-        #region///  События ////
-
-        // Клиент Отметился на тренировке
-        
-        [field: NonSerialized]
-        public event Action<string, WorkoutOptions> VisitEvent;
-
-        private void OnVisitChanged(string personName, WorkoutOptions workout)
-        {
-            VisitEvent?.Invoke(personName, workout);
-        }
-
-        #endregion
-
         #region /// КОНСТРУКТОР ////
+
         private Logic()
         {
             _options = Options.GetInstance();
@@ -52,11 +20,43 @@ namespace PBase
 
         #endregion
 
+        #region/// Синглтон ////
+
+        public static Logic GetInstance()
+        {
+            return _logicInstance ?? (_logicInstance = new Logic());
+        }
+
+        #endregion
+
+        #region/// ОБЬЕКТЫ Приватные //////////////////////////////
+
+        [NonSerialized] private static Logic _logicInstance; //Singleton.
+
+        private Options _options;
+        private DataBaseClass _dataBase;
+        private SortedList<string, Person> _persons;
+
+        #endregion
+
+        #region///  События ////
+
+        // Клиент Отметился на тренировке
+
+        [field: NonSerialized] public event Action<string, WorkoutOptions> VisitEvent;
+
+        private void OnVisitChanged(string personName, WorkoutOptions workout)
+        {
+            VisitEvent?.Invoke(personName, workout);
+        }
+
+        #endregion
+
         #region /// МЕТОДЫ ///
 
         public bool CheckInWorkout(string personName)
         {
-            Person person = DataObjects.GetPersonLink(personName);
+            var person = DataObjects.GetPersonLink(personName);
             person.AbonementCurent.TryActivate(); // Если не Активирован
 
             if (!IsAbonementValid(ref person)) return false;
@@ -69,13 +69,13 @@ namespace PBase
             var isClubCard = person.AbonementCurent is ClubCardA;
 
             var isTrenZallOnly = person.AbonementCurent.trainingsType == TypeWorkout.Тренажерный_Зал;
-            var isNoAeroAndPerson = (person.AbonementCurent.NumAerobicTr + person.AbonementCurent.NumPersonalTr) == 0;
+            var isNoAeroAndPerson = person.AbonementCurent.NumAerobicTr + person.AbonementCurent.NumPersonalTr == 0;
 
-            if (((isSingleVisit || isByDays) && isTrenZallOnly) || (isClubCard && isNoAeroAndPerson))
+            if ((isSingleVisit || isByDays) && isTrenZallOnly || isClubCard && isNoAeroAndPerson)
             {
                 selectedOptions.TypeWorkout = person.AbonementCurent.trainingsType;
-                selectedOptions.GroupInfo = new Group();  // dummy
-                selectedOptions.PersonalTrener = new Trener();// dummy
+                selectedOptions.GroupInfo = new Group(); // dummy
+                selectedOptions.PersonalTrener = new Trener(); // dummy
             }
             else
             {
@@ -83,14 +83,20 @@ namespace PBase
                 if (dlgResult == DialogResult.Cancel) return false;
             }
 
-            bool isSuccess = person.AbonementCurent.CheckInWorkout(selectedOptions.TypeWorkout);
+            var isSuccess = person.AbonementCurent.CheckInWorkout(selectedOptions.TypeWorkout);
             if (isSuccess)
             {
                 // Дополнительная информация для вывода если успешный учет.
-                var infoAerobic = (person.AbonementCurent.NumAerobicTr > 0) ? $"\r\nОсталось Аэробных: {person.AbonementCurent.NumAerobicTr}" : "";
-                var infoPersonal = (person.AbonementCurent.NumPersonalTr > 0) ? $"\r\nОсталось Персональных: {person.AbonementCurent.NumPersonalTr}" : "";
+                var infoAerobic = person.AbonementCurent.NumAerobicTr > 0
+                    ? $"\r\nОсталось Аэробных: {person.AbonementCurent.NumAerobicTr}"
+                    : "";
+                var infoPersonal = person.AbonementCurent.NumPersonalTr > 0
+                    ? $"\r\nОсталось Персональных: {person.AbonementCurent.NumPersonalTr}"
+                    : "";
 
-                MessageBox.Show($@"Осталось посещений: {person.AbonementCurent.GetRemainderDays()}{infoAerobic}{infoPersonal}", @"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    $@"Осталось посещений: {person.AbonementCurent.GetRemainderDays()}{infoAerobic}{infoPersonal}",
+                    @"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 person.AddToJournal(selectedOptions);
 
@@ -99,8 +105,10 @@ namespace PBase
                 IsAbonementValid(ref person);
                 return true;
             }
-            else return false;
+
+            return false;
         }
+
         private static bool IsAbonementValid(ref Person person)
         {
             // Если Кончился абонемент и не сработали проверки в других местах
@@ -110,8 +118,9 @@ namespace PBase
             person.Status = StatusPerson.Нет_Карты;
             return false;
         }
+
         /// <summary>
-        /// Запрос Пароля Суперпользователя если необходимо. Запускает событие LockChangedEvent. 
+        ///     Запрос Пароля Суперпользователя если необходимо. Запускает событие LockChangedEvent.
         /// </summary>
         public static void AccessRoot()
         {
@@ -125,10 +134,11 @@ namespace PBase
             var manhattanInfo = DataObjects.GetManhattanInfo();
 
             //  Проверка. Содержит ли список запись с добавляемым временем
-            bool isExist = IsSchedExists(time.HourMinuteTime, sch.WorkoutsName, manhattanInfo);
+            var isExist = IsSchedExists(time.HourMinuteTime, sch.WorkoutsName, manhattanInfo);
             if (isExist)
             {
-                MessageBox.Show("Такая тренировка уже существует. Измените время или название!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Такая тренировка уже существует. Измените время или название!", "Внимание",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
 
@@ -144,15 +154,13 @@ namespace PBase
             var isExist = IsSchedExists(time, nameWorkout, manhattanInfo);
             var schl = new ScheduleNote(new MyTime(time), nameWorkout);
 
-            if (isExist)
-            {
-                manhattanInfo.Schedule.RemoveAll(x => x.GetTimeAndNameStr().Equals(schl.GetTimeAndNameStr()));
-            }
+            if (isExist) manhattanInfo.Schedule.RemoveAll(x => x.GetTimeAndNameStr().Equals(schl.GetTimeAndNameStr()));
         }
 
-        private static bool IsSchedExists(string time, string nameWorkout,ManhattanInfo manhattanInfo)
+        private static bool IsSchedExists(string time, string nameWorkout, ManhattanInfo manhattanInfo)
         {
-            return manhattanInfo.Schedule.Exists(x => (x.Time.HourMinuteTime.Equals(time) && (x.WorkoutsName.Equals(nameWorkout))));
+            return manhattanInfo.Schedule.Exists(x =>
+                x.Time.HourMinuteTime.Equals(time) && x.WorkoutsName.Equals(nameWorkout));
         }
 
         // Работники Тренеры Админ
@@ -160,36 +168,31 @@ namespace PBase
         {
             var manhattanInfo = DataObjects.GetManhattanInfo();
 
-            bool isTrener = emploerToAdd.IsTrener;
+            var isTrener = emploerToAdd.IsTrener;
 
             //  Проверка. Содержится ли в списках такое имя. Если да - выходим.
             if (IsEmploeeExists(emploerToAdd, manhattanInfo))
             {
-                string oldPhone = GetPhoneFromBase(emploerToAdd, manhattanInfo);
-                bool phoneNotChanged = emploerToAdd.Phone.Equals(oldPhone);
+                var oldPhone = GetPhoneFromBase(emploerToAdd, manhattanInfo);
+                var phoneNotChanged = emploerToAdd.Phone.Equals(oldPhone);
 
                 if (phoneNotChanged)
                 {
-                    MessageBox.Show("Такое имя уже существует!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Такое имя уже существует!", "Внимание", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                     return false;
                 }
 
                 // Обновляем номер телефона
                 if (isTrener)
-                {
                     FindTrenerInBase(emploerToAdd, manhattanInfo).Phone = emploerToAdd.Phone;
-                }
                 else
-                {
                     FindAdminInBase(emploerToAdd, manhattanInfo).Phone = emploerToAdd.Phone;
-                }
-                return false;// Чтобы не добавлялся ещё один элемент в список. т.к. он уже есть
+                return false; // Чтобы не добавлялся ещё один элемент в список. т.к. он уже есть
             }
-            else
-            {
-                AddEmploee(emploerToAdd, manhattanInfo);
-                return true;
-            }
+
+            AddEmploee(emploerToAdd, manhattanInfo);
+            return true;
         }
 
         private static void AddEmploee(Employee emploerToAdd, ManhattanInfo manhattanInfo)
@@ -199,51 +202,55 @@ namespace PBase
             else
                 manhattanInfo.Admins.Add(new Administrator(emploerToAdd.Name, emploerToAdd.Phone));
         }
+
         private static Trener FindTrenerInBase(Employee emploerToAdd, ManhattanInfo manhattanInfo)
         {
             Trener result;
             try
             {
-                 result =  manhattanInfo.Treners.Find((x => x.Name.Equals(emploerToAdd.Name)));
+                result = manhattanInfo.Treners.Find(x => x.Name.Equals(emploerToAdd.Name));
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
+
             return result;
         }
+
         private static Administrator FindAdminInBase(Employee emploerToAdd, ManhattanInfo manhattanInfo)
         {
             Administrator result;
             try
             {
-                result = manhattanInfo.Admins.Find((x => x.Name.Equals(emploerToAdd.Name)));
+                result = manhattanInfo.Admins.Find(x => x.Name.Equals(emploerToAdd.Name));
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
+
             return result;
         }
 
         /// <summary>
-        /// Возвращает номер телефона работника из Базы Manhattan. Автоматически смотрит кто это, тренер или админ
+        ///     Возвращает номер телефона работника из Базы Manhattan. Автоматически смотрит кто это, тренер или админ
         /// </summary>
         private static string GetPhoneFromBase(Employee emploerToAdd, ManhattanInfo manhattanInfo)
         {
-            string result = (emploerToAdd.IsTrener)
-                ? manhattanInfo.Treners.Find((x => x.Name.Equals(emploerToAdd.Name))).Phone
-                : manhattanInfo.Admins.Find((x => x.Name.Equals(emploerToAdd.Name))).Phone;
+            var result = emploerToAdd.IsTrener
+                ? manhattanInfo.Treners.Find(x => x.Name.Equals(emploerToAdd.Name)).Phone
+                : manhattanInfo.Admins.Find(x => x.Name.Equals(emploerToAdd.Name)).Phone;
             return result;
         }
 
         private static bool IsEmploeeExists(Employee emploerToAdd, ManhattanInfo manhattanInfo)
         {
-            bool result = (emploerToAdd.IsTrener)
-                ? manhattanInfo.Treners.Exists(x => (x.Name.Equals(emploerToAdd.Name)))
-                : manhattanInfo.Admins.Exists(x => (x.Name.Equals(emploerToAdd.Name)));
+            var result = emploerToAdd.IsTrener
+                ? manhattanInfo.Treners.Exists(x => x.Name.Equals(emploerToAdd.Name))
+                : manhattanInfo.Admins.Exists(x => x.Name.Equals(emploerToAdd.Name));
             return result;
         }
 
@@ -251,24 +258,22 @@ namespace PBase
         {
             var manhattanInfo = DataObjects.GetManhattanInfo();
 
-            bool isExist = false;
+            var isExist = false;
 
             //  Проверка. Содержит ли список
-            isExist = isTrener ? manhattanInfo.Treners.Exists(x => (x.Name.Equals(name))) : manhattanInfo.Admins.Exists(x => (x.Name.Equals(name)));
+            isExist = isTrener
+                ? manhattanInfo.Treners.Exists(x => x.Name.Equals(name))
+                : manhattanInfo.Admins.Exists(x => x.Name.Equals(name));
 
             if (!isExist) return; // нет такого имени в списке базы данных
 
             if (isTrener)
-            {
                 manhattanInfo.Treners.RemoveAll(x => x.Name.Equals(name));
-            }
             else
-            {
                 manhattanInfo.Admins.RemoveAll(x => x.Name.Equals(name));
-            }
         }
-        #endregion
 
+        #endregion
 
         #endregion
     }

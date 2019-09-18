@@ -74,7 +74,7 @@ namespace PersonsBase.View
 
             var time = new MyTime($"{comboBox_time_H.Text}:{comboBox_time_M.Text}");
             var sch = new ScheduleNote(time, textBox_nameTren.Text);
-            bool isSuccess = Logic.SchedulesAdd2DataBase(time, sch);
+            var isSuccess = Logic.SchedulesAdd2DataBase(time, sch);
             if (isSuccess) MyListViewEx.AddScheduleNote(listView_schedule, sch);
         }
 
@@ -82,7 +82,7 @@ namespace PersonsBase.View
         {
             var selectedListViewItem = new ListView.SelectedListViewItemCollection(listView_schedule);
 
-            bool isSuccess = MyListViewEx.GetSelectedItems(listView_schedule, ref selectedListViewItem);
+            var isSuccess = MyListViewEx.GetSelectedItems(listView_schedule, ref selectedListViewItem);
 
             // ДеАктивация/Активация кнопки Удалить из расписания
             button_remove_sched.Enabled = isSuccess;
@@ -102,8 +102,8 @@ namespace PersonsBase.View
             var itemRow = MyListViewEx.GetSelectedText(listView_schedule);
             if (itemRow == null) return;
 
-            string selectedTime = itemRow[0];
-            string name = itemRow[1];
+            var selectedTime = itemRow[0];
+            var name = itemRow[1];
 
             Logic.SchedulesRemoveDataBase(selectedTime, name);
             MyListViewEx.RemoveSelectedItem(listView_schedule);
@@ -118,12 +118,12 @@ namespace PersonsBase.View
             }
 
             var empl = GetCurrentEmploeeInfo();
-            bool isSuccess = Logic.EmployeeAdd2DataBase(empl);
+            var isSuccess = Logic.EmployeeAdd2DataBase(empl);
 
             if (!isSuccess) return; // Если не добаавили в базу работника(Уже существует). Выходим
 
             // В какой лист добавлять. Тренер или Админ
-            ListView lv = (empl.IsTrener) ? listView_Tren : listView_Admins;
+            var lv = empl.IsTrener ? listView_Tren : listView_Admins;
             // Добавляем в список
             MyListViewEx.AddNote(lv, empl.Name);
         }
@@ -152,7 +152,7 @@ namespace PersonsBase.View
             // Отображаем выбранный элемент в окне редактирования
             radioButton_tren.Checked = true;
             textBox_FiO.Text = itemRow[0];
-            var ph = _manhattanInfo.Treners.Find((x => x.Name.Equals(textBox_FiO.Text))).Phone;
+            var ph = _manhattanInfo.Treners.Find(x => x.Name.Equals(textBox_FiO.Text)).Phone;
             maskedTextBox_phone.Text = ph;
         }
 
@@ -173,7 +173,7 @@ namespace PersonsBase.View
             // Отображаем выбранный элемент в окне редактирования
             radioButton_adm.Checked = true;
             textBox_FiO.Text = itemRow[0];
-            var ph = _manhattanInfo.Admins.Find((x => x.Name.Equals(textBox_FiO.Text))).Phone;
+            var ph = _manhattanInfo.Admins.Find(x => x.Name.Equals(textBox_FiO.Text)).Phone;
             maskedTextBox_phone.Text = ph;
         }
 
@@ -182,7 +182,7 @@ namespace PersonsBase.View
             var itemRow = MyListViewEx.GetSelectedText(listView_Tren);
             if (itemRow == null) return;
 
-            string name = itemRow[0];
+            var name = itemRow[0];
 
             Logic.EmployeeRemoveDataBase(name,true);
             MyListViewEx.RemoveSelectedItem(listView_Tren);
@@ -193,7 +193,7 @@ namespace PersonsBase.View
             var itemRow = MyListViewEx.GetSelectedText(listView_Admins);
             if (itemRow == null) return;
 
-            string name = itemRow[0];
+            var name = itemRow[0];
 
             Logic.EmployeeRemoveDataBase(name, false);
             MyListViewEx.RemoveSelectedItem(listView_Admins);
