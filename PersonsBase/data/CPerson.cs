@@ -152,14 +152,10 @@ namespace PBase
             {
                 if (AbonementCurent.IsValid())
                 {
-                    ClubCardA clubCard = _abonementCurent as ClubCardA;
+                    var clubCard = _abonementCurent as ClubCardA;
                     if (clubCard?.Freeze != null)
                     {
-                        if (clubCard.Freeze.IsFreezedNow()) // Если Заморожен или обьект заморозки не создан
-                        {
-                            _status = StatusPerson.Заморожен;
-                        }
-                        else _status = StatusPerson.Активный;
+                        _status = clubCard.Freeze.IsFreezedNow() ? StatusPerson.Заморожен : StatusPerson.Активный;
                     }
 
                     if (_status != StatusPerson.Заморожен)
@@ -189,7 +185,7 @@ namespace PBase
         // Приватные
         private bool UpdateQueue(AbonementBasic newAbonementValue)
         {
-            bool result = true;
+            var result = true;
             if (_abonementCurent == null)
             {
                 _abonementCurent = newAbonementValue;

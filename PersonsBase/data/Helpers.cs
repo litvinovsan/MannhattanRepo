@@ -61,12 +61,12 @@ namespace PBase
         {
             try
             {
-                using (MemoryStream ms = new MemoryStream())
+                using (var ms = new MemoryStream())
                 {
                     var formatter = new BinaryFormatter();
                     formatter.Serialize(ms, objectToSerialize);// Если ошибка, вываливаемся тут и не стираем файл базы
                                                                // Сохраняем в файл поток из памяти
-                    using (FileStream fileStream = new FileStream(nameFile, FileMode.OpenOrCreate, FileAccess.Write))
+                    using (var fileStream = new FileStream(nameFile, FileMode.OpenOrCreate, FileAccess.Write))
                     {
                         formatter.Serialize(fileStream, objectToSerialize);
                     }
@@ -86,7 +86,7 @@ namespace PBase
             {
                 var formatter = new BinaryFormatter();
 
-                using (FileStream fileStream = new FileStream(nameFile, FileMode.OpenOrCreate, FileAccess.Read))
+                using (var fileStream = new FileStream(nameFile, FileMode.OpenOrCreate, FileAccess.Read))
                 {
                     objectToDeSerialize = (T)formatter.Deserialize(fileStream);
                 }
