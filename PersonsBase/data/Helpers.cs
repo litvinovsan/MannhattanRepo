@@ -29,28 +29,22 @@ namespace PBase
             string minimumSpaces = Regex.Replace(fio.ToLower().Trim(), @"[^\S\r\n]+", " "); // Уплотняем пробелы
             string[] fioArray = minimumSpaces.Split(' ');
 
-            switch (fioArray.Length)
+            if (fioArray.Length == 1 && fioArray[0].Length >= 1) //Фамилия
             {
-                //Фамилия
-                case 1 when fioArray[0].Length >= 1:
-                    surname = char.ToUpper(fioArray[0][0]) + fioArray[0].Remove(0, 1);
-                    break;
-                // Фамилия Имя
-                case 2 when fioArray[0].Length > 1 && fioArray[1].Length > 1:
+                surname = char.ToUpper(fioArray[0][0]) + fioArray[0].Remove(0, 1);
+            }
+            else if (fioArray.Length == 2 && fioArray[0].Length > 1 && fioArray[1].Length > 1) // Фамилия Имя
+            {
+                surname = char.ToUpper(fioArray[0][0]) + fioArray[0].Remove(0, 1);
+                firstName = char.ToUpper(fioArray[1][0]) + fioArray[1].Remove(0, 1);
+            }
+            else // Фамилия Имя Отчество
+            {
+                if (fioArray[0].Length > 1 && fioArray[1].Length > 1 && fioArray[2].Length > 1)
+                {
                     surname = char.ToUpper(fioArray[0][0]) + fioArray[0].Remove(0, 1);
                     firstName = char.ToUpper(fioArray[1][0]) + fioArray[1].Remove(0, 1);
-                    break;
-                // Фамилия Имя Отчество
-                default:
-                {
-                    if (fioArray[0].Length > 1 && fioArray[1].Length > 1 && fioArray[2].Length > 1)
-                    {
-                        surname = char.ToUpper(fioArray[0][0]) + fioArray[0].Remove(0, 1);
-                        firstName = char.ToUpper(fioArray[1][0]) + fioArray[1].Remove(0, 1);
-                        secondName = char.ToUpper(fioArray[2][0]) + fioArray[2].Remove(0, 1);
-                    }
-
-                    break;
+                    secondName = char.ToUpper(fioArray[2][0]) + fioArray[2].Remove(0, 1);
                 }
             }
             return $"{surname} {firstName} {secondName}".Trim();
