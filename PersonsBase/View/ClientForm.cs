@@ -496,6 +496,7 @@ namespace PBase
         }
         private void button_Add_New_Abon_Click(object sender, EventArgs e)
         {
+            Logic.AddAbonement(_person.Name);// for future use
             //FIXME перенести всё это в Логику.
             DialogResult dialogResult = DialogResult.Cancel;
             if (_person.AbonementCurent == null)

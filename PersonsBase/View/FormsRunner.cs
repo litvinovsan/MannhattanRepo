@@ -22,11 +22,13 @@ namespace PersonsBase.View
         //}
 
         #region /// СОЗДАНИЕ КЛИЕНТА ///
-        public static bool RunCreatePersonForm()
+        public static bool RunCreatePersonForm(out string createdName)
         {
-            var form = new CreatePersonForm();
-
-            return (form.ShowDialog() == DialogResult.OK);
+            createdName = null;
+            var personForm = new CreatePersonForm();
+            if (personForm.ShowDialog() != DialogResult.OK) return false;
+            createdName = personForm.GetName();
+            return true;
         }
         #endregion
 

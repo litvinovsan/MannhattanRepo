@@ -54,9 +54,10 @@ namespace PBase
 
         #region /// РАЗНЫЕ МЕТОДЫ ///
 
-        public static bool AddAbonement()
+        public static bool AddAbonement(string personName)
         {
             //FIXME Добавить сюда код из    private void button_Add_New_Abon_Click(object sender, EventArgs e)
+            MessageBox.Show("FIXME. Добавить выбор абонемента");
             return false;
         }
 
@@ -286,12 +287,15 @@ namespace PBase
 
         public static bool CreatePerson()
         {
-            var isSuccess = FormsRunner.RunCreatePersonForm();
+            string createdPersoName;
+
+            var isSuccess = FormsRunner.RunCreatePersonForm(out createdPersoName);
 
             if (isSuccess)
             {
                 var res=MessageBox.Show("Добавить Абонемент?", "Абонемент", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (res == DialogResult.Yes) AddAbonement();
+                //  Создаем Абонемент если выбрали Да
+                if (res == DialogResult.Yes) AddAbonement(createdPersoName);
             }
 
             return isSuccess;
