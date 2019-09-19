@@ -21,6 +21,15 @@ namespace PersonsBase.View
             //_person = DataObjects.GetPersonLink(nameKey); // Получаем ссылку на обьект персоны
         }
 
+        #region /// СОЗДАНИЕ КЛИЕНТА ///
+        public static bool RunCreatePersonForm()
+        {
+            var form = new CreatePersonForm();
+            
+            return (form.ShowDialog() == DialogResult.OK);
+        }
+        #endregion
+
         #region /// КАРТОЧКА КЛИЕНТА ///
         public static void RunClientForm(string keyName)
         {
@@ -39,7 +48,7 @@ namespace PersonsBase.View
         #region /// СТРАНИЦА РУКОВОДИТЕЛЯ ///
         public static DialogResult CreateBossForm()
         {
-            DialogResult result = DialogResult.Cancel;
+            var result = DialogResult.Cancel;
             using (var form = new BossForm())
             {
                 if (form.ShowDialog() == DialogResult.OK)
@@ -51,7 +60,6 @@ namespace PersonsBase.View
         }
 
         #endregion
-
 
         #region /// СОЗДАНИЕ АБОНЕМЕНТА ///
         public static DialogResult CreateAbonementForm(string personName)
@@ -91,7 +99,7 @@ namespace PersonsBase.View
         public static DialogResult RunWorkoutOptionsForm(ref WorkoutOptions optionsWorkout, string personName)
         {
             DialogResult dlgReult = DialogResult.Cancel;
-           
+
             var workoutForm = new WorkoutForm(personName);
 
             dlgReult = workoutForm.ShowDialog();

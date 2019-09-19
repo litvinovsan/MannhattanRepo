@@ -1,6 +1,6 @@
 ﻿namespace PersonsBase.View
 {
-    partial class AddPersonForm
+    partial class CreatePersonForm
     {
         /// <summary>
         /// Required designer variable.
@@ -49,11 +49,13 @@
             this.button_add_foto = new System.Windows.Forms.Button();
             this.textBox_Notes = new System.Windows.Forms.TextBox();
             this.button_Add_New_Person = new System.Windows.Forms.Button();
+            this.groupBox_Notes = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox_Notes.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -273,9 +275,9 @@
             this.groupBox2.Controls.Add(this.button_add_foto);
             this.groupBox2.Controls.Add(this.pictureBox1);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox2.Location = new System.Drawing.Point(375, 12);
+            this.groupBox2.Location = new System.Drawing.Point(404, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 225);
+            this.groupBox2.Size = new System.Drawing.Size(200, 254);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Фото";
@@ -287,14 +289,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Location = new System.Drawing.Point(6, 23);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(188, 160);
+            this.pictureBox1.Size = new System.Drawing.Size(188, 189);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
             // button_add_foto
             // 
             this.button_add_foto.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button_add_foto.Location = new System.Drawing.Point(3, 186);
+            this.button_add_foto.Location = new System.Drawing.Point(3, 215);
             this.button_add_foto.Name = "button_add_foto";
             this.button_add_foto.Size = new System.Drawing.Size(194, 36);
             this.button_add_foto.TabIndex = 1;
@@ -303,39 +305,55 @@
             // 
             // textBox_Notes
             // 
-            this.textBox_Notes.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox_Notes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_Notes.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox_Notes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.textBox_Notes.Location = new System.Drawing.Point(12, 281);
+            this.textBox_Notes.Location = new System.Drawing.Point(3, 16);
             this.textBox_Notes.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_Notes.Multiline = true;
             this.textBox_Notes.Name = "textBox_Notes";
             this.textBox_Notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_Notes.Size = new System.Drawing.Size(345, 110);
+            this.textBox_Notes.Size = new System.Drawing.Size(585, 100);
             this.textBox_Notes.TabIndex = 6;
             this.textBox_Notes.Text = "Заметки о Клиенте";
             // 
             // button_Add_New_Person
             // 
+            this.button_Add_New_Person.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button_Add_New_Person.Enabled = false;
             this.button_Add_New_Person.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_Add_New_Person.Location = new System.Drawing.Point(11, 397);
+            this.button_Add_New_Person.Location = new System.Drawing.Point(0, 414);
             this.button_Add_New_Person.Name = "button_Add_New_Person";
-            this.button_Add_New_Person.Size = new System.Drawing.Size(346, 52);
+            this.button_Add_New_Person.Size = new System.Drawing.Size(616, 52);
             this.button_Add_New_Person.TabIndex = 7;
             this.button_Add_New_Person.Text = "Создать Клиента";
             this.button_Add_New_Person.UseVisualStyleBackColor = true;
             // 
-            // AddPersonForm
+            // groupBox_Notes
+            // 
+            this.groupBox_Notes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox_Notes.Controls.Add(this.textBox_Notes);
+            this.groupBox_Notes.Location = new System.Drawing.Point(13, 289);
+            this.groupBox_Notes.Name = "groupBox_Notes";
+            this.groupBox_Notes.Size = new System.Drawing.Size(591, 119);
+            this.groupBox_Notes.TabIndex = 8;
+            this.groupBox_Notes.TabStop = false;
+            this.groupBox_Notes.Text = "Дополнительная информация:";
+            // 
+            // CreatePersonForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(587, 461);
+            this.ClientSize = new System.Drawing.Size(616, 466);
+            this.Controls.Add(this.groupBox_Notes);
             this.Controls.Add(this.button_Add_New_Person);
-            this.Controls.Add(this.textBox_Notes);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
-            this.Name = "AddPersonForm";
+            this.MinimumSize = new System.Drawing.Size(632, 505);
+            this.Name = "CreatePersonForm";
             this.Text = "Создание Клиента";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -345,8 +363,9 @@
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox_Notes.ResumeLayout(false);
+            this.groupBox_Notes.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -373,5 +392,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox textBox_Notes;
         private System.Windows.Forms.Button button_Add_New_Person;
+        private System.Windows.Forms.GroupBox groupBox_Notes;
     }
 }

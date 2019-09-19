@@ -52,7 +52,13 @@ namespace PBase
 
         #endregion
 
-        #region /// МЕТОДЫ ///
+        #region /// РАЗНЫЕ МЕТОДЫ ///
+
+        public static bool AddAbonement()
+        {
+            //FIXME Добавить сюда код из    private void button_Add_New_Abon_Click(object sender, EventArgs e)
+            return false;
+        }
 
         public bool CheckInWorkout(string personName)
         {
@@ -126,6 +132,7 @@ namespace PBase
         {
             FormsRunner.RunPasswordForm();
         }
+        #endregion
 
         #region /// ФОРМА Босса /// 
 
@@ -274,6 +281,21 @@ namespace PBase
         }
 
         #endregion
+
+        #region /// СОЗДАНИЕ КЛИЕНТА ///
+
+        public static bool CreatePerson()
+        {
+            var isSuccess = FormsRunner.RunCreatePersonForm();
+
+            if (isSuccess)
+            {
+                var res=MessageBox.Show("Добавить Абонемент?", "Абонемент", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res == DialogResult.Yes) AddAbonement();
+            }
+
+            return isSuccess;
+        }
 
         #endregion
     }

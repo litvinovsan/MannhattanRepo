@@ -85,11 +85,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="View\AddPersonForm.cs">
+    <Compile Include="View\CreatePersonForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\AddPersonForm.Designer.cs">
-      <DependentUpon>AddPersonForm.cs</DependentUpon>
+    <Compile Include="View\CreatePersonForm.Designer.cs">
+      <DependentUpon>CreatePersonForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\BossForm.cs">
       <SubType>Form</SubType>
@@ -163,8 +163,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\AddPersonForm.resx">
-      <DependentUpon>AddPersonForm.cs</DependentUpon>
+    <EmbeddedResource Include="View\CreatePersonForm.resx">
+      <DependentUpon>CreatePersonForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\BossForm.resx">
       <DependentUpon>BossForm.cs</DependentUpon>

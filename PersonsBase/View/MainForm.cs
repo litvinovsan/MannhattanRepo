@@ -214,8 +214,9 @@ namespace PBase
         }
         private void добавитьКлиентаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _db.PersonAdd(new Person("Трактирщик Мо"));
-            _db.PersonAdd(new Person("Гомер Симпсон"));
+            Logic.CreatePerson();
+            //_db.PersonAdd(new Person("Трактирщик Мо"));
+            //_db.PersonAdd(new Person("Гомер Симпсон"));
         }
 
         private void руководительToolStripMenuItem1_Click(object sender, EventArgs e)

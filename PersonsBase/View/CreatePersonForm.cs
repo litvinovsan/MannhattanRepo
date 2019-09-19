@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PersonsBase.View
 {
-    public partial class AddPersonForm : Form
+    public partial class CreatePersonForm : Form
     {
-        public AddPersonForm()
+        public CreatePersonForm()
         {
             InitializeComponent();
         }
