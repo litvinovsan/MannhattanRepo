@@ -9,23 +9,23 @@ using System.Windows.Forms;
 
 namespace PersonsBase.View
 {
-    public class FormsRunner
+    public static class FormsRunner
     {
         //private Options _options;
         //private DataBaseClass _dataBase;
 
-        public FormsRunner()
-        {
-            //_options = Options.GetInstance();
-            //_dataBase = DataBaseClass.GetInstance();
-            //_person = DataObjects.GetPersonLink(nameKey); // Получаем ссылку на обьект персоны
-        }
+        // public static FormsRunner()
+        //{
+        //_options = Options.GetInstance();
+        //_dataBase = DataBaseClass.GetInstance();
+        //_person = DataObjects.GetPersonLink(nameKey); // Получаем ссылку на обьект персоны
+        //}
 
         #region /// СОЗДАНИЕ КЛИЕНТА ///
         public static bool RunCreatePersonForm()
         {
             var form = new CreatePersonForm();
-            
+
             return (form.ShowDialog() == DialogResult.OK);
         }
         #endregion
@@ -64,7 +64,7 @@ namespace PersonsBase.View
         #region /// СОЗДАНИЕ АБОНЕМЕНТА ///
         public static DialogResult CreateAbonementForm(string personName)
         {
-            DialogResult result = DialogResult.Cancel;
+            var result = DialogResult.Cancel;
             using (var form = new AbonementForm(personName))
             {
                 if (form.ShowDialog() == DialogResult.OK)
