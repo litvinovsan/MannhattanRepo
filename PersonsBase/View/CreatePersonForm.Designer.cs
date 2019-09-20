@@ -293,6 +293,7 @@
             this.button_add_foto.TabIndex = 1;
             this.button_add_foto.Text = "Загрузить Фото";
             this.button_add_foto.UseVisualStyleBackColor = true;
+            this.button_add_foto.Click += new System.EventHandler(this.button_add_foto_Click);
             // 
             // pictureBox1
             // 
