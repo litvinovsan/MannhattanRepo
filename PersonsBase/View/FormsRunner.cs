@@ -12,13 +12,13 @@ namespace PersonsBase.View
     public static class FormsRunner
     {
         //private Options _options;
-        //private DataBaseClass _dataBase;
+        //private DataBaseLevel _dataBase;
 
         // public static FormsRunner()
         //{
         //_options = Options.GetInstance();
-        //_dataBase = DataBaseClass.GetInstance();
-        //_person = DataObjects.GetPersonLink(nameKey); // Получаем ссылку на обьект персоны
+        //_dataBase = DataBaseLevel.GetInstance();
+        //_person = DataBaseO.GetPersonLink(nameKey); // Получаем ссылку на обьект персоны
         //}
 
         #region /// СОЗДАНИЕ КЛИЕНТА ///
@@ -35,7 +35,7 @@ namespace PersonsBase.View
         #region /// КАРТОЧКА КЛИЕНТА ///
         public static void RunClientForm(string keyName)
         {
-            if (DataBaseClass.ContainsNameKey(keyName))
+            if (DataBaseLevel.ContainsNameKey(keyName))
             {
                 ClientForm clientFrm = new ClientForm(keyName);
                 clientFrm.ShowDialog();
@@ -84,7 +84,7 @@ namespace PersonsBase.View
 
         public static DialogResult RunFreezeForm(string personName)
         {// Cохраняет напрямую в Абонемент
-            Person person = DataObjects.GetPersonLink(personName);
+            Person person = DataBaseO.GetPersonLink(personName);
             if (!(person.AbonementCurent is ClubCardA)) return DialogResult.Cancel;
             ClubCardA clubCard = ((ClubCardA)person.AbonementCurent);
             FreezeForm freezeForm = new FreezeForm(clubCard);

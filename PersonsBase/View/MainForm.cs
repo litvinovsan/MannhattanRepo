@@ -15,9 +15,9 @@ namespace PBase
     {
         #region /// ОСНОВНЫЕ ОБЬЕКТЫ ///
 
-        private readonly DataBaseClass _db = DataBaseClass.GetInstance();
+        private readonly DataBaseLevel _db = DataBaseLevel.GetInstance();
 
-        private SortedList<string, Person> UserList => DataBaseClass.GetListPersons();
+        private SortedList<string, Person> UserList => DataBaseLevel.GetListPersons();
         private readonly Dictionary<TypeWorkout, MyListViewDelegate> _listViewSelector; // Для заполнения 1 из 3х списков с Клиентами
 
         private Options _options; // Хранятся локальные настройки и параметры программы.
@@ -181,7 +181,7 @@ namespace PBase
         }
         private void UpdateUsersCountTextBox(object sender, EventArgs arg)
         {
-            textBox1.Text = DataBaseClass.GetNumberOfPersons().ToString();
+            textBox1.Text = DataBaseLevel.GetNumberOfPersons().ToString();
             Invalidate();
         }
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)

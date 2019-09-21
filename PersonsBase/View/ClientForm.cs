@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.data;
+using PersonsBase.myStd;
 using PersonsBase.View;
 
 namespace PBase
@@ -16,7 +17,7 @@ namespace PBase
         ///////////////// ОСНОВНЫЕ ОБЬЕКТЫ ////////////////////////////////
 
         private readonly Person _person;
-        private readonly DataBaseClass _dataBase = DataBaseClass.GetInstance();
+        private readonly DataBaseLevel _dataBase = DataBaseLevel.GetInstance();
         private readonly Logic _logic;
         private bool _isAnythingChanged;
 
@@ -24,7 +25,7 @@ namespace PBase
         public ClientForm(string keyName)
         {
             InitializeComponent();
-            _person = DataBaseClass.GetListPersons()[keyName];
+            _person = DataBaseLevel.GetListPersons()[keyName];
             _isAnythingChanged = false;
             _logic = Logic.GetInstance();
         }
@@ -35,7 +36,7 @@ namespace PBase
             LoadShortInfo();
             LoadEditableData();
 
-            TryLoadPhoto();
+            Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto);
 
             UpdateControlState(this, EventArgs.Empty);
             LoadListBoxQueue();
@@ -99,7 +100,7 @@ namespace PBase
                 pictureBox_ClientPhoto.Image.Dispose();
                 pictureBox_ClientPhoto.Image = null;
             }
-            
+
             // Блокируем админскую учетку на всякий случай
             PwdForm.LockPassword();
         }
@@ -189,7 +190,7 @@ namespace PBase
         }
         private void PathToPhotoChangedMethod(object sender, EventArgs e)
         {
-            TryLoadPhoto();
+            Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto);
         }
         // Сохранение данных 
         private void SaveData()
@@ -229,40 +230,16 @@ namespace PBase
             dateTimePicker_birthDate.Value = _person.BirthDate;
 
             // Пол
-            comboBox_Gender.Items.Clear();
-            comboBox_Gender.Items.AddRange(Enum.GetNames(typeof(Gender)).ToArray<object>()); // Обновляем комбобокс
-            comboBox_Gender.SelectedItem = _person.GenderType.ToString();
+            var gendRange = Enum.GetNames(typeof(Gender)).ToArray<object>();
+            var gendSelected = _person.GenderType.ToString();
+            MyComboBox.Initialize(comboBox_Gender, gendRange, gendSelected);
+
 
             // Особые Отметки
             textBox_Notes.Text = _person.SpecialNotes;
             _editedSpecialNote = _person.SpecialNotes;
         }
-        private void TryLoadPhoto()
-        {
-            if (_person.PathToPhoto != "")
-            {
-                try
-                {
-                    if (Photo.IsPhotoExist(_person.PathToPhoto))
-                    {
-                        pictureBox_ClientPhoto.Image = Photo.OpenPhoto(_person.PathToPhoto);
-                        pictureBox_ClientPhoto.Invalidate();
-                        this.Invalidate();
-                    }
-                    else
-                    {
-                        _person.PathToPhoto = "";
-                        pictureBox_ClientPhoto.Image = null;
-                    }
-                }
-                catch
-                {
-                    pictureBox_ClientPhoto.Image = null;
-                    MessageBox.Show("Ошибка Открытия Файла Изображения");
-                }
-                pictureBox_ClientPhoto.Refresh();
-            }
-        }
+
         private void LoadShortInfo()
         { //FIXME Мерцание
             Action myDelegate = delegate

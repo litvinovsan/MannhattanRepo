@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PBase;
+using PersonsBase.myStd;
 
 namespace PersonsBase.View
 {
@@ -23,6 +24,11 @@ namespace PersonsBase.View
         #endregion
 
         #region /// ПОЛЯ ///
+
+        private const string MaskPhone = "8(   )    -  -";
+        private readonly string _maskPassport;
+        private readonly string _maskDriverId;
+        private readonly SortedList<string, Person> _persons;
 
         private struct PersonalDataStruct
         {
@@ -105,18 +111,39 @@ namespace PersonsBase.View
         }
 
         private PersonalDataState _dataStateOk = new PersonalDataState();
-        private PersonalDataStruct _personDataStruct = new PersonalDataStruct();
+        private PersonalDataStruct _dataStruct = new PersonalDataStruct();
 
         #endregion
-
 
         #region /// КОНСТРУКТОРЫ ///
 
         public CreatePersonForm()
         {
             InitializeComponent();
-            PersonalDataStateEvent += StateHandler;
 
+            _maskPassport = this.maskedTextBox_Passport.Text;
+            _maskDriverId = this.maskedTextBox_DriverID.Text;
+            _persons = DataBaseLevel.GetListPersons();
+
+            PersonalDataStateEvent += AllVarStateHandler;
+
+        }
+
+        private void CreatePersonForm_Load(object sender, EventArgs e)
+        {
+            // Инициализация полей по - умолчанию
+
+            // Пол
+            var gendRange = Enum.GetNames(typeof(Gender)).ToArray<object>();
+            MyComboBox.Initialize(comboBox_Gender, gendRange, Gender.Неизвестен.ToString());
+            comboBox_Gender.BackColor = Color.Pink;
+
+            // Персональный Номер
+            textBox_Number.Text = "";
+
+            // День Рождения
+            dateTimePicker_birthDate.Value = new DateTime(1990, 01, 01);
+            dateTimePicker_birthDate.BackColor = Color.Pink;
         }
 
         #endregion
@@ -125,9 +152,9 @@ namespace PersonsBase.View
 
         public string GetName()
         {
-            return _personDataStruct.Name;
+            return _dataStruct.Name;
         }
-       
+
         private bool IsDataStatesOk()
         {
             bool result = (_dataStateOk.Name) && (_dataStateOk.BDate) && (_dataStateOk.Gender) && (_dataStateOk.Phone) && (_dataStateOk.DriveId || _dataStateOk.Passport);
@@ -137,7 +164,7 @@ namespace PersonsBase.View
         /// <summary>
         /// Обработчик. Запускается когда изменяется структура с bool результатами по всем полям
         /// </summary>
-        private void StateHandler()
+        private void AllVarStateHandler()
         {
             ButtonAddEneble(IsDataStatesOk());
         }
@@ -153,63 +180,137 @@ namespace PersonsBase.View
         /// <summary>
         /// Запускает функцию обработки если пройдена первичная проверка.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="tbBox"></param>
-        /// <param name="procFunc"></param>
-        private void ProcessTextBox(string value, TextBox tbBox, Action procFunc)
+        private void ProcessTextBox(string value, Control tbBox, Func<bool> processFunc)
         {
             if (string.IsNullOrEmpty(value))
             {
                 tbBox.BackColor = Color.Pink;
                 return;
             }
+            var result = processFunc();
 
-            procFunc();
+            tbBox.BackColor = result ? Color.PaleGreen : Color.Pink;
         }
+
         // Проверка полей на валидность
-        private void ProcessName(string name, TextBox tbBox)
+
+        private void ProcessMaskedTextBox(string emptyMask, MaskedTextBox maskedTextBox, Func<bool> processFunc)
+        {
+            if (string.IsNullOrEmpty(maskedTextBox.Text) || maskedTextBox.Text.Equals((emptyMask)))
+            {
+                maskedTextBox.BackColor = Color.Pink;
+                return;
+            }
+            var result = processFunc();
+
+            maskedTextBox.BackColor = result ? Color.PaleGreen : Color.Pink;
+        }
+        private void ProcessDateTime(DateTime dateTime)
+        {
+            _dataStateOk.BDate = true;
+            _dataStruct.BDate = dateTime.Date;
+        }
+
+        private bool IsPhoneOk(string text)
+        {
+            var person = DataBaseM.FindByPhone(_persons, text);
+            _dataStateOk.Phone = (person == null);
+
+            if (!_dataStateOk.Phone) return false;
+            _dataStruct.Phone = text;
+
+            return true;
+        }
+
+        private bool IsPassportOk(string text)
+        {
+            var person = DataBaseM.FindByPassport(_persons, text);
+            _dataStateOk.Passport = (person == null);
+
+            if (!_dataStateOk.Passport) return false;
+            _dataStruct.Passport = text;
+
+            return true;
+        }
+
+        private bool IsDriveIdOk(string text)
+        {
+            var person = DataBaseM.FindByDriveId(_persons, text);
+            _dataStateOk.Passport = (person == null);
+
+            if (!_dataStateOk.Passport) return false;
+            _dataStruct.Passport = text;
+
+            return true;
+        }
+
+        private bool IsNameOk(string name)
         {
             var nameToCheck = Methods.PrepareName(name);
-            _dataStateOk.Name = IsNameNotExist(nameToCheck);
+            _dataStateOk.Name = !DataBaseLevel.ContainsNameKey(nameToCheck);
 
-            if (_dataStateOk.Name)
-            {
-                _personDataStruct.Name = nameToCheck;
-                tbBox.BackColor = Color.PaleGreen;
-            }
-            else
-            {
-                tbBox.BackColor = Color.Pink;
-            }
-        }
-        private bool IsNameNotExist(string name)
-        {
-            return !DataBaseClass.ContainsNameKey(name);
+            if (!_dataStateOk.Name) return false;
+            _dataStruct.Name = nameToCheck;
+            return true;
         }
 
         #endregion
 
         /// ОБРАБОТЧИКИ ///
-        private void textBox_Name_TextChanged(object sender, EventArgs e)
-        {
-            ProcessTextBox(textBox_Name.Text, textBox_Name, () => ProcessName(textBox_Name.Text, textBox_Name));
-        }
-
-        private void button_Add_New_Person_Click(object sender, EventArgs e)
-        {
-
-            this.DialogResult = DialogResult.OK;
-        }
-
         private void button_add_foto_Click(object sender, EventArgs e)
         {
             Image img;
             string pathDummy;
             var success = Photo.OpenPhoto(out img, out pathDummy);
-            if (success)
+
+            if (!success) return;
+
+            if (string.IsNullOrEmpty(_dataStruct.Name))
             {
-                //       _person.PathToPhoto = Photo.SaveToPicturesFolder(img, _person.Name);
+                MessageBox.Show(@"Сначала укажите имя Клиента");
             }
+            else
+            {
+                _dataStruct.PathToPhoto = Photo.SaveToPicturesFolder(img, _dataStruct.Name);
+                Logic.TryLoadPhoto(pictureBox_Client, _dataStruct.PathToPhoto);
+            }
+        }
+
+        private void textBox_Name_TextChanged(object sender, EventArgs e)
+        {
+            ProcessTextBox(textBox_Name.Text, textBox_Name, () => IsNameOk(textBox_Name.Text));
+        }
+
+        private void button_Add_New_Person_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+        }
+
+        private void maskedTextBox_PhoneNumber_KeyUp(object sender, KeyEventArgs e)
+        {
+            ProcessMaskedTextBox(MaskPhone, maskedTextBox_PhoneNumber, () => IsPhoneOk(maskedTextBox_PhoneNumber.Text));
+        }
+
+        private void maskedTextBox_Passport_KeyUp(object sender, KeyEventArgs e)
+        {
+            ProcessMaskedTextBox(_maskPassport, maskedTextBox_Passport, () => IsPassportOk(maskedTextBox_Passport.Text));
+        }
+
+        private void maskedTextBox_DriverID_KeyUp(object sender, KeyEventArgs e)
+        {
+            ProcessMaskedTextBox(_maskDriverId, maskedTextBox_DriverID, () => IsDriveIdOk(maskedTextBox_DriverID.Text));
+        }
+
+
+
+        private void dateTimePicker_birthDate_ValueChanged(object sender, EventArgs e)
+        {
+            ProcessDateTime(dateTimePicker_birthDate.Value);
+        }
+
+        private void comboBox_Gender_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

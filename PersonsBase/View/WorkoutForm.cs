@@ -25,8 +25,8 @@ namespace PersonsBase.View
             InitializeComponent();
             SelectedOptions = new WorkoutOptions();// Обьект по умолчанию
 
-            _manhattanInfo = DataObjects.GetManhattanInfo();
-            _person = DataObjects.GetPersonLink(personName);
+            _manhattanInfo = DataBaseO.GetManhattanInfo();
+            _person = DataBaseO.GetPersonLink(personName);
             _abonement = _person.AbonementCurent;
             _treners = _manhattanInfo.Treners;
             _schedule = _manhattanInfo.Schedule;

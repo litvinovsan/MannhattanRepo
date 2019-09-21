@@ -15,7 +15,7 @@ namespace PersonsBase.View
     public partial class BossForm : Form
     {
         private Options _options;
-        private DataBaseClass _dataBase;
+        private DataBaseLevel _dataBase;
         private readonly ManhattanInfo _manhattanInfo;
         private Employee _employee;
 
@@ -25,8 +25,8 @@ namespace PersonsBase.View
         {
             InitializeComponent();
             _options = Options.GetInstance();
-            _dataBase = DataBaseClass.GetInstance();
-            _manhattanInfo = DataObjects.GetManhattanInfo();
+            _dataBase = DataBaseLevel.GetInstance();
+            _manhattanInfo = DataBaseO.GetManhattanInfo();
         }
 
         private void BossForm_Load(object sender, EventArgs e)

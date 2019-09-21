@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace PBase
 {
     [Serializable]
-    public class DataBaseClass
+    public class DataBaseLevel
     {
         #region/// ОБЬЕКТЫ Приватные //////////////////////////////
 
@@ -14,7 +14,7 @@ namespace PBase
         private object locker = new object(); // блокировка коллекции на время сериализации.
 
         [NonSerialized]
-        private static DataBaseClass _dbInstance;  //Singleton.
+        private static DataBaseLevel _dbInstance;  //Singleton.
 
         // База Клиентов
         private static SortedList<string, Person> _dataBaseList;
@@ -33,14 +33,14 @@ namespace PBase
         #endregion
 
         #region/// Синглтон ///////////////////////////
-        public static DataBaseClass GetInstance()
+        public static DataBaseLevel GetInstance()
         {
-            return _dbInstance ?? (_dbInstance = new DataBaseClass());
+            return _dbInstance ?? (_dbInstance = new DataBaseLevel());
         }
         #endregion
 
         #region/// КОНСТРУКТОР и ДЕСТРУКТОР //////////////////////
-        private DataBaseClass()
+        private DataBaseLevel()
         {// FIXME Вытащить имена файлов сериализации в настройки или ресурсы
             // FIXME Засунуть всю сериализацию в один метод
             // База Клиентов
@@ -73,7 +73,7 @@ namespace PBase
             };
         }
 
-        ~DataBaseClass()
+        ~DataBaseLevel()
         {
             // База Клиентов
             lock (locker)
@@ -119,7 +119,7 @@ namespace PBase
 
             lock (locker)
             {
-                bool containsCopy = DataMethods.IsContainsCopyOfValues(_dataBaseList, person, out response);
+                bool containsCopy = DataBaseM.IsContainsCopyOfValues(_dataBaseList, person, out response);
                 if (containsCopy == false && (!string.IsNullOrEmpty(person.Key)))
                 {
                     try
@@ -164,7 +164,7 @@ namespace PBase
         }
         public bool PersonEditName(string lastName, string newName)
         {
-            bool result = DataMethods.EditName(_dataBaseList, lastName, newName);
+            bool result = DataBaseM.EditName(_dataBaseList, lastName, newName);
             if (result) OnListChanged();
             return result;
         }

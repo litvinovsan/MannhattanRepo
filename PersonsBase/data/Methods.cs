@@ -14,7 +14,6 @@ namespace PBase
     [Serializable]
     public static class Methods
     {
-
         /// <summary>
         /// Подготавливает строку с именем, приводит в  заглавный формат Фамилия Имя Отчество вместо  фамилия имя отчество
         /// </summary>

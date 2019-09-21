@@ -40,7 +40,8 @@ namespace PBase
                 listView.Groups.Add(listViewGroup);
             }
         }
-        public static void AddGroup(ListView listView, string group)
+
+        private static void AddGroup(ListView listView, string group)
         {
             ListViewGroup listViewGroup = new ListViewGroup(group, HorizontalAlignment.Left);
             listView.Groups.Add(listViewGroup);
@@ -48,7 +49,7 @@ namespace PBase
         /// <summary>
         /// Возвращает коллекцию: ЗаголовокГруппы - Ссылка на группу
         /// </summary>
-        public static Dictionary<string, ListViewGroup> GetGroupsDict(ListView listView)
+        private static Dictionary<string, ListViewGroup> GetGroupsDict(ListView listView)
         {
             Dictionary<string, ListViewGroup> groupsDict = new Dictionary<string, ListViewGroup>();
 
@@ -98,13 +99,12 @@ namespace PBase
 
         public static bool GetSelectedItems(ListView lv, ref ListView.SelectedListViewItemCollection selected)
         {
+            if (selected == null) throw new ArgumentNullException(nameof(selected));
             bool check = (lv.SelectedItems.Count > 0);
             selected = check ? lv.SelectedItems : null;
 
             return check;
         }
-
-
 
         /// Для автоматического Увеличения размера последней колонки. Подписаться на событие изменения размера формы
         public static void MaximizeLastColumn(ListView lv)
@@ -165,10 +165,7 @@ namespace PBase
         {
             for (int i = 0; i <= listView.Items.Count - 1; i++)
             {
-                if (listView.Items[i].Index % 2 == 0)
-                    listView.Items[i].BackColor = Color.White;
-                else
-                    listView.Items[i].BackColor = Color.LightGray;
+                listView.Items[i].BackColor = listView.Items[i].Index % 2 == 0 ? Color.White : Color.LightGray;
             }
         }
         #endregion

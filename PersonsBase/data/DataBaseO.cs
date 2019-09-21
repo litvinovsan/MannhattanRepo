@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using static PBase.DataBaseClass;
+using static PBase.DataBaseLevel;
 
 namespace PBase
 {
-    public static class DataObjects
+    public static class DataBaseO
     {
         private static readonly SortedList<string, Person> CollectionObj;
 
@@ -12,10 +12,10 @@ namespace PBase
 
         private static readonly ManhattanInfo ManhattanInfo;
 
-        static DataObjects()
+        static DataBaseO()
         {
             CollectionObj = GetListPersons();
-            ManhattanInfo = DataBaseClass.GetManhattanInfo();
+            ManhattanInfo = DataBaseLevel.GetManhattanInfo();
         }
 
         public static Person GetPersonLink(string name)

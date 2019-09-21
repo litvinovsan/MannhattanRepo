@@ -22,7 +22,8 @@ namespace PBase
         // Фото Клиента
         [field: NonSerialized]
         public event EventHandler PathToPhotoChanged;
-        public void OnPathPhotoChanged()
+
+        private void OnPathPhotoChanged()
         {
             PathToPhotoChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -30,7 +31,8 @@ namespace PBase
         // Абонемент
         [field: NonSerialized]
         public event EventHandler AbonementCurentChanged;
-        public void OnAbonementCurentChanged()
+
+        private void OnAbonementCurentChanged()
         {
             AbonementCurentChanged?.Invoke(this, EventArgs.Empty);
         }

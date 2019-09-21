@@ -46,7 +46,7 @@
             this.textBox_Number = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button_add_foto = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_Client = new System.Windows.Forms.PictureBox();
             this.textBox_Notes = new System.Windows.Forms.TextBox();
             this.button_Add_New_Person = new System.Windows.Forms.Button();
             this.groupBox_Notes = new System.Windows.Forms.GroupBox();
@@ -54,7 +54,7 @@
             this.groupBox3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Client)).BeginInit();
             this.groupBox_Notes.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -148,6 +148,7 @@
             this.maskedTextBox_PhoneNumber.Name = "maskedTextBox_PhoneNumber";
             this.maskedTextBox_PhoneNumber.Size = new System.Drawing.Size(181, 23);
             this.maskedTextBox_PhoneNumber.TabIndex = 6;
+            this.maskedTextBox_PhoneNumber.KeyUp += new System.Windows.Forms.KeyEventHandler(this.maskedTextBox_PhoneNumber_KeyUp);
             // 
             // label_Phone
             // 
@@ -181,6 +182,7 @@
             this.comboBox_Gender.Name = "comboBox_Gender";
             this.comboBox_Gender.Size = new System.Drawing.Size(181, 24);
             this.comboBox_Gender.TabIndex = 2;
+            this.comboBox_Gender.SelectedIndexChanged += new System.EventHandler(this.comboBox_Gender_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -214,6 +216,7 @@
             this.maskedTextBox_Passport.Name = "maskedTextBox_Passport";
             this.maskedTextBox_Passport.Size = new System.Drawing.Size(181, 21);
             this.maskedTextBox_Passport.TabIndex = 4;
+            this.maskedTextBox_Passport.KeyUp += new System.Windows.Forms.KeyEventHandler(this.maskedTextBox_Passport_KeyUp);
             // 
             // dateTimePicker_birthDate
             // 
@@ -225,6 +228,7 @@
             this.dateTimePicker_birthDate.Name = "dateTimePicker_birthDate";
             this.dateTimePicker_birthDate.Size = new System.Drawing.Size(181, 23);
             this.dateTimePicker_birthDate.TabIndex = 3;
+            this.dateTimePicker_birthDate.ValueChanged += new System.EventHandler(this.dateTimePicker_birthDate_ValueChanged);
             // 
             // label6
             // 
@@ -259,6 +263,7 @@
             this.maskedTextBox_DriverID.Name = "maskedTextBox_DriverID";
             this.maskedTextBox_DriverID.Size = new System.Drawing.Size(181, 21);
             this.maskedTextBox_DriverID.TabIndex = 0;
+            this.maskedTextBox_DriverID.KeyUp += new System.Windows.Forms.KeyEventHandler(this.maskedTextBox_DriverID_KeyUp);
             // 
             // textBox_Number
             // 
@@ -276,7 +281,7 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.button_add_foto);
-            this.groupBox2.Controls.Add(this.pictureBox1);
+            this.groupBox2.Controls.Add(this.pictureBox_Client);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox2.Location = new System.Drawing.Point(433, 12);
             this.groupBox2.Name = "groupBox2";
@@ -296,16 +301,16 @@
             this.button_add_foto.UseVisualStyleBackColor = true;
             this.button_add_foto.Click += new System.EventHandler(this.button_add_foto_Click);
             // 
-            // pictureBox1
+            // pictureBox_Client
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.pictureBox_Client.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Location = new System.Drawing.Point(6, 23);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(188, 189);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.pictureBox_Client.Location = new System.Drawing.Point(6, 23);
+            this.pictureBox_Client.Name = "pictureBox_Client";
+            this.pictureBox_Client.Size = new System.Drawing.Size(188, 189);
+            this.pictureBox_Client.TabIndex = 0;
+            this.pictureBox_Client.TabStop = false;
             // 
             // textBox_Notes
             // 
@@ -360,6 +365,7 @@
             this.MinimumSize = new System.Drawing.Size(632, 505);
             this.Name = "CreatePersonForm";
             this.Text = "Создание Клиента";
+            this.Load += new System.EventHandler(this.CreatePersonForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -367,7 +373,7 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Client)).EndInit();
             this.groupBox_Notes.ResumeLayout(false);
             this.groupBox_Notes.PerformLayout();
             this.ResumeLayout(false);
@@ -394,7 +400,7 @@
         private System.Windows.Forms.TextBox textBox_Name;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button_add_foto;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox_Client;
         private System.Windows.Forms.TextBox textBox_Notes;
         private System.Windows.Forms.Button button_Add_New_Person;
         private System.Windows.Forms.GroupBox groupBox_Notes;

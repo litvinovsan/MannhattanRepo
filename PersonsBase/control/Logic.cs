@@ -14,8 +14,8 @@ namespace PBase
         private Logic()
         {
             _options = Options.GetInstance();
-            _dataBase = DataBaseClass.GetInstance();
-            _persons = DataBaseClass.GetListPersons();
+            _dataBase = DataBaseLevel.GetInstance();
+            _persons = DataBaseLevel.GetListPersons();
         }
 
         #endregion
@@ -34,7 +34,7 @@ namespace PBase
         [NonSerialized] private static Logic _logicInstance; //Singleton.
 
         private Options _options;
-        private DataBaseClass _dataBase;
+        private DataBaseLevel _dataBase;
         private SortedList<string, Person> _persons;
 
         #endregion
@@ -63,7 +63,7 @@ namespace PBase
 
         public bool CheckInWorkout(string personName)
         {
-            var person = DataObjects.GetPersonLink(personName);
+            var person = DataBaseO.GetPersonLink(personName);
             person.AbonementCurent.TryActivate(); // Если не Активирован
 
             if (!IsAbonementValid(ref person)) return false;
@@ -126,6 +126,29 @@ namespace PBase
             return false;
         }
 
+        public static void TryLoadPhoto(PictureBox pictureBox, string pathToPhoto)
+        {
+            if (string.IsNullOrEmpty(pathToPhoto)) return;
+            try
+            {
+                if (Photo.IsPhotoExist(pathToPhoto))
+                {
+                    pictureBox.Image = Photo.OpenPhoto(pathToPhoto);
+                    pictureBox.Invalidate();
+                }
+                else
+                {
+                    pictureBox.Image = null;
+                }
+            }
+            catch
+            {
+                pictureBox.Image = null;
+               // MessageBox.Show("Ошибка Открытия Файла Изображения");
+            }
+            pictureBox.Refresh();
+        }
+
         /// <summary>
         ///     Запрос Пароля Суперпользователя если необходимо. Запускает событие LockChangedEvent.
         /// </summary>
@@ -139,7 +162,7 @@ namespace PBase
 
         public static bool SchedulesAdd2DataBase(MyTime time, ScheduleNote sch)
         {
-            var manhattanInfo = DataObjects.GetManhattanInfo();
+            var manhattanInfo = DataBaseO.GetManhattanInfo();
 
             //  Проверка. Содержит ли список запись с добавляемым временем
             var isExist = IsSchedExists(time.HourMinuteTime, sch.WorkoutsName, manhattanInfo);
@@ -156,7 +179,7 @@ namespace PBase
 
         public static void SchedulesRemoveDataBase(string time, string nameWorkout)
         {
-            var manhattanInfo = DataObjects.GetManhattanInfo();
+            var manhattanInfo = DataBaseO.GetManhattanInfo();
 
             //  Проверка. Содержит ли список запись с временем
             var isExist = IsSchedExists(time, nameWorkout, manhattanInfo);
@@ -174,7 +197,7 @@ namespace PBase
         // Работники Тренеры Админ
         public static bool EmployeeAdd2DataBase(Employee emploerToAdd)
         {
-            var manhattanInfo = DataObjects.GetManhattanInfo();
+            var manhattanInfo = DataBaseO.GetManhattanInfo();
 
             var isTrener = emploerToAdd.IsTrener;
 
@@ -264,7 +287,7 @@ namespace PBase
 
         public static void EmployeeRemoveDataBase(string name, bool isTrener)
         {
-            var manhattanInfo = DataObjects.GetManhattanInfo();
+            var manhattanInfo = DataBaseO.GetManhattanInfo();
 
             var isExist = false;
 

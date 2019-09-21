@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace PBase
 {
     [Serializable]
-    public static class DataMethods
+    public static class DataBaseM
     {
         #region /// ПОИСК ДУБЛИКАТОВ ///////////////
         /// <summary>
@@ -71,17 +71,15 @@ namespace PBase
         // Driver ID
         public static Person FindByDriveId(SortedList<string, Person> inputCollection, string driveLic)
         {
-            Person findedPerson = null;
-            if (inputCollection != null && driveLic != null && inputCollection.Count > 0)
+            Person findedPerson;
+            if (inputCollection == null || driveLic == null || inputCollection.Count <= 0) return null;
+            try
             {
-                try
-                {
-                    findedPerson = inputCollection.First((p => (p.Value.DriverIdNum == driveLic))).Value;
-                }
-                catch
-                {
-                    MessageBox.Show("Номер водительского удостоверения не найден!");
-                }
+                findedPerson = inputCollection.First((p => (p.Value.DriverIdNum == driveLic))).Value;
+            }
+            catch
+            {
+                findedPerson = null;
             }
             return findedPerson;
         }
@@ -178,17 +176,15 @@ namespace PBase
         // Passport
         public static Person FindByPassport(SortedList<string, Person> inputCollection, string passp)
         {
-            Person result = null;
-            if (inputCollection != null && !string.IsNullOrEmpty(passp) && inputCollection.Count > 0)
+            Person result;
+            if (inputCollection == null || string.IsNullOrEmpty(passp) || inputCollection.Count <= 0) return null;
+            try
             {
-                try
-                {
-                    result = inputCollection.Values.Single(x => x.Passport == passp);
-                }
-                catch
-                {
-                    throw;
-                }
+                result = inputCollection.Values.Single(x => x.Passport == passp);
+            }
+            catch
+            {
+                result = null;
             }
             return result;
         }
@@ -213,17 +209,15 @@ namespace PBase
         // Phone
         public static Person FindByPhone(SortedList<string, Person> inputCollection, string telnumber)
         {
-            Person result = null;
-            if (inputCollection != null && !string.IsNullOrEmpty(telnumber) && inputCollection.Count > 0)
+            Person result;
+            if (inputCollection == null || string.IsNullOrEmpty(telnumber) || inputCollection.Count <= 0) return null;
+            try
             {
-                try
-                {
-                    result = inputCollection.Values.Single(x => x.Phone == telnumber);
-                }
-                catch
-                {
-                    throw;
-                }
+                result = inputCollection.Values.Single(x => x.Phone == telnumber);
+            }
+            catch
+            {
+                result = null;
             }
             return result;
         }
