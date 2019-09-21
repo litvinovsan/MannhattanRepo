@@ -15,16 +15,16 @@ namespace PersonsBase.View
     public partial class CreatePersonForm : Form
     {
         #region /// СОБЫТИЯ ///
-        private static event Action DataStateEvent;
-        private static void OnDataStateChanged()
+        private static event Action PersonalDataStateEvent;
+        private static void OnPersonalDataStateChanged()
         {
-            DataStateEvent?.Invoke();
+            PersonalDataStateEvent?.Invoke();
         }
         #endregion
 
         #region /// ПОЛЯ ///
 
-        private struct PDataStruct
+        private struct PersonalDataStruct
         {
             public string Name;
             public string Phone;
@@ -36,16 +36,15 @@ namespace PersonsBase.View
             public Gender Gender;
             public DateTime BDate;
         }
-        private struct DataStateStruct
+        private struct PersonalDataState
         {
-
             public bool Name
             {
                 get { return _name; }
                 set
                 {
                     _name = value;
-                    OnDataStateChanged();
+                    OnPersonalDataStateChanged();
                 }
             }
             public bool Phone
@@ -54,7 +53,7 @@ namespace PersonsBase.View
                 set
                 {
                     _phone = value;
-                    OnDataStateChanged();
+                    OnPersonalDataStateChanged();
                 }
             }
             public bool Passport
@@ -63,7 +62,7 @@ namespace PersonsBase.View
                 set
                 {
                     _passport = value;
-                    OnDataStateChanged();
+                    OnPersonalDataStateChanged();
                 }
             }
             public bool DriveId
@@ -72,7 +71,7 @@ namespace PersonsBase.View
                 set
                 {
                     _driveId = value;
-                    OnDataStateChanged();
+                    OnPersonalDataStateChanged();
                 }
             }
             public bool Gender
@@ -81,7 +80,7 @@ namespace PersonsBase.View
                 set
                 {
                     _gender = value;
-                    OnDataStateChanged();
+                    OnPersonalDataStateChanged();
                 }
             }
             public bool BDate
@@ -90,12 +89,13 @@ namespace PersonsBase.View
                 set
                 {
                     _bDate = value;
-                    OnDataStateChanged();
+                    OnPersonalDataStateChanged();
                 }
             }
             public bool PathToPhoto;
             public bool SpecialNotes;
             public bool PersonalNumber;
+            //Приватные поля
             private bool _name;
             private bool _phone;
             private bool _passport;
@@ -104,8 +104,8 @@ namespace PersonsBase.View
             private bool _bDate;
         }
 
-        private static DataStateStruct _pDatStateStruct = new DataStateStruct();
-        private PDataStruct _personDataStruct = new PDataStruct();
+        private PersonalDataState _dataStateOk = new PersonalDataState();
+        private PersonalDataStruct _personDataStruct = new PersonalDataStruct();
 
         #endregion
 
@@ -115,10 +115,8 @@ namespace PersonsBase.View
         public CreatePersonForm()
         {
             InitializeComponent();
-            DataStateEvent += StateHandler;
+            PersonalDataStateEvent += StateHandler;
 
-            _pDatStateStruct.Name = true;
-            _pDatStateStruct.Gender = true;
         }
 
         #endregion
@@ -129,25 +127,74 @@ namespace PersonsBase.View
         {
             return _personDataStruct.Name;
         }
+       
+        private bool IsDataStatesOk()
+        {
+            bool result = (_dataStateOk.Name) && (_dataStateOk.BDate) && (_dataStateOk.Gender) && (_dataStateOk.Phone) && (_dataStateOk.DriveId || _dataStateOk.Passport);
+            return result;
+        }
 
+        /// <summary>
+        /// Обработчик. Запускается когда изменяется структура с bool результатами по всем полям
+        /// </summary>
+        private void StateHandler()
+        {
+            ButtonAddEneble(IsDataStatesOk());
+        }
+
+        /// <summary>
+        /// Включает-Выключает Кнопку Добавить Персону. 
+        /// </summary>
         private void ButtonAddEneble(bool enableButton)
         {
             button_Add_New_Person.Enabled = enableButton;
         }
 
-        private static bool IsDataStatesOk()
+        /// <summary>
+        /// Запускает функцию обработки если пройдена первичная проверка.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="tbBox"></param>
+        /// <param name="procFunc"></param>
+        private void ProcessTextBox(string value, TextBox tbBox, Action procFunc)
         {
-            bool result = (_pDatStateStruct.Name) && (_pDatStateStruct.BDate) && (_pDatStateStruct.Gender) && (_pDatStateStruct.Phone) && (_pDatStateStruct.DriveId || _pDatStateStruct.Passport);
-            return result;
+            if (string.IsNullOrEmpty(value))
+            {
+                tbBox.BackColor = Color.Pink;
+                return;
+            }
+
+            procFunc();
+        }
+        // Проверка полей на валидность
+        private void ProcessName(string name, TextBox tbBox)
+        {
+            var nameToCheck = Methods.PrepareName(name);
+            _dataStateOk.Name = IsNameNotExist(nameToCheck);
+
+            if (_dataStateOk.Name)
+            {
+                _personDataStruct.Name = nameToCheck;
+                tbBox.BackColor = Color.PaleGreen;
+            }
+            else
+            {
+                tbBox.BackColor = Color.Pink;
+            }
+        }
+        private bool IsNameNotExist(string name)
+        {
+            return !DataBaseClass.ContainsNameKey(name);
         }
 
-        private void StateHandler()
-        {
-            ButtonAddEneble(IsDataStatesOk());
-        }
         #endregion
 
         /// ОБРАБОТЧИКИ ///
+        private void textBox_Name_TextChanged(object sender, EventArgs e)
+        {
+            ProcessTextBox(textBox_Name.Text, textBox_Name, () => ProcessName(textBox_Name.Text, textBox_Name));
+        }
+
         private void button_Add_New_Person_Click(object sender, EventArgs e)
         {
 

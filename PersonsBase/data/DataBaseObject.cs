@@ -20,7 +20,7 @@ namespace PBase
 
         public static Person GetPersonLink(string name)
         {
-            if (!ContainsKey(name)) return null;
+            if (!ContainsNameKey(name)) return null;
             _person = CollectionObj[name];
             return _person;
         }

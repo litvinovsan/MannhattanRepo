@@ -77,6 +77,7 @@
             this.textBox_Name.Name = "textBox_Name";
             this.textBox_Name.Size = new System.Drawing.Size(342, 24);
             this.textBox_Name.TabIndex = 0;
+            this.textBox_Name.TextChanged += new System.EventHandler(this.textBox_Name_TextChanged);
             // 
             // groupBox3
             // 

@@ -173,7 +173,7 @@ namespace PBase
         {
             return _dataBaseList.Count;
         }
-        public static bool ContainsKey(string personName)
+        public static bool ContainsNameKey(string personName)
         {
             return _dataBaseList.ContainsKey(personName);
         }
