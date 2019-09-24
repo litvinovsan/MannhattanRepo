@@ -25,7 +25,7 @@ namespace PersonsBase.View
 
         #region /// ПОЛЯ ///
 
-        private const string MaskPhone = "8(   )    -  -";
+        private readonly string _maskPhone;
         private readonly string _maskPassport;
         private readonly string _maskDriverId;
         private readonly SortedList<string, Person> _persons;
@@ -121,29 +121,28 @@ namespace PersonsBase.View
         {
             InitializeComponent();
 
+            _maskPhone = this.maskedTextBox_PhoneNumber.Text;
             _maskPassport = this.maskedTextBox_Passport.Text;
             _maskDriverId = this.maskedTextBox_DriverID.Text;
+
             _persons = DataBaseLevel.GetListPersons();
 
-            PersonalDataStateEvent += AllVarStateHandler;
-
+            // Изменилось какое - либо поле данных
+            PersonalDataStateEvent += VariablesHandler;
         }
 
         private void CreatePersonForm_Load(object sender, EventArgs e)
         {
-            // Инициализация полей по - умолчанию
-
+            /// Инициализация полей по - умолчанию
             // Пол
             var gendRange = Enum.GetNames(typeof(Gender)).ToArray<object>();
             MyComboBox.Initialize(comboBox_Gender, gendRange, Gender.Неизвестен.ToString());
-            comboBox_Gender.BackColor = Color.Pink;
 
             // Персональный Номер
             textBox_Number.Text = "";
 
             // День Рождения
             dateTimePicker_birthDate.Value = new DateTime(1990, 01, 01);
-            dateTimePicker_birthDate.BackColor = Color.Pink;
         }
 
         #endregion
@@ -164,7 +163,7 @@ namespace PersonsBase.View
         /// <summary>
         /// Обработчик. Запускается когда изменяется структура с bool результатами по всем полям
         /// </summary>
-        private void AllVarStateHandler()
+        private void VariablesHandler()
         {
             ButtonAddEneble(IsDataStatesOk());
         }
@@ -211,6 +210,23 @@ namespace PersonsBase.View
             _dataStruct.BDate = dateTime.Date;
         }
 
+        private void ProcessComboBox(ComboBox cmbox)
+        {
+            var gender = MyComboBox.GetComboBoxValue<Gender>(cmbox);
+
+            if (gender == Gender.Неизвестен)
+            {
+                _dataStateOk.Gender = false;
+                cmbox.BackColor = Color.Pink;
+            }
+            else
+            {
+                _dataStateOk.Gender = true;
+                _dataStruct.Gender = gender;
+                cmbox.BackColor = Color.PaleGreen;
+            }
+        }
+
         private bool IsPhoneOk(string text)
         {
             var person = DataBaseM.FindByPhone(_persons, text);
@@ -236,10 +252,10 @@ namespace PersonsBase.View
         private bool IsDriveIdOk(string text)
         {
             var person = DataBaseM.FindByDriveId(_persons, text);
-            _dataStateOk.Passport = (person == null);
+            _dataStateOk.DriveId = (person == null);
 
             if (!_dataStateOk.Passport) return false;
-            _dataStruct.Passport = text;
+            _dataStruct.DriveId = text;
 
             return true;
         }
@@ -288,7 +304,7 @@ namespace PersonsBase.View
 
         private void maskedTextBox_PhoneNumber_KeyUp(object sender, KeyEventArgs e)
         {
-            ProcessMaskedTextBox(MaskPhone, maskedTextBox_PhoneNumber, () => IsPhoneOk(maskedTextBox_PhoneNumber.Text));
+            ProcessMaskedTextBox(_maskPhone, maskedTextBox_PhoneNumber, () => IsPhoneOk(maskedTextBox_PhoneNumber.Text));
         }
 
         private void maskedTextBox_Passport_KeyUp(object sender, KeyEventArgs e)
@@ -301,8 +317,6 @@ namespace PersonsBase.View
             ProcessMaskedTextBox(_maskDriverId, maskedTextBox_DriverID, () => IsDriveIdOk(maskedTextBox_DriverID.Text));
         }
 
-
-
         private void dateTimePicker_birthDate_ValueChanged(object sender, EventArgs e)
         {
             ProcessDateTime(dateTimePicker_birthDate.Value);
@@ -310,7 +324,7 @@ namespace PersonsBase.View
 
         private void comboBox_Gender_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            ProcessComboBox(comboBox_Gender);
         }
     }
 }
