@@ -30,18 +30,7 @@ namespace PersonsBase.View
         private readonly string _maskDriverId;
         private readonly SortedList<string, Person> _persons;
 
-        private struct PersonalDataStruct
-        {
-            public string Name;
-            public string Phone;
-            public string Passport;
-            public string DriveId;
-            public string PathToPhoto;
-            public string SpecialNotes;
-            public int PersonalNumber;
-            public Gender Gender;
-            public DateTime BDate;
-        }
+
         private struct PersonalDataState
         {
             public bool Name
@@ -111,7 +100,7 @@ namespace PersonsBase.View
         }
 
         private PersonalDataState _dataStateOk = new PersonalDataState();
-        private PersonalDataStruct _dataStruct = new PersonalDataStruct();
+        private Person.PersonalDataStruct _dataStruct = new Person.PersonalDataStruct();
 
         #endregion
 
@@ -138,11 +127,14 @@ namespace PersonsBase.View
             var gendRange = Enum.GetNames(typeof(Gender)).ToArray<object>();
             MyComboBox.Initialize(comboBox_Gender, gendRange, Gender.Неизвестен.ToString());
 
-            // Персональный Номер
-            textBox_Number.Text = "";
-
             // День Рождения
             dateTimePicker_birthDate.Value = new DateTime(1990, 01, 01);
+
+            //Вызов для подсветки по-умолчанию
+            textBox_Name.BackColor = Color.Pink;
+            maskedTextBox_PhoneNumber.BackColor = Color.Pink;
+            maskedTextBox_Passport.BackColor = Color.Pink;
+
         }
 
         #endregion
@@ -299,7 +291,14 @@ namespace PersonsBase.View
 
         private void button_Add_New_Person_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
+            var p = Person.CreateNewPerson(_dataStruct);
+            var result = DataBaseLevel.GetInstance().PersonAdd(p);
+            if (result == ResponseCode.Success)
+                this.DialogResult = DialogResult.OK;
+            else
+            {
+                MessageBox.Show(result.ToString());
+            }
         }
 
         private void maskedTextBox_PhoneNumber_KeyUp(object sender, KeyEventArgs e)
@@ -325,6 +324,18 @@ namespace PersonsBase.View
         private void comboBox_Gender_SelectedIndexChanged(object sender, EventArgs e)
         {
             ProcessComboBox(comboBox_Gender);
+            dateTimePicker_birthDate.Focus();
+
+        }
+
+        private void textBox_Notes_TextChanged(object sender, EventArgs e)
+        {
+            _dataStruct.SpecialNotes = textBox_Notes.Text;
+        }
+
+        private void maskedTextBox_number_TextChanged(object sender, EventArgs e)
+        {
+            _dataStruct.PersonalNumber = int.Parse(maskedTextBox_number.Text);
         }
     }
 }

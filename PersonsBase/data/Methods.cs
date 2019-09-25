@@ -21,32 +21,19 @@ namespace PBase
         /// <returns></returns>
         public static string PrepareName(string fio)
         {
-            string surname = "";
-            string firstName = "";
-            string secondName = "";
+            string resultName = "";
+            var minimumSpaces = Regex.Replace(fio.ToLower().Trim(), @"[^\S\r\n]+", " "); // Уплотняем пробелы
+            var lowercase = minimumSpaces.ToLower();
 
-            string minimumSpaces = Regex.Replace(fio.ToLower().Trim(), @"[^\S\r\n]+", " "); // Уплотняем пробелы
-            string[] fioArray = minimumSpaces.Split(' ');
+            string[] fioArray = lowercase.Split(' ');
 
-            if (fioArray.Length == 1 && fioArray[0].Length >= 1) //Фамилия
+            foreach (var item in fioArray)
             {
-                surname = char.ToUpper(fioArray[0][0]) + fioArray[0].Remove(0, 1);
+                var c = Char.ToUpper(item[0]);
+                resultName += c + item.Remove(0, 1) + " ";
             }
-            else if (fioArray.Length == 2 && fioArray[0].Length > 1 && fioArray[1].Length > 1) // Фамилия Имя
-            {
-                surname = char.ToUpper(fioArray[0][0]) + fioArray[0].Remove(0, 1);
-                firstName = char.ToUpper(fioArray[1][0]) + fioArray[1].Remove(0, 1);
-            }
-            else // Фамилия Имя Отчество
-            {
-                if (fioArray[0].Length > 1 && fioArray[1].Length > 1 && fioArray[2].Length > 1)
-                {
-                    surname = char.ToUpper(fioArray[0][0]) + fioArray[0].Remove(0, 1);
-                    firstName = char.ToUpper(fioArray[1][0]) + fioArray[1].Remove(0, 1);
-                    secondName = char.ToUpper(fioArray[2][0]) + fioArray[2].Remove(0, 1);
-                }
-            }
-            return $"{surname} {firstName} {secondName}".Trim();
+
+            return resultName.Trim();
         }
 
         // Сериализация обьектов
@@ -284,7 +271,7 @@ namespace PBase
 
             return time;
         }
-        public static string ClockFormating(int hour,int minute)
+        public static string ClockFormating(int hour, int minute)
         {
             int h = hour;
             int m = minute;

@@ -316,7 +316,7 @@ namespace PBase
 
             if (isSuccess)
             {
-                var res=MessageBox.Show("Добавить Абонемент?", "Абонемент", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var res=MessageBox.Show("Успех! Желаете Добавить Абонемент?", "Клиент Добавлен!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 //  Создаем Абонемент если выбрали Да
                 if (res == DialogResult.Yes) AddAbonement(createdPersoName);
             }

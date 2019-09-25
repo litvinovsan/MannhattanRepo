@@ -155,6 +155,7 @@ namespace PBase
             this.удалитьКлиентаToolStripMenuItem.Name = "удалитьКлиентаToolStripMenuItem";
             this.удалитьКлиентаToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
             this.удалитьКлиентаToolStripMenuItem.Text = "Удалить Клиента";
+            this.удалитьКлиентаToolStripMenuItem.Click += new System.EventHandler(this.удалитьКлиентаToolStripMenuItem_Click);
             // 
             // отчетыToolStripMenuItem
             // 

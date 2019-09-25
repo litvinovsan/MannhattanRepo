@@ -235,7 +235,7 @@ namespace PBase
 
         #endregion
 
-        private void listView_Gym_Zal_SelectedIndexChanged(object sender, EventArgs e)
+        private void удалитьКлиентаToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }

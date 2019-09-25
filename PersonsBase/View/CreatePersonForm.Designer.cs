@@ -43,7 +43,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.maskedTextBox_DriverID = new System.Windows.Forms.MaskedTextBox();
-            this.textBox_Number = new System.Windows.Forms.TextBox();
+            this.maskedTextBox_number = new System.Windows.Forms.MaskedTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button_add_foto = new System.Windows.Forms.Button();
             this.pictureBox_Client = new System.Windows.Forms.PictureBox();
@@ -113,7 +113,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 13);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 14);
             this.tableLayoutPanel1.Controls.Add(this.maskedTextBox_DriverID, 1, 13);
-            this.tableLayoutPanel1.Controls.Add(this.textBox_Number, 1, 14);
+            this.tableLayoutPanel1.Controls.Add(this.maskedTextBox_number, 1, 14);
             this.tableLayoutPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(7, 21);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
@@ -135,7 +135,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(342, 159);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(343, 161);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // maskedTextBox_PhoneNumber
@@ -146,7 +146,7 @@
             this.maskedTextBox_PhoneNumber.Margin = new System.Windows.Forms.Padding(2);
             this.maskedTextBox_PhoneNumber.Mask = "8(999) 000-00-00";
             this.maskedTextBox_PhoneNumber.Name = "maskedTextBox_PhoneNumber";
-            this.maskedTextBox_PhoneNumber.Size = new System.Drawing.Size(181, 23);
+            this.maskedTextBox_PhoneNumber.Size = new System.Drawing.Size(182, 23);
             this.maskedTextBox_PhoneNumber.TabIndex = 6;
             this.maskedTextBox_PhoneNumber.KeyUp += new System.Windows.Forms.KeyEventHandler(this.maskedTextBox_PhoneNumber_KeyUp);
             // 
@@ -180,7 +180,7 @@
             this.comboBox_Gender.Location = new System.Drawing.Point(159, 29);
             this.comboBox_Gender.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_Gender.Name = "comboBox_Gender";
-            this.comboBox_Gender.Size = new System.Drawing.Size(181, 24);
+            this.comboBox_Gender.Size = new System.Drawing.Size(182, 24);
             this.comboBox_Gender.TabIndex = 2;
             this.comboBox_Gender.SelectedIndexChanged += new System.EventHandler(this.comboBox_Gender_SelectedIndexChanged);
             // 
@@ -214,7 +214,7 @@
             this.maskedTextBox_Passport.Margin = new System.Windows.Forms.Padding(2);
             this.maskedTextBox_Passport.Mask = "9999   № 999999";
             this.maskedTextBox_Passport.Name = "maskedTextBox_Passport";
-            this.maskedTextBox_Passport.Size = new System.Drawing.Size(181, 21);
+            this.maskedTextBox_Passport.Size = new System.Drawing.Size(182, 21);
             this.maskedTextBox_Passport.TabIndex = 4;
             this.maskedTextBox_Passport.KeyUp += new System.Windows.Forms.KeyEventHandler(this.maskedTextBox_Passport_KeyUp);
             // 
@@ -226,7 +226,7 @@
             this.dateTimePicker_birthDate.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker_birthDate.MinimumSize = new System.Drawing.Size(115, 22);
             this.dateTimePicker_birthDate.Name = "dateTimePicker_birthDate";
-            this.dateTimePicker_birthDate.Size = new System.Drawing.Size(181, 23);
+            this.dateTimePicker_birthDate.Size = new System.Drawing.Size(182, 23);
             this.dateTimePicker_birthDate.TabIndex = 3;
             this.dateTimePicker_birthDate.ValueChanged += new System.EventHandler(this.dateTimePicker_birthDate_ValueChanged);
             // 
@@ -246,7 +246,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(2, 137);
+            this.label1.Location = new System.Drawing.Point(2, 138);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(153, 17);
@@ -261,21 +261,20 @@
             this.maskedTextBox_DriverID.Margin = new System.Windows.Forms.Padding(2);
             this.maskedTextBox_DriverID.Mask = "9999   № 999999";
             this.maskedTextBox_DriverID.Name = "maskedTextBox_DriverID";
-            this.maskedTextBox_DriverID.Size = new System.Drawing.Size(181, 21);
+            this.maskedTextBox_DriverID.Size = new System.Drawing.Size(182, 21);
             this.maskedTextBox_DriverID.TabIndex = 0;
             this.maskedTextBox_DriverID.KeyUp += new System.Windows.Forms.KeyEventHandler(this.maskedTextBox_DriverID_KeyUp);
             // 
-            // textBox_Number
+            // maskedTextBox_number
             // 
-            this.textBox_Number.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_Number.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox_Number.Location = new System.Drawing.Point(159, 134);
-            this.textBox_Number.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox_Number.Name = "textBox_Number";
-            this.textBox_Number.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.textBox_Number.Size = new System.Drawing.Size(181, 23);
-            this.textBox_Number.TabIndex = 5;
-            this.textBox_Number.Text = "123";
+            this.maskedTextBox_number.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.maskedTextBox_number.Location = new System.Drawing.Point(160, 135);
+            this.maskedTextBox_number.Mask = "0000";
+            this.maskedTextBox_number.Name = "maskedTextBox_number";
+            this.maskedTextBox_number.Size = new System.Drawing.Size(180, 23);
+            this.maskedTextBox_number.TabIndex = 9;
+            this.maskedTextBox_number.ValidatingType = typeof(int);
+            this.maskedTextBox_number.TextChanged += new System.EventHandler(this.maskedTextBox_number_TextChanged);
             // 
             // groupBox2
             // 
@@ -283,7 +282,7 @@
             this.groupBox2.Controls.Add(this.button_add_foto);
             this.groupBox2.Controls.Add(this.pictureBox_Client);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox2.Location = new System.Drawing.Point(433, 12);
+            this.groupBox2.Location = new System.Drawing.Point(445, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(200, 254);
             this.groupBox2.TabIndex = 3;
@@ -322,18 +321,19 @@
             this.textBox_Notes.Multiline = true;
             this.textBox_Notes.Name = "textBox_Notes";
             this.textBox_Notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_Notes.Size = new System.Drawing.Size(614, 100);
+            this.textBox_Notes.Size = new System.Drawing.Size(626, 104);
             this.textBox_Notes.TabIndex = 6;
             this.textBox_Notes.Text = "Заметки о Клиенте";
+            this.textBox_Notes.TextChanged += new System.EventHandler(this.textBox_Notes_TextChanged);
             // 
             // button_Add_New_Person
             // 
             this.button_Add_New_Person.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button_Add_New_Person.Enabled = false;
             this.button_Add_New_Person.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_Add_New_Person.Location = new System.Drawing.Point(0, 415);
+            this.button_Add_New_Person.Location = new System.Drawing.Point(0, 419);
             this.button_Add_New_Person.Name = "button_Add_New_Person";
-            this.button_Add_New_Person.Size = new System.Drawing.Size(645, 52);
+            this.button_Add_New_Person.Size = new System.Drawing.Size(657, 52);
             this.button_Add_New_Person.TabIndex = 7;
             this.button_Add_New_Person.Text = "Создать Клиента";
             this.button_Add_New_Person.UseVisualStyleBackColor = true;
@@ -347,7 +347,7 @@
             this.groupBox_Notes.Controls.Add(this.textBox_Notes);
             this.groupBox_Notes.Location = new System.Drawing.Point(13, 289);
             this.groupBox_Notes.Name = "groupBox_Notes";
-            this.groupBox_Notes.Size = new System.Drawing.Size(620, 119);
+            this.groupBox_Notes.Size = new System.Drawing.Size(632, 123);
             this.groupBox_Notes.TabIndex = 8;
             this.groupBox_Notes.TabStop = false;
             this.groupBox_Notes.Text = "Дополнительная информация:";
@@ -356,12 +356,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(645, 467);
+            this.ClientSize = new System.Drawing.Size(657, 471);
             this.Controls.Add(this.groupBox_Notes);
             this.Controls.Add(this.button_Add_New_Person);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
+            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(632, 505);
             this.Name = "CreatePersonForm";
             this.Text = "Создание Клиента";
@@ -396,7 +397,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox_Gender;
-        private System.Windows.Forms.TextBox textBox_Number;
         private System.Windows.Forms.TextBox textBox_Name;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button_add_foto;
@@ -404,5 +404,6 @@
         private System.Windows.Forms.TextBox textBox_Notes;
         private System.Windows.Forms.Button button_Add_New_Person;
         private System.Windows.Forms.GroupBox groupBox_Notes;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox_number;
     }
 }

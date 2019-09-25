@@ -48,6 +48,20 @@ namespace PBase
         #endregion
 
         #region/// ПУБЛИЧНЫЕ ПОЛЯ, ДОСТУПНЫЕ ДАННЫЕ О КЛИЕНТЕ ////////////
+
+        public struct PersonalDataStruct
+        {
+            public string Name;
+            public string Phone;
+            public string Passport;
+            public string DriveId;
+            public string PathToPhoto;
+            public string SpecialNotes;
+            public int PersonalNumber;
+            public Gender Gender;
+            public DateTime BDate;
+        }
+        // FIXME. Replace singe var to structure
         public string Name
         {
             get { return _name; }
@@ -183,6 +197,21 @@ namespace PBase
             if (JournalVisits == null) JournalVisits = new List<Visit>(); // Проверка на случай сериализации
             JournalVisits.Add(new Visit(_abonementCurent, selectedOptions));
         }
+        public static Person CreateNewPerson(PersonalDataStruct dataStruct)
+        {
+            Person p = new Person(dataStruct.Name)
+            {
+                BirthDate = dataStruct.BDate,
+                GenderType = dataStruct.Gender,
+                DriverIdNum = dataStruct.DriveId,
+                Passport = dataStruct.Passport,
+                PathToPhoto = dataStruct.PathToPhoto,
+                PersonalNumber = dataStruct.PersonalNumber,
+                Phone = dataStruct.Phone,
+                SpecialNotes = dataStruct.SpecialNotes,
+            };
+            return p;
+        }
 
         // Приватные
         private bool UpdateQueue(AbonementBasic newAbonementValue)
@@ -313,7 +342,7 @@ namespace PBase
                 return true;
             }
 
-            if (DriverIdNum != "" && other.DriverIdNum != "" && DriverIdNum == other.DriverIdNum)
+            if (!string.IsNullOrEmpty(DriverIdNum) && !string.IsNullOrEmpty(other.DriverIdNum) && DriverIdNum == other.DriverIdNum)
             {
                 response = ResponseCode.DriverIdExist;
                 return true;
