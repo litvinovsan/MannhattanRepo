@@ -125,8 +125,8 @@ namespace PBase
             this.клиентыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.продатьАбонементToolStripMenuItem,
             this.добавитьКлиентаToolStripMenuItem,
-            this.списокКлиентовToolStripMenuItem,
-            this.удалитьКлиентаToolStripMenuItem});
+            this.удалитьКлиентаToolStripMenuItem,
+            this.списокКлиентовToolStripMenuItem});
             this.клиентыToolStripMenuItem.Name = "клиентыToolStripMenuItem";
             this.клиентыToolStripMenuItem.Size = new System.Drawing.Size(75, 28);
             this.клиентыToolStripMenuItem.Text = "Клиенты";
@@ -338,7 +338,6 @@ namespace PBase
             this.listView_Gym_Zal.TabIndex = 2;
             this.listView_Gym_Zal.UseCompatibleStateImageBehavior = false;
             this.listView_Gym_Zal.View = System.Windows.Forms.View.Details;
-            this.listView_Gym_Zal.SelectedIndexChanged += new System.EventHandler(this.listView_Gym_Zal_SelectedIndexChanged);
             // 
             // column_Time
             // 

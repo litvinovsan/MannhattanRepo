@@ -49,6 +49,7 @@ namespace PBase
 
         #region/// ПУБЛИЧНЫЕ ПОЛЯ, ДОСТУПНЫЕ ДАННЫЕ О КЛИЕНТЕ ////////////
 
+        [Serializable]
         public struct PersonalDataStruct
         {
             public string Name;
@@ -330,13 +331,13 @@ namespace PBase
                 return true;
             }
 
-            if (Phone != "" && other.Phone != "" && Phone == other.Phone)
+            if (!string.IsNullOrEmpty(Phone) && !string.IsNullOrEmpty(other.Phone) && Phone == other.Phone)
             {
                 response = ResponseCode.PhoneExist;
                 return true;
             }
 
-            if (Passport != "" && other.Passport != "" && Passport == other.Passport)
+            if (!string.IsNullOrEmpty(Passport) && !string.IsNullOrEmpty(other.Passport) && Passport == other.Passport)
             {
                 response = ResponseCode.PassportExist;
                 return true;
