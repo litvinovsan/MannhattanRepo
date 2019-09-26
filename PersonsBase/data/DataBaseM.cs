@@ -59,12 +59,10 @@ namespace PBase
         // Index in List
         public static Person FindByIndexInBase(SortedList<string, Person> inputCollection, int index)
         {
-            Person findedPerson = null;
-            if (inputCollection != null && inputCollection.Count > 0 && index <= inputCollection.Count - 1)
-            {
-                var keyValPair = inputCollection.ElementAt(index);
-                findedPerson = keyValPair.Value;
-            }
+            if (inputCollection == null || inputCollection.Count <= 0 || index > inputCollection.Count - 1)
+                return null;
+            var keyValPair = inputCollection.ElementAt(index);
+            var findedPerson = keyValPair.Value;
             return findedPerson;
         }
 

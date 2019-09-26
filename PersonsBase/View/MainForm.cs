@@ -17,7 +17,11 @@ namespace PBase
 
         private readonly DataBaseLevel _db = DataBaseLevel.GetInstance();
 
-        private SortedList<string, Person> UserList => DataBaseLevel.GetListPersons();
+        private SortedList<string, Person> UserList
+        {
+            get { return DataBaseLevel.GetListPersons(); }
+        }
+
         private readonly Dictionary<TypeWorkout, MyListViewDelegate> _listViewSelector; // Для заполнения 1 из 3х списков с Клиентами
 
         private Options _options; // Хранятся локальные настройки и параметры программы.
@@ -237,7 +241,7 @@ namespace PBase
 
         private void удалитьКлиентаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Logic.RemovePerson();
         }
     }
 }

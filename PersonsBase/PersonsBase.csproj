@@ -138,6 +138,12 @@
     <Compile Include="View\PwdForm.Designer.cs">
       <DependentUpon>PwdForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\SelectPersonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\SelectPersonForm.Designer.cs">
+      <DependentUpon>SelectPersonForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\WorkoutForm.cs">
       <SubType>Form</SubType>
     </Compile>

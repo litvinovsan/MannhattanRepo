@@ -137,34 +137,32 @@ namespace PBase
 
             return response;
         }
-        public ResponseCode PersonRemove(string key)
+        public ResponseCode PersonRemove(string nameKey)
         {
-            ResponseCode result = ResponseCode.Fail;
+            var result = ResponseCode.Fail;
 
             lock (locker)
             {
-                Person tempPerson;
-                if (_dataBaseList.TryGetValue(key, out tempPerson))
+                if (!_dataBaseList.ContainsKey(nameKey)) return result;
+
+                try
                 {
-                    try
+                    if (_dataBaseList.Remove(nameKey))
                     {
-                        if (_dataBaseList.Remove(key))
-                        {
-                            result = ResponseCode.Success;
-                            OnListChanged();
-                        }
+                        result = ResponseCode.Success;
+                        OnListChanged();
                     }
-                    catch
-                    {
-                        result = ResponseCode.Fail;
-                    }
+                }
+                catch
+                {
+                    result = ResponseCode.Fail;
                 }
             }
             return result;
         }
         public bool PersonEditName(string lastName, string newName)
         {
-            bool result = DataBaseM.EditName(_dataBaseList, lastName, newName);
+            var result = DataBaseM.EditName(_dataBaseList, lastName, newName);
             if (result) OnListChanged();
             return result;
         }

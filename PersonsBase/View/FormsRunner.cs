@@ -11,15 +11,9 @@ namespace PersonsBase.View
 {
     public static class FormsRunner
     {
-        //private Options _options;
-        //private DataBaseLevel _dataBase;
-
-        // public static FormsRunner()
-        //{
         //_options = Options.GetInstance();
         //_dataBase = DataBaseLevel.GetInstance();
         //_person = DataBaseO.GetPersonLink(nameKey); // Получаем ссылку на обьект персоны
-        //}
 
         #region /// СОЗДАНИЕ КЛИЕНТА ///
         public static bool RunCreatePersonForm(out string createdName)
@@ -100,7 +94,7 @@ namespace PersonsBase.View
         /// </summary>
         public static DialogResult RunWorkoutOptionsForm(ref WorkoutOptions optionsWorkout, string personName)
         {
-            DialogResult dlgReult = DialogResult.Cancel;
+            var dlgReult = DialogResult.Cancel;
 
             var workoutForm = new WorkoutForm(personName);
 
@@ -125,5 +119,21 @@ namespace PersonsBase.View
             }
         }
         #endregion
+
+        #region /// ФОРМА ВЫБОР КЛИЕНТА из списка БАЗЫ ///
+        public static bool RunSelectPersonForm(out string person)
+        {
+            person = null;
+            var frm = new SelectPersonForm();
+            var dlgReult = frm.ShowDialog();
+
+            if (dlgReult != DialogResult.OK) return false;
+
+            var selectedPerson = frm.GetName();
+            person = selectedPerson;
+            return true;
+        }
+        #endregion
+
     }
 }

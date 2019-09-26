@@ -144,7 +144,7 @@ namespace PBase
             catch
             {
                 pictureBox.Image = null;
-               // MessageBox.Show("Ошибка Открытия Файла Изображения");
+                // MessageBox.Show("Ошибка Открытия Файла Изображения");
             }
             pictureBox.Refresh();
         }
@@ -316,7 +316,7 @@ namespace PBase
 
             if (isSuccess)
             {
-                var res=MessageBox.Show("Успех! Желаете Добавить Абонемент?", "Клиент Добавлен!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var res = MessageBox.Show("Успех! Желаете Добавить Абонемент?", "Клиент Добавлен!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 //  Создаем Абонемент если выбрали Да
                 if (res == DialogResult.Yes) AddAbonement(createdPersoName);
             }
@@ -325,5 +325,25 @@ namespace PBase
         }
 
         #endregion
+
+        #region /// ВЫБОР КЛИЕНТА ИЗ СПИСКА ///
+
+        public static bool RemovePerson()
+        {
+            if (!FormsRunner.RunSelectPersonForm(out var selectedName)) return false;
+
+            if (string.IsNullOrEmpty(selectedName)) return false;
+
+            var res = MessageBox.Show($@"{selectedName}", @"Удалить клиента?", MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+            if (res == DialogResult.No) return false;
+
+            var response = DataBaseLevel.GetInstance().PersonRemove(selectedName);
+            return (response == ResponseCode.Success);
+        }
+
+        #endregion
+
     }
 }
