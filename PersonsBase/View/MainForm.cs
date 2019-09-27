@@ -26,7 +26,6 @@ namespace PBase
 
         private Options _options; // Хранятся локальные настройки и параметры программы.
         private readonly Logic _logic;       // Логика и управляющие методы программы.
-        private Photo _photo;
         private readonly Timer _time = new Timer();
         private int _totalPersonToday;
 
@@ -40,7 +39,7 @@ namespace PBase
             InitializeComponent();
             _options = Options.GetInstance();
             _logic = Logic.GetInstance();
-            _photo = new Photo();
+            new Photo();
 
             _listViewSelector = new Dictionary<TypeWorkout, MyListViewDelegate>
             {
@@ -75,7 +74,7 @@ namespace PBase
             MyListViewEx.MaximizeLastColumn(listView_Gym_Zal);
             MyListViewEx.MaximizeLastColumn(listView_Group);
             MyListViewEx.MaximizeLastColumn(listView_Personal);
-         
+
         }
 
 
@@ -219,8 +218,6 @@ namespace PBase
         private void добавитьКлиентаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Logic.CreatePerson();
-            //_db.PersonAdd(new Person("Трактирщик Мо"));
-            //_db.PersonAdd(new Person("Гомер Симпсон"));
         }
 
         private void руководительToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -230,18 +227,14 @@ namespace PBase
             {
                 var result = FormsRunner.CreateBossForm();
             }
-
-
             // FIXME  Выбор текущего администратора
         }
-
-
-
-        #endregion
 
         private void удалитьКлиентаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Logic.RemovePerson();
         }
+
+        #endregion
     }
 }

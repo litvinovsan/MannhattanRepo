@@ -121,16 +121,16 @@ namespace PersonsBase.View
         #endregion
 
         #region /// ФОРМА ВЫБОР КЛИЕНТА из списка БАЗЫ ///
-        public static bool RunSelectPersonForm(out string person)
+        public static bool RunSelectPersonForm(out string personName)
         {
-            person = null;
+            personName = null;
             var frm = new SelectPersonForm();
             var dlgReult = frm.ShowDialog();
 
             if (dlgReult != DialogResult.OK) return false;
 
             var selectedPerson = frm.GetName();
-            person = selectedPerson;
+            personName = selectedPerson;
             return true;
         }
         #endregion

@@ -194,6 +194,9 @@
     <EmbeddedResource Include="View\PwdForm.resx">
       <DependentUpon>PwdForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\SelectPersonForm.resx">
+      <DependentUpon>SelectPersonForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\WorkoutForm.resx">
       <DependentUpon>WorkoutForm.cs</DependentUpon>
     </EmbeddedResource>
