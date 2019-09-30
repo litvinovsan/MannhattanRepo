@@ -82,7 +82,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox1.Size = new System.Drawing.Size(306, 394);
+            this.groupBox1.Size = new System.Drawing.Size(306, 383);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Имя Клиента:";
@@ -98,7 +98,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox2.Size = new System.Drawing.Size(497, 394);
+            this.groupBox2.Size = new System.Drawing.Size(497, 383);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Информация";
@@ -124,7 +124,7 @@
             this.listBox1.Location = new System.Drawing.Point(7, 54);
             this.listBox1.Name = "listBox1";
             this.listBox1.ScrollAlwaysVisible = true;
-            this.listBox1.Size = new System.Drawing.Size(292, 324);
+            this.listBox1.Size = new System.Drawing.Size(292, 308);
             this.listBox1.Sorted = true;
             this.listBox1.TabIndex = 5;
             // 
@@ -346,7 +346,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Location = new System.Drawing.Point(8, 223);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(481, 164);
+            this.groupBox4.Size = new System.Drawing.Size(481, 153);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Абонемент / Карта / Посещения";
@@ -370,7 +370,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.button_Cancel, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.button_Ok, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(16, 417);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(16, 406);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -381,7 +381,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(840, 460);
+            this.ClientSize = new System.Drawing.Size(840, 449);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
