@@ -17,7 +17,7 @@ namespace PBase
 
         private readonly DataBaseLevel _db = DataBaseLevel.GetInstance();
 
-        private SortedList<string, Person> UserList
+        private SortedList<string, Person> PersonsList
         {
             get { return DataBaseLevel.GetListPersons(); }
         }
@@ -39,7 +39,6 @@ namespace PBase
             InitializeComponent();
             _options = Options.GetInstance();
             _logic = Logic.GetInstance();
-            new Photo();
 
             _listViewSelector = new Dictionary<TypeWorkout, MyListViewDelegate>
             {
@@ -144,7 +143,7 @@ namespace PBase
             {
                 comboBox_BDay.Items.Clear();
                 label4.Text = "Дней Рождения: 0";
-                var array = UserList.Values.Where(c => c.BirthDate.ToString("M") == DateTime.Today.ToString("M")).Select(c => c.Name).ToArray<object>();
+                var array = PersonsList.Values.Where(c => c.BirthDate.ToString("M") == DateTime.Today.ToString("M")).Select(c => c.Name).ToArray<object>();
                 if (array.Length != 0)
                 {
                     comboBox_BDay.Items.AddRange(array);
@@ -159,20 +158,20 @@ namespace PBase
         }
         private void UpdateFindComboBoxMenu(object sender, EventArgs arg)
         {
-            Action myDelegate = delegate
+            void MyDelegate()
             {
-                сomboBox_UserList.Items.Clear();
+                сomboBox_PersonsList.Items.Clear();
 
-                сomboBox_UserList.Items.AddRange(UserList.Values.Select(c => c.Name).ToArray<object>());
+                сomboBox_PersonsList.Items.AddRange(PersonsList.Values.Select(c => c.Name).ToArray<object>());
                 Invalidate();
-            };
+            }
 
-            if (InvokeRequired) Invoke(myDelegate);
-            else myDelegate();
+            if (InvokeRequired) Invoke((Action)MyDelegate);
+            else MyDelegate();
         }
         public void ClearFindCombo()
         {
-            Action myDelegate = () => сomboBox_UserList.SelectedText = "";
+            Action myDelegate = () => сomboBox_PersonsList.SelectedText = "";
             if (InvokeRequired)
             {
                 Invoke(myDelegate);
@@ -193,15 +192,11 @@ namespace PBase
         }
         private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            FormsRunner.RunClientForm(сomboBox_UserList.SelectedItem.ToString());
-
+            Logic.OpenPersonCard(сomboBox_PersonsList.SelectedItem.ToString());
         }
         private void comboBox_BDay_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            FormsRunner.RunClientForm(comboBox_BDay.SelectedItem.ToString());
-
+            Logic.OpenPersonCard(comboBox_BDay.SelectedItem.ToString());
         }
         private void _time_ClockTick(object sender, EventArgs e)
         {
@@ -222,7 +217,7 @@ namespace PBase
 
         private void руководительToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Logic.AccessRoot();
+            Logic.AccessRootUser();
             if (PwdForm.IsPassUnLocked())
             {
                 var result = FormsRunner.CreateBossForm();
@@ -236,5 +231,10 @@ namespace PBase
         }
 
         #endregion
+
+        private void списокКлиентовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Logic.OpenPersonCard();
+        }
     }
 }

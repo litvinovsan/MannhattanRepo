@@ -147,7 +147,7 @@
             this.maskedTextBox_PhoneNumber.Mask = "8(999) 000-00-00";
             this.maskedTextBox_PhoneNumber.Name = "maskedTextBox_PhoneNumber";
             this.maskedTextBox_PhoneNumber.Size = new System.Drawing.Size(182, 23);
-            this.maskedTextBox_PhoneNumber.TabIndex = 6;
+            this.maskedTextBox_PhoneNumber.TabIndex = 2;
             this.maskedTextBox_PhoneNumber.KeyUp += new System.Windows.Forms.KeyEventHandler(this.maskedTextBox_PhoneNumber_KeyUp);
             // 
             // label_Phone
@@ -181,7 +181,7 @@
             this.comboBox_Gender.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_Gender.Name = "comboBox_Gender";
             this.comboBox_Gender.Size = new System.Drawing.Size(182, 24);
-            this.comboBox_Gender.TabIndex = 2;
+            this.comboBox_Gender.TabIndex = 3;
             this.comboBox_Gender.SelectedIndexChanged += new System.EventHandler(this.comboBox_Gender_SelectedIndexChanged);
             // 
             // label3
@@ -215,7 +215,7 @@
             this.maskedTextBox_Passport.Mask = "9999   № 999999";
             this.maskedTextBox_Passport.Name = "maskedTextBox_Passport";
             this.maskedTextBox_Passport.Size = new System.Drawing.Size(182, 21);
-            this.maskedTextBox_Passport.TabIndex = 4;
+            this.maskedTextBox_Passport.TabIndex = 5;
             this.maskedTextBox_Passport.KeyUp += new System.Windows.Forms.KeyEventHandler(this.maskedTextBox_Passport_KeyUp);
             // 
             // dateTimePicker_birthDate
@@ -227,7 +227,7 @@
             this.dateTimePicker_birthDate.MinimumSize = new System.Drawing.Size(115, 22);
             this.dateTimePicker_birthDate.Name = "dateTimePicker_birthDate";
             this.dateTimePicker_birthDate.Size = new System.Drawing.Size(182, 23);
-            this.dateTimePicker_birthDate.TabIndex = 3;
+            this.dateTimePicker_birthDate.TabIndex = 4;
             this.dateTimePicker_birthDate.ValueChanged += new System.EventHandler(this.dateTimePicker_birthDate_ValueChanged);
             // 
             // label6
@@ -262,7 +262,7 @@
             this.maskedTextBox_DriverID.Mask = "9999   № 999999";
             this.maskedTextBox_DriverID.Name = "maskedTextBox_DriverID";
             this.maskedTextBox_DriverID.Size = new System.Drawing.Size(182, 21);
-            this.maskedTextBox_DriverID.TabIndex = 0;
+            this.maskedTextBox_DriverID.TabIndex = 6;
             this.maskedTextBox_DriverID.KeyUp += new System.Windows.Forms.KeyEventHandler(this.maskedTextBox_DriverID_KeyUp);
             // 
             // maskedTextBox_number
@@ -272,7 +272,7 @@
             this.maskedTextBox_number.Mask = "0000";
             this.maskedTextBox_number.Name = "maskedTextBox_number";
             this.maskedTextBox_number.Size = new System.Drawing.Size(180, 23);
-            this.maskedTextBox_number.TabIndex = 9;
+            this.maskedTextBox_number.TabIndex = 7;
             this.maskedTextBox_number.ValidatingType = typeof(int);
             this.maskedTextBox_number.TextChanged += new System.EventHandler(this.maskedTextBox_number_TextChanged);
             // 
@@ -322,7 +322,7 @@
             this.textBox_Notes.Name = "textBox_Notes";
             this.textBox_Notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox_Notes.Size = new System.Drawing.Size(626, 104);
-            this.textBox_Notes.TabIndex = 6;
+            this.textBox_Notes.TabIndex = 8;
             this.textBox_Notes.Text = "Заметки о Клиенте";
             this.textBox_Notes.TextChanged += new System.EventHandler(this.textBox_Notes_TextChanged);
             // 

@@ -56,9 +56,24 @@ namespace PBase
 
         public static bool AddAbonement(string personName)
         {
-            //FIXME Добавить сюда код из    private void button_Add_New_Abon_Click(object sender, EventArgs e)
-            MessageBox.Show("FIXME. Добавить выбор абонемента");
-            return false;
+            var person = DataBaseO.GetPersonLink(personName);
+            if (person == null) return false;
+
+            var dialogResult = DialogResult.Cancel;
+            if (person.AbonementCurent == null)
+            {
+                dialogResult = FormsRunner.CreateAbonementForm(person.Name);
+            }
+            else
+            {
+                var result = MessageBox.Show($"Действует:  {person.AbonementCurent.AbonementName}.\n\rДобавить новый абонемент к существующему?", "Добавление Абонемента", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    dialogResult = FormsRunner.CreateAbonementForm(person.Name);
+                }
+            }
+
+            return dialogResult == DialogResult.OK;
         }
 
         public bool CheckInWorkout(string personName)
@@ -152,7 +167,7 @@ namespace PBase
         /// <summary>
         ///     Запрос Пароля Суперпользователя если необходимо. Запускает событие LockChangedEvent.
         /// </summary>
-        public static void AccessRoot()
+        public static void AccessRootUser()
         {
             FormsRunner.RunPasswordForm();
         }
@@ -289,10 +304,8 @@ namespace PBase
         {
             var manhattanInfo = DataBaseO.GetManhattanInfo();
 
-            var isExist = false;
-
             //  Проверка. Содержит ли список
-            isExist = isTrener
+            var isExist = isTrener
                 ? manhattanInfo.Treners.Exists(x => x.Name.Equals(name))
                 : manhattanInfo.Admins.Exists(x => x.Name.Equals(name));
 
@@ -306,7 +319,7 @@ namespace PBase
 
         #endregion
 
-        #region /// СОЗДАНИЕ КЛИЕНТА ///
+        #region /// КЛИЕНТ. СОЗДАНИЕ  ///
 
         public static bool CreatePerson()
         {
@@ -316,7 +329,7 @@ namespace PBase
 
             if (isSuccess)
             {
-                var res = MessageBox.Show("Успех! Желаете Добавить Абонемент?", "Клиент Добавлен!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var res = MessageBox.Show("Желаете Добавить Абонемент?", "Клиент Добавлен!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 //  Создаем Абонемент если выбрали Да
                 if (res == DialogResult.Yes) AddAbonement(createdPersoName);
             }
@@ -326,21 +339,40 @@ namespace PBase
 
         #endregion
 
-        #region /// ВЫБОР КЛИЕНТА ИЗ СПИСКА ///
-
+        #region /// КЛИЕНТ. УДАЛЕНИЕ ///
         public static bool RemovePerson()
         {
-            if (!FormsRunner.RunSelectPersonForm(out var selectedName)) return false;
+            if (!FormsRunner.RunSelectPersonForm(out var selectedName, "Удаление Клиента")) return false;
 
             if (string.IsNullOrEmpty(selectedName)) return false;
 
             var res = MessageBox.Show($@"{selectedName}", @"Удалить клиента?", MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question);
+                MessageBoxIcon.Question);
 
             if (res == DialogResult.No) return false;
 
             var response = DataBaseLevel.GetInstance().PersonRemove(selectedName);
             return (response == ResponseCode.Success);
+        }
+
+        #endregion
+
+        #region /// КЛИЕНТ. ПЕРСОНАЛЬНАЯ КАРТОЧКА  ///
+        public static void OpenPersonCard(string namePerson)
+        {
+            if (string.IsNullOrEmpty(namePerson)) return;
+
+            FormsRunner.RunClientForm(namePerson);
+        }
+
+        public static void OpenPersonCard()
+        {
+            // Выбор имени Клиента
+            if (!FormsRunner.RunSelectPersonForm(out var selectedName, "Выбор Клиента из списка")) return;
+
+            if (string.IsNullOrEmpty(selectedName) || string.IsNullOrWhiteSpace(selectedName)) return;
+
+            OpenPersonCard(selectedName);
         }
 
         #endregion

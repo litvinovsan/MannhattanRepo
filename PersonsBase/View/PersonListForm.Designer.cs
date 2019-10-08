@@ -1,6 +1,6 @@
 ﻿namespace PersonsBase.View
 {
-    partial class SelectPersonForm
+    partial class PersonListForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,11 +30,12 @@
         {
             this.button_Cancel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.listBox_persons = new System.Windows.Forms.ListBox();
+            this.comboBox_Names = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button_Ok = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.pictureBox_Client = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.maskedTextBox_PhoneNumber = new System.Windows.Forms.MaskedTextBox();
             this.label_Phone = new System.Windows.Forms.Label();
@@ -48,14 +49,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.maskedTextBox_DriverID = new System.Windows.Forms.MaskedTextBox();
             this.maskedTextBox_number = new System.Windows.Forms.MaskedTextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.pictureBox_Client = new System.Windows.Forms.PictureBox();
+            this.button_Ok = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Client)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,7 +65,7 @@
             this.button_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button_Cancel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_Cancel.Location = new System.Drawing.Point(157, 4);
-            this.button_Cancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_Cancel.Margin = new System.Windows.Forms.Padding(4);
             this.button_Cancel.Name = "button_Cancel";
             this.button_Cancel.Size = new System.Drawing.Size(145, 32);
             this.button_Cancel.TabIndex = 1;
@@ -76,16 +76,44 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox1.Controls.Add(this.listBox1);
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.listBox_persons);
+            this.groupBox1.Controls.Add(this.comboBox_Names);
             this.groupBox1.Location = new System.Drawing.Point(16, 15);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(306, 383);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Имя Клиента:";
+            // 
+            // listBox_persons
+            // 
+            this.listBox_persons.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBox_persons.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listBox_persons.FormattingEnabled = true;
+            this.listBox_persons.ItemHeight = 17;
+            this.listBox_persons.Location = new System.Drawing.Point(7, 54);
+            this.listBox_persons.Name = "listBox_persons";
+            this.listBox_persons.ScrollAlwaysVisible = true;
+            this.listBox_persons.Size = new System.Drawing.Size(292, 293);
+            this.listBox_persons.Sorted = true;
+            this.listBox_persons.TabIndex = 5;
+            this.listBox_persons.SelectedIndexChanged += new System.EventHandler(this.listBox_persons_SelectedIndexChanged);
+            // 
+            // comboBox_Names
+            // 
+            this.comboBox_Names.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_Names.FormattingEnabled = true;
+            this.comboBox_Names.Location = new System.Drawing.Point(8, 24);
+            this.comboBox_Names.Name = "comboBox_Names";
+            this.comboBox_Names.Size = new System.Drawing.Size(291, 24);
+            this.comboBox_Names.TabIndex = 0;
+            this.comboBox_Names.SelectedIndexChanged += new System.EventHandler(this.comboBox_Names_SelectedIndexChanged);
             // 
             // groupBox2
             // 
@@ -95,50 +123,25 @@
             this.groupBox2.Controls.Add(this.groupBox4);
             this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Location = new System.Drawing.Point(330, 15);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(497, 383);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Информация";
             // 
-            // comboBox1
+            // groupBox4
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(8, 24);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(291, 24);
-            this.comboBox1.TabIndex = 0;
-            // 
-            // listBox1
-            // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(7, 54);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.ScrollAlwaysVisible = true;
-            this.listBox1.Size = new System.Drawing.Size(292, 308);
-            this.listBox1.Sorted = true;
-            this.listBox1.TabIndex = 5;
-            // 
-            // button_Ok
-            // 
-            this.button_Ok.AutoSize = true;
-            this.button_Ok.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_Ok.Location = new System.Drawing.Point(4, 4);
-            this.button_Ok.Margin = new System.Windows.Forms.Padding(4);
-            this.button_Ok.Name = "button_Ok";
-            this.button_Ok.Size = new System.Drawing.Size(145, 32);
-            this.button_Ok.TabIndex = 2;
-            this.button_Ok.Text = "Ok";
-            this.button_Ok.UseVisualStyleBackColor = true;
+            this.groupBox4.Location = new System.Drawing.Point(8, 223);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(481, 153);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Абонемент / Карта / Посещения";
             // 
             // groupBox3
             // 
@@ -155,6 +158,17 @@
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Персональная";
+            // 
+            // pictureBox_Client
+            // 
+            this.pictureBox_Client.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox_Client.Location = new System.Drawing.Point(355, 21);
+            this.pictureBox_Client.Name = "pictureBox_Client";
+            this.pictureBox_Client.Size = new System.Drawing.Size(123, 161);
+            this.pictureBox_Client.TabIndex = 0;
+            this.pictureBox_Client.TabStop = false;
             // 
             // tableLayoutPanel1
             // 
@@ -285,6 +299,7 @@
             // dateTimePicker_birthDate
             // 
             this.dateTimePicker_birthDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker_birthDate.Enabled = false;
             this.dateTimePicker_birthDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.dateTimePicker_birthDate.Location = new System.Drawing.Point(159, 57);
             this.dateTimePicker_birthDate.Margin = new System.Windows.Forms.Padding(2);
@@ -339,28 +354,17 @@
             this.maskedTextBox_number.TabIndex = 9;
             this.maskedTextBox_number.ValidatingType = typeof(int);
             // 
-            // groupBox4
+            // button_Ok
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Location = new System.Drawing.Point(8, 223);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(481, 153);
-            this.groupBox4.TabIndex = 4;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Абонемент / Карта / Посещения";
-            // 
-            // pictureBox_Client
-            // 
-            this.pictureBox_Client.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox_Client.Location = new System.Drawing.Point(355, 21);
-            this.pictureBox_Client.Name = "pictureBox_Client";
-            this.pictureBox_Client.Size = new System.Drawing.Size(123, 161);
-            this.pictureBox_Client.TabIndex = 0;
-            this.pictureBox_Client.TabStop = false;
+            this.button_Ok.AutoSize = true;
+            this.button_Ok.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_Ok.Location = new System.Drawing.Point(4, 4);
+            this.button_Ok.Margin = new System.Windows.Forms.Padding(4);
+            this.button_Ok.Name = "button_Ok";
+            this.button_Ok.Size = new System.Drawing.Size(145, 32);
+            this.button_Ok.TabIndex = 2;
+            this.button_Ok.Text = "Ok";
+            this.button_Ok.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel2
             // 
@@ -377,7 +381,7 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(306, 40);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
-            // SelectPersonForm
+            // PersonListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -386,16 +390,17 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.Name = "SelectPersonForm";
-            this.Text = "Манхеттен";
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "PersonListForm";
+            this.Text = "Список Клиентов";
+            this.Load += new System.EventHandler(this.PersonListForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Client)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Client)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
@@ -406,8 +411,8 @@
 
         private System.Windows.Forms.Button button_Cancel;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ListBox listBox_persons;
+        private System.Windows.Forms.ComboBox comboBox_Names;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button_Ok;
         private System.Windows.Forms.GroupBox groupBox4;

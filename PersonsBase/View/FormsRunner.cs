@@ -3,6 +3,7 @@ using PersonsBase.data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -31,7 +32,7 @@ namespace PersonsBase.View
         {
             if (DataBaseLevel.ContainsNameKey(keyName))
             {
-                ClientForm clientFrm = new ClientForm(keyName);
+                var clientFrm = new ClientForm(keyName);
                 clientFrm.ShowDialog();
             }
             else
@@ -121,10 +122,11 @@ namespace PersonsBase.View
         #endregion
 
         #region /// ФОРМА ВЫБОР КЛИЕНТА из списка БАЗЫ ///
-        public static bool RunSelectPersonForm(out string personName)
+        public static bool RunSelectPersonForm(out string personName, string header)
         {
             personName = null;
-            var frm = new SelectPersonForm();
+            
+            var frm = new PersonListForm(header);
             var dlgReult = frm.ShowDialog();
 
             if (dlgReult != DialogResult.OK) return false;

@@ -325,7 +325,6 @@ namespace PersonsBase.View
         {
             ProcessComboBox(comboBox_Gender);
             dateTimePicker_birthDate.Focus();
-
         }
 
         private void textBox_Notes_TextChanged(object sender, EventArgs e)
@@ -335,7 +334,7 @@ namespace PersonsBase.View
 
         private void maskedTextBox_number_TextChanged(object sender, EventArgs e)
         {
-            _dataStruct.PersonalNumber = int.Parse(maskedTextBox_number.Text);
+            int.TryParse(maskedTextBox_number.Text, out _dataStruct.PersonalNumber);
         }
     }
 }

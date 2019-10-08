@@ -51,14 +51,7 @@ namespace PBase
 
         private void radioButtons_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton_personal.Checked)
-            {
-                _selectedTypeWorkout = TypeWorkout.Персональная;
-            }
-            else
-            {
-                _selectedTypeWorkout = TypeWorkout.Аэробный_Зал;
-            }
+            _selectedTypeWorkout = radioButton_personal.Checked ? TypeWorkout.Персональная : TypeWorkout.Аэробный_Зал;
         }
 
         private void comboBox_num_SelectedIndexChanged(object sender, EventArgs e)

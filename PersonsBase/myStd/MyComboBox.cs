@@ -21,6 +21,11 @@ namespace PersonsBase.myStd
             comboBox.Items.AddRange(items); // Обновляем комбобокс
             comboBox.SelectedItem = selItem;
         }
+        public static void Initialize(ComboBox comboBox, object[] items)
+        {
+            comboBox.Items.Clear();
+            comboBox.Items.AddRange(items); // Обновляем комбобокс
+        }
 
         /// <summary>
         /// Получаем значение из комбо бокса, если комбо представлен в виде Enum
@@ -32,6 +37,13 @@ namespace PersonsBase.myStd
         {
             var val = (T)Enum.Parse(typeof(T), cbx.SelectedItem.ToString());
             return val;
+        }
+
+        // ПРИМЕНЕНИЕ  var result = MyComboBox.GetComboBoxValue((ComboBox)sender);
+        public static string GetComboBoxValue(ComboBox cbx)
+        {
+            var resultString = cbx.SelectedItem.ToString();
+            return resultString;
         }
     }
 }

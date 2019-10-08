@@ -473,25 +473,9 @@ namespace PBase
         }
         private void button_Add_New_Abon_Click(object sender, EventArgs e)
         {
-            Logic.AddAbonement(_person.Name);// for future use
-            //FIXME перенести всё это в Логику.
-            DialogResult dialogResult = DialogResult.Cancel;
-            if (_person.AbonementCurent == null)
+            var isSuccess = Logic.AddAbonement(_person.Name);// for future use
+            if (isSuccess)
             {
-                dialogResult = FormsRunner.CreateAbonementForm(_person.Name);
-            }
-            else
-            {
-                var result = MessageBox.Show($"Действует:  {_person.AbonementCurent.AbonementName}.\n\rДобавить новый абонемент к существующему?", "Добавление Абонемента", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
-                {
-                    dialogResult = FormsRunner.CreateAbonementForm(_person.Name);
-                }
-            }
-
-            if (dialogResult == DialogResult.OK)
-            {
-                // Обновляем Если выбрано что-то.
                 _person.UpdateActualStatus(); // Обновляем текущий статус
                 UpdateNameText();
 
@@ -505,7 +489,7 @@ namespace PBase
 
         private void button_add_dop_tren_Click(object sender, EventArgs e)
         {//FIXME  Перенести в Логику. 
-            using (NumWorkoutForm form = new NumWorkoutForm(_person.AbonementCurent))
+            using (var form = new NumWorkoutForm(_person.AbonementCurent))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -547,7 +531,7 @@ namespace PBase
 
         private void button_Password_Click(object sender, EventArgs e)
         {
-            Logic.AccessRoot();
+            Logic.AccessRootUser();
         }
 
         private void button_Freeze_Click(object sender, EventArgs e)

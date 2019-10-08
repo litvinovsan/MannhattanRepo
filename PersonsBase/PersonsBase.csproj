@@ -138,11 +138,11 @@
     <Compile Include="View\PwdForm.Designer.cs">
       <DependentUpon>PwdForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\SelectPersonForm.cs">
+    <Compile Include="View\PersonListForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\SelectPersonForm.Designer.cs">
-      <DependentUpon>SelectPersonForm.cs</DependentUpon>
+    <Compile Include="View\PersonListForm.Designer.cs">
+      <DependentUpon>PersonListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\WorkoutForm.cs">
       <SubType>Form</SubType>
@@ -194,8 +194,8 @@
     <EmbeddedResource Include="View\PwdForm.resx">
       <DependentUpon>PwdForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\SelectPersonForm.resx">
-      <DependentUpon>SelectPersonForm.cs</DependentUpon>
+    <EmbeddedResource Include="View\PersonListForm.resx">
+      <DependentUpon>PersonListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\WorkoutForm.resx">
       <DependentUpon>WorkoutForm.cs</DependentUpon>
