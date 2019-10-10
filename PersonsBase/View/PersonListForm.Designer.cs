@@ -108,7 +108,11 @@
             this.comboBox_Names.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_Names.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBox_Names.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBox_Names.DropDownHeight = 250;
             this.comboBox_Names.FormattingEnabled = true;
+            this.comboBox_Names.IntegralHeight = false;
             this.comboBox_Names.Location = new System.Drawing.Point(8, 24);
             this.comboBox_Names.Name = "comboBox_Names";
             this.comboBox_Names.Size = new System.Drawing.Size(291, 24);

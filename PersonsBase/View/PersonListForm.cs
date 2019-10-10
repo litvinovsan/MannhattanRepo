@@ -14,8 +14,28 @@ namespace PersonsBase.View
 {
     public partial class PersonListForm : Form
     {
+        #region /// СОБЫТИЯ ///
+
+        [field: NonSerialized]
+        public event EventHandler SelectedNameСhanged;
+        public void OnSelectedNameChanged()
+        {
+            SelectedNameСhanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        #endregion
+
         #region /// ОСНОВНЫЕ ОБЬЕКТЫ ///
         private string _selectedName;
+        public string SelectedName
+        {
+            get { return _selectedName; }
+            set
+            {
+                _selectedName = value;
+                OnSelectedNameChanged();
+            }
+        }
 
         #endregion
 
@@ -25,16 +45,6 @@ namespace PersonsBase.View
         {
             InitializeComponent();
             this.Text = headerName;
-        }
-
-        public string SelectedName
-        {
-            get { return _selectedName; }
-            set
-            {
-                _selectedName = value;
-                //  FIXME  тут запускатор СОБЫТИЯ
-            }
         }
 
         private void PersonListForm_Load(object sender, EventArgs e)
@@ -57,6 +67,12 @@ namespace PersonsBase.View
             return SelectedName;
         }
 
+        public void NameProcessing()
+        {
+            listBox_persons.SelectedItem = SelectedName;
+            comboBox_Names.SelectedItem = SelectedName.ToString();
+        }
+
         #endregion
 
         private void button_OK_Click(object sender, EventArgs e)
@@ -73,12 +89,15 @@ namespace PersonsBase.View
             /// Не забыть про проверку if (lv.SelectedItems.Count != 0)
             ///
             SelectedName = MyComboBox.GetComboBoxValue((ComboBox)sender);
+
         }
 
         private void listBox_persons_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox_persons.SelectedItems.Count != 0)
-                SelectedName = listBox_persons.SelectedItem.ToString();
+            if (listBox_persons.SelectedItems.Count == 0) return;
+
+            SelectedName = listBox_persons.SelectedItem.ToString();
         }
     }
 }
+

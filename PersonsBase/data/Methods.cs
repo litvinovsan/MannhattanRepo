@@ -114,7 +114,7 @@ namespace PBase
         }
         public static Tuple<Label, Control> CreateRowInfo(string label, string info)
         {// Создаем экземпляры Label и TextBox. Настройка отображения и свойст тут
-            Label lb = new Label
+            var lb = new Label
             {
                 Text = label,
                 Anchor = AnchorStyles.Left,
@@ -122,7 +122,7 @@ namespace PBase
                 TextAlign = ContentAlignment.TopLeft
             };
 
-            TextBox tb = new TextBox
+            var tb = new TextBox
             {
                 BackColor = Color.AliceBlue,
                 BorderStyle = BorderStyle.FixedSingle,
@@ -131,8 +131,14 @@ namespace PBase
                 Font = new Font("Microsoft Sans Serif", 9F)
             };
 
-            // Выполняем проверки на какие-либо ограничения. 
-            if (info == "Не_Оплачено") tb.BackColor = Color.LightPink;
+            switch (info)
+            {
+                // Выполняем проверки на какие-либо ограничения. 
+                case "Не_Оплачено":
+                case "Утро":
+                    tb.BackColor = Color.LightPink;
+                    break;
+            }
 
             return Tuple.Create<Label, Control>(lb, tb);
         }
