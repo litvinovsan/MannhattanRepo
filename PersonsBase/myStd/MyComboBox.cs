@@ -27,6 +27,11 @@ namespace PersonsBase.myStd
             comboBox.Items.AddRange(items); // Обновляем комбобокс
         }
 
+        public static void SetComboBoxValue(ComboBox cbx, string selectedValue)
+        {
+            cbx.SelectedItem = selectedValue;
+        }
+
         /// <summary>
         /// Получаем значение из комбо бокса, если комбо представлен в виде Enum
         /// </summary>

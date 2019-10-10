@@ -51,13 +51,22 @@ namespace PersonsBase.View
         {
             // Инициализация всех контролов
 
-            //ComboBox
+            //ComboBox Persons
             var objects = DataBaseLevel.GetListPersons().Values.Select(c => c.Name).ToArray<object>();
             MyComboBox.Initialize(comboBox_Names, objects);
 
+            // Пол
+            var gendRange = Enum.GetNames(typeof(Gender)).ToArray<object>();
+            MyComboBox.Initialize(comboBox_Gender, gendRange, Gender.Неизвестен);
+
             // ListBox
             listBox_persons.Items.AddRange(objects);
+
+            // Подписка на событие
+            SelectedNameСhanged += NameProcessing;
         }
+
+
         #endregion
 
         #region /// МЕТОДЫ ///
@@ -67,10 +76,32 @@ namespace PersonsBase.View
             return SelectedName;
         }
 
-        public void NameProcessing()
+        private void NameProcessing(object sender, EventArgs e)
         {
-            listBox_persons.SelectedItem = SelectedName;
-            comboBox_Names.SelectedItem = SelectedName.ToString();
+            if (!listBox_persons.SelectedItem.ToString().Equals(SelectedName))
+            {
+                listBox_persons.SelectedItem = SelectedName;
+            }
+
+            UpdatePersonalContols();
+        }
+
+        private void UpdatePersonalContols()
+        {
+            // Получили Персону
+            var person = DataBaseO.GetPersonLink(SelectedName);
+
+            // Телефон
+            maskedTextBox_PhoneNumber.Text = person.Phone;
+            // Пол
+            MyComboBox.SetComboBoxValue(comboBox_Gender, person.GenderType.ToString());
+            // ДР
+
+            // Пасспорт
+
+            // Права
+
+
         }
 
         #endregion
@@ -82,12 +113,6 @@ namespace PersonsBase.View
 
         private void comboBox_Names_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //FIXME
-            /// При выборе имени в контролах обновить переменную _selectedName
-            /// На эту переменную сделать событие что она изменилась.
-            /// По событию обновлять выбранный элемент и подгружать данные в окно информации справа
-            /// Не забыть про проверку if (lv.SelectedItems.Count != 0)
-            ///
             SelectedName = MyComboBox.GetComboBoxValue((ComboBox)sender);
 
         }
@@ -96,7 +121,7 @@ namespace PersonsBase.View
         {
             if (listBox_persons.SelectedItems.Count == 0) return;
 
-            SelectedName = listBox_persons.SelectedItem.ToString();
+            comboBox_Names.SelectedItem = listBox_persons.SelectedItem.ToString();
         }
     }
 }
