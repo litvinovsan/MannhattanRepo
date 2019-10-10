@@ -16,9 +16,10 @@ namespace PersonsBase.data
         public readonly Group GroupInfo;
         public readonly Trener TrenerIfPersonal;
         public readonly List<Tuple<string, string>> SummaryAbonInfo;// Название - Значение
+        public readonly Administrator CurrentAdministrator;
 
         // Конструкторы
-        public Visit(AbonementBasic abon, WorkoutOptions workoutOptions)
+        public Visit(AbonementBasic abon, WorkoutOptions workoutOptions, Administrator admin)
         {
             TypeWorkout = workoutOptions.TypeWorkout;
             DateTimeVisit = DateTime.Now;
@@ -26,6 +27,7 @@ namespace PersonsBase.data
             SummaryAbonInfo = abon.GetShortInfoList();
             GroupInfo = workoutOptions.GroupInfo;
             TrenerIfPersonal = workoutOptions.PersonalTrener;
+            CurrentAdministrator = admin;
         }
     }
 }

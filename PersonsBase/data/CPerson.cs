@@ -196,7 +196,8 @@ namespace PBase
         public void AddToJournal(WorkoutOptions selectedOptions)
         {
             if (JournalVisits == null) JournalVisits = new List<Visit>(); // Проверка на случай сериализации
-            JournalVisits.Add(new Visit(_abonementCurent, selectedOptions));
+            var currentAdmin = DataBaseO.GetManhattanInfo().CurrentAdmin;
+            JournalVisits.Add(new Visit(_abonementCurent, selectedOptions, currentAdmin));
         }
         public static Person CreateNewPerson(PersonalDataStruct dataStruct)
         {
