@@ -12,7 +12,7 @@ using PersonsBase.myStd;
 
 namespace PersonsBase.View
 {
-    public partial class PersonListForm : Form
+    public partial class AllPersonsForm : Form
     {
         #region /// СОБЫТИЯ ///
 
@@ -41,7 +41,7 @@ namespace PersonsBase.View
 
         #region /// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ///
 
-        public PersonListForm(string headerName)
+        public AllPersonsForm(string headerName)
         {
             InitializeComponent();
             this.Text = headerName;
@@ -106,15 +106,9 @@ namespace PersonsBase.View
 
         #endregion
 
-        private void button_OK_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.OK;
-        }
-
         private void comboBox_Names_SelectedIndexChanged(object sender, EventArgs e)
         {
             SelectedName = MyComboBox.GetComboBoxValue((ComboBox)sender);
-
         }
 
         private void listBox_persons_SelectedIndexChanged(object sender, EventArgs e)
@@ -122,6 +116,12 @@ namespace PersonsBase.View
             if (listBox_persons.SelectedItems.Count == 0) return;
 
             comboBox_Names.SelectedItem = listBox_persons.SelectedItem.ToString();
+        }
+
+        private void button_Ok_Click_1(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }

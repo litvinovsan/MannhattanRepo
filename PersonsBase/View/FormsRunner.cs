@@ -115,7 +115,7 @@ namespace PersonsBase.View
             if (PwdForm.IsPassUnLocked()) PwdForm.LockPassword();
             else
             {
-                PwdForm pwd = new PwdForm(Options.GetInstance());
+                var pwd = new PwdForm(Options.GetInstance());
                 pwd.ShowDialog();
             }
         }
@@ -126,7 +126,7 @@ namespace PersonsBase.View
         {
             personName = null;
             
-            var frm = new PersonListForm(header);
+            var frm = new AllPersonsForm(header);
             var dlgReult = frm.ShowDialog();
 
             if (dlgReult != DialogResult.OK) return false;

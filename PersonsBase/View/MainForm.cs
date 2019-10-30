@@ -230,11 +230,11 @@ namespace PBase
             Logic.RemovePerson();
         }
 
-        #endregion
-
         private void списокКлиентовToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Logic.OpenPersonCard();
         }
+
+        #endregion
     }
 }

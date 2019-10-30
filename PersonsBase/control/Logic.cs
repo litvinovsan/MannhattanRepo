@@ -368,7 +368,7 @@ namespace PBase
         public static void OpenPersonCard()
         {
             // Выбор имени Клиента
-            if (!FormsRunner.RunSelectPersonForm(out var selectedName, "Выбор Клиента из списка")) return;
+            if (!FormsRunner.RunSelectPersonForm(out var selectedName, "Cписок Клиентов")) return;
 
             if (string.IsNullOrEmpty(selectedName) || string.IsNullOrWhiteSpace(selectedName)) return;
 
