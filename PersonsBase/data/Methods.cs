@@ -14,6 +14,8 @@ namespace PBase
     [Serializable]
     public static class Methods
     {
+        private const string StrMorning = "Утро";
+
         /// <summary>
         /// Подготавливает строку с именем, приводит в  заглавный формат Фамилия Имя Отчество вместо  фамилия имя отчество
         /// </summary>
@@ -135,7 +137,7 @@ namespace PBase
             {
                 // Выполняем проверки на какие-либо ограничения. 
                 case "Не_Оплачено":
-                case "Утро":
+                case StrMorning:
                     tb.BackColor = Color.LightPink;
                     break;
             }

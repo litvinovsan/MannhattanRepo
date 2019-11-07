@@ -31,7 +31,7 @@ namespace PBase
     public enum TimeForTr
     {
         Утро,
-        День
+        Весь_День
     }
 
     [Serializable]

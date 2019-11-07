@@ -96,7 +96,7 @@ namespace PersonsBase.View
             // Пол
             MyComboBox.SetComboBoxValue(comboBox_Gender, person.GenderType.ToString());
             // ДР
-
+            написать тут эти блоки
             // Пасспорт
 
             // Права
