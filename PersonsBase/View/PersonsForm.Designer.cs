@@ -1,6 +1,6 @@
 ﻿namespace PersonsBase.View
 {
-    partial class AllPersonsForm
+    partial class PersonsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -397,7 +397,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AllPersonsForm";
             this.Text = "Список Клиентов";
-            this.Load += new System.EventHandler(this.PersonListForm_Load);
+            this.Load += new System.EventHandler(this.PersonsListForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);

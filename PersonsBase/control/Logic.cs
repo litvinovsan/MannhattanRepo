@@ -54,28 +54,6 @@ namespace PBase
 
         #region /// РАЗНЫЕ МЕТОДЫ ///
 
-        public static bool AddAbonement(string personName)
-        {
-            var person = DataBaseO.GetPersonLink(personName);
-            if (person == null) return false;
-
-            var dialogResult = DialogResult.Cancel;
-            if (person.AbonementCurent == null)
-            {
-                dialogResult = FormsRunner.CreateAbonementForm(person.Name);
-            }
-            else
-            {
-                var result = MessageBox.Show($"Действует:  {person.AbonementCurent.AbonementName}.\n\rДобавить новый абонемент к существующему?", "Добавление Абонемента", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
-                {
-                    dialogResult = FormsRunner.CreateAbonementForm(person.Name);
-                }
-            }
-
-            return dialogResult == DialogResult.OK;
-        }
-
         public bool CheckInWorkout(string personName)
         {
             var person = DataBaseO.GetPersonLink(personName);
@@ -128,16 +106,6 @@ namespace PBase
                 return true;
             }
 
-            return false;
-        }
-
-        private static bool IsAbonementValid(ref Person person)
-        {
-            // Если Кончился абонемент и не сработали проверки в других местах
-            if (person.AbonementCurent.IsValid()) return true;
-            person.AbonementCurent = null;
-            if (person.AbonementCurent != null) return true;
-            person.Status = StatusPerson.Нет_Карты;
             return false;
         }
 
@@ -377,5 +345,57 @@ namespace PBase
 
         #endregion
 
+        #region /// АБОНЕМЕНТ.
+
+        public static bool AddAbonementToPerson()
+        {
+            if (!FormsRunner.RunSelectPersonForm(out var selectedName, "Добавление Абонемента")) return false;
+
+            if (string.IsNullOrEmpty(selectedName)) return false;
+
+            var res = MessageBox.Show($@"{selectedName}", @"Добавить Абонемент клиенту:?", MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (res == DialogResult.No) return false;
+
+            var isSuccess = AddAbonement(selectedName);
+            return (isSuccess);
+        }
+
+        public static bool AddAbonement(string personName)
+        {
+            var person = DataBaseO.GetPersonLink(personName);
+            if (person == null) return false;
+
+            var dialogResult = DialogResult.Cancel;
+            if (person.AbonementCurent == null)
+            {
+                dialogResult = FormsRunner.CreateAbonementForm(person.Name);
+            }
+            else
+            {
+                var result = MessageBox.Show($"Действует:  {person.AbonementCurent.AbonementName}.\n\rДобавить новый абонемент к существующему?", "Добавление Абонемента", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    dialogResult = FormsRunner.CreateAbonementForm(person.Name);
+                }
+            }
+
+            return dialogResult == DialogResult.OK;
+        }
+
+        private static bool IsAbonementValid(ref Person person)
+        {
+            // Если Кончился абонемент и не сработали проверки в других местах
+            if (person.AbonementCurent.IsValid()) return true;
+            person.AbonementCurent = null;
+            if (person.AbonementCurent != null) return true;
+            person.Status = StatusPerson.Нет_Карты;
+            return false;
+        }
+
+
+
+        #endregion
     }
 }

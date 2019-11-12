@@ -473,7 +473,7 @@ namespace PBase
         }
         private void button_Add_New_Abon_Click(object sender, EventArgs e)
         {
-            var isSuccess = Logic.AddAbonement(_person.Name);// for future use
+            var isSuccess = Logic.AddAbonement(_person.Name);
             if (isSuccess)
             {
                 _person.UpdateActualStatus(); // Обновляем текущий статус

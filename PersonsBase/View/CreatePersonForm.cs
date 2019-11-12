@@ -122,7 +122,7 @@ namespace PersonsBase.View
 
         private void CreatePersonForm_Load(object sender, EventArgs e)
         {
-            /// Инициализация полей по - умолчанию
+            // Инициализация полей по - умолчанию
             // Пол
             var gendRange = Enum.GetNames(typeof(Gender)).ToArray<object>();
             MyComboBox.Initialize(comboBox_Gender, gendRange, Gender.Неизвестен.ToString());
@@ -268,7 +268,7 @@ namespace PersonsBase.View
         private void button_add_foto_Click(object sender, EventArgs e)
         {
             Image img;
-            string pathDummy;
+            string pathDummy = string.Empty;
             var success = Photo.OpenPhoto(out img, out pathDummy);
 
             if (!success) return;

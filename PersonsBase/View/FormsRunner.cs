@@ -1,11 +1,5 @@
 ﻿using PBase;
 using PersonsBase.data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PersonsBase.View
@@ -95,11 +89,9 @@ namespace PersonsBase.View
         /// </summary>
         public static DialogResult RunWorkoutOptionsForm(ref WorkoutOptions optionsWorkout, string personName)
         {
-            var dlgReult = DialogResult.Cancel;
-
             var workoutForm = new WorkoutForm(personName);
 
-            dlgReult = workoutForm.ShowDialog();
+            var dlgReult = workoutForm.ShowDialog();
             if (dlgReult == DialogResult.OK)
             {
                 optionsWorkout = workoutForm.SelectedOptions;
@@ -125,8 +117,8 @@ namespace PersonsBase.View
         public static bool RunSelectPersonForm(out string personName, string header)
         {
             personName = null;
-            
-            var frm = new AllPersonsForm(header);
+
+            var frm = new PersonsForm(header);
             var dlgReult = frm.ShowDialog();
 
             if (dlgReult != DialogResult.OK) return false;

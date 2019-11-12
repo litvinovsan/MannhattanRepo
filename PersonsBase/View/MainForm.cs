@@ -236,5 +236,10 @@ namespace PBase
         }
 
         #endregion
+
+        private void продатьАбонементToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Logic.AddAbonementToPerson();
+        }
     }
 }

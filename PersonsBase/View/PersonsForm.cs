@@ -12,7 +12,7 @@ using PersonsBase.myStd;
 
 namespace PersonsBase.View
 {
-    public partial class AllPersonsForm : Form
+    public partial class PersonsForm : Form
     {
         #region /// СОБЫТИЯ ///
 
@@ -41,13 +41,13 @@ namespace PersonsBase.View
 
         #region /// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ///
 
-        public AllPersonsForm(string headerName)
+        public PersonsForm(string headerName)
         {
             InitializeComponent();
             this.Text = headerName;
         }
 
-        private void PersonListForm_Load(object sender, EventArgs e)
+        private void PersonsListForm_Load(object sender, EventArgs e)
         {
             // Инициализация всех контролов
 
@@ -76,6 +76,11 @@ namespace PersonsBase.View
             return SelectedName;
         }
 
+        /// <summary>
+        /// Обработчик запускает обновление всех полей на форме
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NameProcessing(object sender, EventArgs e)
         {
             if (!listBox_persons.SelectedItem.ToString().Equals(SelectedName))
@@ -96,12 +101,13 @@ namespace PersonsBase.View
             // Пол
             MyComboBox.SetComboBoxValue(comboBox_Gender, person.GenderType.ToString());
             // ДР
-            написать тут эти блоки
+            //  написать тут эти блоки
             // Пасспорт
 
             // Права
 
-
+            // Фото
+            Logic.TryLoadPhoto(pictureBox_Client, person.PathToPhoto);
         }
 
         #endregion
