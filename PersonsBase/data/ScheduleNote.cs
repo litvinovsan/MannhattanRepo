@@ -61,9 +61,9 @@ namespace PBase
         {
             if (string.IsNullOrEmpty(timeAndName)) return;
             // Заново парсим строку, на всякий случай чтобы привести время к формату
-            var Args = timeAndName.Split('-');
-            var timeArg = Args[0].Trim();
-            var nameArg = Args[1].Trim();
+            var args = timeAndName.Split('-');
+            var timeArg = args[0].Trim();
+            var nameArg = args[1].Trim();
             var time = timeArg.Split(':');
 
             _time = new MyTime(int.Parse(time[0].Trim()), int.Parse(time[1].Trim()));

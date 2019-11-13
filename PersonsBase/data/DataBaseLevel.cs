@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Windows.Forms;
+using PBase;
 
-namespace PBase
+namespace PersonsBase.data
 {
     [Serializable]
     public class DataBaseLevel
@@ -11,7 +11,7 @@ namespace PBase
         #region/// ОБЬЕКТЫ Приватные //////////////////////////////
 
         [NonSerialized]
-        private object locker = new object(); // блокировка коллекции на время сериализации.
+        private object _locker = new object(); // блокировка коллекции на время сериализации.
 
         [NonSerialized]
         private static DataBaseLevel _dbInstance;  //Singleton.
@@ -45,7 +45,7 @@ namespace PBase
             // FIXME Засунуть всю сериализацию в один метод
             // База Клиентов
             _dataBaseList = new SortedList<string, Person>(StringComparer.OrdinalIgnoreCase);
-            lock (locker) { Methods.DeSerialize(ref _dataBaseList, "ClientsDataBase.bin"); }
+            lock (_locker) { Methods.DeSerialize(ref _dataBaseList, "ClientsDataBase.bin"); }
 
             // База Тренеров
             _trenersList = new List<Trener>();
@@ -56,7 +56,7 @@ namespace PBase
             Methods.DeSerialize(ref _adminsList, "AdminsDataBase.bin");
 
             // Текущий Администратор на Ресепшн
-            _adminCurrent = new Administrator("Dummy","");
+            _adminCurrent = new Administrator("Dummy", "");
             Methods.DeSerialize(ref _adminCurrent, "adminToday.bin");
 
             // Список ежедневных Групповых Тренировок
@@ -76,7 +76,7 @@ namespace PBase
         ~DataBaseLevel()
         {
             // База Клиентов
-            lock (locker)
+            lock (_locker)
             { Methods.Serialize(_dataBaseList, "ClientsDataBase.bin"); }
 
             // База Тренеров
@@ -115,9 +115,9 @@ namespace PBase
         /// Возвращает ответ Базы Данных об успешности Добавления новой персоны.Success если успех. Код Поля- ошибки или Fail в непонятных случаях.
         public ResponseCode PersonAdd(Person person)
         {
-            ResponseCode response = ResponseCode.Fail;
+            ResponseCode response;
 
-            lock (locker)
+            lock (_locker)
             {
                 bool containsCopy = DataBaseM.IsContainsCopyOfValues(_dataBaseList, person, out response);
                 if (containsCopy == false && (!string.IsNullOrEmpty(person.Key)))
@@ -141,7 +141,7 @@ namespace PBase
         {
             var result = ResponseCode.Fail;
 
-            lock (locker)
+            lock (_locker)
             {
                 if (!_dataBaseList.ContainsKey(nameKey)) return result;
 

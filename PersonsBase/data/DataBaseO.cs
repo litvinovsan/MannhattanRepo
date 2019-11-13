@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using static PBase.DataBaseLevel;
+﻿using System.Collections.Generic;
+using PBase;
 
-namespace PBase
+namespace PersonsBase.data
 {
     public static class DataBaseO
     {
@@ -14,13 +13,13 @@ namespace PBase
 
         static DataBaseO()
         {
-            CollectionObj = GetListPersons();
+            CollectionObj = DataBaseLevel.GetListPersons();
             ManhattanInfo = DataBaseLevel.GetManhattanInfo();
         }
 
         public static Person GetPersonLink(string name)
         {
-            if (!ContainsNameKey(name)) return null;
+            if (!DataBaseLevel.ContainsNameKey(name)) return null;
             _person = CollectionObj[name];
             return _person;
         }

@@ -31,7 +31,7 @@ namespace PBase
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.конфигурацииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -328,10 +328,11 @@ namespace PBase
             this.listView_Gym_Zal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView_Gym_Zal.FullRowSelect = true;
             this.listView_Gym_Zal.GridLines = true;
-            listViewGroup2.Header = "ListViewGroup";
-            listViewGroup2.Name = "listViewGroup1";
+            listViewGroup1.Header = "ListViewGroup";
+            listViewGroup1.Name = "listViewGroup1";
             this.listView_Gym_Zal.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup2});
+            listViewGroup1});
+            this.listView_Gym_Zal.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listView_Gym_Zal.Location = new System.Drawing.Point(574, 31);
             this.listView_Gym_Zal.MultiSelect = false;
             this.listView_Gym_Zal.Name = "listView_Gym_Zal";
@@ -349,7 +350,7 @@ namespace PBase
             // column_Persons
             // 
             this.column_Persons.Text = "";
-            this.column_Persons.Width = 102;
+            this.column_Persons.Width = 190;
             // 
             // listView_Personal
             // 
@@ -360,6 +361,7 @@ namespace PBase
             this.listView_Personal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView_Personal.FullRowSelect = true;
             this.listView_Personal.GridLines = true;
+            this.listView_Personal.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listView_Personal.Location = new System.Drawing.Point(314, 31);
             this.listView_Personal.MultiSelect = false;
             this.listView_Personal.Name = "listView_Personal";
@@ -376,7 +378,7 @@ namespace PBase
             // columnHeader2
             // 
             this.columnHeader2.Text = "";
-            this.columnHeader2.Width = 181;
+            this.columnHeader2.Width = 198;
             // 
             // listView_Group
             // 
@@ -387,6 +389,7 @@ namespace PBase
             this.listView_Group.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView_Group.FullRowSelect = true;
             this.listView_Group.GridLines = true;
+            this.listView_Group.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listView_Group.Location = new System.Drawing.Point(6, 31);
             this.listView_Group.MultiSelect = false;
             this.listView_Group.Name = "listView_Group";

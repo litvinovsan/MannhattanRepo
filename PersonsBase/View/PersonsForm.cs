@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PBase;
+using PersonsBase.data;
 using PersonsBase.myStd;
 
 namespace PersonsBase.View
