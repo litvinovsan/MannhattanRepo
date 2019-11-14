@@ -112,7 +112,7 @@ namespace PBase
                 return _status;
             }
             set
-            {// if(_status != value)
+            {
                 _status = value;
                 OnStatusChanged();
             }
@@ -201,7 +201,7 @@ namespace PBase
         }
         public static Person CreateNewPerson(PersonalDataStruct dataStruct)
         {
-            Person p = new Person(dataStruct.Name)
+            var p = new Person(dataStruct.Name)
             {
                 BirthDate = dataStruct.BDate,
                 GenderType = dataStruct.Gender,

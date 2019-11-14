@@ -8,7 +8,7 @@ namespace PBase
     public partial class AbonementForm : Form
     {
         ///////////////// ОСНОВНЫЕ ОБЬЕКТЫ и Поля ////////////////////////////////
-        private Person _person;
+        private readonly Person _person;
 
         // Абонементы
         private string _selectedAbonementName;
@@ -56,8 +56,7 @@ namespace PBase
                 _timeTren = _person.AbonementCurent.timeTraining;
                 _spa = _person.AbonementCurent.spa;
                 _pay = _person.AbonementCurent.payStatus;
-                var days = _person.AbonementCurent as AbonementByDays;
-                if (days != null)
+                if (_person.AbonementCurent is AbonementByDays days)
                 {
                     _daysInAbon = days.GetTypeAbonementByDays();
                     radioButton_Abonement.Checked = true;

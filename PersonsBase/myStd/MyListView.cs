@@ -32,7 +32,7 @@ namespace PBase
         public static void AddGroups(ListView listView, string[] groups)
         {
             listView.ShowGroups = true;
-            ListViewGroup listViewGroup = new ListViewGroup();
+            var listViewGroup = new ListViewGroup();
             foreach (var item in groups)
             {
                 listViewGroup.Header = item;
@@ -43,7 +43,7 @@ namespace PBase
 
         private static void AddGroup(ListView listView, string group)
         {
-            ListViewGroup listViewGroup = new ListViewGroup(group, HorizontalAlignment.Left);
+            var listViewGroup = new ListViewGroup(group, HorizontalAlignment.Left);
             listView.Groups.Add(listViewGroup);
         }
         /// <summary>
@@ -51,7 +51,7 @@ namespace PBase
         /// </summary>
         private static Dictionary<string, ListViewGroup> GetGroupsDict(ListView listView)
         {
-            Dictionary<string, ListViewGroup> groupsDict = new Dictionary<string, ListViewGroup>();
+            var groupsDict = new Dictionary<string, ListViewGroup>();
 
             for (int i = 0; i < listView.Groups.Count; i++)
             {
@@ -80,7 +80,7 @@ namespace PBase
         }
         public static void AddNote(ListView listViewIn, string messageColumn1, string messageColumn2)
         {
-            ListViewItem item = new ListViewItem {Text = messageColumn1};
+            var item = new ListViewItem {Text = messageColumn1};
             item.SubItems.Add(messageColumn2);
 
             listViewIn.Items.Add(item);

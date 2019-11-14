@@ -13,7 +13,7 @@ namespace PersonsBase.View
 {
     public partial class FreezeForm : Form
     {
-        private ClubCardA _clubCard;
+        private readonly ClubCardA _clubCard;
 
 
         public FreezeForm(ClubCardA clubCard)
@@ -75,10 +75,7 @@ namespace PersonsBase.View
 
         private void buttonClearFreeze_Click(object sender, EventArgs e)
         {
-            if (_clubCard.Freeze != null)
-            {
-                _clubCard.Freeze.Remove();
-            }
+            _clubCard.Freeze?.Remove(); // Если != null
         }
 
         private void button_Freeze_Click(object sender, EventArgs e)
@@ -102,6 +99,12 @@ namespace PersonsBase.View
             }
         }
 
+        /// <summary>
+        /// Возвращает false если заморозка не возможна
+        /// </summary>
+        /// <param name="numDays"></param>
+        /// <param name="startDate"></param>
+        /// <returns></returns>
         private bool GetFreezeParams(out int numDays, out DateTime startDate)
         {
             startDate = dateTimePicker_startFreeze.Value.Date;

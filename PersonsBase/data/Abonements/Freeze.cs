@@ -15,7 +15,7 @@ namespace PBase
 
       private DateTime _freezeStartDate;
 
-      private const int MaxDaysMonth36 = 30;
+      private const int MaxDaysMonth3or6 = 30;
       private const int MaxDaysMonth12 = 45;
 
       public DateTime FreezeEndDate;
@@ -132,7 +132,7 @@ namespace PBase
          }
          if (period == per6 || period == per3)
          {
-            result = MaxDaysMonth36;
+            result = MaxDaysMonth3or6;
          }
          return result;
       }
