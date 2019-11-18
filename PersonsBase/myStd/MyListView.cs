@@ -183,18 +183,20 @@ namespace PBase
         }
         public static void AddNameTime(ListView listViewIn, string newGroupName, string personName, bool showTime)
         {
+            string personNameTemp = string.IsNullOrEmpty(personName) ? "Не известно" : personName;
             var groups = GetGroupsDict(listViewIn);
             if (!groups.Keys.Contains(newGroupName))
             {
                 AddGroup(listViewIn, newGroupName);
             }
-            listViewIn.Items.Add(new NameTimeItem(personName, GetGroupsDict(listViewIn)[newGroupName], showTime));
+            listViewIn.Items.Add(new NameTimeItem(personNameTemp, GetGroupsDict(listViewIn)[newGroupName], showTime));
 
             listViewIn.Update();
         }
         public static void AddNameTime(ListView listViewIn, string personName, bool showTime)
         {
-            listViewIn.Items.Add(new NameTimeItem(personName, showTime));
+            string personNameTemp = string.IsNullOrEmpty(personName) ? "Не известно" : personName;
+            listViewIn.Items.Add(new NameTimeItem(personNameTemp, showTime));
             listViewIn.Update();
         }
         #endregion

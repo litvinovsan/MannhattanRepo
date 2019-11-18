@@ -104,12 +104,18 @@ namespace PBase
         }
         private void AddToGroupList(string namePerson, WorkoutOptions arg)
         {
-            var groupName = arg.GroupInfo.scheduleNote.GetTimeAndNameStr();
+            if (arg.GroupInfo.ScheduleNote == null) return;
+            var groupName = arg.GroupInfo.ScheduleNote.GetTimeAndNameStr();
             MyListViewEx.AddNameTime(listView_Group, groupName, namePerson, false);
         }
         private void AddToPersonalnList(string namePerson, WorkoutOptions arg)
         {
-            MyListViewEx.AddNameTime(listView_Personal, arg.PersonalTrener.Name, namePerson, true);
+            string persTrenerName = "Не известно";
+            if (arg.PersonalTrener != null)
+            {
+                persTrenerName = arg.PersonalTrener.Name;
+            }
+            MyListViewEx.AddNameTime(listView_Personal, persTrenerName, namePerson, true);
         }
 
         #endregion
@@ -190,7 +196,7 @@ namespace PBase
         {
             Application.Exit();
         }
-        private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void сomboBox_PersonsListSelectedIndexChanged(object sender, EventArgs e)
         {
             Logic.OpenPersonCard(сomboBox_PersonsList.SelectedItem.ToString());
         }
@@ -232,14 +238,14 @@ namespace PBase
 
         private void списокКлиентовToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Logic.OpenPersonCard();
+            Logic.SelectPerson();
         }
 
         #endregion
 
         private void продатьАбонементToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Logic.AddAbonementToPerson();
+            Logic.SellAbonement();
         }
     }
 }

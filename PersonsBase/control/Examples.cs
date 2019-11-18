@@ -99,7 +99,7 @@
                {
                  for (int i = 0; i < 10; i++)
                   {
-                      this.Controls.Remove(controlsArray[i]);
+                      this.Controls.RemoveLast(controlsArray[i]);
                    }
                }
 

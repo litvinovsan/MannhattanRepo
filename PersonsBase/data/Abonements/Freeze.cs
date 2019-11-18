@@ -1,155 +1,212 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using PBase;
 
-namespace PBase
+namespace PersonsBase.data.Abonements
 {
-   [Serializable]
-   public class FreezeClass
-   {
-      // Поля и Свойства
-      private int _freezeDays;
-      private int _totalDays;         // Счетчик дней заморозки
+    [Serializable]
+    public class FreezePeriod
+    {
+        private readonly DateTime _startDate;
 
-      public readonly int MaxDaysAvailable;
-      private readonly DateTime _dateDefault;
+        public DateTime StartDate
+        {
+            get { return _startDate.Date; }
+        }
 
-      private DateTime _freezeStartDate;
+        public int DaysToFreeze { get; }
 
-      private const int MaxDaysMonth3or6 = 30;
-      private const int MaxDaysMonth12 = 45;
 
-      public DateTime FreezeEndDate;
-      public DateTime FreezeStartDate
-      {
-         get
-         {
-            return _freezeStartDate;
-         }
-         set
-         {
-            // Дата заморозки ещё в будущем 
-            if (DateTime.Now.Date.CompareTo(value.Date) <= 0)
+        // Конструктор
+        public FreezePeriod(DateTime startDate, int daysToFreeze)
+        {
+            _startDate = startDate.Date;
+            DaysToFreeze = daysToFreeze;
+        }
+
+        // Методы
+        public DateTime GetEndDate()
+        {
+            return StartDate.AddDays(DaysToFreeze).Date;
+        }
+
+        public bool IsFreezedNow()
+        {
+            var endDate = GetEndDate();
+            var result = (DaysToFreeze > 0) && (DateTime.Now.CompareTo(_startDate) >= 0) && (DateTime.Now.CompareTo(endDate) <= 0);
+
+            return result;
+        }
+
+        public bool IsFreezeInFuture()
+        {
+            return (DateTime.Now.Date.CompareTo(StartDate.Date) <= 0);// Дата заморозки в будущем
+        }
+
+    }
+
+    [Serializable]
+    public class FreezeClass
+    {
+        #region/// ПРИВАТНЫЕ ПОЛЯ ////////////
+
+        private const int MaxDaysFor3Month = 30;
+        private const int MaxDaysFor6Month = 30;
+        private const int MaxDaysMonth12 = 45;
+        private int _totalDaysFreezed;         // Счетчик использованных дней заморозки
+
+        #endregion
+
+        #region/// ПУБЛИЧНЫЕ ПОЛЯ ////////////
+
+        public List<FreezePeriod> AllFreezes;
+        public readonly int MaxDaysAvailable;
+
+        #endregion
+
+        #region/// КОНСТРУКТОРЫ.  ////////////
+        public FreezeClass(PeriodClubCard period)
+        {
+            AllFreezes = new List<FreezePeriod>();
+
+            MaxDaysAvailable = GetMaxDaysForPeriod(period);
+
+            _totalDaysFreezed = 0;
+
+        }
+
+
+        #endregion
+
+        #region/// МЕТОДЫ  ///////////////////
+
+        public int GetAvailableDays() // Осталось дней для заморозки в абонементе
+        {
+            return MaxDaysAvailable - _totalDaysFreezed;
+        }
+
+        public int GetSpentDays() // Сколько использовано дней заморозки уже
+        {
+            return _totalDaysFreezed;
+        }
+
+        /// <summary>
+        /// Возвращает true если Клиент в Заморозке на сегодняшнюю дату
+        /// </summary>
+        public bool IsFreezedNow()
+        {
+            try
             {
-               _freezeStartDate = value;
-               FreezeEndDate = value;
+                var periodFreeze = AllFreezes.Find(x => x.IsFreezedNow()); // Ищем любой замороженный сейчас
+                return periodFreeze != null;
             }
-            else
+            catch (Exception)
             {
-               _freezeStartDate = _dateDefault;
+                return false;
             }
-         }
-      }
+        }
 
-      private int FreezeDays
-      {
-         get { return _freezeDays; }
-         set
-         {
-            if (IsPossibleToFreeze(value))
+        public void RemoveLast()
+        {
+            var lastElement = AllFreezes.LastOrDefault();
+
+            if (lastElement == null) return;
+            _totalDaysFreezed += lastElement.DaysToFreeze;
+            AllFreezes.Remove(lastElement);
+
+            MessageBox.Show("Удалена последняя  заморозка!");
+
+        }
+
+        /// <summary>
+        /// Заморозка настроена и ожидается в будущем
+        /// </summary>
+        public bool IsConfiguredForFuture()
+        {
+            try
             {
-               _totalDays += value;
-               _freezeDays = value;
+                var periodFreeze = GetFutureFreeze();
+                return periodFreeze != null;
             }
-            else
+            catch (Exception)
             {
-               _freezeDays = 0;
+                return false;
             }
-         }
-      }
+        }
+        public int GetDaysToFreeze() // Сколько Дней запланировано
+        {
+            return GetFutureFreeze().DaysToFreeze;
+        }
 
-      // Конструктор
-      public FreezeClass(PeriodClubCard period)
-      {
-         MaxDaysAvailable = GetMaxDays(period);
-         _totalDays = 0;
-         _dateDefault = DateTime.Parse("11.11.1111").Date;
+        public bool TrySetFreeze(int numDays, DateTime startDate)
+        {
+            if (!IsPossibleToFreeze(numDays, startDate)) return false;
 
-         FreezeDays = 0;
-         FreezeStartDate = _dateDefault;
-         FreezeEndDate = _dateDefault;
-      }
+            AllFreezes.Add(new FreezePeriod(startDate, numDays));
 
-      /// <summary>
-      /// Возвращает true если Клиент в Заморозке на сегодняшнюю дату
-      /// </summary>
-      public bool IsFreezedNow()
-      {
-         bool result = (FreezeDays > 0) && (DateTime.Now.CompareTo(FreezeStartDate) >= 0) && (DateTime.Now.CompareTo(FreezeEndDate) <= 0);
+            return true;
+        }
 
-         return result;
-      }
-      /// <summary>
-      /// Заморозка настроена успешно
-      /// </summary>
-      public bool IsConfigured()
-      {
-         return (FreezeDays != 0) && (FreezeStartDate != _dateDefault) && (FreezeEndDate != _dateDefault);
-      }
-      public int GetRemainDays() // Сколько осталось дней заморозки в абонементе
-      {
-         return MaxDaysAvailable - _totalDays;
-      }
-      public int GetSpentDays() // Сколько использовано дней заморозки уже
-      {
-         return _totalDays;
-      }
-      public int GetDaysToFreeze() // Сколько Дней запланировано
-      {
-         return FreezeDays;
-      }
-      public bool TryConfigure(int numDays, DateTime startDate)
-      {
-         bool result = false;
+        public FreezePeriod GetFutureFreeze()
+        {
+            var periodFreeze = AllFreezes.Find(x => (x.IsFreezedNow() == false && x.IsFreezeInFuture()));
+            return periodFreeze;
+        }
 
-         if (IsPossibleToFreeze(numDays, startDate))
-         {
-            FreezeDays = numDays;
-            FreezeStartDate = startDate;
-            FreezeEndDate = FreezeStartDate.AddDays(numDays);
-            result = true;
-         }
-         return result;
-      }
-      public void Remove()
-      {
-         _totalDays = 0;
-         FreezeDays = 0;
-         FreezeStartDate = _dateDefault;
-         FreezeEndDate = _dateDefault;
-         MessageBox.Show("Удалены все заморозки!");
-      }
+        /// <summary>
+        /// Возвращает максимально доступное количество дней для периода абонемента
+        /// </summary>
+        /// <param name="period"></param>
+        /// <returns></returns>
+        private int GetMaxDaysForPeriod(PeriodClubCard period)
+        {
+            int result;
+            switch (period)
+            {
+                case PeriodClubCard.На_1_Месяц:
+                    {
+                        result = 0;
+                        break;
+                    }
+                case PeriodClubCard.На_3_Месяца:
+                    {
+                        result = MaxDaysFor3Month;
+                        break;
+                    }
+                case PeriodClubCard.На_6_Месяцев:
+                    {
+                        result = MaxDaysFor6Month;
+                        break;
+                    }
+                case PeriodClubCard.На_12_Месяцев:
+                    {
+                        result = MaxDaysMonth12;
+                        break;
+                    }
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(period), period, null);
+            }
 
-      private int GetMaxDays(PeriodClubCard period)
-      {
-         var per12 = PeriodClubCard.На_12_Месяцев;
-         var per6 = PeriodClubCard.На_6_Месяцев;
-         var per3 = PeriodClubCard.На_3_Месяца;
+            return result;
+        }
 
-         int result = 0;
-         if (period == per12)
-         {
-            result = MaxDaysMonth12;
-         }
-         if (period == per6 || period == per3)
-         {
-            result = MaxDaysMonth3or6;
-         }
-         return result;
-      }
-      private bool IsPossibleToFreeze(int numDays, DateTime dateStart)
-      {
-         if (numDays == 0) return false;
-         var temp = numDays + _totalDays;
-         var dateCmpr = (DateTime.Now.Date.CompareTo(dateStart.Date) <= 0);// Дата заморозки в будущем
-         return (temp <= MaxDaysAvailable) && (_totalDays <= MaxDaysAvailable) && dateCmpr;
-      }
-      private bool IsPossibleToFreeze(int numDays)
-      {
-         if (numDays == 0) return false;
-         int temp = numDays + _totalDays;
-         return (temp <= MaxDaysAvailable) && (_totalDays <= MaxDaysAvailable);
-      }
-   }
+        private bool IsPossibleToFreeze(int numDaysToFreeze, DateTime dateStart)
+        {
+            if (numDaysToFreeze == 0) return false;
+            var dateCmpr = (DateTime.Now.Date.CompareTo(dateStart.Date) <= 0);// Дата заморозки в будущем
+            return IsPossibleToFreeze(numDaysToFreeze) && dateCmpr;
+        }
+        private bool IsPossibleToFreeze(int numDaysToFreeze)
+        {
+            if (numDaysToFreeze == 0) return false;
+            var temp = numDaysToFreeze + _totalDaysFreezed;
+            return (temp <= MaxDaysAvailable) && (_totalDaysFreezed <= MaxDaysAvailable);
+        }
+
+        #endregion
+    }
 }
 // Если +, то DateTime.Now.CompareTo позднее _endDate
 // Если 0, то даты совпали

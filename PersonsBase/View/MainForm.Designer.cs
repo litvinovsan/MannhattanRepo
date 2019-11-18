@@ -187,7 +187,7 @@ namespace PBase
             this.сomboBox_PersonsList.Name = "сomboBox_PersonsList";
             this.сomboBox_PersonsList.Size = new System.Drawing.Size(400, 28);
             this.сomboBox_PersonsList.Sorted = true;
-            this.сomboBox_PersonsList.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
+            this.сomboBox_PersonsList.SelectedIndexChanged += new System.EventHandler(this.сomboBox_PersonsListSelectedIndexChanged);
             // 
             // groupBox1
             // 

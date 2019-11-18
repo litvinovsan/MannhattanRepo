@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using PersonsBase.data.Abonements;
 
 namespace PBase
 {
@@ -134,6 +135,11 @@ namespace PBase
                     {
                         NumPersonalTr += numberToAdd;
                         result = true;
+                        break;
+                    }
+                case TypeWorkout.Тренажерный_Зал:
+                    {
+                        result = false;
                         break;
                     }
                 default:

@@ -275,9 +275,8 @@ namespace PBase
          var tb = (ComboBox)sender;
          _editedTypeClubCard = (PeriodClubCard)Enum.Parse(typeof(PeriodClubCard), tb.SelectedItem.ToString());
 
-         var сard = _person.AbonementCurent as ClubCardA;
-         if (сard == null) return;
-         ComboBoxColor(tb, сard.GetTypeClubCard().ToString(), tb.SelectedItem.ToString());
+            if (!(_person.AbonementCurent is ClubCardA сard)) return;
+            ComboBoxColor(tb, сard.GetTypeClubCard().ToString(), tb.SelectedItem.ToString());
          IsChangedUpdateStatus(сard.GetTypeClubCard().ToString(), tb.SelectedItem.ToString());
          _typeClubCardChanged = true;
       }
@@ -518,8 +517,7 @@ namespace PBase
          var tb = (ComboBox)sender;
          _editedDaysInAbon = (DaysInAbon)Enum.Parse(typeof(DaysInAbon), tb.SelectedItem.ToString());
 
-         var сard = _person.AbonementCurent as AbonementByDays;
-         if (сard == null) return;
+         if (!(_person.AbonementCurent is AbonementByDays сard)) return;
          ComboBoxColor(tb, сard.GetTypeAbonementByDays().ToString(), tb.SelectedItem.ToString());
          IsChangedUpdateStatus(сard.GetTypeAbonementByDays().ToString(), tb.SelectedItem.ToString());
       }

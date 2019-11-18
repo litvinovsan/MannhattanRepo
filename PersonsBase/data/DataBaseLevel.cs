@@ -11,7 +11,7 @@ namespace PersonsBase.data
         #region/// ОБЬЕКТЫ Приватные //////////////////////////////
 
         [NonSerialized]
-        private object _locker = new object(); // блокировка коллекции на время сериализации.
+        private readonly object _locker = new object(); // блокировка коллекции на время сериализации.
 
         [NonSerialized]
         private static DataBaseLevel _dbInstance;  //Singleton.

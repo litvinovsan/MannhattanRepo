@@ -56,19 +56,20 @@ namespace PBase
                 _timeTren = _person.AbonementCurent.timeTraining;
                 _spa = _person.AbonementCurent.spa;
                 _pay = _person.AbonementCurent.payStatus;
-                if (_person.AbonementCurent is AbonementByDays days)
+                switch (_person.AbonementCurent)
                 {
-                    _daysInAbon = days.GetTypeAbonementByDays();
-                    radioButton_Abonement.Checked = true;
+                    case AbonementByDays days:
+                        _daysInAbon = days.GetTypeAbonementByDays();
+                        radioButton_Abonement.Checked = true;
+                        break;
+                    case ClubCardA abonement:
+                        _periodClubCard = abonement.GetTypeClubCard();
+                        radioButton_ClubCard.Checked = true;
+                        break;
+                    case SingleVisit _:
+                        radioButton_Single.Checked = true;
+                        break;
                 }
-
-                var abonement = _person.AbonementCurent as ClubCardA;
-                if (abonement != null)
-                {
-                    _periodClubCard = abonement.GetTypeClubCard();
-                    radioButton_ClubCard.Checked = true;
-                }
-                if (_person.AbonementCurent is SingleVisit) radioButton_Single.Checked = true;
             }
         }
 

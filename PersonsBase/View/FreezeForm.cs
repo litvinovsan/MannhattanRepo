@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PBase;
+using PersonsBase.data.Abonements;
 
 namespace PersonsBase.View
 {
@@ -32,10 +33,10 @@ namespace PersonsBase.View
             this.Text = "Карта " + _clubCard.GetTypeClubCard().ToString().Replace("_", " ");
 
             // Доступно Дней      
-            textBox_available.Text = _clubCard.Freeze.GetRemainDays().ToString();
+            textBox_available.Text = _clubCard.Freeze.GetAvailableDays().ToString();
 
             // Заполнение комбобокса Количества дней для заморозки
-            var maxDaysAvailable = _clubCard.Freeze.GetRemainDays();
+            var maxDaysAvailable = _clubCard.Freeze.GetAvailableDays();
             InitComboBox(maxDaysAvailable);
 
             // Текущая дата
@@ -75,7 +76,7 @@ namespace PersonsBase.View
 
         private void buttonClearFreeze_Click(object sender, EventArgs e)
         {
-            _clubCard.Freeze?.Remove(); // Если != null
+            _clubCard.Freeze?.RemoveLast(); // Если != null
         }
 
         private void button_Freeze_Click(object sender, EventArgs e)
@@ -84,16 +85,16 @@ namespace PersonsBase.View
             DateTime startDate;
             if (GetFreezeParams(out numDays, out startDate))
             {
-                bool isConfigured = _clubCard.Freeze.TryConfigure(numDays, startDate);
+                bool isConfigured = _clubCard.Freeze.TrySetFreeze(numDays, startDate);
                 if (isConfigured)
                 {
                     _clubCard.EndDate = _clubCard.EndDate.AddDays(numDays);
-                    MessageBox.Show($"Заморозка начинается c {startDate.ToString("d")}.\n\rОсталось дней: {_clubCard.Freeze.GetRemainDays()} ", "Установка Заморозки", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Заморозка начинается c {startDate.ToString("d")}.\n\rОсталось дней: {_clubCard.Freeze.GetAvailableDays()} ", "Установка Заморозки", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.DialogResult = DialogResult.OK;
                 }
                 else
                 {
-                    MessageBox.Show($"Ошибка! Возможно, не хватает дней или не корректная дата.\n\rОсталось дней: {_clubCard.Freeze.GetRemainDays()}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Ошибка! Возможно, не хватает дней или не корректная дата.\n\rОсталось дней: {_clubCard.Freeze.GetAvailableDays()}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }

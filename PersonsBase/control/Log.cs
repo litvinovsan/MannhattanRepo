@@ -66,8 +66,7 @@ namespace PBase
                 EventLog.CreateEventSource("MySource", "MyNewLog");
             }
 
-            myLog = new EventLog();
-            myLog.Source = "MySource";
+            myLog = new EventLog {Source = "MySource"};
 
             myLog.WriteEntry("Start logging");
         }

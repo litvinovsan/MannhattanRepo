@@ -158,7 +158,8 @@ namespace PBase
 
         // Публичные
         public StatusPerson UpdateActualStatus()
-        { ///Обновляем статус клиента.
+        { 
+            //Обновляем статус клиента.
             if (Status == StatusPerson.Запрещён) return Status;
 
             if (AbonementCurent == null)

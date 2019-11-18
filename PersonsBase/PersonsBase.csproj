@@ -71,6 +71,7 @@
     <Compile Include="data\CPerson.cs" />
     <Compile Include="data\CTrener.cs" />
     <Compile Include="data\Visit.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="myStd\MyComboBox.cs" />
     <Compile Include="myStd\MyListView.cs" />
     <Compile Include="myStd\SerializeOperations.cs" />

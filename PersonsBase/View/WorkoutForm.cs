@@ -10,10 +10,8 @@ namespace PersonsBase.View
     public partial class WorkoutForm : Form
     {
         private readonly Person _person;
-        private AbonementBasic _abonement;
         private readonly List<Trener> _treners;
         private readonly List<ScheduleNote> _schedule; // 8:00 - Беговая
-        private readonly ManhattanInfo _manhattanInfo;
         private string _selectedTrenerName;
         private string _selectedGroupTimeName;
 
@@ -25,22 +23,22 @@ namespace PersonsBase.View
             InitializeComponent();
             SelectedOptions = new WorkoutOptions();// Обьект по умолчанию
 
-            _manhattanInfo = DataBaseO.GetManhattanInfo();
             _person = DataBaseO.GetPersonLink(personName);
-            _abonement = _person.AbonementCurent;
-            _treners = _manhattanInfo.Treners;
-            _schedule = _manhattanInfo.Schedule;
+            var abonement = _person.AbonementCurent;
+            var manhattanInfo = DataBaseO.GetManhattanInfo();
+            _treners = manhattanInfo.Treners;
+            _schedule = manhattanInfo.Schedule;
 
             // Скрываем Панели с РадиоБатоннами
-            panel_tren.Visible = (!(_abonement is SingleVisit)) || ((_abonement.NumAerobicTr != 0) || (_abonement.NumPersonalTr != 0));
-            panel_aero.Visible = (_abonement.trainingsType == TypeWorkout.Аэробный_Зал || (_abonement.NumAerobicTr != 0)) ? true : false;
-            panel_personal.Visible = (_abonement.trainingsType == TypeWorkout.Персональная || (_abonement.NumPersonalTr != 0)) ? true : false;
+            panel_tren.Visible = (!(abonement is SingleVisit)) || ((abonement.NumAerobicTr != 0) || (abonement.NumPersonalTr != 0));
+            panel_aero.Visible = (abonement.trainingsType == TypeWorkout.Аэробный_Зал || (abonement.NumAerobicTr != 0));
+            panel_personal.Visible = (abonement.trainingsType == TypeWorkout.Персональная || (abonement.NumPersonalTr != 0));
         }
 
         private void WorkoutForm_Load(object sender, EventArgs e)
         {
-            List<string> actualTrenersNames = _treners.Select(x => x.Name).ToList<string>();
-            List<string> actualSchedule = _schedule.Select(x => $"{x.Time.HourMinuteTime} - {x.WorkoutsName}").ToList<string>();
+            List<string> actualTrenersNames = _treners.Select(x => x.Name).ToList();
+            List<string> actualSchedule = _schedule.Select(x => $"{x.Time.HourMinuteTime} - {x.WorkoutsName}").ToList();
 
             // Смотрим Прошлый визит Клиента
             string lastTrener = "";
@@ -53,24 +51,26 @@ namespace PersonsBase.View
                 {
                     case TypeWorkout.Аэробный_Зал:
                         {
-                            if (lastVisit.GroupInfo != null)
+                            if (lastVisit.GroupInfo?.ScheduleNote != null)
                             {
-                                var timeNameString = lastVisit.GroupInfo.scheduleNote.GetTimeAndNameStr();
+                                var timeNameString = lastVisit.GroupInfo.ScheduleNote.GetTimeAndNameStr();
                                 lastGroupTimeName = (actualSchedule.Contains(timeNameString)) ? timeNameString : "";
 
-                                if (lastVisit.GroupInfo.Trener != null)
-                                    lastTrener = (actualTrenersNames.Contains(lastVisit.GroupInfo.Trener.Name)) ? lastVisit.GroupInfo.Trener.Name : "";
+                                if (lastVisit.GroupInfo.GroupTrener != null)
+                                    lastTrener = (actualTrenersNames.Contains(lastVisit.GroupInfo.GroupTrener.Name)) ? lastVisit.GroupInfo.GroupTrener.Name : "";
                             }
                             break;
                         }
                     case TypeWorkout.Персональная:
                         {
-                            if (lastVisit.TrenerIfPersonal != null)
-                                lastTrener = (actualTrenersNames.Contains(lastVisit.TrenerIfPersonal.Name)) ? lastVisit.TrenerIfPersonal.Name : "";
+                            if (lastVisit.PeronalTrener != null)
+                                lastTrener = (actualTrenersNames.Contains(lastVisit.PeronalTrener.Name)) ? lastVisit.PeronalTrener.Name : "";
                             break;
                         }
-                    default:
+                    case TypeWorkout.Тренажерный_Зал:
                         break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
 
@@ -140,19 +140,19 @@ namespace PersonsBase.View
         {
             if (radioButton_tren.Checked == false && radioButton_aerob.Checked == false && radioButton_personal.Checked == false)
             {
-                MessageBox.Show("Выберите один из вариантов");
+                MessageBox.Show(@"Выберите один из вариантов");
                 return;
             }
             if (SelectedOptions.TypeWorkout == TypeWorkout.Аэробный_Зал)
             {
-                SelectedOptions.GroupInfo.Trener = _treners.Find(x => x.Name == _selectedTrenerName);
-                SelectedOptions.GroupInfo.scheduleNote.SetTimeAndNameString(_selectedGroupTimeName);
+                SelectedOptions.GroupInfo.GroupTrener = _treners.Find(x => x.Name == _selectedTrenerName);
+                SelectedOptions.GroupInfo.ScheduleNote.SetTimeAndNameString(_selectedGroupTimeName);
             }
             else
             {
                 SelectedOptions.PersonalTrener = _treners.Find(x => x.Name == _selectedTrenerName);
             }
-            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            DialogResult = DialogResult.OK;
         }
     }
 }

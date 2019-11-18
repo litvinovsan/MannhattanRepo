@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using PBase;
 using PersonsBase.data;
@@ -88,9 +83,7 @@ namespace PersonsBase.View
                     OnPersonalDataStateChanged();
                 }
             }
-            public bool PathToPhoto;
-            public bool SpecialNotes;
-            public bool PersonalNumber;
+
             //Приватные поля
             private bool _name;
             private bool _phone;
@@ -100,8 +93,8 @@ namespace PersonsBase.View
             private bool _bDate;
         }
 
-        private PersonalDataState _dataStateOk = new PersonalDataState();
-        private Person.PersonalDataStruct _dataStruct = new Person.PersonalDataStruct();
+        private PersonalDataState _dataStateOk;
+        private Person.PersonalDataStruct _dataStruct;
 
         #endregion
 
@@ -111,11 +104,13 @@ namespace PersonsBase.View
         {
             InitializeComponent();
 
-            _maskPhone = this.maskedTextBox_PhoneNumber.Text;
-            _maskPassport = this.maskedTextBox_Passport.Text;
-            _maskDriverId = this.maskedTextBox_DriverID.Text;
+            _maskPhone = maskedTextBox_PhoneNumber.Text;
+            _maskPassport = maskedTextBox_Passport.Text;
+            _maskDriverId = maskedTextBox_DriverID.Text;
 
             _persons = DataBaseLevel.GetListPersons();
+            _dataStateOk = new PersonalDataState();
+            _dataStruct = new Person.PersonalDataStruct();
 
             // Изменилось какое - либо поле данных
             PersonalDataStateEvent += VariablesHandler;
@@ -269,8 +264,7 @@ namespace PersonsBase.View
         private void button_add_foto_Click(object sender, EventArgs e)
         {
             Image img;
-            string pathDummy = string.Empty;
-            var success = Photo.OpenPhoto(out img, out pathDummy);
+            var success = Photo.OpenPhoto(out img);
 
             if (!success) return;
 
@@ -295,7 +289,7 @@ namespace PersonsBase.View
             var p = Person.CreateNewPerson(_dataStruct);
             var result = DataBaseLevel.GetInstance().PersonAdd(p);
             if (result == ResponseCode.Success)
-                this.DialogResult = DialogResult.OK;
+                DialogResult = DialogResult.OK;
             else
             {
                 MessageBox.Show(result.ToString());

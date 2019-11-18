@@ -61,7 +61,7 @@ namespace PBase
     [Serializable]
     public enum SpaService
     {
-        Нет_Спа,
+        Без_Спа,
         Спа
     }
 

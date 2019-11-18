@@ -17,7 +17,7 @@ namespace PBase
         {
             EndDateChanged?.Invoke(this, EventArgs.Empty);
         }
-
+        // FIXME. Обьединить даты в одну структуру
 
         // ПОЛЯ и СВОЙСТВА
         public abstract string AbonementName { get; }

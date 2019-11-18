@@ -111,7 +111,12 @@ namespace PBase
 
         public static void TryLoadPhoto(PictureBox pictureBox, string pathToPhoto)
         {
-            if (string.IsNullOrEmpty(pathToPhoto)) return;
+            if (string.IsNullOrEmpty(pathToPhoto))
+            {
+                pictureBox.Image = null;
+                return;
+            }
+
             try
             {
                 if (Photo.IsPhotoExist(pathToPhoto))
@@ -127,7 +132,6 @@ namespace PBase
             catch
             {
                 pictureBox.Image = null;
-                // MessageBox.Show("Ошибка Открытия Файла Изображения");
             }
             pictureBox.Refresh();
         }
@@ -310,11 +314,11 @@ namespace PBase
         #region /// КЛИЕНТ. УДАЛЕНИЕ ///
         public static bool RemovePerson()
         {
-            if (!FormsRunner.RunSelectPersonForm(out var selectedName, "Удаление Клиента")) return false;
+            if (!FormsRunner.RunSelectPersonForm(out var selectedName, "УДАЛЕНИЕ КЛИЕНТА")) return false;
 
             if (string.IsNullOrEmpty(selectedName)) return false;
 
-            var res = MessageBox.Show($@"{selectedName}", @"Удалить клиента?", MessageBoxButtons.YesNo,
+            var res = MessageBox.Show($@"{selectedName}", @"Удалить клиента из базы???", MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
             if (res == DialogResult.No) return false;
@@ -326,6 +330,10 @@ namespace PBase
         #endregion
 
         #region /// КЛИЕНТ. ПЕРСОНАЛЬНАЯ КАРТОЧКА  ///
+        /// <summary>
+        /// Открывает карточку клиента namePerson
+        /// </summary>
+        /// <param name="namePerson"></param>
         public static void OpenPersonCard(string namePerson)
         {
             if (string.IsNullOrEmpty(namePerson)) return;
@@ -333,7 +341,10 @@ namespace PBase
             FormsRunner.RunClientForm(namePerson);
         }
 
-        public static void OpenPersonCard()
+        /// <summary>
+        /// Выбор из списка клиентов, открытие карточки клиента
+        /// </summary>
+        public static void SelectPerson()
         {
             // Выбор имени Клиента
             if (!FormsRunner.RunSelectPersonForm(out var selectedName, "Cписок Клиентов")) return;
@@ -347,9 +358,9 @@ namespace PBase
 
         #region /// АБОНЕМЕНТ.
 
-        public static bool AddAbonementToPerson()
+        public static bool SellAbonement()
         {
-            if (!FormsRunner.RunSelectPersonForm(out var selectedName, "Добавление Абонемента")) return false;
+            if (!FormsRunner.RunSelectPersonForm(out var selectedName, "Продажа Абонемента")) return false;
 
             if (string.IsNullOrEmpty(selectedName)) return false;
 

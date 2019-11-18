@@ -1,6 +1,5 @@
 ﻿using PBase;
 using System;
-using System.Collections.Generic;
 
 namespace PersonsBase.data
 {
@@ -11,12 +10,20 @@ namespace PersonsBase.data
     public class Visit
     {
         public TypeWorkout TypeWorkout { get; }
-
         public DateTime DateTimeVisit { get; }
+
         public readonly Group GroupInfo;
-        public readonly Trener TrenerIfPersonal;
-        public readonly List<Tuple<string, string>> SummaryAbonInfo;// Название - Значение
+        public readonly Trener PeronalTrener;
         public readonly Administrator CurrentAdministrator;
+
+        // Свойства абонемента на момент посещения
+        public SpaService SpaStatus { get; }
+        public Pay PayStatus { get; }
+        public TimeForTr TimeForTrenStatus { get; }
+        public DateTime AbonBuyDate { get; } // FIXME Переделать даты в абонементе
+        public DateTime AbonEndDate { get; } // FIXME Переделать даты в абонементе
+        public int NumAerobicTr { get; }
+        public int NumPersonalTr { get; }
 
         // Конструкторы
         public Visit(AbonementBasic abon, WorkoutOptions workoutOptions, Administrator admin)
@@ -24,10 +31,17 @@ namespace PersonsBase.data
             TypeWorkout = workoutOptions.TypeWorkout;
             DateTimeVisit = DateTime.Now;
 
-            SummaryAbonInfo = abon.GetShortInfoList();
             GroupInfo = workoutOptions.GroupInfo;
-            TrenerIfPersonal = workoutOptions.PersonalTrener;
-            CurrentAdministrator = admin;
+            PeronalTrener = workoutOptions.PersonalTrener ?? new Trener();
+            CurrentAdministrator = admin ?? new Administrator("Не известно", "");
+
+            SpaStatus = abon.spa;
+            PayStatus = abon.payStatus;
+            TimeForTrenStatus = abon.timeTraining;
+            AbonBuyDate = abon.buyDate;
+            AbonEndDate = abon.EndDate;
+            NumAerobicTr = abon.NumAerobicTr;
+            NumPersonalTr = abon.NumPersonalTr;
         }
     }
 }

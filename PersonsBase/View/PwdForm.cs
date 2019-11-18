@@ -14,22 +14,20 @@ namespace PersonsBase.View
         private static void OnLockStateChanged()
         {
             var tmp = LockChangedEvent;
-            if (tmp != null) tmp();
+            tmp?.Invoke();
         }
 
         private Options _options;
-        private static string _correctPassword = "1234"; // FIXME Перенести пароль "1234" в Опции
+        private static readonly string _correctPassword = "1234"; // FIXME Перенести пароль "1234" в Опции
         private static bool _unLocked;
         private static bool UnLocked
         {
             get { return _unLocked; }
             set
             {
-                if (_unLocked != value)
-                {
-                    _unLocked = value;
-                    OnLockStateChanged();
-                }
+                if (_unLocked == value) return;
+                _unLocked = value;
+                OnLockStateChanged();
             }
         }
 
@@ -58,10 +56,10 @@ namespace PersonsBase.View
 
         private void button_Ok_Click(object sender, EventArgs e)
         {
-            CkeckPwd();
+            TryUnLockPassword();
         }
 
-        private bool CkeckPwd()
+        private bool TryUnLockPassword()
         {
             if (textBox_pwd.Text == _correctPassword)
             {
@@ -89,7 +87,7 @@ namespace PersonsBase.View
         {
             if (e.KeyChar == (char)Keys.Return) // Если нажат Enter
             {
-                CkeckPwd();
+                TryUnLockPassword();
             }
         }
     }

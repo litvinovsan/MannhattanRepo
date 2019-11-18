@@ -12,21 +12,19 @@ namespace PersonsBase.data
     {
         #region /// ПУБЛИЧНЫЕ ///
 
-        // public MyTime StartTime { get; set; }
-        // public string WorkoutName { get; set; }
-        public ScheduleNote scheduleNote;
-        public Trener Trener { get; set; }
+        public ScheduleNote ScheduleNote;
+        public Trener GroupTrener { get; set; }
         public string Notes { get; set; }
         #endregion
 
         #region /// КОНСТРУКТОР ///
         public Group(string workoutName, MyTime startTime)
         {
-            scheduleNote = new ScheduleNote(startTime, workoutName);
+            ScheduleNote = new ScheduleNote(startTime, workoutName);
         }
         public Group()
         {
-            scheduleNote = new ScheduleNote(new MyTime(0, 0), "");
+            ScheduleNote = new ScheduleNote(new MyTime(0, 0), "");
         }
         #endregion
     }

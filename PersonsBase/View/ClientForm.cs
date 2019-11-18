@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.data;
@@ -58,14 +57,16 @@ namespace PBase
             if (PwdForm.IsPassUnLocked())
             {
                 button_RemoveCurrentAbon.Visible = true;
-                groupBox_Detailed.Enabled = true;
                 button__remove_abon.Enabled = true;
+                groupBox_Detailed.Enabled = true;// FIXME тут надо включать и выключать выборочные поля. Например, админ должен менять статус оплаты
+
             }
             else
             {
                 button_RemoveCurrentAbon.Visible = false;
-                groupBox_Detailed.Enabled = false;
                 button__remove_abon.Enabled = false;
+                groupBox_Detailed.Enabled = true; // 
+
             }
             Invalidate();
         }
@@ -291,13 +292,13 @@ namespace PBase
         private void UpdateEditableData()
         {
             var listUpdated = SelectList(_person.AbonementCurent);
-            List<Control> lst = new List<Control>();
+            var lst = new List<Control>();
             Methods.ForAllControls(groupBox_Detailed, x =>
             {
                 if (x is TextBox || x is ComboBox) lst.Add(x); //Получили только нужные Контролы в массив lst
             });
 
-            for (int i = 0; i < lst.Count; i++)
+            for (var i = 0; i < lst.Count; i++)
             {
                 lst[i].Text = listUpdated[i].Item2.Text;
             }
@@ -314,29 +315,41 @@ namespace PBase
             Methods.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
 
 
-            // Если Запрещен 
-            if (_person.Status == StatusPerson.Запрещён)
+            switch (_person.Status)
             {
-                textBox_Name.Text = _person.Name;
-                Methods.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
-                return;
-            }
-            // Если Заморожен
-            if (_person.Status == StatusPerson.Заморожен && _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA && _person.Status != StatusPerson.Вероятный_Клиент && _person.Status != StatusPerson.Гостевой)
-            {
-                textBox_Name.ForeColor = Color.SeaGreen;
-                string dateEnd = ((ClubCardA)_person.AbonementCurent).Freeze?.FreezeEndDate.Date.ToString("d");
-                textBox_Name.Text = _person.Name + @"   (Заморожен До " + dateEnd + @" )";
+                // Если Запрещен 
+                case StatusPerson.Запрещён:
+                    textBox_Name.Text = _person.Name;
+                    Methods.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
+                    return;
+                // Если Заморожен
+                case StatusPerson.Заморожен when _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA a && _person.Status != StatusPerson.Вероятный_Клиент && _person.Status != StatusPerson.Гостевой:
+                {
+                    textBox_Name.ForeColor = Color.SeaGreen;
+                    string dateEnd = a.Freeze?.AllFreezes.Last().GetEndDate().Date.ToString("d");
+                    textBox_Name.Text = _person.Name + @"   (Заморожен До " + dateEnd + @" )";
+                    break;
+                }
+                case StatusPerson.Активный:
+                    break;
+                case StatusPerson.Нет_Карты:
+                    break;
+                case StatusPerson.Гостевой:
+                    break;
+                case StatusPerson.Вероятный_Клиент:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             // Заморозка запланирована в будущем
             var card = _person.AbonementCurent as ClubCardA;
             if (card?.Freeze != null && (_person.Status != StatusPerson.Заморожен) && _person.Status != StatusPerson.Вероятный_Клиент && _person.Status != StatusPerson.Гостевой)
             {
-                if (card.Freeze.IsConfigured())
+                if (card.Freeze.IsConfiguredForFuture())
                 {
                     textBox_Name.ForeColor = Color.SeaGreen;
-                    textBox_Name.Text = _person.Name + $"   (Заморозка c {card.Freeze.FreezeStartDate.Date.ToString("d")}, дней: {card.Freeze.GetDaysToFreeze()} )";
+                    textBox_Name.Text = _person.Name + $"   (Заморозка c {card.Freeze.GetFutureFreeze().StartDate.Date.ToString("d")}, дней: {card.Freeze.GetDaysToFreeze()} )";
                 }
             }
 
@@ -557,8 +570,7 @@ namespace PBase
         private void button_photo_Click(object sender, EventArgs e)
         {
             Image img;
-            string pathDummy;
-            var success = Photo.OpenPhoto(out img, out pathDummy);
+            var success = Photo.OpenPhoto(out img);
             if (success)
             {
                 _person.PathToPhoto = Photo.SaveToPicturesFolder(img, _person.Name);

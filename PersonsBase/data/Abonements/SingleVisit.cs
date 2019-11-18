@@ -22,8 +22,15 @@ namespace PBase
         private int _numPersonalTr;
         public sealed override int NumAerobicTr { get { return _numAerobicTr; } set { if (_numAerobicTr >= 0) _numAerobicTr = value; } }
         public sealed override int NumPersonalTr { get { return _numPersonalTr; } set { if (_numPersonalTr >= 0) _numPersonalTr = value; } }
-        public override string AbonementName => "Разовое Занятие";
-        public override string InfoMessageEnd => "Нет активных разовых посещений!";
+        public override string AbonementName
+        {
+            get { return "Разовое Занятие"; }
+        }
+
+        public override string InfoMessageEnd
+        {
+            get { return "Нет активных разовых посещений!"; }
+        }
 
         // Методы
         public override void TryActivate()
@@ -35,13 +42,9 @@ namespace PBase
 
         public override bool CheckInWorkout(TypeWorkout type)
         {
-            if (DaysLeft > 0)
-            {
-                DaysLeft--;
-                return true;
-            }
-
-            return false;
+            if (DaysLeft <= 0) return false;
+            DaysLeft--;
+            return true;
         }
 
         public override bool IsValid()
@@ -52,7 +55,7 @@ namespace PBase
         public override List<Tuple<string, string>> GetShortInfoList()
         {
             // Информация о текущем состоянии Абонемента. Добавляем всё что должно выводиться для Пользователя
-            List<Tuple<string, string>> result = new List<Tuple<string, string>>
+            var result = new List<Tuple<string, string>>
           {
               new Tuple<string, string>("Тип: ", AbonementName),
               new Tuple<string, string>("Доступные Тренировки ", trainingsType.ToString()),
