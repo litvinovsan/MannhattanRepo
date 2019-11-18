@@ -113,7 +113,8 @@ namespace PersonsBase.data.Abonements
             var lastElement = AllFreezes.LastOrDefault();
 
             if (lastElement == null) return;
-            _totalDaysFreezed += lastElement.DaysToFreeze;
+            _totalDaysFreezed -= lastElement.DaysToFreeze;
+            if (_totalDaysFreezed < 0) _totalDaysFreezed = 0;
             AllFreezes.Remove(lastElement);
 
             MessageBox.Show("Удалена последняя  заморозка!");
@@ -145,7 +146,7 @@ namespace PersonsBase.data.Abonements
             if (!IsPossibleToFreeze(numDays, startDate)) return false;
 
             AllFreezes.Add(new FreezePeriod(startDate, numDays));
-
+            _totalDaysFreezed += numDays;
             return true;
         }
 

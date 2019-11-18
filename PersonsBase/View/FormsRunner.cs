@@ -76,7 +76,7 @@ namespace PersonsBase.View
             Person person = DataBaseO.GetPersonLink(personName);
             if (!(person.AbonementCurent is ClubCardA)) return DialogResult.Cancel;
             ClubCardA clubCard = ((ClubCardA)person.AbonementCurent);
-            FreezeForm freezeForm = new FreezeForm(clubCard);
+            var freezeForm = new FreezeForm(clubCard);
             return freezeForm.ShowDialog();
         }
 
