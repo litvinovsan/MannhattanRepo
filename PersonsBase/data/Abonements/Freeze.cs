@@ -167,11 +167,22 @@ namespace PersonsBase.data.Abonements
                 return false;
             }
         }
+        
+        /// <summary>
+        /// Запланировано дней в ближайшей будущей заморозке
+        /// </summary>
+        /// <returns></returns>
         public int GetDaysToFreeze() // Сколько Дней запланировано
         {
             return GetFutureFreeze().DaysToFreeze;
         }
 
+        /// <summary>
+        /// Попытка установить заморозку. Проверяются остаточные дни и дата
+        /// </summary>
+        /// <param name="numDays"></param>
+        /// <param name="startDate"></param>
+        /// <returns></returns>
         public bool TrySetFreeze(int numDays, DateTime startDate)
         {
             if (!IsPossibleToFreeze(numDays, startDate)) return false;

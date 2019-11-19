@@ -349,7 +349,7 @@ namespace PBase
                 if (card.Freeze.IsConfiguredForFuture())
                 {
                     textBox_Name.ForeColor = Color.SeaGreen;
-                    textBox_Name.Text = _person.Name + $"   (Заморозка c {card.Freeze.GetFutureFreeze().StartDate.Date.ToString("d")}, дней: {card.Freeze.GetDaysToFreeze()} )";
+                    textBox_Name.Text = _person.Name + $@"   (Заморозка c {card.Freeze.GetFutureFreeze().StartDate.Date:d}, дней: {card.Freeze.GetDaysToFreeze()} )";
                 }
             }
 

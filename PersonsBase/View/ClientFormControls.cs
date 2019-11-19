@@ -87,7 +87,7 @@ namespace PBase
                     // Костыль для того чтобы изменение Ручками сбрасывало заморозку
                     if (_editedStatusPerson == StatusPerson.Активный && _person.Status == StatusPerson.Заморожен && (_person.AbonementCurent is ClubCardA a))
                     {
-                        a.Freeze..RemoveLast();
+                        a.Freeze.RemoveLast();
                     }
                     _person.Status = _editedStatusPerson;
                     _person.StatusChanged += UpdateControlState;

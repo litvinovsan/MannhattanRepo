@@ -42,21 +42,20 @@ namespace PersonsBase.View
             // Текущая дата
             dateTimePicker_startFreeze.Value = DateTime.Now.Date;
 
+            // Заполнение Истории Заморозок
+            InitCheckBoxHistory();
+
             // Кнопка удаления заморозки
-            buttonClearFreeze.Visible = PwdForm.IsPassUnLocked() ? true : false;
+            // buttonClearFreeze.Visible = PwdForm.IsPassUnLocked() ? true : false;
         }
 
         private void InitComboBox(int maxDaysAvailable)
         {
             if (maxDaysAvailable != 0)
-            {   // FIXME Проверить этот кусок. Удалить закоментированное
+            {
                 comboBox_toFreeze.Items.Clear();
                 var nums = Enumerable.Range(1, maxDaysAvailable).Select(x => (object)x).ToArray();
                 comboBox_toFreeze.Items.AddRange(nums);
-                //for (int i = 1; i <= maxDaysAvailable; i++)
-                //{
-                //    comboBox_toFreeze.Items.Add(i.ToString());
-                //}
             }
             else
             {
@@ -64,6 +63,17 @@ namespace PersonsBase.View
                 comboBox_toFreeze.Items.Add("Нет Дней");
             }
             comboBox_toFreeze.SelectedIndex = 0;
+        }
+
+        private void InitCheckBoxHistory()
+        {
+            var freezes = _clubCard.Freeze.AllFreezes;
+            foreach (var item in freezes)
+            {
+                string str = $"{item.StartDate:D}    {item.DaysToFreeze}";
+                bool status = item.IsFreezedNow() || !item.IsFreezeInFuture();
+                checkedListBox_allFreeze.Items.Add(str, status);
+            }
         }
 
         private void InitializeFreezeObject()
@@ -85,17 +95,16 @@ namespace PersonsBase.View
             DateTime startDate;
             if (GetFreezeParams(out numDays, out startDate))
             {
-                bool isConfigured = _clubCard.Freeze.TrySetFreeze(numDays, startDate);
+                var isConfigured = _clubCard.Freeze.TrySetFreeze(numDays, startDate);
                 if (isConfigured)
                 {
                     _clubCard.EndDate = _clubCard.EndDate.AddDays(numDays);
                     MessageBox.Show($"Заморозка начинается c {startDate.ToString("d")}.\n\rОсталось дней: {_clubCard.Freeze.GetAvailableDays()} ", "Установка Заморозки", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.DialogResult = DialogResult.OK;
+                    DialogResult = DialogResult.OK;
                 }
                 else
                 {
                     MessageBox.Show($"Ошибка! Возможно, не хватает дней или не корректная дата.\n\rОсталось дней: {_clubCard.Freeze.GetAvailableDays()}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
                 }
             }
         }
