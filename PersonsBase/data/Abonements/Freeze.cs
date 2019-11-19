@@ -11,11 +11,17 @@ namespace PersonsBase.data.Abonements
     {
         private readonly DateTime _startDate;
 
+        /// <summary>
+        /// Дата начала заморозки
+        /// </summary>
         public DateTime StartDate
         {
             get { return _startDate.Date; }
         }
 
+        /// <summary>
+        /// Заморозить на Н дней
+        /// </summary>
         public int DaysToFreeze { get; }
 
 
@@ -27,6 +33,11 @@ namespace PersonsBase.data.Abonements
         }
 
         // Методы
+
+        /// <summary>
+        /// Получить дату окончания заморозки
+        /// </summary>
+        /// <returns></returns>
         public DateTime GetEndDate()
         {
             return StartDate.AddDays(DaysToFreeze).Date;
@@ -40,11 +51,14 @@ namespace PersonsBase.data.Abonements
             return result;
         }
 
+        /// <summary>
+        /// Текущая заморозка будет в будущем. Сравнение по дате с текущим днем
+        /// </summary>
+        /// <returns></returns>
         public bool IsFreezeInFuture()
         {
             return (DateTime.Now.Date.CompareTo(StartDate.Date) <= 0);// Дата заморозки в будущем
         }
-
     }
 
     [Serializable]
@@ -61,7 +75,14 @@ namespace PersonsBase.data.Abonements
 
         #region/// ПУБЛИЧНЫЕ ПОЛЯ ////////////
 
+        /// <summary>
+        /// Список всех заморозок
+        /// </summary>
         public List<FreezePeriod> AllFreezes;
+
+        /// <summary>
+        /// Максимальное количество дней заморозки для текущего периода клубной карты
+        /// </summary>
         public readonly int MaxDaysAvailable;
 
         #endregion
@@ -82,12 +103,20 @@ namespace PersonsBase.data.Abonements
 
         #region/// МЕТОДЫ  ///////////////////
 
-        public int GetAvailableDays() // Осталось дней для заморозки в абонементе
+        /// <summary>
+        ///  Осталось дней для заморозки в абонементе
+        /// </summary>
+        /// <returns></returns>
+        public int GetAvailableDays()
         {
             return MaxDaysAvailable - _totalDaysFreezed;
         }
 
-        public int GetSpentDays() // Сколько использовано дней заморозки уже
+        /// <summary>
+        /// Сколько использовано дней заморозки уже
+        /// </summary>
+        /// <returns></returns>
+        public int GetSpentDays() // 
         {
             return _totalDaysFreezed;
         }
@@ -108,6 +137,9 @@ namespace PersonsBase.data.Abonements
             }
         }
 
+        /// <summary>
+        /// Удаляет последнюю заморозку из списка
+        /// </summary>
         public void RemoveLast()
         {
             var lastElement = AllFreezes.LastOrDefault();
@@ -117,8 +149,7 @@ namespace PersonsBase.data.Abonements
             if (_totalDaysFreezed < 0) _totalDaysFreezed = 0;
             AllFreezes.Remove(lastElement);
 
-            MessageBox.Show("Удалена последняя  заморозка!");
-
+            MessageBox.Show(@"Удалена последняя запись о заморозке!");
         }
 
         /// <summary>
