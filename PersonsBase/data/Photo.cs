@@ -70,11 +70,6 @@ namespace PBase
                 img = Image.FromStream(fs);
             }
             return img;
-            /*
-             Image tmp = Image.FromFile(@"C:\pics\logo.png");
-             Image CurrentWM = new Bitmap(tmp);
-             tmp.Dispose();
-             */
         }
 
         public static string SaveToPicturesFolder(Image inputImg, string fileName)
@@ -87,7 +82,7 @@ namespace PBase
 
             if (File.Exists(pth))
             {
-                var dlgResult = MessageBox.Show("Файл существует! Перезаписать?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var dlgResult = MessageBox.Show(@"Файл существует! Перезаписать?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dlgResult == DialogResult.Yes)
                 {
                     File.Delete(pth);

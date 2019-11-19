@@ -532,7 +532,8 @@ namespace PBase
         private void button_remove_current_abon_Click(object sender, EventArgs e)
         {
             if (_person.AbonementCurent == null) return;
-            var result = MessageBox.Show($"Будет удаленo:  {_person.AbonementCurent.AbonementName}.\n\rПродолжить?", "Удаление Абонемента!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var result = MessageBox.Show($@"Будет удаленo:  {_person.AbonementCurent.AbonementName}.
+Продолжить?", "Удаление Абонемента!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result != DialogResult.Yes) return;
             _person.AbonementCurent = null;
             _person.UpdateActualStatus(); // Обновляем текущий статус
@@ -558,7 +559,7 @@ namespace PBase
             }
             else
             {
-                MessageBox.Show(@"Сейчас абонемент заморожен! Добавление новой заморозки удалит предыдущую!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show(@"Сейчас абонемент заморожен! Новая заморозка добавится в очередь!", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 FormsRunner.RunFreezeForm(_person.Name);
 
             }

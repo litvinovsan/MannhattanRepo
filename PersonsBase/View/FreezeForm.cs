@@ -99,12 +99,13 @@ namespace PersonsBase.View
                 if (isConfigured)
                 {
                     _clubCard.EndDate = _clubCard.EndDate.AddDays(numDays);
-                    MessageBox.Show($"Заморозка начинается c {startDate.ToString("d")}.\n\rОсталось дней: {_clubCard.Freeze.GetAvailableDays()} ", "Установка Заморозки", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($@"Заморозка начинается c {startDate:d}.
+Осталось дней: {_clubCard.Freeze.GetAvailableDays()} ", "Установка Заморозки", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DialogResult = DialogResult.OK;
                 }
                 else
                 {
-                    MessageBox.Show($"Ошибка! Возможно, не хватает дней или не корректная дата.\n\rОсталось дней: {_clubCard.Freeze.GetAvailableDays()}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($@"Ошибка! Возможно, не хватает дней или не корректная дата.Осталось дней: {_clubCard.Freeze.GetAvailableDays()}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -123,13 +124,13 @@ namespace PersonsBase.View
 
             if (DateTime.Now.Date.CompareTo(startDate) > 0)
             {
-                MessageBox.Show("Дата должна быть позднее сегодняшнего дня!", "Выберите Дату!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(@"Дата должна быть позднее сегодняшнего дня!", "Выберите Дату!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 dateTimePicker_startFreeze.Value = DateTime.Now.Date;
                 return false;
             }
             if (DateTime.Now.Date.CompareTo(startDate) == 0)
             {
-                var result = MessageBox.Show("Заморозить Карту с Сегодняшнего дня?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var result = MessageBox.Show(@"Заморозить Карту с Сегодняшнего дня?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.No) return false;
             }
 

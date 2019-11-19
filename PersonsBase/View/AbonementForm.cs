@@ -237,12 +237,12 @@ namespace PBase
         {
             if (radioButton_Abonement.Checked && _daysInAbon == 0)
             {
-                MessageBox.Show("Выберите Количество посещений!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show(@"Выберите Количество посещений!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
             if (radioButton_ClubCard.Checked && _periodClubCard == 0)
             {
-                MessageBox.Show("Выберите Длительность Клубной Карты!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show(@"Выберите Длительность Клубной Карты!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
 
             }

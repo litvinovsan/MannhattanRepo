@@ -61,8 +61,6 @@ namespace PBase
 
             if (!IsAbonementValid(ref person)) return false;
 
-            var selectedOptions = new WorkoutOptions();
-
             // Условия для отображения\не отображения окна с выбором
             var isSingleVisit = person.AbonementCurent is SingleVisit;
             var isByDays = person.AbonementCurent is AbonementByDays;
@@ -70,6 +68,8 @@ namespace PBase
 
             var isTrenZallOnly = person.AbonementCurent.trainingsType == TypeWorkout.Тренажерный_Зал;
             var isNoAeroAndPerson = person.AbonementCurent.NumAerobicTr + person.AbonementCurent.NumPersonalTr == 0;
+
+            var selectedOptions = new WorkoutOptions();
 
             if ((isSingleVisit || isByDays) && isTrenZallOnly || isClubCard && isNoAeroAndPerson)
             {
@@ -84,29 +84,27 @@ namespace PBase
             }
 
             var isSuccess = person.AbonementCurent.CheckInWorkout(selectedOptions.TypeWorkout);
-            if (isSuccess)
-            {
-                // Дополнительная информация для вывода если успешный учет.
-                var infoAerobic = person.AbonementCurent.NumAerobicTr > 0
-                    ? $"\r\nОсталось Аэробных: {person.AbonementCurent.NumAerobicTr}"
-                    : "";
-                var infoPersonal = person.AbonementCurent.NumPersonalTr > 0
-                    ? $"\r\nОсталось Персональных: {person.AbonementCurent.NumPersonalTr}"
-                    : "";
 
-                MessageBox.Show(
-                    $@"Осталось посещений: {person.AbonementCurent.GetRemainderDays()}{infoAerobic}{infoPersonal}",
-                    @"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (!isSuccess) return false;
 
-                person.AddToJournal(selectedOptions);
+            // Дополнительная информация для вывода если успешный учет.
+            var infoAerobic = person.AbonementCurent.NumAerobicTr > 0
+                ? $"\r\nОсталось Аэробных: {person.AbonementCurent.NumAerobicTr}"
+                : "";
+            var infoPersonal = person.AbonementCurent.NumPersonalTr > 0
+                ? $"\r\nОсталось Персональных: {person.AbonementCurent.NumPersonalTr}"
+                : "";
 
-                OnVisitChanged(personName, selectedOptions);
+            MessageBox.Show(
+                $@"Осталось посещений: {person.AbonementCurent.GetRemainderDays()}{infoAerobic}{infoPersonal}",
+                @"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                IsAbonementValid(ref person);
-                return true;
-            }
+            person.AddToJournal(selectedOptions);
 
-            return false;
+            OnVisitChanged(personName, selectedOptions);
+
+            IsAbonementValid(ref person);
+            return true;
         }
 
         public static void TryLoadPhoto(PictureBox pictureBox, string pathToPhoto)
@@ -155,7 +153,7 @@ namespace PBase
             var isExist = IsSchedExists(time.HourMinuteTime, sch.WorkoutsName, manhattanInfo);
             if (isExist)
             {
-                MessageBox.Show("Такая тренировка уже существует. Измените время или название!", "Внимание",
+                MessageBox.Show(@"Такая тренировка уже существует. Измените время или название!", "Внимание",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
@@ -196,7 +194,7 @@ namespace PBase
 
                 if (phoneNotChanged)
                 {
-                    MessageBox.Show("Такое имя уже существует!", "Внимание", MessageBoxButtons.OK,
+                    MessageBox.Show(@"Такое имя уже существует!", "Внимание", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                     return false;
                 }
@@ -301,7 +299,7 @@ namespace PBase
 
             if (isSuccess)
             {
-                var res = MessageBox.Show("Желаете Добавить Абонемент?", "Клиент Добавлен!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var res = MessageBox.Show(@"Желаете Добавить Абонемент?", "Клиент Добавлен!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 //  Создаем Абонемент если выбрали Да
                 if (res == DialogResult.Yes) AddAbonement(createdPersoName);
             }
@@ -385,7 +383,8 @@ namespace PBase
             }
             else
             {
-                var result = MessageBox.Show($"Действует:  {person.AbonementCurent.AbonementName}.\n\rДобавить новый абонемент к существующему?", "Добавление Абонемента", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var result = MessageBox.Show($@"Действует:  {person.AbonementCurent.AbonementName}.
+Добавить новый абонемент к существующему?", "Добавление Абонемента", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
                     dialogResult = FormsRunner.CreateAbonementForm(person.Name);
