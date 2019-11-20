@@ -41,8 +41,8 @@ namespace PersonsBase.View
             List<string> actualSchedule = _schedule.Select(x => $"{x.Time.HourMinuteTime} - {x.WorkoutsName}").ToList();
 
             // Смотрим Прошлый визит Клиента
-            string lastTrener = "";
-            string lastGroupTimeName = "";
+            string lastTrener = actualTrenersNames.FirstOrDefault();
+            string lastGroupTimeName = actualSchedule.FirstOrDefault();
 
             if (_person.JournalVisits != null && _person.JournalVisits.Count > 0)
             {
@@ -54,17 +54,16 @@ namespace PersonsBase.View
                             if (lastVisit.GroupInfo?.ScheduleNote != null)
                             {
                                 var timeNameString = lastVisit.GroupInfo.ScheduleNote.GetTimeAndNameStr();
-                                lastGroupTimeName = (actualSchedule.Contains(timeNameString)) ? timeNameString : "";
+                                lastGroupTimeName = (actualSchedule.Contains(timeNameString)) ? timeNameString : "Имя неизвестно";
 
-                                if (lastVisit.GroupInfo.GroupTrener != null)
-                                    lastTrener = (actualTrenersNames.Contains(lastVisit.GroupInfo.GroupTrener.Name)) ? lastVisit.GroupInfo.GroupTrener.Name : "";
+                                lastTrener = (actualTrenersNames.Contains(lastVisit.GroupInfo.TrenerName)) ? lastVisit.GroupInfo.TrenerName : "Имя неизвестно";
                             }
                             break;
                         }
                     case TypeWorkout.Персональная:
                         {
-                            if (lastVisit.PeronalTrener != null)
-                                lastTrener = (actualTrenersNames.Contains(lastVisit.PeronalTrener.Name)) ? lastVisit.PeronalTrener.Name : "";
+                            if (lastVisit.PeronalTrenerName != null)
+                                lastTrener = (actualTrenersNames.Contains(lastVisit.PeronalTrenerName)) ? lastVisit.PeronalTrenerName : "Имя неизвестно";
                             break;
                         }
                     case TypeWorkout.Тренажерный_Зал:
@@ -93,7 +92,7 @@ namespace PersonsBase.View
 
         private void radioButtons_CheckedChanged(object sender, EventArgs e)
         {
-            RadioButton radioButton = (RadioButton)sender;
+            var radioButton = (RadioButton)sender;
 
             if (radioButton.Checked)
             {
@@ -145,7 +144,7 @@ namespace PersonsBase.View
             }
             if (SelectedOptions.TypeWorkout == TypeWorkout.Аэробный_Зал)
             {
-                SelectedOptions.GroupInfo.GroupTrener = _treners.Find(x => x.Name == _selectedTrenerName);
+                SelectedOptions.GroupInfo.TrenerName = string.IsNullOrEmpty(_selectedTrenerName) ? "Имя неизвестно" : _selectedTrenerName;// проверить, если пусто, заменить на "Имя неизвестно"
                 SelectedOptions.GroupInfo.ScheduleNote.SetTimeAndNameString(_selectedGroupTimeName);
             }
             else

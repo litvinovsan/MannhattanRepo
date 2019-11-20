@@ -13,8 +13,8 @@ namespace PersonsBase.data
         public DateTime DateTimeVisit { get; }
 
         public readonly Group GroupInfo;
-        public readonly Trener PeronalTrener;
-        public readonly Administrator CurrentAdministrator;
+        public readonly string PeronalTrenerName;
+        public readonly string CurrentAdministratorName;
 
         // Свойства абонемента на момент посещения
         public SpaService SpaStatus { get; }
@@ -26,14 +26,16 @@ namespace PersonsBase.data
         public int NumPersonalTr { get; }
 
         // Конструкторы
-        public Visit(AbonementBasic abon, WorkoutOptions workoutOptions, Administrator admin)
+        public Visit(AbonementBasic abon, WorkoutOptions workoutOptions, string administratorName)
         {
             TypeWorkout = workoutOptions.TypeWorkout;
             DateTimeVisit = DateTime.Now;
 
             GroupInfo = workoutOptions.GroupInfo;
-            PeronalTrener = workoutOptions.PersonalTrener ?? new Trener();
-            CurrentAdministrator = admin ?? new Administrator("Не известно", "");
+            PeronalTrenerName = (workoutOptions.PersonalTrener == null || workoutOptions.PersonalTrener.Name == "")
+                ? "Имя неизвестно"
+                : workoutOptions.PersonalTrener.Name;
+            CurrentAdministratorName = administratorName ?? "Имя неизвестно";
 
             SpaStatus = abon.spa;
             PayStatus = abon.payStatus;

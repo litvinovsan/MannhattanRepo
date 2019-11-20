@@ -1,8 +1,6 @@
-﻿using PersonsBase.data;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
-namespace PBase
+namespace PersonsBase.data
 {
     /// Хранятся настройки приложения, а так же общие структуры, списки,и прочие данные.
     [Serializable]

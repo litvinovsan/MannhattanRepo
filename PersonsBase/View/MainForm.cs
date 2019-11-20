@@ -97,11 +97,17 @@ namespace PBase
             _time.Start();
         }
 
+        /// <summary>
+        /// Добавляет персону в список Тренажерного зала
+        /// </summary>
+        /// <param name="namePerson"></param>
+        /// <param name="arg"></param>
         private void AddToGymList(string namePerson, WorkoutOptions arg)
         {
             MyListViewEx.AddNameTime(listView_Gym_Zal, namePerson, true);
-            MyListViewEx.AlternateColors(listView_Gym_Zal);
+            // MyListViewEx.AlternateColors(listView_Gym_Zal); // Убрано пока чтобы небыло полосатости
         }
+        // Добавляет в список Групповых тренировок
         private void AddToGroupList(string namePerson, WorkoutOptions arg)
         {
             if (arg.GroupInfo.ScheduleNote == null) return;
@@ -110,11 +116,7 @@ namespace PBase
         }
         private void AddToPersonalnList(string namePerson, WorkoutOptions arg)
         {
-            string persTrenerName = "Не известно";
-            if (arg.PersonalTrener != null)
-            {
-                persTrenerName = arg.PersonalTrener.Name;
-            }
+            string persTrenerName = (arg.PersonalTrener != null) ? arg.PersonalTrener.Name : "Имя неизвестно";
             MyListViewEx.AddNameTime(listView_Personal, persTrenerName, namePerson, true);
         }
 

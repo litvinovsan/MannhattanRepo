@@ -158,7 +158,7 @@ namespace PBase
 
         // Публичные
         public StatusPerson UpdateActualStatus()
-        { 
+        {
             //Обновляем статус клиента.
             if (Status == StatusPerson.Запрещён) return Status;
 
@@ -198,7 +198,7 @@ namespace PBase
         {
             if (JournalVisits == null) JournalVisits = new List<Visit>(); // Проверка на случай сериализации
             var currentAdmin = DataBaseO.GetManhattanInfo().CurrentAdmin;
-            JournalVisits.Add(new Visit(_abonementCurent, selectedOptions, currentAdmin));
+            JournalVisits.Add(new Visit(_abonementCurent, selectedOptions, currentAdmin.Name));
         }
         public static Person CreateNewPerson(PersonalDataStruct dataStruct)
         {

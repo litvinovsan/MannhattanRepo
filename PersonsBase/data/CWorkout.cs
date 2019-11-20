@@ -13,7 +13,7 @@ namespace PersonsBase.data
         #region /// ПУБЛИЧНЫЕ ///
 
         public ScheduleNote ScheduleNote;
-        public Trener GroupTrener { get; set; }
+        public string TrenerName { get; set; }
         public string Notes { get; set; }
         #endregion
 
@@ -25,6 +25,7 @@ namespace PersonsBase.data
         public Group()
         {
             ScheduleNote = new ScheduleNote(new MyTime(0, 0), "");
+            TrenerName = "Имя неизвестно";
         }
         #endregion
     }

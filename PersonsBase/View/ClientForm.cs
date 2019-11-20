@@ -24,7 +24,7 @@ namespace PBase
         public ClientForm(string keyName)
         {
             InitializeComponent();
-            _person = DataBaseLevel.GetListPersons()[keyName];
+             _person = DataBaseLevel.GetListPersons()[keyName];
             _isAnythingChanged = false;
             _logic = Logic.GetInstance();
         }
@@ -246,16 +246,16 @@ namespace PBase
             Action myDelegate = delegate
             {
                 var labelTextBoxList = new List<Tuple<Label, Control>>();
-                if (!_person.IsAbonementExist())
-                {
-                    labelTextBoxList.AddRange(Methods.TupleConverter(Methods.GetEmptyInfoList(_person)));
-                }
-                else
+                if (_person.IsAbonementExist())
                 {
                     labelTextBoxList.AddRange(Methods.TupleConverter(_person.AbonementCurent.GetShortInfoList()));
                     // Добавляем Поле Статуса. Делаем тут потому что Person.abonem не знает об этом.
                     var status = _person.Status.ToString();
                     labelTextBoxList.Insert(1, Methods.CreateRowInfo("Текущий статус Клиента", status));
+                }
+                else
+                {
+                    labelTextBoxList.AddRange(Methods.TupleConverter(Methods.GetEmptyInfoList(_person)));
                 }
 
                 // Отрисовка Short Info

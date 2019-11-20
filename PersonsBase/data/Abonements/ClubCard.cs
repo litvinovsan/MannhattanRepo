@@ -84,7 +84,7 @@ namespace PBase
 
         public override bool CheckInWorkout(TypeWorkout type)
         {
-            bool result = false;
+            var result = false;
 
             if (!IsValid()) return false;
             switch (type)
@@ -107,7 +107,7 @@ namespace PBase
                         }
                         break;
                     }
-                default:
+                case TypeWorkout.Тренажерный_Зал:
                     {
                         result = true;
                         break;
@@ -155,7 +155,7 @@ namespace PBase
         {
             // Информация о текущем состоянии Абонемента. Добавляем всё что должно выводиться для Пользователя
             var result = new List<Tuple<string, string>>
-          {
+              {
               new Tuple<string, string>("Тип: ", AbonementName),
               new Tuple<string, string>("Доступные Тренировки ", trainingsType.ToString()),
               new Tuple<string, string>("Время Тренировок ", timeTraining.ToString()),
@@ -163,10 +163,15 @@ namespace PBase
               new Tuple<string, string>("Срок Клубной Карты", _numberMonths +"  мес."),
               new Tuple<string, string>("Дата Окончания Карты", EndDate.Date.ToString("d")),
               new Tuple<string, string>("Осталось Дней", GetRemainderDays().ToString())
-          };
+              };
             if (NumPersonalTr > 0) { result.Add(new Tuple<string, string>("Осталось Персональных", NumPersonalTr.ToString())); }
             if (NumAerobicTr > 0) { result.Add(new Tuple<string, string>("Осталось Аэробных", NumAerobicTr.ToString())); }
             if (payStatus == Pay.Не_Оплачено) { result.Add(new Tuple<string, string>("Статус Оплаты ", payStatus.ToString())); }
+
+            if (Freeze != null)
+            {
+                result.Add(new Tuple<string, string>("Осталось дней Заморозки", Freeze.GetAvailableDays().ToString()));
+            }
 
             return result;
         }

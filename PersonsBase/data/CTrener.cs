@@ -15,7 +15,7 @@ namespace PBase
       }
       public Trener()
       {
-         Name = "";
+         Name = "Имя неизвестно";
          Phone = "";
       }
    }

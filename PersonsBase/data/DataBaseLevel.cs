@@ -56,7 +56,7 @@ namespace PersonsBase.data
             Methods.DeSerialize(ref _adminsList, "AdminsDataBase.bin");
 
             // Текущий Администратор на Ресепшн
-            _adminCurrent = new Administrator("Dummy", "");
+            _adminCurrent = new Administrator();
             Methods.DeSerialize(ref _adminCurrent, "adminToday.bin");
 
             // Список ежедневных Групповых Тренировок

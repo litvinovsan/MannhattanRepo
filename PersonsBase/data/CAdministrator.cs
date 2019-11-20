@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PBase
+namespace PersonsBase.data
 {
    [Serializable]
    public class Administrator
@@ -12,5 +12,10 @@ namespace PBase
          Name = name;
          Phone = phone;
       }
-   }
+      public Administrator()
+      {
+         Name = "Имя неизвестно";
+         Phone = "";
+      }
+    }
 }

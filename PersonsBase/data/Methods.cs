@@ -5,8 +5,9 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using PBase;
 
-namespace PBase
+namespace PersonsBase.data
 {
     /// <summary>
     /// Вспомогательные и универсальные методы, которые неразместить в конкретных классах.

@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using PBase;
+using PersonsBase.data;
 
 namespace PersonsBase.View
 {
