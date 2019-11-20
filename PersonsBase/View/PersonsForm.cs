@@ -92,6 +92,9 @@ namespace PersonsBase.View
             UpdatePersonalContols();
         }
 
+        /// <summary>
+        /// Обновляет все элементы на форме при любом выборе нового Клиента.
+        /// </summary>
         private void UpdatePersonalContols()
         {
             // Получили Персону
@@ -109,6 +112,9 @@ namespace PersonsBase.View
 
             // Фото
             Logic.TryLoadPhoto(pictureBox_Client, person.PathToPhoto);
+
+            // Краткая инфа об абонементе
+           Methods.LoadShortInfo(groupBox_AbonInfo, person); 
         }
 
         #endregion

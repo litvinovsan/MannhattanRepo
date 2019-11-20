@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -28,7 +29,7 @@ namespace PersonsBase.data
             var minimumSpaces = Regex.Replace(fio.ToLower().Trim(), @"[^\S\r\n]+", " "); // Уплотняем пробелы
             var lowercase = minimumSpaces.ToLower();
 
-            string[] fioArray = lowercase.Split(' ');
+            var fioArray = lowercase.Split(' ');
 
             foreach (var item in fioArray)
             {
@@ -58,7 +59,7 @@ namespace PersonsBase.data
             }
             catch (Exception e)
             {
-                MessageBox.Show("Ошибка: " + e.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(@"Ошибка: " + e.Message, @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -77,13 +78,58 @@ namespace PersonsBase.data
             }
             catch (Exception e)
             {
-                MessageBox.Show("Ошибка: " + e.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(@"Ошибка: " + e.Message, @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
 
 
         #region /// ДЛЯ Создания ТАБЛИЦ на ClientForms /// Подготовка для отображения на Клиентской форме
+
+        public static void LoadShortInfo(GroupBox gbBoxToShow, Person person)
+        {
+            CreateShortInfo(gbBoxToShow, person);
+        }
+
+        private static void CreateShortInfo(GroupBox gbBoxToShow, Person person)
+        {
+            var labelTextBoxList = CreateLabelTextBoxList(person);
+
+            // Отрисовка Short Info
+            var table = CreateTable(labelTextBoxList); // Создаем таблицу c элементами из списка. Таблица: Лэйбл - Текстбокс
+
+            AddTableToGroupBox(table, gbBoxToShow);
+
+
+        }
+
+        private static void AddTableToGroupBox(TableLayoutPanel table, GroupBox grpBx)
+        {
+            if (grpBx.Controls.Count != 0)
+            {
+                grpBx.Controls.Clear();
+            }
+
+            grpBx.Controls.Add(table); // Выводим на групбокс нашу новую ShortInfo Table
+        }
+
+        private static List<Tuple<Label, Control>> CreateLabelTextBoxList(Person person)
+        {
+            var labelTextBoxList = new List<Tuple<Label, Control>>();
+            if (person.IsAbonementExist())
+            {
+                labelTextBoxList.AddRange(Methods.TupleConverter(person.AbonementCurent.GetShortInfoList()));
+                // Добавляем Поле Статуса. Делаем тут потому что Person.abonem не знает об этом.
+                var status = person.Status.ToString();
+                labelTextBoxList.Insert(1, Methods.CreateRowInfo("Текущий статус Клиента", status));
+            }
+            else
+            {
+                labelTextBoxList.AddRange(Methods.TupleConverter(Methods.GetEmptyInfoList(person)));
+            }
+
+            return labelTextBoxList;
+        }
         public static TableLayoutPanel CreateTable(List<Tuple<Label, Control>> list)
         {// Создает таблицу с элементами из List. Таблица вида: Лэйбл - Значение.
             var tableInfo = new TableLayoutPanel { Dock = DockStyle.Fill };
@@ -104,18 +150,26 @@ namespace PersonsBase.data
 
             return tableInfo;
         }
-        public static IEnumerable<Tuple<string, string>> GetEmptyInfoList(Person _person)
+
+        private static IEnumerable<Tuple<string, string>> GetEmptyInfoList(Person person)
         {
             var result = new List<Tuple<string, string>>
           {
-              new Tuple<string, string>("Текущий статус Клиента", _person.Status.ToString()),
+              new Tuple<string, string>("Текущий статус Клиента", person.Status.ToString()),
               new Tuple<string, string>("Абонемент ", "Нет"),
               new Tuple<string, string>("Клубная Карта ", "Нет ")
           };
 
             return result;
         }
-        public static Tuple<Label, Control> CreateRowInfo(string label, string info)
+
+        /// <summary>
+        /// Тюпл Сборка ИмяПоля-Поле, содержащие конкретные значения, например, Статус оплаты
+        /// </summary>
+        /// <param name="label"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        private static Tuple<Label, Control> CreateRowInfo(string label, string info)
         {// Создаем экземпляры Label и TextBox. Настройка отображения и свойст тут
             var lb = new Label
             {
@@ -129,30 +183,21 @@ namespace PersonsBase.data
             {
                 BackColor = Color.AliceBlue,
                 BorderStyle = BorderStyle.FixedSingle,
-                Text = " " + info.Replace("_", " "),
+                Text = @" " + info.Replace("_", " "),
                 Dock = DockStyle.Fill,
                 Font = new Font("Microsoft Sans Serif", 9F)
             };
 
-            switch (info)
-            {
-                // Выполняем проверки на какие-либо ограничения. 
-                case "Не_Оплачено":
-                case StrMorning:
-                    tb.BackColor = Color.LightPink;
-                    break;
-            }
+            // Выделение цветом по какому-либо признакму
+            if (info == "Не_Оплачено" || info == StrMorning) tb.BackColor = Color.LightPink;
 
             return Tuple.Create<Label, Control>(lb, tb);
         }
-        public static IEnumerable<Tuple<Label, Control>> TupleConverter(IEnumerable<Tuple<string, string>> data)
-        {// Преобразует Список вида List<Tuple<string, string>> в универсальный Список: List<Tuple<Label, Control>>
-            var result = new List<Tuple<Label, Control>>();
 
-            foreach (var item in data)
-            {
-                result.Add(Methods.CreateRowInfo(item.Item1, item.Item2));
-            }
+        private static IEnumerable<Tuple<Label, Control>> TupleConverter(IEnumerable<Tuple<string, string>> data)
+        {// Преобразует Список вида List<Tuple<string, string>> в универсальный Список: List<Tuple<Label, Control>>
+            List<Tuple<Label, Control>> result = data.Select(item => Methods.CreateRowInfo(item.Item1, item.Item2)).ToList();
+
             // Выделяем жирным первую строку
             result[0].Item1.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point, 204);
             result[0].Item2.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point, 204);
@@ -216,12 +261,10 @@ namespace PersonsBase.data
         {
             ForAllControls(control, x =>
             {
-                if (x is ComboBox)
-                {
-                    (x as ComboBox).SelectionLength = 0;
-                    (x as ComboBox).Select(0, 0);
-                    (x as ComboBox).BackColor = SystemColors.Window;
-                }
+                if (!(x is ComboBox box)) return;
+                box.SelectionLength = 0;
+                box.Select(0, 0);
+                box.BackColor = SystemColors.Window;
             });
         }
         public static void SetControlsColorDefault(Control control)

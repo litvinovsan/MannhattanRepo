@@ -33,7 +33,7 @@
             this.listBox_persons = new System.Windows.Forms.ListBox();
             this.comboBox_Names = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox_AbonInfo = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.pictureBox_Client = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -82,7 +82,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(306, 497);
+            this.groupBox1.Size = new System.Drawing.Size(306, 559);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Имя Клиента:";
@@ -98,7 +98,7 @@
             this.listBox_persons.Location = new System.Drawing.Point(7, 54);
             this.listBox_persons.Name = "listBox_persons";
             this.listBox_persons.ScrollAlwaysVisible = true;
-            this.listBox_persons.Size = new System.Drawing.Size(292, 412);
+            this.listBox_persons.Size = new System.Drawing.Size(292, 497);
             this.listBox_persons.Sorted = true;
             this.listBox_persons.TabIndex = 5;
             this.listBox_persons.SelectedIndexChanged += new System.EventHandler(this.listBox_persons_SelectedIndexChanged);
@@ -124,28 +124,28 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.groupBox4);
+            this.groupBox2.Controls.Add(this.groupBox_AbonInfo);
             this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Location = new System.Drawing.Point(330, 15);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(506, 497);
+            this.groupBox2.Size = new System.Drawing.Size(506, 603);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Информация";
             // 
-            // groupBox4
+            // groupBox_AbonInfo
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupBox_AbonInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Location = new System.Drawing.Point(8, 223);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(490, 267);
-            this.groupBox4.TabIndex = 4;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Абонемент / Карта / Посещения";
+            this.groupBox_AbonInfo.Location = new System.Drawing.Point(8, 223);
+            this.groupBox_AbonInfo.Name = "groupBox_AbonInfo";
+            this.groupBox_AbonInfo.Size = new System.Drawing.Size(490, 373);
+            this.groupBox_AbonInfo.TabIndex = 4;
+            this.groupBox_AbonInfo.TabStop = false;
+            this.groupBox_AbonInfo.Text = "Абонемент / Карта / Посещения";
             // 
             // groupBox3
             // 
@@ -378,24 +378,24 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.button_Cancel, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.button_Ok, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(16, 520);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(16, 582);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(306, 40);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
-            // AllPersonsForm
+            // PersonsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(849, 563);
+            this.ClientSize = new System.Drawing.Size(849, 625);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "AllPersonsForm";
+            this.Name = "PersonsForm";
             this.Text = "Список Клиентов";
             this.Load += new System.EventHandler(this.PersonsListForm_Load);
             this.groupBox1.ResumeLayout(false);
@@ -419,7 +419,7 @@
         private System.Windows.Forms.ComboBox comboBox_Names;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button_Ok;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox_AbonInfo;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.MaskedTextBox maskedTextBox_PhoneNumber;

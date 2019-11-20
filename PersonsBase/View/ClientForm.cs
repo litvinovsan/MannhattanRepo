@@ -24,7 +24,7 @@ namespace PBase
         public ClientForm(string keyName)
         {
             InitializeComponent();
-             _person = DataBaseLevel.GetListPersons()[keyName];
+            _person = DataBaseLevel.GetListPersons()[keyName];
             _isAnythingChanged = false;
             _logic = Logic.GetInstance();
         }
@@ -32,7 +32,7 @@ namespace PBase
         private void ClientForm_Load(object sender, EventArgs e)
         {
             LoadUserData();
-            LoadShortInfo();
+            Methods.LoadShortInfo(groupBox_Info, _person);
             LoadEditableData();
 
             Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto);
@@ -241,44 +241,8 @@ namespace PBase
             _editedSpecialNote = _person.SpecialNotes;
         }
 
-        private void LoadShortInfo()
-        { //FIXME Мерцание
-            Action myDelegate = delegate
-            {
-                var labelTextBoxList = new List<Tuple<Label, Control>>();
-                if (_person.IsAbonementExist())
-                {
-                    labelTextBoxList.AddRange(Methods.TupleConverter(_person.AbonementCurent.GetShortInfoList()));
-                    // Добавляем Поле Статуса. Делаем тут потому что Person.abonem не знает об этом.
-                    var status = _person.Status.ToString();
-                    labelTextBoxList.Insert(1, Methods.CreateRowInfo("Текущий статус Клиента", status));
-                }
-                else
-                {
-                    labelTextBoxList.AddRange(Methods.TupleConverter(Methods.GetEmptyInfoList(_person)));
-                }
+       
 
-                // Отрисовка Short Info
-                var table = Methods.CreateTable(labelTextBoxList); // Создаем таблицу c элементами из списка. Таблица: Лэйбл - Текстбокс
-                if (groupBox_Info.Controls.Count != 0)
-                {
-                    groupBox_Info.Controls.Clear();
-                }
-
-                groupBox_Info.Controls.Add(table); // Выводим на групбокс нашу новую ShortInfo Table
-
-                _isAnythingChanged = false;
-            };
-
-            if (InvokeRequired)
-            {
-                Invoke(myDelegate);
-            }
-            else
-            {
-                myDelegate();
-            }
-        }
         private void LoadEditableData()
         {// Данные подробные,разрешено редактирование через события.
             TableLayoutPanel table = Methods.CreateTable(SelectList(_person.AbonementCurent));
@@ -324,12 +288,12 @@ namespace PBase
                     return;
                 // Если Заморожен
                 case StatusPerson.Заморожен when _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA a && _person.Status != StatusPerson.Вероятный_Клиент && _person.Status != StatusPerson.Гостевой:
-                {
-                    textBox_Name.ForeColor = Color.SeaGreen;
-                    string dateEnd = a.Freeze?.AllFreezes.Last().GetEndDate().Date.ToString("d");
-                    textBox_Name.Text = _person.Name + @"   (Заморожен До " + dateEnd + @" )";
-                    break;
-                }
+                    {
+                        textBox_Name.ForeColor = Color.SeaGreen;
+                        string dateEnd = a.Freeze?.AllFreezes.Last().GetEndDate().Date.ToString("d");
+                        textBox_Name.Text = _person.Name + @"   (Заморожен До " + dateEnd + @" )";
+                        break;
+                    }
                 case StatusPerson.Активный:
                     break;
                 case StatusPerson.Нет_Карты:
@@ -458,7 +422,7 @@ namespace PBase
                 // Обновление всех полей и состояний
                 _person.UpdateActualStatus();
                 UpdateNameText();
-                LoadShortInfo();
+                Methods.LoadShortInfo(groupBox_Info, _person);
                 LoadEditableData();
                 UpdateControlState(this, EventArgs.Empty);
             }
@@ -474,7 +438,7 @@ namespace PBase
         {
             SaveData();
             LoadUserData();
-            LoadShortInfo();
+            Methods.LoadShortInfo(groupBox_Info, _person);
             UpdateEditableData();
             Methods.ClearSelection(groupBox_Detailed);
 
@@ -492,7 +456,7 @@ namespace PBase
                 _person.UpdateActualStatus(); // Обновляем текущий статус
                 UpdateNameText();
 
-                LoadShortInfo();
+                Methods.LoadShortInfo(groupBox_Info, _person);
                 LoadEditableData();
                 UpdateControlState(this, EventArgs.Empty);
             }
@@ -510,7 +474,7 @@ namespace PBase
                     // FIXME Убрать эти функции отсюда, возвращать диалог резалт
                     // Обновляем Если выбрано что-то.
                     _person.UpdateActualStatus(); // Обновляем текущий статус
-                    LoadShortInfo();
+                    Methods.LoadShortInfo(groupBox_Info, _person);
                     LoadEditableData();
                     UpdateControlState(this, EventArgs.Empty);
                 }
@@ -538,7 +502,7 @@ namespace PBase
             _person.AbonementCurent = null;
             _person.UpdateActualStatus(); // Обновляем текущий статус
 
-            LoadShortInfo();
+            Methods.LoadShortInfo(groupBox_Info, _person);
             LoadEditableData();
             UpdateControlState(this, EventArgs.Empty);
         }
@@ -564,7 +528,7 @@ namespace PBase
 
             }
             LoadUserData();
-            LoadShortInfo();
+            Methods.LoadShortInfo(groupBox_Info, _person);
             UpdateEditableData();
         }
 
