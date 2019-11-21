@@ -65,7 +65,7 @@ namespace PBase
             {
                 button_RemoveCurrentAbon.Visible = false;
                 button__remove_abon.Enabled = false;
-                groupBox_Detailed.Enabled = true; // 
+                groupBox_Detailed.Enabled = true; // / FIXME тут надо включать и выключать выборочные поля. Например, админ должен менять статус оплаты
 
             }
             Invalidate();
@@ -112,12 +112,19 @@ namespace PBase
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add: // если добавление
-                    AbonementBasic item = e.NewItems[0] as AbonementBasic;
-                    if (item != null) listBox_abonements.Items.Add(item.AbonementName);
+                    if (e.NewItems[0] is AbonementBasic item) listBox_abonements.Items.Add(item.AbonementName);
                     break;
                 case NotifyCollectionChangedAction.Remove: // если удаление
                     listBox_abonements.Items.RemoveAt(0);
                     break;
+                case NotifyCollectionChangedAction.Replace:
+                    break;
+                case NotifyCollectionChangedAction.Move:
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
         private void UpdateControlState(object sender, EventArgs arg)
@@ -138,8 +145,8 @@ namespace PBase
                             button_CheckInWorkout.Visible = true;
 
                             // Кнопка Заморозка Клубной Карты
-                            if ((_person.AbonementCurent is ClubCardA) &&
-                               (_person.AbonementCurent as ClubCardA).PeriodAbonem != PeriodClubCard.На_1_Месяц)
+                            if ((_person.AbonementCurent is ClubCardA a) &&
+                               a.PeriodAbonem != PeriodClubCard.На_1_Месяц)
                             {
                                 button_Freeze.Visible = true;
                                 // Кнопка Добавить для Клубной Карты
@@ -240,8 +247,6 @@ namespace PBase
             textBox_Notes.Text = _person.SpecialNotes;
             _editedSpecialNote = _person.SpecialNotes;
         }
-
-       
 
         private void LoadEditableData()
         {// Данные подробные,разрешено редактирование через события.
@@ -351,7 +356,7 @@ namespace PBase
         }
         private List<Tuple<Label, Control>> CreateListNoAbonement()
         {
-            List<Tuple<Label, Control>> list = new List<Tuple<Label, Control>>
+            var list = new List<Tuple<Label, Control>>
           {
              CreateNameField(),
              CreateStatusField()
@@ -360,7 +365,7 @@ namespace PBase
         }
         private List<Tuple<Label, Control>> CreateListSingleVisit()
         {
-            List<Tuple<Label, Control>> list = new List<Tuple<Label, Control>>
+            var list = new List<Tuple<Label, Control>>
           {
               CreateNameField(),
               CreateStatusField(),
@@ -392,7 +397,7 @@ namespace PBase
         }
         private List<Tuple<Label, Control>> CreateListAbonement()
         {
-            List<Tuple<Label, Control>> list = new List<Tuple<Label, Control>>
+            var list = new List<Tuple<Label, Control>>
          {
             CreateNameField(),
             CreateStatusField(),
@@ -496,8 +501,7 @@ namespace PBase
         private void button_remove_current_abon_Click(object sender, EventArgs e)
         {
             if (_person.AbonementCurent == null) return;
-            var result = MessageBox.Show($@"Будет удаленo:  {_person.AbonementCurent.AbonementName}.
-Продолжить?", "Удаление Абонемента!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var result = MessageBox.Show($@"Будет удаленo:  {_person.AbonementCurent.AbonementName}.Продолжить?", "Удаление Абонемента!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result != DialogResult.Yes) return;
             _person.AbonementCurent = null;
             _person.UpdateActualStatus(); // Обновляем текущий статус
@@ -525,7 +529,6 @@ namespace PBase
             {
                 MessageBox.Show(@"Сейчас абонемент заморожен! Новая заморозка добавится в очередь!", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 FormsRunner.RunFreezeForm(_person.Name);
-
             }
             LoadUserData();
             Methods.LoadShortInfo(groupBox_Info, _person);
@@ -540,7 +543,6 @@ namespace PBase
             {
                 _person.PathToPhoto = Photo.SaveToPicturesFolder(img, _person.Name);
             }
-
         }
     }
 }

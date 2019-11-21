@@ -99,8 +99,6 @@ namespace PersonsBase.data
             var table = CreateTable(labelTextBoxList); // Создаем таблицу c элементами из списка. Таблица: Лэйбл - Текстбокс
 
             AddTableToGroupBox(table, gbBoxToShow);
-
-
         }
 
         private static void AddTableToGroupBox(TableLayoutPanel table, GroupBox grpBx)
@@ -118,14 +116,14 @@ namespace PersonsBase.data
             var labelTextBoxList = new List<Tuple<Label, Control>>();
             if (person.IsAbonementExist())
             {
-                labelTextBoxList.AddRange(Methods.TupleConverter(person.AbonementCurent.GetShortInfoList()));
+                labelTextBoxList.AddRange(TupleConverter(person.AbonementCurent.GetShortInfoList()));
                 // Добавляем Поле Статуса. Делаем тут потому что Person.abonem не знает об этом.
                 var status = person.Status.ToString();
-                labelTextBoxList.Insert(1, Methods.CreateRowInfo("Текущий статус Клиента", status));
+                labelTextBoxList.Insert(1, CreateRowInfo("Текущий статус Клиента", status));
             }
             else
             {
-                labelTextBoxList.AddRange(Methods.TupleConverter(Methods.GetEmptyInfoList(person)));
+                labelTextBoxList.AddRange(TupleConverter(GetEmptyInfoList(person)));
             }
 
             return labelTextBoxList;
@@ -196,7 +194,7 @@ namespace PersonsBase.data
 
         private static IEnumerable<Tuple<Label, Control>> TupleConverter(IEnumerable<Tuple<string, string>> data)
         {// Преобразует Список вида List<Tuple<string, string>> в универсальный Список: List<Tuple<Label, Control>>
-            List<Tuple<Label, Control>> result = data.Select(item => Methods.CreateRowInfo(item.Item1, item.Item2)).ToList();
+            List<Tuple<Label, Control>> result = data.Select(item => CreateRowInfo(item.Item1, item.Item2)).ToList();
 
             // Выделяем жирным первую строку
             result[0].Item1.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point, 204);
