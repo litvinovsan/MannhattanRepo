@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox_Name = new System.Windows.Forms.TextBox();
+            this.comboBox_Names = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.maskedTextBox_PhoneNumber = new System.Windows.Forms.MaskedTextBox();
@@ -60,7 +60,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox_Name);
+            this.groupBox1.Controls.Add(this.comboBox_Names);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
@@ -69,15 +69,22 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Фамилия Имя Отчество";
             // 
-            // textBox_Name
+            // comboBox_Names
             // 
-            this.textBox_Name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.comboBox_Names.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_Name.Location = new System.Drawing.Point(6, 26);
-            this.textBox_Name.Name = "textBox_Name";
-            this.textBox_Name.Size = new System.Drawing.Size(342, 24);
-            this.textBox_Name.TabIndex = 0;
-            this.textBox_Name.TextChanged += new System.EventHandler(this.textBox_Name_TextChanged);
+            this.comboBox_Names.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBox_Names.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBox_Names.DropDownHeight = 250;
+            this.comboBox_Names.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox_Names.FormattingEnabled = true;
+            this.comboBox_Names.IntegralHeight = false;
+            this.comboBox_Names.Location = new System.Drawing.Point(6, 22);
+            this.comboBox_Names.Name = "comboBox_Names";
+            this.comboBox_Names.Size = new System.Drawing.Size(340, 28);
+            this.comboBox_Names.TabIndex = 9;
+            this.comboBox_Names.TextChanged += new System.EventHandler(this.comboBox_Names_TextChanged);
             // 
             // groupBox3
             // 
@@ -282,7 +289,7 @@
             this.groupBox2.Controls.Add(this.button_add_foto);
             this.groupBox2.Controls.Add(this.pictureBox_Client);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox2.Location = new System.Drawing.Point(445, 12);
+            this.groupBox2.Location = new System.Drawing.Point(404, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(200, 254);
             this.groupBox2.TabIndex = 3;
@@ -322,7 +329,7 @@
             this.textBox_Notes.Multiline = true;
             this.textBox_Notes.Name = "textBox_Notes";
             this.textBox_Notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_Notes.Size = new System.Drawing.Size(626, 104);
+            this.textBox_Notes.Size = new System.Drawing.Size(585, 104);
             this.textBox_Notes.TabIndex = 8;
             this.textBox_Notes.Text = "Заметки о Клиенте";
             this.textBox_Notes.TextChanged += new System.EventHandler(this.textBox_Notes_TextChanged);
@@ -334,7 +341,7 @@
             this.button_Add_New_Person.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_Add_New_Person.Location = new System.Drawing.Point(0, 419);
             this.button_Add_New_Person.Name = "button_Add_New_Person";
-            this.button_Add_New_Person.Size = new System.Drawing.Size(657, 52);
+            this.button_Add_New_Person.Size = new System.Drawing.Size(616, 52);
             this.button_Add_New_Person.TabIndex = 7;
             this.button_Add_New_Person.Text = "Создать Клиента";
             this.button_Add_New_Person.UseVisualStyleBackColor = true;
@@ -348,7 +355,7 @@
             this.groupBox_Notes.Controls.Add(this.textBox_Notes);
             this.groupBox_Notes.Location = new System.Drawing.Point(13, 289);
             this.groupBox_Notes.Name = "groupBox_Notes";
-            this.groupBox_Notes.Size = new System.Drawing.Size(632, 123);
+            this.groupBox_Notes.Size = new System.Drawing.Size(591, 123);
             this.groupBox_Notes.TabIndex = 8;
             this.groupBox_Notes.TabStop = false;
             this.groupBox_Notes.Text = "Дополнительная информация:";
@@ -357,7 +364,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(657, 471);
+            this.ClientSize = new System.Drawing.Size(616, 471);
             this.Controls.Add(this.groupBox_Notes);
             this.Controls.Add(this.button_Add_New_Person);
             this.Controls.Add(this.groupBox2);
@@ -369,7 +376,6 @@
             this.Text = "Создание Клиента";
             this.Load += new System.EventHandler(this.CreatePersonForm_Load);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -398,7 +404,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox_Gender;
-        private System.Windows.Forms.TextBox textBox_Name;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button_add_foto;
         private System.Windows.Forms.PictureBox pictureBox_Client;
@@ -406,5 +411,6 @@
         private System.Windows.Forms.Button button_Add_New_Person;
         private System.Windows.Forms.GroupBox groupBox_Notes;
         private System.Windows.Forms.MaskedTextBox maskedTextBox_number;
+        private System.Windows.Forms.ComboBox comboBox_Names;
     }
 }

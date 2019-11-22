@@ -88,12 +88,11 @@ namespace PersonsBase.View
             {
                 listBox_persons.SelectedItem = SelectedName;
             }
-
             UpdatePersonalContols();
         }
 
         /// <summary>
-        /// Обновляет все элементы на форме при любом выборе нового Клиента.
+        /// Обновляет все элементы на форме при любом выборе нового Клиента. 
         /// </summary>
         private void UpdatePersonalContols()
         {
@@ -105,16 +104,19 @@ namespace PersonsBase.View
             // Пол
             MyComboBox.SetComboBoxValue(comboBox_Gender, person.GenderType.ToString());
             // ДР
-            //  написать тут эти блоки
+            dateTimePicker_birthDate.Value = person.BirthDate.Date;
             // Пасспорт
-
+            maskedTextBox_Passport.Text = person.Passport ?? "";
             // Права
+            maskedTextBox_DriverID.Text = person.DriverIdNum ?? "";
+            // ID
+            maskedTextBox_number.Text = person.PersonalNumber.ToString();
 
             // Фото
             Logic.TryLoadPhoto(pictureBox_Client, person.PathToPhoto);
 
             // Краткая инфа об абонементе
-           Methods.LoadShortInfo(groupBox_AbonInfo, person); 
+            Methods.LoadShortInfo(groupBox_AbonInfo, person);
         }
 
         #endregion

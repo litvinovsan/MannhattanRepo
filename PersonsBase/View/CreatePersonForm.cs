@@ -113,7 +113,7 @@ namespace PersonsBase.View
             _dataStruct = new Person.PersonalDataStruct();
 
             // Изменилось какое - либо поле данных
-            PersonalDataStateEvent += VariablesHandler;
+            PersonalDataStateEvent += PersDataStateHandler;
         }
 
         private void CreatePersonForm_Load(object sender, EventArgs e)
@@ -127,10 +127,13 @@ namespace PersonsBase.View
             dateTimePicker_birthDate.Value = new DateTime(1990, 01, 01);
 
             //Вызов для подсветки по-умолчанию
-            textBox_Name.BackColor = Color.Pink;
+            comboBox_Names.BackColor = Color.Pink;
             maskedTextBox_PhoneNumber.BackColor = Color.Pink;
             maskedTextBox_Passport.BackColor = Color.Pink;
 
+            //ComboBox Persons
+            var objects = _persons.Values.Select(c => c.Name).ToArray<object>();
+            MyComboBox.Initialize(comboBox_Names, objects);
         }
 
         #endregion
@@ -151,32 +154,34 @@ namespace PersonsBase.View
         /// <summary>
         /// Обработчик. Запускается когда изменяется структура с bool результатами по всем полям
         /// </summary>
-        private void VariablesHandler()
+        private void PersDataStateHandler()
         {
-            ButtonAddEneble(IsDataStatesOk());
+            ButtonAddEnable(IsDataStatesOk());
         }
 
         /// <summary>
         /// Включает-Выключает Кнопку Добавить Персону. 
         /// </summary>
-        private void ButtonAddEneble(bool enableButton)
+        private void ButtonAddEnable(bool enableButton)
         {
             button_Add_New_Person.Enabled = enableButton;
         }
 
         /// <summary>
-        /// Запускает функцию обработки если пройдена первичная проверка.
+        /// Запускает функцию поиска совпадений по имени. Задает цвет розовый если совпадает имя и зеленый, если нет
         /// </summary>
-        private void ProcessTextBox(string value, Control tbBox, Func<bool> processFunc)
+        private void StartTextVerification(string value, Control control, Func<bool> processFunc)
         {
             if (string.IsNullOrEmpty(value))
             {
-                tbBox.BackColor = Color.Pink;
+                control.BackColor = Color.Pink;
+                ButtonAddEnable(false);
                 return;
             }
             var result = processFunc();
 
-            tbBox.BackColor = result ? Color.PaleGreen : Color.Pink;
+            control.BackColor = result ? Color.PaleGreen : Color.Pink;
+            ButtonAddEnable(IsDataStatesOk());
         }
 
         // Проверка полей на валидность
@@ -251,7 +256,7 @@ namespace PersonsBase.View
         private bool IsNameOk(string name)
         {
             var nameToCheck = Methods.PrepareName(name);
-            _dataStateOk.Name = !DataBaseLevel.ContainsNameKey(nameToCheck);
+            _dataStateOk.Name = !DataBaseLevel.ContainsNameKey(nameToCheck) && !string.IsNullOrEmpty(nameToCheck) && !string.IsNullOrWhiteSpace(nameToCheck) && nameToCheck != " ";
 
             if (!_dataStateOk.Name) return false;
             _dataStruct.Name = nameToCheck;
@@ -279,13 +284,13 @@ namespace PersonsBase.View
             }
         }
 
-        private void textBox_Name_TextChanged(object sender, EventArgs e)
-        {
-            ProcessTextBox(textBox_Name.Text, textBox_Name, () => IsNameOk(textBox_Name.Text));
-        }
-
         private void button_Add_New_Person_Click(object sender, EventArgs e)
         {
+            if (!IsNameOk(comboBox_Names.Text) || comboBox_Names.Text.Length < 3)
+            {
+                ButtonAddEnable(false);
+                return;
+            }
             var p = Person.CreateNewPerson(_dataStruct);
             var result = DataBaseLevel.GetInstance().PersonAdd(p);
             if (result == ResponseCode.Success)
@@ -330,6 +335,12 @@ namespace PersonsBase.View
         private void maskedTextBox_number_TextChanged(object sender, EventArgs e)
         {
             int.TryParse(maskedTextBox_number.Text, out _dataStruct.PersonalNumber);
+        }
+
+        private void comboBox_Names_TextChanged(object sender, EventArgs e)
+        {
+            var valueToCheck = comboBox_Names.Text;
+            StartTextVerification(valueToCheck, comboBox_Names, () => IsNameOk(valueToCheck));
         }
     }
 }

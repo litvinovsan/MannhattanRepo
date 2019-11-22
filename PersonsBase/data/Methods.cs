@@ -25,7 +25,12 @@ namespace PersonsBase.data
         /// <returns></returns>
         public static string PrepareName(string fio)
         {
-            string resultName = "";
+            if (string.IsNullOrWhiteSpace(fio) || string.IsNullOrEmpty(fio))
+            {
+                return "";
+            }
+
+            string resultName = string.Empty;
             var minimumSpaces = Regex.Replace(fio.ToLower().Trim(), @"[^\S\r\n]+", " "); // Уплотняем пробелы
             var lowercase = minimumSpaces.ToLower();
 
@@ -33,8 +38,14 @@ namespace PersonsBase.data
 
             foreach (var item in fioArray)
             {
-                var c = Char.ToUpper(item[0]);
-                resultName += c + item.Remove(0, 1) + " ";
+                var tempWord = item;
+                if (!char.IsLetterOrDigit(item[0]))
+                {
+                    tempWord = tempWord.Remove(0, 1);
+                    if(tempWord.Length==0)break;
+                }
+                var c = char.ToUpper(tempWord[0]);
+                resultName += c + tempWord.Remove(0, 1) + " ";
             }
 
             return resultName.Trim();
