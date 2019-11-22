@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 
-namespace PBase
+namespace PersonsBase.data
 {
     // FIXME Сделать переименование файлов фотографий при переименовании имени
     public class Photo

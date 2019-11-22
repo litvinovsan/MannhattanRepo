@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using PBase;
+using PersonsBase.control;
 using PersonsBase.data;
 using PersonsBase.myStd;
 

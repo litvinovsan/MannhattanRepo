@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.data;
+using PersonsBase.data.Abonements;
 
 namespace PBase
 {
@@ -112,20 +113,20 @@ namespace PBase
             const string labelText = "Доступные Тренировки: ";
             Label lableType = CreateLabel(labelText);
             ComboBox comboBox = CreateComboBox();
-            _editedTypeWorkout = _person.AbonementCurent.trainingsType;
+            _editedTypeWorkout = _person.AbonementCurent.TrainingsType;
             // Инициализируем наши Контролы
             var array = Enum.GetNames(typeof(TypeWorkout));
             comboBox.Items.AddRange(array.ToArray<object>()); // Записываем Поля в Комбобокс
-            comboBox.SelectedItem = _person.AbonementCurent.trainingsType.ToString(); // Выбор по умолчанию
+            comboBox.SelectedItem = _person.AbonementCurent.TrainingsType.ToString(); // Выбор по умолчанию
                                                                                       // Подписываемся на событие по изменению
             comboBox.SelectedIndexChanged += comboBox_TypeWorkout_SelectedIndexChanged;
 
             _saveDelegateChain += () =>
             {
-                if (_person.AbonementCurent != null && _editedTypeWorkout != _person.AbonementCurent.trainingsType)
+                if (_person.AbonementCurent != null && _editedTypeWorkout != _person.AbonementCurent.TrainingsType)
                 {
-                    _person.AbonementCurent.trainingsType = _editedTypeWorkout;
-                    ComboBoxColor(comboBox, _editedTypeWorkout.ToString(), _person.AbonementCurent.trainingsType.ToString());
+                    _person.AbonementCurent.TrainingsType = _editedTypeWorkout;
+                    ComboBoxColor(comboBox, _editedTypeWorkout.ToString(), _person.AbonementCurent.TrainingsType.ToString());
                 }
             };
 
@@ -133,7 +134,7 @@ namespace PBase
         }
         private void comboBox_TypeWorkout_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboChangedMethod<TypeWorkout>(sender, out _editedTypeWorkout, _person.AbonementCurent.trainingsType);
+            ComboChangedMethod<TypeWorkout>(sender, out _editedTypeWorkout, _person.AbonementCurent.TrainingsType);
         }
 
         #endregion
@@ -148,19 +149,19 @@ namespace PBase
             Label lableType = CreateLabel(labelText);
             var array = Enum.GetNames(typeof(SpaService));
             ComboBox comboBox = CreateComboBox();
-            _editedSpaService = _person.AbonementCurent.spa;
+            _editedSpaService = _person.AbonementCurent.Spa;
             // Инициализируем наши Контролы
             comboBox.Items.AddRange(array.ToArray<object>()); // Записываем Поля в Комбобокс
-            comboBox.SelectedItem = _person.AbonementCurent.spa.ToString(); // Выбор по умолчанию
+            comboBox.SelectedItem = _person.AbonementCurent.Spa.ToString(); // Выбор по умолчанию
                                                                             // Подписываемся на событие по изменению
             comboBox.SelectedIndexChanged += comboBox_SpaService_SelectedIndexChanged;
 
             _saveDelegateChain += () =>
             {
-                if (_person.AbonementCurent != null && _editedSpaService != _person.AbonementCurent.spa)
+                if (_person.AbonementCurent != null && _editedSpaService != _person.AbonementCurent.Spa)
                 {
-                    _person.AbonementCurent.spa = _editedSpaService;
-                    ComboBoxColor(comboBox, _person.AbonementCurent.spa.ToString(), comboBox.SelectedItem.ToString());
+                    _person.AbonementCurent.Spa = _editedSpaService;
+                    ComboBoxColor(comboBox, _person.AbonementCurent.Spa.ToString(), comboBox.SelectedItem.ToString());
                 }
             };
 
@@ -168,7 +169,7 @@ namespace PBase
         }
         private void comboBox_SpaService_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboChangedMethod<SpaService>(sender, out _editedSpaService, _person.AbonementCurent.spa);
+            ComboChangedMethod<SpaService>(sender, out _editedSpaService, _person.AbonementCurent.Spa);
         }
 
         #endregion
@@ -181,20 +182,20 @@ namespace PBase
             const string labelText = "Статус Оплаты: ";
             Label lableType = CreateLabel(labelText);
             ComboBox comboBox = CreateComboBox();
-            _editedPay = _person.AbonementCurent.payStatus;
+            _editedPay = _person.AbonementCurent.PayStatus;
             // Инициализируем наши Контролы
             var array = Enum.GetNames(typeof(Pay));
             comboBox.Items.AddRange(array.ToArray<object>()); // Записываем Поля в Комбобокс
-            comboBox.SelectedItem = _person.AbonementCurent.payStatus.ToString(); // Выбор по умолчанию
+            comboBox.SelectedItem = _person.AbonementCurent.PayStatus.ToString(); // Выбор по умолчанию
                                                                                   // Подписываемся на событие по изменению
             comboBox.SelectedIndexChanged += comboBox_Pay_SelectedIndexChanged;
 
             _saveDelegateChain += () =>
             {
-                if (_person.AbonementCurent != null && _editedPay != _person.AbonementCurent.payStatus)
+                if (_person.AbonementCurent != null && _editedPay != _person.AbonementCurent.PayStatus)
                 {
-                    _person.AbonementCurent.payStatus = _editedPay;
-                    ComboBoxColor(comboBox, _person.AbonementCurent.payStatus.ToString(), comboBox.SelectedItem.ToString());
+                    _person.AbonementCurent.PayStatus = _editedPay;
+                    ComboBoxColor(comboBox, _person.AbonementCurent.PayStatus.ToString(), comboBox.SelectedItem.ToString());
                 }
             };
 
@@ -202,7 +203,7 @@ namespace PBase
         }
         private void comboBox_Pay_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboChangedMethod<Pay>(sender, out _editedPay, _person.AbonementCurent.payStatus);
+            ComboChangedMethod<Pay>(sender, out _editedPay, _person.AbonementCurent.PayStatus);
         }
 
         #endregion
@@ -214,26 +215,26 @@ namespace PBase
             const string labelText = "Время Тренировок: ";
             Label lableType = CreateLabel(labelText);
             ComboBox comboBox = CreateComboBox();
-            _editedTimeForTr = _person.AbonementCurent.timeTraining;
+            _editedTimeForTr = _person.AbonementCurent.TimeTraining;
             // Инициализируем наши Контролы
             var array = Enum.GetNames(typeof(TimeForTr));
             comboBox.Items.AddRange(array.ToArray<object>()); // Записываем Поля в Комбобокс
-            comboBox.SelectedItem = _person.AbonementCurent.timeTraining.ToString(); // Выбор по умолчанию
+            comboBox.SelectedItem = _person.AbonementCurent.TimeTraining.ToString(); // Выбор по умолчанию
                                                                                      // Подписываемся на событие по изменению
             comboBox.SelectedIndexChanged += comboBox_TimeForTr_SelectedIndexChanged;
 
             _saveDelegateChain += () =>
             {
-                if (_person.AbonementCurent == null || _editedTimeForTr == _person.AbonementCurent.timeTraining) return;
-                _person.AbonementCurent.timeTraining = _editedTimeForTr;
-                ComboBoxColor(comboBox, _person.AbonementCurent.timeTraining.ToString(), comboBox.SelectedItem.ToString());
+                if (_person.AbonementCurent == null || _editedTimeForTr == _person.AbonementCurent.TimeTraining) return;
+                _person.AbonementCurent.TimeTraining = _editedTimeForTr;
+                ComboBoxColor(comboBox, _person.AbonementCurent.TimeTraining.ToString(), comboBox.SelectedItem.ToString());
             };
 
             return new Tuple<Label, Control>(lableType, comboBox);
         }
         private void comboBox_TimeForTr_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboChangedMethod(sender, out _editedTimeForTr, _person.AbonementCurent.timeTraining);
+            ComboChangedMethod(sender, out _editedTimeForTr, _person.AbonementCurent.TimeTraining);
         }
         #endregion
 
@@ -458,7 +459,7 @@ namespace PBase
             const string labelText = "Дата Покупки Карты ";
             Label lableType = CreateLabel(labelText);
             DateTimePicker dateTime = CreateDateTimePicker();
-            var init = (_person.AbonementCurent.buyDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? _person.AbonementCurent.buyDate.Date : dateTime.Value;
+            var init = (_person.AbonementCurent.BuyDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? _person.AbonementCurent.BuyDate.Date : dateTime.Value;
 
             dateTime.Value = init;
             _editedBuyDate = init;
@@ -467,9 +468,9 @@ namespace PBase
 
             _saveDelegateChain += () =>
             {
-                if (_person.IsAbonementExist() && _editedBuyDate.CompareTo(_person.AbonementCurent.buyDate.Date) != 0)
+                if (_person.IsAbonementExist() && _editedBuyDate.CompareTo(_person.AbonementCurent.BuyDate.Date) != 0)
                 {
-                    _person.AbonementCurent.buyDate = _editedBuyDate;
+                    _person.AbonementCurent.BuyDate = _editedBuyDate;
                 }
             };
             return new Tuple<Label, Control>(lableType, dateTime);

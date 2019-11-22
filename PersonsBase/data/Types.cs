@@ -1,7 +1,6 @@
 ﻿using System;
-using PersonsBase.data;
 
-namespace PBase
+namespace PersonsBase.data
 {
     /// <summary>
     /// Вспомогательные Общедоступные Структуры и Классы

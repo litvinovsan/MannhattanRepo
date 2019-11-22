@@ -1,5 +1,6 @@
 ﻿using PBase;
 using System;
+using PersonsBase.data.Abonements;
 
 namespace PersonsBase.data
 {
@@ -37,10 +38,10 @@ namespace PersonsBase.data
                 : workoutOptions.PersonalTrener.Name;
             CurrentAdministratorName = administratorName ?? "Имя неизвестно";
 
-            SpaStatus = abon.spa;
-            PayStatus = abon.payStatus;
-            TimeForTrenStatus = abon.timeTraining;
-            AbonBuyDate = abon.buyDate;
+            SpaStatus = abon.Spa;
+            PayStatus = abon.PayStatus;
+            TimeForTrenStatus = abon.TimeTraining;
+            AbonBuyDate = abon.BuyDate;
             AbonEndDate = abon.EndDate;
             NumAerobicTr = abon.NumAerobicTr;
             NumPersonalTr = abon.NumPersonalTr;

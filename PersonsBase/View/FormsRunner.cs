@@ -1,6 +1,7 @@
 ﻿using PBase;
 using PersonsBase.data;
 using System.Windows.Forms;
+using PersonsBase.data.Abonements;
 
 namespace PersonsBase.View
 {

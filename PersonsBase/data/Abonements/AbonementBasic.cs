@@ -1,10 +1,8 @@
-﻿using PersonsBase.data;
-using PersonsBase.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
+using PBase;
 
-namespace PBase
+namespace PersonsBase.data.Abonements
 {
 
     [Serializable]
@@ -24,12 +22,12 @@ namespace PBase
         public abstract string InfoMessageEnd { get; }
         public abstract int NumAerobicTr { get; set; } // Количество Аэробных тренировок. 10 в клубн карте,каждый месяц
         public abstract int NumPersonalTr { get; set; } // Количество Персональных тренировок. Могут быть добавлены к Клубному абонементу.
-        public SpaService spa;               // Услуги спа
-        public Pay payStatus;                // Оплачен?
-        public TimeForTr timeTraining;       // Время занятий
-        public TypeWorkout trainingsType;    // Доступные тренировки
-        public DateTime buyDate;             // Дата покупки
-        public bool isActivated;             // Активирован? Дата окончания отсчитывается с момента
+        public SpaService Spa;               // Услуги спа
+        public Pay PayStatus;                // Оплачен?
+        public TimeForTr TimeTraining;       // Время занятий
+        public TypeWorkout TrainingsType;    // Доступные тренировки
+        public DateTime BuyDate;             // Дата покупки
+        public bool IsActivated;             // Активирован? Дата окончания отсчитывается с момента
         public int DaysLeft { get; set; }  //Дней до конца абонемента, от активации,т.е. с первого посещения. 
 
         private DateTime _endDate;             // Дата завершения абонемента. 
@@ -49,12 +47,12 @@ namespace PBase
         // КОНСТРУКТОР
         protected AbonementBasic(Pay payStatus, TimeForTr time, TypeWorkout tr, SpaService spa)
         {
-            this.payStatus = payStatus;
-            timeTraining = time;
-            trainingsType = tr;
-            this.spa = spa;
-            isActivated = false;
-            buyDate = DateTime.Now.Date;
+            this.PayStatus = payStatus;
+            TimeTraining = time;
+            TrainingsType = tr;
+            this.Spa = spa;
+            IsActivated = false;
+            BuyDate = DateTime.Now.Date;
         }
 
         //МЕТОДЫ АБСТРАКТНЫЕ

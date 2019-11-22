@@ -1,10 +1,10 @@
-﻿using PersonsBase.data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using PersonsBase.data.Abonements;
 
-namespace PBase
+namespace PersonsBase.data
 {
     [Serializable]
     public class Person : IEquatable<Person>

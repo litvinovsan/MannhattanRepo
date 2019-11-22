@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using PersonsBase.data;
+using PersonsBase.data.Abonements;
 using PersonsBase.View;
 
-namespace PBase
+namespace PersonsBase.control
 {
     [Serializable]
     public class Logic
@@ -66,14 +67,14 @@ namespace PBase
             var isByDays = person.AbonementCurent is AbonementByDays;
             var isClubCard = person.AbonementCurent is ClubCardA;
 
-            var isTrenZallOnly = person.AbonementCurent.trainingsType == TypeWorkout.Тренажерный_Зал;
+            var isTrenZallOnly = person.AbonementCurent.TrainingsType == TypeWorkout.Тренажерный_Зал;
             var isNoAeroAndPerson = person.AbonementCurent.NumAerobicTr + person.AbonementCurent.NumPersonalTr == 0;
 
             var selectedOptions = new WorkoutOptions();
 
             if ((isSingleVisit || isByDays) && isTrenZallOnly || isClubCard && isNoAeroAndPerson)
             {
-                selectedOptions.TypeWorkout = person.AbonementCurent.trainingsType;
+                selectedOptions.TypeWorkout = person.AbonementCurent.TrainingsType;
                 selectedOptions.GroupInfo = new Group(); // dummy
                 selectedOptions.PersonalTrener = new Trener(); // dummy
             }

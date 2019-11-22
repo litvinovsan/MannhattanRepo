@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PersonsBase.control;
 using PersonsBase.data;
 
 namespace PersonsBase.View

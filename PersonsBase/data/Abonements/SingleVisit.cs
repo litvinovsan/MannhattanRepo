@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using PBase;
 
-namespace PBase
+namespace PersonsBase.data.Abonements
 {
 
     [Serializable]
@@ -35,8 +36,8 @@ namespace PBase
         // Методы
         public override void TryActivate()
         {
-            if (isActivated) return; // Уже Активирован.
-            isActivated = true;
+            if (IsActivated) return; // Уже Активирован.
+            IsActivated = true;
             EndDate = DateTime.Now.Date;
         }
 
@@ -58,13 +59,13 @@ namespace PBase
             var result = new List<Tuple<string, string>>
           {
               new Tuple<string, string>("Тип: ", AbonementName),
-              new Tuple<string, string>("Доступные Тренировки ", trainingsType.ToString()),
-              new Tuple<string, string>("Услуги", spa.ToString())
+              new Tuple<string, string>("Доступные Тренировки ", TrainingsType.ToString()),
+              new Tuple<string, string>("Услуги", Spa.ToString())
           };
 
             if (NumPersonalTr > 0) { result.Add(new Tuple<string, string>("Осталось Персональных", NumPersonalTr.ToString())); }
             if (NumAerobicTr > 0) { result.Add(new Tuple<string, string>("Осталось Аэробных", NumAerobicTr.ToString())); }
-            if (payStatus == Pay.Не_Оплачено) { result.Add(new Tuple<string, string>("Статус Оплаты ", payStatus.ToString())); }
+            if (PayStatus == Pay.Не_Оплачено) { result.Add(new Tuple<string, string>("Статус Оплаты ", PayStatus.ToString())); }
 
             return result;
         }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PBase
+namespace PersonsBase.data
 {
    [Serializable]
    public class Trener

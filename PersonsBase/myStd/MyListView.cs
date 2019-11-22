@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Runtime.Serialization;
+using PersonsBase.data;
 using static System.Windows.Forms.ListViewItem;
 
 namespace PBase

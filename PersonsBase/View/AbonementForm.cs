@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.data;
+using PersonsBase.data.Abonements;
 
 namespace PBase
 {
@@ -52,10 +53,10 @@ namespace PBase
             else // Абонемент Существует
             {
                 _selectedAbonementName = _person.AbonementCurent.AbonementName;
-                _typeWorkout = _person.AbonementCurent.trainingsType;
-                _timeTren = _person.AbonementCurent.timeTraining;
-                _spa = _person.AbonementCurent.spa;
-                _pay = _person.AbonementCurent.payStatus;
+                _typeWorkout = _person.AbonementCurent.TrainingsType;
+                _timeTren = _person.AbonementCurent.TimeTraining;
+                _spa = _person.AbonementCurent.Spa;
+                _pay = _person.AbonementCurent.PayStatus;
                 switch (_person.AbonementCurent)
                 {
                     case AbonementByDays days:

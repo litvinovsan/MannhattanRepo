@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using PBase;
 
-namespace PBase
+namespace PersonsBase.data.Abonements
 {
     [Serializable]
     public class AbonementByDays : AbonementBasic //Абонемент на несколько занятий
@@ -29,8 +30,8 @@ namespace PBase
         // Методы
         public override void TryActivate()
         {
-            if (isActivated) return; // Уже Активирован.
-            isActivated = true;
+            if (IsActivated) return; // Уже Активирован.
+            IsActivated = true;
             var date = DateTime.Now.AddMonths(ValidityPeriod).Date;
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = date;
@@ -67,13 +68,13 @@ namespace PBase
             var result = new List<Tuple<string, string>>
           {
               new Tuple<string, string>("Тип: ", AbonementName),
-              new Tuple<string, string>("Доступные Тренировки ", trainingsType.ToString()),
-              new Tuple<string, string>("Время Тренировок ", timeTraining.ToString()),
+              new Tuple<string, string>("Доступные Тренировки ", TrainingsType.ToString()),
+              new Tuple<string, string>("Время Тренировок ", TimeTraining.ToString()),
               new Tuple<string, string>("Осталось Занятий", GetRemainderDays().ToString()),
-              new Tuple<string, string>("Услуги", spa.ToString()),
+              new Tuple<string, string>("Услуги", Spa.ToString()),
               new Tuple<string, string>("Дата Окончания", EndDate.ToString("d"))
           };
-            if (payStatus == Pay.Не_Оплачено) { result.Add(new Tuple<string, string>("Статус Оплаты ", payStatus.ToString())); }
+            if (PayStatus == Pay.Не_Оплачено) { result.Add(new Tuple<string, string>("Статус Оплаты ", PayStatus.ToString())); }
             return result;
         }
 

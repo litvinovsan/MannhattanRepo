@@ -5,7 +5,9 @@ using System.Collections.Specialized;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using PersonsBase.control;
 using PersonsBase.data;
+using PersonsBase.data.Abonements;
 using PersonsBase.myStd;
 using PersonsBase.View;
 
@@ -323,7 +325,7 @@ namespace PBase
             }
 
             // Не Активирован
-            if (_person.IsAbonementExist() && !_person.AbonementCurent.isActivated)
+            if (_person.IsAbonementExist() && !_person.AbonementCurent.IsActivated)
             {
                 textBox_Name.ForeColor = Color.Green;
                 textBox_Name.Text = _person.Name + @"   (Не Активирован)";

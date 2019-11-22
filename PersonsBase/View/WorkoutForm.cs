@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using PBase;
 using PersonsBase.data;
 using System.Linq;
+using PersonsBase.data.Abonements;
 
 namespace PersonsBase.View
 {
@@ -31,8 +32,8 @@ namespace PersonsBase.View
 
             // Скрываем Панели с РадиоБатоннами
             panel_tren.Visible = (!(abonement is SingleVisit)) || ((abonement.NumAerobicTr != 0) || (abonement.NumPersonalTr != 0));
-            panel_aero.Visible = (abonement.trainingsType == TypeWorkout.Аэробный_Зал || (abonement.NumAerobicTr != 0));
-            panel_personal.Visible = (abonement.trainingsType == TypeWorkout.Персональная || (abonement.NumPersonalTr != 0));
+            panel_aero.Visible = (abonement.TrainingsType == TypeWorkout.Аэробный_Зал || (abonement.NumAerobicTr != 0));
+            panel_personal.Visible = (abonement.TrainingsType == TypeWorkout.Персональная || (abonement.NumPersonalTr != 0));
         }
 
         private void WorkoutForm_Load(object sender, EventArgs e)

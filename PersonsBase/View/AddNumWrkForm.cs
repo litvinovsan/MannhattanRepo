@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
+using PersonsBase.data;
+using PersonsBase.data.Abonements;
 
 namespace PBase
 {
