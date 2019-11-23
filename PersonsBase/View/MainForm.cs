@@ -250,5 +250,11 @@ namespace PersonsBase.View
         {
             Logic.SellAbonement();
         }
+
+        private void вывToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Logic.SellAbonement();
+
+        }
     }
 }

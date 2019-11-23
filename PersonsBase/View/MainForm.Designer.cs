@@ -67,6 +67,7 @@ namespace PersonsBase.View
             this.label_group = new System.Windows.Forms.Label();
             this.label_personal = new System.Windows.Forms.Label();
             this.label_tren_zal = new System.Windows.Forms.Label();
+            this.SellAbonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -89,7 +90,8 @@ namespace PersonsBase.View
             this.конфигурацииToolStripMenuItem,
             this.клиентыToolStripMenuItem,
             this.отчетыToolStripMenuItem,
-            this.сomboBox_PersonsList});
+            this.сomboBox_PersonsList,
+            this.SellAbonToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
@@ -109,14 +111,14 @@ namespace PersonsBase.View
             // руководительToolStripMenuItem1
             // 
             this.руководительToolStripMenuItem1.Name = "руководительToolStripMenuItem1";
-            this.руководительToolStripMenuItem1.Size = new System.Drawing.Size(166, 24);
+            this.руководительToolStripMenuItem1.Size = new System.Drawing.Size(180, 24);
             this.руководительToolStripMenuItem1.Text = "Руководитель";
             this.руководительToolStripMenuItem1.Click += new System.EventHandler(this.руководительToolStripMenuItem1_Click);
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
@@ -440,6 +442,14 @@ namespace PersonsBase.View
             this.label_tren_zal.TabIndex = 3;
             this.label_tren_zal.Text = "Тренажерный зал";
             // 
+            // SellAbonToolStripMenuItem
+            // 
+            this.SellAbonToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.SellAbonToolStripMenuItem.Name = "SellAbonToolStripMenuItem";
+            this.SellAbonToolStripMenuItem.Size = new System.Drawing.Size(161, 28);
+            this.SellAbonToolStripMenuItem.Text = "Продажа Абонемента";
+            this.SellAbonToolStripMenuItem.Click += new System.EventHandler(this.вывToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -506,5 +516,6 @@ namespace PersonsBase.View
         private ListView listView_Group;
         private ColumnHeader columnHeader4;
         private ColumnHeader columnHeader3;
+        private ToolStripMenuItem SellAbonToolStripMenuItem;
     }
 }

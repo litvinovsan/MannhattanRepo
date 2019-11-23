@@ -122,7 +122,7 @@ namespace PersonsBase.View
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
@@ -138,13 +138,13 @@ namespace PersonsBase.View
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.groupBox_Info);
             this.tabPage1.Controls.Add(this.textBox_Name);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Size = new System.Drawing.Size(1027, 525);
+            this.tabPage1.Size = new System.Drawing.Size(1027, 524);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Основная";
+            this.tabPage1.Text = "Информация";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // groupBox_abonList
@@ -179,11 +179,11 @@ namespace PersonsBase.View
             // 
             this.listBox_abonements.Dock = System.Windows.Forms.DockStyle.Top;
             this.listBox_abonements.FormattingEnabled = true;
-            this.listBox_abonements.ItemHeight = 15;
-            this.listBox_abonements.Location = new System.Drawing.Point(2, 16);
+            this.listBox_abonements.ItemHeight = 16;
+            this.listBox_abonements.Location = new System.Drawing.Point(2, 18);
             this.listBox_abonements.Margin = new System.Windows.Forms.Padding(2);
             this.listBox_abonements.Name = "listBox_abonements";
-            this.listBox_abonements.Size = new System.Drawing.Size(192, 64);
+            this.listBox_abonements.Size = new System.Drawing.Size(192, 52);
             this.listBox_abonements.TabIndex = 0;
             // 
             // groupBox6
@@ -330,7 +330,7 @@ namespace PersonsBase.View
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(1023, 136);
+            this.groupBox1.Size = new System.Drawing.Size(1023, 135);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             // 
@@ -344,7 +344,7 @@ namespace PersonsBase.View
             this.textBox_Notes.Multiline = true;
             this.textBox_Notes.Name = "textBox_Notes";
             this.textBox_Notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_Notes.Size = new System.Drawing.Size(1019, 119);
+            this.textBox_Notes.Size = new System.Drawing.Size(1019, 118);
             this.textBox_Notes.TabIndex = 5;
             this.textBox_Notes.Text = "Заметки о Клиенте";
             this.textBox_Notes.TextChanged += new System.EventHandler(this.textBox_Notes_TextChanged);
@@ -367,13 +367,13 @@ namespace PersonsBase.View
             // 
             this.tabPage2.Controls.Add(this.groupBox_Detailed);
             this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(1027, 525);
+            this.tabPage2.Size = new System.Drawing.Size(1027, 524);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Дополнительная";
+            this.tabPage2.Text = "Персональные данные";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // groupBox_Detailed
@@ -386,7 +386,7 @@ namespace PersonsBase.View
             this.groupBox_Detailed.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_Detailed.Name = "groupBox_Detailed";
             this.groupBox_Detailed.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox_Detailed.Size = new System.Drawing.Size(705, 419);
+            this.groupBox_Detailed.Size = new System.Drawing.Size(705, 418);
             this.groupBox_Detailed.TabIndex = 1;
             this.groupBox_Detailed.TabStop = false;
             this.groupBox_Detailed.Text = "Детальная информация";
@@ -401,7 +401,7 @@ namespace PersonsBase.View
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(296, 421);
+            this.groupBox2.Size = new System.Drawing.Size(296, 420);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Персональные данные";
@@ -579,10 +579,10 @@ namespace PersonsBase.View
             // 
             // tabPage3
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1027, 525);
+            this.tabPage3.Size = new System.Drawing.Size(1027, 524);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Посещения";
             this.tabPage3.UseVisualStyleBackColor = true;
