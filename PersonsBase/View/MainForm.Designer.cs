@@ -448,7 +448,7 @@ namespace PersonsBase.View
             this.SellAbonToolStripMenuItem.Name = "SellAbonToolStripMenuItem";
             this.SellAbonToolStripMenuItem.Size = new System.Drawing.Size(161, 28);
             this.SellAbonToolStripMenuItem.Text = "Продажа Абонемента";
-            this.SellAbonToolStripMenuItem.Click += new System.EventHandler(this.вывToolStripMenuItem_Click);
+            this.SellAbonToolStripMenuItem.Click += new System.EventHandler(this.SellButtonMenuItem_Click);
             // 
             // MainForm
             // 
