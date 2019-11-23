@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using PersonsBase.data;
 using PersonsBase.data.Abonements;
 
-namespace PBase
+namespace PersonsBase.View
 {
     public partial class NumWorkoutForm : Form
     {

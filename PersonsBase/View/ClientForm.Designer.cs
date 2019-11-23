@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace PBase
+namespace PersonsBase.View
 {
 
    partial class ClientForm

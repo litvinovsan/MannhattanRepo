@@ -5,21 +5,22 @@ using System.Collections.Specialized;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using PBase;
 using PersonsBase.control;
 using PersonsBase.data;
 using PersonsBase.data.Abonements;
 using PersonsBase.myStd;
-using PersonsBase.View;
 
-namespace PBase
+namespace PersonsBase.View
 {
     public partial class ClientForm : Form
     {
+        private readonly DataBaseLevel _dataBase = DataBaseLevel.GetInstance();
+
+        private readonly Logic _logic;
         ///////////////// ОСНОВНЫЕ ОБЬЕКТЫ ////////////////////////////////
 
         private readonly Person _person;
-        private readonly DataBaseLevel _dataBase = DataBaseLevel.GetInstance();
-        private readonly Logic _logic;
         private bool _isAnythingChanged;
 
         ///////////////// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ////////////////////////////////
@@ -50,7 +51,8 @@ namespace PBase
 
             // События Очередь абонементов
             if (_person.AbonementsQueue == null) _person.AbonementsQueue = new ObservableCollection<AbonementBasic>();
-            _person.AbonementsQueue.CollectionChanged += AbonementsQueue_CollectionChanged; // Список Абонементов. Если изменился
+            _person.AbonementsQueue.CollectionChanged +=
+                AbonementsQueue_CollectionChanged; // Список Абонементов. Если изменился
             _person.AbonementsQueue.CollectionChanged += ShowAbonementList;
         }
 
@@ -60,16 +62,17 @@ namespace PBase
             {
                 button_RemoveCurrentAbon.Visible = true;
                 button__remove_abon.Enabled = true;
-                groupBox_Detailed.Enabled = true;// FIXME тут надо включать и выключать выборочные поля. Например, админ должен менять статус оплаты
-
+                groupBox_Detailed.Enabled =
+                    true; // FIXME тут надо включать и выключать выборочные поля. Например, админ должен менять статус оплаты
             }
             else
             {
                 button_RemoveCurrentAbon.Visible = false;
                 button__remove_abon.Enabled = false;
-                groupBox_Detailed.Enabled = true; // / FIXME тут надо включать и выключать выборочные поля. Например, админ должен менять статус оплаты
-
+                groupBox_Detailed.Enabled =
+                    true; // / FIXME тут надо включать и выключать выборочные поля. Например, админ должен менять статус оплаты
             }
+
             Invalidate();
         }
 
@@ -81,19 +84,18 @@ namespace PBase
 
             listBox_abonements.Items.AddRange(list.ToArray<object>());
             // Отображение Группы списка абонементов
-            groupBox_abonList.Visible = (list.Count > 0);
+            groupBox_abonList.Visible = list.Count > 0;
         }
 
         private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (_isAnythingChanged)
             {
-                DialogResult dialogResult = MessageBox.Show(@"Сохранить изменения перед выходом?", @"Данные Поменялись!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    SaveData();
-                }
+                var dialogResult = MessageBox.Show(@"Сохранить изменения перед выходом?", @"Данные Поменялись!",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialogResult == DialogResult.Yes) SaveData();
             }
+
             SaveSpecialNotes(); //Всегда сохраняем Особые отметки
             _isAnythingChanged = false;
 
@@ -129,6 +131,7 @@ namespace PBase
                     throw new ArgumentOutOfRangeException();
             }
         }
+
         private void UpdateControlState(object sender, EventArgs arg)
         {
             // Различные изменения, которые зависят от СТАТУСА клиента.
@@ -143,65 +146,65 @@ namespace PBase
                 switch (_person.UpdateActualStatus())
                 {
                     case StatusPerson.Активный:
-                        {
-                            button_CheckInWorkout.Visible = true;
+                    {
+                        button_CheckInWorkout.Visible = true;
 
-                            // Кнопка Заморозка Клубной Карты
-                            if ((_person.AbonementCurent is ClubCardA a) &&
-                               a.PeriodAbonem != PeriodClubCard.На_1_Месяц)
-                            {
-                                button_Freeze.Visible = true;
-                                // Кнопка Добавить для Клубной Карты
-                                button_add_dop_tren.Visible = true;
-                            }
-                            break;
+                        // Кнопка Заморозка Клубной Карты
+                        if (_person.AbonementCurent is ClubCardA a &&
+                            a.PeriodAbonem != PeriodClubCard.На_1_Месяц)
+                        {
+                            button_Freeze.Visible = true;
+                            // Кнопка Добавить для Клубной Карты
+                            button_add_dop_tren.Visible = true;
                         }
+
+                        break;
+                    }
                     case StatusPerson.Нет_Карты:
-                        {
-
-                            break;
-                        }
+                    {
+                        break;
+                    }
                     case StatusPerson.Заморожен:
-                        {
-                            button_Add_Abon.Enabled = false;
-                            button_Freeze.Visible = _person.IsAbonementExist();
-                            break;
-                        }
+                    {
+                        button_Add_Abon.Enabled = false;
+                        button_Freeze.Visible = _person.IsAbonementExist();
+                        break;
+                    }
                     case StatusPerson.Гостевой:
-                        {
-                            button_Add_Abon.Enabled = true;
-                            break;
-                        }
+                    {
+                        button_Add_Abon.Enabled = true;
+                        break;
+                    }
                     case StatusPerson.Запрещён:
-                        {
-                            button_Add_Abon.Enabled = false;
-                            break;
-                        }
+                    {
+                        button_Add_Abon.Enabled = false;
+                        break;
+                    }
                     case StatusPerson.Вероятный_Клиент:
-                        {
-                            break;
-                        }
+                    {
+                        break;
+                    }
                 }
+
                 UpdateNameText();
             };
 
             if (InvokeRequired)
-            {
                 Invoke(myDelegate);
-            }
             else
-            {
                 myDelegate();
-            }
         }
+
         private void ShowAbonementList(object sender, NotifyCollectionChangedEventArgs e)
         {
             groupBox_abonList.Visible = _person.AbonementsQueue.Count > 0;
         }
+
         private void PathToPhotoChangedMethod(object sender, EventArgs e)
         {
             Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto);
         }
+
         // Сохранение данных 
         private void SaveData()
         {
@@ -218,7 +221,7 @@ namespace PBase
             // Загружаем данные на Вкладку Редактирование, в Группу Персональных данных
 
             _person.UpdateActualStatus(); // Обновляем текущий статус
-                                          // Имя Клиента на форме.
+            // Имя Клиента на форме.
             UpdateNameText();
 
             // Телефон
@@ -251,8 +254,9 @@ namespace PBase
         }
 
         private void LoadEditableData()
-        {// Данные подробные,разрешено редактирование через события.
-            TableLayoutPanel table = Methods.CreateTable(SelectList(_person.AbonementCurent));
+        {
+            // Данные подробные,разрешено редактирование через события.
+            var table = Methods.CreateTable(SelectList(_person.AbonementCurent));
             if (groupBox_Detailed.Controls.Count != 0) groupBox_Detailed.Controls.Clear();
 
             table.Font = new Font("Arial", 10);
@@ -260,6 +264,7 @@ namespace PBase
             groupBox_Detailed.Controls.Add(table);
             _isAnythingChanged = false;
         }
+
         private void UpdateEditableData()
         {
             var listUpdated = SelectList(_person.AbonementCurent);
@@ -269,154 +274,9 @@ namespace PBase
                 if (x is TextBox || x is ComboBox) lst.Add(x); //Получили только нужные Контролы в массив lst
             });
 
-            for (var i = 0; i < lst.Count; i++)
-            {
-                lst[i].Text = listUpdated[i].Item2.Text;
-            }
+            for (var i = 0; i < lst.Count; i++) lst[i].Text = listUpdated[i].Item2.Text;
             _isAnythingChanged = false;
         }
-
-        #region // Хелп Методы для Загрузки и обновления пользовательских данных
-
-        private void UpdateNameText()
-        {
-            Text = @"Карточка Клиента:    " + _person.Name;// Имя формы
-
-            textBox_Name.Text = _person.Name;
-            Methods.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
-
-
-            switch (_person.Status)
-            {
-                // Если Запрещен 
-                case StatusPerson.Запрещён:
-                    textBox_Name.Text = _person.Name;
-                    Methods.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
-                    return;
-                // Если Заморожен
-                case StatusPerson.Заморожен when _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA a && _person.Status != StatusPerson.Вероятный_Клиент && _person.Status != StatusPerson.Гостевой:
-                    {
-                        textBox_Name.ForeColor = Color.SeaGreen;
-                        string dateEnd = a.Freeze?.AllFreezes.Last().GetEndDate().Date.ToString("d");
-                        textBox_Name.Text = _person.Name + @"   (Заморожен До " + dateEnd + @" )";
-                        break;
-                    }
-                case StatusPerson.Активный:
-                    break;
-                case StatusPerson.Нет_Карты:
-                    break;
-                case StatusPerson.Гостевой:
-                    break;
-                case StatusPerson.Вероятный_Клиент:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            // Заморозка запланирована в будущем
-            var card = _person.AbonementCurent as ClubCardA;
-            if (card?.Freeze != null && (_person.Status != StatusPerson.Заморожен) && _person.Status != StatusPerson.Вероятный_Клиент && _person.Status != StatusPerson.Гостевой)
-            {
-                if (card.Freeze.IsConfiguredForFuture())
-                {
-                    textBox_Name.ForeColor = Color.SeaGreen;
-                    textBox_Name.Text = _person.Name + $@"   (Заморозка c {card.Freeze.GetFutureFreeze().StartDate.Date:d}, дней: {card.Freeze.GetDaysToFreeze()} )";
-                }
-            }
-
-            // Не Активирован
-            if (_person.IsAbonementExist() && !_person.AbonementCurent.IsActivated)
-            {
-                textBox_Name.ForeColor = Color.Green;
-                textBox_Name.Text = _person.Name + @"   (Не Активирован)";
-                button_Freeze.Enabled = false;
-            }
-            else button_Freeze.Enabled = true;
-
-        }
-
-        private List<Tuple<Label, Control>> SelectList(AbonementBasic currentAbon)
-        {
-            List<Tuple<Label, Control>> listResult;
-            if (currentAbon is AbonementByDays)
-            {
-                listResult = CreateListAbonement();
-            }
-            else if (currentAbon is ClubCardA)
-            {
-                listResult = CreateListClubCard();
-            }
-            else if (currentAbon is SingleVisit)
-            {
-                listResult = CreateListSingleVisit();
-            }
-            else
-            {
-                listResult = CreateListNoAbonement();
-            }
-            return listResult;
-        }
-        private List<Tuple<Label, Control>> CreateListNoAbonement()
-        {
-            var list = new List<Tuple<Label, Control>>
-          {
-             CreateNameField(),
-             CreateStatusField()
-          };
-            return list;
-        }
-        private List<Tuple<Label, Control>> CreateListSingleVisit()
-        {
-            var list = new List<Tuple<Label, Control>>
-          {
-              CreateNameField(),
-              CreateStatusField(),
-              CreateTypeWorkoutField(),
-              CreateSpaServiceField(),
-              CreatePayServiceField()
-          };
-
-            return list;
-        }
-        private List<Tuple<Label, Control>> CreateListClubCard()
-        {
-            var list = new List<Tuple<Label, Control>>
-          {
-              CreateNameField(),
-              CreateStatusField(),
-              CreatePeriodClubCardField(),
-              CreateTypeWorkoutField(),
-              CreateTimeForTrField(),
-              CreateSpaServiceField(),
-              CreateNumPersonalTrField(),
-              CreateNumAerobicTrField(),
-              CreateRemainderDaysField(),
-              CreatePayServiceField(),
-              CreateBuyDateField(),
-              CreateEndDateField()
-          };
-            return list;
-        }
-        private List<Tuple<Label, Control>> CreateListAbonement()
-        {
-            var list = new List<Tuple<Label, Control>>
-         {
-            CreateNameField(),
-            CreateStatusField(),
-            CreateNumberDaysInAbonField(),
-            CreateTypeWorkoutField(),
-            CreateTimeForTrField(),
-            CreateSpaServiceField(),
-            CreateRemainderDaysField(),
-            CreatePayServiceField(),
-            CreateBuyDateField(),
-            CreateEndDateField()
-         };
-
-            return list;
-        }
-
-        #endregion
 
         //////////// СТАНДАРТНЫЕ ОБРАБОТЧИКИ ///////////////////////////////////////////////
 
@@ -433,6 +293,7 @@ namespace PBase
                 LoadEditableData();
                 UpdateControlState(this, EventArgs.Empty);
             }
+
             // Перенос Фокуса на кнопку 
             button_CheckInWorkout.Focus();
         }
@@ -441,6 +302,7 @@ namespace PBase
         {
             Close();
         }
+
         private void button_SavePersonalData_Click(object sender, EventArgs e)
         {
             SaveData();
@@ -451,10 +313,12 @@ namespace PBase
 
             // Methods.SetControlsColorDefault(groupBox_Detailed);
         }
+
         private void ClientForm_Resize(object sender, EventArgs e)
         {
             Methods.ClearSelection(groupBox_Detailed);
         }
+
         private void button_Add_New_Abon_Click(object sender, EventArgs e)
         {
             var isSuccess = Logic.AddAbonement(_person.Name);
@@ -472,7 +336,8 @@ namespace PBase
         }
 
         private void button_add_dop_tren_Click(object sender, EventArgs e)
-        {//FIXME  Перенести в Логику. 
+        {
+            //FIXME  Перенести в Логику. 
             using (var form = new NumWorkoutForm(_person.AbonementCurent))
             {
                 if (form.ShowDialog() == DialogResult.OK)
@@ -485,21 +350,29 @@ namespace PBase
                     LoadEditableData();
                     UpdateControlState(this, EventArgs.Empty);
                 }
-                else return;
+                else
+                {
+                    return;
+                }
             }
+
             button_CheckInWorkout.Focus();
         }
 
         private void button__remove_abon_Click(object sender, EventArgs e)
         {
             var selectedIndex = listBox_abonements.SelectedIndex;
-            if (selectedIndex == -1) MessageBox.Show(@"Выберите Абонемент для удаления!");
+            if (selectedIndex == -1)
+            {
+                MessageBox.Show(@"Выберите Абонемент для удаления!");
+            }
             else
             {
                 _person.AbonementsQueue.RemoveAt(selectedIndex);
                 MessageBox.Show(@"Запись Удалена!");
             }
         }
+
         private void button_remove_current_abon_Click(object sender, EventArgs e)
         {
             if (_person.AbonementCurent == null) return;
@@ -530,9 +403,11 @@ namespace PBase
             }
             else
             {
-                MessageBox.Show(@"Сейчас абонемент заморожен! Новая заморозка добавится в очередь!", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show(@"Сейчас абонемент заморожен! Новая заморозка добавится в очередь!", @"Внимание!",
+                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 FormsRunner.RunFreezeForm(_person.Name);
             }
+
             LoadUserData();
             Methods.LoadShortInfo(groupBox_Info, _person);
             UpdateEditableData();
@@ -542,10 +417,149 @@ namespace PBase
         {
             Image img;
             var success = Photo.OpenPhoto(out img);
-            if (success)
+            if (success) _person.PathToPhoto = Photo.SaveToPicturesFolder(img, _person.Name);
+        }
+
+        #region // Хелп Методы для Загрузки и обновления пользовательских данных
+
+        private void UpdateNameText()
+        {
+            Text = @"Карточка Клиента:    " + _person.Name; // Имя формы
+
+            textBox_Name.Text = _person.Name;
+            Methods.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
+
+
+            switch (_person.Status)
             {
-                _person.PathToPhoto = Photo.SaveToPicturesFolder(img, _person.Name);
+                // Если Запрещен 
+                case StatusPerson.Запрещён:
+                    textBox_Name.Text = _person.Name;
+                    Methods.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
+                    return;
+                // Если Заморожен
+                case StatusPerson.Заморожен when _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA a &&
+                                                 _person.Status != StatusPerson.Вероятный_Клиент &&
+                                                 _person.Status != StatusPerson.Гостевой:
+                {
+                    textBox_Name.ForeColor = Color.SeaGreen;
+                    var dateEnd = a.Freeze?.AllFreezes.Last().GetEndDate().Date.ToString("d");
+                    textBox_Name.Text = _person.Name + @"   (Заморожен До " + dateEnd + @" )";
+                    break;
+                }
+                case StatusPerson.Активный:
+                    break;
+                case StatusPerson.Нет_Карты:
+                    break;
+                case StatusPerson.Гостевой:
+                    break;
+                case StatusPerson.Вероятный_Клиент:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            // Заморозка запланирована в будущем
+            var card = _person.AbonementCurent as ClubCardA;
+            if (card?.Freeze != null && _person.Status != StatusPerson.Заморожен &&
+                _person.Status != StatusPerson.Вероятный_Клиент && _person.Status != StatusPerson.Гостевой)
+                if (card.Freeze.IsConfiguredForFuture())
+                {
+                    textBox_Name.ForeColor = Color.SeaGreen;
+                    textBox_Name.Text = _person.Name +
+                                        $@"   (Заморозка c {card.Freeze.GetFutureFreeze().StartDate.Date:d}, дней: {card.Freeze.GetDaysToFreeze()} )";
+                }
+
+            // Не Активирован
+            if (_person.IsAbonementExist() && !_person.AbonementCurent.IsActivated)
+            {
+                textBox_Name.ForeColor = Color.Green;
+                textBox_Name.Text = _person.Name + @"   (Не Активирован)";
+                button_Freeze.Enabled = false;
+            }
+            else
+            {
+                button_Freeze.Enabled = true;
             }
         }
+
+        private List<Tuple<Label, Control>> SelectList(AbonementBasic currentAbon)
+        {
+            List<Tuple<Label, Control>> listResult;
+            if (currentAbon is AbonementByDays)
+                listResult = CreateListAbonement();
+            else if (currentAbon is ClubCardA)
+                listResult = CreateListClubCard();
+            else if (currentAbon is SingleVisit)
+                listResult = CreateListSingleVisit();
+            else
+                listResult = CreateListNoAbonement();
+            return listResult;
+        }
+
+        private List<Tuple<Label, Control>> CreateListNoAbonement()
+        {
+            var list = new List<Tuple<Label, Control>>
+            {
+                CreateNameField(),
+                CreateStatusField()
+            };
+            return list;
+        }
+
+        private List<Tuple<Label, Control>> CreateListSingleVisit()
+        {
+            var list = new List<Tuple<Label, Control>>
+            {
+                CreateNameField(),
+                CreateStatusField(),
+                CreateTypeWorkoutField(),
+                CreateSpaServiceField(),
+                CreatePayServiceField()
+            };
+
+            return list;
+        }
+
+        private List<Tuple<Label, Control>> CreateListClubCard()
+        {
+            var list = new List<Tuple<Label, Control>>
+            {
+                CreateNameField(),
+                CreateStatusField(),
+                CreatePeriodClubCardField(),
+                CreateTypeWorkoutField(),
+                CreateTimeForTrField(),
+                CreateSpaServiceField(),
+                CreateNumPersonalTrField(),
+                CreateNumAerobicTrField(),
+                CreateRemainderDaysField(),
+                CreatePayServiceField(),
+                CreateBuyDateField(),
+                CreateEndDateField()
+            };
+            return list;
+        }
+
+        private List<Tuple<Label, Control>> CreateListAbonement()
+        {
+            var list = new List<Tuple<Label, Control>>
+            {
+                CreateNameField(),
+                CreateStatusField(),
+                CreateNumberDaysInAbonField(),
+                CreateTypeWorkoutField(),
+                CreateTimeForTrField(),
+                CreateSpaServiceField(),
+                CreateRemainderDaysField(),
+                CreatePayServiceField(),
+                CreateBuyDateField(),
+                CreateEndDateField()
+            };
+
+            return list;
+        }
+
+        #endregion
     }
 }

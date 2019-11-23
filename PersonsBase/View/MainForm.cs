@@ -1,12 +1,12 @@
-﻿using PersonsBase.data;
-using PersonsBase.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using PBase;
 using PersonsBase.control;
+using PersonsBase.data;
 
-namespace PBase
+namespace PersonsBase.View
 {
     // FIXME добавить пиктограммы и иконки везде в менюхах и на формах
 

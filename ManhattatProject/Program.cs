@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Windows.Forms;
 using PBase;
+using PersonsBase.View;
 
 namespace ManhattatProject
 {

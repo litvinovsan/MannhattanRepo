@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using PBase;
 using PersonsBase.data;
 using System.Linq;
 using PersonsBase.data.Abonements;
