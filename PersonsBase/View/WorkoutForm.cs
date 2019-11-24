@@ -47,7 +47,7 @@ namespace PersonsBase.View
             if (_person.JournalVisits != null && _person.JournalVisits.Count > 0)
             {
                 var lastVisit = _person.JournalVisits.Last();
-                switch (lastVisit.TypeWorkout)
+                switch (lastVisit.TypeWorkoutToday)
                 {
                     case TypeWorkout.Аэробный_Зал:
                         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -146,44 +147,44 @@ namespace PersonsBase.View
                 switch (_person.UpdateActualStatus())
                 {
                     case StatusPerson.Активный:
-                    {
-                        button_CheckInWorkout.Visible = true;
-
-                        // Кнопка Заморозка Клубной Карты
-                        if (_person.AbonementCurent is ClubCardA a &&
-                            a.PeriodAbonem != PeriodClubCard.На_1_Месяц)
                         {
-                            button_Freeze.Visible = true;
-                            // Кнопка Добавить для Клубной Карты
-                            button_add_dop_tren.Visible = true;
-                        }
+                            button_CheckInWorkout.Visible = true;
 
-                        break;
-                    }
+                            // Кнопка Заморозка Клубной Карты
+                            if (_person.AbonementCurent is ClubCardA a &&
+                                a.PeriodAbonem != PeriodClubCard.На_1_Месяц)
+                            {
+                                button_Freeze.Visible = true;
+                                // Кнопка Добавить для Клубной Карты
+                                button_add_dop_tren.Visible = true;
+                            }
+
+                            break;
+                        }
                     case StatusPerson.Нет_Карты:
-                    {
-                        break;
-                    }
+                        {
+                            break;
+                        }
                     case StatusPerson.Заморожен:
-                    {
-                        button_Add_Abon.Enabled = false;
-                        button_Freeze.Visible = _person.IsAbonementExist();
-                        break;
-                    }
+                        {
+                            button_Add_Abon.Enabled = false;
+                            button_Freeze.Visible = _person.IsAbonementExist();
+                            break;
+                        }
                     case StatusPerson.Гостевой:
-                    {
-                        button_Add_Abon.Enabled = true;
-                        break;
-                    }
+                        {
+                            button_Add_Abon.Enabled = true;
+                            break;
+                        }
                     case StatusPerson.Запрещён:
-                    {
-                        button_Add_Abon.Enabled = false;
-                        break;
-                    }
+                        {
+                            button_Add_Abon.Enabled = false;
+                            break;
+                        }
                     case StatusPerson.Вероятный_Клиент:
-                    {
-                        break;
-                    }
+                        {
+                            break;
+                        }
                 }
 
                 UpdateNameText();
@@ -441,12 +442,12 @@ namespace PersonsBase.View
                 case StatusPerson.Заморожен when _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA a &&
                                                  _person.Status != StatusPerson.Вероятный_Клиент &&
                                                  _person.Status != StatusPerson.Гостевой:
-                {
-                    textBox_Name.ForeColor = Color.SeaGreen;
-                    var dateEnd = a.Freeze?.AllFreezes.Last().GetEndDate().Date.ToString("d");
-                    textBox_Name.Text = _person.Name + @"   (Заморожен До " + dateEnd + @" )";
-                    break;
-                }
+                    {
+                        textBox_Name.ForeColor = Color.SeaGreen;
+                        var dateEnd = a.Freeze?.AllFreezes.Last().GetEndDate().Date.ToString("d");
+                        textBox_Name.Text = _person.Name + @"   (Заморожен До " + dateEnd + @" )";
+                        break;
+                    }
                 case StatusPerson.Активный:
                     break;
                 case StatusPerson.Нет_Карты:
@@ -561,5 +562,58 @@ namespace PersonsBase.View
         }
 
         #endregion
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //Инициализируем новый экземпляр класса System.Data.DataTable и передаем
+            //ему аргументы.
+            DataTable dt = new DataTable();
+            //Создаем и добавляем объект System.Data.DataColumn с указанным именем
+            dt.Columns.Add("Name");
+            dt.Columns.Add("Telephone");
+            dt.Columns.Add("City");
+
+            dt.Rows.Add("1Гомер", "188888888", "Спрингфилд");
+            dt.Rows.Add("2Мардж", "222222222", "Калифорния");
+            dt.Rows.Add("3Барт", "3333333333", "Пасадена");
+            dt.Rows.Add("4Помощник санты", "44444444", "Минесота");
+            dt.Rows.Add("1Гомер", "188888888", "Спрингфилд");
+            dt.Rows.Add("2Мардж", "222222222", "Калифорния");
+            dt.Rows.Add("3Барт", "3333333333", "Пасадена");
+            dt.Rows.Add("4Помощник санты", "44444444", "Минесота");
+            dt.Rows.Add("1Гомер", "188888888", "Спрингфилд");
+            dt.Rows.Add("2Мардж", "222222222", "Калифорния");
+            dt.Rows.Add("3Барт", "3333333333", "Пасадена");
+            dt.Rows.Add("4Помощник санты", "44444444", "Минесота");
+
+            MyDataGrid.InitializeDataGridViewSimple(dataGridView_Visits, dt);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            //Создаем и добавляем объект System.Data.DataColumn с указанным именем
+            dt.Columns.Add("Name");
+            dt.Columns.Add("Telephone");
+            dt.Columns.Add("City");
+            dt.Columns.Add("Country");
+            dt.Columns.Add("Adress");
+            dt.Rows.Add("1Гомер", "188888888", "Спрингфилд");
+            dt.Rows.Add("2Мардж", "222222222", "Калифорния");
+            dt.Rows.Add("3Барт", "3333333333", "Пасадена");
+            dt.Rows.Add("4Помощник санты", "44444444", "Минесота");
+            dt.Rows.Add("1Гомер", "188888888", "Спрингфилд");
+            dt.Rows.Add("2Мардж", "222222222", "Калифорния");
+            dt.Rows.Add("3Барт", "3333333333", "Пасадена");
+            dt.Rows.Add("4Помощник санты", "44444444", "Минесота");
+            dt.Rows.Add("1Гомер", "188888888", "Спрингфилд");
+            dt.Rows.Add("2Мардж", "222222222", "Калифорния");
+            dt.Rows.Add("3Барт", "3333333333", "Пасадена");
+            dt.Rows.Add("4Помощник санты", "44444444", "Минесота");
+
+
+
+            MyDataGrid.InitializeDataGridView(dataGridView_Visits, dt);
+        }
     }
 }

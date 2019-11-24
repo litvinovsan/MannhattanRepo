@@ -90,19 +90,27 @@ namespace PersonsBase.data
     }
 
     [Serializable]
-    public enum FreezeLenghtMont
-    {
-        На_1_Месяц = 1,
-        На_2_Месяца = 2,
-    }
-
-    [Serializable]
     public struct Employee
     {
         public string Name;
         public string Phone;
         public bool IsTrener;
     }
+
+    [Serializable]
+    public struct PersonalDataStruct
+    {
+        public string Name;
+        public string Phone;
+        public string Passport;
+        public string DriveId;
+        public string PathToPhoto;
+        public string SpecialNotes;
+        public int PersonalNumber;
+        public Gender Gender;
+        public DateTime BDate;
+    }
+
 
     #endregion
 
@@ -120,18 +128,18 @@ namespace PersonsBase.data
         {
             HourMinuteTime = Methods.ClockFormating(h, m);
         }
-        public MyTime(string HM) // 08:30
+        public MyTime(string hm) // 08:30
         {
             int hour;
             int minute;
-            if (string.IsNullOrEmpty(HM) || !HM.Contains(":"))
+            if (string.IsNullOrEmpty(hm) || !hm.Contains(":"))
             {
                 hour = 0;
                 minute = 0;
             }
             else
             {
-                var time = HM.Split(':');
+                var time = hm.Split(':');
                 hour = int.Parse(time[0].Trim());
                 minute = int.Parse(time[1].Trim());
             }

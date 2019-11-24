@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using PBase;
 using PersonsBase.control;
 using PersonsBase.data;
+using PersonsBase.myStd;
 
 namespace PersonsBase.View
 {
@@ -254,7 +254,11 @@ namespace PersonsBase.View
         private void SellButtonMenuItem_Click(object sender, EventArgs e)
         {
             Logic.SellAbonement();
+        }
 
+        private void списокКлиентовToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Logic.SelectPerson();
         }
     }
 }

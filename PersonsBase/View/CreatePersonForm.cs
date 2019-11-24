@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using PBase;
-using PersonsBase.control;
 using PersonsBase.data;
+using PersonsBase.control;
 using PersonsBase.myStd;
 
 namespace PersonsBase.View
@@ -95,7 +94,7 @@ namespace PersonsBase.View
         }
 
         private PersonalDataState _dataStateOk;
-        private Person.PersonalDataStruct _dataStruct;
+        private PersonalDataStruct _dataStruct;
 
         #endregion
 
@@ -111,7 +110,7 @@ namespace PersonsBase.View
 
             _persons = DataBaseLevel.GetListPersons();
             _dataStateOk = new PersonalDataState();
-            _dataStruct = new Person.PersonalDataStruct();
+            _dataStruct = new PersonalDataStruct();
 
             // Изменилось какое - либо поле данных
             PersonalDataStateEvent += PersDataStateHandler;

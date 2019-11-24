@@ -69,11 +69,15 @@ namespace PersonsBase.View
             this.comboBox_Gender = new System.Windows.Forms.ComboBox();
             this.textBox_Number = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.dataGridView_Visits = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.button_Cancel = new System.Windows.Forms.Button();
             this.button_SavePersonalData = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox_abonList.SuspendLayout();
@@ -85,6 +89,9 @@ namespace PersonsBase.View
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Visits)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -579,6 +586,8 @@ namespace PersonsBase.View
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.tableLayoutPanel2);
+            this.tabPage3.Controls.Add(this.dataGridView_Visits);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -586,6 +595,41 @@ namespace PersonsBase.View
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Посещения";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.button1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.button3, 1, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(287, 458);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(200, 45);
+            this.tableLayoutPanel2.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Location = new System.Drawing.Point(3, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(94, 39);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // dataGridView_Visits
+            // 
+            this.dataGridView_Visits.AllowUserToOrderColumns = true;
+            this.dataGridView_Visits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_Visits.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dataGridView_Visits.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView_Visits.Name = "dataGridView_Visits";
+            this.dataGridView_Visits.Size = new System.Drawing.Size(1021, 405);
+            this.dataGridView_Visits.TabIndex = 0;
             // 
             // tableLayoutPanel4
             // 
@@ -655,6 +699,17 @@ namespace PersonsBase.View
             this.button_SavePersonalData.UseVisualStyleBackColor = true;
             this.button_SavePersonalData.Click += new System.EventHandler(this.button_SavePersonalData_Click);
             // 
+            // button3
+            // 
+            this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button3.Location = new System.Drawing.Point(103, 3);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(94, 39);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -685,6 +740,9 @@ namespace PersonsBase.View
             this.groupBox2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Visits)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -752,5 +810,9 @@ namespace PersonsBase.View
       private Panel panel1;
       private FlowLayoutPanel flowLayoutPanel1;
         private TabPage tabPage3;
+        private DataGridView dataGridView_Visits;
+        private Button button1;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Button button3;
     }
 }

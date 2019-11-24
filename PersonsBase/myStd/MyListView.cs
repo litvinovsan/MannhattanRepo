@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Windows.Forms;
 using PersonsBase.data;
-using static System.Windows.Forms.ListViewItem;
 
-namespace PBase
+namespace PersonsBase.myStd
 {
     public static class MyListViewEx
     {
@@ -132,7 +129,7 @@ namespace PBase
             if (lv.SelectedItems.Count != 0)
             {
                 List<string> temp = new List<string>();
-                foreach (ListViewSubItem item in lv.SelectedItems[0].SubItems)
+                foreach (ListViewItem.ListViewSubItem item in lv.SelectedItems[0].SubItems)
                 {
                     temp.Add(item.Text);
                 }

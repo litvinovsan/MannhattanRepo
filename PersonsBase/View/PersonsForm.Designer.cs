@@ -102,6 +102,7 @@
             this.listBox_persons.Sorted = true;
             this.listBox_persons.TabIndex = 5;
             this.listBox_persons.SelectedIndexChanged += new System.EventHandler(this.listBox_persons_SelectedIndexChanged);
+            this.listBox_persons.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox_persons_MouseDoubleClick);
             // 
             // comboBox_Names
             // 
@@ -396,6 +397,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "PersonsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Список Клиентов";
             this.Load += new System.EventHandler(this.PersonsListForm_Load);
             this.groupBox1.ResumeLayout(false);

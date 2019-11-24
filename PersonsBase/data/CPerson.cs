@@ -49,19 +49,7 @@ namespace PersonsBase.data
 
         #region/// ПУБЛИЧНЫЕ ПОЛЯ, ДОСТУПНЫЕ ДАННЫЕ О КЛИЕНТЕ ////////////
 
-        [Serializable]
-        public struct PersonalDataStruct
-        {
-            public string Name;
-            public string Phone;
-            public string Passport;
-            public string DriveId;
-            public string PathToPhoto;
-            public string SpecialNotes;
-            public int PersonalNumber;
-            public Gender Gender;
-            public DateTime BDate;
-        }
+
         // FIXME. Replace singe var to structure
         public string Name
         {

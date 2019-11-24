@@ -359,11 +359,11 @@ namespace PersonsBase.control
 
         public static bool SellAbonement()
         {
-            if (!FormsRunner.RunSelectPersonForm(out var selectedName, "Продажа Абонемента")) return false;
+            if (!FormsRunner.RunSelectPersonForm(out var selectedName, "Выберите клиента добавления Абонемента")) return false;
 
             if (string.IsNullOrEmpty(selectedName)) return false;
 
-            var res = MessageBox.Show($@"{selectedName}", @"Добавить Абонемент клиенту:?", MessageBoxButtons.YesNo,
+            var res = MessageBox.Show($@"{selectedName}", @"Добавить абонемент?", MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
             if (res == DialogResult.No) return false;
@@ -384,8 +384,7 @@ namespace PersonsBase.control
             }
             else
             {
-                var result = MessageBox.Show($@"Действует:  {person.AbonementCurent.AbonementName}.
-Добавить новый абонемент к существующему?", "Добавление Абонемента", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var result = MessageBox.Show($@"Действует:  {person.AbonementCurent.AbonementName}.Добавить новый абонемент к существующему?", @"Добавление Абонемента", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
                     dialogResult = FormsRunner.CreateAbonementForm(person.Name);

@@ -31,6 +31,7 @@ namespace PersonsBase.View
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -45,6 +46,7 @@ namespace PersonsBase.View
             this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.конфигураторОтчетовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сomboBox_PersonsList = new System.Windows.Forms.ToolStripComboBox();
+            this.SellAbonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboBox_BDay = new System.Windows.Forms.ComboBox();
             this.label_Time = new System.Windows.Forms.Label();
@@ -67,7 +69,7 @@ namespace PersonsBase.View
             this.label_group = new System.Windows.Forms.Label();
             this.label_personal = new System.Windows.Forms.Label();
             this.label_tren_zal = new System.Windows.Forms.Label();
-            this.SellAbonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.списокКлиентовToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -91,6 +93,7 @@ namespace PersonsBase.View
             this.клиентыToolStripMenuItem,
             this.отчетыToolStripMenuItem,
             this.сomboBox_PersonsList,
+            this.списокКлиентовToolStripMenuItem1,
             this.SellAbonToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -111,14 +114,14 @@ namespace PersonsBase.View
             // руководительToolStripMenuItem1
             // 
             this.руководительToolStripMenuItem1.Name = "руководительToolStripMenuItem1";
-            this.руководительToolStripMenuItem1.Size = new System.Drawing.Size(180, 24);
+            this.руководительToolStripMenuItem1.Size = new System.Drawing.Size(166, 24);
             this.руководительToolStripMenuItem1.Text = "Руководитель";
             this.руководительToolStripMenuItem1.Click += new System.EventHandler(this.руководительToolStripMenuItem1_Click);
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
@@ -165,8 +168,9 @@ namespace PersonsBase.View
             // 
             this.отчетыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.конфигураторОтчетовToolStripMenuItem});
+            this.отчетыToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("отчетыToolStripMenuItem.Image")));
             this.отчетыToolStripMenuItem.Name = "отчетыToolStripMenuItem";
-            this.отчетыToolStripMenuItem.Size = new System.Drawing.Size(69, 28);
+            this.отчетыToolStripMenuItem.Size = new System.Drawing.Size(88, 28);
             this.отчетыToolStripMenuItem.Text = "Отчеты";
             // 
             // конфигураторОтчетовToolStripMenuItem
@@ -190,6 +194,15 @@ namespace PersonsBase.View
             this.сomboBox_PersonsList.Size = new System.Drawing.Size(400, 28);
             this.сomboBox_PersonsList.Sorted = true;
             this.сomboBox_PersonsList.SelectedIndexChanged += new System.EventHandler(this.сomboBox_PersonsListSelectedIndexChanged);
+            // 
+            // SellAbonToolStripMenuItem
+            // 
+            this.SellAbonToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.SellAbonToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("SellAbonToolStripMenuItem.Image")));
+            this.SellAbonToolStripMenuItem.Name = "SellAbonToolStripMenuItem";
+            this.SellAbonToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
+            this.SellAbonToolStripMenuItem.Text = "Продажа Абонемента";
+            this.SellAbonToolStripMenuItem.Click += new System.EventHandler(this.SellButtonMenuItem_Click);
             // 
             // groupBox1
             // 
@@ -442,13 +455,14 @@ namespace PersonsBase.View
             this.label_tren_zal.TabIndex = 3;
             this.label_tren_zal.Text = "Тренажерный зал";
             // 
-            // SellAbonToolStripMenuItem
+            // списокКлиентовToolStripMenuItem1
             // 
-            this.SellAbonToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.SellAbonToolStripMenuItem.Name = "SellAbonToolStripMenuItem";
-            this.SellAbonToolStripMenuItem.Size = new System.Drawing.Size(161, 28);
-            this.SellAbonToolStripMenuItem.Text = "Продажа Абонемента";
-            this.SellAbonToolStripMenuItem.Click += new System.EventHandler(this.SellButtonMenuItem_Click);
+            this.списокКлиентовToolStripMenuItem1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.списокКлиентовToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("списокКлиентовToolStripMenuItem1.Image")));
+            this.списокКлиентовToolStripMenuItem1.Name = "списокКлиентовToolStripMenuItem1";
+            this.списокКлиентовToolStripMenuItem1.Size = new System.Drawing.Size(149, 28);
+            this.списокКлиентовToolStripMenuItem1.Text = "Список Клиентов";
+            this.списокКлиентовToolStripMenuItem1.Click += new System.EventHandler(this.списокКлиентовToolStripMenuItem1_Click);
             // 
             // MainForm
             // 
@@ -517,5 +531,6 @@ namespace PersonsBase.View
         private ColumnHeader columnHeader4;
         private ColumnHeader columnHeader3;
         private ToolStripMenuItem SellAbonToolStripMenuItem;
+        private ToolStripMenuItem списокКлиентовToolStripMenuItem1;
     }
 }

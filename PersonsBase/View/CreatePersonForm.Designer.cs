@@ -373,6 +373,7 @@
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(632, 505);
             this.Name = "CreatePersonForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Создание Клиента";
             this.Load += new System.EventHandler(this.CreatePersonForm_Load);
             this.groupBox1.ResumeLayout(false);

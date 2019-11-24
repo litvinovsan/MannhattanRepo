@@ -85,7 +85,7 @@ namespace PersonsBase.View
         /// <param name="e"></param>
         private void NameProcessing(object sender, EventArgs e)
         {
-            if (!listBox_persons.SelectedItem.ToString().Equals(SelectedName))
+            if (listBox_persons.SelectedItem != null && !listBox_persons.SelectedItem.ToString().Equals(SelectedName))
             {
                 listBox_persons.SelectedItem = SelectedName;
             }
@@ -136,6 +136,14 @@ namespace PersonsBase.View
 
         private void button_Ok_Click_1(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void listBox_persons_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (listBox_persons.SelectedItems.Count == 0) return;
+            comboBox_Names.SelectedItem = listBox_persons.SelectedItem.ToString();
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
