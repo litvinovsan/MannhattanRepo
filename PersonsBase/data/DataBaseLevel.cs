@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using PBase;
+using PersonsBase.myStd;
 
 namespace PersonsBase.data
 {
@@ -45,23 +46,23 @@ namespace PersonsBase.data
             // FIXME Засунуть всю сериализацию в один метод
             // База Клиентов
             _dataBaseList = new SortedList<string, Person>(StringComparer.OrdinalIgnoreCase);
-            lock (_locker) { Methods.DeSerialize(ref _dataBaseList, "ClientsDataBase.bin"); }
+            lock (_locker) { SerializeClass.DeSerialize(ref _dataBaseList, "ClientsDataBase.bin"); }
 
             // База Тренеров
             _trenersList = new List<Trener>();
-            Methods.DeSerialize(ref _trenersList, "TrenersDataBase.bin");
+            SerializeClass.DeSerialize(ref _trenersList, "TrenersDataBase.bin");
 
             // База Администраторов 
             _adminsList = new List<Administrator>();
-            Methods.DeSerialize(ref _adminsList, "AdminsDataBase.bin");
+            SerializeClass.DeSerialize(ref _adminsList, "AdminsDataBase.bin");
 
             // Текущий Администратор на Ресепшн
             _adminCurrent = new Administrator();
-            Methods.DeSerialize(ref _adminCurrent, "adminToday.bin");
+            SerializeClass.DeSerialize(ref _adminCurrent, "adminToday.bin");
 
             // Список ежедневных Групповых Тренировок
             _groupScheduleList = new List<ScheduleNote>();
-            Methods.DeSerialize(ref _groupScheduleList, "GroupSchedule.bin");
+            SerializeClass.DeSerialize(ref _groupScheduleList, "GroupSchedule.bin");
 
             // Cтруктура для удобства доступа
             _manhattanInfo = new ManhattanInfo
@@ -77,16 +78,16 @@ namespace PersonsBase.data
         {
             // База Клиентов
             lock (_locker)
-            { Methods.Serialize(_dataBaseList, "ClientsDataBase.bin"); }
+            { SerializeClass.Serialize(_dataBaseList, "ClientsDataBase.bin"); }
 
             // База Тренеров
-            Methods.Serialize(_trenersList, "TrenersDataBase.bin");
+            SerializeClass.Serialize(_trenersList, "TrenersDataBase.bin");
             // База Администраторов 
-            Methods.Serialize(_adminsList, "AdminsDataBase.bin");
+            SerializeClass.Serialize(_adminsList, "AdminsDataBase.bin");
             // Текущий Администратор на Ресепшн
-            Methods.Serialize(_adminCurrent, "adminToday.bin");
+            SerializeClass.Serialize(_adminCurrent, "adminToday.bin");
             // Список ежедневных Групповых Тренировок
-            Methods.Serialize(_groupScheduleList, "GroupSchedule.bin");
+            SerializeClass.Serialize(_groupScheduleList, "GroupSchedule.bin");
         }
         #endregion
 

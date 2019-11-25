@@ -33,6 +33,7 @@ namespace PersonsBase.View
       /// </summary>
       private void InitializeComponent()
       {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.textBox_Name = new System.Windows.Forms.TextBox();
             this.dateTimePicker_birthDate = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -71,13 +72,13 @@ namespace PersonsBase.View
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.dataGridView_Visits = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.button_Cancel = new System.Windows.Forms.Button();
             this.button_SavePersonalData = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox_abonList.SuspendLayout();
@@ -105,7 +106,7 @@ namespace PersonsBase.View
             this.textBox_Name.Location = new System.Drawing.Point(7, 2);
             this.textBox_Name.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_Name.Name = "textBox_Name";
-            this.textBox_Name.Size = new System.Drawing.Size(1009, 32);
+            this.textBox_Name.Size = new System.Drawing.Size(1204, 32);
             this.textBox_Name.TabIndex = 1;
             this.textBox_Name.Text = "ФИО";
             // 
@@ -134,7 +135,7 @@ namespace PersonsBase.View
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1035, 553);
+            this.tabControl1.Size = new System.Drawing.Size(1230, 553);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -149,7 +150,7 @@ namespace PersonsBase.View
             this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Size = new System.Drawing.Size(1027, 524);
+            this.tabPage1.Size = new System.Drawing.Size(1222, 524);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Информация";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -159,7 +160,7 @@ namespace PersonsBase.View
             this.groupBox_abonList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_abonList.Controls.Add(this.button__remove_abon);
             this.groupBox_abonList.Controls.Add(this.listBox_abonements);
-            this.groupBox_abonList.Location = new System.Drawing.Point(820, 273);
+            this.groupBox_abonList.Location = new System.Drawing.Point(1015, 273);
             this.groupBox_abonList.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_abonList.Name = "groupBox_abonList";
             this.groupBox_abonList.Padding = new System.Windows.Forms.Padding(2);
@@ -198,7 +199,7 @@ namespace PersonsBase.View
             this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox6.Controls.Add(this.button_photo);
             this.groupBox6.Controls.Add(this.pictureBox_ClientPhoto);
-            this.groupBox6.Location = new System.Drawing.Point(820, 38);
+            this.groupBox6.Location = new System.Drawing.Point(1015, 38);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(2);
@@ -337,7 +338,7 @@ namespace PersonsBase.View
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(1023, 135);
+            this.groupBox1.Size = new System.Drawing.Size(1218, 135);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             // 
@@ -351,7 +352,7 @@ namespace PersonsBase.View
             this.textBox_Notes.Multiline = true;
             this.textBox_Notes.Name = "textBox_Notes";
             this.textBox_Notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_Notes.Size = new System.Drawing.Size(1019, 118);
+            this.textBox_Notes.Size = new System.Drawing.Size(1214, 118);
             this.textBox_Notes.TabIndex = 5;
             this.textBox_Notes.Text = "Заметки о Клиенте";
             this.textBox_Notes.TextChanged += new System.EventHandler(this.textBox_Notes_TextChanged);
@@ -365,7 +366,7 @@ namespace PersonsBase.View
             this.groupBox_Info.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_Info.Name = "groupBox_Info";
             this.groupBox_Info.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox_Info.Size = new System.Drawing.Size(624, 345);
+            this.groupBox_Info.Size = new System.Drawing.Size(819, 345);
             this.groupBox_Info.TabIndex = 4;
             this.groupBox_Info.TabStop = false;
             this.groupBox_Info.Text = "Информация";
@@ -378,7 +379,7 @@ namespace PersonsBase.View
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(1027, 524);
+            this.tabPage2.Size = new System.Drawing.Size(1301, 524);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Персональные данные";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -393,7 +394,7 @@ namespace PersonsBase.View
             this.groupBox_Detailed.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_Detailed.Name = "groupBox_Detailed";
             this.groupBox_Detailed.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox_Detailed.Size = new System.Drawing.Size(705, 418);
+            this.groupBox_Detailed.Size = new System.Drawing.Size(979, 418);
             this.groupBox_Detailed.TabIndex = 1;
             this.groupBox_Detailed.TabStop = false;
             this.groupBox_Detailed.Text = "Детальная информация";
@@ -591,7 +592,7 @@ namespace PersonsBase.View
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1027, 524);
+            this.tabPage3.Size = new System.Drawing.Size(1222, 524);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Посещения";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -621,14 +622,37 @@ namespace PersonsBase.View
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // button3
+            // 
+            this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button3.Location = new System.Drawing.Point(103, 3);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(94, 39);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // dataGridView_Visits
             // 
             this.dataGridView_Visits.AllowUserToOrderColumns = true;
+            this.dataGridView_Visits.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView_Visits.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView_Visits.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial Narrow", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_Visits.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView_Visits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_Visits.Dock = System.Windows.Forms.DockStyle.Top;
             this.dataGridView_Visits.Location = new System.Drawing.Point(3, 3);
             this.dataGridView_Visits.Name = "dataGridView_Visits";
-            this.dataGridView_Visits.Size = new System.Drawing.Size(1021, 405);
+            this.dataGridView_Visits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_Visits.Size = new System.Drawing.Size(1216, 405);
             this.dataGridView_Visits.TabIndex = 0;
             // 
             // tableLayoutPanel4
@@ -647,14 +671,14 @@ namespace PersonsBase.View
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1035, 40);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1230, 40);
             this.tableLayoutPanel4.TabIndex = 2;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.button2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(813, 3);
+            this.panel1.Location = new System.Drawing.Point(1008, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(219, 34);
             this.panel1.TabIndex = 0;
@@ -699,22 +723,11 @@ namespace PersonsBase.View
             this.button_SavePersonalData.UseVisualStyleBackColor = true;
             this.button_SavePersonalData.Click += new System.EventHandler(this.button_SavePersonalData_Click);
             // 
-            // button3
-            // 
-            this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button3.Location = new System.Drawing.Point(103, 3);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(94, 39);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1035, 597);
+            this.ClientSize = new System.Drawing.Size(1230, 597);
             this.Controls.Add(this.tableLayoutPanel4);
             this.Controls.Add(this.tabControl1);
             this.DoubleBuffered = true;

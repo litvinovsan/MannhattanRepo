@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using PBase;
 
 namespace PersonsBase.data
 {
@@ -119,15 +118,8 @@ namespace PersonsBase.data
             bool result = false;
             if (person != null && newNumber > 0)
             {
-                try
-                {
-                    person.PersonalNumber = newNumber;
-                    result = true;
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+                person.PersonalNumber = newNumber;
+                result = true;
             }
             return result;
         }
@@ -138,15 +130,8 @@ namespace PersonsBase.data
             Person result = null;
             if (inputCollection != null && !string.IsNullOrEmpty(fullName) && inputCollection.Count > 0)
             {
-                string fname = Methods.PrepareName(fullName);
-                try
-                {
-                    result = inputCollection.Values.Single(x => x.Name == fname);
-                }
-                catch
-                {
-                    throw;
-                }
+                var fname = Methods.PrepareName(fullName);
+                result = inputCollection.Values.Single(x => x.Name == fname);
             }
             return result;
         }

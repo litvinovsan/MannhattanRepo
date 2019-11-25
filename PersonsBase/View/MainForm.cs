@@ -9,6 +9,7 @@ using PersonsBase.myStd;
 namespace PersonsBase.View
 {
     // FIXME добавить пиктограммы и иконки везде в менюхах и на формах
+    // FIXME использовать паттерн Мементо для сохранения списков посещений. https://shwanoff.ru/memento/#more-682
 
     public delegate void MyListViewDelegate(string namePerson, WorkoutOptions workoutOptions);
 
@@ -16,14 +17,14 @@ namespace PersonsBase.View
     {
         #region /// ОСНОВНЫЕ ОБЬЕКТЫ ///
 
-        private readonly DataBaseLevel _db = DataBaseLevel.GetInstance();
+        private readonly DataBaseLevel _dataB = DataBaseLevel.GetInstance();
 
         private SortedList<string, Person> PersonsList
         {
             get { return DataBaseLevel.GetListPersons(); }
         }
 
-        private readonly Dictionary<TypeWorkout, MyListViewDelegate> _listViewSelector; // Для заполнения 1 из 3х списков с Клиентами
+        private readonly Dictionary<TypeWorkout, MyListViewDelegate> _visitorsListViewSelector; // Для заполнения 1 из 3х списков с Клиентами
 
         private Options _options; // Хранятся локальные настройки и параметры программы.
         private readonly Logic _logic;       // Логика и управляющие методы программы.
@@ -41,24 +42,25 @@ namespace PersonsBase.View
             _options = Options.GetInstance();
             _logic = Logic.GetInstance();
 
-            _listViewSelector = new Dictionary<TypeWorkout, MyListViewDelegate>
+            // В зависимости от типа тренировки запускаются разные методы записи в один из трех столбцов
+            _visitorsListViewSelector = new Dictionary<TypeWorkout, MyListViewDelegate>
             {
-                { TypeWorkout.Аэробный_Зал,AddToGroupList },
-                { TypeWorkout.Персональная,AddToPersonalnList },
-                { TypeWorkout.Тренажерный_Зал,AddToGymList }
+                { TypeWorkout.Аэробный_Зал, AddToGroupList },
+                { TypeWorkout.Персональная, AddToPersonalnList },
+                { TypeWorkout.Тренажерный_Зал, AddToGymList }
             };
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Methods.DeSerialize(ref _options, "Option.bin");
+            SerializeClass.DeSerialize(ref _options, "Option.bin");
 
             // Подписка на события в пользовательской Базе Данных
-            _db.ListChangedEvent += UpdateFindComboBoxMenu;  // Список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
-            _db.ListChangedEvent += UpdateUsersCountTextBox; // Счетчик пользователей
-            _db.ListChangedEvent += UpdateBirthDateComboBox; // Поле Сегодняшних Дней рождений
+            _dataB.ListChangedEvent += UpdateFindComboBoxMenu;  // Список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
+            _dataB.ListChangedEvent += UpdateUsersCountTextBox; // Счетчик пользователей
+            _dataB.ListChangedEvent += UpdateBirthDateComboBox; // Поле Сегодняшних Дней рождений
 
-            _db.OnListChanged(); // Событие запускающееся при изменении количества Клиентов в списке.
+            _dataB.OnListChanged(); // Событие запускающееся при изменении количества Клиентов в списке.
 
             comboBox_BDay.SelectedIndexChanged += comboBox_BDay_SelectedIndexChanged;
             PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
@@ -83,7 +85,7 @@ namespace PersonsBase.View
         {
             // Сохраняем настройки. 
 
-            Methods.Serialize(_options, "Option.bin");
+            SerializeClass.Serialize(_options, "Option.bin");
         }
 
 
@@ -134,7 +136,7 @@ namespace PersonsBase.View
 
         private void AddPersonToTable(string name, WorkoutOptions arg)
         {
-            _listViewSelector[arg.TypeWorkout].Invoke(name, arg);
+            _visitorsListViewSelector[arg.TypeWorkout].Invoke(name, arg);
         }
         private void UpdateDailyCounter(string arg1, WorkoutOptions arg2)
         {

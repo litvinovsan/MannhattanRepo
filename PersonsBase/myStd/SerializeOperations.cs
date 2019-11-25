@@ -1,14 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using System.Linq;
-using System.Text;
-using System.Runtime.Serialization.Formatters.Soap;
 using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization.Formatters.Soap;
+using System.Windows.Forms;
 using Newtonsoft.Json;
 
 /// <summary>
@@ -16,7 +11,7 @@ using Newtonsoft.Json;
 ///  Для STATIC сериализации добавить в Reference проекта System.Runtime.Serialization.Formatters.Soap;
 /// </summary>
 
-namespace PBase
+namespace PersonsBase.myStd
 {
     static class SerializeClass
     {
@@ -26,12 +21,12 @@ namespace PBase
         {
             try
             {
-                using (MemoryStream ms = new MemoryStream())
+                using (var ms = new MemoryStream())
                 {
                     var formatter = new BinaryFormatter();
                     formatter.Serialize(ms, objectToSerialize);// Если ошибка, вываливаемся тут и не стираем файл базы
                                                                // Сохраняем в файл поток из памяти
-                    using (FileStream fileStream = new FileStream(nameFile, FileMode.OpenOrCreate, FileAccess.Write))
+                    using (var fileStream = new FileStream(nameFile, FileMode.OpenOrCreate, FileAccess.Write))
                     {
                         formatter.Serialize(fileStream, objectToSerialize);
                     }
@@ -74,9 +69,9 @@ namespace PBase
                 // "JSON documents|*.json";
                 var objectAsJson = JsonConvert.SerializeObject(objectToSerialize, Newtonsoft.Json.Formatting.Indented);
 
-                using (FileStream file = new FileStream(nameOutFile, FileMode.Create, FileAccess.Write))
+                using (var file = new FileStream(nameOutFile, FileMode.Create, FileAccess.Write))
                 {
-                    StreamWriter streamWriter = new StreamWriter(file);
+                    var streamWriter = new StreamWriter(file);
                     streamWriter.Write(objectAsJson);
                     result = true;
                 }
@@ -132,11 +127,11 @@ namespace PBase
         ///
         #endregion
 
-        public static bool StaticSave(Type static_class, string filename)
+        public static bool StaticSave(Type staticClass, string filename)
         {
             try
             {
-                FieldInfo[] fields = static_class.GetFields(BindingFlags.Static | BindingFlags.Public);
+                FieldInfo[] fields = staticClass.GetFields(BindingFlags.Static | BindingFlags.Public);
                 object[,] a = new object[fields.Length, 2];
                 int i = 0;
                 foreach (FieldInfo field in fields)

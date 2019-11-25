@@ -291,7 +291,7 @@ namespace PersonsBase.View
                 ButtonAddEnable(false);
                 return;
             }
-            var p = Person.CreateNewPerson(_dataStruct);
+            var p = Methods.CreateNewPerson(_dataStruct);
             var result = DataBaseLevel.GetInstance().PersonAdd(p);
             if (result == ResponseCode.Success)
                 DialogResult = DialogResult.OK;

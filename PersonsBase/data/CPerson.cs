@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using PersonsBase.data.Abonements;
 
 namespace PersonsBase.data
@@ -48,7 +50,6 @@ namespace PersonsBase.data
         #endregion
 
         #region/// ПУБЛИЧНЫЕ ПОЛЯ, ДОСТУПНЫЕ ДАННЫЕ О КЛИЕНТЕ ////////////
-
 
         // FIXME. Replace singe var to structure
         public string Name
@@ -129,20 +130,22 @@ namespace PersonsBase.data
             Name = nameFio;
             PersonalNumber = 0;
             Status = StatusPerson.Нет_Карты;
-            _phone = "";
             GenderType = Gender.Неизвестен;
             BirthDate = DateTime.Parse("02.02.2000");
-            Passport = "";
-            _driverIdNum = "";
-            _pathToPhoto = "";
-            SpecialNotes = "";
+            Passport = string.Empty;
+            SpecialNotes = string.Empty;
+
+            _phone = string.Empty;
+            _driverIdNum = string.Empty;
+            _pathToPhoto = string.Empty;
             _abonementCurent = null;
+
             AbonementsQueue = new ObservableCollection<AbonementBasic>();
             JournalVisits = new List<Visit>();
         }
         #endregion
 
-        #region/// МЕТОДЫ  ///////////////////////////
+        #region /// МЕТОДЫ  ///////////////////////////
 
         // Публичные
         public StatusPerson UpdateActualStatus()
@@ -150,11 +153,7 @@ namespace PersonsBase.data
             //Обновляем статус клиента.
             if (Status == StatusPerson.Запрещён) return Status;
 
-            if (AbonementCurent == null)
-            {
-                if (Status == StatusPerson.Активный || Status == StatusPerson.Заморожен) _status = StatusPerson.Нет_Карты;
-            }
-            else
+            if (AbonementCurent != null)
             {
                 if (AbonementCurent.IsValid())
                 {
@@ -176,35 +175,22 @@ namespace PersonsBase.data
                     // AbonementCurent = null;
                 }
             }
+            else
+            {
+                if (Status == StatusPerson.Активный || Status == StatusPerson.Заморожен) _status = StatusPerson.Нет_Карты;
+            }
             return Status;
         }
+
+        #endregion
+
+        #region /// АБОНЕМЕНТ
+
         public bool IsAbonementExist()
         {// FIXME сделать тут проверку валидности абонемента по всем полям. Дата,занятия,дни
             return AbonementCurent != null;
         }
-        public void AddToJournal(WorkoutOptions selectedOptions)
-        {
-            if (JournalVisits == null) JournalVisits = new List<Visit>(); // Проверка на случай сериализации
-            var currentAdmin = DataBaseO.GetManhattanInfo().CurrentAdmin;
-            JournalVisits.Add(new Visit(_abonementCurent, selectedOptions, currentAdmin.Name));
-        }
-        public static Person CreateNewPerson(PersonalDataStruct dataStruct)
-        {
-            var p = new Person(dataStruct.Name)
-            {
-                BirthDate = dataStruct.BDate,
-                GenderType = dataStruct.Gender,
-                DriverIdNum = dataStruct.DriveId,
-                Passport = dataStruct.Passport,
-                PathToPhoto = dataStruct.PathToPhoto,
-                PersonalNumber = dataStruct.PersonalNumber,
-                Phone = dataStruct.Phone,
-                SpecialNotes = dataStruct.SpecialNotes,
-            };
-            return p;
-        }
 
-        // Приватные
         private bool UpdateQueue(AbonementBasic newAbonementValue)
         {
             var result = true;
@@ -232,6 +218,44 @@ namespace PersonsBase.data
 
             return result;
         }
+
+        #endregion
+
+        #region /// ЖУРНАЛ УЧЕТА ПОСЕЩЕНИЙ
+        /// <summary>
+        /// Добавляет в коллекцию параметры выбранной Тренировки, Текущего администратора, время тренировки 
+        /// </summary>
+        /// <param name="selectedOptions"></param>
+        public void AddToJournal(WorkoutOptions selectedOptions)
+        {
+            if (JournalVisits == null) JournalVisits = new List<Visit>(); // Проверка на случай сериализации
+            var currentAdmin = DataBaseO.GetManhattanInfo().CurrentAdmin;
+            JournalVisits.Add(new Visit(_abonementCurent, selectedOptions, currentAdmin.Name));
+        }
+
+        public DataTable CreateJournalTable()
+        {
+            var table = new DataTable();
+            if (JournalVisits == null || JournalVisits.Count == 0)
+            {
+                table.Columns.Add("Небыло посещений");
+                return table;
+            }
+
+            // Создаем Заголовки таблицы, берем из первого элемента Visit
+            var headers = JournalVisits.First().GetHeadersForValues();
+            table.Columns.AddRange(headers);
+
+            // Заполняем строки значениями из журнала
+            foreach (var item in JournalVisits.Reverse<Visit>())
+            {
+                table.Rows.Add(item.GetValues());
+                
+            }
+
+            return table;
+        }
+
         #endregion
 
         #region //Перегрузка операторов для сравнения клиентов

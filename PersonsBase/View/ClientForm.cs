@@ -567,26 +567,11 @@ namespace PersonsBase.View
         {
             //Инициализируем новый экземпляр класса System.Data.DataTable и передаем
             //ему аргументы.
-            DataTable dt = new DataTable();
-            //Создаем и добавляем объект System.Data.DataColumn с указанным именем
-            dt.Columns.Add("Name");
-            dt.Columns.Add("Telephone");
-            dt.Columns.Add("City");
+            DataTable dt = _person.CreateJournalTable();
 
-            dt.Rows.Add("1Гомер", "188888888", "Спрингфилд");
-            dt.Rows.Add("2Мардж", "222222222", "Калифорния");
-            dt.Rows.Add("3Барт", "3333333333", "Пасадена");
-            dt.Rows.Add("4Помощник санты", "44444444", "Минесота");
-            dt.Rows.Add("1Гомер", "188888888", "Спрингфилд");
-            dt.Rows.Add("2Мардж", "222222222", "Калифорния");
-            dt.Rows.Add("3Барт", "3333333333", "Пасадена");
-            dt.Rows.Add("4Помощник санты", "44444444", "Минесота");
-            dt.Rows.Add("1Гомер", "188888888", "Спрингфилд");
-            dt.Rows.Add("2Мардж", "222222222", "Калифорния");
-            dt.Rows.Add("3Барт", "3333333333", "Пасадена");
-            dt.Rows.Add("4Помощник санты", "44444444", "Минесота");
 
-            MyDataGrid.InitializeDataGridViewSimple(dataGridView_Visits, dt);
+
+            MyDataGrid.InitializeDataGridView(dataGridView_Visits, dt);
         }
 
         private void button3_Click(object sender, EventArgs e)

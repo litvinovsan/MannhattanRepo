@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using PersonsBase.data.Abonements;
 
 namespace PersonsBase.data
@@ -28,7 +29,7 @@ namespace PersonsBase.data
         // Конструкторы
         public Visit(AbonementBasic abon, WorkoutOptions workoutOptions, string administratorName)
         {
-            DateTimeVisit = DateTime.Now.Date;
+            DateTimeVisit = DateTime.Now;
             TypeWorkoutToday = workoutOptions.TypeWorkout;
             NumAerobicTr = abon.NumAerobicTr;
             NumPersonalTr = abon.NumPersonalTr;
@@ -50,7 +51,7 @@ namespace PersonsBase.data
         /// Создает массив со значениями полей в текущем посещении
         /// </summary>
         /// <returns></returns>
-        public string[] GetValues()
+        public object[] GetValues()
         {
             // Зависят от типа тренировки. Т.к. могут не быть групповые трени
             string trenerName = GetTrenerName();
@@ -58,15 +59,14 @@ namespace PersonsBase.data
             string notes = GroupInfo.Notes;
 
             // Основной массив с данными
-            var temp = new[]
-            {
+            object[] temp = {
                 $"{DateTimeVisit:f}",     // Время и дата посещения
-                TypeWorkoutToday.ToString(),   // Тип тренировки. Аэроб, персона или тренажерка
-                AvailableTimeTren.ToString(), // Доступное время посещений
-                PayStatus.ToString(),     // статус оплаты
+                TypeWorkoutToday.ToString().Replace("_"," "),   // Тип тренировки. Аэроб, персона или тренажерка
+                AvailableTimeTren.ToString().Replace("_"," "), // Доступное время посещений
+                PayStatus.ToString().Replace("_"," "),     // статус оплаты
                 NumAerobicTr.ToString(),  //
                 NumPersonalTr.ToString(), //
-                SpaStatus.ToString(),     // Спа доступность
+                SpaStatus.ToString().Replace("_"," "),     // Спа доступность
                 trenerName,
                 groupTimeNameInfo,         // Название и Время групповой тренировки
                 CurrAdmName,          // Имя Администратора на тот момент
@@ -81,7 +81,7 @@ namespace PersonsBase.data
         /// Возвращает массив с названиями Полей в такой же очередности что и в функции GetValues. Не менять порядок!!!
         /// </summary>
         /// <returns></returns>
-        public string[] GetHeadersForValues()
+        public DataColumn[] GetHeadersForValues()
         {
             var headerNames = new[]
             {
@@ -99,7 +99,13 @@ namespace PersonsBase.data
                 "Конец абонем.",
                 "Заметки"
             };
-            return headerNames;
+            var dcol = new DataColumn[headerNames.Length];
+            for (var i = 0; i < headerNames.Length; i++)
+            {
+                dcol[i] = new DataColumn(headerNames[i]);
+            }
+
+            return dcol;
         }
 
         private string GetGroupTimeNameInfo()

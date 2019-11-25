@@ -16,7 +16,9 @@ namespace PersonsBase.data
     [Serializable]
     public static class Methods
     {
+        // Маркеры для выделения цветом в таблице Шорт Инфо
         private const string StrMorning = "Утро";
+        private const string StrNoPay = "Не_Оплачено";
 
         /// <summary>
         /// Подготавливает строку с именем, приводит в  заглавный формат Фамилия Имя Отчество вместо  фамилия имя отчество
@@ -25,12 +27,12 @@ namespace PersonsBase.data
         /// <returns></returns>
         public static string PrepareName(string fio)
         {
-            if (string.IsNullOrWhiteSpace(fio) || string.IsNullOrEmpty(fio))
+            if (String.IsNullOrWhiteSpace(fio) || String.IsNullOrEmpty(fio))
             {
                 return "";
             }
 
-            string resultName = string.Empty;
+            string resultName = String.Empty;
             var minimumSpaces = Regex.Replace(fio.ToLower().Trim(), @"[^\S\r\n]+", " "); // Уплотняем пробелы
             var lowercase = minimumSpaces.ToLower();
 
@@ -39,61 +41,33 @@ namespace PersonsBase.data
             foreach (var item in fioArray)
             {
                 var tempWord = item;
-                if (!char.IsLetterOrDigit(item[0]))
+                if (!Char.IsLetterOrDigit(item[0]))
                 {
                     tempWord = tempWord.Remove(0, 1);
-                    if(tempWord.Length==0)break;
+                    if (tempWord.Length == 0) break;
                 }
-                var c = char.ToUpper(tempWord[0]);
+                var c = Char.ToUpper(tempWord[0]);
                 resultName += c + tempWord.Remove(0, 1) + " ";
             }
 
             return resultName.Trim();
         }
 
-        // Сериализация обьектов
-        public static bool Serialize<T>(T objectToSerialize, string nameFile)
+        public static Person CreateNewPerson(PersonalDataStruct dataStruct)
         {
-            try
+            var p = new Person(dataStruct.Name)
             {
-                using (var ms = new MemoryStream())
-                {
-                    var formatter = new BinaryFormatter();
-                    formatter.Serialize(ms, objectToSerialize);// Если ошибка, вываливаемся тут и не стираем файл базы
-                                                               // Сохраняем в файл поток из памяти
-                    using (var fileStream = new FileStream(nameFile, FileMode.OpenOrCreate, FileAccess.Write))
-                    {
-                        formatter.Serialize(fileStream, objectToSerialize);
-                    }
-                    return true;
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(@"Ошибка: " + e.Message, @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+                BirthDate = dataStruct.BDate,
+                GenderType = dataStruct.Gender,
+                DriverIdNum = dataStruct.DriveId,
+                Passport = dataStruct.Passport,
+                PathToPhoto = dataStruct.PathToPhoto,
+                PersonalNumber = dataStruct.PersonalNumber,
+                Phone = dataStruct.Phone,
+                SpecialNotes = dataStruct.SpecialNotes,
+            };
+            return p;
         }
-
-        public static bool DeSerialize<T>(ref T objectToDeSerialize, string nameFile)
-        {
-            try
-            {
-                var formatter = new BinaryFormatter();
-
-                using (var fileStream = new FileStream(nameFile, FileMode.OpenOrCreate, FileAccess.Read))
-                {
-                    objectToDeSerialize = (T)formatter.Deserialize(fileStream);
-                }
-                return true;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(@"Ошибка: " + e.Message, @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-        }
-
 
         #region /// ДЛЯ Создания ТАБЛИЦ на ClientForms /// Подготовка для отображения на Клиентской форме
 
@@ -159,11 +133,10 @@ namespace PersonsBase.data
 
             return tableInfo;
         }
-
         private static IEnumerable<Tuple<string, string>> GetEmptyInfoList(Person person)
         {
             var result = new List<Tuple<string, string>>
-          {
+            {
               new Tuple<string, string>("Текущий статус Клиента", person.Status.ToString()),
               new Tuple<string, string>("Абонемент ", "Нет"),
               new Tuple<string, string>("Клубная Карта ", "Нет ")
@@ -198,7 +171,7 @@ namespace PersonsBase.data
             };
 
             // Выделение цветом по какому-либо признакму
-            if (info == "Не_Оплачено" || info == StrMorning) tb.BackColor = Color.LightPink;
+            if (info == StrNoPay || info == StrMorning) tb.BackColor = Color.LightPink;
 
             return Tuple.Create<Label, Control>(lb, tb);
         }
@@ -292,6 +265,11 @@ namespace PersonsBase.data
         }
 
         // Часы. Подготовка строки 
+
+        /// <summary>
+        /// Форматирование Текущего времени
+        /// </summary>
+        /// <returns></returns>
         public static string ClockFormating()
         {
             int h = DateTime.Now.Hour;

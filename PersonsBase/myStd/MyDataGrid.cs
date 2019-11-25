@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace PersonsBase.myStd
@@ -30,20 +31,16 @@ namespace PersonsBase.myStd
                 dataGridView1.DataSource = BindingSource1;
 
                 // Automatically resize the visible rows.
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
                 // Set the DataGridView control's border.
                 dataGridView1.BorderStyle = BorderStyle.Fixed3D;
 
-                // Set up the DataGridView.
-                // dataGridView1.Dock = DockStyle.Fill;
-
-                // Put the cells in edit mode when user enters them.
-                // dataGridView1.EditMode = DataGridViewEditMode.EditOnEnter;
-
-                // Чтобы изменения вступили в силу.
-                //BindingSource1.ResetBindings(true);
+                foreach (DataGridViewColumn column in dataGridView1.Columns)
+                {
+                    column.HeaderCell.Style.BackColor = Color.DarkBlue;  //.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                }
             }
             catch (Exception)
             {
@@ -91,11 +88,11 @@ namespace PersonsBase.myStd
         public static void InitializeDataGridViewSimple(DataGridView dataGridView1, DataTable dataTable)
         {
             // Automatically resize the visible rows.
-            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+           dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+           dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
             // Set the DataGridView control's border.
-            dataGridView1.BorderStyle = BorderStyle.Fixed3D;
+            dataGridView1.BorderStyle = BorderStyle.FixedSingle;
 
             //Задаем источник данных, для которого объект
             //System.Windows.Forms.DataGridView отображает данные.
