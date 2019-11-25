@@ -60,7 +60,7 @@ namespace PersonsBase.data
 
             // Основной массив с данными
             object[] temp = {
-                $"{DateTimeVisit:f}",     // Время и дата посещения
+                $"{DateTimeVisit:g}",     // Время и дата посещения
                 TypeWorkoutToday.ToString().Replace("_"," "),   // Тип тренировки. Аэроб, персона или тренажерка
                 AvailableTimeTren.ToString().Replace("_"," "), // Доступное время посещений
                 PayStatus.ToString().Replace("_"," "),     // статус оплаты
@@ -72,11 +72,10 @@ namespace PersonsBase.data
                 CurrAdmName,          // Имя Администратора на тот момент
                 $"{AbonStartDate:d}",   // Дата покупки абонемента
                 $"{AbonEndDate:d}",   // Дата окончания абонемента
-                notes
+                // notes
             };
             return temp;
         }
-
         /// <summary>
         /// Возвращает массив с названиями Полей в такой же очередности что и в функции GetValues. Не менять порядок!!!
         /// </summary>
@@ -89,15 +88,15 @@ namespace PersonsBase.data
                 "Тип Тренировки",
                 "Утро/Весь день",
                 "Оплата",
-                "Ост. Групповых",
-                "Ост. Персонал",
+                "Осталось Групповых",
+                "Осталось Персон",
                 "Спа",
                 "Тренер",
                 "Групповая трен.",
                 "Администратор",
                 "Покупка абонем.",
                 "Конец абонем.",
-                "Заметки"
+             //   "Заметки"
             };
             var dcol = new DataColumn[headerNames.Length];
             for (var i = 0; i < headerNames.Length; i++)
@@ -107,7 +106,30 @@ namespace PersonsBase.data
 
             return dcol;
         }
-
+        /// <summary>
+        /// Возвращает массив с хелпами в такой же очередности что и в функции GetValues. Не менять порядок!!!
+        /// </summary>
+        /// <returns></returns>
+        protected internal string[] GetHeadersToolTipHelp()
+        {
+            var headerNames = new[]
+            {
+                "Дата и время посещения",
+                "Тип тренировки в указанную дату (Аэробная, Персональная или Тренажерный залл)",
+                "Время занятий (Утро или Весь день)",
+                "Статус Оплата в указанную дату",
+                "Остаток Групповых тренировок",
+                "Остаток Персональных тренировок",
+                "Разрешена ли Спа зона",
+                "Имя Тренера, проводившего тренировку. Если известно",
+                "Название и время Групповой тренировки. Если известно.",
+                "Администратор в клубе на момент посещения",
+                "Дата Покупки абонемента",
+                "Дата Конеца абонемента",
+               // "Заметки"
+            };
+            return headerNames;
+        }
         private string GetGroupTimeNameInfo()
         {
             return (TypeWorkoutToday == TypeWorkout.Аэробный_Зал) ? GroupInfo.ScheduleNote.GetTimeAndNameStr() : "";

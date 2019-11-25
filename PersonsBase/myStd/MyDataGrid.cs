@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace PersonsBase.myStd
@@ -11,7 +10,7 @@ namespace PersonsBase.myStd
     {
         private static readonly BindingSource BindingSource1 = new BindingSource();
 
-        #region /// ИНИЦИАЛИЗАЦИЯ
+        #region /// ИНИЦИАЛИЗАЦИЯ ИСТОЧНИКА ДАННЫХ
 
         /// <summary>
         /// Инициализация DataGridView через BindingSource. На вход подается DataTable. Заголовок подключается автоматически
@@ -19,7 +18,7 @@ namespace PersonsBase.myStd
         /// </summary>
         /// <param name="dataGridView1"></param>
         /// <param name="dataTable"></param>
-        public static void InitializeDataGridView(DataGridView dataGridView1, DataTable dataTable)
+        public static void SetSourceDataGridView(DataGridView dataGridView1, DataTable dataTable)
         {
             try
             {
@@ -33,21 +32,12 @@ namespace PersonsBase.myStd
                 // Automatically resize the visible rows.
                 dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-
-                // Set the DataGridView control's border.
-                dataGridView1.BorderStyle = BorderStyle.Fixed3D;
-
-                foreach (DataGridViewColumn column in dataGridView1.Columns)
-                {
-                    column.HeaderCell.Style.BackColor = Color.DarkBlue;  //.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                }
             }
             catch (Exception)
             {
                 // ignored
             }
         }
-
         /// <summary>
         /// Инициализация DataGridView из коллекции List T . T может быть классом с полями.
         /// Метод не тестирован.!!!!!!!!!!!!
@@ -55,7 +45,7 @@ namespace PersonsBase.myStd
         /// <typeparam name="T"></typeparam>
         /// <param name="dataGridView1"></param>
         /// <param name="dataList"></param>
-        public static void InitializeDataGridView<T>(DataGridView dataGridView1, List<T> dataList)
+        public static void SetSourceDataGridView<T>(DataGridView dataGridView1, List<T> dataList)
         {
             try
             {
@@ -66,39 +56,23 @@ namespace PersonsBase.myStd
 
                 // Automatically generate the DataGridView columns.
                 dataGridView1.AutoGenerateColumns = true;
-
-                // Automatically resize the visible rows.
-                dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-
-                // Set the DataGridView control's border.
-                dataGridView1.BorderStyle = BorderStyle.Fixed3D;
             }
             catch (Exception)
             {
                 // ignored
             }
         }
-
         /// <summary>
         /// Инициализация простым присваиванием DataSource.  На вход подается DataTable. Заголовок подключается автоматически если он есть в таблице
         /// </summary>
         /// <param name="dataGridView1"></param>
         /// <param name="dataTable"></param>
-        public static void InitializeDataGridViewSimple(DataGridView dataGridView1, DataTable dataTable)
+        public static void SetSourceDataGridViewSimple(DataGridView dataGridView1, DataTable dataTable)
         {
-            // Automatically resize the visible rows.
-           dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-           dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-
-            // Set the DataGridView control's border.
-            dataGridView1.BorderStyle = BorderStyle.FixedSingle;
-
             //Задаем источник данных, для которого объект
             //System.Windows.Forms.DataGridView отображает данные.
             dataGridView1.DataSource = dataTable;
         }
-
         /// <summary>
         /// Добавляет заголовки из массива в датагрид.
         /// </summary>
@@ -120,7 +94,11 @@ namespace PersonsBase.myStd
         public static void AddHeaderToolTips(DataGridView dataGrid, string[] toolTipsHeaders)
         {
             //Задаем текст ячейки заголовка столбца.
-            for (var i = 0; i < dataGrid.Columns.Count; i++)
+            var len = (toolTipsHeaders.Length < dataGrid.Columns.Count)
+                ? toolTipsHeaders.Length
+                : dataGrid.Columns.Count;
+
+            for (var i = 0; i < len; i++)
             {
                 dataGrid.Columns[i].ToolTipText = toolTipsHeaders[i];
             }
@@ -128,7 +106,7 @@ namespace PersonsBase.myStd
 
         #endregion
 
-        #region /// КОЛОНКИ и СТРОКИ
+        #region /// КОЛОНКИ и СТРОКИ и ВНЕШНИЙ ВИД
 
         public static void AddColumn(DataGridView dataGridView, string columnName, string columnHeader)
         {
@@ -147,6 +125,22 @@ namespace PersonsBase.myStd
             grid.Rows.Add(n);
         }
 
+        /// <summary>
+        /// Применяет к датагриду настройки оформления. Автосайз, цвет.И т д
+        /// </summary>
+        public static void ImplementStyle(DataGridView dataGridView1)
+        {
+
+            // Automatically resize the visible rows.
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+            // Set the DataGridView control's settings
+            dataGridView1.BorderStyle = BorderStyle.Fixed3D;
+            dataGridView1.AllowUserToOrderColumns = true;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+        }
         #endregion
     }
 }

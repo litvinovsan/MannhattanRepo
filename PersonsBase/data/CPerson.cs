@@ -232,13 +232,13 @@ namespace PersonsBase.data
             var currentAdmin = DataBaseO.GetManhattanInfo().CurrentAdmin;
             JournalVisits.Add(new Visit(_abonementCurent, selectedOptions, currentAdmin.Name));
         }
-
         public DataTable CreateJournalTable()
         {
             var table = new DataTable();
             if (JournalVisits == null || JournalVisits.Count == 0)
             {
-                table.Columns.Add("Небыло посещений");
+                table.Columns.Add(" ");
+                table.Rows.Add(" ");
                 return table;
             }
 
@@ -250,12 +250,19 @@ namespace PersonsBase.data
             foreach (var item in JournalVisits.Reverse<Visit>())
             {
                 table.Rows.Add(item.GetValues());
-                
             }
-
             return table;
         }
+        public string[] GetJournalHelpStrings()
+        {
+            string[] res = { "" };
+            if (JournalVisits != null && JournalVisits.Count > 0)
+            {
+                res = JournalVisits.First().GetHeadersToolTipHelp();
+            }
 
+            return res;
+        }
         #endregion
 
         #region //Перегрузка операторов для сравнения клиентов

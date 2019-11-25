@@ -43,6 +43,7 @@ namespace PersonsBase.View
 
             UpdateControlState(this, EventArgs.Empty);
             LoadListBoxQueue();
+            SetupVisitsDataGridView();
 
             // Подписка на События
             _saveDelegateChain += SaveUserData; // Цепочка Делегатов для сохранения измененных данных.
@@ -279,6 +280,19 @@ namespace PersonsBase.View
             _isAnythingChanged = false;
         }
 
+        /// <summary>
+        /// Настройка Источника, Внешнего вида и Помощи для Списка Посещений на вкладке в Карточке клиента
+        /// </summary>
+        private void SetupVisitsDataGridView()
+        {
+            var dt = _person.CreateJournalTable();
+            var helpStrings = _person.GetJournalHelpStrings();
+            // MyDataGrid.SetSourceDataGridViewSimple(dataGridView_Visits, dt);
+            MyDataGrid.SetSourceDataGridView(dataGridView_Visits, dt);
+            MyDataGrid.ImplementStyle(dataGridView_Visits);
+            MyDataGrid.AddHeaderToolTips(dataGridView_Visits, helpStrings);
+        }
+
         //////////// СТАНДАРТНЫЕ ОБРАБОТЧИКИ ///////////////////////////////////////////////
 
         private void button_CheckInWorkout_Click(object sender, EventArgs e)
@@ -360,7 +374,7 @@ namespace PersonsBase.View
             button_CheckInWorkout.Focus();
         }
 
-        private void button__remove_abon_Click(object sender, EventArgs e)
+        private void button_remove_abon_Click(object sender, EventArgs e)
         {
             var selectedIndex = listBox_abonements.SelectedIndex;
             if (selectedIndex == -1)
@@ -378,7 +392,7 @@ namespace PersonsBase.View
         {
             if (_person.AbonementCurent == null) return;
             var result = MessageBox.Show($@"Будет удаленo:  {_person.AbonementCurent.AbonementName}.
-Продолжить?", "Удаление Абонемента!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+Продолжить?", @"Удаление Абонемента!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result != DialogResult.Yes) return;
             _person.AbonementCurent = null;
             _person.UpdateActualStatus(); // Обновляем текущий статус
@@ -483,7 +497,6 @@ namespace PersonsBase.View
                 button_Freeze.Enabled = true;
             }
         }
-
         private List<Tuple<Label, Control>> SelectList(AbonementBasic currentAbon)
         {
             List<Tuple<Label, Control>> listResult;
@@ -497,7 +510,6 @@ namespace PersonsBase.View
                 listResult = CreateListNoAbonement();
             return listResult;
         }
-
         private List<Tuple<Label, Control>> CreateListNoAbonement()
         {
             var list = new List<Tuple<Label, Control>>
@@ -507,7 +519,6 @@ namespace PersonsBase.View
             };
             return list;
         }
-
         private List<Tuple<Label, Control>> CreateListSingleVisit()
         {
             var list = new List<Tuple<Label, Control>>
@@ -521,7 +532,6 @@ namespace PersonsBase.View
 
             return list;
         }
-
         private List<Tuple<Label, Control>> CreateListClubCard()
         {
             var list = new List<Tuple<Label, Control>>
@@ -541,7 +551,6 @@ namespace PersonsBase.View
             };
             return list;
         }
-
         private List<Tuple<Label, Control>> CreateListAbonement()
         {
             var list = new List<Tuple<Label, Control>>
@@ -563,42 +572,9 @@ namespace PersonsBase.View
 
         #endregion
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button_Export_Click(object sender, EventArgs e)
         {
-            //Инициализируем новый экземпляр класса System.Data.DataTable и передаем
-            //ему аргументы.
-            DataTable dt = _person.CreateJournalTable();
-
-
-
-            MyDataGrid.InitializeDataGridView(dataGridView_Visits, dt);
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            DataTable dt = new DataTable();
-            //Создаем и добавляем объект System.Data.DataColumn с указанным именем
-            dt.Columns.Add("Name");
-            dt.Columns.Add("Telephone");
-            dt.Columns.Add("City");
-            dt.Columns.Add("Country");
-            dt.Columns.Add("Adress");
-            dt.Rows.Add("1Гомер", "188888888", "Спрингфилд");
-            dt.Rows.Add("2Мардж", "222222222", "Калифорния");
-            dt.Rows.Add("3Барт", "3333333333", "Пасадена");
-            dt.Rows.Add("4Помощник санты", "44444444", "Минесота");
-            dt.Rows.Add("1Гомер", "188888888", "Спрингфилд");
-            dt.Rows.Add("2Мардж", "222222222", "Калифорния");
-            dt.Rows.Add("3Барт", "3333333333", "Пасадена");
-            dt.Rows.Add("4Помощник санты", "44444444", "Минесота");
-            dt.Rows.Add("1Гомер", "188888888", "Спрингфилд");
-            dt.Rows.Add("2Мардж", "222222222", "Калифорния");
-            dt.Rows.Add("3Барт", "3333333333", "Пасадена");
-            dt.Rows.Add("4Помощник санты", "44444444", "Минесота");
-
-
-
-            MyDataGrid.InitializeDataGridView(dataGridView_Visits, dt);
+            // FIXME  Сделать экспорт таблицы в Эксель
         }
     }
 }
