@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using PersonsBase.data.Abonements;
+using PersonsBase.myStd;
 
 namespace PersonsBase.data
 {
@@ -10,12 +13,19 @@ namespace PersonsBase.data
     [Serializable]
     public class Visit
     {
+        // Текстовые константы
+        private const string NameUnknown = "Имя неизвестно";
+
+        // Хранение полей Имя Заголовка - Значение - Хелп таблицы
+        private List<DataGridItem> _myDataRowsList;
+
         public TypeWorkout TypeWorkoutToday { get; }
         public DateTime DateTimeVisit { get; }
 
         public readonly Group GroupInfo;
         public readonly string PeronalTrenerName;
         public readonly string CurrAdmName;
+        public readonly string AbonementName;
 
         // Свойства абонемента на момент посещения
         public SpaService SpaStatus { get; }
@@ -23,6 +33,7 @@ namespace PersonsBase.data
         public TimeForTr AvailableTimeTren { get; }
         public DateTime AbonStartDate { get; } // FIXME Переделать даты в абонементе
         public DateTime AbonEndDate { get; } // FIXME Переделать даты в абонементе
+        public int NumAllDaysAbon { get; }
         public int NumAerobicTr { get; }
         public int NumPersonalTr { get; }
 
@@ -31,6 +42,7 @@ namespace PersonsBase.data
         {
             DateTimeVisit = DateTime.Now;
             TypeWorkoutToday = workoutOptions.TypeWorkout;
+            NumAllDaysAbon = abon.GetRemainderDays();
             NumAerobicTr = abon.NumAerobicTr;
             NumPersonalTr = abon.NumPersonalTr;
             SpaStatus = abon.Spa;
@@ -38,14 +50,42 @@ namespace PersonsBase.data
             AvailableTimeTren = abon.TimeTraining;
             AbonStartDate = abon.BuyDate;
             AbonEndDate = abon.EndDate;
-            CurrAdmName = administratorName ?? "Имя неизвестно";
+            AbonementName = abon.AbonementName; // "Клубная Карта"  "Абонемент"   "Разовое Занятие"
+            CurrAdmName = administratorName ?? NameUnknown;
             PeronalTrenerName = (workoutOptions.PersonalTrener == null || workoutOptions.PersonalTrener.Name == "")
-                ? "Имя неизвестно"
+                ? NameUnknown
                 : workoutOptions.PersonalTrener.Name;
             GroupInfo = workoutOptions.GroupInfo;
         }
 
-        #region // Не изменять. Кусок нужен для создания таблицы для вывода на форму в датагридвью 
+        #region // Не изменять очередность. Кусок нужен для создания таблицы для вывода на форму в датагридвью 
+
+
+        private void CreateReportList()
+        {
+            _myDataRowsList.Clear();
+
+            string numTrenZal = NumAllDaysAbon.ToString();
+            string numAerob = NumAerobicTr.ToString();
+            string numPersonal = NumPersonalTr.ToString();
+            string trenerName = GetTrenerName();
+            string groupTimeNameInfo = GetGroupTimeNameInfo();
+
+            _myDataRowsList.Add(new DataGridItem("Дата", $"{DateTimeVisit:g}", "Дата и время посещения"));
+            _myDataRowsList.Add(new DataGridItem("Вид Карты", AbonementName, "Тип карты/абонемента клиента. (Клубная Карта / Абонемент / Разовое Занятие"));
+            _myDataRowsList.Add(new DataGridItem("Тренировка", TypeWorkoutToday.ToString().Replace("_", " "), "Тип тренировки в указанную дату (Аэробная, Персональная или Тренажерный залл)"));
+            _myDataRowsList.Add(new DataGridItem("Разрешенное Время", AvailableTimeTren.ToString().Replace("_", " "), "Время занятий (Утро или Весь день)"));
+            _myDataRowsList.Add(new DataGridItem("Оплата", PayStatus.ToString().Replace("_", " "), "Статус Оплата в указанную дату"));
+            _myDataRowsList.Add(new DataGridItem("Занятий", numTrenZal, "Осталось занятий в тренажерном зале или всего занятий если у клиента Абонемент"));
+            _myDataRowsList.Add(new DataGridItem("Групповые", numAerob, "Остаток Групповых тренировок"));
+            _myDataRowsList.Add(new DataGridItem("Персоны", numPersonal, "Остаток Персональных тренировок"));
+            _myDataRowsList.Add(new DataGridItem("Спа", SpaStatus.ToString().Replace("_", " "), "Разрешена ли Спа зона"));
+            _myDataRowsList.Add(new DataGridItem("Тренер", trenerName, "Имя Тренера, проводившего тренировку. Если известно"));
+            _myDataRowsList.Add(new DataGridItem("Расписание Группы", groupTimeNameInfo, "Название и время Групповой тренировки. Если известно."));
+            _myDataRowsList.Add(new DataGridItem("Администратор", CurrAdmName, "Администратор в клубе на момент посещения"));
+            _myDataRowsList.Add(new DataGridItem("Покупка абонем.", $"{AbonStartDate:d}", "Дата Покупки абонемента"));
+            _myDataRowsList.Add(new DataGridItem("Конец абонем.", $"{AbonEndDate:d}", "Дата Конеца абонемента"));
+        }
 
         /// <summary>
         /// Создает массив со значениями полей в текущем посещении
@@ -53,57 +93,37 @@ namespace PersonsBase.data
         /// <returns></returns>
         public object[] GetValues()
         {
-            // Зависят от типа тренировки. Т.к. могут не быть групповые трени
-            string trenerName = GetTrenerName();
-            string groupTimeNameInfo = GetGroupTimeNameInfo();
-            string notes = GroupInfo.Notes;
-
+            // Создаем массив с полями и заголовками будущей таблицы по текущему посещению
+            if (_myDataRowsList == null)
+            {
+                _myDataRowsList = new List<DataGridItem>();
+                CreateReportList();
+            }
             // Основной массив с данными
-            object[] temp = {
-                $"{DateTimeVisit:g}",     // Время и дата посещения
-                TypeWorkoutToday.ToString().Replace("_"," "),   // Тип тренировки. Аэроб, персона или тренажерка
-                AvailableTimeTren.ToString().Replace("_"," "), // Доступное время посещений
-                PayStatus.ToString().Replace("_"," "),     // статус оплаты
-                NumAerobicTr.ToString(),  //
-                NumPersonalTr.ToString(), //
-                SpaStatus.ToString().Replace("_"," "),     // Спа доступность
-                trenerName,
-                groupTimeNameInfo,         // Название и Время групповой тренировки
-                CurrAdmName,          // Имя Администратора на тот момент
-                $"{AbonStartDate:d}",   // Дата покупки абонемента
-                $"{AbonEndDate:d}",   // Дата окончания абонемента
-                // notes
-            };
+            var temp = _myDataRowsList.Select(x => x.Value).ToArray<object>();
             return temp;
         }
+
         /// <summary>
         /// Возвращает массив с названиями Полей в такой же очередности что и в функции GetValues. Не менять порядок!!!
         /// </summary>
         /// <returns></returns>
         public DataColumn[] GetHeadersForValues()
         {
-            var headerNames = new[]
+            // Создаем массив с полями и заголовками будущей таблицы по текущему посещению
+            if (_myDataRowsList == null)
             {
-                "Дата",
-                "Тип Тренировки",
-                "Утро/Весь день",
-                "Оплата",
-                "Осталось Групповых",
-                "Осталось Персон",
-                "Спа",
-                "Тренер",
-                "Групповая трен.",
-                "Администратор",
-                "Покупка абонем.",
-                "Конец абонем.",
-             //   "Заметки"
-            };
+                _myDataRowsList = new List<DataGridItem>();
+                CreateReportList();
+            }
+
+            var headerNames = _myDataRowsList.Select(x => x.HeaderName).ToArray();
+
             var dcol = new DataColumn[headerNames.Length];
             for (var i = 0; i < headerNames.Length; i++)
             {
                 dcol[i] = new DataColumn(headerNames[i]);
             }
-
             return dcol;
         }
         /// <summary>
@@ -112,28 +132,24 @@ namespace PersonsBase.data
         /// <returns></returns>
         protected internal string[] GetHeadersToolTipHelp()
         {
-            var headerNames = new[]
+            // Создаем массив с полями и заголовками будущей таблицы по текущему посещению
+            if (_myDataRowsList == null)
             {
-                "Дата и время посещения",
-                "Тип тренировки в указанную дату (Аэробная, Персональная или Тренажерный залл)",
-                "Время занятий (Утро или Весь день)",
-                "Статус Оплата в указанную дату",
-                "Остаток Групповых тренировок",
-                "Остаток Персональных тренировок",
-                "Разрешена ли Спа зона",
-                "Имя Тренера, проводившего тренировку. Если известно",
-                "Название и время Групповой тренировки. Если известно.",
-                "Администратор в клубе на момент посещения",
-                "Дата Покупки абонемента",
-                "Дата Конеца абонемента",
-               // "Заметки"
-            };
-            return headerNames;
+                _myDataRowsList = new List<DataGridItem>();
+                CreateReportList();
+            }
+
+            // Основной массив с данными
+            var helpStrings = _myDataRowsList.Select(x => x.HeaderToolTipHelp).ToArray();
+
+            return helpStrings;
         }
+
         private string GetGroupTimeNameInfo()
         {
             return (TypeWorkoutToday == TypeWorkout.Аэробный_Зал) ? GroupInfo.ScheduleNote.GetTimeAndNameStr() : "";
         }
+
 
         /// <summary>
         /// Возвращает имя тренера в зависимости от типа тренировки. Для персоналок один, для Аэробных - другой

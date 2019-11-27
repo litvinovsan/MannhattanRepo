@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace PersonsBase.myStd
 {
-    public static class MyDataGrid
+    public static class MyDataGridView
     {
         private static readonly BindingSource BindingSource1 = new BindingSource();
 
@@ -124,13 +126,20 @@ namespace PersonsBase.myStd
             //заполняем строку
             grid.Rows.Add(n);
         }
+        public static void DoubleBuffered(this DataGridView dgv, bool setting)
+        {
+            Type dgvType = dgv.GetType();
+            PropertyInfo pi = dgvType.GetProperty("DoubleBuffered",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            pi.SetValue(dgv, setting, null);
+        }
 
         /// <summary>
         /// Применяет к датагриду настройки оформления. Автосайз, цвет.И т д
         /// </summary>
         public static void ImplementStyle(DataGridView dataGridView1)
         {
-
+            DoubleBuffered(dataGridView1, true);
             // Automatically resize the visible rows.
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
@@ -140,7 +149,29 @@ namespace PersonsBase.myStd
             dataGridView1.AllowUserToOrderColumns = true;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+
+            // Внешний вид заголовка
+            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font(dataGridView1.ColumnHeadersDefaultCellStyle.Font.FontFamily, 10f, FontStyle.Bold /*| FontStyle.Italic*/); //жирный курсив размера 16
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.Beige; //цвет ячейки
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.MidnightBlue; //цвет текста
         }
         #endregion
+    }
+
+    [Serializable]
+    public class DataGridItem
+    {
+        public string HeaderName;
+        public string Value;
+        public string HeaderToolTipHelp;
+
+        public DataGridItem(string header, string value, string helpText)
+        {
+            HeaderName = header;
+            Value = value;
+            HeaderToolTipHelp = helpText;
+        }
+
     }
 }

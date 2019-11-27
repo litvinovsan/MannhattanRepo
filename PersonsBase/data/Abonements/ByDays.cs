@@ -23,8 +23,16 @@ namespace PersonsBase.data.Abonements
         // Свойства
         public sealed override int NumAerobicTr { get; set; }
         public sealed override int NumPersonalTr { get; set; }
-        public override string AbonementName => "Абонемент";
-        public override string InfoMessageEnd => "Абонемент Закончился!";
+        public override string AbonementName
+        {
+            get { return "Абонемент"; }
+        }
+
+        public override string InfoMessageEnd
+        {
+            get { return "Абонемент Закончился!"; }
+        }
+
         private DaysInAbon TypeAbonement { get; set; }
 
         // Методы

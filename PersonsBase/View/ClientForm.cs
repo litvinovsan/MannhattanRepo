@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using PBase;
 using PersonsBase.control;
 using PersonsBase.data;
 using PersonsBase.data.Abonements;
@@ -56,6 +54,12 @@ namespace PersonsBase.View
             _person.AbonementsQueue.CollectionChanged +=
                 AbonementsQueue_CollectionChanged; // Список Абонементов. Если изменился
             _person.AbonementsQueue.CollectionChanged += ShowAbonementList;
+
+            // На всякий случай, может уменьшит мерцание
+            tabControl1.DoubleBuffered(true);
+            groupBox4.DoubleBuffered(true);
+            groupBox_Info.DoubleBuffered(true);
+            groupBox_Detailed.DoubleBuffered(true);
         }
 
         private void PwdForm_LockChangedEvent()
@@ -287,10 +291,9 @@ namespace PersonsBase.View
         {
             var dt = _person.CreateJournalTable();
             var helpStrings = _person.GetJournalHelpStrings();
-            // MyDataGrid.SetSourceDataGridViewSimple(dataGridView_Visits, dt);
-            MyDataGrid.SetSourceDataGridView(dataGridView_Visits, dt);
-            MyDataGrid.ImplementStyle(dataGridView_Visits);
-            MyDataGrid.AddHeaderToolTips(dataGridView_Visits, helpStrings);
+            MyDataGridView.SetSourceDataGridView(dataGridView_Visits, dt);
+            MyDataGridView.ImplementStyle(dataGridView_Visits);
+            MyDataGridView.AddHeaderToolTips(dataGridView_Visits, helpStrings);
         }
 
         //////////// СТАНДАРТНЫЕ ОБРАБОТЧИКИ ///////////////////////////////////////////////
@@ -307,6 +310,8 @@ namespace PersonsBase.View
                 Methods.LoadShortInfo(groupBox_Info, _person);
                 LoadEditableData();
                 UpdateControlState(this, EventArgs.Empty);
+                // Для обновления списка посещений при добавлении новой тренировки
+                MyDataGridView.SetSourceDataGridView(dataGridView_Visits, _person.CreateJournalTable());
             }
 
             // Перенос Фокуса на кнопку 

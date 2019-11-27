@@ -73,7 +73,7 @@
     <Compile Include="data\Visit.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="myStd\MyComboBox.cs" />
-    <Compile Include="myStd\MyDataGrid.cs" />
+    <Compile Include="myStd\MyDataGridView.cs" />
     <Compile Include="myStd\MyListView.cs" />
     <Compile Include="myStd\SerializeOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
