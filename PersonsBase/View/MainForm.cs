@@ -220,6 +220,61 @@ namespace PersonsBase.View
         private void конфигураторОтчетовToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+            #region MyRegion ПРИМЕР
+            /*
+                     /* СОЗДАНИЕ ОЧЕРЕДЕЙ ЗАПРОСОВ/ВЫБОРКИ
+         
+            IEnumerable<KeyValuePair<string, MergedRequirenments>> query;
+            if (checkBox_fb_approved.Checked)
+            {
+                query =
+                      from reqt in _mergedRequirenments
+                      where !reqt.Value.FB_Status_New.Equals(reqt.Value.FB_Status_Old)
+                      select reqt;
+            }
+            else
+            {
+                query = _mergedRequirenments.Select(c => c).OrderBy(x => x.Key);
+            }
+
+            //Approved only in new Ver Fb
+            if (checkBox_fb_approvedNew.Checked)
+            {
+                query =
+                    from reqt in query
+                    where reqt.Value.FB_Status_New.Contains("Approved")
+                    select reqt;
+            }
+            else
+            {
+                query =
+                    from reqt in query
+                    where !reqt.Value.FB_Text_Old.Equals(reqt.Value.FB_Text_New)
+                    select reqt;
+            }
+
+            // Text fb Old != New
+            if (checkBox_fbText_old_eq_new.Checked)
+            {
+                query =
+                    from reqt in query
+                    where reqt.Value.FB_Text_Old.Equals(reqt.Value.FB_Text_New)
+                    select reqt;
+            }
+            else
+            {
+                query =
+                    from reqt in query
+                    where !reqt.Value.FB_Text_Old.Equals(reqt.Value.FB_Text_New)
+                    select reqt;
+            }
+
+            var list = query.ToDictionary((x => x.Key), (c => c.Value));
+
+
+               
+                 */
+            #endregion
         }
         private void добавитьКлиентаToolStripMenuItem_Click(object sender, EventArgs e)
         {

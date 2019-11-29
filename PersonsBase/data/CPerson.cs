@@ -221,7 +221,7 @@ namespace PersonsBase.data
 
         #endregion
 
-        #region /// ЖУРНАЛ УЧЕТА ПОСЕЩЕНИЙ
+        #region /// ЖУРНАЛ ПОСЕЩЕНИЙ / ТАБЛИЦА ИНФО о КЛИЕНТЕ
         /// <summary>
         /// Добавляет в коллекцию параметры выбранной Тренировки, Текущего администратора, время тренировки 
         /// </summary>
@@ -263,6 +263,38 @@ namespace PersonsBase.data
 
             return res;
         }
+
+        public DataTable CreateSummaryInfoTable()
+        {
+            // FIXME 
+            var table = new DataTable();
+            // Создаем Заголовки таблицы, берем из первого элемента Visit
+            // var headers = JournalVisits.First().GetHeadersForValues();
+            // table.Columns.AddRange(headers);
+
+            // Заполняем строки значениями из журнала
+            // foreach (var item in JournalVisits.Reverse<Visit>())
+            {
+       //         table.Rows.Add(item.GetValues());
+            }
+
+            /*
+             dt.Columns.AddRange(new DataColumn[3]
+            {
+                new DataColumn("Id", typeof(int)),
+                new DataColumn("Name", typeof(string)),
+                new DataColumn("Country", typeof(string))
+            });
+            dt.Rows.Add(1, "C Sharp corner", "United States");
+            dt.Rows.Add(2, "Suraj", "India");
+            dt.Rows.Add(3, "Test User", "France");
+            dt.Rows.Add(4, "Developer", "Russia");
+             
+             */
+
+            return table;
+        }
+
         #endregion
 
         #region //Перегрузка операторов для сравнения клиентов

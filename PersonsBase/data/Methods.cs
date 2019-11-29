@@ -93,7 +93,6 @@ namespace PersonsBase.data
             {
                 grpBx.Controls.Clear();
             }
-
             grpBx.Controls.Add(table); // Выводим на групбокс нашу новую ShortInfo Table
         }
 
@@ -192,7 +191,7 @@ namespace PersonsBase.data
         #endregion
 
         // Методы по оформлению контролов На WinForm
-        #region ///  ВСПОМОГАТЕЛЬНЫЕ МЕТДЫ ///  Оформление, подготовка времени и тд
+        #region ///  Оформление, подготовка времени и тд
         /// <summary>
         /// Задает Цвет Текстбоксам и другим элементам. Зеленый если == , Красный если != аргументы. 
         /// </summary>
@@ -341,7 +340,9 @@ namespace PersonsBase.data
         #endregion
 
 
-        // Методы расширения
+
+
+        #region /// МЕТОДЫ РАСШИРЕНИЙ
         public static void DoubleBuffered(this Control dgv, bool setting)
         {
             Type dgvType = dgv.GetType();
@@ -349,6 +350,8 @@ namespace PersonsBase.data
                 BindingFlags.Instance | BindingFlags.NonPublic);
             pi.SetValue(dgv, setting, null);
         }
+
+        #endregion
 
     }
 }
