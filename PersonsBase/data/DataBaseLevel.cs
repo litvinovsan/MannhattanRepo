@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using PBase;
 using PersonsBase.myStd;
 
 namespace PersonsBase.data
@@ -88,6 +87,9 @@ namespace PersonsBase.data
             SerializeClass.Serialize(_adminCurrent, "adminToday.bin");
             // Список ежедневных Групповых Тренировок
             SerializeClass.Serialize(_groupScheduleList, "GroupSchedule.bin");
+            // Сохранение в Excel
+            DataBaseM.ExportToExcel(DataBaseM.GetPersonsTable(), false);
+
         }
         #endregion
 

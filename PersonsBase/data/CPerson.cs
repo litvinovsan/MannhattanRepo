@@ -51,7 +51,6 @@ namespace PersonsBase.data
 
         #region/// ПУБЛИЧНЫЕ ПОЛЯ, ДОСТУПНЫЕ ДАННЫЕ О КЛИЕНТЕ ////////////
 
-        // FIXME. Replace singe var to structure
         public string Name
         {
             get { return _name; }
@@ -221,18 +220,23 @@ namespace PersonsBase.data
 
         #endregion
 
-        #region /// ЖУРНАЛ ПОСЕЩЕНИЙ / ТАБЛИЦА ИНФО о КЛИЕНТЕ
+        #region /// ЖУРНАЛ ПОСЕЩЕНИЙ
         /// <summary>
-        /// Добавляет в коллекцию параметры выбранной Тренировки, Текущего администратора, время тренировки 
+        /// Добавляет в Журнал посещений параметры выбранной Тренировки, Текущего администратора, время тренировки 
         /// </summary>
         /// <param name="selectedOptions"></param>
-        public void AddToJournal(WorkoutOptions selectedOptions)
+        public void AddVisitJournal(WorkoutOptions selectedOptions)
         {
             if (JournalVisits == null) JournalVisits = new List<Visit>(); // Проверка на случай сериализации
             var currentAdmin = DataBaseO.GetManhattanInfo().CurrentAdmin;
             JournalVisits.Add(new Visit(_abonementCurent, selectedOptions, currentAdmin.Name));
         }
-        public DataTable CreateJournalTable()
+
+        /// <summary>
+        /// Создает DataTAble обьект содержащий все посещения пользователя.
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetJournalTable()
         {
             var table = new DataTable();
             if (JournalVisits == null || JournalVisits.Count == 0)
@@ -253,48 +257,6 @@ namespace PersonsBase.data
             }
             return table;
         }
-        public string[] GetJournalHelpStrings()
-        {
-            string[] res = { "" };
-            if (JournalVisits != null && JournalVisits.Count > 0)
-            {
-                res = JournalVisits.First().GetHeadersToolTipHelp();
-            }
-
-            return res;
-        }
-
-        public DataTable CreateSummaryInfoTable()
-        {
-            // FIXME 
-            var table = new DataTable();
-            // Создаем Заголовки таблицы, берем из первого элемента Visit
-            // var headers = JournalVisits.First().GetHeadersForValues();
-            // table.Columns.AddRange(headers);
-
-            // Заполняем строки значениями из журнала
-            // foreach (var item in JournalVisits.Reverse<Visit>())
-            {
-       //         table.Rows.Add(item.GetValues());
-            }
-
-            /*
-             dt.Columns.AddRange(new DataColumn[3]
-            {
-                new DataColumn("Id", typeof(int)),
-                new DataColumn("Name", typeof(string)),
-                new DataColumn("Country", typeof(string))
-            });
-            dt.Rows.Add(1, "C Sharp corner", "United States");
-            dt.Rows.Add(2, "Suraj", "India");
-            dt.Rows.Add(3, "Test User", "France");
-            dt.Rows.Add(4, "Developer", "Russia");
-             
-             */
-
-            return table;
-        }
-
         #endregion
 
         #region //Перегрузка операторов для сравнения клиентов

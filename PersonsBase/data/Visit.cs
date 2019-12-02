@@ -60,7 +60,9 @@ namespace PersonsBase.data
 
         #region // Не изменять очередность. Кусок нужен для создания таблицы для вывода на форму в датагридвью 
 
-
+        /// <summary>
+        /// Задаются значения, которые будут отображены в таблице посещений( Название заголовка, значение текущее, строка справки)
+        /// </summary>
         private void CreateReportList()
         {
             _myDataRowsList.Clear();
@@ -127,7 +129,7 @@ namespace PersonsBase.data
             return dcol;
         }
         /// <summary>
-        /// Возвращает массив с хелпами в такой же очередности что и в функции GetValues. Не менять порядок!!!
+        /// Возвращает массив с хелпами в такой же очередности что и в функции GetValues.
         /// </summary>
         /// <returns></returns>
         protected internal string[] GetHeadersToolTipHelp()

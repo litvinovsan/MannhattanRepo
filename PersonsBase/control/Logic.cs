@@ -100,7 +100,7 @@ namespace PersonsBase.control
                 $@"Осталось посещений: {person.AbonementCurent.GetRemainderDays()}{infoAerobic}{infoPersonal}",
                 @"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            person.AddToJournal(selectedOptions);
+            person.AddVisitJournal(selectedOptions);
 
             OnVisitChanged(personName, selectedOptions);
 
@@ -142,6 +142,7 @@ namespace PersonsBase.control
         {
             FormsRunner.RunPasswordForm();
         }
+      
         #endregion
 
         #region /// ФОРМА Босса /// 

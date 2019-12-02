@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PersonsBase.data
 {
@@ -109,6 +110,13 @@ namespace PersonsBase.data
         public int PersonalNumber;
         public Gender Gender;
         public DateTime BDate;
+    }
+
+    [Serializable]
+    public struct PersonField
+    {
+        public string HeaderName;
+        public string Value;
     }
 
 

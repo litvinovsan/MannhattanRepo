@@ -13,9 +13,9 @@ using Newtonsoft.Json;
 
 namespace PersonsBase.myStd
 {
-    static class SerializeClass
+    public static class SerializeClass
     {
-        #region // Стандартная Сериализация
+        #region // СТАНДАРТНАЯ БИНАРНАЯ СЕРИАЛИЗАЦИЯ
 
         public static bool Serialize<T>(T objectToSerialize, string nameFile)
         {
@@ -46,7 +46,7 @@ namespace PersonsBase.myStd
             {
                 var formatter = new BinaryFormatter();
 
-                using (FileStream fileStream = new FileStream(nameFile, FileMode.OpenOrCreate, FileAccess.Read))
+                using (var fileStream = new FileStream(nameFile, FileMode.OpenOrCreate, FileAccess.Read))
                 {
                     objectToDeSerialize = (T)formatter.Deserialize(fileStream);
                 }
@@ -180,5 +180,7 @@ namespace PersonsBase.myStd
             }
         }
         #endregion
+
+
     }
 }

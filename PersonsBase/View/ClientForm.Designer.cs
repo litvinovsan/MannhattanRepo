@@ -573,7 +573,6 @@ namespace PersonsBase.View
             this.textBox_Number.Location = new System.Drawing.Point(120, 134);
             this.textBox_Number.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_Number.Name = "textBox_Number";
-            this.textBox_Number.ReadOnly = true;
             this.textBox_Number.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBox_Number.Size = new System.Drawing.Size(166, 23);
             this.textBox_Number.TabIndex = 5;

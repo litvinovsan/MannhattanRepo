@@ -12,22 +12,21 @@ namespace PersonsBase.myStd
 {
     public static class MyExportXls
     {
-        #region /// CLOSED_XML
+        #region /// CLOSED_XML ОТКРЫТИЕ СОХРАНЕНИЕ ЗАГРУЗКА
 
         /// <summary>
-        /// Получает данные из Excel. Первая строка создает заголовки Таблицы
+        /// Получает данные из Excel в таблицу DataTable. Первая строка создает заголовки Таблицы
         /// </summary>
         /// <param name="path"></param>
-        /// <param name="worksheet"></param>
         /// <returns></returns>
-        public static DataTable GetFromExcel(string path, dynamic worksheet)
+        public static DataTable GetFromExcel(string path)
         {
             DataTable dt = new DataTable();
             //Open the Excel file using ClosedXML.
             using (var workBook = new XLWorkbook(path))
             {
                 //Read the first Sheet from Excel file.
-                IXLWorksheet workSheet = workBook.Worksheet(worksheet);
+                IXLWorksheet workSheet = workBook.Worksheets.First();
 
                 //Create a new DataTable.
 
@@ -81,21 +80,27 @@ namespace PersonsBase.myStd
         /// Добавляет таблицу DataTable в Excel. Таблица DataTable должна быть уже с заголовками
         /// </summary>
         /// <param name="dt"></param>
-        /// <param name="path"></param>
         /// <param name="fileName"></param>
-        public static void SaveToExcel(DataTable dt, string path, string fileName)
+        public static void SaveToExcel(DataTable dt, string fileName)
         {
-            if (path == null) throw new ArgumentNullException(nameof(path));
-
-            var directory = Path.GetDirectoryName(path);
-            CreateFolder(directory);
+            if (fileName == null) throw new ArgumentNullException(nameof(fileName));
+            if (dt.Columns.Count == 0) return;
 
             //Exporting to Excel
             //Codes for the Closed XML
-            using (XLWorkbook wb = new XLWorkbook())
+
+            using (var wb = new XLWorkbook())
             {
-                wb.Worksheets.Add(dt, "Список всех Клиентов");
-                wb.SaveAs(path + fileName + ".xlsx");
+                wb.Worksheets.Add(dt, "Список Клиентов");
+                ApplyStyles(wb);
+                try
+                {
+                    wb.SaveAs(fileName + ".xlsx");
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(@"Файл уже используется!");
+                }
             }
         }
 
@@ -105,28 +110,38 @@ namespace PersonsBase.myStd
         /// <param name="dt"></param>
         public static void SaveToExcel(DataTable dt)
         {
+            if (dt.Columns.Count == 0) return;
+
             var fileToSave = GetSaveFileDirectory();
-            // Path.GetFullPath(file);
             if (string.IsNullOrEmpty(fileToSave)) return;
 
             //Exporting to Excel
-            //Codes for the Closed XML
-            using (XLWorkbook wb = new XLWorkbook())
+            using (var wb = new XLWorkbook())
             {
-                wb.Worksheets.Add(dt, "Список всех Клиентов");
-                wb.SaveAs(fileToSave);
+                // Добавление таблицы.
+                wb.Worksheets.Add(dt, "Список Клиентов");
+                ApplyStyles(wb);
+                try
+                {
+                    wb.SaveAs(fileToSave);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(@"Файл уже используется");
+                }
             }
         }
-
-
-
 
         #endregion
 
 
         #region /// СТАНДАРНТНЫЕ ДИАЛОГИ ОТКРЫТИЯ / СОХРАНЕНИЯ
 
-        public static object OpenFileDialogStr()
+        /// <summary>
+        /// Вызывает окно Выбора файла для открытия. Возвращает строку с именем файла и адресом.
+        /// </summary>
+        /// <returns></returns>
+        public static string OpenFileDialogStr()
         {
             var openFileDialog1 = new OpenFileDialog
             {
@@ -138,10 +153,14 @@ namespace PersonsBase.myStd
 
             // Call the ShowDialog method to show the dialog box.
             openFileDialog1.ShowDialog();
-            object path = openFileDialog1.FileName;
+            string path = openFileDialog1.FileName;
             return path;
         }
 
+        /// <summary>
+        /// Открывает Диалоговое окно сохранения, после выбора файлов возвращает строку с адресом файла
+        /// </summary>
+        /// <returns></returns>
         public static string GetSaveFileDirectory()
         {
             var saveFileDialog = new SaveFileDialog
@@ -153,6 +172,10 @@ namespace PersonsBase.myStd
             return path;
         }
 
+        /// <summary>
+        /// Создает Директорию, если она не существует
+        /// </summary>
+        /// <param name="fldrName"></param>
         public static void CreateFolder(string fldrName)
         {
             if (!Directory.Exists(fldrName)) Directory.CreateDirectory(fldrName);
@@ -163,47 +186,33 @@ namespace PersonsBase.myStd
 
         #region /// РАБОТА со СТРОКАМИ и ЯЧЕЦКАМИ
 
-        public static void ExampleAll(string fileName)
+        /// <summary>
+        /// Задает оформление Заголовков итд к Первой вкладке Эксель
+        /// </summary>
+        /// <param name="wb"></param>
+        private static void ApplyStyles(XLWorkbook wb)
         {
-            // Примеры
-            using (var workbook = new XLWorkbook())
-            {
-                var worksheet = workbook.Worksheets.Add("Sample Sheet");
-                worksheet.Cell("A1").Value = "Hello World!";
-                worksheet.Cell("A2").FormulaA1 = "=MID(A1, 7, 5)";
+            var ws = wb.Worksheets.First();
+            var rngTable = ws.RangeUsed();
 
-                workbook.SaveAs(fileName + ".xlsx");
-            }
+            // Границы 
+            rngTable.Style.Border.OutsideBorder = XLBorderStyleValues.Double;
+            rngTable.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+            // Adding grid lines
+            rngTable.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+
+            rngTable.FirstColumn().Style.Border.LeftBorder = XLBorderStyleValues.Medium;
+            rngTable.FirstColumn().Style.Border.RightBorder = XLBorderStyleValues.Medium;
+
+            ws.SheetView.FreezeColumns(1);
+
+            ws.Columns().AdjustToContents();
+
+            // Adjust column widths to their content
+            ws.Columns(2, 25).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            ws.Rows(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
         }
 
-
         #endregion
-
-
-
-
-
-
-        //public void ExportToExcel(XLWorkbook xlWorkbook, DataTable dataTable)
-        //{
-        //    if (xlWorkbook == null) return;
-
-        //    //Название страницы
-        //    var worksheet = xlWorkbook.Worksheets.Add("«Sample Sheet»");
-
-        //    //Заполняем ячейки
-        //    worksheet.Cell("«A1»").Value = "textBox1.Text";
-        //    worksheet.Cell("«A2»").Value = "textBox2.Text";
-
-        //}
-
-        //public MemoryStream GetStream(XLWorkbook excelWorkbook)
-        //{
-        //    MemoryStream fs = new MemoryStream();
-        //    excelWorkbook.SaveAs(fs);
-        //    fs.Position = 0;
-        //    return fs;
-        //}
-
     }
 }

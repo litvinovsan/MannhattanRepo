@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using PBase;
 
 namespace PersonsBase.data
 {
@@ -28,6 +27,5 @@ namespace PersonsBase.data
         {
             return ManhattanInfo;
         }
-
     }
 }

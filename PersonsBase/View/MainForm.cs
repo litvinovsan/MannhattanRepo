@@ -24,10 +24,11 @@ namespace PersonsBase.View
             get { return DataBaseLevel.GetListPersons(); }
         }
 
-        private readonly Dictionary<TypeWorkout, MyListViewDelegate> _visitorsListViewSelector; // Для заполнения 1 из 3х списков с Клиентами
+        private readonly Dictionary<TypeWorkout, MyListViewDelegate>
+            _visitorsListViewSelector; // Для заполнения 1 из 3х списков с Клиентами
 
         private Options _options; // Хранятся локальные настройки и параметры программы.
-        private readonly Logic _logic;       // Логика и управляющие методы программы.
+        private readonly Logic _logic; // Логика и управляющие методы программы.
         private readonly Timer _time = new Timer();
         private int _totalPersonToday;
 
@@ -45,9 +46,9 @@ namespace PersonsBase.View
             // В зависимости от типа тренировки запускаются разные методы записи в один из трех столбцов
             _visitorsListViewSelector = new Dictionary<TypeWorkout, MyListViewDelegate>
             {
-                { TypeWorkout.Аэробный_Зал, AddToGroupList },
-                { TypeWorkout.Персональная, AddToPersonalnList },
-                { TypeWorkout.Тренажерный_Зал, AddToGymList }
+                {TypeWorkout.Аэробный_Зал, AddToGroupList},
+                {TypeWorkout.Персональная, AddToPersonalnList},
+                {TypeWorkout.Тренажерный_Зал, AddToGymList}
             };
         }
 
@@ -56,7 +57,8 @@ namespace PersonsBase.View
             SerializeClass.DeSerialize(ref _options, "Option.bin");
 
             // Подписка на события в пользовательской Базе Данных
-            _dataB.ListChangedEvent += UpdateFindComboBoxMenu;  // Список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
+            _dataB.ListChangedEvent +=
+                UpdateFindComboBoxMenu; // Список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
             _dataB.ListChangedEvent += UpdateUsersCountTextBox; // Счетчик пользователей
             _dataB.ListChangedEvent += UpdateBirthDateComboBox; // Поле Сегодняшних Дней рождений
 
@@ -110,6 +112,7 @@ namespace PersonsBase.View
             MyListViewEx.AddNameTime(listView_Gym_Zal, namePerson, true);
             // MyListViewEx.AlternateColors(listView_Gym_Zal); // Убрано пока чтобы небыло полосатости
         }
+
         // Добавляет в список Групповых тренировок
         private void AddToGroupList(string namePerson, WorkoutOptions arg)
         {
@@ -117,6 +120,7 @@ namespace PersonsBase.View
             var groupName = arg.GroupInfo.ScheduleNote.GetTimeAndNameStr();
             MyListViewEx.AddNameTime(listView_Group, groupName, namePerson, false);
         }
+
         private void AddToPersonalnList(string namePerson, WorkoutOptions arg)
         {
             string persTrenerName = (arg.PersonalTrener != null) ? arg.PersonalTrener.Name : "Имя неизвестно";
@@ -138,6 +142,7 @@ namespace PersonsBase.View
         {
             _visitorsListViewSelector[arg.TypeWorkout].Invoke(name, arg);
         }
+
         private void UpdateDailyCounter(string arg1, WorkoutOptions arg2)
         {
             _totalPersonToday++;
@@ -148,25 +153,29 @@ namespace PersonsBase.View
         {
             // MessageBox.Show("Изменен Пароль В гл Форме");
         }
+
         private void UpdateBirthDateComboBox(object sender, EventArgs e)
         {
             Action myDelegate = delegate
             {
                 comboBox_BDay.Items.Clear();
                 label4.Text = "Дней Рождения: 0";
-                var array = PersonsList.Values.Where(c => c.BirthDate.ToString("M") == DateTime.Today.ToString("M")).Select(c => c.Name).ToArray<object>();
+                var array = PersonsList.Values.Where(c => c.BirthDate.ToString("M") == DateTime.Today.ToString("M"))
+                    .Select(c => c.Name).ToArray<object>();
                 if (array.Length != 0)
                 {
                     comboBox_BDay.Items.AddRange(array);
                     comboBox_BDay.SelectedIndex = 0;
                     label4.Text = "Дней Рождения: " + array.Length.ToString();
                 }
+
                 Invalidate();
             };
 
             if (InvokeRequired) Invoke(myDelegate);
             else myDelegate();
         }
+
         private void UpdateFindComboBoxMenu(object sender, EventArgs arg)
         {
             void MyDelegate()
@@ -180,6 +189,7 @@ namespace PersonsBase.View
             if (InvokeRequired) Invoke((Action)MyDelegate);
             else MyDelegate();
         }
+
         public void ClearFindCombo()
         {
             Action myDelegate = () => сomboBox_PersonsList.SelectedText = "";
@@ -192,35 +202,43 @@ namespace PersonsBase.View
                 myDelegate();
             }
         }
+
         private void UpdateUsersCountTextBox(object sender, EventArgs arg)
         {
             textBox1.Text = DataBaseLevel.GetNumberOfPersons().ToString();
             Invalidate();
         }
+
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
+
         private void сomboBox_PersonsListSelectedIndexChanged(object sender, EventArgs e)
         {
             Logic.OpenPersonCard(сomboBox_PersonsList.SelectedItem.ToString());
         }
+
         private void comboBox_BDay_SelectedIndexChanged(object sender, EventArgs e)
         {
             Logic.OpenPersonCard(comboBox_BDay.SelectedItem.ToString());
         }
+
         private void _time_ClockTick(object sender, EventArgs e)
         {
             label_Time.Text = Methods.ClockFormating();
         }
+
         private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
+
         private void конфигураторОтчетовToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
             #region MyRegion ПРИМЕР
+
             /*
                      /* СОЗДАНИЕ ОЧЕРЕДЕЙ ЗАПРОСОВ/ВЫБОРКИ
          
@@ -274,8 +292,10 @@ namespace PersonsBase.View
 
                
                  */
+
             #endregion
         }
+
         private void добавитьКлиентаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Logic.CreatePerson();
@@ -288,6 +308,7 @@ namespace PersonsBase.View
             {
                 var result = FormsRunner.CreateBossForm();
             }
+
             // FIXME  Выбор текущего администратора
         }
 
@@ -316,6 +337,13 @@ namespace PersonsBase.View
         private void списокКлиентовToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Logic.SelectPerson();
+        }
+
+        private void сохранитьВExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DataBaseLevel.GetNumberOfPersons() == 0) MessageBox.Show(@"В Базе нет клиентов");
+            var table = DataBaseM.GetPersonsTable();
+            DataBaseM.ExportToExcel(table, true);
         }
     }
 }

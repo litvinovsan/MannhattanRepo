@@ -95,9 +95,7 @@ namespace PersonsBase.data.Abonements
             MaxDaysAvailable = GetMaxDaysForPeriod(period);
 
             _totalDaysFreezed = 0;
-
         }
-
 
         #endregion
 
