@@ -290,11 +290,11 @@ namespace PersonsBase.data
         {
             if (showDlgBox)
             {
-                MyExportXls.SaveToExcel(table);
+                MyExportFile.SaveToExcel(table);
             }
             else
             {
-                MyExportXls.SaveToExcel(table, $"CписокКлиентов");
+                MyExportFile.SaveToExcel(table, $"CписокКлиентов");
             }
         }
 
@@ -399,10 +399,7 @@ namespace PersonsBase.data
                 new PersonField {HeaderName = "Статус", Value = person.Status.ToString()},
                 new PersonField {HeaderName = "ID номер", Value = person.PersonalNumber.ToString()},
                 new PersonField {HeaderName = "Паспорт", Value = person.Passport},
-                new PersonField {HeaderName = "Права", Value = person.DriverIdNum},
-                new PersonField {HeaderName = "Фото", Value = person.PathToPhoto},
-                new PersonField {HeaderName = "Заметки", Value = person.SpecialNotes},
-
+                new PersonField {HeaderName = "Права", Value = person.DriverIdNum}
             };
             if (person.AbonementCurent != null)
             {
@@ -418,6 +415,9 @@ namespace PersonsBase.data
                 personFields.Add(new PersonField { HeaderName = "Доступный тип", Value = person.AbonementCurent.TrainingsType.ToString() });
                 personFields.Add(new PersonField { HeaderName = "Осталось дней", Value = person.AbonementCurent.GetRemainderDays().ToString() });
             }
+
+            personFields.Add(new PersonField { HeaderName = "Заметки", Value = person.SpecialNotes });
+            personFields.Add(new PersonField { HeaderName = "Фото", Value = person.PathToPhoto });
 
             return personFields;
         }

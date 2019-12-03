@@ -1,27 +1,23 @@
 ﻿using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using PersonsBase.myStd;
 
 namespace PersonsBase.data
 {
     // FIXME Сделать переименование файлов фотографий при переименовании имени
     public class Photo
     {
-        private const string FolderName = "UsersPhoto";
-        private static string _pathToPhotoDir;
+
 
         // Конструктор
         public Photo()
         {
-            CreateFoldert(FolderName);
-            _pathToPhotoDir = Directory.GetCurrentDirectory() + "\\" + FolderName + "\\";
+            MyExportFile.CreateFolder(Options.UserPhotoFolderName);
         }
 
         // Методы
-        private void CreateFoldert(string fldrName)
-        {
-            if (!Directory.Exists(fldrName)) Directory.CreateDirectory(fldrName);
-        }
+
         /// <summary>
         /// Открыть файл с диалогом выбора
         /// </summary>
@@ -74,7 +70,7 @@ namespace PersonsBase.data
 
         public static string SaveToPicturesFolder(Image inputImg, string fileName)
         {
-            string pth = _pathToPhotoDir + fileName?.Trim() + ".jpg";
+            string pth = Directory.GetCurrentDirectory() + "\\" + Options.UserPhotoFolderName + "\\" + fileName?.Trim() + ".jpg";
             Bitmap bmp;
 
             if (inputImg == null) return "";
@@ -82,7 +78,7 @@ namespace PersonsBase.data
 
             if (File.Exists(pth))
             {
-                var dlgResult = MessageBox.Show(@"Файл существует! Перезаписать?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var dlgResult = MessageBox.Show(@"Файл существует! Перезаписать?", @"Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dlgResult == DialogResult.Yes)
                 {
                     File.Delete(pth);

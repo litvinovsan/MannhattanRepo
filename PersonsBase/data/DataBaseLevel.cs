@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 using PersonsBase.myStd;
 
@@ -12,13 +13,11 @@ namespace PersonsBase.data
 
         [NonSerialized]
         private readonly object _locker = new object(); // блокировка коллекции на время сериализации.
-
         [NonSerialized]
         private static DataBaseLevel _dbInstance;  //Singleton.
 
         // База Клиентов
         private static SortedList<string, Person> _dataBaseList;
-
         // База Администраторов 
         private static List<Administrator> _adminsList;
         // База Тренеров
@@ -41,28 +40,11 @@ namespace PersonsBase.data
 
         #region/// КОНСТРУКТОР и ДЕСТРУКТОР //////////////////////
         private DataBaseLevel()
-        {// FIXME Вытащить имена файлов сериализации в настройки или ресурсы
-            // FIXME Засунуть всю сериализацию в один метод
+        {
             // База Клиентов
             _dataBaseList = new SortedList<string, Person>(StringComparer.OrdinalIgnoreCase);
-            lock (_locker) { SerializeClass.DeSerialize(ref _dataBaseList, "ClientsDataBase.bin"); }
 
-            // База Тренеров
-            _trenersList = new List<Trener>();
-            SerializeClass.DeSerialize(ref _trenersList, "TrenersDataBase.bin");
-
-            // База Администраторов 
-            _adminsList = new List<Administrator>();
-            SerializeClass.DeSerialize(ref _adminsList, "AdminsDataBase.bin");
-
-            // Текущий Администратор на Ресепшн
-            _adminCurrent = new Administrator();
-            SerializeClass.DeSerialize(ref _adminCurrent, "adminToday.bin");
-
-            // Список ежедневных Групповых Тренировок
-            _groupScheduleList = new List<ScheduleNote>();
-            SerializeClass.DeSerialize(ref _groupScheduleList, "GroupSchedule.bin");
-
+            DeSerializeObjects();
             // Cтруктура для удобства доступа
             _manhattanInfo = new ManhattanInfo
             {
@@ -75,27 +57,19 @@ namespace PersonsBase.data
 
         ~DataBaseLevel()
         {
-            // База Клиентов
-            lock (_locker)
-            { SerializeClass.Serialize(_dataBaseList, "ClientsDataBase.bin"); }
+            SerializeObjects();
 
-            // База Тренеров
-            SerializeClass.Serialize(_trenersList, "TrenersDataBase.bin");
-            // База Администраторов 
-            SerializeClass.Serialize(_adminsList, "AdminsDataBase.bin");
-            // Текущий Администратор на Ресепшн
-            SerializeClass.Serialize(_adminCurrent, "adminToday.bin");
-            // Список ежедневных Групповых Тренировок
-            SerializeClass.Serialize(_groupScheduleList, "GroupSchedule.bin");
-            // Сохранение в Excel
+            // Автоматическое Сохранение в Excel всей базы на всякий случай
             DataBaseM.ExportToExcel(DataBaseM.GetPersonsTable(), false);
-
         }
         #endregion
 
         #region/// CОБЫТИЯ ///////////////////////////
         // Список Клиентов
         public delegate void MyEventDelegate(object sender, EventArgs e);
+        /// <summary>
+        /// Событие возникает когда изменяется количество клиентов в базе.
+        /// </summary>
         public event MyEventDelegate ListChangedEvent;
         public void OnListChanged()
         {
@@ -178,6 +152,55 @@ namespace PersonsBase.data
         {
             return _dataBaseList.ContainsKey(personName);
         }
+
+        /// <summary>
+        /// Сериализация всех обьектов Базы данных. Клиенты, Администраторы, Тренеры, Расписание груповых тренировок
+        /// </summary>
+        public void SerializeObjects()
+        {
+            MyExportFile.CreateFolder(Options.DataBaseFolderName);
+            var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.DataBaseFolderName;
+
+            lock (_locker)
+            { SerializeClass.Serialize(_dataBaseList, currentPath + "\\" + Options.PersonsDbFile); }
+
+            // База Тренеров
+            SerializeClass.Serialize(_trenersList, currentPath + "\\" + Options.TrenersDbFile);
+            // База Администраторов 
+            SerializeClass.Serialize(_adminsList, currentPath + "\\" + Options.AdminsDbFile);
+            // Текущий Администратор на Ресепшн
+            SerializeClass.Serialize(_adminCurrent, currentPath + "\\" + Options.AdminCurrFile);
+            // Список ежедневных Групповых Тренировок
+            SerializeClass.Serialize(_groupScheduleList, currentPath + "\\" + Options.GroupSchFile);
+        }
+
+        /// <summary>
+        /// ДеСериализация всех обьектов Базы данных. Клиенты, Администраторы, Тренеры, Расписание груповых тренировок
+        /// </summary>
+        public void DeSerializeObjects()
+        {
+            MyExportFile.CreateFolder(Options.DataBaseFolderName);
+            var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.DataBaseFolderName;
+
+            lock (_locker) { SerializeClass.DeSerialize(ref _dataBaseList, currentPath + "\\" + Options.PersonsDbFile); }
+
+            // База Тренеров
+            _trenersList = new List<Trener>();
+            SerializeClass.DeSerialize(ref _trenersList, currentPath + "\\" + Options.TrenersDbFile);
+
+            // База Администраторов 
+            _adminsList = new List<Administrator>();
+            SerializeClass.DeSerialize(ref _adminsList, currentPath + "\\" + Options.AdminsDbFile);
+
+            // Текущий Администратор на Ресепшн
+            _adminCurrent = new Administrator();
+            SerializeClass.DeSerialize(ref _adminCurrent, currentPath + "\\" + Options.AdminCurrFile);
+
+            // Список ежедневных Групповых Тренировок
+            _groupScheduleList = new List<ScheduleNote>();
+            SerializeClass.DeSerialize(ref _groupScheduleList, currentPath + "\\" + Options.GroupSchFile);
+        }
+
 
         #endregion
     }

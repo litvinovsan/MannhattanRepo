@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using PersonsBase.data;
 using PersonsBase.data.Abonements;
+using PersonsBase.myStd;
 using PersonsBase.View;
 
 namespace PersonsBase.control
@@ -10,17 +11,6 @@ namespace PersonsBase.control
     [Serializable]
     public class Logic
     {
-        #region /// КОНСТРУКТОР ////
-
-        private Logic()
-        {
-            _options = Options.GetInstance();
-            _dataBase = DataBaseLevel.GetInstance();
-            _persons = DataBaseLevel.GetListPersons();
-        }
-
-        #endregion
-
         #region/// Синглтон ////
 
         public static Logic GetInstance()
@@ -30,13 +20,30 @@ namespace PersonsBase.control
 
         #endregion
 
-        #region/// ОБЬЕКТЫ Приватные //////////////////////////////
+        #region/// ОБЬЕКТЫ Приватные /////
 
         [NonSerialized] private static Logic _logicInstance; //Singleton.
 
         private Options _options;
         private DataBaseLevel _dataBase;
         private SortedList<string, Person> _persons;
+
+        #endregion
+
+        #region /// КОНСТРУКТОР ////
+
+        private Logic()
+        {
+            _options = Options.GetInstance();
+            _dataBase = DataBaseLevel.GetInstance();
+            _persons = DataBaseLevel.GetListPersons();
+            
+        }
+
+        ~Logic()
+        {
+           
+        }
 
         #endregion
 
@@ -142,7 +149,7 @@ namespace PersonsBase.control
         {
             FormsRunner.RunPasswordForm();
         }
-      
+
         #endregion
 
         #region /// ФОРМА Босса /// 
@@ -155,7 +162,7 @@ namespace PersonsBase.control
             var isExist = IsSchedExists(time.HourMinuteTime, sch.WorkoutsName, manhattanInfo);
             if (isExist)
             {
-                MessageBox.Show(@"Такая тренировка уже существует. Измените время или название!", "Внимание",
+                MessageBox.Show(@"Такая тренировка уже существует. Измените время или название!", @"Внимание",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
@@ -196,7 +203,7 @@ namespace PersonsBase.control
 
                 if (phoneNotChanged)
                 {
-                    MessageBox.Show(@"Такое имя уже существует!", "Внимание", MessageBoxButtons.OK,
+                    MessageBox.Show(@"Такое имя уже существует!", @"Внимание", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                     return false;
                 }
@@ -301,7 +308,7 @@ namespace PersonsBase.control
 
             if (isSuccess)
             {
-                var res = MessageBox.Show(@"Желаете Добавить Абонемент?", "Клиент Добавлен!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var res = MessageBox.Show(@"Желаете Добавить Абонемент?", @"Клиент Добавлен!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 //  Создаем Абонемент если выбрали Да
                 if (res == DialogResult.Yes) AddAbonement(createdPersoName);
             }
@@ -404,8 +411,6 @@ namespace PersonsBase.control
             person.Status = StatusPerson.Нет_Карты;
             return false;
         }
-
-
 
         #endregion
     }

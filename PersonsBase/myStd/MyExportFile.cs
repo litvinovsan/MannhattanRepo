@@ -10,7 +10,7 @@ using ClosedXML.Excel;
 
 namespace PersonsBase.myStd
 {
-    public static class MyExportXls
+    public static class MyExportFile
     {
         #region /// CLOSED_XML ОТКРЫТИЕ СОХРАНЕНИЕ ЗАГРУЗКА
 
@@ -132,7 +132,39 @@ namespace PersonsBase.myStd
             }
         }
 
+        #region /// РАБОТА со СТРОКАМИ и ЯЧЕЦКАМИ
+
+        /// <summary>
+        /// Задает оформление Заголовков итд к Первой вкладке Эксель
+        /// </summary>
+        /// <param name="wb"></param>
+        private static void ApplyStyles(XLWorkbook wb)
+        {
+            var ws = wb.Worksheets.First();
+            var rngTable = ws.RangeUsed();
+
+            // Границы 
+            rngTable.Style.Border.OutsideBorder = XLBorderStyleValues.Double;
+            rngTable.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+            // Adding grid lines
+            rngTable.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+
+            rngTable.FirstColumn().Style.Border.LeftBorder = XLBorderStyleValues.Medium;
+            rngTable.FirstColumn().Style.Border.RightBorder = XLBorderStyleValues.Medium;
+
+            ws.SheetView.FreezeColumns(1);
+
+            ws.Columns().AdjustToContents();
+
+            // Adjust column widths to their content
+            ws.Columns(2, 25).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            ws.Rows(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+        }
+
         #endregion
+
+        #endregion
+
 
 
         #region /// СТАНДАРНТНЫЕ ДИАЛОГИ ОТКРЫТИЯ / СОХРАНЕНИЯ
@@ -183,36 +215,5 @@ namespace PersonsBase.myStd
 
         #endregion
 
-
-        #region /// РАБОТА со СТРОКАМИ и ЯЧЕЦКАМИ
-
-        /// <summary>
-        /// Задает оформление Заголовков итд к Первой вкладке Эксель
-        /// </summary>
-        /// <param name="wb"></param>
-        private static void ApplyStyles(XLWorkbook wb)
-        {
-            var ws = wb.Worksheets.First();
-            var rngTable = ws.RangeUsed();
-
-            // Границы 
-            rngTable.Style.Border.OutsideBorder = XLBorderStyleValues.Double;
-            rngTable.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
-            // Adding grid lines
-            rngTable.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
-
-            rngTable.FirstColumn().Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-            rngTable.FirstColumn().Style.Border.RightBorder = XLBorderStyleValues.Medium;
-
-            ws.SheetView.FreezeColumns(1);
-
-            ws.Columns().AdjustToContents();
-
-            // Adjust column widths to their content
-            ws.Columns(2, 25).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-            ws.Rows(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
-        }
-
-        #endregion
     }
 }

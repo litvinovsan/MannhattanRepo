@@ -35,7 +35,7 @@ namespace PersonsBase.myStd
             }
             catch (Exception e)
             {
-                MessageBox.Show("Ошибка: " + e.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($@"Ошибка в файле {nameFile}: " + e.Message, @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -54,7 +54,7 @@ namespace PersonsBase.myStd
             }
             catch (Exception e)
             {
-                MessageBox.Show("Ошибка: " + e.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($@"Ошибка в файле {nameFile}: " + e.Message, @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -152,11 +152,11 @@ namespace PersonsBase.myStd
             }
         }
 
-        public static bool StaticLoad(Type static_class, string filename)
+        public static bool StaticLoad(Type staticClass, string filename)
         {
             try
             {
-                FieldInfo[] fields = static_class.GetFields(BindingFlags.Static | BindingFlags.Public);
+                FieldInfo[] fields = staticClass.GetFields(BindingFlags.Static | BindingFlags.Public);
                 object[,] a;
                 Stream f = File.Open(filename, FileMode.Open);
                 SoapFormatter formatter = new SoapFormatter();
@@ -180,7 +180,5 @@ namespace PersonsBase.myStd
             }
         }
         #endregion
-
-
     }
 }

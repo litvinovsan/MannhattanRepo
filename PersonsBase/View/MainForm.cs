@@ -57,8 +57,7 @@ namespace PersonsBase.View
             SerializeClass.DeSerialize(ref _options, "Option.bin");
 
             // Подписка на события в пользовательской Базе Данных
-            _dataB.ListChangedEvent +=
-                UpdateFindComboBoxMenu; // Список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
+            _dataB.ListChangedEvent += UpdateFindComboBoxMenu; // Список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
             _dataB.ListChangedEvent += UpdateUsersCountTextBox; // Счетчик пользователей
             _dataB.ListChangedEvent += UpdateBirthDateComboBox; // Поле Сегодняшних Дней рождений
 
@@ -182,8 +181,15 @@ namespace PersonsBase.View
             {
                 сomboBox_PersonsList.Items.Clear();
 
-                сomboBox_PersonsList.Items.AddRange(PersonsList.Values.Select(c => c.Name).ToArray<object>());
-                Invalidate();
+                try
+                {
+                    сomboBox_PersonsList.Items.AddRange(PersonsList.Values.Select(c => c.Name).ToArray<object>());
+                    Invalidate();
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
             }
 
             if (InvokeRequired) Invoke((Action)MyDelegate);
