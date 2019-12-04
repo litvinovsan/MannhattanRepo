@@ -40,11 +40,6 @@ namespace PersonsBase.control
             
         }
 
-        ~Logic()
-        {
-           
-        }
-
         #endregion
 
         #region///  События ////

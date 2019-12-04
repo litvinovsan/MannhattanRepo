@@ -73,6 +73,7 @@ namespace PersonsBase.myStd
                 {
                     var streamWriter = new StreamWriter(file);
                     streamWriter.Write(objectAsJson);
+                    streamWriter.Close();
                     result = true;
                 }
             }

@@ -82,10 +82,13 @@ namespace PersonsBase.View
 
 
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void  MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // Автоматическое Сохранение в Excel всей базы на всякий случай
+            // FIXME сделать асинхронно
+            DataBaseM.ExportToExcel(DataBaseM.GetPersonsTable(), false);
+            
             // Сохраняем настройки. 
-
             SerializeClass.Serialize(_options, "Option.bin");
         }
 
@@ -242,6 +245,7 @@ namespace PersonsBase.View
 
         private void конфигураторОтчетовToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
 
             #region MyRegion ПРИМЕР
 

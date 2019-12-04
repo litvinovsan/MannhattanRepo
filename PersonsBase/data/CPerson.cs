@@ -142,6 +142,25 @@ namespace PersonsBase.data
             AbonementsQueue = new ObservableCollection<AbonementBasic>();
             JournalVisits = new List<Visit>();
         }
+        public Person()
+        {
+            Name = "Empty Name";
+            PersonalNumber = 0;
+            Status = StatusPerson.Нет_Карты;
+            GenderType = Gender.Неизвестен;
+            BirthDate = DateTime.Parse("02.02.2000");
+            Passport = string.Empty;
+            SpecialNotes = string.Empty;
+
+            _phone = string.Empty;
+            _driverIdNum = string.Empty;
+            _pathToPhoto = string.Empty;
+            _abonementCurent = null;
+
+            AbonementsQueue = new ObservableCollection<AbonementBasic>();
+            JournalVisits = new List<Visit>();
+        }
+
         #endregion
 
         #region /// МЕТОДЫ  ///////////////////////////

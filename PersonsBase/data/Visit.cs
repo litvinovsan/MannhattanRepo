@@ -57,6 +57,23 @@ namespace PersonsBase.data
                 : workoutOptions.PersonalTrener.Name;
             GroupInfo = workoutOptions.GroupInfo;
         }
+        public Visit()
+        {
+            DateTimeVisit = DateTime.Now;
+            TypeWorkoutToday = TypeWorkout.Тренажерный_Зал;
+            NumAllDaysAbon = 0;
+            NumAerobicTr = 0;
+            NumPersonalTr = 0;
+            SpaStatus = SpaService.Без_Спа;
+            PayStatus = Pay.Не_Оплачено;
+            AvailableTimeTren = TimeForTr.Утро;
+            AbonStartDate = System.DateTime.Now;
+            AbonEndDate = System.DateTime.Now;
+            AbonementName = ""; // "Клубная Карта"  "Абонемент"   "Разовое Занятие"
+            CurrAdmName = "";
+            PeronalTrenerName = "";
+            GroupInfo = new Group();
+        }
 
         #region // Не изменять очередность. Кусок нужен для создания таблицы для вывода на форму в датагридвью 
 

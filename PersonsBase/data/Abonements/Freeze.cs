@@ -31,7 +31,11 @@ namespace PersonsBase.data.Abonements
             _startDate = startDate.Date;
             DaysToFreeze = daysToFreeze;
         }
-
+        public FreezePeriod()
+        {
+            _startDate = DateTime.Now;
+            DaysToFreeze = 0;
+        }
         // Методы
 
         /// <summary>
@@ -94,6 +98,12 @@ namespace PersonsBase.data.Abonements
 
             MaxDaysAvailable = GetMaxDaysForPeriod(period);
 
+            _totalDaysFreezed = 0;
+        }
+        public FreezeClass()
+        {
+            AllFreezes = new List<FreezePeriod>();
+            MaxDaysAvailable = 0;
             _totalDaysFreezed = 0;
         }
 
@@ -165,7 +175,7 @@ namespace PersonsBase.data.Abonements
                 return false;
             }
         }
-        
+
         /// <summary>
         /// Запланировано дней в ближайшей будущей заморозке
         /// </summary>

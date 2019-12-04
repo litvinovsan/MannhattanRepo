@@ -20,10 +20,20 @@ namespace PersonsBase.data.Abonements
             PeriodClubCard periodInMonths)
             : base(payStatus, time, typeTr, spa)
         {
-            _numberMonths = (int) periodInMonths;
+            _numberMonths = (int)periodInMonths;
             _numAerobicTr = _numberMonths * 10;
             NumPersonalTr = 0;
             _periodAbonem = periodInMonths;
+
+            EndDateChanged += CalculateDaysLeft;
+            EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
+        }
+        public ClubCardA()
+        {
+            _numberMonths = 0;
+            _numAerobicTr = 0;
+            NumPersonalTr = 0;
+            _periodAbonem = PeriodClubCard.На_1_Месяц;
 
             EndDateChanged += CalculateDaysLeft;
             EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
@@ -35,7 +45,7 @@ namespace PersonsBase.data.Abonements
             set
             {
                 _periodAbonem = value;
-                _numberMonths = (int) _periodAbonem;
+                _numberMonths = (int)_periodAbonem;
                 _numAerobicTr = _numberMonths * 10;
                 SetNewEndDate();
             }
@@ -94,30 +104,30 @@ namespace PersonsBase.data.Abonements
             switch (type)
             {
                 case TypeWorkout.Аэробный_Зал:
-                {
-                    if (NumAerobicTr > 0)
                     {
-                        --NumAerobicTr;
-                        result = true;
-                    }
+                        if (NumAerobicTr > 0)
+                        {
+                            --NumAerobicTr;
+                            result = true;
+                        }
 
-                    break;
-                }
+                        break;
+                    }
                 case TypeWorkout.Персональная:
-                {
-                    if (NumPersonalTr > 0)
                     {
-                        --NumPersonalTr;
-                        result = true;
-                    }
+                        if (NumPersonalTr > 0)
+                        {
+                            --NumPersonalTr;
+                            result = true;
+                        }
 
-                    break;
-                }
+                        break;
+                    }
                 case TypeWorkout.Тренажерный_Зал:
-                {
-                    result = true;
-                    break;
-                }
+                    {
+                        result = true;
+                        break;
+                    }
             }
 
             return result;
@@ -133,27 +143,27 @@ namespace PersonsBase.data.Abonements
             switch (type)
             {
                 case TypeWorkout.Аэробный_Зал:
-                {
-                    NumAerobicTr += numberToAdd;
-                    result = true;
-                    break;
-                }
+                    {
+                        NumAerobicTr += numberToAdd;
+                        result = true;
+                        break;
+                    }
                 case TypeWorkout.Персональная:
-                {
-                    NumPersonalTr += numberToAdd;
-                    result = true;
-                    break;
-                }
+                    {
+                        NumPersonalTr += numberToAdd;
+                        result = true;
+                        break;
+                    }
                 case TypeWorkout.Тренажерный_Зал:
-                {
-                    result = false;
-                    break;
-                }
+                    {
+                        result = false;
+                        break;
+                    }
                 default:
-                {
-                    result = false;
-                    break;
-                }
+                    {
+                        result = false;
+                        break;
+                    }
             }
 
             return result;

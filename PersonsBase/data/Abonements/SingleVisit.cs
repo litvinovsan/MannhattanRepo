@@ -17,6 +17,13 @@ namespace PersonsBase.data.Abonements
             DaysLeft = 1;
             EndDate = DateTime.Now.Date;
         }
+        public SingleVisit()
+        {
+            _numAerobicTr = 0;
+            _numPersonalTr = 0;
+            DaysLeft = 1;
+            EndDate = DateTime.Now.Date;
+        }
 
         // Свойства
         private int _numAerobicTr;

@@ -58,9 +58,6 @@ namespace PersonsBase.data
         ~DataBaseLevel()
         {
             SerializeObjects();
-
-            // Автоматическое Сохранение в Excel всей базы на всякий случай
-            DataBaseM.ExportToExcel(DataBaseM.GetPersonsTable(), false);
         }
         #endregion
 
@@ -162,7 +159,9 @@ namespace PersonsBase.data
             var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.DataBaseFolderName;
 
             lock (_locker)
-            { SerializeClass.Serialize(_dataBaseList, currentPath + "\\" + Options.PersonsDbFile); }
+            {
+                SerializeClass.Serialize(_dataBaseList, currentPath + "\\" + Options.PersonsDbFile);
+            }
 
             // База Тренеров
             SerializeClass.Serialize(_trenersList, currentPath + "\\" + Options.TrenersDbFile);
@@ -182,7 +181,10 @@ namespace PersonsBase.data
             MyExportFile.CreateFolder(Options.DataBaseFolderName);
             var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.DataBaseFolderName;
 
-            lock (_locker) { SerializeClass.DeSerialize(ref _dataBaseList, currentPath + "\\" + Options.PersonsDbFile); }
+            lock (_locker)
+            {
+                SerializeClass.DeSerialize(ref _dataBaseList, currentPath + "\\" + Options.PersonsDbFile);
+            }
 
             // База Тренеров
             _trenersList = new List<Trener>();

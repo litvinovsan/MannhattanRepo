@@ -54,6 +54,15 @@ namespace PersonsBase.data.Abonements
             IsActivated = false;
             BuyDate = DateTime.Now.Date;
         }
+        protected AbonementBasic()
+        {
+            this.PayStatus = Pay.Не_Оплачено;
+            TimeTraining = TimeForTr.Весь_День;
+            TrainingsType = TypeWorkout.Тренажерный_Зал;
+            this.Spa = SpaService.Спа;
+            IsActivated = false;
+            BuyDate = DateTime.Now.Date;
+        }
 
         //МЕТОДЫ АБСТРАКТНЫЕ
 

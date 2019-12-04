@@ -19,6 +19,15 @@ namespace PersonsBase.data.Abonements
             NumPersonalTr = 0; // Нужны тут только из-за абстракции. 
             EndDate = DateTime.Now.AddMonths(2).Date;
         }
+        public AbonementByDays()
+            : base()
+        {
+            DaysLeft = (int)0;
+            TypeAbonement = DaysInAbon.На_10_посещений;
+            NumAerobicTr = 0;  // Нужны тут только из-за абстракции. 
+            NumPersonalTr = 0; // Нужны тут только из-за абстракции. 
+            EndDate = DateTime.Now.AddMonths(2).Date;
+        }
 
         // Свойства
         public sealed override int NumAerobicTr { get; set; }
