@@ -66,10 +66,12 @@ namespace PersonsBase.myStd
             bool result = false;
             try
             {
-                // "JSON documents|*.json";
-                var objectAsJson = JsonConvert.SerializeObject(objectToSerialize, Newtonsoft.Json.Formatting.Indented);
+                var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All, Formatting = Formatting.Indented };
 
-                using (var file = new FileStream(nameOutFile, FileMode.Create, FileAccess.Write))
+                // "JSON documents|*.json";
+                var objectAsJson = JsonConvert.SerializeObject(objectToSerialize, settings);
+
+                using (var file = new FileStream(nameOutFile, FileMode.OpenOrCreate, FileAccess.Write))
                 {
                     var streamWriter = new StreamWriter(file);
                     streamWriter.Write(objectAsJson);
@@ -104,7 +106,9 @@ namespace PersonsBase.myStd
 
             if (!string.IsNullOrEmpty(objAsJson))
             {
-                objectToDeSerialize = JsonConvert.DeserializeObject<T>(objAsJson);
+                var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+
+                objectToDeSerialize = JsonConvert.DeserializeObject<T>(objAsJson, settings);
                 result = true;
             }
             return result;

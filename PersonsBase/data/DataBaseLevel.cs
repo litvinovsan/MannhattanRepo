@@ -160,7 +160,13 @@ namespace PersonsBase.data
 
             lock (_locker)
             {
-                SerializeClass.Serialize(_dataBaseList, currentPath + "\\" + Options.PersonsDbFile);
+               // SerializeClass.Serialize(_dataBaseList, currentPath + "\\" + Options.PersonsDbFile);
+                //
+               
+                var res = SerializeClass.SerializeJson<SortedList<string, Person>>(_dataBaseList, "myJson.json");
+              
+
+               
             }
 
             // База Тренеров
@@ -183,7 +189,9 @@ namespace PersonsBase.data
 
             lock (_locker)
             {
-                SerializeClass.DeSerialize(ref _dataBaseList, currentPath + "\\" + Options.PersonsDbFile);
+               // SerializeClass.DeSerialize(ref _dataBaseList, currentPath + "\\" + Options.PersonsDbFile);
+                //
+                var res2 = SerializeClass.DeSerializeJson(ref _dataBaseList, "myJson.json");
             }
 
             // База Тренеров
