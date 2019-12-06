@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using PersonsBase.data.Abonements;
 using PersonsBase.myStd;
 
@@ -294,7 +296,9 @@ namespace PersonsBase.data
             }
             else
             {
-                MyExportFile.SaveToExcel(table, $"CписокКлиентов");
+                var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.DataBaseFolderName + "\\";
+
+                MyExportFile.SaveToExcel(table, $"{currentPath}CписокКлиентов");
             }
         }
 
@@ -417,30 +421,41 @@ namespace PersonsBase.data
             }
 
             personFields.Add(new PersonField { HeaderName = "Заметки", Value = person.SpecialNotes });
-            personFields.Add(new PersonField { HeaderName = "Фото", Value = person.PathToPhoto });
-
+            personFields.Add(new PersonField { HeaderName = "Фото", Value = Path.GetFileName(person.PathToPhoto) });
             // Вывод Списка Заморозок
+            personFields.Add(new PersonField { HeaderName = "Заморозки", Value = GetFreezeString(person) });
+
+            return personFields;
+        }
+        /// <summary>
+        /// Формирует строку из списка записей заморозки. Эта строка нужна для вывода в эксель
+        /// </summary>
+        /// <param name="person"></param>
+        /// <returns></returns>
+        private static string GetFreezeString(Person person)
+        {
+            var result = "";
             if ((person.AbonementCurent != null) && person.AbonementCurent is ClubCardA abon)
             {
                 try
                 {
                     abon.Freeze.Sort();
-                    var startDateList = abon.Freeze.AllFreezes.Select(x => $"Начало: {x.StartDate:d}(дней:{x.DaysToFreeze}) *** ").ToList<string>();
+                    var startDateList = abon.Freeze.AllFreezes
+                        .Select(x => $"Начало: {x.StartDate:d}(дней:{x.DaysToFreeze}) *** ").ToList<string>();
 
-                    var resulVal = string.Empty;
                     foreach (var item in startDateList)
                     {
-                        resulVal += item;
+                        result += item;
                     }
-                    personFields.Add(new PersonField { HeaderName = "Заморозки", Value = resulVal });
                 }
                 catch (Exception)
                 {
                     // ignored
                 }
             }
-            return personFields;
+            return result;
         }
+
 
         #endregion
     }

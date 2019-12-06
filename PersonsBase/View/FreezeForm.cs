@@ -30,7 +30,7 @@ namespace PersonsBase.View
             InitializeFreezeObject();
 
             // Заголовок Формы
-            this.Text = "Карта " + _clubCard.GetTypeClubCard().ToString().Replace("_", " ");
+            this.Text = @"Карта " + _clubCard.GetTypeClubCard().ToString().Replace("_", " ");
 
             // Доступно Дней      
             textBox_available.Text = _clubCard.Freeze.GetAvailableDays().ToString();
@@ -67,6 +67,7 @@ namespace PersonsBase.View
 
         private void InitCheckBoxHistory()
         {
+            _clubCard.Freeze.Sort();
             var freezes = _clubCard.Freeze.AllFreezes;
             foreach (var item in freezes)
             {

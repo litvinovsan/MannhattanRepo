@@ -4,7 +4,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using ClosedXML.Excel;
 
@@ -89,19 +89,24 @@ namespace PersonsBase.myStd
             //Exporting to Excel
             //Codes for the Closed XML
 
-            using (var wb = new XLWorkbook())
-            {
-                wb.Worksheets.Add(dt, "Список Клиентов");
-                ApplyStyles(wb);
-                try
-                {
-                    wb.SaveAs(fileName + ".xlsx");
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show(@"Файл уже используется!");
-                }
-            }
+            var th = new Thread((() =>
+              {
+                  using (var wb = new XLWorkbook())
+                  {
+                      wb.Worksheets.Add(dt, "Список Клиентов");
+                      ApplyStyles(wb);
+                      try
+                      {
+                          wb.SaveAs(fileName + ".xlsx");
+                      }
+                      catch (Exception)
+                      {
+                          MessageBox.Show(@"Файл уже используется!");
+                      }
+                  }
+              }));
+            th.Start();
+
         }
 
         /// <summary>

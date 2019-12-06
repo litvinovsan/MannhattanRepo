@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using PersonsBase.control;
 using PersonsBase.data;
@@ -85,9 +86,8 @@ namespace PersonsBase.View
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Автоматическое Сохранение в Excel всей базы на всякий случай
-            // FIXME сделать асинхронно
-            DataBaseM.ExportToExcel(DataBaseM.GetPersonsTable(), false);
 
+            DataBaseM.ExportToExcel(DataBaseM.GetPersonsTable(), false);
             // Сохраняем настройки. 
             SerializeClass.Serialize(_options, "Option.bin");
         }
