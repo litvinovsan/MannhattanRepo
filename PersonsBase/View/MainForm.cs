@@ -245,12 +245,6 @@ namespace PersonsBase.View
 
         private void конфигураторОтчетовToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var pers = DataBaseLevel.GetListPersons();
-            var res = SerializeClass.SerializeJson<SortedList<string, Person>>(pers, "myJson.json");
-            SortedList<string, Person> temPersons = null;
-
-            var res2 = SerializeClass.DeSerializeJson(ref temPersons, "myJson.json");
-
             #region MyRegion ПРИМЕР
 
             /*

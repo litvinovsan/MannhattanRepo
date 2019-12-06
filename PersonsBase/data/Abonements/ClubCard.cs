@@ -25,15 +25,7 @@ namespace PersonsBase.data.Abonements
             NumPersonalTr = 0;
             _periodAbonem = periodInMonths;
 
-            EndDateChanged += CalculateDaysLeft;
-            EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
-        }
-        public ClubCardA()
-        {
-            _numberMonths = 0;
-            _numAerobicTr = 0;
-            NumPersonalTr = 0;
-            _periodAbonem = PeriodClubCard.На_1_Месяц;
+            Freeze = new FreezeClass(periodInMonths);
 
             EndDateChanged += CalculateDaysLeft;
             EndDate = DateTime.Now.AddMonths(_numberMonths).Date;

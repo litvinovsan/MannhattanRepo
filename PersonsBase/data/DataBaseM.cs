@@ -414,6 +414,27 @@ namespace PersonsBase.data
                 personFields.Add(new PersonField { HeaderName = "Доступное время", Value = person.AbonementCurent.TimeTraining.ToString() });
                 personFields.Add(new PersonField { HeaderName = "Доступный тип", Value = person.AbonementCurent.TrainingsType.ToString() });
                 personFields.Add(new PersonField { HeaderName = "Осталось дней", Value = person.AbonementCurent.GetRemainderDays().ToString() });
+
+                // Вывод Списка Заморозок
+                if (person.AbonementCurent is ClubCardA abon)
+                {
+                    try
+                    {
+                        abon.Freeze.Sort();
+                        var startDateList = abon.Freeze.AllFreezes.Select(x => $"Начало: {x.StartDate:d}(дней:{x.DaysToFreeze}) *** ").ToList<string>();
+
+                        var resulVal = string.Empty;
+                        foreach (var item in startDateList)
+                        {
+                            resulVal += item;
+                        }
+                        personFields.Add(new PersonField { HeaderName = "Заморозки", Value = resulVal });
+                    }
+                    catch (Exception)
+                    {
+                        // ignored
+                    }
+                }
             }
 
             personFields.Add(new PersonField { HeaderName = "Заметки", Value = person.SpecialNotes });

@@ -100,12 +100,6 @@ namespace PersonsBase.data.Abonements
 
             _totalDaysFreezed = 0;
         }
-        public FreezeClass()
-        {
-            AllFreezes = new List<FreezePeriod>();
-            MaxDaysAvailable = 0;
-            _totalDaysFreezed = 0;
-        }
 
         #endregion
 
@@ -204,6 +198,14 @@ namespace PersonsBase.data.Abonements
         {
             var periodFreeze = AllFreezes.Find(x => (x.IsFreezedNow() == false && x.IsFreezeInFuture()));
             return periodFreeze;
+        }
+
+        /// <summary>
+        /// Сортировка по возрастанию даты( от раннего к позднему)
+        /// </summary>
+        public void Sort()
+        {
+            AllFreezes.Sort((x, y) => x.StartDate.CompareTo(y.StartDate));
         }
 
         /// <summary>
