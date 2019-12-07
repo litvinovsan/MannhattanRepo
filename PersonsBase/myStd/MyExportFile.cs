@@ -101,12 +101,13 @@ namespace PersonsBase.myStd
                       }
                       catch (Exception)
                       {
-                          MessageBox.Show(@"Файл уже используется!");
+                          MessageBox.Show(@"Файл уже используется! Имя будет изменено");
+                          string prefix = $"({DateTime.Now.Hour:D}-{DateTime.Now.Minute:D}-{DateTime.Now.Second})";
+                          wb.SaveAs(fileName + prefix + ".xlsx");
                       }
                   }
               }));
             th.Start();
-
         }
 
         /// <summary>

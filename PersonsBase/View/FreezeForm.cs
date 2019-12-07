@@ -92,9 +92,7 @@ namespace PersonsBase.View
 
         private void button_Freeze_Click(object sender, EventArgs e)
         {
-            int numDays;
-            DateTime startDate;
-            if (GetFreezeParams(out numDays, out startDate))
+            if (GetFreezeParams(out var numDays, out var startDate))
             {
                 var isConfigured = _clubCard.Freeze.TrySetFreeze(numDays, startDate);
                 if (isConfigured)

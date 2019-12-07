@@ -37,7 +37,6 @@ namespace PersonsBase.View
 
         #region /// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ///
 
-
         public MainForm()
         {
             InitializeComponent();
@@ -78,15 +77,11 @@ namespace PersonsBase.View
             MyListViewEx.MaximizeLastColumn(listView_Gym_Zal);
             MyListViewEx.MaximizeLastColumn(listView_Group);
             MyListViewEx.MaximizeLastColumn(listView_Personal);
-
         }
-
-
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Автоматическое Сохранение в Excel всей базы на всякий случай
-
             DataBaseM.ExportToExcel(DataBaseM.GetPersonsTable(), false);
             // Сохраняем настройки. 
             SerializeClass.Serialize(_options, "Option.bin");
@@ -350,8 +345,11 @@ namespace PersonsBase.View
         private void сохранитьВExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (DataBaseLevel.GetNumberOfPersons() == 0) MessageBox.Show(@"В Базе нет клиентов");
+
             var table = DataBaseM.GetPersonsTable();
             DataBaseM.ExportToExcel(table, true);
+            //Сохраним и Базу данных
+            DataBaseLevel.GetInstance().SerializeObjects();
         }
     }
 }

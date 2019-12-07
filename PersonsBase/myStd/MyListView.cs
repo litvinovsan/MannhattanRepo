@@ -15,7 +15,7 @@ namespace PersonsBase.myStd
         // Колонки
         public static void AddColumns(ListView listView, string[] columns)
         {
-            ColumnHeader columnHeader = new ColumnHeader();
+            var columnHeader = new ColumnHeader();
             foreach (var item in columns)
             {
                 columnHeader.Text = item;
@@ -227,12 +227,10 @@ namespace PersonsBase.myStd
         // Доступные варианты строки
         // Время  |  Имя Клиента
         //        |  Имя Клиента
-        private string _message;
 
         public NameTimeItem(string name)
         {
             var dateTime = DateTime.Now;
-            _message = name;
 
             Text = dateTime.ToString("HH:mm");
             // SubItems.Add(messageType.ToString());
@@ -241,7 +239,6 @@ namespace PersonsBase.myStd
         public NameTimeItem(string name, ListViewGroup group, bool showTime)
         {
             var dateTime = DateTime.Now;
-            _message = name;
             Text = (showTime) ? dateTime.ToString("HH:mm") : "";
             if (group != null) Group = group;
 
@@ -250,7 +247,6 @@ namespace PersonsBase.myStd
         public NameTimeItem(string name, bool showTime)
         {
             var dateTime = DateTime.Now;
-            _message = name;
             Text = (showTime) ? dateTime.ToString("HH:mm") : "";
 
             SubItems.Add(name);

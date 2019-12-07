@@ -140,7 +140,8 @@ namespace PersonsBase.data
             _abonementCurent = null;
 
             AbonementsQueue = new ObservableCollection<AbonementBasic>();
-            JournalVisits = new List<Visit>();
+            JournalVisits = new List<Visit>(); // FIXME вынести в отдельный класс. Там сделать Dictionary<string Имя клиента,List<Visit>> 
+                                               // Доступ будет по Имени клиента, а дальше как обычно
         }
         public Person()
         {
@@ -239,6 +240,7 @@ namespace PersonsBase.data
 
         #endregion
 
+        //
         #region /// ЖУРНАЛ ПОСЕЩЕНИЙ
         /// <summary>
         /// Добавляет в Журнал посещений параметры выбранной Тренировки, Текущего администратора, время тренировки 
@@ -404,8 +406,7 @@ namespace PersonsBase.data
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((Person)obj);
+            return obj.GetType() == GetType() && Equals((Person)obj);
         }
 
         [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]

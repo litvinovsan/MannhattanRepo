@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using PersonsBase.data.Abonements;
 using PersonsBase.myStd;
 
@@ -75,10 +73,11 @@ namespace PersonsBase.data
         public static Person FindByDriveId(SortedList<string, Person> inputCollection, string driveLic)
         {
             Person findedPerson;
-            if (inputCollection == null || driveLic == null || inputCollection.Count <= 0) return null;
+            if (inputCollection == null || string.IsNullOrEmpty(driveLic) || inputCollection.Count <= 0) return null;
             try
             {
-                findedPerson = inputCollection.First((p => (p.Value.DriverIdNum == driveLic))).Value;
+                var matches = inputCollection.ToList().FindAll(p => (p.Value.DriverIdNum == driveLic));
+                findedPerson = matches.Count >= 1 ? inputCollection.FirstOrDefault((p => (p.Value.DriverIdNum == driveLic))).Value : null;
             }
             catch
             {
@@ -148,7 +147,7 @@ namespace PersonsBase.data
 
             if (inputCollection != null && inputCollection.Count > 0 && !string.IsNullOrEmpty(newName) && newName != "")
             {
-                string localKey = Methods.PrepareName(key);
+                var localKey = Methods.PrepareName(key);
                 // Копируем данные текущей персоны
                 Person personForEdit; // Копия текущей персоны                                                                        
                 result = inputCollection.TryGetValue(localKey, out personForEdit);
@@ -169,12 +168,14 @@ namespace PersonsBase.data
             if (inputCollection == null || string.IsNullOrEmpty(passp) || inputCollection.Count <= 0) return null;
             try
             {
-                result = inputCollection.Values.Single(x => x.Passport == passp);
+                var matches = inputCollection.ToList().FindAll(x => x.Value.Passport == (passp));
+                result = matches.Count >= 1 ? inputCollection.FirstOrDefault(x => x.Value.Passport == passp).Value : null;
             }
             catch
             {
-                result = null;
+                result = new Person();
             }
+
             return result;
         }
         public static bool EditPassport(ref Person person, string newPassport)
@@ -182,15 +183,8 @@ namespace PersonsBase.data
             bool result = false;
             if (person != null && !string.IsNullOrEmpty(newPassport) && !string.IsNullOrWhiteSpace(newPassport))
             {
-                try
-                {
-                    person.Passport = newPassport;
-                    result = true;
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+                person.Passport = newPassport;
+                result = true;
             }
             return result;
         }
@@ -441,7 +435,7 @@ namespace PersonsBase.data
                 {
                     abon.Freeze.Sort();
                     var startDateList = abon.Freeze.AllFreezes
-                        .Select(x => $"Начало: {x.StartDate:d}(дней:{x.DaysToFreeze}) *** ").ToList<string>();
+                        .Select(x => $"Начало: {x.StartDate:d}(дней:{x.DaysToFreeze}) *** ").ToList();
 
                     foreach (var item in startDateList)
                     {

@@ -9,10 +9,10 @@ namespace PersonsBase.data
     [Serializable]
     public class DataBaseLevel
     {
-        #region/// ОБЬЕКТЫ Приватные //////////////////////////////
+        #region/// ОБЬЕКТЫ Базы Данных. Списки и Коллекции///
 
         [NonSerialized]
-        private readonly object _locker = new object(); // блокировка коллекции на время сериализации.
+        private static readonly object _locker = new object(); // блокировка коллекции на время сериализации.
         [NonSerialized]
         private static DataBaseLevel _dbInstance;  //Singleton.
 
@@ -79,7 +79,10 @@ namespace PersonsBase.data
         // Доступ к Коллекциям и Спискам Клиентов, Тренеров, Администраторов, Тренировок
         public static SortedList<string, Person> GetListPersons()
         {
-            return _dataBaseList;
+            lock (_locker)
+            {
+                return _dataBaseList;
+            }
         }
         public static ManhattanInfo GetManhattanInfo()
         {

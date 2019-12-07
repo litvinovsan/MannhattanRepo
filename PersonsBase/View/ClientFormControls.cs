@@ -251,8 +251,7 @@ namespace PersonsBase.View
             var array = Enum.GetNames(typeof(PeriodClubCard));
             comboBox.Items.AddRange(array.ToArray<object>()); // Записываем Поля в Комбобокс
 
-            var clubCard = _person.AbonementCurent as ClubCardA;
-            if (clubCard != null)
+            if (_person.AbonementCurent is ClubCardA clubCard)
             {
                 comboBox.SelectedItem = clubCard.GetTypeClubCard().ToString(); // Выбор по умолчанию
                 _editedTypeClubCard = clubCard.GetTypeClubCard();
@@ -495,9 +494,8 @@ namespace PersonsBase.View
             var array = Enum.GetNames(typeof(DaysInAbon));
             comboBox.Items.AddRange(array.ToArray<object>());
 
-            if (_person.AbonementCurent is AbonementByDays)
+            if (_person.AbonementCurent is AbonementByDays abonement)
             {
-                var abonement = (AbonementByDays)_person.AbonementCurent;
                 comboBox.SelectedItem = abonement.GetTypeAbonementByDays().ToString(); // Выбор по умолчанию
                 _editedDaysInAbon = abonement.GetTypeAbonementByDays();
                 _saveDelegateChain += () =>

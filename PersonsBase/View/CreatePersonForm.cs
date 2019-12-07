@@ -129,7 +129,6 @@ namespace PersonsBase.View
             //Вызов для подсветки по-умолчанию
             comboBox_Names.BackColor = Color.Pink;
             maskedTextBox_PhoneNumber.BackColor = Color.Pink;
-            maskedTextBox_Passport.BackColor = Color.Pink;
 
             //ComboBox Persons
             var objects = _persons.Values.Select(c => c.Name).ToArray<object>();
@@ -147,7 +146,11 @@ namespace PersonsBase.View
 
         private bool IsDataStatesOk()
         {
-            bool result = (_dataStateOk.Name) && (_dataStateOk.BDate) && (_dataStateOk.Gender) && (_dataStateOk.Phone) && (_dataStateOk.DriveId || _dataStateOk.Passport);
+            var passportAndDriveStatus = (_dataStateOk.DriveId || _dataStateOk.Passport);
+            var result = (_dataStateOk.Name) && (_dataStateOk.BDate) && (_dataStateOk.Gender) && (_dataStateOk.Phone);
+
+            if (Options.IsPasspDriveCheckEnable()) result = result && passportAndDriveStatus;
+
             return result;
         }
 
@@ -188,9 +191,10 @@ namespace PersonsBase.View
 
         private void ProcessMaskedTextBox(string emptyMask, MaskedTextBox maskedTextBox, Func<bool> processFunc)
         {
-            if (string.IsNullOrEmpty(maskedTextBox.Text) || maskedTextBox.Text.Equals((emptyMask)))
+            if (string.IsNullOrEmpty(maskedTextBox.Text) || maskedTextBox.Text.Equals((emptyMask)) || string.IsNullOrWhiteSpace(maskedTextBox.Text))
             {
                 maskedTextBox.BackColor = Color.Pink;
+                processFunc();
                 return;
             }
             var result = processFunc();
@@ -225,7 +229,11 @@ namespace PersonsBase.View
             var person = DataBaseM.FindByPhone(_persons, text);
             _dataStateOk.Phone = (person == null);
 
-            if (!_dataStateOk.Phone) return false;
+            if (!_dataStateOk.Phone)
+            {
+                _dataStruct.Phone = "";
+                return false;
+            }
             _dataStruct.Phone = text;
 
             return true;
@@ -236,7 +244,11 @@ namespace PersonsBase.View
             var person = DataBaseM.FindByPassport(_persons, text);
             _dataStateOk.Passport = (person == null);
 
-            if (!_dataStateOk.Passport) return false;
+            if (!_dataStateOk.Passport)
+            {
+                _dataStruct.Passport = "";
+                return false;
+            }
             _dataStruct.Passport = text;
 
             return true;
@@ -245,12 +257,15 @@ namespace PersonsBase.View
         private bool IsDriveIdOk(string text)
         {
             var person = DataBaseM.FindByDriveId(_persons, text);
-            _dataStateOk.DriveId = (person == null);
+            _dataStateOk.DriveId = (person == null) && !string.IsNullOrEmpty(text) && !string.IsNullOrWhiteSpace(text) && !text.Equals(_maskDriverId);
 
-            if (!_dataStateOk.Passport) return false;
-            _dataStruct.DriveId = text;
-
-            return true;
+            if (_dataStateOk.DriveId)
+            {
+                _dataStruct.DriveId = text;
+                return true;
+            }
+            _dataStruct.DriveId = "";
+            return false;
         }
 
         private bool IsNameOk(string name)

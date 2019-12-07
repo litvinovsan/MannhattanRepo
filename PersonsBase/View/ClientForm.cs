@@ -299,6 +299,142 @@ namespace PersonsBase.View
             MyDataGridView.AddHeaderToolTips(dataGridView_Visits, helpStrings);
         }
 
+        #region // Хелп Методы для Загрузки и обновления пользовательских данных
+
+        private void UpdateNameText()
+        {
+            Text = @"Карточка Клиента:    " + _person.Name; // Имя формы
+
+            textBox_Name.Text = _person.Name;
+            Methods.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
+
+
+            switch (_person.Status)
+            {
+                // Если Запрещен 
+                case StatusPerson.Запрещён:
+                    textBox_Name.Text = _person.Name;
+                    Methods.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
+                    return;
+                // Если Заморожен
+                case StatusPerson.Заморожен when _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA a &&
+                                                 _person.Status != StatusPerson.Вероятный_Клиент &&
+                                                 _person.Status != StatusPerson.Гостевой:
+                    {
+                        textBox_Name.ForeColor = Color.SeaGreen;
+                        var dateEnd = a.Freeze?.AllFreezes.Last().GetEndDate().Date.ToString("d");
+                        textBox_Name.Text = _person.Name + @"   (Заморожен До " + dateEnd + @" )";
+                        break;
+                    }
+                case StatusPerson.Активный:
+                    break;
+                case StatusPerson.Нет_Карты:
+                    break;
+                case StatusPerson.Гостевой:
+                    break;
+                case StatusPerson.Вероятный_Клиент:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            // Заморозка запланирована в будущем
+            var card = _person.AbonementCurent as ClubCardA;
+            if (card?.Freeze != null && _person.Status != StatusPerson.Заморожен &&
+                _person.Status != StatusPerson.Вероятный_Клиент && _person.Status != StatusPerson.Гостевой)
+                if (card.Freeze.IsConfiguredForFuture())
+                {
+                    textBox_Name.ForeColor = Color.SeaGreen;
+                    textBox_Name.Text = _person.Name +
+                                        $@"   (Заморозка c {card.Freeze.GetFutureFreeze().StartDate.Date:d}, дней: {card.Freeze.GetDaysToFreeze()} )";
+                }
+
+            // Не Активирован
+            if (_person.IsAbonementExist() && !_person.AbonementCurent.IsActivated)
+            {
+                textBox_Name.ForeColor = Color.Green;
+                textBox_Name.Text = _person.Name + @"   (Не Активирован)";
+                button_Freeze.Enabled = false;
+            }
+            else
+            {
+                button_Freeze.Enabled = true;
+            }
+        }
+        private List<Tuple<Label, Control>> SelectList(AbonementBasic currentAbon)
+        {
+            List<Tuple<Label, Control>> listResult;
+            if (currentAbon is AbonementByDays)
+                listResult = CreateListAbonement();
+            else if (currentAbon is ClubCardA)
+                listResult = CreateListClubCard();
+            else if (currentAbon is SingleVisit)
+                listResult = CreateListSingleVisit();
+            else
+                listResult = CreateListNoAbonement();
+            return listResult;
+        }
+        private List<Tuple<Label, Control>> CreateListNoAbonement()
+        {
+            var list = new List<Tuple<Label, Control>>
+            {
+                CreateNameField(),
+                CreateStatusField()
+            };
+            return list;
+        }
+        private List<Tuple<Label, Control>> CreateListSingleVisit()
+        {
+            var list = new List<Tuple<Label, Control>>
+            {
+                CreateNameField(),
+                CreateStatusField(),
+                CreateTypeWorkoutField(),
+                CreateSpaServiceField(),
+                CreatePayServiceField()
+            };
+
+            return list;
+        }
+        private List<Tuple<Label, Control>> CreateListClubCard()
+        {
+            var list = new List<Tuple<Label, Control>>
+            {
+                CreateNameField(),
+                CreateStatusField(),
+                CreatePeriodClubCardField(),
+                CreateTypeWorkoutField(),
+                CreateTimeForTrField(),
+                CreateSpaServiceField(),
+                CreateNumPersonalTrField(),
+                CreateNumAerobicTrField(),
+                CreateRemainderDaysField(),
+                CreatePayServiceField(),
+                CreateBuyDateField(),
+                CreateEndDateField()
+            };
+            return list;
+        }
+        private List<Tuple<Label, Control>> CreateListAbonement()
+        {
+            var list = new List<Tuple<Label, Control>>
+            {
+                CreateNameField(),
+                CreateStatusField(),
+                CreateNumberDaysInAbonField(),
+                CreateTypeWorkoutField(),
+                CreateTimeForTrField(),
+                CreateSpaServiceField(),
+                CreateRemainderDaysField(),
+                CreatePayServiceField(),
+                CreateBuyDateField(),
+                CreateEndDateField()
+            };
+
+            return list;
+        }
+
+        #endregion
         //////////// СТАНДАРТНЫЕ ОБРАБОТЧИКИ ///////////////////////////////////////////////
 
         private void button_CheckInWorkout_Click(object sender, EventArgs e)
@@ -442,143 +578,6 @@ namespace PersonsBase.View
             var success = Photo.OpenPhoto(out img);
             if (success) _person.PathToPhoto = Photo.SaveToPicturesFolder(img, _person.Name);
         }
-
-        #region // Хелп Методы для Загрузки и обновления пользовательских данных
-
-        private void UpdateNameText()
-        {
-            Text = @"Карточка Клиента:    " + _person.Name; // Имя формы
-
-            textBox_Name.Text = _person.Name;
-            Methods.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
-
-
-            switch (_person.Status)
-            {
-                // Если Запрещен 
-                case StatusPerson.Запрещён:
-                    textBox_Name.Text = _person.Name;
-                    Methods.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
-                    return;
-                // Если Заморожен
-                case StatusPerson.Заморожен when _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA a &&
-                                                 _person.Status != StatusPerson.Вероятный_Клиент &&
-                                                 _person.Status != StatusPerson.Гостевой:
-                    {
-                        textBox_Name.ForeColor = Color.SeaGreen;
-                        var dateEnd = a.Freeze?.AllFreezes.Last().GetEndDate().Date.ToString("d");
-                        textBox_Name.Text = _person.Name + @"   (Заморожен До " + dateEnd + @" )";
-                        break;
-                    }
-                case StatusPerson.Активный:
-                    break;
-                case StatusPerson.Нет_Карты:
-                    break;
-                case StatusPerson.Гостевой:
-                    break;
-                case StatusPerson.Вероятный_Клиент:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            // Заморозка запланирована в будущем
-            var card = _person.AbonementCurent as ClubCardA;
-            if (card?.Freeze != null && _person.Status != StatusPerson.Заморожен &&
-                _person.Status != StatusPerson.Вероятный_Клиент && _person.Status != StatusPerson.Гостевой)
-                if (card.Freeze.IsConfiguredForFuture())
-                {
-                    textBox_Name.ForeColor = Color.SeaGreen;
-                    textBox_Name.Text = _person.Name +
-                                        $@"   (Заморозка c {card.Freeze.GetFutureFreeze().StartDate.Date:d}, дней: {card.Freeze.GetDaysToFreeze()} )";
-                }
-
-            // Не Активирован
-            if (_person.IsAbonementExist() && !_person.AbonementCurent.IsActivated)
-            {
-                textBox_Name.ForeColor = Color.Green;
-                textBox_Name.Text = _person.Name + @"   (Не Активирован)";
-                button_Freeze.Enabled = false;
-            }
-            else
-            {
-                button_Freeze.Enabled = true;
-            }
-        }
-        private List<Tuple<Label, Control>> SelectList(AbonementBasic currentAbon)
-        {
-            List<Tuple<Label, Control>> listResult;
-            if (currentAbon is AbonementByDays)
-                listResult = CreateListAbonement();
-            else if (currentAbon is ClubCardA)
-                listResult = CreateListClubCard();
-            else if (currentAbon is SingleVisit)
-                listResult = CreateListSingleVisit();
-            else
-                listResult = CreateListNoAbonement();
-            return listResult;
-        }
-        private List<Tuple<Label, Control>> CreateListNoAbonement()
-        {
-            var list = new List<Tuple<Label, Control>>
-            {
-                CreateNameField(),
-                CreateStatusField()
-            };
-            return list;
-        }
-        private List<Tuple<Label, Control>> CreateListSingleVisit()
-        {
-            var list = new List<Tuple<Label, Control>>
-            {
-                CreateNameField(),
-                CreateStatusField(),
-                CreateTypeWorkoutField(),
-                CreateSpaServiceField(),
-                CreatePayServiceField()
-            };
-
-            return list;
-        }
-        private List<Tuple<Label, Control>> CreateListClubCard()
-        {
-            var list = new List<Tuple<Label, Control>>
-            {
-                CreateNameField(),
-                CreateStatusField(),
-                CreatePeriodClubCardField(),
-                CreateTypeWorkoutField(),
-                CreateTimeForTrField(),
-                CreateSpaServiceField(),
-                CreateNumPersonalTrField(),
-                CreateNumAerobicTrField(),
-                CreateRemainderDaysField(),
-                CreatePayServiceField(),
-                CreateBuyDateField(),
-                CreateEndDateField()
-            };
-            return list;
-        }
-        private List<Tuple<Label, Control>> CreateListAbonement()
-        {
-            var list = new List<Tuple<Label, Control>>
-            {
-                CreateNameField(),
-                CreateStatusField(),
-                CreateNumberDaysInAbonField(),
-                CreateTypeWorkoutField(),
-                CreateTimeForTrField(),
-                CreateSpaServiceField(),
-                CreateRemainderDaysField(),
-                CreatePayServiceField(),
-                CreateBuyDateField(),
-                CreateEndDateField()
-            };
-
-            return list;
-        }
-
-        #endregion
 
         private void button_Export_Click(object sender, EventArgs e)
         {

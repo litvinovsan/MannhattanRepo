@@ -16,7 +16,7 @@ namespace PersonsBase.data
         // Текстовые константы
         private const string NameUnknown = "Имя неизвестно";
 
-        // Хранение полей Имя Заголовка - Значение - Хелп таблицы
+        // Главная переменная! Хранение полей Имя Заголовка - Значение - Хелп таблицы
         private List<DataGridItem> _myDataRowsList;
 
         public TypeWorkout TypeWorkoutToday { get; }
