@@ -152,7 +152,7 @@ namespace PersonsBase.View
             var passportAndDriveStatus = (_dataStateOk.DriveId || _dataStateOk.Passport);
             var result = (_dataStateOk.Name) && (_dataStateOk.BDate) && (_dataStateOk.Gender) && (_dataStateOk.Phone);
 
-            if (Options.IsPasspDriveCheckEnable()) result = result && passportAndDriveStatus;
+            if (Options.GetPasspDriveCheck()) result = result && passportAndDriveStatus;
 
             return result;
         }
@@ -245,7 +245,7 @@ namespace PersonsBase.View
         private bool IsPassportOk(string text)
         {
             var person = DataBaseM.FindByPassport(_persons, text);
-            _dataStateOk.Passport = (person == null);
+            _dataStateOk.Passport = (person == null) && !string.IsNullOrEmpty(text) && !string.IsNullOrWhiteSpace(text) && !text.Equals(_maskPassport);
 
             if (!_dataStateOk.Passport)
             {
@@ -339,7 +339,7 @@ namespace PersonsBase.View
         {
             ProcessMaskedTextBox(_maskDriverId, maskedTextBox_DriverID, () => IsDriveIdOk(maskedTextBox_DriverID.Text));
         }
-        private void maskedTextBox_number_TextChanged(object sender, EventArgs e)
+        private void maskedTextBox_Personal_Number_TextChanged(object sender, EventArgs e)
         {
             ProcessMaskedTextBox("", maskedTextBox_number, () => IsPersonNumberOk(maskedTextBox_number.Text));
         }
@@ -364,6 +364,11 @@ namespace PersonsBase.View
         {
             var valueToCheck = comboBox_Names.Text;
             StartTextVerification(valueToCheck, comboBox_Names, () => IsNameOk(valueToCheck));
+        }
+
+        private void maskedTextBox_number_KeyPress(object sender, KeyPressEventArgs e)
+        {
+           Methods.CheckForDigits(e);
         }
     }
 }

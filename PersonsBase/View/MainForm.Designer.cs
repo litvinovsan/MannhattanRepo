@@ -459,8 +459,9 @@ namespace PersonsBase.View
             // 
             // конфигураторОтчетовToolStripMenuItem
             // 
+            this.конфигураторОтчетовToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.list;
             this.конфигураторОтчетовToolStripMenuItem.Name = "конфигураторОтчетовToolStripMenuItem";
-            this.конфигураторОтчетовToolStripMenuItem.Size = new System.Drawing.Size(226, 24);
+            this.конфигураторОтчетовToolStripMenuItem.Size = new System.Drawing.Size(229, 26);
             this.конфигураторОтчетовToolStripMenuItem.Text = "Конфигуратор Отчетов";
             this.конфигураторОтчетовToolStripMenuItem.Click += new System.EventHandler(this.конфигураторОтчетовToolStripMenuItem_Click);
             // 

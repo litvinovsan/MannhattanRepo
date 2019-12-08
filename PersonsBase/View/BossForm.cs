@@ -51,6 +51,9 @@ namespace PersonsBase.View
             //Заполнение Лист Вью Список Админов
             MyListViewEx.MaximizeFirstColumn(listView_Admins);
             MyListViewEx.AddNotes(listView_Admins, _manhattanInfo.Admins.Select(x => x.Name).ToList());
+
+            // Заполнение вкладки Настроек
+            checkBox_Passp_Drive.Checked = Options.GetPasspDriveCheck();
         }
         private void BossForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -172,7 +175,7 @@ namespace PersonsBase.View
 
             var itemRow = MyListViewEx.GetSelectedText((ListView)sender);
             if (itemRow == null) return;
-          
+
             // Отображаем выбранный элемент в окне редактирования
             radioButton_adm.Checked = true;
             textBox_FiO.Text = itemRow[0];
@@ -187,7 +190,7 @@ namespace PersonsBase.View
 
             var name = itemRow[0];
 
-            Logic.EmployeeRemoveDataBase(name,true);
+            Logic.EmployeeRemoveDataBase(name, true);
             MyListViewEx.RemoveSelectedItem(listView_Tren);
         }
 
@@ -230,8 +233,8 @@ namespace PersonsBase.View
         {
             // Сбор информации о текущем Работнике
             _employee.IsTrener = GetRadioBstate();
-            _employee.Name = string.IsNullOrEmpty(Methods.PrepareName(textBox_FiO.Text))?textBox_FiO.Text: Methods.PrepareName(textBox_FiO.Text);
-           
+            _employee.Name = string.IsNullOrEmpty(Methods.PrepareName(textBox_FiO.Text)) ? textBox_FiO.Text : Methods.PrepareName(textBox_FiO.Text);
+
             _employee.Phone = maskedTextBox_phone.Text;
             // Обновляем имя на форме если оно написано с ошибками
             if (!_employee.Name.Equals(textBox_FiO.Text)) textBox_FiO.Text = _employee.Name;
@@ -240,8 +243,12 @@ namespace PersonsBase.View
         }
 
 
+
         #endregion
 
-       
+        private void checkBox_Passp_Drive_CheckedChanged(object sender, EventArgs e)
+        {
+            Options.SetPasspDriveIdCheck(checkBox_Passp_Drive.Checked);
+        }
     }
 }

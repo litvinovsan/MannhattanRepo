@@ -233,11 +233,6 @@ namespace PersonsBase.View
             label_Time.Text = Methods.ClockFormating();
         }
 
-        private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void конфигураторОтчетовToolStripMenuItem_Click(object sender, EventArgs e)
         {
             #region MyRegion ПРИМЕР

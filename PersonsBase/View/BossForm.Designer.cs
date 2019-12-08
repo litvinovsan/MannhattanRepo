@@ -61,6 +61,9 @@
             this.maskedTextBox_phone = new System.Windows.Forms.MaskedTextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.textBox_FiO = new System.Windows.Forms.TextBox();
+            this.tabPage_settings = new System.Windows.Forms.TabPage();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.checkBox_Passp_Drive = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -75,6 +78,8 @@
             this.groupBox_select.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            this.tabPage_settings.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -142,6 +147,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage_settings);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -488,6 +494,37 @@
             this.textBox_FiO.Size = new System.Drawing.Size(254, 23);
             this.textBox_FiO.TabIndex = 0;
             // 
+            // tabPage_settings
+            // 
+            this.tabPage_settings.Controls.Add(this.groupBox9);
+            this.tabPage_settings.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_settings.Name = "tabPage_settings";
+            this.tabPage_settings.Size = new System.Drawing.Size(955, 415);
+            this.tabPage_settings.TabIndex = 0;
+            this.tabPage_settings.Text = "Настройки приложения";
+            this.tabPage_settings.UseVisualStyleBackColor = true;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.checkBox_Passp_Drive);
+            this.groupBox9.Location = new System.Drawing.Point(8, 3);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(375, 100);
+            this.groupBox9.TabIndex = 0;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Вкл/Откл опций";
+            // 
+            // checkBox_Passp_Drive
+            // 
+            this.checkBox_Passp_Drive.AutoSize = true;
+            this.checkBox_Passp_Drive.Location = new System.Drawing.Point(6, 22);
+            this.checkBox_Passp_Drive.Name = "checkBox_Passp_Drive";
+            this.checkBox_Passp_Drive.Size = new System.Drawing.Size(357, 21);
+            this.checkBox_Passp_Drive.TabIndex = 0;
+            this.checkBox_Passp_Drive.Text = "Учитывать Пасспорт и Права в создании клиента";
+            this.checkBox_Passp_Drive.UseVisualStyleBackColor = true;
+            this.checkBox_Passp_Drive.CheckedChanged += new System.EventHandler(this.checkBox_Passp_Drive_CheckedChanged);
+            // 
             // BossForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -519,6 +556,9 @@
             this.groupBox8.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            this.tabPage_settings.ResumeLayout(false);
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -558,5 +598,8 @@
         private System.Windows.Forms.RadioButton radioButton_tren;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.TabPage tabPage_settings;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.CheckBox checkBox_Passp_Drive;
     }
 }

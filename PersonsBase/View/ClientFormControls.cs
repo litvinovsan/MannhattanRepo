@@ -359,7 +359,7 @@ namespace PersonsBase.View
 
         private void Textbox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            CheckForDigits(e);
+            Methods.CheckForDigits(e);
         }
         #endregion
 
@@ -395,7 +395,7 @@ namespace PersonsBase.View
         }
         private void Textbox_NumPersonalTr_KeyPress(object sender, KeyPressEventArgs e)
         {
-            CheckForDigits(e);
+            Methods.CheckForDigits(e);
         }
         private void Textbox_NumPersonalTrChanged(object sender, EventArgs e)
         {
@@ -440,7 +440,7 @@ namespace PersonsBase.View
         }
         private void Textbox_NumAerobicTr_KeyPress(object sender, KeyPressEventArgs e)
         {
-            CheckForDigits(e);
+            Methods.CheckForDigits(e);
         }
         private void Textbox_NumAerobicTrChanged(object sender, EventArgs e)
         {
@@ -695,14 +695,6 @@ namespace PersonsBase.View
 
 
         // Разное
-        private static void CheckForDigits(KeyPressEventArgs e)
-        {
-            char number = e.KeyChar;
-            if (!Char.IsDigit(number) && number != 8) // цифры и клавиша BackSpace
-            {
-                e.Handled = true;
-            }
-        }
         private void ComboChangedMethod<T>(object sender, out T editedVar, T originVar)
         {
             var tb = (ComboBox)sender;

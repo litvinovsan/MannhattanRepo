@@ -50,7 +50,7 @@ namespace PersonsBase.data
         /// Автоматически в классе CreatePersonForm
         /// </summary>
         /// <returns></returns>
-        public static bool IsPasspDriveCheckEnable()
+        public static bool GetPasspDriveCheck()
         {
             return _checkPasspDrivEnbld;
         }

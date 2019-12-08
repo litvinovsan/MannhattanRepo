@@ -157,7 +157,6 @@
             this.maskedTextBox_PhoneNumber.Name = "maskedTextBox_PhoneNumber";
             this.maskedTextBox_PhoneNumber.Size = new System.Drawing.Size(182, 23);
             this.maskedTextBox_PhoneNumber.TabIndex = 2;
-            this.maskedTextBox_PhoneNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.maskedTextBox_PhoneNumber.KeyUp += new System.Windows.Forms.KeyEventHandler(this.maskedTextBox_PhoneNumber_KeyUp);
             // 
             // label_Phone
@@ -286,7 +285,8 @@
             this.maskedTextBox_number.TabIndex = 7;
             this.maskedTextBox_number.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.maskedTextBox_number.ValidatingType = typeof(int);
-            this.maskedTextBox_number.TextChanged += new System.EventHandler(this.maskedTextBox_number_TextChanged);
+            this.maskedTextBox_number.TextChanged += new System.EventHandler(this.maskedTextBox_Personal_Number_TextChanged);
+            this.maskedTextBox_number.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.maskedTextBox_number_KeyPress);
             // 
             // groupBox2
             // 

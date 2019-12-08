@@ -264,6 +264,14 @@ namespace PersonsBase.data
                 }
             });
         }
+        public static void CheckForDigits(KeyPressEventArgs e)
+        {
+            var number = e.KeyChar;
+            if (!char.IsDigit(number) && number != 8) // цифры и клавиша BackSpace
+            {
+                e.Handled = true;
+            }
+        }
 
         // Часы. Подготовка строки 
 
