@@ -569,14 +569,16 @@ namespace PersonsBase.View
             // textBox_Number
             // 
             this.textBox_Number.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.textBox_Number.Enabled = false;
             this.textBox_Number.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox_Number.Location = new System.Drawing.Point(120, 134);
             this.textBox_Number.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_Number.Name = "textBox_Number";
-            this.textBox_Number.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBox_Number.Size = new System.Drawing.Size(166, 23);
             this.textBox_Number.TabIndex = 5;
             this.textBox_Number.Text = "123";
+            this.textBox_Number.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox_Number.TextChanged += new System.EventHandler(this.textBox_Number_TextChanged);
             // 
             // tabPage3
             // 

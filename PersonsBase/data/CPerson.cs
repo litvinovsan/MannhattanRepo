@@ -42,7 +42,6 @@ namespace PersonsBase.data
 
         #region/// ПРИВАТНЫЕ ПОЛЯ /////////////////////////
         private string _phone;
-        private string _driverIdNum;
         private string _name;
         private string _pathToPhoto;
         private StatusPerson _status;
@@ -70,14 +69,7 @@ namespace PersonsBase.data
             }
         }
         public string Passport { get; set; }
-        public string DriverIdNum
-        {
-            get { return _driverIdNum; }
-            set
-            {
-                _driverIdNum = value;
-            }
-        }
+        public string DriverIdNum { get; set; }
         public string PathToPhoto
         {
             get
@@ -135,7 +127,7 @@ namespace PersonsBase.data
             SpecialNotes = string.Empty;
 
             _phone = string.Empty;
-            _driverIdNum = string.Empty;
+            DriverIdNum = string.Empty;
             _pathToPhoto = string.Empty;
             _abonementCurent = null;
 
@@ -154,7 +146,7 @@ namespace PersonsBase.data
             SpecialNotes = string.Empty;
 
             _phone = string.Empty;
-            _driverIdNum = string.Empty;
+            DriverIdNum = string.Empty;
             _pathToPhoto = string.Empty;
             _abonementCurent = null;
 
@@ -288,20 +280,12 @@ namespace PersonsBase.data
         {
             if (other == null) return false;
             /*this.Id == other.Id &&*/
-            bool passpResult = false;
-            bool phoneResult = false;
-            bool fullNameResult = false;
-            bool driverIdResult = false;
-            bool personalNumber = false;
+            bool passpResult;
+            bool phoneResult;
+            bool fullNameResult;
+            bool driverIdResult;
 
-            if (other.PersonalNumber == 0 && PersonalNumber == 0)
-            {
-                personalNumber = true;
-            }
-            else
-            {
-                personalNumber = other.PersonalNumber == PersonalNumber;
-            }
+            var personalNumber = other.PersonalNumber == PersonalNumber || (PersonalNumber == 0 && other.PersonalNumber == 0);
 
             if (other.Passport == null && Passport == null)
             {
@@ -339,7 +323,7 @@ namespace PersonsBase.data
                 driverIdResult = (DriverIdNum == other.DriverIdNum);
             }
 
-            return driverIdResult && fullNameResult && phoneResult && passpResult;
+            return driverIdResult && fullNameResult && phoneResult && passpResult && personalNumber;
         }
         /// <summary>
         /// Возвращает true если обнаружено совпадение по какому-либо полю. Так же возвращает код совпадающего поля.
@@ -384,7 +368,7 @@ namespace PersonsBase.data
                 response = ResponseCode.DriverIdExist;
                 return true;
             }
-            response = ResponseCode.NoDuplicate;
+            response = ResponseCode.Success;
             return false;
         }
         public static bool operator ==(Person person1, Person person2)
@@ -415,7 +399,7 @@ namespace PersonsBase.data
             unchecked
             {
                 var hashCode = (_phone != null ? _phone.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (_driverIdNum != null ? _driverIdNum.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (DriverIdNum != null ? DriverIdNum.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (_name != null ? _name.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (int)_status;
                 hashCode = (hashCode * 397) ^ (int)GenderType;

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboBox_Names = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -50,6 +51,7 @@
             this.textBox_Notes = new System.Windows.Forms.TextBox();
             this.button_Add_New_Person = new System.Windows.Forms.Button();
             this.groupBox_Notes = new System.Windows.Forms.GroupBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -155,6 +157,7 @@
             this.maskedTextBox_PhoneNumber.Name = "maskedTextBox_PhoneNumber";
             this.maskedTextBox_PhoneNumber.Size = new System.Drawing.Size(182, 23);
             this.maskedTextBox_PhoneNumber.TabIndex = 2;
+            this.maskedTextBox_PhoneNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.maskedTextBox_PhoneNumber.KeyUp += new System.Windows.Forms.KeyEventHandler(this.maskedTextBox_PhoneNumber_KeyUp);
             // 
             // label_Phone
@@ -223,6 +226,7 @@
             this.maskedTextBox_Passport.Name = "maskedTextBox_Passport";
             this.maskedTextBox_Passport.Size = new System.Drawing.Size(182, 21);
             this.maskedTextBox_Passport.TabIndex = 5;
+            this.maskedTextBox_Passport.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.maskedTextBox_Passport.KeyUp += new System.Windows.Forms.KeyEventHandler(this.maskedTextBox_Passport_KeyUp);
             // 
             // dateTimePicker_birthDate
@@ -270,16 +274,17 @@
             this.maskedTextBox_DriverID.Name = "maskedTextBox_DriverID";
             this.maskedTextBox_DriverID.Size = new System.Drawing.Size(182, 21);
             this.maskedTextBox_DriverID.TabIndex = 6;
+            this.maskedTextBox_DriverID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.maskedTextBox_DriverID.KeyUp += new System.Windows.Forms.KeyEventHandler(this.maskedTextBox_DriverID_KeyUp);
             // 
             // maskedTextBox_number
             // 
             this.maskedTextBox_number.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.maskedTextBox_number.Location = new System.Drawing.Point(160, 135);
-            this.maskedTextBox_number.Mask = "0000";
             this.maskedTextBox_number.Name = "maskedTextBox_number";
             this.maskedTextBox_number.Size = new System.Drawing.Size(180, 23);
             this.maskedTextBox_number.TabIndex = 7;
+            this.maskedTextBox_number.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.maskedTextBox_number.ValidatingType = typeof(int);
             this.maskedTextBox_number.TextChanged += new System.EventHandler(this.maskedTextBox_number_TextChanged);
             // 
@@ -413,5 +418,6 @@
         private System.Windows.Forms.GroupBox groupBox_Notes;
         private System.Windows.Forms.MaskedTextBox maskedTextBox_number;
         private System.Windows.Forms.ComboBox comboBox_Names;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

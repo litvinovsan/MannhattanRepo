@@ -62,26 +62,34 @@ namespace PersonsBase.View
             groupBox_Detailed.DoubleBuffered(true);
         }
 
+        /// <summary>
+        /// Включаются|Отключаются различные контролы на форме если был введен пароль руководителя
+        /// </summary>
         private void PwdForm_LockChangedEvent()
         {
             if (PwdForm.IsPassUnLocked())
             {
                 button_RemoveCurrentAbon.Visible = true;
                 button__remove_abon.Enabled = true;
-                groupBox_Detailed.Enabled =
-                    true; // FIXME тут надо включать и выключать выборочные поля. Например, админ должен менять статус оплаты
+                groupBox_Detailed.Enabled = true; // FIXME тут надо включать и выключать выборочные поля.
+                                                  // Например, админ должен менять статус оплаты
+                textBox_Number.Enabled = true;
             }
             else
             {
                 button_RemoveCurrentAbon.Visible = false;
                 button__remove_abon.Enabled = false;
-                groupBox_Detailed.Enabled =
-                    true; // / FIXME тут надо включать и выключать выборочные поля. Например, админ должен менять статус оплаты
+                groupBox_Detailed.Enabled = true; // / FIXME тут надо включать и выключать выборочные поля.
+                                                  // Например, админ должен менять статус оплаты
+                textBox_Number.Enabled = false;
             }
 
             Invalidate();
         }
 
+        /// <summary>
+        /// Заполняет ЛистБокс с списком Абонементов КЛиента из очереди абонементов.Только отображение
+        /// </summary>
         private void LoadListBoxQueue()
         {
             if (_person.AbonementsQueue == null) return;
@@ -470,7 +478,8 @@ namespace PersonsBase.View
             UpdateEditableData();
             Methods.ClearSelection(groupBox_Detailed);
 
-            // Methods.SetControlsColorDefault(groupBox_Detailed);
+            Methods.SetControlsColorDefault(groupBox_Detailed);
+            Methods.SetControlsColorDefault(tableLayoutPanel1);
         }
 
         private void ClientForm_Resize(object sender, EventArgs e)

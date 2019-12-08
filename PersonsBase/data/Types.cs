@@ -49,7 +49,6 @@ namespace PersonsBase.data
         Success,
         Fail,
         //ответы по совпадениям
-        NoDuplicate,
         Duplicate,
         NameExist,
         KeyExist,

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using PersonsBase.data.Abonements;
 using PersonsBase.myStd;
 
@@ -19,11 +20,11 @@ namespace PersonsBase.data
         public static bool IsContainsCopyOfValues(SortedList<string, Person> inputDict, Person person, out ResponseCode response)
         {
             bool containsCopy = false;
-            response = ResponseCode.NoDuplicate;
+            response = ResponseCode.Success;
             //Если пустая коллекция
             if (inputDict.Count == 0)
             {
-                response = ResponseCode.NoDuplicate;
+                response = ResponseCode.Success;
                 return false;
             }
 
@@ -55,6 +56,50 @@ namespace PersonsBase.data
         {
             return inputDict.ContainsKey(person.Key) && inputDict.ContainsValue(person);
         }
+
+        /// <summary>
+        /// Метод выводит МессаджБокс с описанием что за событие произошло по Респонс Коду
+        /// </summary>
+        /// <param name="result"></param>
+        public static void ExplainResponse(ResponseCode result)
+        {
+            string message = "";
+            switch (result)
+            {
+                case ResponseCode.Success:
+                    break;
+                case ResponseCode.Fail:
+                    message = $"Неизвестная ошибка {result.ToString()}";
+                    break;
+                case ResponseCode.Duplicate:
+                    message = "Дубликат!";
+                    break;
+                case ResponseCode.NameExist:
+                    message = "Имя Уже существует!!!";
+                    break;
+                case ResponseCode.KeyExist:
+                    message = "Ключ/Имя/Код уже существуют";
+                    break;
+                case ResponseCode.IdNumberExist:
+                    message = "Персональный код Уже существует";
+                    break;
+                case ResponseCode.PhoneExist:
+                    message = "Номер телефона уже существует";
+                    break;
+                case ResponseCode.PassportExist:
+                    message = "Такой номер паспорта уже существует";
+                    break;
+                case ResponseCode.DriverIdExist:
+                    message = "Такой номер прав уже существует";
+                    break;
+                default:
+                    message = result.ToString();
+                    break;
+            }
+
+            MessageBox.Show(message, "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         #endregion
 
         #region /// ПОИСК, РЕДАКТИРОВАНИЕ /////////////
@@ -73,7 +118,7 @@ namespace PersonsBase.data
         public static Person FindByDriveId(SortedList<string, Person> inputCollection, string driveLic)
         {
             Person findedPerson;
-            if (inputCollection == null || string.IsNullOrEmpty(driveLic) || inputCollection.Count <= 0) return null;
+            if (inputCollection == null || String.IsNullOrEmpty(driveLic) || inputCollection.Count <= 0) return null;
             try
             {
                 var matches = inputCollection.ToList().FindAll(p => (p.Value.DriverIdNum == driveLic));
@@ -102,50 +147,42 @@ namespace PersonsBase.data
         }
 
         // Personal Number
-        public static Person FindByPersonalNumber(SortedList<string, Person> inputCollection, int number)
+        public static bool FindByPersonalNumber(SortedList<string, Person> inputCollection, int number, out Person findedPerson)
         {
-            Person result = null;
-            if (inputCollection != null && number != 0 && inputCollection.Count > 0)
+            findedPerson = null;
+
+            if (inputCollection == null || number <= 0 || inputCollection.Count <= 0) return false;
+
+            try
             {
-                try
-                {
-                    result = inputCollection.Values.Single(x => x.PersonalNumber == number);
-                }
-                catch
-                {
-                    // ignored
-                }
+                findedPerson = inputCollection.Values.First(x => x.PersonalNumber == number);
             }
-            return result;
+            catch
+            {
+                return false;
+            }
+            return true;
         }
-        public static bool EditPersonalNumber(ref Person person, int newNumber)
+        public static bool EditPersonalNumber(string namePerson, int newNumber)
         {
-            bool result = false;
-            if (person != null && newNumber > 0)
+            var isExist = FindByPersonalNumber(DataBaseLevel.GetListPersons(), newNumber, out var person);
+
+            if (newNumber <= 0 || isExist)
             {
-                person.PersonalNumber = newNumber;
-                result = true;
+                MessageBox.Show($@"Такой ПЕРСОНАЛЬНЫЙ номер уже назначен клиенту: {person.Name}", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
             }
-            return result;
+            DataBaseO.GetPersonLink(namePerson).PersonalNumber = newNumber;
+            return true;
         }
 
         // Name 
-        public static Person FindByName(SortedList<string, Person> inputCollection, string fullName)
-        {
-            Person result = null;
-            if (inputCollection != null && !string.IsNullOrEmpty(fullName) && inputCollection.Count > 0)
-            {
-                var fname = Methods.PrepareName(fullName);
-                result = inputCollection.Values.Single(x => x.Name == fname);
-            }
-            return result;
-        }
         public static bool EditName(SortedList<string, Person> inputCollection, string key, string newFullName)
         {
             bool result = false;
             string newName = Methods.PrepareName(newFullName);
 
-            if (inputCollection != null && inputCollection.Count > 0 && !string.IsNullOrEmpty(newName) && newName != "")
+            if (inputCollection != null && inputCollection.Count > 0 && !String.IsNullOrEmpty(newName) && newName != "")
             {
                 var localKey = Methods.PrepareName(key);
                 // Копируем данные текущей персоны
@@ -165,7 +202,7 @@ namespace PersonsBase.data
         public static Person FindByPassport(SortedList<string, Person> inputCollection, string passp)
         {
             Person result;
-            if (inputCollection == null || string.IsNullOrEmpty(passp) || inputCollection.Count <= 0) return null;
+            if (inputCollection == null || String.IsNullOrEmpty(passp) || inputCollection.Count <= 0) return null;
             try
             {
                 var matches = inputCollection.ToList().FindAll(x => x.Value.Passport == (passp));
@@ -178,22 +215,12 @@ namespace PersonsBase.data
 
             return result;
         }
-        public static bool EditPassport(ref Person person, string newPassport)
-        {
-            bool result = false;
-            if (person != null && !string.IsNullOrEmpty(newPassport) && !string.IsNullOrWhiteSpace(newPassport))
-            {
-                person.Passport = newPassport;
-                result = true;
-            }
-            return result;
-        }
 
         // Phone
         public static Person FindByPhone(SortedList<string, Person> inputCollection, string telnumber)
         {
             Person result;
-            if (inputCollection == null || string.IsNullOrEmpty(telnumber) || inputCollection.Count <= 0) return null;
+            if (inputCollection == null || String.IsNullOrEmpty(telnumber) || inputCollection.Count <= 0) return null;
             try
             {
                 result = inputCollection.Values.Single(x => x.Phone == telnumber);
@@ -201,23 +228,6 @@ namespace PersonsBase.data
             catch
             {
                 result = null;
-            }
-            return result;
-        }
-        public static bool EditPhone(ref Person person, string newPhone)
-        {
-            bool result = false;
-            if (person != null && !string.IsNullOrEmpty(newPhone) && !string.IsNullOrWhiteSpace(newPhone))
-            {
-                try
-                {
-                    person.Passport = newPhone;
-                    result = true;
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
             }
             return result;
         }
@@ -402,16 +412,16 @@ namespace PersonsBase.data
             if (person.AbonementCurent != null)
             {
                 personFields.Add(new PersonField { HeaderName = "Название Абон.", Value = person.AbonementCurent.AbonementName });
-                personFields.Add(new PersonField { HeaderName = "Абон. Покупка", Value = $"{person.AbonementCurent.BuyDate:MM/dd/yyyy}" });
-                personFields.Add(new PersonField { HeaderName = "Абон. Конец", Value = $"{person.AbonementCurent.EndDate:MM/dd/yyyy}" });
+                personFields.Add(new PersonField { HeaderName = "Доступное время", Value = person.AbonementCurent.TimeTraining.ToString() });
+                personFields.Add(new PersonField { HeaderName = "Осталось дней", Value = person.AbonementCurent.GetRemainderDays().ToString() });
                 personFields.Add(new PersonField { HeaderName = "Аэробных", Value = person.AbonementCurent.NumAerobicTr.ToString() });
                 personFields.Add(new PersonField { HeaderName = "Персональных", Value = person.AbonementCurent.NumPersonalTr.ToString() });
-                personFields.Add(new PersonField { HeaderName = "Оплата", Value = person.AbonementCurent.PayStatus.ToString() });
-                personFields.Add(new PersonField { HeaderName = "Активация", Value = person.AbonementCurent.IsActivated.ToString() });
                 personFields.Add(new PersonField { HeaderName = "Спа услуги", Value = person.AbonementCurent.Spa.ToString() });
-                personFields.Add(new PersonField { HeaderName = "Доступное время", Value = person.AbonementCurent.TimeTraining.ToString() });
                 personFields.Add(new PersonField { HeaderName = "Доступный тип", Value = person.AbonementCurent.TrainingsType.ToString() });
-                personFields.Add(new PersonField { HeaderName = "Осталось дней", Value = person.AbonementCurent.GetRemainderDays().ToString() });
+                personFields.Add(new PersonField { HeaderName = "Оплата", Value = person.AbonementCurent.PayStatus.ToString() });
+                personFields.Add(new PersonField { HeaderName = "Абон. Покупка", Value = $"{person.AbonementCurent.BuyDate:MM/dd/yyyy}" });
+                personFields.Add(new PersonField { HeaderName = "Абон. Конец", Value = $"{person.AbonementCurent.EndDate:MM/dd/yyyy}" });
+                personFields.Add(new PersonField { HeaderName = "Активация", Value = person.AbonementCurent.IsActivated.ToString() });
             }
 
             personFields.Add(new PersonField { HeaderName = "Заметки", Value = person.SpecialNotes });

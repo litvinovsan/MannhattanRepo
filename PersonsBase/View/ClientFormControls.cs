@@ -240,7 +240,8 @@ namespace PersonsBase.View
 
         #region // Метод. Тип Срок Клубной Карты
         PeriodClubCard _editedTypeClubCard;
-        Tuple<Label, Control> CreatePeriodClubCardField()
+
+        private Tuple<Label, Control> CreatePeriodClubCardField()
         {
             // Этот метод отличается от других из-за Полей,присущих только данному классу. Например, Тип Абонемента на месяцы.
             const string labelText = "Тип Клубной Карты";
@@ -298,16 +299,16 @@ namespace PersonsBase.View
 
             dateTime.Value = initDate;
             _editedEndDate = initDate;
+            dateTime.Enabled = false;
+            // dateTime.ValueChanged += DateTime_EndDate_ValueChanged;
 
-            dateTime.ValueChanged += DateTime_EndDate_ValueChanged;
-
-            _saveDelegateChain += () =>
-            {
-                if (_person.IsAbonementExist() && (_editedEndDate.CompareTo(_person.AbonementCurent.EndDate.Date) != 0) && !_typeClubCardChanged)
-                {
-                    _person.AbonementCurent.EndDate = _editedEndDate;
-                }
-            };
+            //_saveDelegateChain += () =>
+            //{
+            //    if (_person.IsAbonementExist() && (_editedEndDate.CompareTo(_person.AbonementCurent.EndDate.Date) != 0) && !_typeClubCardChanged)
+            //    {
+            //        _person.AbonementCurent.EndDate = _editedEndDate;
+            //    }
+            //};
             return new Tuple<Label, Control>(lableType, dateTime);
         }
 
@@ -336,15 +337,15 @@ namespace PersonsBase.View
             // Подписываемся на событие по изменению
             textbox.KeyPress += Textbox_KeyPress;
             textbox.TextChanged += Textbox_Remainder_TextChanged;
-
-            _saveDelegateChain += () =>
-            {
-                if (_person.AbonementCurent.GetRemainderDays() != _editedNumRemainder && (_editedNumRemainder >= 0) && !_typeClubCardChanged)
-                {
-                    _person.AbonementCurent.DaysLeft = _editedNumRemainder;
-                    Methods.SetControlBackColor(textbox, _editedNumRemainder.ToString(), _person.AbonementCurent.GetRemainderDays().ToString());
-                }
-            };
+            textbox.Enabled = false;
+            //_saveDelegateChain += () =>
+            //{
+            //    if (_person.AbonementCurent.GetRemainderDays() != _editedNumRemainder && (_editedNumRemainder >= 0) && !_typeClubCardChanged)
+            //    {
+            //        _person.AbonementCurent.DaysLeft = _editedNumRemainder;
+            //        Methods.SetControlBackColor(textbox, _editedNumRemainder.ToString(), _person.AbonementCurent.GetRemainderDays().ToString());
+            //    }
+            //};
             return new Tuple<Label, Control>(lableType, textbox);
         }
 
@@ -409,7 +410,8 @@ namespace PersonsBase.View
         #region // Метод. Осталось Аэробных тренировок
         private int _editedNumAerobicTr;
         private bool _numAerobicTrChanged;
-        Tuple<Label, Control> CreateNumAerobicTrField()
+
+        private Tuple<Label, Control> CreateNumAerobicTrField()
         {
             const string nameLabel = "Осталось Аэробных";
             _numAerobicTrChanged = false;
@@ -582,6 +584,19 @@ namespace PersonsBase.View
         }
         #endregion
 
+        #region // Поле. Персональный номер
+
+        private string _editedPersonalNumber;
+        private void textBox_Number_TextChanged(object sender, EventArgs e)
+        {
+            var tb = (TextBox)sender;
+            _editedPersonalNumber = tb.Text;
+            Methods.SetControlBackColor(tb, _editedPersonalNumber, _person.PersonalNumber.ToString());
+            IsChangedUpdateStatus(_editedPersonalNumber, _person.PersonalNumber.ToString());
+        }
+
+        #endregion
+
         #region // Поле. Особые отметки
         private string _editedSpecialNote;
         private void textBox_Notes_TextChanged(object sender, EventArgs e)
@@ -597,11 +612,17 @@ namespace PersonsBase.View
         /// </summary>
         private void SaveUserData()
         {
-            if (_editedPhone != _person.Phone) _person.Phone = _editedPhone;
-            if (_editedPassport != _person.Passport) _person.Passport = _editedPassport;
-            if (_editedDriveId != _person.DriverIdNum) _person.DriverIdNum = _editedDriveId;
+            if (_editedPhone != null && _editedPhone != _person.Phone) _person.Phone = _editedPhone;
+            if (_editedPassport != null && _editedPassport != _person.Passport) _person.Passport = _editedPassport;
+            if (_editedDriveId != null && _editedDriveId != _person.DriverIdNum) _person.DriverIdNum = _editedDriveId;
             if (_editedDr.CompareTo(_person.BirthDate) != 0) _person.BirthDate = _editedDr;
-            if (_editedGender != _person.GenderType) _person.GenderType = _editedGender;
+            if (!Equals(_editedGender, _person.GenderType)) _person.GenderType = _editedGender;
+
+            if (!_editedPersonalNumber.Equals(_person.PersonalNumber.ToString()))
+            {
+                int.TryParse(_editedPersonalNumber, out var num);
+                DataBaseM.EditPersonalNumber(_person.Name, num);
+            }
             SaveSpecialNotes();
         }
         private void SaveSpecialNotes()
@@ -667,7 +688,7 @@ namespace PersonsBase.View
             {
                 Dock = DockStyle.Fill,
                 Format = DateTimePickerFormat.Custom,
-                CustomFormat = "dd MMM yyyy",
+                CustomFormat = @"dd MMM yyyy",
                 Value = DateTime.Now
             };
         }

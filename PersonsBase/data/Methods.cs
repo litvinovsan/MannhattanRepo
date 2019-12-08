@@ -253,13 +253,14 @@ namespace PersonsBase.data
         {
             ForAllControls(control, x =>
             {
-                if (x is ComboBox)
+                switch (x)
                 {
-                    (x as ComboBox).BackColor = SystemColors.Window;
-                }
-                if (x is TextBox)
-                {
-                    (x as TextBox).BackColor = SystemColors.Window;
+                    case ComboBox box:
+                        box.BackColor = SystemColors.Window;
+                        break;
+                    case TextBox textBox:
+                        textBox.BackColor = SystemColors.Window;
+                        break;
                 }
             });
         }

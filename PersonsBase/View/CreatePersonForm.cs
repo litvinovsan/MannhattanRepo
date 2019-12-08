@@ -114,6 +114,9 @@ namespace PersonsBase.View
 
             // Изменилось какое - либо поле данных
             PersonalDataStateEvent += PersDataStateHandler;
+
+            // Set up the ToolTip text for the Button and Checkbox.
+            toolTip1.SetToolTip(this.maskedTextBox_number, "Кликните мышью на этом поле и считайте номер карты Считывателем. Либо введите номер вручную.");
         }
 
         private void CreatePersonForm_Load(object sender, EventArgs e)
@@ -189,17 +192,17 @@ namespace PersonsBase.View
 
         // Проверка полей на валидность
 
-        private void ProcessMaskedTextBox(string emptyMask, MaskedTextBox maskedTextBox, Func<bool> processFunc)
+        private void ProcessMaskedTextBox(string emptyMask, Control textBox, Func<bool> processFunc)
         {
-            if (string.IsNullOrEmpty(maskedTextBox.Text) || maskedTextBox.Text.Equals((emptyMask)) || string.IsNullOrWhiteSpace(maskedTextBox.Text))
+            if (string.IsNullOrEmpty(textBox.Text) || textBox.Text.Equals((emptyMask)) || string.IsNullOrWhiteSpace(textBox.Text))
             {
-                maskedTextBox.BackColor = Color.Pink;
+                textBox.BackColor = Color.Pink;
                 processFunc();
                 return;
             }
             var result = processFunc();
 
-            maskedTextBox.BackColor = result ? Color.PaleGreen : Color.Pink;
+            textBox.BackColor = result ? Color.PaleGreen : Color.Pink;
         }
         private void ProcessDateTime(DateTime dateTime)
         {
@@ -277,7 +280,13 @@ namespace PersonsBase.View
             _dataStruct.Name = nameToCheck;
             return true;
         }
+        private bool IsPersonNumberOk(string number)
+        {
+            int.TryParse(number, out var tempNum);
+            var isExist = DataBaseM.FindByPersonalNumber(DataBaseLevel.GetListPersons(), tempNum, out var person);
 
+            return !isExist;
+        }
         #endregion
 
         /// ОБРАБОТЧИКИ ///
@@ -312,7 +321,7 @@ namespace PersonsBase.View
                 DialogResult = DialogResult.OK;
             else
             {
-                MessageBox.Show(result.ToString());
+                DataBaseM.ExplainResponse(result);
             }
         }
 
@@ -330,6 +339,10 @@ namespace PersonsBase.View
         {
             ProcessMaskedTextBox(_maskDriverId, maskedTextBox_DriverID, () => IsDriveIdOk(maskedTextBox_DriverID.Text));
         }
+        private void maskedTextBox_number_TextChanged(object sender, EventArgs e)
+        {
+            ProcessMaskedTextBox("", maskedTextBox_number, () => IsPersonNumberOk(maskedTextBox_number.Text));
+        }
 
         private void dateTimePicker_birthDate_ValueChanged(object sender, EventArgs e)
         {
@@ -345,11 +358,6 @@ namespace PersonsBase.View
         private void textBox_Notes_TextChanged(object sender, EventArgs e)
         {
             _dataStruct.SpecialNotes = textBox_Notes.Text;
-        }
-
-        private void maskedTextBox_number_TextChanged(object sender, EventArgs e)
-        {
-            int.TryParse(maskedTextBox_number.Text, out _dataStruct.PersonalNumber);
         }
 
         private void comboBox_Names_TextChanged(object sender, EventArgs e)

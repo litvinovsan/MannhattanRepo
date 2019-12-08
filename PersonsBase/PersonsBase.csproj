@@ -231,6 +231,39 @@
   <ItemGroup>
     <None Include="Resources\PersonalMini.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clients.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\list_all_participants.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\currency_dollar_green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clipboard_report_bar_24_ns.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\list_all_participants1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user_male_remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user_male_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\diskette.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exit.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
