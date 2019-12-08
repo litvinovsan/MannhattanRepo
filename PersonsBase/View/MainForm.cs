@@ -346,5 +346,10 @@ namespace PersonsBase.View
             //Сохраним и Базу данных
             DataBaseLevel.GetInstance().SerializeObjects();
         }
+
+        private void сканироватьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Logic.BarCodeOpen();
+        }
     }
 }

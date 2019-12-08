@@ -32,7 +32,7 @@ namespace PersonsBase.View
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.конфигурацииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +46,8 @@ namespace PersonsBase.View
             this.удалитьКлиентаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.конфигураторОтчетовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сomboBox_PersonsList = new System.Windows.Forms.ToolStripComboBox();
+            this.сканироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокКлиентовToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.SellAbonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -70,8 +72,6 @@ namespace PersonsBase.View
             this.label_group = new System.Windows.Forms.Label();
             this.label_personal = new System.Windows.Forms.Label();
             this.label_tren_zal = new System.Windows.Forms.Label();
-            this.сomboBox_PersonsList = new System.Windows.Forms.ToolStripComboBox();
-            this.сканироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -119,7 +119,7 @@ namespace PersonsBase.View
             // руководительToolStripMenuItem1
             // 
             this.руководительToolStripMenuItem1.Name = "руководительToolStripMenuItem1";
-            this.руководительToolStripMenuItem1.Size = new System.Drawing.Size(183, 26);
+            this.руководительToolStripMenuItem1.Size = new System.Drawing.Size(180, 26);
             this.руководительToolStripMenuItem1.Text = "Руководитель";
             this.руководительToolStripMenuItem1.Click += new System.EventHandler(this.руководительToolStripMenuItem1_Click);
             // 
@@ -127,7 +127,7 @@ namespace PersonsBase.View
             // 
             this.сохранитьВExcelToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.diskette;
             this.сохранитьВExcelToolStripMenuItem.Name = "сохранитьВExcelToolStripMenuItem";
-            this.сохранитьВExcelToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
+            this.сохранитьВExcelToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.сохранитьВExcelToolStripMenuItem.Text = "Сохранить Базу";
             this.сохранитьВExcelToolStripMenuItem.Click += new System.EventHandler(this.сохранитьВExcelToolStripMenuItem_Click);
             // 
@@ -135,7 +135,7 @@ namespace PersonsBase.View
             // 
             this.выходToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.exit;
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
@@ -199,6 +199,31 @@ namespace PersonsBase.View
             this.конфигураторОтчетовToolStripMenuItem.Size = new System.Drawing.Size(229, 26);
             this.конфигураторОтчетовToolStripMenuItem.Text = "Конфигуратор Отчетов";
             this.конфигураторОтчетовToolStripMenuItem.Click += new System.EventHandler(this.конфигураторОтчетовToolStripMenuItem_Click);
+            // 
+            // сomboBox_PersonsList
+            // 
+            this.сomboBox_PersonsList.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.сomboBox_PersonsList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.сomboBox_PersonsList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.сomboBox_PersonsList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.сomboBox_PersonsList.DropDownHeight = 350;
+            this.сomboBox_PersonsList.DropDownWidth = 250;
+            this.сomboBox_PersonsList.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.сomboBox_PersonsList.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.сomboBox_PersonsList.IntegralHeight = false;
+            this.сomboBox_PersonsList.Name = "сomboBox_PersonsList";
+            this.сomboBox_PersonsList.Size = new System.Drawing.Size(400, 28);
+            this.сomboBox_PersonsList.Sorted = true;
+            this.сomboBox_PersonsList.SelectedIndexChanged += new System.EventHandler(this.сomboBox_PersonsListSelectedIndexChanged);
+            // 
+            // сканироватьToolStripMenuItem
+            // 
+            this.сканироватьToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.сканироватьToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.sca;
+            this.сканироватьToolStripMenuItem.Name = "сканироватьToolStripMenuItem";
+            this.сканироватьToolStripMenuItem.Size = new System.Drawing.Size(122, 28);
+            this.сканироватьToolStripMenuItem.Text = "Сканировать";
+            this.сканироватьToolStripMenuItem.Click += new System.EventHandler(this.сканироватьToolStripMenuItem_Click);
             // 
             // списокКлиентовToolStripMenuItem1
             // 
@@ -357,10 +382,10 @@ namespace PersonsBase.View
             this.listView_Gym_Zal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView_Gym_Zal.FullRowSelect = true;
             this.listView_Gym_Zal.GridLines = true;
-            listViewGroup2.Header = "ListViewGroup";
-            listViewGroup2.Name = "listViewGroup1";
+            listViewGroup1.Header = "ListViewGroup";
+            listViewGroup1.Name = "listViewGroup1";
             this.listView_Gym_Zal.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup2});
+            listViewGroup1});
             this.listView_Gym_Zal.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listView_Gym_Zal.Location = new System.Drawing.Point(705, 31);
             this.listView_Gym_Zal.MultiSelect = false;
@@ -468,30 +493,6 @@ namespace PersonsBase.View
             this.label_tren_zal.Size = new System.Drawing.Size(127, 17);
             this.label_tren_zal.TabIndex = 3;
             this.label_tren_zal.Text = "Тренажерный зал";
-            // 
-            // сomboBox_PersonsList
-            // 
-            this.сomboBox_PersonsList.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.сomboBox_PersonsList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.сomboBox_PersonsList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.сomboBox_PersonsList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.сomboBox_PersonsList.DropDownHeight = 350;
-            this.сomboBox_PersonsList.DropDownWidth = 250;
-            this.сomboBox_PersonsList.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.сomboBox_PersonsList.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.сomboBox_PersonsList.IntegralHeight = false;
-            this.сomboBox_PersonsList.Name = "сomboBox_PersonsList";
-            this.сomboBox_PersonsList.Size = new System.Drawing.Size(400, 28);
-            this.сomboBox_PersonsList.Sorted = true;
-            this.сomboBox_PersonsList.SelectedIndexChanged += new System.EventHandler(this.сomboBox_PersonsListSelectedIndexChanged);
-            // 
-            // сканироватьToolStripMenuItem
-            // 
-            this.сканироватьToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.сканироватьToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.sca;
-            this.сканироватьToolStripMenuItem.Name = "сканироватьToolStripMenuItem";
-            this.сканироватьToolStripMenuItem.Size = new System.Drawing.Size(122, 28);
-            this.сканироватьToolStripMenuItem.Text = "Сканировать";
             // 
             // MainForm
             // 

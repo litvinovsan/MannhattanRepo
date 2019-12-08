@@ -37,7 +37,7 @@ namespace PersonsBase.control
             _options = Options.GetInstance();
             _dataBase = DataBaseLevel.GetInstance();
             _persons = DataBaseLevel.GetListPersons();
-            
+
         }
 
         #endregion
@@ -331,7 +331,7 @@ namespace PersonsBase.control
 
         #endregion
 
-        #region /// КЛИЕНТ. ПЕРСОНАЛЬНАЯ КАРТОЧКА  ///
+        #region /// КЛИЕНТ. КАРТОЧКА. СКАНЕР  ///
         /// <summary>
         /// Открывает карточку клиента namePerson
         /// </summary>
@@ -356,6 +356,30 @@ namespace PersonsBase.control
             OpenPersonCard(selectedName);
         }
 
+        /// <summary>
+        /// Вызывает метод Запуска формы сканирования по штрих коду. Если успешно найден код - Открывает карточку клиента
+        /// </summary>
+        public static void BarCodeOpen()
+        {
+            var name = GetBarCodeName();
+            if (string.IsNullOrEmpty(name)) return;
+
+            OpenPersonCard(name);
+        }
+
+        /// <summary>
+        /// Запуск окна для Считывания Штрих кода. Возвращает Имя Клиента если Ок. Либо null если нету
+        /// </summary>
+        /// <returns></returns>
+        private static string GetBarCodeName()
+        {
+            //Запуск формы
+            //    Считывание кода в строку
+            //        Парсинг строки в число
+            //   Поиск в базе, если найден -возврат имени клиента
+
+            return "";
+        }
         #endregion
 
         #region /// АБОНЕМЕНТ.
