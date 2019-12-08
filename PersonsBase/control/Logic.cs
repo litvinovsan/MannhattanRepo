@@ -362,7 +362,7 @@ namespace PersonsBase.control
 
         public static bool SellAbonement()
         {
-            if (!FormsRunner.RunSelectPersonForm(out var selectedName, "Выберите клиента добавления Абонемента")) return false;
+            if (!FormsRunner.RunSelectPersonForm(out var selectedName, "Выберите клиента для добавления Абонемента")) return false;
 
             if (string.IsNullOrEmpty(selectedName)) return false;
 

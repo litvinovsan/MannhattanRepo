@@ -193,6 +193,16 @@ namespace PersonsBase.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap sca {
+            get {
+                object obj = ResourceManager.GetObject("sca", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap TrenZal {
             get {
                 object obj = ResourceManager.GetObject("TrenZal", resourceCulture);
