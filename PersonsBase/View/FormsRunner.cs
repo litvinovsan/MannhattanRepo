@@ -130,5 +130,25 @@ namespace PersonsBase.View
         }
         #endregion
 
+        #region /// ФОРМА СКАНИРОВАНИЯ ШТРИХКОДА ///
+
+        /// <summary>
+        /// Возвращает true Если код считан и Клиент Найден. False если нет такого клиента в базе.
+        /// </summary>
+        /// <param name="namePerson"></param>
+        /// <returns></returns>
+        public static bool RunBarCodeForm(out string namePerson)
+        {
+            namePerson = "";
+            using (var brCode = new BarCodeForm())
+            {
+                var dlgRes = brCode.ShowDialog();
+                if (dlgRes != DialogResult.OK) return false;
+                namePerson = brCode.GetFindedName();
+            }
+            return true;
+
+        }
+        #endregion
     }
 }

@@ -32,7 +32,7 @@ namespace PersonsBase.View
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.конфигурацииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -142,9 +142,9 @@ namespace PersonsBase.View
             // клиентыToolStripMenuItem
             // 
             this.клиентыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.продатьАбонементToolStripMenuItem,
             this.добавитьКлиентаToolStripMenuItem,
             this.списокКлиентовToolStripMenuItem,
+            this.продатьАбонементToolStripMenuItem,
             this.удалитьКлиентаToolStripMenuItem});
             this.клиентыToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("клиентыToolStripMenuItem.Image")));
             this.клиентыToolStripMenuItem.Name = "клиентыToolStripMenuItem";
@@ -239,8 +239,8 @@ namespace PersonsBase.View
             this.SellAbonToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.SellAbonToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.currency_dollar_green;
             this.SellAbonToolStripMenuItem.Name = "SellAbonToolStripMenuItem";
-            this.SellAbonToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
-            this.SellAbonToolStripMenuItem.Text = "Продажа Абонемента";
+            this.SellAbonToolStripMenuItem.Size = new System.Drawing.Size(98, 28);
+            this.SellAbonToolStripMenuItem.Text = "Продажа";
             this.SellAbonToolStripMenuItem.Click += new System.EventHandler(this.SellButtonMenuItem_Click);
             // 
             // groupBox1
@@ -382,10 +382,10 @@ namespace PersonsBase.View
             this.listView_Gym_Zal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView_Gym_Zal.FullRowSelect = true;
             this.listView_Gym_Zal.GridLines = true;
-            listViewGroup1.Header = "ListViewGroup";
-            listViewGroup1.Name = "listViewGroup1";
+            listViewGroup2.Header = "ListViewGroup";
+            listViewGroup2.Name = "listViewGroup1";
             this.listView_Gym_Zal.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1});
+            listViewGroup2});
             this.listView_Gym_Zal.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listView_Gym_Zal.Location = new System.Drawing.Point(705, 31);
             this.listView_Gym_Zal.MultiSelect = false;

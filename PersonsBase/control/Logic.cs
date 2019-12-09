@@ -362,7 +362,7 @@ namespace PersonsBase.control
         public static void BarCodeOpen()
         {
             var name = GetBarCodeName();
-            if (string.IsNullOrEmpty(name)) return;
+            if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name)) return;
 
             OpenPersonCard(name);
         }
@@ -373,12 +373,7 @@ namespace PersonsBase.control
         /// <returns></returns>
         private static string GetBarCodeName()
         {
-            //Запуск формы
-            //    Считывание кода в строку
-            //        Парсинг строки в число
-            //   Поиск в базе, если найден -возврат имени клиента
-
-            return "";
+            return FormsRunner.RunBarCodeForm(out var namePerson) ? namePerson : "";
         }
         #endregion
 
