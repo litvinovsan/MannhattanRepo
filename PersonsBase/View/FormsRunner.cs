@@ -147,7 +147,6 @@ namespace PersonsBase.View
                 namePerson = brCode.GetFindedName();
             }
             return true;
-
         }
         #endregion
     }

@@ -7,29 +7,90 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PersonsBase.data;
 
 namespace PersonsBase.View
 {
     public partial class BarCodeForm : Form
     {
+        private static int _charsCount = 0; // Счетчик количества цифр. Нужен потому что сканер вставляет цифры в текстовое поле по символьно
+        private const int NumsInBarString = 12; // Всего в считанном номере 12 позиций
+        private string _nameFinded = string.Empty;
 
+        private string _barCodeString;
+        private string BarCodeString // Хранится строка с номером. При записи вызывается событие
+        {
+            get { return _barCodeString; }
+            set
+            {
+                _barCodeString = value;
+                OnBarcodeStringChanged();
+            }
+        }
+
+        #region /// СОБЫТИЯ /// Получена строка со сканера
+        // Cтрока с номером изменилась. Дальше парсить номер
+        [field: NonSerialized]
+        public event EventHandler BarcodeStringChanged;
+        private void OnBarcodeStringChanged()
+        {
+            BarcodeStringChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        #endregion
+
+        #region /// КОНСТРУКТОР ///
         public BarCodeForm()
         {
             InitializeComponent();
+            BarcodeStringChanged += BarCodeForm_BarcodeStringChanged;
         }
+        #endregion
 
-        private string _name = "qwqwqw";
-        //        Парсинг строки в число
-        //   Поиск в базе, если найден -возврат имени клиента
-        // Ловить событие по текстововму полю. Сразу искать клиента. Если Ок возвращать  DialogResult.OK
+        #region /// МЕТОДЫ ///
+
+        /// <summary>
+        /// Возвращает Найденное в Базе имя клиента. Если найдено. Если нет -в озвращает ""
+        /// </summary>
+        /// <returns></returns>
         public string GetFindedName()
         {
-            return _name;
+            return _nameFinded;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Обработчик события вызывается когда в переменную BarCodeString записывается текст с номером.
+        /// Метод Парсит текст, запускает поиск в коллекции Персон по номеру ID. Если найден - записывает Имя клиента в _nameFinded
+        /// и возвращает DialogResult.Ok
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BarCodeForm_BarcodeStringChanged(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
+            var isSuccess = int.TryParse(BarCodeString, out var number);
+            if (!isSuccess)
+            {
+                MessageBox.Show(@"Ошибка Распознавания Номера.", @"Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var isFinded = DataBaseM.FindByPersonalNumber(DataBaseLevel.GetListPersons(), number, out var person);
+            if (isFinded)
+            {
+                _nameFinded = person.Name;
+                DialogResult = DialogResult.OK;
+            }
+        }
+
+        #endregion
+
+        // Обработчики стандартные
+        private void textBox_Code_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            ++_charsCount;
+            if (_charsCount != NumsInBarString) return; // Если не получили все символы строки
+            _charsCount = 0;
+            BarCodeString = textBox_Code.Text;
         }
     }
 }

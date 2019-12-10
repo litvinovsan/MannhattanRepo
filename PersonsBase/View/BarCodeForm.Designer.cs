@@ -31,7 +31,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBoxScaner = new System.Windows.Forms.PictureBox();
             this.textBox_Code = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxScaner)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,29 +65,19 @@
             this.textBox_Code.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox_Code.ForeColor = System.Drawing.Color.MidnightBlue;
             this.textBox_Code.Location = new System.Drawing.Point(12, 197);
-            this.textBox_Code.MaxLength = 15;
+            this.textBox_Code.MaxLength = 12;
             this.textBox_Code.Name = "textBox_Code";
             this.textBox_Code.Size = new System.Drawing.Size(247, 30);
             this.textBox_Code.TabIndex = 1;
             this.textBox_Code.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox_Code.UseWaitCursor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(184, 227);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.textBox_Code.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_Code_KeyPress);
             // 
             // BarCodeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(271, 254);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox_Code);
             this.Controls.Add(this.pictureBoxScaner);
             this.Controls.Add(this.label1);
@@ -114,6 +103,5 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBoxScaner;
         private System.Windows.Forms.TextBox textBox_Code;
-        private System.Windows.Forms.Button button1;
     }
 }
