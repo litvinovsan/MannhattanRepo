@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using PBase;
 
 namespace PersonsBase.data
 {
@@ -218,13 +215,7 @@ namespace PersonsBase.data
         /// <summary>  
         /// Задает Цвет clr если == , Красный если != аргументы.
         /// </summary>
-        public static void SetControlBackColor(Control ctrl, string current, string expected, Color clrFail)
-        { // Задает Цвет clrFail если != аргументы.
-            if (current != expected)
-            {
-                ctrl.BackColor = clrFail;
-            } // SystemColors.Window
-        }
+
         /// <summary>
         /// Перебираем все контролы рекурсивно. Выполняем для каждого действие action
         /// </summary>
@@ -354,10 +345,10 @@ namespace PersonsBase.data
         #region /// МЕТОДЫ РАСШИРЕНИЙ
         public static void DoubleBuffered(this Control dgv, bool setting)
         {
-            Type dgvType = dgv.GetType();
-            PropertyInfo pi = dgvType.GetProperty("DoubleBuffered",
+            var dgvType = dgv.GetType();
+            var pi = dgvType.GetProperty("DoubleBuffered",
                 BindingFlags.Instance | BindingFlags.NonPublic);
-            pi.SetValue(dgv, setting, null);
+            if (pi != null) pi.SetValue(dgv, setting, null);
         }
 
         #endregion

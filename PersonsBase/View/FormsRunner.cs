@@ -102,7 +102,7 @@ namespace PersonsBase.View
 
         #endregion
 
-        #region /// Форма Ввод ПАРОЛЯ ///
+        #region /// ВВОД ПАРОЛЯ ///
         public static void RunPasswordForm()
         {
             if (PwdForm.IsPassUnLocked()) PwdForm.LockPassword();
@@ -114,7 +114,7 @@ namespace PersonsBase.View
         }
         #endregion
 
-        #region /// ФОРМА ВЫБОР КЛИЕНТА из списка БАЗЫ ///
+        #region /// ВЫБОР КЛИЕНТА из списка БАЗЫ ///
         public static bool RunSelectPersonForm(out string personName, string header)
         {
             personName = null;
@@ -130,7 +130,7 @@ namespace PersonsBase.View
         }
         #endregion
 
-        #region /// ФОРМА СКАНИРОВАНИЯ ШТРИХКОДА ///
+        #region /// СКАНИРОВАНИЯ ШТРИХКОДА ///
 
         /// <summary>
         /// Возвращает true Если код считан и Клиент Найден. False если нет такого клиента в базе.
@@ -147,6 +147,14 @@ namespace PersonsBase.View
                 namePerson = brCode.GetFindedName();
             }
             return true;
+        }
+        #endregion
+
+        #region /// ОТЧЕТЫ о КЛИЕНТАХ
+        public static void RunReportForm()
+        {
+            var frm = new ReportForm();
+            frm.Show();
         }
         #endregion
     }

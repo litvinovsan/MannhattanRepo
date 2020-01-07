@@ -249,7 +249,7 @@ namespace PersonsBase.data
         /// Создает DataTAble обьект содержащий все посещения пользователя.
         /// </summary>
         /// <returns></returns>
-        public DataTable GetJournalTable()
+        public DataTable GetVisitsTable()
         {
             var table = new DataTable();
             if (JournalVisits == null || JournalVisits.Count == 0)

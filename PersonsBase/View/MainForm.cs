@@ -235,6 +235,8 @@ namespace PersonsBase.View
 
         private void конфигураторОтчетовToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Logic.CreateReport();
+
             #region MyRegion ПРИМЕР
 
             /*

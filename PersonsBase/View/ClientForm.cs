@@ -297,7 +297,7 @@ namespace PersonsBase.View
         /// </summary>
         private void SetupVisitsDataGridView()
         {
-            var dt = _person.GetJournalTable();
+            var dt = _person.GetVisitsTable();
             var journalVisits = _person.JournalVisits;
 
             var helpStrings = (journalVisits != null && journalVisits.Count > 0) ? journalVisits.First().GetHeadersToolTipHelp() : new[] { "" };
@@ -458,7 +458,7 @@ namespace PersonsBase.View
                 LoadEditableData();
                 UpdateControlState(this, EventArgs.Empty);
                 // Для обновления списка посещений при добавлении новой тренировки
-                MyDataGridView.SetSourceDataGridView(dataGridView_Visits, _person.GetJournalTable());
+                MyDataGridView.SetSourceDataGridView(dataGridView_Visits, _person.GetVisitsTable());
             }
 
             // Перенос Фокуса на кнопку 

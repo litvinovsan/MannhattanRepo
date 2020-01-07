@@ -377,6 +377,19 @@ namespace PersonsBase.control
         }
         #endregion
 
+        #region /// СОЗДАНИЕ ОТЧЕТА по КЛИЕНТАМ ///
+
+        /// <summary>
+        /// Создание,запуск и работа с отчетами о клиенте. 
+        /// </summary>
+        public static void CreateReport()
+        {
+            FormsRunner.RunReportForm();
+        }
+
+
+        #endregion
+
         #region /// АБОНЕМЕНТ.
 
         public static bool SellAbonement()
