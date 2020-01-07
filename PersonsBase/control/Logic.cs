@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using PersonsBase.data;
 using PersonsBase.data.Abonements;
-using PersonsBase.myStd;
 using PersonsBase.View;
 
 namespace PersonsBase.control
@@ -24,21 +22,10 @@ namespace PersonsBase.control
 
         [NonSerialized] private static Logic _logicInstance; //Singleton.
 
-        private Options _options;
-        private DataBaseLevel _dataBase;
-        private SortedList<string, Person> _persons;
-
         #endregion
 
         #region /// КОНСТРУКТОР ////
 
-        private Logic()
-        {
-            _options = Options.GetInstance();
-            _dataBase = DataBaseLevel.GetInstance();
-            _persons = DataBaseLevel.GetListPersons();
-
-        }
 
         #endregion
 
@@ -102,7 +89,7 @@ namespace PersonsBase.control
                 $@"Осталось посещений: {person.AbonementCurent.GetRemainderDays()}{infoAerobic}{infoPersonal}",
                 @"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            person.AddVisitJournal(selectedOptions);
+            Visit.AddVisitJournal(person, selectedOptions);
 
             OnVisitChanged(personName, selectedOptions);
 

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using PersonsBase.data.Abonements;
 
 namespace PersonsBase.data
@@ -133,7 +131,7 @@ namespace PersonsBase.data
 
             AbonementsQueue = new ObservableCollection<AbonementBasic>();
             JournalVisits = new List<Visit>(); // FIXME вынести в отдельный класс. Там сделать Dictionary<string Имя клиента,List<Visit>> 
-                                               // Доступ будет по Имени клиента, а дальше как обычно
+                                               // Доступ будет по Имени клиента, а дальше как обычно. То есть не хранить Журнал визитов в самом клиенте
         }
         public Person()
         {
@@ -230,46 +228,6 @@ namespace PersonsBase.data
             return result;
         }
 
-        #endregion
-
-        //
-        #region /// ЖУРНАЛ ПОСЕЩЕНИЙ
-        /// <summary>
-        /// Добавляет в Журнал посещений параметры выбранной Тренировки, Текущего администратора, время тренировки 
-        /// </summary>
-        /// <param name="selectedOptions"></param>
-        public void AddVisitJournal(WorkoutOptions selectedOptions)
-        {
-            if (JournalVisits == null) JournalVisits = new List<Visit>(); // Проверка на случай сериализации
-            var currentAdmin = DataBaseO.GetManhattanInfo().CurrentAdmin;
-            JournalVisits.Add(new Visit(_abonementCurent, selectedOptions, currentAdmin.Name));
-        }
-
-        /// <summary>
-        /// Создает DataTAble обьект содержащий все посещения пользователя.
-        /// </summary>
-        /// <returns></returns>
-        public DataTable GetVisitsTable()
-        {
-            var table = new DataTable();
-            if (JournalVisits == null || JournalVisits.Count == 0)
-            {
-                table.Columns.Add(" ");
-                table.Rows.Add(" ");
-                return table;
-            }
-
-            // Создаем Заголовки таблицы, берем из первого элемента Visit
-            var headers = JournalVisits.First().GetHeadersForValues();
-            table.Columns.AddRange(headers);
-
-            // Заполняем строки значениями из журнала
-            foreach (var item in JournalVisits.Reverse<Visit>())
-            {
-                table.Rows.Add(item.GetValues());
-            }
-            return table;
-        }
         #endregion
 
         #region //Перегрузка операторов для сравнения клиентов

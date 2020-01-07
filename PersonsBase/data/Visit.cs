@@ -16,9 +16,6 @@ namespace PersonsBase.data
         // Текстовые константы
         private const string NameUnknown = "Имя неизвестно";
 
-        // Главная переменная! Хранение полей Имя Заголовка - Значение - Хелп таблицы
-        // private List<DataGridItem> _reportRowsList;
-
         public TypeWorkout TypeWorkoutToday { get; }
         public DateTime DateTimeVisit { get; }
 
@@ -75,10 +72,10 @@ namespace PersonsBase.data
             GroupInfo = new Group();
         }
 
-        #region // Не изменять очередность. Кусок нужен для создания таблицы для вывода на форму в датагридвью 
+        #region // Cоздание таблицы для вывода на форму в DataGridView 
 
         /// <summary>
-        /// Задаются значения, которые будут отображены в таблице посещений( Название заголовка, значение текущее, строка справки)
+        /// Задаются значения и поля, которые будут отображены в таблице посещений( Название заголовка, значение текущее, строка справки)
         /// </summary>
         private List<DataGridItem> CreateReportList()
         {
@@ -109,7 +106,7 @@ namespace PersonsBase.data
         }
 
         /// <summary>
-        /// Создает массив со значениями полей в текущем посещении
+        /// Создает массив со значениями полей о текущем посещении
         /// </summary>
         /// <returns></returns>
         public object[] GetValues()
@@ -191,5 +188,49 @@ namespace PersonsBase.data
 
         #endregion
 
+
+        #region /// ЖУРНАЛ ПОСЕЩЕНИЙ
+
+        /// <summary>
+        /// Добавляет в Журнал посещений параметры выбранной Тренировки, Текущего администратора, время тренировки.
+        /// Статический метод, на вход нужно подать Персону.
+        /// </summary>
+        /// <param name="person"></param>
+        /// <param name="selectedOptions"></param>
+        public static void AddVisitJournal(Person person, WorkoutOptions selectedOptions)
+        {
+            var journalVisits = person.JournalVisits ?? new List<Visit>();
+            var currentAdmin = DataBaseO.GetManhattanInfo().CurrentAdmin;
+            journalVisits.Add(new Visit(person.AbonementCurent, selectedOptions, currentAdmin.Name));
+        }
+
+        /// <summary>
+        /// Создает DataTable обьект содержащий все посещения пользователя.
+        /// </summary>
+        /// <returns></returns>
+        public static DataTable GetVisitsTable(Person person)
+        {
+            var table = new DataTable();
+            var journalVisits = person.JournalVisits ?? new List<Visit>();
+
+            if (journalVisits.Count == 0)
+            {
+                table.Columns.Add(" ");
+                table.Rows.Add(" ");
+                return table;
+            }
+
+            // Создаем Заголовки таблицы, берем из первого элемента Visit
+            var headers = journalVisits.First().GetHeadersForValues();
+            table.Columns.AddRange(headers);
+
+            // Заполняем строки значениями из журнала
+            foreach (var item in journalVisits.Reverse<Visit>())
+            {
+                table.Rows.Add(item.GetValues());
+            }
+            return table;
+        }
+        #endregion
     }
 }

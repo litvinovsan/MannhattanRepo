@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ClosedXML.Excel;
-using PBase;
 using PersonsBase.control;
 using PersonsBase.data;
 using PersonsBase.myStd;
@@ -47,7 +39,7 @@ namespace PersonsBase.View
         public PersonsForm(string headerName)
         {
             InitializeComponent();
-            this.Text = headerName;
+            Text = headerName;
         }
 
         private void PersonsListForm_Load(object sender, EventArgs e)
@@ -137,16 +129,16 @@ namespace PersonsBase.View
 
         private void button_Ok_Click_1(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void listBox_persons_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (listBox_persons.SelectedItems.Count == 0) return;
             comboBox_Names.SelectedItem = listBox_persons.SelectedItem.ToString();
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            DialogResult = DialogResult.OK;
+            Close();
         }
     }
 }
