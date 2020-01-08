@@ -14,7 +14,7 @@ namespace PersonsBase.data
     [Serializable]
     public static class Methods
     {
-        // Маркеры для выделения цветом в таблице Шорт Инфо
+        // Маркеры для выделения красным цветом в таблице ShortInfo. Если текст равен...
         private const string StrMorning = "Утро";
         private const string StrNoPay = "Не_Оплачено";
 

@@ -89,7 +89,7 @@ namespace PersonsBase.control
                 $@"Осталось посещений: {person.AbonementCurent.GetRemainderDays()}{infoAerobic}{infoPersonal}",
                 @"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            Visit.AddVisitJournal(person, selectedOptions);
+            Visit.AddVisit2Journal(person, selectedOptions);
 
             OnVisitChanged(personName, selectedOptions);
 
@@ -373,7 +373,6 @@ namespace PersonsBase.control
         {
             FormsRunner.RunReportForm();
         }
-
 
         #endregion
 

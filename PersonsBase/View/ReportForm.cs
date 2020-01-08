@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Collections.ObjectModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using PersonsBase.data;
 using PersonsBase.myStd;
@@ -14,7 +11,44 @@ namespace PersonsBase.View
 {
     public partial class ReportForm : Form
     {
-        #region /// Поля используемые в Контролах как перечисления значений
+        // Наблюдаемая коллекция, СПИСОК выбранных по параметрам Клиентов
+        public ObservableCollection<KeyValuePair<string, Person>> PersonsSelected;
+
+        public ReportForm()
+        {
+            InitializeComponent();
+            // Наблюдаемая коллекция, СПИСОК выбранных по параметрам Клиентов
+            PersonsSelected = new ObservableCollection<KeyValuePair<string, Person>>();
+            PersonsSelected.CollectionChanged += PersonsSelected_CollectionChanged;
+
+            // Инициализация всех группбоксов стартовыми значениями
+            InitCheckedListBoxAge();
+            InitCheckedListBoxPay();
+            InitCheckedListBoxGender();
+            InitCheckedListBoxActivation();
+            InitCheckedListBoxTypeAbon();
+            InitCheckedListBoxLastVisit();
+            InitCheckedListBoxStatus();
+            InitCheckedListBoxTimeTren();
+
+            InitDataGridView();
+        }
+
+        private void PersonsSelected_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void InitDataGridView()
+        {
+            // DataTable dt = DataBaseM.CreatePersonsTable(PersonsSelected, DataBaseM.GetPersonFieldsShort);
+            DataTable dt = DataBaseM.CreatePersonsTable(DataBaseLevel.GetListPersons(), DataBaseM.GetPersonFieldsShort);
+
+            MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
+            MyDataGridView.ImplementStyle(dataGridView_Persons);
+        }
+
+        #region /// ПОЛЯ ИСПОЛЬЗУЕМЫЕ В КОНТРОЛАХ КАК ПЕРЕЧИСЛЕНИЯ ЗНАЧЕНИЙ
 
         private readonly object[] _ages =
          {
@@ -35,21 +69,6 @@ namespace PersonsBase.View
             "Больше 1 месяца"
         };
         #endregion
-
-        public ReportForm()
-        {
-            InitializeComponent();
-
-            // Инициализация всех группбоксов стартовыми значениями
-            InitCheckedListBoxAge();
-            InitCheckedListBoxPay();
-            InitCheckedListBoxGender();
-            InitCheckedListBoxActivation();
-            InitCheckedListBoxTypeAbon();
-            InitCheckedListBoxLastVisit();
-            InitCheckedListBoxStatus();
-            InitCheckedListBoxTimeTren();
-        }
 
         #region /// МЕТОДЫ. ВОЗРАСТ
         /// <summary>
@@ -214,5 +233,69 @@ namespace PersonsBase.View
         {
             Close();
         }
+
+        private void button_Click_SaveExcel(object sender, EventArgs e)
+        {
+            if (DataBaseLevel.GetNumberOfPersons() == 0) MessageBox.Show(@"В Базе нет клиентов");
+
+            var table = DataBaseM.CreatePersonsTable();
+            DataBaseM.ExportToExcel(table, true);
+        }
+
+
+
+
+        /*
+                IEnumerable<KeyValuePair<string, MergedRequirenments>> query;
+                if (checkBox_fb_approved.Checked)
+                {
+                    query =
+                          from reqt in _mergedRequirenments
+                          where !reqt.Value.FB_Status_New.Equals(reqt.Value.FB_Status_Old)
+                          select reqt;
+                }
+                else
+                {
+                    query = _mergedRequirenments.Select(c => c).OrderBy(x => x.Key);
+                }
+
+                //Approved only in new Ver Fb
+                if (checkBox_fb_approvedNew.Checked)
+                {
+                    query =
+                        from reqt in query
+                        where reqt.Value.FB_Status_New.Contains("Approved")
+                        select reqt;
+                }
+                else
+                {
+                    query =
+                        from reqt in query
+                        where !reqt.Value.FB_Text_Old.Equals(reqt.Value.FB_Text_New)
+                        select reqt;
+                }
+
+                // Text fb Old != New
+                if (checkBox_fbText_old_eq_new.Checked)
+                {
+                    query =
+                        from reqt in query
+                        where reqt.Value.FB_Text_Old.Equals(reqt.Value.FB_Text_New)
+                        select reqt;
+                }
+                else
+                {
+                    query =
+                        from reqt in query
+                        where !reqt.Value.FB_Text_Old.Equals(reqt.Value.FB_Text_New)
+                        select reqt;
+                }
+
+                var list = query.ToDictionary((x => x.Key), (c => c.Value));
+
+
+
+                #endregion
+            */
     }
 }

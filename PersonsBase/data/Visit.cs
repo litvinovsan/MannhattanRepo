@@ -197,7 +197,7 @@ namespace PersonsBase.data
         /// </summary>
         /// <param name="person"></param>
         /// <param name="selectedOptions"></param>
-        public static void AddVisitJournal(Person person, WorkoutOptions selectedOptions)
+        public static void AddVisit2Journal(Person person, WorkoutOptions selectedOptions)
         {
             var journalVisits = person.JournalVisits ?? new List<Visit>();
             var currentAdmin = DataBaseO.GetManhattanInfo().CurrentAdmin;

@@ -19,7 +19,7 @@ namespace PersonsBase.data
         /// </summary>
         public static bool IsContainsCopyOfValues(SortedList<string, Person> inputDict, Person person, out ResponseCode response)
         {
-            bool containsCopy = false;
+            var containsCopy = false;
             response = ResponseCode.Success;
             //Если пустая коллекция
             if (inputDict.Count == 0)
@@ -97,7 +97,7 @@ namespace PersonsBase.data
                     break;
             }
 
-            MessageBox.Show(message, "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(message, @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         #endregion
@@ -202,7 +202,7 @@ namespace PersonsBase.data
         public static Person FindByPassport(SortedList<string, Person> inputCollection, string passp)
         {
             Person result;
-            if (inputCollection == null || String.IsNullOrEmpty(passp) || inputCollection.Count <= 0) return null;
+            if (inputCollection == null || string.IsNullOrEmpty(passp) || inputCollection.Count <= 0) return null;
             try
             {
                 var matches = inputCollection.ToList().FindAll(x => x.Value.Passport == (passp));
@@ -235,10 +235,10 @@ namespace PersonsBase.data
         #endregion
 
         #region /// ВЫБОРКА клиентов ////////////////////
-        public static IEnumerable<Person> SelectByGender(IEnumerable<Person> inputCollection, Gender gender)
+        public static IEnumerable<KeyValuePair<string, Person>> SelectByGender(IEnumerable<KeyValuePair<string, Person>> inputCollection, Gender gender)
         {
             var result = from n in inputCollection
-                         where n.GenderType == gender
+                         where n.Value.GenderType == gender
                          select n;
             return result;
         }
@@ -307,60 +307,52 @@ namespace PersonsBase.data
         }
 
         /// <summary>
-        /// Возвращает DataTable со Всеми клиентами в Базе. Нужна для экспорта в Excel
+        /// Возвращает DataTable со Всеми клиентами в Базе. Нужна для экспорта в Excel,а так же для создания отчетов
         /// </summary>
         /// <returns></returns>
-        public static DataTable GetPersonsTable()
+        public static DataTable CreatePersonsTable()
         {
             var persons = DataBaseLevel.GetListPersons();
-            var dt = GetPersonsTable(persons);
-
+            var dt = CreatePersonsTable(persons, GetPersonFieldsFull);
             return dt;
         }
 
         /// <summary>
-        /// Возвращает DataTable для произвольного количества клиентов из списка list. Для экспорта в Excel
+        /// Возвращает DataTable для произвольного количества клиентов из списка inputList. Для экспорта в Excel
         /// </summary>
-        /// <param name="list"></param>
+        /// <param name="inputList"></param>
+        /// <param name="getFieldsFunc"></param>
         /// <returns></returns>
-        public static DataTable GetPersonsTable(IEnumerable<KeyValuePair<string, Person>> list)
+        public static DataTable CreatePersonsTable(IEnumerable<KeyValuePair<string, Person>> inputList,
+            Func<KeyValuePair<string, Person>, IEnumerable<PersonField>> getFieldsFunc)
         {
             var dt = new DataTable();
-            if (list == null) return dt;
+            if (inputList == null) return dt;
 
             // Если пустая коллекция человеков
-            var keyValuePairs = list.ToList();
+            var keyValuePairs = inputList.ToList();
             if (!keyValuePairs.Any()) return dt;
 
             // Заголовки Таблицы
-            var headers = GetSummaryHeader();
+            DataColumn[] headers = GetHeaders(getFieldsFunc);
             dt.Columns.AddRange(headers);
 
             // Данные всех Клиентов
             foreach (var item in keyValuePairs)
             {
-                dt.Rows.Add(GetSummaryValues(item));
+                var personFields = getFieldsFunc(item);
+                var myDataRowsList = personFields.Select(x => x.Value).ToArray<object>();
+                dt.Rows.Add(myDataRowsList);
             }
             return dt;
         }
 
         /// <summary>
-        /// Массив используется для добавления значений всех полей обьекта пользователя в строку из DataTable. 
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        private static object[] GetSummaryValues(KeyValuePair<string, Person> item)
-        {
-            var personFields = GetPersonFields(item);
-            var myDataRowsList = personFields.Select(x => x.Value).ToArray<object>();
-            return myDataRowsList;
-        }
-
-        /// <summary>
         /// Получаем заголовки из Обьекта класса Пользователя. Нужно для экспорта в эксель
+        /// На вход подается функция создающая поля поля и заголовки
         /// </summary>
         /// <returns></returns>
-        private static DataColumn[] GetSummaryHeader()
+        private static DataColumn[] GetHeaders(Func<KeyValuePair<string, Person>, IEnumerable<PersonField>> getFieldsFunc)
         {
             // Создаем массив с полями и заголовками будущей таблицы по текущему посещению
             var persons = DataBaseLevel.GetListPersons();
@@ -372,11 +364,11 @@ namespace PersonsBase.data
             {
                 var tempPerson = new KeyValuePair<string, Person>("temp", new Person("temp"));
                 tempPerson.Value.AbonementCurent = new SingleVisit(TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, Pay.Не_Оплачено, TimeForTr.Утро);
-                personFields = GetPersonFields(tempPerson);
+                personFields = getFieldsFunc(tempPerson);
             }
             else
             {
-                personFields = GetPersonFields(p);
+                personFields = getFieldsFunc(p);
             }
 
             var headerNames = personFields.Select(x => x.HeaderName).ToArray();
@@ -395,7 +387,7 @@ namespace PersonsBase.data
         /// </summary>
         /// <param name="first"></param>
         /// <returns></returns>
-        private static IEnumerable<PersonField> GetPersonFields(KeyValuePair<string, Person> first)
+        public static IEnumerable<PersonField> GetPersonFieldsFull(KeyValuePair<string, Person> first)
         {// FIXME  Попробовать тут Рефлексию
             var person = first.Value;
             var personFields = new List<PersonField>
@@ -431,6 +423,29 @@ namespace PersonsBase.data
 
             return personFields;
         }
+
+        /// <summary>
+        /// Только тут создаются заголовки Выборочных полей и записываются их данные в структуру PersonField
+        /// </summary>
+        /// <param name="first"></param>
+        /// <returns></returns>
+        public static IEnumerable<PersonField> GetPersonFieldsShort(KeyValuePair<string, Person> first)
+        {
+            var person = first.Value;
+            var personFields = new List<PersonField>
+            {
+                new PersonField {HeaderName = "Имя", Value = person.Name},
+                new PersonField {HeaderName = "Телефон", Value = person.Phone},
+                new PersonField {HeaderName = "Статус", Value = person.Status.ToString()},
+            };
+            if (person.AbonementCurent == null) return personFields;
+            personFields.Add(new PersonField { HeaderName = "Название Абон.", Value = person.AbonementCurent.AbonementName });
+            personFields.Add(new PersonField { HeaderName = "Абон. Покупка", Value = $"{person.AbonementCurent.BuyDate:MM/dd/yyyy}" });
+            personFields.Add(new PersonField { HeaderName = "Абон. Конец", Value = $"{person.AbonementCurent.EndDate:MM/dd/yyyy}" });
+
+            return personFields;
+        }
+
         /// <summary>
         /// Формирует строку из списка записей заморозки. Эта строка нужна для вывода в эксель
         /// </summary>

@@ -12,7 +12,7 @@ namespace PersonsBase.data
         #region/// ОБЬЕКТЫ Базы Данных. Списки и Коллекции///
 
         [NonSerialized]
-        private static readonly object _locker = new object(); // блокировка коллекции на время сериализации.
+        private static readonly object Locker = new object(); // блокировка коллекции на время сериализации.
         [NonSerialized]
         private static DataBaseLevel _dbInstance;  //Singleton.
 
@@ -79,7 +79,7 @@ namespace PersonsBase.data
         // Доступ к Коллекциям и Спискам Клиентов, Тренеров, Администраторов, Тренировок
         public static SortedList<string, Person> GetListPersons()
         {
-            lock (_locker)
+            lock (Locker)
             {
                 return _dataBaseList;
             }
@@ -94,7 +94,7 @@ namespace PersonsBase.data
         {
             ResponseCode response;
 
-            lock (_locker)
+            lock (Locker)
             {
                 bool containsCopy = DataBaseM.IsContainsCopyOfValues(_dataBaseList, person, out response);
                 if (containsCopy == false && (!string.IsNullOrEmpty(person.Key)))
@@ -118,7 +118,7 @@ namespace PersonsBase.data
         {
             var result = ResponseCode.Fail;
 
-            lock (_locker)
+            lock (Locker)
             {
                 if (!_dataBaseList.ContainsKey(nameKey)) return result;
 
@@ -139,18 +139,24 @@ namespace PersonsBase.data
         }
         public bool PersonEditName(string lastName, string newName)
         {
-            var result = DataBaseM.EditName(_dataBaseList, lastName, newName);
+            var result = _dataBaseList != null && DataBaseM.EditName(_dataBaseList, lastName, newName);
             if (result) OnListChanged();
             return result;
         }
         /// Returns numberof elements in collection
         public static int GetNumberOfPersons()
         {
-            return _dataBaseList.Count;
+            lock (Locker)
+            {
+                return _dataBaseList.Count;
+            }
         }
         public static bool ContainsNameKey(string personName)
         {
-            return _dataBaseList.ContainsKey(personName);
+            lock (Locker)
+            {
+                return _dataBaseList.ContainsKey(personName);
+            }
         }
 
         /// <summary>
@@ -161,7 +167,7 @@ namespace PersonsBase.data
             MyExportFile.CreateFolder(Options.DataBaseFolderName);
             var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.DataBaseFolderName;
 
-            lock (_locker)
+            lock (Locker)
             {
                 SerializeClass.Serialize(_dataBaseList, currentPath + "\\" + Options.PersonsDbFile);
             }
@@ -184,7 +190,7 @@ namespace PersonsBase.data
             MyExportFile.CreateFolder(Options.DataBaseFolderName);
             var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.DataBaseFolderName;
 
-            lock (_locker)
+            lock (Locker)
             {
                 SerializeClass.DeSerialize(ref _dataBaseList, currentPath + "\\" + Options.PersonsDbFile);
             }
