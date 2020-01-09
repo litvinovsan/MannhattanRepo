@@ -36,7 +36,9 @@ namespace PersonsBase.View
 
         private void PersonsSelected_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            DataTable dt = DataBaseM.CreatePersonsTable(PersonsSelected, DataBaseM.GetPersonFieldsShort);
+            MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
+
         }
 
         private void InitDataGridView()
@@ -238,7 +240,7 @@ namespace PersonsBase.View
         {
             if (DataBaseLevel.GetNumberOfPersons() == 0) MessageBox.Show(@"В Базе нет клиентов");
 
-            var table = DataBaseM.CreatePersonsTable();
+            var table = DataBaseM.CreatePersonsTable(PersonsSelected, DataBaseM.GetPersonFieldsShort);
             DataBaseM.ExportToExcel(table, true);
         }
 
