@@ -148,7 +148,8 @@ namespace PersonsBase.myStd
             dataGridView1.BorderStyle = BorderStyle.Fixed3D;
             dataGridView1.AllowUserToOrderColumns = true;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            if (dataGridView1.Columns.Count != 0)
+                dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
 
             // Внешний вид заголовка
             dataGridView1.EnableHeadersVisualStyles = false;

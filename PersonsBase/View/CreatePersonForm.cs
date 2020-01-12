@@ -213,6 +213,7 @@ namespace PersonsBase.View
 
         private void ProcessComboBox(ComboBox cmbox)
         {
+            if (cmbox.SelectedItem == null) return;
             var gender = MyComboBox.GetComboBoxValue<Gender>(cmbox);
 
             if (gender == Gender.Неизвестен)

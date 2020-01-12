@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.data;
@@ -11,15 +9,37 @@ namespace PersonsBase.View
 {
     public partial class ReportForm : Form
     {
-        // Наблюдаемая коллекция, СПИСОК выбранных по параметрам Клиентов
-        public ObservableCollection<KeyValuePair<string, Person>> PersonsSelected;
+        // Список всех персон. Исходная коллекция со всеми клиентами
+        private readonly SortedList<string, Person> _personsAll = DataBaseLevel.GetListPersons();
+
+        // СПИСОК выбранных по параметрам Клиентов
+        private SortedList<string, Person> _personsSelected = new SortedList<string, Person>();
+
+        #region /// ПОЛЯ ИСПОЛЬЗУЕМЫЕ В КОНТРОЛАХ КАК ПЕРЕЧИСЛЕНИЯ ЗНАЧЕНИЙ
+
+        private readonly object[] _ages =
+        {
+            "До 30 лет",
+            "От 30 до 40 лет",
+            "От 40 лет"
+        };
+
+        private readonly object[] _activation =
+        {
+            "Активирован",
+            "Не Активирован"
+        };
+
+        private readonly object[] _lastVisits =
+        {
+            "Не важно",
+            "Больше 1 месяца"
+        };
+        #endregion
 
         public ReportForm()
         {
             InitializeComponent();
-            // Наблюдаемая коллекция, СПИСОК выбранных по параметрам Клиентов
-            PersonsSelected = new ObservableCollection<KeyValuePair<string, Person>>();
-            PersonsSelected.CollectionChanged += PersonsSelected_CollectionChanged;
 
             // Инициализация всех группбоксов стартовыми значениями
             InitCheckedListBoxAge();
@@ -34,42 +54,28 @@ namespace PersonsBase.View
             InitDataGridView();
         }
 
-        private void PersonsSelected_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            DataTable dt = DataBaseM.CreatePersonsTable(PersonsSelected, DataBaseM.GetPersonFieldsShort);
-            MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
-
-        }
-
         private void InitDataGridView()
         {
-            // DataTable dt = DataBaseM.CreatePersonsTable(PersonsSelected, DataBaseM.GetPersonFieldsShort);
-            DataTable dt = DataBaseM.CreatePersonsTable(DataBaseLevel.GetListPersons(), DataBaseM.GetPersonFieldsShort);
-
+            var dt = DataBaseM.CreatePersonsTable(_personsAll, DataBaseM.GetPersonFieldsShort);
             MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
             MyDataGridView.ImplementStyle(dataGridView_Persons);
         }
 
-        #region /// ПОЛЯ ИСПОЛЬЗУЕМЫЕ В КОНТРОЛАХ КАК ПЕРЕЧИСЛЕНИЯ ЗНАЧЕНИЙ
-
-        private readonly object[] _ages =
-         {
-            "До 30 лет",
-            "От 30 до 40 лет",
-            "От 40 лет"
-        };
-
-        private readonly object[] _activation =
+        #region /// МЕТОДЫ. СТАТУС КЛИЕНТА
+        /// <summary>
+        /// Устанавливает стартовые значения CheckedListBox при загрузке формы. Список строк и галочку.
+        /// </summary>
+        private void InitCheckedListBoxStatus()
         {
-            "Активирован",
-            "Не Активирован"
-        };
+            var statuses = Enum.GetNames(typeof(StatusPerson)).ToArray<object>();
+            MyComboBox.Initialize(comboBox_Status, statuses);
+        }
 
-        private readonly object[] _lastVisits =
+        private void comboBox_Status_SelectedIndexChanged(object sender, EventArgs e)
         {
-            "Не учитывать",
-            "Больше 1 месяца"
-        };
+        }
+
+
         #endregion
 
         #region /// МЕТОДЫ. ВОЗРАСТ
@@ -179,19 +185,7 @@ namespace PersonsBase.View
 
         #endregion
 
-        #region /// МЕТОДЫ. СТАТУС
-        /// <summary>
-        /// Устанавливает стартовые значения CheckedListBox при загрузке формы. Список строк и галочку.
-        /// </summary>
-        private void InitCheckedListBoxStatus()
-        {
-            var statuses = Enum.GetNames(typeof(StatusPerson)).ToArray<object>();
-            MyComboBox.Initialize(comboBox_Status, statuses, StatusPerson.Активный.ToString());
-        }
 
-
-
-        #endregion
 
         #region /// МЕТОДЫ. ВРЕМЯ ПОСЕЩЕНИЙ
         /// <summary>
@@ -231,6 +225,18 @@ namespace PersonsBase.View
         }
         #endregion
 
+        /// <summary>
+        /// Выводит в DataGrid всех Клиентов из коллекции которую подавать на вход надо
+        /// </summary>
+        /// <param name="personsToShow"></param>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ShowPersonsInDataGrid(IEnumerable<KeyValuePair<string, Person>> personsToShow)
+        {
+            var dt = DataBaseM.CreatePersonsTable(personsToShow, DataBaseM.GetPersonFieldsShort);
+            MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
@@ -240,9 +246,11 @@ namespace PersonsBase.View
         {
             if (DataBaseLevel.GetNumberOfPersons() == 0) MessageBox.Show(@"В Базе нет клиентов");
 
-            var table = DataBaseM.CreatePersonsTable(PersonsSelected, DataBaseM.GetPersonFieldsShort);
+            var table = DataBaseM.CreatePersonsTable(_personsSelected, DataBaseM.GetPersonFieldsFull);
             DataBaseM.ExportToExcel(table, true);
         }
+
+
 
 
 

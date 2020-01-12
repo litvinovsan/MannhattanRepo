@@ -51,12 +51,6 @@ namespace PersonsBase.data
             return containsCopy;
         }
 
-        // Быстрая проверка по Ключу и ссылке на обьект
-        public static bool IsContainsKeyOrVal(SortedList<string, Person> inputDict, Person person)
-        {
-            return inputDict.ContainsKey(person.Key) && inputDict.ContainsValue(person);
-        }
-
         /// <summary>
         /// Метод выводит МессаджБокс с описанием что за событие произошло по Респонс Коду
         /// </summary>
@@ -104,17 +98,7 @@ namespace PersonsBase.data
 
         #region /// ПОИСК, РЕДАКТИРОВАНИЕ /////////////
 
-        // Index in List
-        public static Person FindByIndexInBase(SortedList<string, Person> inputCollection, int index)
-        {
-            if (inputCollection == null || inputCollection.Count <= 0 || index > inputCollection.Count - 1)
-                return null;
-            var keyValPair = inputCollection.ElementAt(index);
-            var findedPerson = keyValPair.Value;
-            return findedPerson;
-        }
-
-        // Driver ID
+       // Driver ID
         public static Person FindByDriveId(SortedList<string, Person> inputCollection, string driveLic)
         {
             Person findedPerson;
@@ -130,22 +114,7 @@ namespace PersonsBase.data
             }
             return findedPerson;
         }
-        public static bool EditDriveId(ref Person person, string newDriverId)
-        {
-            bool result = false;
-            if (person == null) return false;
-            try
-            {
-                person.DriverIdNum = newDriverId;
-                result = true;
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-            return result;
-        }
-
+       
         // Personal Number
         public static bool FindByPersonalNumber(SortedList<string, Person> inputCollection, int number, out Person findedPerson)
         {
@@ -179,7 +148,7 @@ namespace PersonsBase.data
         // Name 
         public static bool EditName(SortedList<string, Person> inputCollection, string key, string newFullName)
         {
-            bool result = false;
+            bool isSuccess = false;
             string newName = Methods.PrepareName(newFullName);
 
             if (inputCollection != null && inputCollection.Count > 0 && !String.IsNullOrEmpty(newName) && newName != "")
@@ -187,15 +156,15 @@ namespace PersonsBase.data
                 var localKey = Methods.PrepareName(key);
                 // Копируем данные текущей персоны
                 Person personForEdit; // Копия текущей персоны                                                                        
-                result = inputCollection.TryGetValue(localKey, out personForEdit);
-                if (result)
+                isSuccess = inputCollection.TryGetValue(localKey, out personForEdit);
+                if (isSuccess)
                 {
                     personForEdit.Name = newName;
                     inputCollection.Remove(localKey);
                     inputCollection.Add(personForEdit.Key, personForEdit);
                 }
             }
-            return result;
+            return isSuccess;
         }
 
         // Passport
@@ -277,11 +246,7 @@ namespace PersonsBase.data
              return persons;
           }
 
-          public static IEnumerable<Person> SelectWithPackets(IEnumerable<Person> inputCollection)
-          {
-             var persons = inputCollection.Where(c => c.Packets != 0).Select(c => c);
-             return persons;
-          }
+         
     */
 
         #endregion
@@ -346,6 +311,7 @@ namespace PersonsBase.data
             }
             return dt;
         }
+
 
         /// <summary>
         /// Получаем заголовки из Обьекта класса Пользователя. Нужно для экспорта в эксель

@@ -197,13 +197,6 @@ namespace PersonsBase.data
             ctrl.ForeColor = actual == expected ? Color.Green : Color.Red;
         }
         /// <summary>
-        /// // Задает Цвет clrSuccess если == , И clrFail если != аргументы.
-        /// </summary>
-        public static void SetControlBackColor(Control ctrl, string current, string expected, Color clrSuccess, Color clrFail)
-        {
-            ctrl.BackColor = current == expected ? clrSuccess : clrFail;
-        }
-        /// <summary>
         /// // Задает Цвет SystemColors.Window если == , И Yellow если != аргументы.
         /// </summary>
         public static void SetControlBackColor(Control ctrl, string current, string expected)

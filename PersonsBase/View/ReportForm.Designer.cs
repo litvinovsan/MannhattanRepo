@@ -142,11 +142,13 @@
             // comboBox_Status
             // 
             this.comboBox_Status.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_Status.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_Status.FormattingEnabled = true;
             this.comboBox_Status.Location = new System.Drawing.Point(3, 20);
             this.comboBox_Status.Name = "comboBox_Status";
             this.comboBox_Status.Size = new System.Drawing.Size(180, 26);
             this.comboBox_Status.TabIndex = 0;
+            this.comboBox_Status.SelectedIndexChanged += new System.EventHandler(this.comboBox_Status_SelectedIndexChanged);
             // 
             // groupBox_LastVisit
             // 
@@ -162,6 +164,7 @@
             // comboBox_LastVisit
             // 
             this.comboBox_LastVisit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_LastVisit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_LastVisit.FormattingEnabled = true;
             this.comboBox_LastVisit.Location = new System.Drawing.Point(3, 20);
             this.comboBox_LastVisit.Name = "comboBox_LastVisit";

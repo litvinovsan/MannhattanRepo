@@ -139,6 +139,7 @@ namespace PersonsBase.data
         }
         public bool PersonEditName(string lastName, string newName)
         {
+            // ReSharper disable once InconsistentlySynchronizedField
             var result = _dataBaseList != null && DataBaseM.EditName(_dataBaseList, lastName, newName);
             if (result) OnListChanged();
             return result;
@@ -211,7 +212,6 @@ namespace PersonsBase.data
             _groupScheduleList = new List<ScheduleNote>();
             SerializeClass.DeSerialize(ref _groupScheduleList, currentPath + "\\" + Options.GroupSchFile);
         }
-
 
         #endregion
     }

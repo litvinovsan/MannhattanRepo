@@ -47,7 +47,8 @@ namespace PersonsBase.myStd
         // ПРИМЕНЕНИЕ  var result = MyComboBox.GetComboBoxValue((ComboBox)sender);
         public static string GetComboBoxValue(ComboBox cbx)
         {
-            var resultString = cbx.SelectedItem.ToString();
+
+            var resultString = cbx.SelectedItem != null ? cbx.SelectedItem.ToString() : "";
             return resultString;
         }
     }
