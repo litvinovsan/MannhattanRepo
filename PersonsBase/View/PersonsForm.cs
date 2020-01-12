@@ -96,7 +96,7 @@ namespace PersonsBase.View
             // Телефон
             maskedTextBox_PhoneNumber.Text = person.Phone;
             // Пол
-            MyComboBox.SetComboBoxValue(comboBox_Gender, person.GenderType.ToString());
+            MyComboBox.SetSelectedValue(comboBox_Gender, person.GenderType.ToString());
             // ДР
             dateTimePicker_birthDate.Value = person.BirthDate.Date;
             // Пасспорт

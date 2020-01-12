@@ -170,6 +170,7 @@
             this.comboBox_LastVisit.Name = "comboBox_LastVisit";
             this.comboBox_LastVisit.Size = new System.Drawing.Size(180, 26);
             this.comboBox_LastVisit.TabIndex = 1;
+            this.comboBox_LastVisit.SelectedIndexChanged += new System.EventHandler(this.comboBox_LastVisit_SelectedIndexChanged);
             // 
             // groupBox_Pay
             // 

@@ -12,10 +12,14 @@ namespace PersonsBase.View
         // Список всех персон. Исходная коллекция со всеми клиентами
         private readonly SortedList<string, Person> _personsAll = DataBaseLevel.GetListPersons();
 
-        // СПИСОК выбранных по параметрам Клиентов
-        private SortedList<string, Person> _personsSelected = new SortedList<string, Person>();
+        // ВЫБОРКИ по параметрам
+        private IEnumerable<KeyValuePair<string, Person>> _reqStatuses;
+        private IEnumerable<KeyValuePair<string, Person>> _reqLastVisit;
+
 
         #region /// ПОЛЯ ИСПОЛЬЗУЕМЫЕ В КОНТРОЛАХ КАК ПЕРЕЧИСЛЕНИЯ ЗНАЧЕНИЙ
+
+        private const string NotMatter = "Не Важно";
 
         private readonly object[] _ages =
         {
@@ -32,7 +36,7 @@ namespace PersonsBase.View
 
         private readonly object[] _lastVisits =
         {
-            "Не важно",
+            NotMatter,
             "Больше 1 месяца"
         };
         #endregion
@@ -42,13 +46,15 @@ namespace PersonsBase.View
             InitializeComponent();
 
             // Инициализация всех группбоксов стартовыми значениями
+            InitCBoxStatus();
+            InitCBoxLastVisit();
             InitCheckedListBoxAge();
             InitCheckedListBoxPay();
             InitCheckedListBoxGender();
             InitCheckedListBoxActivation();
             InitCheckedListBoxTypeAbon();
-            InitCheckedListBoxLastVisit();
-            InitCheckedListBoxStatus();
+
+
             InitCheckedListBoxTimeTren();
 
             InitDataGridView();
@@ -65,17 +71,62 @@ namespace PersonsBase.View
         /// <summary>
         /// Устанавливает стартовые значения CheckedListBox при загрузке формы. Список строк и галочку.
         /// </summary>
-        private void InitCheckedListBoxStatus()
+        private void InitCBoxStatus()
         {
-            var statuses = Enum.GetNames(typeof(StatusPerson)).ToArray<object>();
-            MyComboBox.Initialize(comboBox_Status, statuses);
+            var statuses = Enum.GetNames(typeof(StatusPerson)).ToArray<object>().ToList();
+            statuses.Add(NotMatter);
+
+            MyComboBox.Initialize(comboBox_Status, statuses.ToArray(), NotMatter);
         }
 
         private void comboBox_Status_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (comboBox_Status.SelectedItem.ToString().Equals(NotMatter)) // Если не важен статус выводим всех элементов
+            {
+                _reqStatuses = _personsAll;
+            }
+            else
+            {
+                var status = MyComboBox.GetComboBoxValue<StatusPerson>(comboBox_Status);
+                _reqStatuses = _personsAll.Where(x => x.Value.Status == status);
+            }
+
+            var personsSelected = GetPersonsRequest();
+            ShowPersons(personsSelected);
         }
 
+        #endregion
 
+        #region /// МЕТОДЫ. ПОСЛЕДНЕЕ ПОСЕЩЕНИЕ
+        /// <summary>
+        /// Устанавливает стартовые значения CheckedListBox при загрузке формы. Список строк и галочку.
+        /// </summary>
+        private void InitCBoxLastVisit()
+        {
+            comboBox_LastVisit.Items.Clear();
+            MyComboBox.Initialize(comboBox_LastVisit, _lastVisits, _lastVisits[0]);
+        }
+        private void comboBox_LastVisit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var lVisit = MyComboBox.GetComboBoxValue(comboBox_LastVisit);
+            // Если последний визит не важен -выходим
+            if (lVisit.Equals(_lastVisits[0]))
+            {
+                _reqLastVisit = _personsAll;
+            }
+            else
+            {
+                var dataInPast = DateTime.Now.Subtract(new TimeSpan(30, 0, 0, 0)).Date;//Вычитаем 30 дней
+
+                //Выборка из тех кто уже был в зале хоть один раз
+                var personsWasInGym = _personsAll.Where(x => x.Value.JournalVisits.Count != 0);
+
+                _reqLastVisit = personsWasInGym.Where(x =>
+                    x.Value.JournalVisits.Last().DateTimeVisit.CompareTo(dataInPast) <= 0).ToList();
+            }
+            var personsSelected = GetPersonsRequest();
+            ShowPersons(personsSelected);
+        }
         #endregion
 
         #region /// МЕТОДЫ. ВОЗРАСТ
@@ -171,22 +222,6 @@ namespace PersonsBase.View
 
         #endregion
 
-        #region /// МЕТОДЫ. ПОСЛЕДНЕЕ ПОСЕЩЕНИЕ
-        /// <summary>
-        /// Устанавливает стартовые значения CheckedListBox при загрузке формы. Список строк и галочку.
-        /// </summary>
-        private void InitCheckedListBoxLastVisit()
-        {
-            comboBox_LastVisit.Items.Clear();
-            MyComboBox.Initialize(comboBox_LastVisit, _lastVisits, _lastVisits[0]);
-        }
-
-
-
-        #endregion
-
-
-
         #region /// МЕТОДЫ. ВРЕМЯ ПОСЕЩЕНИЙ
         /// <summary>
         /// Устанавливает стартовые значения CheckedListBox при загрузке формы. Список строк и галочку.
@@ -229,12 +264,24 @@ namespace PersonsBase.View
         /// Выводит в DataGrid всех Клиентов из коллекции которую подавать на вход надо
         /// </summary>
         /// <param name="personsToShow"></param>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ShowPersonsInDataGrid(IEnumerable<KeyValuePair<string, Person>> personsToShow)
+        private void ShowPersons(IEnumerable<KeyValuePair<string, Person>> personsToShow)
         {
             var dt = DataBaseM.CreatePersonsTable(personsToShow, DataBaseM.GetPersonFieldsShort);
             MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
+        }
+        private IEnumerable<KeyValuePair<string, Person>> GetPersonsRequest()
+        {
+            var personsSelected = (IEnumerable<KeyValuePair<string, Person>>)_personsAll;
+
+            // Статусы
+            if (_reqStatuses != null) personsSelected = personsSelected.Intersect(_reqStatuses);
+
+            // Последний Визит
+            if (_reqLastVisit != null) personsSelected = personsSelected.Intersect(_reqLastVisit);
+
+
+
+            return personsSelected;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -245,10 +292,12 @@ namespace PersonsBase.View
         private void button_Click_SaveExcel(object sender, EventArgs e)
         {
             if (DataBaseLevel.GetNumberOfPersons() == 0) MessageBox.Show(@"В Базе нет клиентов");
-
-            var table = DataBaseM.CreatePersonsTable(_personsSelected, DataBaseM.GetPersonFieldsFull);
+            var personsSelected = GetPersonsRequest();
+            var table = DataBaseM.CreatePersonsTable(personsSelected, DataBaseM.GetPersonFieldsFull);
             DataBaseM.ExportToExcel(table, true);
         }
+
+
 
 
 

@@ -27,7 +27,7 @@ namespace PersonsBase.myStd
             comboBox.Items.AddRange(items); // Обновляем комбобокс
         }
 
-        public static void SetComboBoxValue(ComboBox cbx, string selectedValue)
+        public static void SetSelectedValue(ComboBox cbx, string selectedValue)
         {
             cbx.SelectedItem = selectedValue;
         }
