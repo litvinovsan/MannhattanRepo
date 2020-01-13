@@ -11,11 +11,11 @@ namespace PersonsBase.View
     {
         // Список всех персон. Исходная коллекция со всеми клиентами
         private readonly SortedList<string, Person> _personsAll = DataBaseLevel.GetListPersons();
-        private IEnumerable<KeyValuePair<string, Person>> _allRequiredPersons;
 
         // ВЫБОРКИ по параметрам
         private IEnumerable<KeyValuePair<string, Person>> _reqStatuses;
         private IEnumerable<KeyValuePair<string, Person>> _reqLastVisit;
+        private IEnumerable<KeyValuePair<string, Person>> _reqPay;
 
 
         #region /// ПОЛЯ ИСПОЛЬЗУЕМЫЕ В КОНТРОЛАХ КАК ПЕРЕЧИСЛЕНИЯ ЗНАЧЕНИЙ
@@ -49,26 +49,15 @@ namespace PersonsBase.View
             // Инициализация всех группбоксов стартовыми значениями
             InitCBoxStatus();
             InitCBoxLastVisit();
-            InitCheckedListBoxAge();
             InitCheckedListBoxPay();
+
+            InitCheckedListBoxAge();
             InitCheckedListBoxGender();
-            InitCheckedListBoxActivation();
             InitCheckedListBoxTypeAbon();
-
-
             InitCheckedListBoxTimeTren();
+            InitCheckedListBoxActivation();
 
             InitDataGridView();
-        }
-
-        /// <summary>
-        /// Инициализация ДатаГрид. Выводится стартовый список клиентов тоже тут.
-        /// </summary>
-        private void InitDataGridView()
-        {
-            var dt = DataBaseM.CreatePersonsTable(_personsAll, DataBaseM.GetPersonFieldsShort);
-            MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
-            MyDataGridView.ImplementStyle(dataGridView_Persons);
         }
 
         #region /// МЕТОДЫ. СТАТУС КЛИЕНТА
@@ -92,7 +81,7 @@ namespace PersonsBase.View
             else
             {
                 var status = MyComboBox.GetComboBoxValue<StatusPerson>(comboBox_Status);
-                _reqStatuses = _personsAll.Where(x => x.Value.Status == status);
+                _reqStatuses = _personsAll.Where(x => x.Value?.Status == status);
             }
 
             var personsSelected = GetPersonsRequest();
@@ -126,7 +115,37 @@ namespace PersonsBase.View
                 var personsWasInGym = _personsAll.Where(x => x.Value.JournalVisits.Count != 0);
 
                 _reqLastVisit = personsWasInGym.Where(x =>
-                    x.Value.JournalVisits.Last().DateTimeVisit.CompareTo(dataInPast) <= 0).ToList();
+                    x.Value?.JournalVisits?.Last().DateTimeVisit.CompareTo(dataInPast) <= 0).ToList();
+            }
+            var personsSelected = GetPersonsRequest();
+            ShowPersons(personsSelected);
+        }
+        #endregion
+
+        #region /// МЕТОДЫ. ОПЛАТА
+        /// <summary>
+        /// Устанавливает стартовые значения CheckedListBox при загрузке формы. Список строк и галочку.
+        /// </summary>
+        private void InitCheckedListBoxPay()
+        {
+            checkedListBox_Pay.Items.Clear();
+            var payNames = Enum.GetNames(typeof(Pay)).ToArray<object>();
+            checkedListBox_Pay.Items.AddRange(payNames);
+        }
+
+        private void checkedListBox_Pay_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var checkedIndexes = checkedListBox_Pay.CheckedIndices;
+
+            // Сортировка по этому признаку не важна. Содержит 2 поля(Оплачено, Не оплачено)
+            if ((checkedIndexes.Count == 2) || (checkedIndexes.Count == 0))
+            {
+                _reqPay = _personsAll;
+            }
+            else
+            {
+                var payment = (checkedListBox_Pay.GetItemCheckState(0) == CheckState.Checked) ? Pay.Не_Оплачено : Pay.Оплачено;
+                _reqPay = _personsAll.Where(x => x.Value?.AbonementCurent?.PayStatus == payment);
             }
             var personsSelected = GetPersonsRequest();
             ShowPersons(personsSelected);
@@ -144,25 +163,6 @@ namespace PersonsBase.View
             for (var i = 0; i < checkedListBox_Age.Items.Count; i++)
             {
                 checkedListBox_Age.SetItemChecked(i, true);
-            }
-        }
-
-
-
-        #endregion
-
-        #region /// МЕТОДЫ. ОПЛАТА
-        /// <summary>
-        /// Устанавливает стартовые значения CheckedListBox при загрузке формы. Список строк и галочку.
-        /// </summary>
-        private void InitCheckedListBoxPay()
-        {
-            checkedListBox_Pay.Items.Clear();
-            var payNames = Enum.GetNames(typeof(Pay)).ToArray<object>();
-            checkedListBox_Pay.Items.AddRange(payNames);
-            for (var i = 0; i < checkedListBox_Pay.Items.Count; i++)
-            {
-                checkedListBox_Pay.SetItemChecked(i, true);
             }
         }
 
@@ -273,6 +273,7 @@ namespace PersonsBase.View
             var dt = DataBaseM.CreatePersonsTable(personsToShow, DataBaseM.GetPersonFieldsShort);
             MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
         }
+
         private IEnumerable<KeyValuePair<string, Person>> GetPersonsRequest()
         {
             var personsSelected = (IEnumerable<KeyValuePair<string, Person>>)_personsAll;
@@ -283,9 +284,21 @@ namespace PersonsBase.View
             // Последний Визит
             if (_reqLastVisit != null) personsSelected = personsSelected.Intersect(_reqLastVisit);
 
+            // Оплата
+            if (_reqPay != null) personsSelected = personsSelected.Intersect(_reqPay);
 
 
             return personsSelected;
+        }
+
+        /// <summary>
+        /// Инициализация ДатаГрид. Выводится стартовый список клиентов тоже тут.
+        /// </summary>
+        private void InitDataGridView()
+        {
+            var dt = DataBaseM.CreatePersonsTable(_personsAll, DataBaseM.GetPersonFieldsShort);
+            MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
+            MyDataGridView.ImplementStyle(dataGridView_Persons);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -302,63 +315,5 @@ namespace PersonsBase.View
         }
 
 
-
-
-
-
-
-
-        /*
-                IEnumerable<KeyValuePair<string, MergedRequirenments>> query;
-                if (checkBox_fb_approved.Checked)
-                {
-                    query =
-                          from reqt in _mergedRequirenments
-                          where !reqt.Value.FB_Status_New.Equals(reqt.Value.FB_Status_Old)
-                          select reqt;
-                }
-                else
-                {
-                    query = _mergedRequirenments.Select(c => c).OrderBy(x => x.Key);
-                }
-
-                //Approved only in new Ver Fb
-                if (checkBox_fb_approvedNew.Checked)
-                {
-                    query =
-                        from reqt in query
-                        where reqt.Value.FB_Status_New.Contains("Approved")
-                        select reqt;
-                }
-                else
-                {
-                    query =
-                        from reqt in query
-                        where !reqt.Value.FB_Text_Old.Equals(reqt.Value.FB_Text_New)
-                        select reqt;
-                }
-
-                // Text fb Old != New
-                if (checkBox_fbText_old_eq_new.Checked)
-                {
-                    query =
-                        from reqt in query
-                        where reqt.Value.FB_Text_Old.Equals(reqt.Value.FB_Text_New)
-                        select reqt;
-                }
-                else
-                {
-                    query =
-                        from reqt in query
-                        where !reqt.Value.FB_Text_Old.Equals(reqt.Value.FB_Text_New)
-                        select reqt;
-                }
-
-                var list = query.ToDictionary((x => x.Key), (c => c.Value));
-
-
-
-                #endregion
-            */
     }
 }

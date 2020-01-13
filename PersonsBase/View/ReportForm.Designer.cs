@@ -195,6 +195,7 @@
             this.checkedListBox_Pay.Name = "checkedListBox_Pay";
             this.checkedListBox_Pay.Size = new System.Drawing.Size(180, 46);
             this.checkedListBox_Pay.TabIndex = 0;
+            this.checkedListBox_Pay.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_Pay_SelectedIndexChanged);
             // 
             // groupBox_Age
             // 
