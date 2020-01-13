@@ -331,10 +331,7 @@ namespace PersonsBase.data
             return time;
         }
         #endregion
-
-
-
-
+        
         #region /// МЕТОДЫ РАСШИРЕНИЙ
         public static void DoubleBuffered(this Control dgv, bool setting)
         {

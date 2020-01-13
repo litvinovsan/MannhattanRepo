@@ -11,6 +11,7 @@ namespace PersonsBase.View
     {
         // Список всех персон. Исходная коллекция со всеми клиентами
         private readonly SortedList<string, Person> _personsAll = DataBaseLevel.GetListPersons();
+        private IEnumerable<KeyValuePair<string, Person>> _allRequiredPersons;
 
         // ВЫБОРКИ по параметрам
         private IEnumerable<KeyValuePair<string, Person>> _reqStatuses;
@@ -60,6 +61,9 @@ namespace PersonsBase.View
             InitDataGridView();
         }
 
+        /// <summary>
+        /// Инициализация ДатаГрид. Выводится стартовый список клиентов тоже тут.
+        /// </summary>
         private void InitDataGridView()
         {
             var dt = DataBaseM.CreatePersonsTable(_personsAll, DataBaseM.GetPersonFieldsShort);

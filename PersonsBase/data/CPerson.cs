@@ -9,7 +9,7 @@ namespace PersonsBase.data
     [Serializable]
     public class Person : IEquatable<Person>
     {
-        #region/// СОБЫТИЯ //////////////////////////////////////
+        #region/// СОБЫТИЯ ////
 
         // Статус
         [field: NonSerialized]
@@ -38,7 +38,7 @@ namespace PersonsBase.data
         }
         #endregion
 
-        #region/// ПРИВАТНЫЕ ПОЛЯ /////////////////////////
+        #region/// ПРИВАТНЫЕ ПОЛЯ ////
         private string _phone;
         private string _name;
         private string _pathToPhoto;

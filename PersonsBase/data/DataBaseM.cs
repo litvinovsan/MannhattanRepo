@@ -98,7 +98,7 @@ namespace PersonsBase.data
 
         #region /// ПОИСК, РЕДАКТИРОВАНИЕ /////////////
 
-       // Driver ID
+        // Driver ID
         public static Person FindByDriveId(SortedList<string, Person> inputCollection, string driveLic)
         {
             Person findedPerson;
@@ -114,7 +114,7 @@ namespace PersonsBase.data
             }
             return findedPerson;
         }
-       
+
         // Personal Number
         public static bool FindByPersonalNumber(SortedList<string, Person> inputCollection, int number, out Person findedPerson)
         {
@@ -398,16 +398,31 @@ namespace PersonsBase.data
         public static IEnumerable<PersonField> GetPersonFieldsShort(KeyValuePair<string, Person> first)
         {
             var person = first.Value;
+            // Главные поля, всегда отображаются
             var personFields = new List<PersonField>
             {
                 new PersonField {HeaderName = "Имя", Value = person.Name},
                 new PersonField {HeaderName = "Телефон", Value = person.Phone},
                 new PersonField {HeaderName = "Статус", Value = person.Status.ToString()},
             };
+
+            // Все что касается Абонемента
             if (person.AbonementCurent == null) return personFields;
+
             personFields.Add(new PersonField { HeaderName = "Название Абон.", Value = person.AbonementCurent.AbonementName });
             personFields.Add(new PersonField { HeaderName = "Абон. Покупка", Value = $"{person.AbonementCurent.BuyDate:MM/dd/yyyy}" });
             personFields.Add(new PersonField { HeaderName = "Абон. Конец", Value = $"{person.AbonementCurent.EndDate:MM/dd/yyyy}" });
+
+            // Последнее посещение в журнале
+            if (person.JournalVisits?.Count > 0)
+            {
+                var lastVisit = person.JournalVisits.Last().DateTimeVisit.Date.ToString("MM/dd/yyyy");
+                personFields.Add(new PersonField { HeaderName = "Последний Визит", Value = $"{lastVisit}" });
+            }
+            else
+            {
+                personFields.Add(new PersonField { HeaderName = "Последний Визит", Value = $"" });
+            }
 
             return personFields;
         }
@@ -420,7 +435,7 @@ namespace PersonsBase.data
         private static string GetFreezeString(Person person)
         {
             var result = "";
-            if ((person.AbonementCurent != null) && person.AbonementCurent is ClubCardA abon)
+            if (person.AbonementCurent != null && person.AbonementCurent is ClubCardA abon)
             {
                 try
                 {
