@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using PBase;
 
 namespace PersonsBase.data.Abonements
 {
@@ -23,9 +22,10 @@ namespace PersonsBase.data.Abonements
         private int _numPersonalTr;
         public sealed override int NumAerobicTr { get { return _numAerobicTr; } set { if (_numAerobicTr >= 0) _numAerobicTr = value; } }
         public sealed override int NumPersonalTr { get { return _numPersonalTr; } set { if (_numPersonalTr >= 0) _numPersonalTr = value; } }
+        public const string NameAbonement = "Разовое Занятие";
         public override string AbonementName
         {
-            get { return "Разовое Занятие"; }
+            get { return NameAbonement; }
         }
 
         public override string InfoMessageEnd

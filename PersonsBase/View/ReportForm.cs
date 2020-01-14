@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.data;
+using PersonsBase.data.Abonements;
 using PersonsBase.myStd;
 
 namespace PersonsBase.View
@@ -13,11 +14,12 @@ namespace PersonsBase.View
         private readonly SortedList<string, Person> _personsAll = DataBaseLevel.GetListPersons();
 
         // ВЫБОРКИ по параметрам
-        private IEnumerable<KeyValuePair<string, Person>> _reqStatuses; // = new SortedList<string, Person>();
-        private IEnumerable<KeyValuePair<string, Person>> _reqLastVisit;// = new SortedList<string, Person>();
-        private IEnumerable<KeyValuePair<string, Person>> _reqPay;// = new SortedList<string, Person>();
-        private IEnumerable<KeyValuePair<string, Person>> _reqAge;// = new SortedList<string, Person>();
-        private IEnumerable<KeyValuePair<string, Person>> _reqGender;// = new SortedList<string, Person>();
+        private IEnumerable<KeyValuePair<string, Person>> _reqStatuses;
+        private IEnumerable<KeyValuePair<string, Person>> _reqLastVisit;
+        private IEnumerable<KeyValuePair<string, Person>> _reqPay;
+        private IEnumerable<KeyValuePair<string, Person>> _reqAge;
+        private IEnumerable<KeyValuePair<string, Person>> _reqGender;
+        private IEnumerable<KeyValuePair<string, Person>> _reqAbonType;
 
         #region /// ПОЛЯ ИСПОЛЬЗУЕМЫЕ В КОНТРОЛАХ КАК ПЕРЕЧИСЛЕНИЯ ЗНАЧЕНИЙ
 
@@ -53,8 +55,8 @@ namespace PersonsBase.View
             InitCheckedListBoxPay();
             InitCheckedListBoxAge();
             InitCheckedListBoxGender();
-
             InitCheckedListBoxTypeAbon();
+
             InitCheckedListBoxTimeTren();
             InitCheckedListBoxActivation();
 
@@ -256,11 +258,6 @@ namespace PersonsBase.View
             ClearSelection(checkedListBox_Gender);
             ShowPersons(GetUpdatedRequests());
         }
-
-
-
-
-
         #endregion
 
         #region /// МЕТОДЫ. ТИП АБОНЕМЕНТА
@@ -269,16 +266,54 @@ namespace PersonsBase.View
         /// </summary>
         private void InitCheckedListBoxTypeAbon()
         {
+            //checkedListBox_TypeAbon.Items.Clear();
+            //var workoutNames = Enum.GetNames(typeof(TypeWorkout)).ToArray<object>();
+            //checkedListBox_TypeAbon.Items.AddRange(workoutNames);
+            //for (var i = 0; i < checkedListBox_TypeAbon.Items.Count; i++)
+            //{
+            //    checkedListBox_TypeAbon.SetItemChecked(i, true);
+            //}
             checkedListBox_TypeAbon.Items.Clear();
-            var workoutNames = Enum.GetNames(typeof(TypeWorkout)).ToArray<object>();
-            checkedListBox_TypeAbon.Items.AddRange(workoutNames);
+            object[] abbonNames = { AbonementByDays.NameAbonement, ClubCardA.NameAbonement, SingleVisit.NameAbonement };
+            checkedListBox_TypeAbon.Items.AddRange(abbonNames);
+
             for (var i = 0; i < checkedListBox_TypeAbon.Items.Count; i++)
             {
                 checkedListBox_TypeAbon.SetItemChecked(i, true);
             }
         }
 
+        private void checkedListBox_TypeAbon_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var checkedIndexes = checkedListBox_TypeAbon.CheckedIndices;
 
+            IEnumerable<KeyValuePair<string, Person>> r1 = new List<KeyValuePair<string, Person>>();
+            IEnumerable<KeyValuePair<string, Person>> r2 = new List<KeyValuePair<string, Person>>();
+            IEnumerable<KeyValuePair<string, Person>> r3 = new List<KeyValuePair<string, Person>>();
+
+            if ((checkedIndexes.Count != 3) && (checkedIndexes.Count != 0))
+            {
+                if ((IsChecked(checkedListBox_TypeAbon, 0)))
+                {
+                    r1 = _personsAll.Where(x => x.Value?.AbonementCurent?.AbonementName == AbonementByDays.NameAbonement);
+                }
+                if (IsChecked(checkedListBox_TypeAbon, 1))
+                {
+                    r2 = _personsAll.Where(x => x.Value?.AbonementCurent?.AbonementName == ClubCardA.NameAbonement);
+                }
+                if (IsChecked(checkedListBox_TypeAbon, 2))
+                {
+                    r3 = _personsAll.Where(x => x.Value?.AbonementCurent?.AbonementName == SingleVisit.NameAbonement);
+                }
+                _reqAbonType = r1.Union(r2).Union(r3);
+            }
+            else
+            {
+                _reqAbonType = _personsAll; //  Если не нужна выборка по этому признаку
+            }
+            ClearSelection(checkedListBox_TypeAbon);
+            ShowPersons(GetUpdatedRequests());
+        }
 
         #endregion
 
@@ -337,7 +372,8 @@ namespace PersonsBase.View
             personsSelected = ProcessRequest(personsSelected, _reqAge);
             // Пол
             personsSelected = ProcessRequest(personsSelected, _reqGender);
-
+            // Тип Абонемента
+            personsSelected = ProcessRequest(personsSelected, _reqAbonType);
 
             return personsSelected;
         }

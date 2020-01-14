@@ -273,6 +273,7 @@
             this.checkedListBox_TypeAbon.Name = "checkedListBox_TypeAbon";
             this.checkedListBox_TypeAbon.Size = new System.Drawing.Size(180, 66);
             this.checkedListBox_TypeAbon.TabIndex = 3;
+            this.checkedListBox_TypeAbon.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_TypeAbon_SelectedIndexChanged);
             // 
             // groupBox_TimeTren
             // 

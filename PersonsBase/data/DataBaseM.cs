@@ -223,32 +223,6 @@ namespace PersonsBase.data
             var persons = inputCollection.Where(c => c.BirthDate.Equals(DateTime.Now.Date));
             return persons;
         }
-
-
-        /*      // Добавляет в список тех людей, абонементы которых заканчиваются через  daysLeft  дней.
-          public static IEnumerable<Person> SelectEndInXdays(IEnumerable<Person> inputCollection, int daysLeft)
-          {
-             var today = DateTime.Now;
-             var lefts = today.AddDays(daysLeft);
-             var persons = inputCollection.Where(c => c.FinishDate.Date.Equals(lefts.Date));
-             return persons;
-          }
-
-          public static IEnumerable<Person> SelectTimeForVisit(IEnumerable<Person> inputCollection, TimeForTr td)
-          {
-             var persons = inputCollection.Where(c => c.TimeForVisit == td).Select(c => c);
-             return persons;
-          }
-
-        public static IEnumerable<Person> SelectTypeOfTraining(IEnumerable<Person> inputCollection, TypeWorkout typetr)
-          {
-            var persons = inputCollection.Where(c => c.TypeTraining == typetr).Select(c => c);
-             return persons;
-          }
-
-         
-    */
-
         #endregion
 
         #region /// ИНФОРМАЦИЯ о ВСЕХ КЛИЕНТАХ

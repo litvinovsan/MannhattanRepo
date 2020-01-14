@@ -14,6 +14,7 @@ namespace PersonsBase.data.Abonements
         private PeriodClubCard _periodAbonem;
 
         public FreezeClass Freeze;
+        public const string NameAbonement = "Клубная Карта";
 
         // Конструктор
         public ClubCardA(Pay payStatus, TimeForTr time, TypeWorkout typeTr, SpaService spa,
@@ -45,7 +46,7 @@ namespace PersonsBase.data.Abonements
 
         public override string AbonementName
         {
-            get { return "Клубная Карта"; }
+            get { return NameAbonement; }
         }
 
         public override string InfoMessageEnd

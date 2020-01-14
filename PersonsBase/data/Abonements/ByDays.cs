@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using PBase;
 
 namespace PersonsBase.data.Abonements
 {
@@ -8,6 +7,7 @@ namespace PersonsBase.data.Abonements
     public class AbonementByDays : AbonementBasic //Абонемент на несколько занятий
     {
         private const int ValidityPeriod = 2;
+        public const string NameAbonement = "Абонемент";
 
         // Конструктор
         public AbonementByDays(Pay payStatus, TimeForTr time, TypeWorkout typeTr, SpaService spa, DaysInAbon numDays)
@@ -25,7 +25,7 @@ namespace PersonsBase.data.Abonements
         public sealed override int NumPersonalTr { get; set; }
         public override string AbonementName
         {
-            get { return "Абонемент"; }
+            get { return NameAbonement; }
         }
 
         public override string InfoMessageEnd
