@@ -221,6 +221,7 @@
             this.checkedListBox_Age.Name = "checkedListBox_Age";
             this.checkedListBox_Age.Size = new System.Drawing.Size(180, 62);
             this.checkedListBox_Age.TabIndex = 0;
+            this.checkedListBox_Age.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_Age_SelectedIndexChanged);
             // 
             // groupBox_Gender
             // 

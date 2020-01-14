@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using PersonsBase.control;
 using PersonsBase.data;
@@ -156,14 +155,14 @@ namespace PersonsBase.View
             Action myDelegate = delegate
             {
                 comboBox_BDay.Items.Clear();
-                label4.Text = "Дней Рождения: 0";
+                label4.Text = @"Дней Рождения: 0";
                 var array = PersonsList.Values.Where(c => c.BirthDate.ToString("M") == DateTime.Today.ToString("M"))
                     .Select(c => c.Name).ToArray<object>();
                 if (array.Length != 0)
                 {
                     comboBox_BDay.Items.AddRange(array);
                     comboBox_BDay.SelectedIndex = 0;
-                    label4.Text = "Дней Рождения: " + array.Length.ToString();
+                    label4.Text = @"Дней Рождения: " + array.Length.ToString();
                 }
 
                 Invalidate();
@@ -248,7 +247,7 @@ namespace PersonsBase.View
             Logic.AccessRootUser();
             if (PwdForm.IsPassUnLocked())
             {
-                var result = FormsRunner.CreateBossForm();
+                FormsRunner.CreateBossForm();
             }
 
             // FIXME  Выбор текущего администратора

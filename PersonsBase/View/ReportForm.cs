@@ -16,6 +16,7 @@ namespace PersonsBase.View
         private IEnumerable<KeyValuePair<string, Person>> _reqStatuses;
         private IEnumerable<KeyValuePair<string, Person>> _reqLastVisit;
         private IEnumerable<KeyValuePair<string, Person>> _reqPay;
+        private IEnumerable<KeyValuePair<string, Person>> _reqAge = new SortedList<string, Person>();
 
 
         #region /// ПОЛЯ ИСПОЛЬЗУЕМЫЕ В КОНТРОЛАХ КАК ПЕРЕЧИСЛЕНИЯ ЗНАЧЕНИЙ
@@ -50,8 +51,8 @@ namespace PersonsBase.View
             InitCBoxStatus();
             InitCBoxLastVisit();
             InitCheckedListBoxPay();
-
             InitCheckedListBoxAge();
+
             InitCheckedListBoxGender();
             InitCheckedListBoxTypeAbon();
             InitCheckedListBoxTimeTren();
@@ -84,8 +85,7 @@ namespace PersonsBase.View
                 _reqStatuses = _personsAll.Where(x => x.Value?.Status == status);
             }
 
-            var personsSelected = GetPersonsRequest();
-            ShowPersons(personsSelected);
+            ShowPersons(GetUpdatedRequests());
         }
 
         #endregion
@@ -117,8 +117,7 @@ namespace PersonsBase.View
                 _reqLastVisit = personsWasInGym.Where(x =>
                     x.Value?.JournalVisits?.Last().DateTimeVisit.CompareTo(dataInPast) <= 0).ToList();
             }
-            var personsSelected = GetPersonsRequest();
-            ShowPersons(personsSelected);
+            ShowPersons(GetUpdatedRequests());
         }
         #endregion
 
@@ -147,8 +146,7 @@ namespace PersonsBase.View
                 var payment = (checkedListBox_Pay.GetItemCheckState(0) == CheckState.Checked) ? Pay.Не_Оплачено : Pay.Оплачено;
                 _reqPay = _personsAll.Where(x => x.Value?.AbonementCurent?.PayStatus == payment);
             }
-            var personsSelected = GetPersonsRequest();
-            ShowPersons(personsSelected);
+            ShowPersons(GetUpdatedRequests());
         }
         #endregion
 
@@ -160,13 +158,50 @@ namespace PersonsBase.View
         {
             checkedListBox_Age.Items.Clear();
             checkedListBox_Age.Items.AddRange(_ages);
-            for (var i = 0; i < checkedListBox_Age.Items.Count; i++)
-            {
-                checkedListBox_Age.SetItemChecked(i, true);
-            }
         }
 
+        private void checkedListBox_Age_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var checkedIndexes = checkedListBox_Age.CheckedIndices;
 
+            IEnumerable<KeyValuePair<string, Person>> r1 = new List<KeyValuePair<string, Person>>();
+            IEnumerable<KeyValuePair<string, Person>> r2 = new List<KeyValuePair<string, Person>>();
+            IEnumerable<KeyValuePair<string, Person>> r3 = new List<KeyValuePair<string, Person>>();
+
+            if ((checkedIndexes.Count != 3) || (checkedIndexes.Count != 0))
+            {
+                // До 30
+                if (checkedListBox_Age.GetItemCheckState(0) == CheckState.Checked)
+                {
+                    var data = DateTime.Now.AddYears(-30); // Дата проверки для 30 летних
+
+                    r1 = _personsAll.Where(x => x.Value?.BirthDate.Date.CompareTo(data) >= 0);
+                }
+
+                // 30 - 40
+                if (checkedListBox_Age.GetItemCheckState(1) == CheckState.Checked)
+                {
+                    var dataFrom = DateTime.Now.AddYears(-40);
+                    var dataTo = DateTime.Now.AddYears(-30);
+
+                    r2 = _personsAll.Where(x => (x.Value?.BirthDate.Date.CompareTo(dataFrom) >= 0
+                                                     && x.Value?.BirthDate.Date.CompareTo(dataTo) <= 0));
+                }
+
+                // От 40
+                if (checkedListBox_Age.GetItemCheckState(2) == CheckState.Checked)
+                {
+                    var data = DateTime.Now.AddYears(-40);
+                    r3 = _personsAll.Where(x => x.Value?.BirthDate.Date.CompareTo(data) <= 0);
+                }
+                _reqAge = r1.Union(r2).Union(r3);
+            }
+            else
+            {
+                _reqAge = _personsAll; //  Если не нужна выборка по этому признаку
+            }
+            ShowPersons(GetUpdatedRequests());
+        }
 
         #endregion
 
@@ -182,24 +217,6 @@ namespace PersonsBase.View
             for (var i = 0; i < checkedListBox_Gender.Items.Count; i++)
             {
                 checkedListBox_Gender.SetItemChecked(i, true);
-            }
-        }
-
-
-
-        #endregion
-
-        #region /// МЕТОДЫ. АКТИВАЦИЯ
-        /// <summary>
-        /// Устанавливает стартовые значения CheckedListBox при загрузке формы. Список строк и галочку.
-        /// </summary>
-        private void InitCheckedListBoxActivation()
-        {
-            checkedListBox_Activation.Items.Clear();
-            checkedListBox_Activation.Items.AddRange(_activation);
-            for (var i = 0; i < checkedListBox_Activation.Items.Count; i++)
-            {
-                checkedListBox_Activation.SetItemChecked(i, true);
             }
         }
 
@@ -245,6 +262,24 @@ namespace PersonsBase.View
 
         #endregion
 
+        #region /// МЕТОДЫ. АКТИВАЦИЯ
+        /// <summary>
+        /// Устанавливает стартовые значения CheckedListBox при загрузке формы. Список строк и галочку.
+        /// </summary>
+        private void InitCheckedListBoxActivation()
+        {
+            checkedListBox_Activation.Items.Clear();
+            checkedListBox_Activation.Items.AddRange(_activation);
+            for (var i = 0; i < checkedListBox_Activation.Items.Count; i++)
+            {
+                checkedListBox_Activation.SetItemChecked(i, true);
+            }
+        }
+
+
+
+        #endregion
+
         #region /// ОБЩИЕ МЕТОДЫ для РАБОТЫ С КОНТРОЛАМИ
         /// <summary>
         /// Возвращает bool массив. Установлено true если чекбокс с соответствующим индексом Отмечен
@@ -264,6 +299,28 @@ namespace PersonsBase.View
         }
         #endregion
 
+
+        /// <summary>
+        /// Функция пробегает по всем запросам со всех полей и обьединяет в единый итоговый запрос-список.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<KeyValuePair<string, Person>> GetUpdatedRequests()
+        {
+            var personsSelected = (IEnumerable<KeyValuePair<string, Person>>)_personsAll;
+
+            // Статусы
+            personsSelected = ProcessRequest(personsSelected, _reqStatuses);
+            // Последний Визит
+            personsSelected = ProcessRequest(personsSelected, _reqLastVisit);
+            // Оплата
+            personsSelected = ProcessRequest(personsSelected, _reqPay);
+            // Возраст
+            personsSelected = ProcessRequest(personsSelected, _reqAge);
+
+
+            return personsSelected;
+        }
+
         /// <summary>
         /// Выводит в DataGrid всех Клиентов из коллекции которую подавать на вход надо
         /// </summary>
@@ -274,21 +331,16 @@ namespace PersonsBase.View
             MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
         }
 
-        private IEnumerable<KeyValuePair<string, Person>> GetPersonsRequest()
+        /// <summary>
+        /// Хелп функция, нужна только для функции GetUpdatedRequests. Просто оборачивает вызов обьединения запросов через Intersect
+        /// </summary>
+        /// <param name="allPersons"></param>
+        /// <param name="inputRequest"></param>
+        /// <returns></returns>
+        private static IEnumerable<KeyValuePair<string, Person>> ProcessRequest(IEnumerable<KeyValuePair<string, Person>> allPersons, IEnumerable<KeyValuePair<string, Person>> inputRequest)
         {
-            var personsSelected = (IEnumerable<KeyValuePair<string, Person>>)_personsAll;
-
-            // Статусы
-            if (_reqStatuses != null) personsSelected = personsSelected.Intersect(_reqStatuses);
-
-            // Последний Визит
-            if (_reqLastVisit != null) personsSelected = personsSelected.Intersect(_reqLastVisit);
-
-            // Оплата
-            if (_reqPay != null) personsSelected = personsSelected.Intersect(_reqPay);
-
-
-            return personsSelected;
+            if (inputRequest != null) allPersons = allPersons.Intersect(inputRequest);
+            return allPersons;
         }
 
         /// <summary>
@@ -309,7 +361,7 @@ namespace PersonsBase.View
         private void button_Click_SaveExcel(object sender, EventArgs e)
         {
             if (DataBaseLevel.GetNumberOfPersons() == 0) MessageBox.Show(@"В Базе нет клиентов");
-            var personsSelected = GetPersonsRequest();
+            var personsSelected = GetUpdatedRequests();
             var table = DataBaseM.CreatePersonsTable(personsSelected, DataBaseM.GetPersonFieldsFull);
             DataBaseM.ExportToExcel(table, true);
         }
