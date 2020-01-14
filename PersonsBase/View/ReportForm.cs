@@ -13,11 +13,11 @@ namespace PersonsBase.View
         private readonly SortedList<string, Person> _personsAll = DataBaseLevel.GetListPersons();
 
         // ВЫБОРКИ по параметрам
-        private IEnumerable<KeyValuePair<string, Person>> _reqStatuses;
-        private IEnumerable<KeyValuePair<string, Person>> _reqLastVisit;
-        private IEnumerable<KeyValuePair<string, Person>> _reqPay;
-        private IEnumerable<KeyValuePair<string, Person>> _reqAge = new SortedList<string, Person>();
-
+        private IEnumerable<KeyValuePair<string, Person>> _reqStatuses; // = new SortedList<string, Person>();
+        private IEnumerable<KeyValuePair<string, Person>> _reqLastVisit;// = new SortedList<string, Person>();
+        private IEnumerable<KeyValuePair<string, Person>> _reqPay;// = new SortedList<string, Person>();
+        private IEnumerable<KeyValuePair<string, Person>> _reqAge;// = new SortedList<string, Person>();
+        private IEnumerable<KeyValuePair<string, Person>> _reqGender;// = new SortedList<string, Person>();
 
         #region /// ПОЛЯ ИСПОЛЬЗУЕМЫЕ В КОНТРОЛАХ КАК ПЕРЕЧИСЛЕНИЯ ЗНАЧЕНИЙ
 
@@ -52,8 +52,8 @@ namespace PersonsBase.View
             InitCBoxLastVisit();
             InitCheckedListBoxPay();
             InitCheckedListBoxAge();
-
             InitCheckedListBoxGender();
+
             InitCheckedListBoxTypeAbon();
             InitCheckedListBoxTimeTren();
             InitCheckedListBoxActivation();
@@ -143,9 +143,11 @@ namespace PersonsBase.View
             }
             else
             {
-                var payment = (checkedListBox_Pay.GetItemCheckState(0) == CheckState.Checked) ? Pay.Не_Оплачено : Pay.Оплачено;
+                var payment = (IsChecked(checkedListBox_Pay, 0)) ? Pay.Не_Оплачено : Pay.Оплачено;
                 _reqPay = _personsAll.Where(x => x.Value?.AbonementCurent?.PayStatus == payment);
             }
+
+            ClearSelection(checkedListBox_Pay);
             ShowPersons(GetUpdatedRequests());
         }
         #endregion
@@ -168,31 +170,30 @@ namespace PersonsBase.View
             IEnumerable<KeyValuePair<string, Person>> r2 = new List<KeyValuePair<string, Person>>();
             IEnumerable<KeyValuePair<string, Person>> r3 = new List<KeyValuePair<string, Person>>();
 
-            if ((checkedIndexes.Count != 3) || (checkedIndexes.Count != 0))
+            if ((checkedIndexes.Count != 3) && (checkedIndexes.Count != 0))
             {
                 // До 30
-                if (checkedListBox_Age.GetItemCheckState(0) == CheckState.Checked)
+                if (IsChecked(checkedListBox_Age, 0))
                 {
                     var data = DateTime.Now.AddYears(-30); // Дата проверки для 30 летних
-
                     r1 = _personsAll.Where(x => x.Value?.BirthDate.Date.CompareTo(data) >= 0);
                 }
 
                 // 30 - 40
-                if (checkedListBox_Age.GetItemCheckState(1) == CheckState.Checked)
+                if (IsChecked(checkedListBox_Age, 1))
                 {
                     var dataFrom = DateTime.Now.AddYears(-40);
                     var dataTo = DateTime.Now.AddYears(-30);
-
                     r2 = _personsAll.Where(x => (x.Value?.BirthDate.Date.CompareTo(dataFrom) >= 0
                                                      && x.Value?.BirthDate.Date.CompareTo(dataTo) <= 0));
                 }
 
                 // От 40
-                if (checkedListBox_Age.GetItemCheckState(2) == CheckState.Checked)
+                if (IsChecked(checkedListBox_Age, 2))
                 {
                     var data = DateTime.Now.AddYears(-40);
                     r3 = _personsAll.Where(x => x.Value?.BirthDate.Date.CompareTo(data) <= 0);
+
                 }
                 _reqAge = r1.Union(r2).Union(r3);
             }
@@ -200,6 +201,7 @@ namespace PersonsBase.View
             {
                 _reqAge = _personsAll; //  Если не нужна выборка по этому признаку
             }
+            ClearSelection(checkedListBox_Age);
             ShowPersons(GetUpdatedRequests());
         }
 
@@ -219,6 +221,43 @@ namespace PersonsBase.View
                 checkedListBox_Gender.SetItemChecked(i, true);
             }
         }
+
+        private void checkedListBox_Gender_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var checkedIndexes = checkedListBox_Gender.CheckedIndices;
+
+            IEnumerable<KeyValuePair<string, Person>> r1 = new List<KeyValuePair<string, Person>>();
+            IEnumerable<KeyValuePair<string, Person>> r2 = new List<KeyValuePair<string, Person>>();
+            IEnumerable<KeyValuePair<string, Person>> r3 = new List<KeyValuePair<string, Person>>();
+
+            if ((checkedIndexes.Count != 3) && (checkedIndexes.Count != 0))
+            {
+                // Мужчины
+                if ((IsChecked(checkedListBox_Gender, 0)))
+                {
+                    r1 = _personsAll.Where(x => x.Value?.GenderType == Gender.Мужской);
+                }
+                // Женщины
+                if (IsChecked(checkedListBox_Gender, 1))
+                {
+                    r2 = _personsAll.Where(x => (x.Value?.GenderType == Gender.Женский));
+                }
+                // Неизвестно
+                if (IsChecked(checkedListBox_Gender, 2))
+                {
+                    r3 = _personsAll.Where(x => (x.Value?.GenderType == Gender.Неизвестен));
+                }
+                _reqGender = r1.Union(r2).Union(r3);
+            }
+            else
+            {
+                _reqGender = _personsAll; //  Если не нужна выборка по этому признаку
+            }
+            ClearSelection(checkedListBox_Gender);
+            ShowPersons(GetUpdatedRequests());
+        }
+
+
 
 
 
@@ -280,26 +319,6 @@ namespace PersonsBase.View
 
         #endregion
 
-        #region /// ОБЩИЕ МЕТОДЫ для РАБОТЫ С КОНТРОЛАМИ
-        /// <summary>
-        /// Возвращает bool массив. Установлено true если чекбокс с соответствующим индексом Отмечен
-        /// </summary>
-        /// <param name="listBox"></param>
-        /// <returns></returns>
-        private bool[] GetCheckedListBoxIndexes(CheckedListBox listBox)
-        {
-            var counts = listBox.Items.Count;
-            var itemsState = new bool[counts];
-            for (var i = 0; i < counts; i++)
-            {
-                itemsState[i] = listBox.GetItemChecked(i);
-            }
-
-            return itemsState;
-        }
-        #endregion
-
-
         /// <summary>
         /// Функция пробегает по всем запросам со всех полей и обьединяет в единый итоговый запрос-список.
         /// </summary>
@@ -316,6 +335,8 @@ namespace PersonsBase.View
             personsSelected = ProcessRequest(personsSelected, _reqPay);
             // Возраст
             personsSelected = ProcessRequest(personsSelected, _reqAge);
+            // Пол
+            personsSelected = ProcessRequest(personsSelected, _reqGender);
 
 
             return personsSelected;
@@ -352,12 +373,22 @@ namespace PersonsBase.View
             MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
             MyDataGridView.ImplementStyle(dataGridView_Persons);
         }
-
+        private static bool IsChecked(CheckedListBox listBox, int id)
+        {
+            return listBox.GetItemCheckState(id) == CheckState.Checked;
+        }
+        private static void ClearSelection(CheckedListBox listBox)
+        {
+            var ind = listBox.SelectedIndices;
+            foreach (var item in ind)
+            {
+                listBox.SetSelected((int)item, false);
+            }
+        }
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
         }
-
         private void button_Click_SaveExcel(object sender, EventArgs e)
         {
             if (DataBaseLevel.GetNumberOfPersons() == 0) MessageBox.Show(@"В Базе нет клиентов");

@@ -247,6 +247,7 @@
             this.checkedListBox_Gender.Name = "checkedListBox_Gender";
             this.checkedListBox_Gender.Size = new System.Drawing.Size(180, 63);
             this.checkedListBox_Gender.TabIndex = 1;
+            this.checkedListBox_Gender.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_Gender_SelectedIndexChanged);
             // 
             // groupBox_TypeAbon
             // 

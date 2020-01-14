@@ -416,12 +416,13 @@ namespace PersonsBase.data
             // Последнее посещение в журнале
             if (person.JournalVisits?.Count > 0)
             {
-                var lastVisit = person.JournalVisits.Last().DateTimeVisit.Date.ToString("MM/dd/yyyy");
-                personFields.Add(new PersonField { HeaderName = "Последний Визит", Value = $"{lastVisit}" });
+                var lastVisit = person.JournalVisits.Last().DateTimeVisit.Date; //.ToString("MM/dd/yyyy");
+                var numDays = (DateTime.Now - lastVisit).Days;
+                personFields.Add(new PersonField { HeaderName = "Был (дней назад)", Value = $"  {numDays}" });
             }
             else
             {
-                personFields.Add(new PersonField { HeaderName = "Последний Визит", Value = $"" });
+                personFields.Add(new PersonField { HeaderName = "Был (дней назад)", Value = $"" });
             }
 
             return personFields;
