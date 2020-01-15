@@ -70,7 +70,6 @@ namespace PersonsBase.View
             this.textBox_Number = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView_Visits = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.button_Cancel = new System.Windows.Forms.Button();
             this.button_SavePersonalData = new System.Windows.Forms.Button();
@@ -605,17 +604,6 @@ namespace PersonsBase.View
             this.dataGridView_Visits.Size = new System.Drawing.Size(1035, 518);
             this.dataGridView_Visits.TabIndex = 0;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(773, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 34);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Экспорт";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            this.button1.Click += new System.EventHandler(this.button_Export_Click);
-            // 
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.AutoSize = true;
@@ -625,7 +613,6 @@ namespace PersonsBase.View
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel4.Controls.Add(this.button1, 3, 0);
             this.tableLayoutPanel4.Controls.Add(this.button_Cancel, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.button_SavePersonalData, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.button2, 4, 0);
@@ -776,6 +763,5 @@ namespace PersonsBase.View
       private FlowLayoutPanel flowLayoutPanel1;
         private TabPage tabPage3;
         private DataGridView dataGridView_Visits;
-        private Button button1;
     }
 }

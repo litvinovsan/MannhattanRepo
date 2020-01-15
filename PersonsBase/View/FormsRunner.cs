@@ -107,7 +107,7 @@ namespace PersonsBase.View
             if (PwdForm.IsPassUnLocked()) PwdForm.LockPassword();
             else
             {
-                var pwd = new PwdForm(Options.GetInstance());
+                var pwd = new PwdForm();
                 pwd.ShowDialog();
             }
         }

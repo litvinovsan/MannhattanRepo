@@ -10,6 +10,7 @@ namespace PersonsBase.View
 {
     public partial class ReportForm : Form
     {
+        #region /// ПОЛЯ 
         // Список всех персон. Исходная коллекция со всеми клиентами
         private readonly SortedList<string, Person> _personsAll = DataBaseLevel.GetListPersons();
 
@@ -22,10 +23,6 @@ namespace PersonsBase.View
         private IEnumerable<KeyValuePair<string, Person>> _reqAbonType;
         private IEnumerable<KeyValuePair<string, Person>> _reqTimeTren;
         private IEnumerable<KeyValuePair<string, Person>> _reqActivation;
-
-
-
-        #region /// ПОЛЯ ИСПОЛЬЗУЕМЫЕ В КОНТРОЛАХ КАК ПЕРЕЧИСЛЕНИЯ ЗНАЧЕНИЙ
 
         private const string NotMatter = "Не Важно";
 
@@ -61,7 +58,6 @@ namespace PersonsBase.View
             InitCheckedListBoxGender();
             InitCheckedListBoxTypeAbon();
             InitCheckedListBoxTimeTren();
-
             InitCheckedListBoxActivation();
 
             InitDataGridView();

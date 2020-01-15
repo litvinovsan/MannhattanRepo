@@ -10,9 +10,6 @@ namespace PersonsBase.View
         private readonly AbonementBasic _abonement;
         private TypeWorkout _selectedTypeWorkout;
         private int _selectedValue;
-        // FIXME вытащить в настройки или общие ресурсы этот массив
-        private readonly object[] _numberToAdd = { "1", "5", "10" };
-
 
         public NumWorkoutForm(AbonementBasic abonement)
         {
@@ -22,13 +19,13 @@ namespace PersonsBase.View
             _selectedValue = 1;
             _selectedTypeWorkout = TypeWorkout.Персональная;
 
-            comboBox_num.Items.AddRange(_numberToAdd);
-            comboBox_num.SelectedItem = _numberToAdd[0];
+            var numAvailTrenToBuy = Options.GetInstance().NumAvailTrenToBuy;
+            comboBox_num.Items.AddRange(numAvailTrenToBuy); // 1,5,10 тренировок
+            comboBox_num.SelectedItem = numAvailTrenToBuy[0];
         }
 
         public void ApplyChanges()
         {
-
             if (_abonement == null) return;
             if (_selectedTypeWorkout == TypeWorkout.Персональная)
             {

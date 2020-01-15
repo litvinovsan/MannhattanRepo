@@ -17,12 +17,10 @@ namespace PersonsBase.View
             tmp?.Invoke();
         }
 
-        private Options _options;
-        private static readonly string _correctPassword = "1234"; // FIXME Перенести пароль "1234" в Опции
         private static bool _unLocked;
+
         private static bool UnLocked
         {
-            get { return _unLocked; }
             set
             {
                 if (_unLocked == value) return;
@@ -31,11 +29,9 @@ namespace PersonsBase.View
             }
         }
 
-
-        public PwdForm(Options opt)
+        public PwdForm()
         {
             InitializeComponent();
-            _options = opt;
         }
         public static bool IsPassUnLocked()
         {
@@ -59,22 +55,20 @@ namespace PersonsBase.View
             TryUnLockPassword();
         }
 
-        private bool TryUnLockPassword()
+        private void TryUnLockPassword()
         {
-            if (textBox_pwd.Text == _correctPassword)
+            if (textBox_pwd.Text == Options.CorrectPassword)
             {
                 UnLocked = true;
                 label1.ForeColor = Color.Black;
                 label1.Text = @"Введите пароль Администратора";
                 Close();
-                return true;
             }
             else
             {
                 label1.ForeColor = Color.Red;
                 label1.Text = @"Неправильный пароль";
                 UnLocked = false;
-                return false;
             }
         }
 

@@ -40,12 +40,11 @@ namespace PersonsBase.View
             this.сохранитьВExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.клиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.продатьАбонементToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьКлиентаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокКлиентовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.продатьАбонементToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьКлиентаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.конфигураторОтчетовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сomboBox_PersonsList = new System.Windows.Forms.ToolStripComboBox();
             this.сканироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокКлиентовToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -151,14 +150,6 @@ namespace PersonsBase.View
             this.клиентыToolStripMenuItem.Size = new System.Drawing.Size(84, 28);
             this.клиентыToolStripMenuItem.Text = "Клиент";
             // 
-            // продатьАбонементToolStripMenuItem
-            // 
-            this.продатьАбонементToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.currency_dollar_green;
-            this.продатьАбонементToolStripMenuItem.Name = "продатьАбонементToolStripMenuItem";
-            this.продатьАбонементToolStripMenuItem.Size = new System.Drawing.Size(210, 26);
-            this.продатьАбонементToolStripMenuItem.Text = "Продать Абонемент";
-            this.продатьАбонементToolStripMenuItem.Click += new System.EventHandler(this.продатьАбонементToolStripMenuItem_Click);
-            // 
             // добавитьКлиентаToolStripMenuItem
             // 
             this.добавитьКлиентаToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.edit_add;
@@ -175,6 +166,14 @@ namespace PersonsBase.View
             this.списокКлиентовToolStripMenuItem.Text = "Список Клиентов";
             this.списокКлиентовToolStripMenuItem.Click += new System.EventHandler(this.списокКлиентовToolStripMenuItem_Click);
             // 
+            // продатьАбонементToolStripMenuItem
+            // 
+            this.продатьАбонементToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.currency_dollar_green;
+            this.продатьАбонементToolStripMenuItem.Name = "продатьАбонементToolStripMenuItem";
+            this.продатьАбонементToolStripMenuItem.Size = new System.Drawing.Size(210, 26);
+            this.продатьАбонементToolStripMenuItem.Text = "Продать Абонемент";
+            this.продатьАбонементToolStripMenuItem.Click += new System.EventHandler(this.продатьАбонементToolStripMenuItem_Click);
+            // 
             // удалитьКлиентаToolStripMenuItem
             // 
             this.удалитьКлиентаToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.delete;
@@ -185,20 +184,11 @@ namespace PersonsBase.View
             // 
             // отчетыToolStripMenuItem
             // 
-            this.отчетыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.конфигураторОтчетовToolStripMenuItem});
             this.отчетыToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.clipboard_report_bar_24_ns;
             this.отчетыToolStripMenuItem.Name = "отчетыToolStripMenuItem";
             this.отчетыToolStripMenuItem.Size = new System.Drawing.Size(88, 28);
             this.отчетыToolStripMenuItem.Text = "Отчеты";
-            // 
-            // конфигураторОтчетовToolStripMenuItem
-            // 
-            this.конфигураторОтчетовToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.list;
-            this.конфигураторОтчетовToolStripMenuItem.Name = "конфигураторОтчетовToolStripMenuItem";
-            this.конфигураторОтчетовToolStripMenuItem.Size = new System.Drawing.Size(229, 26);
-            this.конфигураторОтчетовToolStripMenuItem.Text = "Конфигуратор Отчетов";
-            this.конфигураторОтчетовToolStripMenuItem.Click += new System.EventHandler(this.конфигураторОтчетовToolStripMenuItem_Click);
+            this.отчетыToolStripMenuItem.Click += new System.EventHandler(this.отчетыToolStripMenuItem_Click);
             // 
             // сomboBox_PersonsList
             // 
@@ -545,7 +535,6 @@ namespace PersonsBase.View
         private ToolStripMenuItem добавитьКлиентаToolStripMenuItem;
         private ToolStripMenuItem удалитьКлиентаToolStripMenuItem;
         private ToolStripMenuItem отчетыToolStripMenuItem;
-        private ToolStripMenuItem конфигураторОтчетовToolStripMenuItem;
         private ToolStripMenuItem руководительToolStripMenuItem1;
         private ToolStripMenuItem продатьАбонементToolStripMenuItem;
         private ComboBox comboBox_BDay;

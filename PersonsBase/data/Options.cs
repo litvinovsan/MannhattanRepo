@@ -8,14 +8,14 @@ namespace PersonsBase.data
     [Serializable]
     public class Options
     {
-        #region/// Синглтон ///////////////////////////
+        #region/// Синглтон /////
         public static Options GetInstance()
         {
             return _optionsInstance ?? (_optionsInstance = new Options());
         }
         #endregion
 
-        #region///  События ///////////////////////////////////////
+        #region///  События //////
 
         #endregion
 
@@ -27,7 +27,7 @@ namespace PersonsBase.data
         private static bool _checkPasspDrivEnbld;
         #endregion
 
-        #region /// КОНСТРУКТОР ///////////////////////////
+        #region /// КОНСТРУКТОР ////
         private Options()
         {
             _checkPasspDrivEnbld = true;
@@ -71,7 +71,12 @@ namespace PersonsBase.data
 
         #endregion
 
+        #region /// Разные текстовые и около того данные
+        // Число тренировок для покупки
+        public readonly object[] NumAvailTrenToBuy = { "1", "5", "10" };
+        public static readonly string CorrectPassword = "1234";
 
+        #endregion
     }
 }
 // FIXME сохранять текущую дату. При запуске программы смотреть изменилась ли дата и если да, обнулять/загружать данные в списки на главной страничке

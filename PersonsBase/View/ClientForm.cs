@@ -587,10 +587,5 @@ namespace PersonsBase.View
             var success = Photo.OpenPhoto(out img);
             if (success) _person.PathToPhoto = Photo.SaveToPicturesFolder(img, _person.Name);
         }
-
-        private void button_Export_Click(object sender, EventArgs e)
-        {
-            // FIXME  Сделать экспорт таблицы в Эксель
-        }
     }
 }

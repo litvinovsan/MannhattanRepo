@@ -84,6 +84,11 @@ namespace PersonsBase.View
             DataBaseM.ExportToExcel(DataBaseM.CreatePersonsTable(), false);
             // Сохраняем настройки. 
             SerializeClass.Serialize(_options, "Option.bin");
+
+            if (MessageBox.Show(@"Вы хотите закрыть приложение?", @"Вопрос", MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
         }
 
 
@@ -232,11 +237,6 @@ namespace PersonsBase.View
             label_Time.Text = Methods.ClockFormating();
         }
 
-        private void конфигураторОтчетовToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Logic.CreateReport();
-        }
-
         private void добавитьКлиентаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Logic.CreatePerson();
@@ -293,6 +293,11 @@ namespace PersonsBase.View
         private void сканироватьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Logic.BarCodeOpen();
+        }
+
+        private void отчетыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Logic.CreateReport();
         }
     }
 }
