@@ -298,6 +298,7 @@
             this.checkedListBox_TimeTren.Name = "checkedListBox_TimeTren";
             this.checkedListBox_TimeTren.Size = new System.Drawing.Size(180, 46);
             this.checkedListBox_TimeTren.TabIndex = 3;
+            this.checkedListBox_TimeTren.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_TimeTren_SelectedIndexChanged);
             // 
             // groupBox_Activation
             // 
@@ -322,6 +323,7 @@
             this.checkedListBox_Activation.Name = "checkedListBox_Activation";
             this.checkedListBox_Activation.Size = new System.Drawing.Size(180, 47);
             this.checkedListBox_Activation.TabIndex = 2;
+            this.checkedListBox_Activation.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_Activation_SelectedIndexChanged);
             // 
             // dataGridView_Persons
             // 

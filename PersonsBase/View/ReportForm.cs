@@ -20,6 +20,10 @@ namespace PersonsBase.View
         private IEnumerable<KeyValuePair<string, Person>> _reqAge;
         private IEnumerable<KeyValuePair<string, Person>> _reqGender;
         private IEnumerable<KeyValuePair<string, Person>> _reqAbonType;
+        private IEnumerable<KeyValuePair<string, Person>> _reqTimeTren;
+        private IEnumerable<KeyValuePair<string, Person>> _reqActivation;
+
+
 
         #region /// ПОЛЯ ИСПОЛЬЗУЕМЫЕ В КОНТРОЛАХ КАК ПЕРЕЧИСЛЕНИЯ ЗНАЧЕНИЙ
 
@@ -56,8 +60,8 @@ namespace PersonsBase.View
             InitCheckedListBoxAge();
             InitCheckedListBoxGender();
             InitCheckedListBoxTypeAbon();
-
             InitCheckedListBoxTimeTren();
+
             InitCheckedListBoxActivation();
 
             InitDataGridView();
@@ -145,11 +149,11 @@ namespace PersonsBase.View
             }
             else
             {
-                var payment = (IsChecked(checkedListBox_Pay, 0)) ? Pay.Не_Оплачено : Pay.Оплачено;
+                var payment = (MyCheckedListBox.IsChecked(checkedListBox_Pay, 0)) ? Pay.Не_Оплачено : Pay.Оплачено;
                 _reqPay = _personsAll.Where(x => x.Value?.AbonementCurent?.PayStatus == payment);
             }
 
-            ClearSelection(checkedListBox_Pay);
+            MyCheckedListBox.ClearSelection(checkedListBox_Pay);
             ShowPersons(GetUpdatedRequests());
         }
         #endregion
@@ -175,14 +179,14 @@ namespace PersonsBase.View
             if ((checkedIndexes.Count != 3) && (checkedIndexes.Count != 0))
             {
                 // До 30
-                if (IsChecked(checkedListBox_Age, 0))
+                if (MyCheckedListBox.IsChecked(checkedListBox_Age, 0))
                 {
                     var data = DateTime.Now.AddYears(-30); // Дата проверки для 30 летних
                     r1 = _personsAll.Where(x => x.Value?.BirthDate.Date.CompareTo(data) >= 0);
                 }
 
                 // 30 - 40
-                if (IsChecked(checkedListBox_Age, 1))
+                if (MyCheckedListBox.IsChecked(checkedListBox_Age, 1))
                 {
                     var dataFrom = DateTime.Now.AddYears(-40);
                     var dataTo = DateTime.Now.AddYears(-30);
@@ -191,7 +195,7 @@ namespace PersonsBase.View
                 }
 
                 // От 40
-                if (IsChecked(checkedListBox_Age, 2))
+                if (MyCheckedListBox.IsChecked(checkedListBox_Age, 2))
                 {
                     var data = DateTime.Now.AddYears(-40);
                     r3 = _personsAll.Where(x => x.Value?.BirthDate.Date.CompareTo(data) <= 0);
@@ -203,7 +207,8 @@ namespace PersonsBase.View
             {
                 _reqAge = _personsAll; //  Если не нужна выборка по этому признаку
             }
-            ClearSelection(checkedListBox_Age);
+
+            MyCheckedListBox.ClearSelection(checkedListBox_Age);
             ShowPersons(GetUpdatedRequests());
         }
 
@@ -218,10 +223,6 @@ namespace PersonsBase.View
             checkedListBox_Gender.Items.Clear();
             var genderNames = Enum.GetNames(typeof(Gender)).ToArray<object>();
             checkedListBox_Gender.Items.AddRange(genderNames);
-            for (var i = 0; i < checkedListBox_Gender.Items.Count; i++)
-            {
-                checkedListBox_Gender.SetItemChecked(i, true);
-            }
         }
 
         private void checkedListBox_Gender_SelectedIndexChanged(object sender, EventArgs e)
@@ -235,17 +236,17 @@ namespace PersonsBase.View
             if ((checkedIndexes.Count != 3) && (checkedIndexes.Count != 0))
             {
                 // Мужчины
-                if ((IsChecked(checkedListBox_Gender, 0)))
+                if ((MyCheckedListBox.IsChecked(checkedListBox_Gender, 0)))
                 {
                     r1 = _personsAll.Where(x => x.Value?.GenderType == Gender.Мужской);
                 }
                 // Женщины
-                if (IsChecked(checkedListBox_Gender, 1))
+                if (MyCheckedListBox.IsChecked(checkedListBox_Gender, 1))
                 {
                     r2 = _personsAll.Where(x => (x.Value?.GenderType == Gender.Женский));
                 }
                 // Неизвестно
-                if (IsChecked(checkedListBox_Gender, 2))
+                if (MyCheckedListBox.IsChecked(checkedListBox_Gender, 2))
                 {
                     r3 = _personsAll.Where(x => (x.Value?.GenderType == Gender.Неизвестен));
                 }
@@ -255,7 +256,8 @@ namespace PersonsBase.View
             {
                 _reqGender = _personsAll; //  Если не нужна выборка по этому признаку
             }
-            ClearSelection(checkedListBox_Gender);
+
+            MyCheckedListBox.ClearSelection(checkedListBox_Gender);
             ShowPersons(GetUpdatedRequests());
         }
         #endregion
@@ -266,21 +268,9 @@ namespace PersonsBase.View
         /// </summary>
         private void InitCheckedListBoxTypeAbon()
         {
-            //checkedListBox_TypeAbon.Items.Clear();
-            //var workoutNames = Enum.GetNames(typeof(TypeWorkout)).ToArray<object>();
-            //checkedListBox_TypeAbon.Items.AddRange(workoutNames);
-            //for (var i = 0; i < checkedListBox_TypeAbon.Items.Count; i++)
-            //{
-            //    checkedListBox_TypeAbon.SetItemChecked(i, true);
-            //}
             checkedListBox_TypeAbon.Items.Clear();
             object[] abbonNames = { AbonementByDays.NameAbonement, ClubCardA.NameAbonement, SingleVisit.NameAbonement };
             checkedListBox_TypeAbon.Items.AddRange(abbonNames);
-
-            for (var i = 0; i < checkedListBox_TypeAbon.Items.Count; i++)
-            {
-                checkedListBox_TypeAbon.SetItemChecked(i, true);
-            }
         }
 
         private void checkedListBox_TypeAbon_SelectedIndexChanged(object sender, EventArgs e)
@@ -293,15 +283,15 @@ namespace PersonsBase.View
 
             if ((checkedIndexes.Count != 3) && (checkedIndexes.Count != 0))
             {
-                if ((IsChecked(checkedListBox_TypeAbon, 0)))
+                if ((MyCheckedListBox.IsChecked(checkedListBox_TypeAbon, 0)))
                 {
                     r1 = _personsAll.Where(x => x.Value?.AbonementCurent?.AbonementName == AbonementByDays.NameAbonement);
                 }
-                if (IsChecked(checkedListBox_TypeAbon, 1))
+                if (MyCheckedListBox.IsChecked(checkedListBox_TypeAbon, 1))
                 {
                     r2 = _personsAll.Where(x => x.Value?.AbonementCurent?.AbonementName == ClubCardA.NameAbonement);
                 }
-                if (IsChecked(checkedListBox_TypeAbon, 2))
+                if (MyCheckedListBox.IsChecked(checkedListBox_TypeAbon, 2))
                 {
                     r3 = _personsAll.Where(x => x.Value?.AbonementCurent?.AbonementName == SingleVisit.NameAbonement);
                 }
@@ -311,7 +301,8 @@ namespace PersonsBase.View
             {
                 _reqAbonType = _personsAll; //  Если не нужна выборка по этому признаку
             }
-            ClearSelection(checkedListBox_TypeAbon);
+
+            MyCheckedListBox.ClearSelection(checkedListBox_TypeAbon);
             ShowPersons(GetUpdatedRequests());
         }
 
@@ -326,13 +317,26 @@ namespace PersonsBase.View
             checkedListBox_TimeTren.Items.Clear();
             var timeTrenNames = Enum.GetNames(typeof(TimeForTr)).ToArray<object>();
             checkedListBox_TimeTren.Items.AddRange(timeTrenNames);
-            for (var i = 0; i < checkedListBox_TimeTren.Items.Count; i++)
-            {
-                checkedListBox_TimeTren.SetItemChecked(i, true);
-            }
         }
 
+        private void checkedListBox_TimeTren_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var checkedIndexes = checkedListBox_TimeTren.CheckedIndices;
 
+            // Сортировка по этому признаку не важна. Содержит 2 поля(Оплачено, Не оплачено)
+            if ((checkedIndexes.Count == 2) || (checkedIndexes.Count == 0))
+            {
+                _reqTimeTren = _personsAll;
+            }
+            else
+            {
+                var timeTren = (MyCheckedListBox.IsChecked(checkedListBox_TimeTren, 0)) ? TimeForTr.Утро : TimeForTr.Весь_День;
+                _reqTimeTren = _personsAll.Where(x => x.Value?.AbonementCurent?.TimeTraining == timeTren);
+            }
+
+            MyCheckedListBox.ClearSelection(checkedListBox_TimeTren);
+            ShowPersons(GetUpdatedRequests());
+        }
 
         #endregion
 
@@ -344,13 +348,26 @@ namespace PersonsBase.View
         {
             checkedListBox_Activation.Items.Clear();
             checkedListBox_Activation.Items.AddRange(_activation);
-            for (var i = 0; i < checkedListBox_Activation.Items.Count; i++)
-            {
-                checkedListBox_Activation.SetItemChecked(i, true);
-            }
         }
 
+        private void checkedListBox_Activation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var checkedIndexes = checkedListBox_Activation.CheckedIndices;
 
+            // Сортировка по этому признаку не важна. Содержит 2 поля(Оплачено, Не оплачено)
+            if ((checkedIndexes.Count == 2) || (checkedIndexes.Count == 0))
+            {
+                _reqActivation = _personsAll;
+            }
+            else
+            {
+                var activation = MyCheckedListBox.IsChecked(checkedListBox_Activation, 0);
+                _reqActivation = _personsAll.Where(x => x.Value?.AbonementCurent?.IsActivated == activation);
+            }
+
+            MyCheckedListBox.ClearSelection(checkedListBox_Activation);
+            ShowPersons(GetUpdatedRequests());
+        }
 
         #endregion
 
@@ -374,6 +391,10 @@ namespace PersonsBase.View
             personsSelected = ProcessRequest(personsSelected, _reqGender);
             // Тип Абонемента
             personsSelected = ProcessRequest(personsSelected, _reqAbonType);
+            // Время Тренировок
+            personsSelected = ProcessRequest(personsSelected, _reqTimeTren);
+            // Активация
+            personsSelected = ProcessRequest(personsSelected, _reqActivation);
 
             return personsSelected;
         }
@@ -409,18 +430,7 @@ namespace PersonsBase.View
             MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
             MyDataGridView.ImplementStyle(dataGridView_Persons);
         }
-        private static bool IsChecked(CheckedListBox listBox, int id)
-        {
-            return listBox.GetItemCheckState(id) == CheckState.Checked;
-        }
-        private static void ClearSelection(CheckedListBox listBox)
-        {
-            var ind = listBox.SelectedIndices;
-            foreach (var item in ind)
-            {
-                listBox.SetSelected((int)item, false);
-            }
-        }
+
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
@@ -432,7 +442,5 @@ namespace PersonsBase.View
             var table = DataBaseM.CreatePersonsTable(personsSelected, DataBaseM.GetPersonFieldsFull);
             DataBaseM.ExportToExcel(table, true);
         }
-
-
     }
 }
