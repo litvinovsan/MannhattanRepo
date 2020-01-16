@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using PersonsBase.control;
 using PersonsBase.data;
 using PersonsBase.data.Abonements;
 
@@ -22,8 +23,8 @@ namespace PersonsBase.View
         {
             const string nameLabel = "Имя Клиента";
 
-            Label lableType = CreateLabel(nameLabel);
-            TextBox textbox = CreateTextBox(false);
+            var lableType = CreateLabel(nameLabel);
+            var textbox = CreateTextBox(false);
             _editedName = _person.Name;
             // Инициализируем наши Контролы
             textbox.Text = _person.Name;
@@ -32,11 +33,9 @@ namespace PersonsBase.View
 
             _saveDelegateChain += () =>
             {
-                if (_editedName != null && _editedName != "" && _person.Name != _editedName)
-                {
-                    _dataBase.PersonEditName(_person.Name, _editedName);
-                    Methods.SetControlBackColor(textbox, _editedName, _person.Name);
-                }
+                if (string.IsNullOrEmpty(_editedName) || _person.Name == _editedName) return;
+                var isRenamed = _dataBase.PersonEditName(_person.Name, _editedName);
+                Logic.SetControlBackColor(textbox, _editedName, _person.Name);
             };
 
             return new Tuple<Label, Control>(lableType, textbox);
@@ -45,7 +44,7 @@ namespace PersonsBase.View
         {
             var tb = (TextBox)sender;
             _editedName = tb.Text;
-            Methods.SetControlBackColor(tb, _editedName, _person.Name);
+            Logic.SetControlBackColor(tb, _editedName, _person.Name);
             IsChangedUpdateStatus(_editedName, _person.Name);
         }
 
@@ -353,13 +352,13 @@ namespace PersonsBase.View
         {
             var tb = (TextBox)sender;
             Int32.TryParse(tb.Text, out _editedNumRemainder);
-            Methods.SetControlBackColor(tb, _editedNumRemainder.ToString(), _person.AbonementCurent.GetRemainderDays().ToString());
+            Logic.SetControlBackColor(tb, _editedNumRemainder.ToString(), _person.AbonementCurent.GetRemainderDays().ToString());
             _isAnythingChanged = true;
         }
 
         private void Textbox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Methods.CheckForDigits(e);
+            Logic.CheckForDigits(e);
         }
         #endregion
 
@@ -387,7 +386,7 @@ namespace PersonsBase.View
                 if (_person.AbonementCurent.NumPersonalTr != _editedNumPersonalTr && (_editedNumPersonalTr >= 0))
                 {
                     _person.AbonementCurent.NumPersonalTr = _editedNumPersonalTr;
-                    Methods.SetControlBackColor(textbox, _editedNumPersonalTr.ToString(), _person.AbonementCurent.NumPersonalTr.ToString());
+                    Logic.SetControlBackColor(textbox, _editedNumPersonalTr.ToString(), _person.AbonementCurent.NumPersonalTr.ToString());
                 }
             };
 
@@ -395,13 +394,13 @@ namespace PersonsBase.View
         }
         private void Textbox_NumPersonalTr_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Methods.CheckForDigits(e);
+            Logic.CheckForDigits(e);
         }
         private void Textbox_NumPersonalTrChanged(object sender, EventArgs e)
         {
             var tb = (TextBox)sender;
             Int32.TryParse(tb.Text, out _editedNumPersonalTr);
-            Methods.SetControlBackColor(tb, _editedNumPersonalTr.ToString(), _person.AbonementCurent.NumPersonalTr.ToString());
+            Logic.SetControlBackColor(tb, _editedNumPersonalTr.ToString(), _person.AbonementCurent.NumPersonalTr.ToString());
             _isAnythingChanged = true;
 
         }
@@ -432,7 +431,7 @@ namespace PersonsBase.View
                 if (_person.AbonementCurent.NumAerobicTr != _editedNumAerobicTr && (_editedNumAerobicTr >= 0) && _numAerobicTrChanged)
                 {
                     _person.AbonementCurent.NumAerobicTr = _editedNumAerobicTr;
-                    Methods.SetControlBackColor(textbox, _editedNumAerobicTr.ToString(), _person.AbonementCurent.NumAerobicTr.ToString());
+                    Logic.SetControlBackColor(textbox, _editedNumAerobicTr.ToString(), _person.AbonementCurent.NumAerobicTr.ToString());
                 }
             };
 
@@ -440,7 +439,7 @@ namespace PersonsBase.View
         }
         private void Textbox_NumAerobicTr_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Methods.CheckForDigits(e);
+            Logic.CheckForDigits(e);
         }
         private void Textbox_NumAerobicTrChanged(object sender, EventArgs e)
         {
@@ -448,7 +447,7 @@ namespace PersonsBase.View
             _isAnythingChanged = true;
             _numAerobicTrChanged = true;
             Int32.TryParse(tb.Text, out _editedNumAerobicTr);
-            Methods.SetControlBackColor(tb, _editedNumAerobicTr.ToString(), _person.AbonementCurent.NumAerobicTr.ToString());
+            Logic.SetControlBackColor(tb, _editedNumAerobicTr.ToString(), _person.AbonementCurent.NumAerobicTr.ToString());
         }
         #endregion
 
@@ -534,7 +533,7 @@ namespace PersonsBase.View
         {
             var tb = (MaskedTextBox)sender;
             _editedPhone = tb.Text;
-            Methods.SetControlBackColor(tb, _editedPhone, _person.Phone);
+            Logic.SetControlBackColor(tb, _editedPhone, _person.Phone);
             IsChangedUpdateStatus(_editedPhone, _person.Phone);
         }
 
@@ -548,7 +547,7 @@ namespace PersonsBase.View
         {
             var tb = (MaskedTextBox)sender;
             _editedPassport = tb.Text;
-            Methods.SetControlBackColor(tb, _editedPassport, _person.Passport);
+            Logic.SetControlBackColor(tb, _editedPassport, _person.Passport);
             IsChangedUpdateStatus(_editedPassport, _person.Passport);
         }
         #endregion
@@ -560,7 +559,7 @@ namespace PersonsBase.View
         {
             var tb = (MaskedTextBox)sender;
             _editedDriveId = tb.Text;
-            Methods.SetControlBackColor(tb, _editedDriveId, _person.DriverIdNum);
+            Logic.SetControlBackColor(tb, _editedDriveId, _person.DriverIdNum);
             IsChangedUpdateStatus(_editedDriveId, _person.DriverIdNum);
         }
         #endregion
@@ -591,7 +590,7 @@ namespace PersonsBase.View
         {
             var tb = (TextBox)sender;
             _editedPersonalNumber = tb.Text;
-            Methods.SetControlBackColor(tb, _editedPersonalNumber, _person.PersonalNumber.ToString());
+            Logic.SetControlBackColor(tb, _editedPersonalNumber, _person.PersonalNumber.ToString());
             IsChangedUpdateStatus(_editedPersonalNumber, _person.PersonalNumber.ToString());
         }
 
@@ -638,7 +637,7 @@ namespace PersonsBase.View
         }
         private void ComboBoxColor(ComboBox comboBox, string oldVal, string curVal)
         {
-            Methods.SetControlBackColor(comboBox, curVal, oldVal);
+            Logic.SetControlBackColor(comboBox, curVal, oldVal);
             comboBox.SelectionLength = 0;
             comboBox.Select(0, 0);
             button_SavePersonalData.Focus(); // Cнимаем выделение сменой фокуса.

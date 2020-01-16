@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using PersonsBase.control;
 
 namespace PersonsBase.data
 {
@@ -133,7 +134,7 @@ namespace PersonsBase.data
         public readonly string HourMinuteTime;
         public MyTime(int h, int m)
         {
-            HourMinuteTime = Methods.ClockFormating(h, m);
+            HourMinuteTime = Logic.ClockFormating(h, m);
         }
         public MyTime(string hm) // 08:30
         {
@@ -151,7 +152,7 @@ namespace PersonsBase.data
                 minute = int.Parse(time[1].Trim());
             }
 
-            HourMinuteTime = Methods.ClockFormating(hour, minute);
+            HourMinuteTime = Logic.ClockFormating(hour, minute);
         }
     }
 

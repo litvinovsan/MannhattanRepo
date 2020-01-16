@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using PersonsBase.control;
 using PersonsBase.data;
 
 namespace PersonsBase.View
@@ -81,7 +82,7 @@ namespace PersonsBase.View
         // Обработчики стандартные
         private void textBox_Code_KeyPress(object sender, KeyPressEventArgs e)
         {   // FIXME Удалить эту проверку на цифры если не работает со сканером
-            Methods.CheckForDigits(e); // Проверка на цифры. Если не цифры отбрасываем
+            Logic.CheckForDigits(e); // Проверка на цифры. Если не цифры отбрасываем
 
             if (_charsCount < NumsInBarString)
             {

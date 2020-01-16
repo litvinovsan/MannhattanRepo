@@ -13,7 +13,7 @@ namespace PersonsBase.data
         // Конструктор
         public Photo()
         {
-            MyExportFile.CreateFolder(Options.UserPhotoFolderName);
+            MyFile.CreateFolder(Options.UserPhotoFolderName);
         }
 
         // Методы
@@ -32,7 +32,7 @@ namespace PersonsBase.data
             using (var openFileDialog = new OpenFileDialog())
             {
                 //openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "Image Files (*.BMP; *.JPG; *.JPEG; *.GIF; *.PNG)| *.BMP; *.JPG; *.JPEG; *.GIF; *.PNG | All files(*.*) | *.*";
+                openFileDialog.Filter = @"Image Files (*.BMP; *.JPG; *.JPEG; *.GIF; *.PNG)| *.BMP; *.JPG; *.JPEG; *.GIF; *.PNG | All files(*.*) | *.*";
 
                 openFileDialog.FilterIndex = 2;
                 openFileDialog.RestoreDirectory = true;
@@ -71,10 +71,9 @@ namespace PersonsBase.data
         public static string SaveToPicturesFolder(Image inputImg, string fileName)
         {
             string pth = Directory.GetCurrentDirectory() + "\\" + Options.UserPhotoFolderName + "\\" + fileName?.Trim() + ".jpg";
-            Bitmap bmp;
 
             if (inputImg == null) return "";
-            else bmp = new Bitmap(inputImg);
+            var bmp = new Bitmap(inputImg);
 
             if (File.Exists(pth))
             {

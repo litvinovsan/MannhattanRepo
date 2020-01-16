@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using ClosedXML.Excel;
+using PersonsBase.data;
 
 namespace PersonsBase.myStd
 {
-    public static class MyExportFile
+    public static class MyFile
     {
-        #region /// CLOSED_XML ОТКРЫТИЕ СОХРАНЕНИЕ ЗАГРУЗКА
+        #region /// EXCEL. CLOSED_XML 
 
         /// <summary>
         /// Получает данные из Excel в таблицу DataTable. Первая строка создает заголовки Таблицы
@@ -39,7 +38,7 @@ namespace PersonsBase.myStd
                     {
                         foreach (IXLCell cell in row.Cells())
                         {
-                            if (!string.IsNullOrEmpty(cell.Value.ToString()))
+                            if (!String.IsNullOrEmpty(cell.Value.ToString()))
                             {
                                 dt.Columns.Add(cell.Value.ToString());
                             }
@@ -77,11 +76,28 @@ namespace PersonsBase.myStd
         }
 
         /// <summary>
+        /// Сохраняет список Всех клиентов в Excel файл.
+        /// </summary>
+        public static void ExportToExcel(DataTable table, bool showDlgBox)
+        {
+            if (showDlgBox)
+            {
+                SaveToExcel(table);
+            }
+            else
+            {
+                var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.DataBaseFolderName + "\\";
+
+                SaveToExcel(table, $"{currentPath}CписокКлиентов");
+            }
+        }
+
+        /// <summary>
         /// Добавляет таблицу DataTable в Excel. Таблица DataTable должна быть уже с заголовками
         /// </summary>
         /// <param name="dt"></param>
         /// <param name="fileName"></param>
-        public static void SaveToExcel(DataTable dt, string fileName)
+        private static void SaveToExcel(DataTable dt, string fileName)
         {
             if (fileName == null) throw new ArgumentNullException(nameof(fileName));
             if (dt.Columns.Count == 0) return;
@@ -90,23 +106,23 @@ namespace PersonsBase.myStd
             //Codes for the Closed XML
 
             var th = new Thread((() =>
-              {
-                  using (var wb = new XLWorkbook())
-                  {
-                      wb.Worksheets.Add(dt, "Список Клиентов");
-                      ApplyStyles(wb);
-                      try
-                      {
-                          wb.SaveAs(fileName + ".xlsx");
-                      }
-                      catch (Exception)
-                      {
-                          MessageBox.Show(@"Файл уже используется! Имя будет изменено");
-                          string prefix = $"({DateTime.Now.Hour:D}-{DateTime.Now.Minute:D}-{DateTime.Now.Second})";
-                          wb.SaveAs(fileName + prefix + ".xlsx");
-                      }
-                  }
-              }));
+            {
+                using (var wb = new XLWorkbook())
+                {
+                    wb.Worksheets.Add(dt, "Список Клиентов");
+                    ApplyStyles(wb);
+                    try
+                    {
+                        wb.SaveAs(fileName + ".xlsx");
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show(@"Файл уже используется! Имя будет изменено");
+                        string prefix = $"({DateTime.Now.Hour:D}-{DateTime.Now.Minute:D}-{DateTime.Now.Second})";
+                        wb.SaveAs(fileName + prefix + ".xlsx");
+                    }
+                }
+            }));
             th.Start();
         }
 
@@ -114,7 +130,7 @@ namespace PersonsBase.myStd
         /// Сохраняет таблицу в выбранную пользователем папку и файл.
         /// </summary>
         /// <param name="dt"></param>
-        public static void SaveToExcel(DataTable dt)
+        private static void SaveToExcel(DataTable dt)
         {
             if (dt.Columns.Count == 0) return;
 
@@ -137,8 +153,6 @@ namespace PersonsBase.myStd
                 }
             }
         }
-
-        #region /// РАБОТА со СТРОКАМИ и ЯЧЕЦКАМИ
 
         /// <summary>
         /// Задает оформление Заголовков итд к Первой вкладке Эксель
@@ -168,10 +182,6 @@ namespace PersonsBase.myStd
         }
 
         #endregion
-
-        #endregion
-
-
 
         #region /// СТАНДАРНТНЫЕ ДИАЛОГИ ОТКРЫТИЯ / СОХРАНЕНИЯ
 
@@ -209,6 +219,9 @@ namespace PersonsBase.myStd
             string path = saveFileDialog.FileName;
             return path;
         }
+        #endregion
+
+        #region /// ФАЙЛЫ и ДИРЕКТОРИИ
 
         /// <summary>
         /// Создает Директорию, если она не существует
@@ -219,7 +232,13 @@ namespace PersonsBase.myStd
             if (!Directory.Exists(fldrName)) Directory.CreateDirectory(fldrName);
         }
 
+        public static bool IsFileExist(string pathToFile)
+        {
+            return File.Exists(pathToFile);
+        }
+        //  //Path.GetFileName(person.PathToPhoto);    
+        //    Функция проверки существования ПАПКИ
+        //    Функция переименования файла
         #endregion
-
     }
 }

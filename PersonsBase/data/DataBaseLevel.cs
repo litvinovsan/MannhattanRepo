@@ -139,7 +139,6 @@ namespace PersonsBase.data
         }
         public bool PersonEditName(string lastName, string newName)
         {
-            // ReSharper disable once InconsistentlySynchronizedField
             var result = _dataBaseList != null && DataBaseM.EditName(_dataBaseList, lastName, newName);
             if (result) OnListChanged();
             return result;
@@ -165,7 +164,7 @@ namespace PersonsBase.data
         /// </summary>
         public void SerializeObjects()
         {
-            MyExportFile.CreateFolder(Options.DataBaseFolderName);
+            MyFile.CreateFolder(Options.DataBaseFolderName);
             var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.DataBaseFolderName;
 
             lock (Locker)
@@ -188,7 +187,7 @@ namespace PersonsBase.data
         /// </summary>
         public void DeSerializeObjects()
         {
-            MyExportFile.CreateFolder(Options.DataBaseFolderName);
+            MyFile.CreateFolder(Options.DataBaseFolderName);
             var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.DataBaseFolderName;
 
             lock (Locker)

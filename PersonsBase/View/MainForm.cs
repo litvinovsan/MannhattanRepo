@@ -81,7 +81,7 @@ namespace PersonsBase.View
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Автоматическое Сохранение в Excel всей базы на всякий случай
-            DataBaseM.ExportToExcel(DataBaseM.CreatePersonsTable(), false);
+            MyFile.ExportToExcel(DataBaseM.CreatePersonsTable(), false);
             // Сохраняем настройки. 
             SerializeClass.Serialize(_options, "Option.bin");
 
@@ -234,7 +234,7 @@ namespace PersonsBase.View
 
         private void _time_ClockTick(object sender, EventArgs e)
         {
-            label_Time.Text = Methods.ClockFormating();
+            label_Time.Text = Logic.ClockFormating();
         }
 
         private void добавитьКлиентаToolStripMenuItem_Click(object sender, EventArgs e)
@@ -285,7 +285,7 @@ namespace PersonsBase.View
             if (DataBaseLevel.GetNumberOfPersons() == 0) MessageBox.Show(@"В Базе нет клиентов");
 
             var table = DataBaseM.CreatePersonsTable();
-            DataBaseM.ExportToExcel(table, true);
+            MyFile.ExportToExcel(table, true);
             //Сохраним и Базу данных
             DataBaseLevel.GetInstance().SerializeObjects();
         }

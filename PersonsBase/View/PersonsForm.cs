@@ -110,7 +110,7 @@ namespace PersonsBase.View
             Logic.TryLoadPhoto(pictureBox_Client, person.PathToPhoto);
 
             // Краткая инфа об абонементе
-            Methods.LoadShortInfo(groupBox_AbonInfo, person);
+            Logic.LoadShortInfo(groupBox_AbonInfo, person);
         }
 
         #endregion

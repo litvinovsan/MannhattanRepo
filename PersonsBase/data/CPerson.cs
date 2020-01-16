@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using PersonsBase.control;
 using PersonsBase.data.Abonements;
 
 namespace PersonsBase.data
@@ -53,7 +54,7 @@ namespace PersonsBase.data
             get { return _name; }
             set
             {
-                _name = Methods.PrepareName(value);
+                _name = Logic.PrepareName(value);
                 Key = _name;
             }
         }
@@ -193,7 +194,7 @@ namespace PersonsBase.data
 
         #endregion
 
-        #region /// АБОНЕМЕНТ
+        #region /// АБОНЕМЕНТ МЕТОДЫ ///
 
         public bool IsAbonementExist()
         {// FIXME сделать тут проверку валидности абонемента по всем полям. Дата,занятия,дни

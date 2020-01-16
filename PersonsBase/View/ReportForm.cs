@@ -436,7 +436,7 @@ namespace PersonsBase.View
             if (DataBaseLevel.GetNumberOfPersons() == 0) MessageBox.Show(@"В Базе нет клиентов");
             var personsSelected = GetUpdatedRequests();
             var table = DataBaseM.CreatePersonsTable(personsSelected, DataBaseM.GetPersonFieldsFull);
-            DataBaseM.ExportToExcel(table, true);
+            MyFile.ExportToExcel(table, true);
         }
     }
 }

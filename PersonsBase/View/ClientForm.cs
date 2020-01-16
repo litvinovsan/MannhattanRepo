@@ -14,12 +14,10 @@ namespace PersonsBase.View
 {
     public partial class ClientForm : Form
     {
-        private readonly DataBaseLevel _dataBase = DataBaseLevel.GetInstance();
-
-        private readonly Logic _logic;
         ///////////////// ОСНОВНЫЕ ОБЬЕКТЫ ////////////////////////////////
-
+        private readonly Logic _logic;
         private readonly Person _person;
+        private readonly DataBaseLevel _dataBase = DataBaseLevel.GetInstance();
         private bool _isAnythingChanged;
 
         ///////////////// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ////////////////////////////////
@@ -34,7 +32,7 @@ namespace PersonsBase.View
         private void ClientForm_Load(object sender, EventArgs e)
         {
             LoadUserData();
-            Methods.LoadShortInfo(groupBox_Info, _person);
+            Logic.LoadShortInfo(groupBox_Info, _person);
             LoadEditableData();
 
             Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto);
@@ -240,15 +238,15 @@ namespace PersonsBase.View
 
             // Телефон
             maskedTextBox_PhoneNumber.Text = _person.Phone;
-            Methods.SetControlBackColor(maskedTextBox_PhoneNumber, maskedTextBox_PhoneNumber.Text, _person.Phone);
+            Logic.SetControlBackColor(maskedTextBox_PhoneNumber, maskedTextBox_PhoneNumber.Text, _person.Phone);
 
             // Паспорт
             maskedTextBox_Passport.Text = _person.Passport;
-            Methods.SetControlBackColor(maskedTextBox_Passport, _editedPassport, _person.Passport);
+            Logic.SetControlBackColor(maskedTextBox_Passport, _editedPassport, _person.Passport);
 
             // Права
             maskedTextBox_DriverID.Text = _person.DriverIdNum;
-            Methods.SetControlBackColor(maskedTextBox_DriverID, _editedDriveId, _person.DriverIdNum);
+            Logic.SetControlBackColor(maskedTextBox_DriverID, _editedDriveId, _person.DriverIdNum);
 
             // Персональный Номер
             textBox_Number.Text = _person.PersonalNumber.ToString();
@@ -270,7 +268,7 @@ namespace PersonsBase.View
         private void LoadEditableData()
         {
             // Данные подробные,разрешено редактирование через события.
-            var table = Methods.CreateTable(SelectList(_person.AbonementCurent));
+            var table = Logic.CreateTable(SelectList(_person.AbonementCurent));
             if (groupBox_Detailed.Controls.Count != 0) groupBox_Detailed.Controls.Clear();
 
             table.Font = new Font("Arial", 10);
@@ -283,7 +281,7 @@ namespace PersonsBase.View
         {
             var listUpdated = SelectList(_person.AbonementCurent);
             var lst = new List<Control>();
-            Methods.ForAllControls(groupBox_Detailed, x =>
+            Logic.ForAllControls(groupBox_Detailed, x =>
             {
                 if (x is TextBox || x is ComboBox) lst.Add(x); //Получили только нужные Контролы в массив lst
             });
@@ -314,7 +312,7 @@ namespace PersonsBase.View
             Text = @"Карточка Клиента:    " + _person.Name; // Имя формы
 
             textBox_Name.Text = _person.Name;
-            Methods.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
+            Logic.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
 
 
             switch (_person.Status)
@@ -322,7 +320,7 @@ namespace PersonsBase.View
                 // Если Запрещен 
                 case StatusPerson.Запрещён:
                     textBox_Name.Text = _person.Name;
-                    Methods.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
+                    Logic.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
                     return;
                 // Если Заморожен
                 case StatusPerson.Заморожен when _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA a &&
@@ -454,7 +452,7 @@ namespace PersonsBase.View
                 // Обновление всех полей и состояний
                 _person.UpdateActualStatus();
                 UpdateNameText();
-                Methods.LoadShortInfo(groupBox_Info, _person);
+                Logic.LoadShortInfo(groupBox_Info, _person);
                 LoadEditableData();
                 UpdateControlState(this, EventArgs.Empty);
                 // Для обновления списка посещений при добавлении новой тренировки
@@ -474,17 +472,17 @@ namespace PersonsBase.View
         {
             SaveData();
             LoadUserData();
-            Methods.LoadShortInfo(groupBox_Info, _person);
+            Logic.LoadShortInfo(groupBox_Info, _person);
             UpdateEditableData();
-            Methods.ClearSelection(groupBox_Detailed);
+            Logic.ClearSelection(groupBox_Detailed);
 
-            Methods.SetControlsColorDefault(groupBox_Detailed);
-            Methods.SetControlsColorDefault(tableLayoutPanel1);
+            Logic.SetControlsColorDefault(groupBox_Detailed);
+            Logic.SetControlsColorDefault(tableLayoutPanel1);
         }
 
         private void ClientForm_Resize(object sender, EventArgs e)
         {
-            Methods.ClearSelection(groupBox_Detailed);
+            Logic.ClearSelection(groupBox_Detailed);
         }
 
         private void button_Add_New_Abon_Click(object sender, EventArgs e)
@@ -495,7 +493,7 @@ namespace PersonsBase.View
                 _person.UpdateActualStatus(); // Обновляем текущий статус
                 UpdateNameText();
 
-                Methods.LoadShortInfo(groupBox_Info, _person);
+                Logic.LoadShortInfo(groupBox_Info, _person);
                 LoadEditableData();
                 UpdateControlState(this, EventArgs.Empty);
             }
@@ -514,7 +512,7 @@ namespace PersonsBase.View
                     // FIXME Убрать эти функции отсюда, возвращать диалог резалт
                     // Обновляем Если выбрано что-то.
                     _person.UpdateActualStatus(); // Обновляем текущий статус
-                    Methods.LoadShortInfo(groupBox_Info, _person);
+                    Logic.LoadShortInfo(groupBox_Info, _person);
                     LoadEditableData();
                     UpdateControlState(this, EventArgs.Empty);
                 }
@@ -550,7 +548,7 @@ namespace PersonsBase.View
             _person.AbonementCurent = null;
             _person.UpdateActualStatus(); // Обновляем текущий статус
 
-            Methods.LoadShortInfo(groupBox_Info, _person);
+            Logic.LoadShortInfo(groupBox_Info, _person);
             LoadEditableData();
             UpdateControlState(this, EventArgs.Empty);
         }
@@ -577,14 +575,13 @@ namespace PersonsBase.View
             }
 
             LoadUserData();
-            Methods.LoadShortInfo(groupBox_Info, _person);
+            Logic.LoadShortInfo(groupBox_Info, _person);
             UpdateEditableData();
         }
 
         private void button_photo_Click(object sender, EventArgs e)
         {
-            Image img;
-            var success = Photo.OpenPhoto(out img);
+            var success = Photo.OpenPhoto(out var img);
             if (success) _person.PathToPhoto = Photo.SaveToPicturesFolder(img, _person.Name);
         }
     }

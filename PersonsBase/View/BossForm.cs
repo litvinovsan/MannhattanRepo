@@ -233,7 +233,7 @@ namespace PersonsBase.View
         {
             // Сбор информации о текущем Работнике
             _employee.IsTrener = GetRadioBstate();
-            _employee.Name = string.IsNullOrEmpty(Methods.PrepareName(textBox_FiO.Text)) ? textBox_FiO.Text : Methods.PrepareName(textBox_FiO.Text);
+            _employee.Name = string.IsNullOrEmpty(Logic.PrepareName(textBox_FiO.Text)) ? textBox_FiO.Text : Logic.PrepareName(textBox_FiO.Text);
 
             _employee.Phone = maskedTextBox_phone.Text;
             // Обновляем имя на форме если оно написано с ошибками

@@ -116,7 +116,7 @@ namespace PersonsBase.View
             PersonalDataStateEvent += PersDataStateHandler;
 
             // Set up the ToolTip text for the Button and Checkbox.
-            toolTip1.SetToolTip(this.maskedTextBox_number, "Кликните мышью на этом поле и считайте номер карты Считывателем. Либо введите номер вручную.");
+            toolTip1.SetToolTip(maskedTextBox_number, "Кликните мышью на этом поле и считайте номер карты Считывателем. Либо введите номер вручную.");
         }
 
         private void CreatePersonForm_Load(object sender, EventArgs e)
@@ -275,7 +275,7 @@ namespace PersonsBase.View
 
         private bool IsNameOk(string name)
         {
-            var nameToCheck = Methods.PrepareName(name);
+            var nameToCheck = Logic.PrepareName(name);
             _dataStateOk.Name = !DataBaseLevel.ContainsNameKey(nameToCheck) && !string.IsNullOrEmpty(nameToCheck) && !string.IsNullOrWhiteSpace(nameToCheck) && nameToCheck != " ";
 
             if (!_dataStateOk.Name) return false;
@@ -326,7 +326,7 @@ namespace PersonsBase.View
                 ButtonAddEnable(false);
                 return;
             }
-            var p = Methods.CreateNewPerson(_dataStruct);
+            var p = Logic.CreateNewPerson(_dataStruct);
             var result = DataBaseLevel.GetInstance().PersonAdd(p);
             if (result == ResponseCode.Success)
                 DialogResult = DialogResult.OK;
@@ -378,7 +378,7 @@ namespace PersonsBase.View
         }
         private void maskedTextBox_number_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Methods.CheckForDigits(e);
+            Logic.CheckForDigits(e);
         }
     }
 }

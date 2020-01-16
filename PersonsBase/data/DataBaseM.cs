@@ -4,8 +4,8 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using PersonsBase.control;
 using PersonsBase.data.Abonements;
-using PersonsBase.myStd;
 
 namespace PersonsBase.data
 {
@@ -114,7 +114,6 @@ namespace PersonsBase.data
             }
             return findedPerson;
         }
-
         // Personal Number
         public static bool FindByPersonalNumber(SortedList<string, Person> inputCollection, int number, out Person findedPerson)
         {
@@ -148,21 +147,20 @@ namespace PersonsBase.data
         // Name 
         public static bool EditName(SortedList<string, Person> inputCollection, string key, string newFullName)
         {
-            bool isSuccess = false;
-            string newName = Methods.PrepareName(newFullName);
+            var isSuccess = false;
+            var newName = Logic.PrepareName(newFullName);
 
-            if (inputCollection != null && inputCollection.Count > 0 && !String.IsNullOrEmpty(newName) && newName != "")
+            if (inputCollection != null && inputCollection.Count > 0 && !string.IsNullOrEmpty(newName) && newName != "")
             {
-                var localKey = Methods.PrepareName(key);
+                var localKey = Logic.PrepareName(key);
                 // Копируем данные текущей персоны
-                Person personForEdit; // Копия текущей персоны                                                                        
-                isSuccess = inputCollection.TryGetValue(localKey, out personForEdit);
-                if (isSuccess)
-                {
-                    personForEdit.Name = newName;
-                    inputCollection.Remove(localKey);
-                    inputCollection.Add(personForEdit.Key, personForEdit);
-                }
+                isSuccess = inputCollection.TryGetValue(localKey, out var personForEdit);
+
+                if (!isSuccess) return false;
+
+                personForEdit.Name = newName;
+                inputCollection.Remove(localKey);
+                inputCollection.Add(personForEdit.Key, personForEdit);
             }
             return isSuccess;
         }
@@ -203,47 +201,7 @@ namespace PersonsBase.data
 
         #endregion
 
-        #region /// ВЫБОРКА клиентов ////////////////////
-        public static IEnumerable<KeyValuePair<string, Person>> SelectByGender(IEnumerable<KeyValuePair<string, Person>> inputCollection, Gender gender)
-        {
-            var result = from n in inputCollection
-                         where n.Value.GenderType == gender
-                         select n;
-            return result;
-        }
-
-        public static IEnumerable<Person> SelectByStatus(IEnumerable<Person> inputCollection, StatusPerson status)
-        {
-            var persons = inputCollection.Where(c => c.Status == status).Select(c => c);
-            return persons;
-        }
-
-        public static IEnumerable<Person> SelectBDateToday(IEnumerable<Person> inputCollection)
-        {
-            var persons = inputCollection.Where(c => c.BirthDate.Equals(DateTime.Now.Date));
-            return persons;
-        }
-        #endregion
-
-        #region /// ИНФОРМАЦИЯ о ВСЕХ КЛИЕНТАХ
-
-
-        /// <summary>
-        /// Сохраняет список Всех клиентов в Excel файл.
-        /// </summary>
-        public static void ExportToExcel(DataTable table, bool showDlgBox)
-        {
-            if (showDlgBox)
-            {
-                MyExportFile.SaveToExcel(table);
-            }
-            else
-            {
-                var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.DataBaseFolderName + "\\";
-
-                MyExportFile.SaveToExcel(table, $"{currentPath}CписокКлиентов");
-            }
-        }
+        #region /// ВЫВОД ИНФОРМАЦИИ о ВСЕХ КЛИЕНТАХ
 
         /// <summary>
         /// Возвращает DataTable со Всеми клиентами в Базе. Нужна для экспорта в Excel,а так же для создания отчетов
@@ -285,7 +243,6 @@ namespace PersonsBase.data
             }
             return dt;
         }
-
 
         /// <summary>
         /// Получаем заголовки из Обьекта класса Пользователя. Нужно для экспорта в эксель
@@ -339,7 +296,8 @@ namespace PersonsBase.data
                 new PersonField {HeaderName = "Статус", Value = person.Status.ToString()},
                 new PersonField {HeaderName = "ID номер", Value = person.PersonalNumber.ToString()},
                 new PersonField {HeaderName = "Паспорт", Value = person.Passport},
-                new PersonField {HeaderName = "Права", Value = person.DriverIdNum}
+                new PersonField {HeaderName = "Права", Value = person.DriverIdNum},
+                new PersonField { HeaderName = "Фото", Value = Path.GetFileName(person.PathToPhoto)}
             };
             if (person.AbonementCurent != null)
             {
@@ -357,7 +315,7 @@ namespace PersonsBase.data
             }
 
             personFields.Add(new PersonField { HeaderName = "Заметки", Value = person.SpecialNotes });
-            personFields.Add(new PersonField { HeaderName = "Фото", Value = Path.GetFileName(person.PathToPhoto) });
+
             // Вывод Списка Заморозок
             personFields.Add(new PersonField { HeaderName = "Заморозки", Value = GetFreezeString(person) });
 
