@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Forms;
-using PBase;
 using PersonsBase.View;
 
 namespace ManhattatProject
@@ -15,7 +14,7 @@ namespace ManhattatProject
       static void Main()
       {
          bool oneonly;
-         Mutex m = new Mutex(true, "ManhattatProject", out oneonly);
+         var mutex = new Mutex(true, "ManhattatProject", out oneonly);
 
          if (oneonly)
          {
@@ -26,7 +25,7 @@ namespace ManhattatProject
          }
          else
          {
-            MessageBox.Show("Это приложение уже запущено");
+            MessageBox.Show(@"Это приложение уже запущено");
          }
       }
    }

@@ -5,18 +5,13 @@ using PersonsBase.myStd;
 
 namespace PersonsBase.data
 {
-    // FIXME Сделать переименование файлов фотографий при переименовании имени
     public class Photo
     {
-
-
         // Конструктор
         public Photo()
         {
             MyFile.CreateFolder(Options.UserPhotoFolderName);
         }
-
-        // Методы
 
         /// <summary>
         /// Открыть файл с диалогом выбора
@@ -92,9 +87,13 @@ namespace PersonsBase.data
             return pth;
         }
 
-        public static bool IsPhotoExist(string fileName)
+        /// <summary>
+        /// Возвращает путь до директории с фотографиями клиентов "UserPhoto\\". Есть \\
+        /// </summary>
+        /// <returns></returns>
+        public static string GetPathToPhotoDir()
         {
-            return File.Exists(fileName);
+            return Directory.GetCurrentDirectory() + "\\" + Options.UserPhotoFolderName + "\\";
         }
     }
 }

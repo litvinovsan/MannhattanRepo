@@ -145,14 +145,14 @@ namespace PersonsBase.data
         }
 
         // Name 
-        public static bool EditName(SortedList<string, Person> inputCollection, string key, string newFullName)
+        public static bool EditName(SortedList<string, Person> inputCollection, string oldName, string newFullName)
         {
             var isSuccess = false;
             var newName = Logic.PrepareName(newFullName);
 
             if (inputCollection != null && inputCollection.Count > 0 && !string.IsNullOrEmpty(newName) && newName != "")
             {
-                var localKey = Logic.PrepareName(key);
+                var localKey = Logic.PrepareName(oldName);
                 // Копируем данные текущей персоны
                 isSuccess = inputCollection.TryGetValue(localKey, out var personForEdit);
 
@@ -197,6 +197,17 @@ namespace PersonsBase.data
                 result = null;
             }
             return result;
+        }
+
+        // Path To Photo
+        public static void EditPathToPhoto(string personName, string newFileNameNoExtens)
+        {
+            var oldPathToPhoto = DataBaseO.GetPersonLink(personName)?.PathToPhoto;
+            if (oldPathToPhoto == null) return;
+            var fileInfo = new FileInfo(oldPathToPhoto);
+            var newFilePath = fileInfo.DirectoryName + "\\" + newFileNameNoExtens + fileInfo.Extension;
+            if (personName != null && DataBaseLevel.ContainsNameKey(personName))
+                DataBaseO.GetPersonLink(personName).PathToPhoto = newFilePath;
         }
 
         #endregion
@@ -388,7 +399,6 @@ namespace PersonsBase.data
             }
             return result;
         }
-
 
         #endregion
     }

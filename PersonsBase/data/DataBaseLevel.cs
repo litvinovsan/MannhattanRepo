@@ -31,14 +31,14 @@ namespace PersonsBase.data
 
         #endregion
 
-        #region/// Синглтон ///////////////////////////
+        #region/// Синглтон ////
         public static DataBaseLevel GetInstance()
         {
             return _dbInstance ?? (_dbInstance = new DataBaseLevel());
         }
         #endregion
 
-        #region/// КОНСТРУКТОР и ДЕСТРУКТОР //////////////////////
+        #region/// КОНСТРУКТОР и ДЕСТРУКТОР /////
         private DataBaseLevel()
         {
             // База Клиентов
@@ -61,7 +61,7 @@ namespace PersonsBase.data
         }
         #endregion
 
-        #region/// CОБЫТИЯ ///////////////////////////
+        #region/// CОБЫТИЯ ////
         // Список Клиентов
         public delegate void MyEventDelegate(object sender, EventArgs e);
         /// <summary>
@@ -74,7 +74,7 @@ namespace PersonsBase.data
         }
         #endregion
 
-        #region/// МЕТОДЫ ///////////////////////////
+        #region /// МЕТОДЫ ////
 
         // Доступ к Коллекциям и Спискам Клиентов, Тренеров, Администраторов, Тренировок
         public static SortedList<string, Person> GetListPersons()
@@ -137,9 +137,9 @@ namespace PersonsBase.data
             }
             return result;
         }
-        public bool PersonEditName(string lastName, string newName)
+        public bool PersonEditName(string curentName, string newName)
         {
-            var result = _dataBaseList != null && DataBaseM.EditName(_dataBaseList, lastName, newName);
+            var result = _dataBaseList != null && DataBaseM.EditName(_dataBaseList, curentName, newName);
             if (result) OnListChanged();
             return result;
         }

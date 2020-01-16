@@ -239,6 +239,36 @@ namespace PersonsBase.myStd
         //  //Path.GetFileName(person.PathToPhoto);    
         //    Функция проверки существования ПАПКИ
         //    Функция переименования файла
+
+        public static bool TryRenameFile(string pathOriginalFile, string newFileName)
+        {
+            // Проверки
+            if (string.IsNullOrEmpty(pathOriginalFile) || string.IsNullOrEmpty(newFileName)) return false;
+            if (!IsFileExist(pathOriginalFile)) return false;
+            try
+            {
+                var fileOriginal = new FileInfo(pathOriginalFile);
+                var dir = fileOriginal.DirectoryName;
+                var ext = fileOriginal.Extension;
+                var newFilePathName = dir + "\\" + newFileName + ext;
+
+                fileOriginal.MoveTo(newFilePathName);
+                return true;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(@"Ошибка переименования Файла Фотографии Клиента.");
+                return false;
+            }
+
+            //var oldFileName = Path.GetFileName(pathOriginalFile);
+            //var oldFilenameWoExt = Path.GetFileNameWithoutExtension(pathOriginalFile);
+            //var extention = Path.GetExtension(pathOriginalFile);
+            //var fpath = Path.GetPathRoot(pathOriginalFile);
+            //var a = Path.GetFullPath(pathOriginalFile);
+            //return false;
+        }
+
         #endregion
     }
 }

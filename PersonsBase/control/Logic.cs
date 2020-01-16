@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using PersonsBase.data;
 using PersonsBase.data.Abonements;
+using PersonsBase.myStd;
 using PersonsBase.View;
 using Group = PersonsBase.data.Group;
 
@@ -52,7 +54,7 @@ namespace PersonsBase.control
         /// <param name="pathToPhoto"></param>
         public static void TryLoadPhoto(PictureBox pictureBox, string pathToPhoto)
         {
-            if (String.IsNullOrEmpty(pathToPhoto))
+            if (string.IsNullOrEmpty(pathToPhoto))
             {
                 pictureBox.Image = null;
                 return;
@@ -60,7 +62,7 @@ namespace PersonsBase.control
 
             try
             {
-                if (Photo.IsPhotoExist(pathToPhoto))
+                if (MyFile.IsFileExist(pathToPhoto))
                 {
                     pictureBox.Image = Photo.OpenPhoto(pathToPhoto);
                     pictureBox.Invalidate();
@@ -330,6 +332,36 @@ namespace PersonsBase.control
             }
 
             return resultName.Trim();
+        }
+
+        /// <summary>
+        /// Метод пытается изменить Имя Клиента. Если Успешно, переименовывает файл с фотографией и перезаписывает Путь до фотки
+        /// </summary>
+        /// <param name="curentName"></param>
+        /// <param name="newName"></param>
+        /// <returns></returns>
+        public static bool ChangePersonName(string curentName, string newName)
+        {
+            if (string.IsNullOrEmpty(curentName) || string.IsNullOrEmpty(newName)) return false;
+
+            var oldName = string.Copy(curentName);
+            // Получаем обьекты для работы
+            var dataBase = DataBaseLevel.GetInstance();
+            var person = DataBaseO.GetPersonLink(oldName);
+            // Если текущее имя совпадает с новым
+            if (person.Name == newName) return false;
+            // Пытаемся переименовать старое имя в новое
+            var isSuccess = dataBase.PersonEditName(person.Name, newName);
+            if (isSuccess)
+            {
+                var isRenamedOk = MyFile.TryRenameFile(person.PathToPhoto, newName);
+                if (isRenamedOk)
+                {
+                    DataBaseM.EditPathToPhoto(newName, newName);
+                }
+            }
+
+            return isSuccess;
         }
 
         #endregion

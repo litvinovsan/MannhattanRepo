@@ -33,8 +33,7 @@ namespace PersonsBase.View
 
             _saveDelegateChain += () =>
             {
-                if (string.IsNullOrEmpty(_editedName) || _person.Name == _editedName) return;
-                var isRenamed = _dataBase.PersonEditName(_person.Name, _editedName);
+                Logic.ChangePersonName(_person.Name, _editedName);
                 Logic.SetControlBackColor(textbox, _editedName, _person.Name);
             };
 
