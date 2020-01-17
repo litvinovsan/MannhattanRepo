@@ -17,7 +17,6 @@ namespace PersonsBase.View
         ///////////////// ОСНОВНЫЕ ОБЬЕКТЫ ////////////////////////////////
         private readonly Logic _logic;
         private readonly Person _person;
-        private readonly DataBaseLevel _dataBase = DataBaseLevel.GetInstance();
         private bool _isAnythingChanged;
 
         ///////////////// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ////////////////////////////////
@@ -582,7 +581,7 @@ namespace PersonsBase.View
         private void button_photo_Click(object sender, EventArgs e)
         {
             var success = Photo.OpenPhoto(out var img);
-            if (success) _person.PathToPhoto = Photo.SaveToPicturesFolder(img, _person.Name);
+            if (success) _person.PathToPhoto = Photo.SaveToPhotoDir(img, _person.Name);
         }
     }
 }

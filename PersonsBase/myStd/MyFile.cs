@@ -86,7 +86,7 @@ namespace PersonsBase.myStd
             }
             else
             {
-                var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.DataBaseFolderName + "\\";
+                var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase + "\\";
 
                 SaveToExcel(table, $"{currentPath}CписокКлиентов");
             }
@@ -236,9 +236,6 @@ namespace PersonsBase.myStd
         {
             return File.Exists(pathToFile);
         }
-        //  //Path.GetFileName(person.PathToPhoto);    
-        //    Функция проверки существования ПАПКИ
-        //    Функция переименования файла
 
         public static bool TryRenameFile(string pathOriginalFile, string newFileName)
         {
@@ -260,13 +257,12 @@ namespace PersonsBase.myStd
                 MessageBox.Show(@"Ошибка переименования Файла Фотографии Клиента.");
                 return false;
             }
+        }
 
-            //var oldFileName = Path.GetFileName(pathOriginalFile);
-            //var oldFilenameWoExt = Path.GetFileNameWithoutExtension(pathOriginalFile);
-            //var extention = Path.GetExtension(pathOriginalFile);
-            //var fpath = Path.GetPathRoot(pathOriginalFile);
-            //var a = Path.GetFullPath(pathOriginalFile);
-            //return false;
+        public static string[] GetFilesInFolder(string pathToFolder)
+        {
+            if (string.IsNullOrEmpty(pathToFolder) || string.IsNullOrWhiteSpace(pathToFolder)) return null;
+            return Directory.GetFiles(pathToFolder);
         }
 
         #endregion

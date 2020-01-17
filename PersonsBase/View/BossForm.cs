@@ -1,12 +1,5 @@
-﻿using PBase;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using PersonsBase.control;
 using PersonsBase.data;
@@ -18,7 +11,6 @@ namespace PersonsBase.View
     public partial class BossForm : Form
     {
         private Options _options;
-        private DataBaseLevel _dataBase;
         private readonly ManhattanInfo _manhattanInfo;
         private Employee _employee;
 
@@ -28,7 +20,7 @@ namespace PersonsBase.View
         {
             InitializeComponent();
             _options = Options.GetInstance();
-            _dataBase = DataBaseLevel.GetInstance();
+            DataBaseLevel.GetInstance();
             _manhattanInfo = DataBaseO.GetManhattanInfo();
         }
 
@@ -53,7 +45,8 @@ namespace PersonsBase.View
             MyListViewEx.AddNotes(listView_Admins, _manhattanInfo.Admins.Select(x => x.Name).ToList());
 
             // Заполнение вкладки Настроек
-            checkBox_Passp_Drive.Checked = Options.GetPasspDriveCheck();
+            checkBox_Passp_Drive.Checked = Options.GetInstance().GetPasspDriveCheck();
+            checkBox_SimpsonPhoto.Checked = Options.GetInstance().GetSimpsonState();
         }
         private void BossForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -248,7 +241,12 @@ namespace PersonsBase.View
 
         private void checkBox_Passp_Drive_CheckedChanged(object sender, EventArgs e)
         {
-            Options.SetPasspDriveIdCheck(checkBox_Passp_Drive.Checked);
+            Options.GetInstance().SetPasspDriveIdCheck(checkBox_Passp_Drive.Checked);
+        }
+
+        private void checkBox_SimpsonPhoto_CheckedChanged(object sender, EventArgs e)
+        {
+            Options.GetInstance().SetSimpsonState(checkBox_SimpsonPhoto.Checked);
         }
     }
 }

@@ -152,7 +152,7 @@ namespace PersonsBase.View
             var passportAndDriveStatus = (_dataStateOk.DriveId || _dataStateOk.Passport);
             var result = (_dataStateOk.Name) && (_dataStateOk.BDate) && (_dataStateOk.Gender) && (_dataStateOk.Phone);
 
-            if (Options.GetPasspDriveCheck()) result = result && passportAndDriveStatus;
+            if (Options.GetInstance().GetPasspDriveCheck()) result = result && passportAndDriveStatus;
 
             return result;
         }
@@ -303,8 +303,7 @@ namespace PersonsBase.View
         /// ОБРАБОТЧИКИ ///
         private void button_add_foto_Click(object sender, EventArgs e)
         {
-            Image img;
-            var success = Photo.OpenPhoto(out img);
+            var success = Photo.OpenPhoto(out var img);
 
             if (!success) return;
 
@@ -314,7 +313,7 @@ namespace PersonsBase.View
             }
             else
             {
-                _dataStruct.PathToPhoto = Photo.SaveToPicturesFolder(img, _dataStruct.Name);
+                _dataStruct.PathToPhoto = Photo.SaveToPhotoDir(img, _dataStruct.Name);
                 Logic.TryLoadPhoto(pictureBox_Client, _dataStruct.PathToPhoto);
             }
         }
@@ -326,10 +325,19 @@ namespace PersonsBase.View
                 ButtonAddEnable(false);
                 return;
             }
+
+            // Если разрешены фейковые фото и не присвоена реальная фотка
+            if (Options.GetInstance().GetSimpsonState() && string.IsNullOrEmpty(_dataStruct.PathToPhoto))
+            {
+                _dataStruct.PathToPhoto = Photo.GetRndPhoto(_dataStruct.Gender);
+            }
+
             var p = Logic.CreateNewPerson(_dataStruct);
             var result = DataBaseLevel.GetInstance().PersonAdd(p);
             if (result == ResponseCode.Success)
+            {
                 DialogResult = DialogResult.OK;
+            }
             else
             {
                 DataBaseM.ExplainResponse(result);

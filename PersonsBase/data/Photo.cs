@@ -2,6 +2,8 @@
 using System.IO;
 using System.Windows.Forms;
 using PersonsBase.myStd;
+using System;
+using System.Collections.Generic;
 
 namespace PersonsBase.data
 {
@@ -10,8 +12,9 @@ namespace PersonsBase.data
         // Конструктор
         public Photo()
         {
-            MyFile.CreateFolder(Options.UserPhotoFolderName);
+            MyFile.CreateFolder(Options.FolderNameUserPhoto);
         }
+
 
         /// <summary>
         /// Открыть файл с диалогом выбора
@@ -63,9 +66,15 @@ namespace PersonsBase.data
             return img;
         }
 
-        public static string SaveToPicturesFolder(Image inputImg, string fileName)
+        /// <summary>
+        /// Cохраняет копию изображения в папку с Клиентскими фотографиями. Возвращает путь до новой фотки
+        /// </summary>
+        /// <param name="inputImg"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static string SaveToPhotoDir(Image inputImg, string fileName)
         {
-            string pth = Directory.GetCurrentDirectory() + "\\" + Options.UserPhotoFolderName + "\\" + fileName?.Trim() + ".jpg";
+            var pth = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameUserPhoto + "\\" + fileName?.Trim() + ".jpg";
 
             if (inputImg == null) return "";
             var bmp = new Bitmap(inputImg);
@@ -93,7 +102,88 @@ namespace PersonsBase.data
         /// <returns></returns>
         public static string GetPathToPhotoDir()
         {
-            return Directory.GetCurrentDirectory() + "\\" + Options.UserPhotoFolderName + "\\";
+            return Directory.GetCurrentDirectory() + "\\" + Options.FolderNameUserPhoto + "\\";
         }
+
+        // FIXME. Можно хранить не полный путь к фотке клиента, а только Имя файла. А дальше искать в стандартных папках
+        public static string GetFullPathToPhoto(string personOrFileName)
+        {
+            return GetPathToPhotoDir() + personOrFileName + ".jpg";
+        }
+
+        #region /// Генератор случайных фото
+
+        // 12
+        private static readonly Dictionary<int, string> MaleFileNames = new Dictionary<int, string>
+        {
+            {1, "Апу Нахасапима.jpg"},
+            {2, "Бёрнс Монтгомери.jpg"},
+            {3,"Гомер Симпсон.jpg" },
+            {4,"Директор Скиннер.jpg" },
+            {5,"Кент Брокман.jpg" },
+            {6,"КлоунКрасти.jpg" },
+            {7,"Садовник Вилли.jpg" },
+            {8,"Симпсон Барт.jpg" },
+            {9,"Симпсон Эйбрахам.jpg" },
+            {10,"Скиннер Сеймур.jpeg" },
+            {11,"Трактирщик Мо.jpg" },
+            {12,"Фландерс Нед.jpg" },
+            {13,"Джаспер Бердли.jpg" },
+            {14,"Ленни Леонард.jpg" }
+        };
+        // 6
+        private static readonly Dictionary<int, string> FeMaleFileNames = new Dictionary<int, string>
+        {
+            {1, "АникаВанХуттен.png"},
+            {2, "СельмаБульве.png"},
+            {3,"Симпсон Мардж.jpg" },
+            {4,"Симспон Лиза.jpg" },
+            {5,"Эдна Крабапл.jpg" },
+            {6,"КлоунКрасти.jpg" },
+            {7,"Терри Макльберри.jpg" },
+            {8,"Элизабет Гувер.jpg" },
+            {9,"Симспон Лиза язык.jpg" },
+            {10,"Дженни.png" }
+
+        };
+        /// <summary>
+        /// Возвращает путь до Симпсон фотки. Выбирает рандомно в зависимости от Пола и Возраста
+        /// </summary>
+        /// <param name="gender"></param>
+        /// <returns></returns>
+        public static string GetRndPhoto(Gender gender)
+        {
+            var random = new Random(DateTime.Now.Millisecond);
+
+            string name;
+
+            switch (gender)
+            {
+                case Gender.Мужской:
+                    {
+                        var index = random.Next(1, MaleFileNames.Count);
+                        name = MaleFileNames[index];
+                        break;
+                    }
+                case Gender.Женский:
+                    {
+                        var index = random.Next(1, FeMaleFileNames.Count);
+                        name = FeMaleFileNames[index];
+                        break;
+                    }
+                default:
+                    {
+                        var index = random.Next(1, 12);
+                        name = MaleFileNames[index];
+                        break;
+                    }
+
+            }
+            var path = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameStdPhoto + "\\" + name;
+
+            return path;
+        }
+        #endregion
+
     }
 }

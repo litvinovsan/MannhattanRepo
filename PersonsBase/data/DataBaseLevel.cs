@@ -164,8 +164,8 @@ namespace PersonsBase.data
         /// </summary>
         public void SerializeObjects()
         {
-            MyFile.CreateFolder(Options.DataBaseFolderName);
-            var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.DataBaseFolderName;
+            MyFile.CreateFolder(Options.FolderNameDataBase);
+            var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase;
 
             lock (Locker)
             {
@@ -187,8 +187,8 @@ namespace PersonsBase.data
         /// </summary>
         public void DeSerializeObjects()
         {
-            MyFile.CreateFolder(Options.DataBaseFolderName);
-            var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.DataBaseFolderName;
+            MyFile.CreateFolder(Options.FolderNameDataBase);
+            var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase;
 
             lock (Locker)
             {

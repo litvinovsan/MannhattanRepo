@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using DocumentFormat.OpenXml.Drawing;
 
 namespace PersonsBase.data
 {
@@ -15,22 +13,20 @@ namespace PersonsBase.data
         }
         #endregion
 
-        #region///  События //////
-
-        #endregion
-
         #region/// ОБЬЕКТЫ Приватные ////
 
         [NonSerialized]
         private static Options _optionsInstance;  //Singleton.
 
-        private static bool _checkPasspDrivEnbld;
+        private bool _checkPasspDrivEnbld;
+        private bool _simpsonsPhotoAllowed;
         #endregion
 
         #region /// КОНСТРУКТОР ////
         private Options()
         {
-            _checkPasspDrivEnbld = true;
+          //  _checkPasspDrivEnbld = true;
+          //  _simpsonsPhotoAllowed = true;
         }
         #endregion
 
@@ -40,7 +36,7 @@ namespace PersonsBase.data
         /// Разрешает проверку Пасспорта и Прав при создании нового Клиента. TRUE - Проверка будет производиться
         /// </summary>
         /// <param name="val"></param>
-        public static void SetPasspDriveIdCheck(bool val)
+        public void SetPasspDriveIdCheck(bool val)
         {
             _checkPasspDrivEnbld = val;
         }
@@ -50,12 +46,31 @@ namespace PersonsBase.data
         /// Автоматически в классе CreatePersonForm
         /// </summary>
         /// <returns></returns>
-        public static bool GetPasspDriveCheck()
+        public bool GetPasspDriveCheck()
         {
             return _checkPasspDrivEnbld;
         }
 
+        /// <summary>
+        /// Разрешает рандомное присвоение фоток из Симпсонов если не выбрана Настоящая фотография
+        /// при создании нового Клиента. TRUE - Симсон фото будет присвоено.
+        /// </summary>
+        /// <param name="val"></param>
+        public void SetSimpsonState(bool val)
+        {
+            _simpsonsPhotoAllowed = val;
+        }
+        /// <summary>
+        /// Статус рандомного присвоение фоток из Симпсонов если не выбрана Настоящая фотография
+        /// при создании нового Клиента. TRUE - Симсон фото будет присвоено.
+        /// </summary>
+        public bool GetSimpsonState()
+        {
+            return _simpsonsPhotoAllowed;
+        }
+
         #endregion
+
         #region/// ИМЕНА ФАЙЛОВ и АДРЕСА ДИРЕКТОРИЙ///
 
         // Файлы базы данных для сериализации
@@ -65,9 +80,11 @@ namespace PersonsBase.data
         public const string AdminCurrFile = "AdminToday.bin";
         public const string GroupSchFile = "GroupSchedule.bin";
 
-        // Сохранение пользовательских фоток
-        public const string UserPhotoFolderName = "UsersPhoto";
-        public const string DataBaseFolderName = "DataBase";
+        // Названия ПАПОК
+        public const string FolderNameUserPhoto = "UsersPhoto";
+        public const string FolderNameDataBase = "DataBase";
+        public const string FolderNameStdPhoto = "StandartPhotos";
+
 
         #endregion
 
