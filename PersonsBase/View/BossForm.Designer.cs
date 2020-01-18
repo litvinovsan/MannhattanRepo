@@ -472,7 +472,6 @@
             this.maskedTextBox_phone.Name = "maskedTextBox_phone";
             this.maskedTextBox_phone.Size = new System.Drawing.Size(254, 23);
             this.maskedTextBox_phone.TabIndex = 0;
-            this.maskedTextBox_phone.TextChanged += new System.EventHandler(this.maskedTextBox_phone_TextChanged);
             // 
             // groupBox7
             // 

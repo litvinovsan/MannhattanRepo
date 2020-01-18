@@ -4,70 +4,29 @@ namespace PersonsBase.data
 {
     /// Хранятся настройки приложения, а так же общие структуры, списки,и прочие данные.
     [Serializable]
-    public class Options
+    public static class Options
     {
-        #region/// Синглтон /////
-        public static Options GetInstance()
+        #region/// ОБЬЕКТЫ  ////
+
+        private static bool _checkPasspAndDriveId;
+        private static bool _simpsonsPhoto;
+
+        public static bool SimpsonsPhoto
         {
-            return _optionsInstance ?? (_optionsInstance = new Options());
-        }
-        #endregion
-
-        #region/// ОБЬЕКТЫ Приватные ////
-
-        [NonSerialized]
-        private static Options _optionsInstance;  //Singleton.
-
-        private bool _checkPasspDrivEnbld;
-        private bool _simpsonsPhotoAllowed;
-        #endregion
-
-        #region /// КОНСТРУКТОР ////
-        private Options()
-        {
-          //  _checkPasspDrivEnbld = true;
-          //  _simpsonsPhotoAllowed = true;
-        }
-        #endregion
-
-        #region /// МЕТОДЫ ИНИЦИАЛИЗАЦИИ и НАСТРОЙКИ ОПЦИЙ ///
-
-        /// <summary>
-        /// Разрешает проверку Пасспорта и Прав при создании нового Клиента. TRUE - Проверка будет производиться
-        /// </summary>
-        /// <param name="val"></param>
-        public void SetPasspDriveIdCheck(bool val)
-        {
-            _checkPasspDrivEnbld = val;
+            get { return _simpsonsPhoto; }
+            set { _simpsonsPhoto = value; }
         }
 
-        /// <summary>
-        /// Возвращает состояние  Разрешена ли проверка паспорта и прав во время Создания клиента. Запрет проверки будет производиться
-        /// Автоматически в классе CreatePersonForm
-        /// </summary>
-        /// <returns></returns>
-        public bool GetPasspDriveCheck()
+        public static bool CheckPasspAndDriveId
         {
-            return _checkPasspDrivEnbld;
+            get { return _checkPasspAndDriveId; }
+            set
+            {
+                _checkPasspAndDriveId = value;
+            }
         }
 
-        /// <summary>
-        /// Разрешает рандомное присвоение фоток из Симпсонов если не выбрана Настоящая фотография
-        /// при создании нового Клиента. TRUE - Симсон фото будет присвоено.
-        /// </summary>
-        /// <param name="val"></param>
-        public void SetSimpsonState(bool val)
-        {
-            _simpsonsPhotoAllowed = val;
-        }
-        /// <summary>
-        /// Статус рандомного присвоение фоток из Симпсонов если не выбрана Настоящая фотография
-        /// при создании нового Клиента. TRUE - Симсон фото будет присвоено.
-        /// </summary>
-        public bool GetSimpsonState()
-        {
-            return _simpsonsPhotoAllowed;
-        }
+
 
         #endregion
 
@@ -90,10 +49,12 @@ namespace PersonsBase.data
 
         #region /// Разные текстовые и около того данные
         // Число тренировок для покупки
-        public readonly object[] NumAvailTrenToBuy = { "1", "5", "10" };
+        public static readonly object[] NumAvailTrenToBuy = { "1", "5", "10" };
         public static readonly string CorrectPassword = "1234";
 
         #endregion
+
+
     }
 }
 // FIXME сохранять текущую дату. При запуске программы смотреть изменилась ли дата и если да, обнулять/загружать данные в списки на главной страничке

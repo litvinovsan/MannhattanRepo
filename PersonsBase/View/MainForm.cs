@@ -27,7 +27,6 @@ namespace PersonsBase.View
         private readonly Dictionary<TypeWorkout, MyListViewDelegate>
             _visitorsListViewSelector; // Для заполнения 1 из 3х списков с Клиентами
 
-        private Options _options; // Хранятся локальные настройки и параметры программы.
         private readonly Logic _logic; // Логика и управляющие методы программы.
         private readonly Timer _time = new Timer();
         private int _totalPersonToday;
@@ -39,7 +38,6 @@ namespace PersonsBase.View
         public MainForm()
         {
             InitializeComponent();
-            _options = Options.GetInstance();
             _logic = Logic.GetInstance();
 
             // В зависимости от типа тренировки запускаются разные методы записи в один из трех столбцов
@@ -53,8 +51,6 @@ namespace PersonsBase.View
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            SerializeClass.DeSerialize(ref _options, "Option.bin");
-
             // Подписка на события в пользовательской Базе Данных
             _dataB.ListChangedEvent += UpdateFindComboBoxMenu; // Список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
             _dataB.ListChangedEvent += UpdateUsersCountTextBox; // Счетчик пользователей
@@ -82,10 +78,8 @@ namespace PersonsBase.View
         {
             // Автоматическое Сохранение в Excel всей базы на всякий случай
             MyFile.ExportToExcel(DataBaseM.CreatePersonsTable(), false);
-            // Сохраняем настройки. 
-            SerializeClass.Serialize(_options, "Option.bin");
-
-            if (MessageBox.Show(@"Вы хотите закрыть приложение?", @"Вопрос", MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.No)
+            
+            if (MessageBox.Show(@"Вы хотите закрыть приложение?", @"Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
                 e.Cancel = true;
             }

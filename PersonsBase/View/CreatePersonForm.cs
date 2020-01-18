@@ -152,7 +152,7 @@ namespace PersonsBase.View
             var passportAndDriveStatus = (_dataStateOk.DriveId || _dataStateOk.Passport);
             var result = (_dataStateOk.Name) && (_dataStateOk.BDate) && (_dataStateOk.Gender) && (_dataStateOk.Phone);
 
-            if (Options.GetInstance().GetPasspDriveCheck()) result = result && passportAndDriveStatus;
+            if (Options.CheckPasspAndDriveId) result = result && passportAndDriveStatus;
 
             return result;
         }
@@ -327,7 +327,7 @@ namespace PersonsBase.View
             }
 
             // Если разрешены фейковые фото и не присвоена реальная фотка
-            if (Options.GetInstance().GetSimpsonState() && string.IsNullOrEmpty(_dataStruct.PathToPhoto))
+            if (Options.SimpsonsPhoto && string.IsNullOrEmpty(_dataStruct.PathToPhoto))
             {
                 _dataStruct.PathToPhoto = Photo.GetRndPhoto(_dataStruct.Gender);
             }

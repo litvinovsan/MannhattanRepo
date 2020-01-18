@@ -10,7 +10,6 @@ namespace PersonsBase.View
 
     public partial class BossForm : Form
     {
-        private Options _options;
         private readonly ManhattanInfo _manhattanInfo;
         private Employee _employee;
 
@@ -19,7 +18,6 @@ namespace PersonsBase.View
         public BossForm()
         {
             InitializeComponent();
-            _options = Options.GetInstance();
             DataBaseLevel.GetInstance();
             _manhattanInfo = DataBaseO.GetManhattanInfo();
         }
@@ -45,8 +43,8 @@ namespace PersonsBase.View
             MyListViewEx.AddNotes(listView_Admins, _manhattanInfo.Admins.Select(x => x.Name).ToList());
 
             // Заполнение вкладки Настроек
-            checkBox_Passp_Drive.Checked = Options.GetInstance().GetPasspDriveCheck();
-            checkBox_SimpsonPhoto.Checked = Options.GetInstance().GetSimpsonState();
+            checkBox_Passp_Drive.Checked = Options.CheckPasspAndDriveId;
+            checkBox_SimpsonPhoto.Checked = Options.SimpsonsPhoto;
         }
         private void BossForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -67,7 +65,7 @@ namespace PersonsBase.View
         {
             if (string.IsNullOrEmpty(textBox_nameTren.Text))
             {
-                MessageBox.Show("Введите Название!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(@"Введите Название!", @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -112,7 +110,7 @@ namespace PersonsBase.View
             // Входная проверка
             if (string.IsNullOrEmpty(textBox_FiO.Text) || string.IsNullOrWhiteSpace(textBox_FiO.Text))
             {
-                MessageBox.Show("Введите Имя работника", "Не корректные данные", MessageBoxButtons.OK, MessageBoxIcon.None);
+                MessageBox.Show(@"Введите Имя работника", @"Не корректные данные", MessageBoxButtons.OK, MessageBoxIcon.None);
                 return;
             }
 
@@ -125,13 +123,6 @@ namespace PersonsBase.View
             var lv = empl.IsTrener ? listView_Tren : listView_Admins;
             // Добавляем в список
             MyListViewEx.AddNote(lv, empl.Name);
-        }
-
-        private void maskedTextBox_phone_TextChanged(object sender, EventArgs e)
-        {
-            //var tb = (MaskedTextBox)sender;
-            //_editedPhone = tb.Text;
-            //  Methods.SetControlBackColor(tb, _editedPhone, _person.Phone);
         }
 
         private void listView_Tren_SelectedIndexChanged(object sender, EventArgs e)
@@ -241,12 +232,12 @@ namespace PersonsBase.View
 
         private void checkBox_Passp_Drive_CheckedChanged(object sender, EventArgs e)
         {
-            Options.GetInstance().SetPasspDriveIdCheck(checkBox_Passp_Drive.Checked);
+            Options.CheckPasspAndDriveId = checkBox_Passp_Drive.Checked;
         }
 
         private void checkBox_SimpsonPhoto_CheckedChanged(object sender, EventArgs e)
         {
-            Options.GetInstance().SetSimpsonState(checkBox_SimpsonPhoto.Checked);
+            Options.SimpsonsPhoto = checkBox_SimpsonPhoto.Checked;
         }
     }
 }

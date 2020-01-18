@@ -19,7 +19,7 @@ namespace PersonsBase.View
             _selectedValue = 1;
             _selectedTypeWorkout = TypeWorkout.Персональная;
 
-            var numAvailTrenToBuy = Options.GetInstance().NumAvailTrenToBuy;
+            var numAvailTrenToBuy = Options.NumAvailTrenToBuy;
             comboBox_num.Items.AddRange(numAvailTrenToBuy); // 1,5,10 тренировок
             comboBox_num.SelectedItem = numAvailTrenToBuy[0];
         }
