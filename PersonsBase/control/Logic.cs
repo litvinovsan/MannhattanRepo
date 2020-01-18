@@ -37,7 +37,7 @@ namespace PersonsBase.control
 
         // Клиент Отметился на тренировке
         [field: NonSerialized] public event Action<string, WorkoutOptions> VisitEvent;
-        private void OnVisitChanged(string personName, WorkoutOptions workout)
+        private void OnNewVisit(string personName, WorkoutOptions workout)
         {
             VisitEvent?.Invoke(personName, workout);
         }
@@ -472,6 +472,12 @@ namespace PersonsBase.control
             return false;
         }
 
+        /// <summary>
+        /// Отметить посещение. Запускается логика из текущего абонемента, а так же запускается событие для добавления
+        /// в списки на главной форме
+        /// </summary>
+        /// <param name="personName"></param>
+        /// <returns></returns>
         public bool CheckInWorkout(string personName)
         {
             var person = DataBaseO.GetPersonLink(personName);
@@ -519,7 +525,8 @@ namespace PersonsBase.control
 
             Visit.AddVisit2Journal(person, selectedOptions);
 
-            OnVisitChanged(personName, selectedOptions);
+            // Cобытие для добавления текущего посещения на главную форму
+            OnNewVisit(personName, selectedOptions);
 
             IsAbonementValid(ref person);
             return true;

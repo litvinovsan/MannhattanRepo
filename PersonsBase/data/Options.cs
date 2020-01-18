@@ -30,6 +30,7 @@ namespace PersonsBase.data
         {
             Properties.Settings.Default.SimpsonMode = SimpsonsPhoto;
             Properties.Settings.Default.PassAndDriveIdCheck = CheckPasspAndDriveId;
+            Properties.Settings.Default.curentDate = DateTime.Now.Date.ToString("MM/dd/yyyy");
 
             Properties.Settings.Default.Save();
         }

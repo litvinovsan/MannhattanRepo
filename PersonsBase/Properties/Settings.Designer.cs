@@ -46,5 +46,17 @@ namespace PersonsBase.Properties {
                 this["PassAndDriveIdCheck"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string curentDate {
+            get {
+                return ((string)(this["curentDate"]));
+            }
+            set {
+                this["curentDate"] = value;
+            }
+        }
     }
 }

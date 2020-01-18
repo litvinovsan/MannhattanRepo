@@ -79,6 +79,7 @@ namespace PersonsBase.View
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+
             // Сохранение пользовательских настроек
             Options.SaveProperties();
 
