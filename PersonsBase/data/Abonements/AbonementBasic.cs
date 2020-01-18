@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using PBase;
 
 namespace PersonsBase.data.Abonements
 {
@@ -74,6 +73,8 @@ namespace PersonsBase.data.Abonements
         /// Активация абонемента. Устанавливается дата окончания.
         /// </summary>
         public abstract void TryActivate();
+        public abstract void TryActivate(DateTime startDate);
+
         /// <summary>
         /// Отметить и Учесть посещение в абонементе
         /// </summary>
@@ -84,6 +85,7 @@ namespace PersonsBase.data.Abonements
         public abstract bool AddTrainingsToAbon(TypeWorkout type, int numberToAdd);
         public abstract List<Tuple<string, string>> GetShortInfoList();
         /// <summary>
+        /// Получить оставшиеся в абонементе дни
         /// Получить оставшиеся в абонементе дни
         /// </summary>
         /// <returns></returns>

@@ -45,6 +45,21 @@ namespace PersonsBase.data.Abonements
                 EndDate = date;
         }
 
+        public override void TryActivate(DateTime startDate)
+        {
+            // Если +, то DateTime.Now позднее startDate
+            // Если 0, то даты совпали
+            // Если -, то DateTime.Now раньше startdate
+            if (DateTime.Now.Date.CompareTo(startDate) < 0) return;
+
+            if (IsActivated) return; // Уже Активирован.
+            IsActivated = true;
+
+            var date = startDate.AddMonths(ValidityPeriod).Date;
+            if (EndDate.Date.CompareTo(date) != 0)
+                EndDate = date;
+        }
+
         public override bool CheckInWorkout(TypeWorkout type)
         {
             bool result = false;

@@ -41,6 +41,11 @@ namespace PersonsBase.data.Abonements
             EndDate = DateTime.Now.Date;
         }
 
+        public override void TryActivate(DateTime startDate)
+        {
+            // заглушка. Тут это не надо
+        }
+
         public override bool CheckInWorkout(TypeWorkout type)
         {
             if (DaysLeft <= 0) return false;

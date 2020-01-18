@@ -58,11 +58,10 @@ namespace PersonsBase.View
             var result = DialogResult.Cancel;
             using (var form = new AbonementForm(personName))
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    form.ApplyChanges();
-                    result = DialogResult.OK;
-                }
+                if (form.ShowDialog() != DialogResult.OK) return result;
+
+                form.ApplyChanges();
+                result = DialogResult.OK;
             }
             return result;
         }

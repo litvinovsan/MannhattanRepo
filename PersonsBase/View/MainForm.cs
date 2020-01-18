@@ -85,7 +85,7 @@ namespace PersonsBase.View
             // Автоматическое Сохранение в Excel всей базы на всякий случай
             MyFile.ExportToExcel(DataBaseM.CreatePersonsTable(), false);
 
-            if (MessageBox.Show(@"Вы хотите закрыть приложение?", @"Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            if (MessageBox.Show(@"Вы хотите закрыть приложение?", @"Завершение работы", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
                 e.Cancel = true;
             }

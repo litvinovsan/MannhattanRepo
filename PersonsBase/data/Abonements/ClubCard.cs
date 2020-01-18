@@ -40,7 +40,6 @@ namespace PersonsBase.data.Abonements
                 _periodAbonem = value;
                 _numberMonths = (int)_periodAbonem;
                 _numAerobicTr = _numberMonths * 10;
-                SetNewEndDate();
             }
         }
 
@@ -82,11 +81,24 @@ namespace PersonsBase.data.Abonements
             return checkDate;
         }
 
+        /// <summary>
+        /// Стандартная активация. Изменяет Дату окончания основываясь на сегодняшнем текущем числе.
+        /// </summary>
         public override void TryActivate()
         {
             if (IsActivated) return; // Уже Активирован.
             IsActivated = true;
             SetNewEndDate();
+        }
+        /// <summary>
+        /// Для абонементов которые на половину исхожены. Позволяет установить дату активации в прошлом и пересчитать
+        /// дату окончания.
+        /// </summary>
+        public override void TryActivate(DateTime dateInPast)
+        {
+            if (IsActivated) return; // Уже Активирован.
+            IsActivated = true;
+            SetNewEndDate(dateInPast);
         }
 
         public override bool CheckInWorkout(TypeWorkout type)
@@ -198,6 +210,17 @@ namespace PersonsBase.data.Abonements
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
         }
+        private void SetNewEndDate(DateTime startDate)
+        {
+            // Если +, то DateTime.Now позднее startDate
+            // Если 0, то даты совпали
+            // Если -, то DateTime.Now раньше startdate
+            if (DateTime.Now.Date.CompareTo(startDate) < 0) return;
+
+            var date = startDate.AddMonths(_numberMonths).Date;
+            if (EndDate.Date.CompareTo(date) != 0)
+                EndDate = date;
+        }
 
         public PeriodClubCard GetTypeClubCard()
         {
@@ -207,6 +230,7 @@ namespace PersonsBase.data.Abonements
         public void SetTypeClubCard(PeriodClubCard newTypeCc)
         {
             PeriodAbonem = newTypeCc;
+            SetNewEndDate();
         }
     }
 }

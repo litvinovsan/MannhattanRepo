@@ -21,7 +21,7 @@ namespace PersonsBase.View
         private TimeForTr _timeTren;
         private SpaService _spa;
         private Pay _pay;
-
+        private DateTime defaultForActivation = new DateTime(2020, 1, 1);
 
         ///////////////// КОНСТРУКТОР. МЕТОДЫ ////////////////////////////////
         public AbonementForm(string nameKey)
@@ -107,6 +107,10 @@ namespace PersonsBase.View
             comboBox_ClubCard.Items.AddRange(Enum.GetNames(typeof(PeriodClubCard)).ToArray<object>()); // Записываем Поля в Комбобокс
             comboBox_ClubCard.SelectedItem = _periodClubCard.ToString();                    // Выбор по умолчанию
             comboBox_ClubCard.SelectedIndexChanged += ComboBox_ClubCard_SelectedIndexChanged;
+
+            // Дата Активации
+            dateTimePicker1.Value = defaultForActivation;
+            dateTimePicker1.MinDate = new DateTime(2019, 1, 1);
         }
 
         public void ApplyChanges()
@@ -128,6 +132,13 @@ namespace PersonsBase.View
                         _person.AbonementCurent = new SingleVisit(_typeWorkout, _spa, _pay, _timeTren);
                         break;
                     }
+            }
+            // Если введена дата Активации в прошлом
+            if ((_person.AbonementCurent.AbonementName != SingleVisit.NameAbonement) &&
+                checkBox_Activated.Checked &&
+                dateTimePicker1.Value.Date.CompareTo(defaultForActivation.Date) != 0)
+            {
+                _person.AbonementCurent.TryActivate(dateTimePicker1.Value);
             }
         }
 
@@ -238,16 +249,21 @@ namespace PersonsBase.View
         {
             if (radioButton_Abonement.Checked && _daysInAbon == 0)
             {
-                MessageBox.Show(@"Выберите Количество посещений!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show(@"Выберите Количество посещений!", @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
             if (radioButton_ClubCard.Checked && _periodClubCard == 0)
             {
-                MessageBox.Show(@"Выберите Длительность Клубной Карты!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show(@"Выберите Длительность Клубной Карты!", @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
 
             }
             DialogResult = DialogResult.OK;// Cancel;
+        }
+
+        private void checkBox_Activated_CheckedChanged(object sender, EventArgs e)
+        {
+            dateTimePicker1.Enabled = checkBox_Activated.Checked;
         }
     }
 }
