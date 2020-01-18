@@ -26,7 +26,21 @@ namespace PersonsBase.data
             }
         }
 
+        public static void SaveProperties()
+        {
+            Properties.Settings.Default.SimpsonMode = SimpsonsPhoto;
+            Properties.Settings.Default.PassAndDriveIdCheck = CheckPasspAndDriveId;
 
+            Properties.Settings.Default.Save();
+        }
+
+        public static void LoadProperties()
+        {
+            Properties.Settings.Default.Reload();
+
+            SimpsonsPhoto = Properties.Settings.Default.SimpsonMode;
+            CheckPasspAndDriveId = Properties.Settings.Default.PassAndDriveIdCheck;
+        }
 
         #endregion
 

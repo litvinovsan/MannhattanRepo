@@ -40,6 +40,9 @@ namespace PersonsBase.View
             InitializeComponent();
             _logic = Logic.GetInstance();
 
+            // Загрузка пользовательских настроек
+            Options.LoadProperties();
+
             // В зависимости от типа тренировки запускаются разные методы записи в один из трех столбцов
             _visitorsListViewSelector = new Dictionary<TypeWorkout, MyListViewDelegate>
             {
@@ -76,9 +79,12 @@ namespace PersonsBase.View
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // Сохранение пользовательских настроек
+            Options.SaveProperties();
+
             // Автоматическое Сохранение в Excel всей базы на всякий случай
             MyFile.ExportToExcel(DataBaseM.CreatePersonsTable(), false);
-            
+
             if (MessageBox.Show(@"Вы хотите закрыть приложение?", @"Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
                 e.Cancel = true;
