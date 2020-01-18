@@ -45,6 +45,9 @@ namespace PersonsBase.View
             this.radioButton_Single = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.checkBox_Activated = new System.Windows.Forms.CheckBox();
             this.panel_TypeTren = new System.Windows.Forms.Panel();
             this.comboBox_TypeTren = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -58,9 +61,6 @@ namespace PersonsBase.View
             this.label5 = new System.Windows.Forms.Label();
             this.comboBox_Pay = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBox_Activated = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -68,12 +68,12 @@ namespace PersonsBase.View
             this.panel_ClubCardType.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.panel_TypeTren.SuspendLayout();
             this.panel_Spa.SuspendLayout();
             this.panel_TimeTren.SuspendLayout();
             this.panel_PayStatus.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -86,7 +86,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel1.Controls.Add(this.button_Aplly, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.button2_Cancel, 1, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(9, 477);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -97,7 +97,7 @@ namespace PersonsBase.View
             // 
             this.button_Aplly.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_Aplly.Location = new System.Drawing.Point(2, 2);
-            this.button_Aplly.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_Aplly.Margin = new System.Windows.Forms.Padding(2);
             this.button_Aplly.Name = "button_Aplly";
             this.button_Aplly.Size = new System.Drawing.Size(192, 28);
             this.button_Aplly.TabIndex = 0;
@@ -110,7 +110,7 @@ namespace PersonsBase.View
             this.button2_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button2_Cancel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button2_Cancel.Location = new System.Drawing.Point(198, 2);
-            this.button2_Cancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.button2_Cancel.Name = "button2_Cancel";
             this.button2_Cancel.Size = new System.Drawing.Size(192, 28);
             this.button2_Cancel.TabIndex = 1;
@@ -122,9 +122,9 @@ namespace PersonsBase.View
             // 
             this.groupBox3.Controls.Add(this.tableLayoutPanel2);
             this.groupBox3.Location = new System.Drawing.Point(2, 2);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox3.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.groupBox3.Size = new System.Drawing.Size(367, 128);
             this.groupBox3.TabIndex = 7;
@@ -142,7 +142,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel2.Controls.Add(this.radioButton_Single, 1, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(2, 15);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
@@ -158,7 +158,7 @@ namespace PersonsBase.View
             this.panel_AbonType.Controls.Add(this.radioButton_Abonement);
             this.panel_AbonType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_AbonType.Location = new System.Drawing.Point(54, 2);
-            this.panel_AbonType.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel_AbonType.Margin = new System.Windows.Forms.Padding(2);
             this.panel_AbonType.Name = "panel_AbonType";
             this.panel_AbonType.Size = new System.Drawing.Size(307, 33);
             this.panel_AbonType.TabIndex = 7;
@@ -169,7 +169,7 @@ namespace PersonsBase.View
             this.comboBox_Abonem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox_Abonem.FormattingEnabled = true;
             this.comboBox_Abonem.Location = new System.Drawing.Point(130, 5);
-            this.comboBox_Abonem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox_Abonem.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_Abonem.Name = "comboBox_Abonem";
             this.comboBox_Abonem.Size = new System.Drawing.Size(155, 24);
             this.comboBox_Abonem.TabIndex = 3;
@@ -180,7 +180,7 @@ namespace PersonsBase.View
             this.radioButton_Abonement.Dock = System.Windows.Forms.DockStyle.Left;
             this.radioButton_Abonement.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.radioButton_Abonement.Location = new System.Drawing.Point(0, 0);
-            this.radioButton_Abonement.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.radioButton_Abonement.Margin = new System.Windows.Forms.Padding(2);
             this.radioButton_Abonement.Name = "radioButton_Abonement";
             this.radioButton_Abonement.Size = new System.Drawing.Size(99, 33);
             this.radioButton_Abonement.TabIndex = 1;
@@ -194,7 +194,7 @@ namespace PersonsBase.View
             this.panel_ClubCardType.Controls.Add(this.comboBox_ClubCard);
             this.panel_ClubCardType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_ClubCardType.Location = new System.Drawing.Point(54, 39);
-            this.panel_ClubCardType.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel_ClubCardType.Margin = new System.Windows.Forms.Padding(2);
             this.panel_ClubCardType.Name = "panel_ClubCardType";
             this.panel_ClubCardType.Size = new System.Drawing.Size(307, 33);
             this.panel_ClubCardType.TabIndex = 7;
@@ -205,7 +205,7 @@ namespace PersonsBase.View
             this.radioButton_ClubCard.Dock = System.Windows.Forms.DockStyle.Left;
             this.radioButton_ClubCard.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.radioButton_ClubCard.Location = new System.Drawing.Point(0, 0);
-            this.radioButton_ClubCard.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.radioButton_ClubCard.Margin = new System.Windows.Forms.Padding(2);
             this.radioButton_ClubCard.Name = "radioButton_ClubCard";
             this.radioButton_ClubCard.Size = new System.Drawing.Size(126, 33);
             this.radioButton_ClubCard.TabIndex = 0;
@@ -220,7 +220,7 @@ namespace PersonsBase.View
             this.comboBox_ClubCard.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox_ClubCard.FormattingEnabled = true;
             this.comboBox_ClubCard.Location = new System.Drawing.Point(130, 6);
-            this.comboBox_ClubCard.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox_ClubCard.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_ClubCard.Name = "comboBox_ClubCard";
             this.comboBox_ClubCard.Size = new System.Drawing.Size(155, 24);
             this.comboBox_ClubCard.TabIndex = 3;
@@ -232,7 +232,7 @@ namespace PersonsBase.View
             this.radioButton_Single.Dock = System.Windows.Forms.DockStyle.Left;
             this.radioButton_Single.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.radioButton_Single.Location = new System.Drawing.Point(54, 76);
-            this.radioButton_Single.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.radioButton_Single.Margin = new System.Windows.Forms.Padding(2);
             this.radioButton_Single.Name = "radioButton_Single";
             this.radioButton_Single.Size = new System.Drawing.Size(159, 33);
             this.radioButton_Single.TabIndex = 2;
@@ -244,9 +244,9 @@ namespace PersonsBase.View
             // 
             this.groupBox4.Controls.Add(this.tableLayoutPanel3);
             this.groupBox4.Location = new System.Drawing.Point(2, 134);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox4.Size = new System.Drawing.Size(367, 328);
             this.groupBox4.TabIndex = 8;
             this.groupBox4.TabStop = false;
@@ -264,7 +264,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel3.Controls.Add(this.panel_TimeTren, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.panel_PayStatus, 1, 8);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(4, 17);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 11;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -282,6 +282,40 @@ namespace PersonsBase.View
             this.tableLayoutPanel3.Size = new System.Drawing.Size(357, 307);
             this.tableLayoutPanel3.TabIndex = 6;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.dateTimePicker1);
+            this.groupBox1.Controls.Add(this.checkBox_Activated);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox1.Location = new System.Drawing.Point(51, 209);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(284, 98);
+            this.groupBox1.TabIndex = 10;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Для старых Абонементов";
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker1.Enabled = false;
+            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dateTimePicker1.Location = new System.Drawing.Point(7, 61);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(271, 26);
+            this.dateTimePicker1.TabIndex = 11;
+            // 
+            // checkBox_Activated
+            // 
+            this.checkBox_Activated.AutoSize = true;
+            this.checkBox_Activated.Location = new System.Drawing.Point(7, 22);
+            this.checkBox_Activated.Name = "checkBox_Activated";
+            this.checkBox_Activated.Size = new System.Drawing.Size(179, 20);
+            this.checkBox_Activated.TabIndex = 0;
+            this.checkBox_Activated.Text = "Если уже Активирован";
+            this.checkBox_Activated.UseVisualStyleBackColor = true;
+            this.checkBox_Activated.CheckedChanged += new System.EventHandler(this.checkBox_Activated_CheckedChanged);
+            // 
             // panel_TypeTren
             // 
             this.panel_TypeTren.AutoSize = true;
@@ -289,7 +323,7 @@ namespace PersonsBase.View
             this.panel_TypeTren.Controls.Add(this.label2);
             this.panel_TypeTren.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_TypeTren.Location = new System.Drawing.Point(50, 2);
-            this.panel_TypeTren.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel_TypeTren.Margin = new System.Windows.Forms.Padding(2);
             this.panel_TypeTren.Name = "panel_TypeTren";
             this.panel_TypeTren.Size = new System.Drawing.Size(305, 50);
             this.panel_TypeTren.TabIndex = 7;
@@ -301,7 +335,7 @@ namespace PersonsBase.View
             this.comboBox_TypeTren.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox_TypeTren.FormattingEnabled = true;
             this.comboBox_TypeTren.Location = new System.Drawing.Point(2, 24);
-            this.comboBox_TypeTren.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox_TypeTren.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_TypeTren.Name = "comboBox_TypeTren";
             this.comboBox_TypeTren.Size = new System.Drawing.Size(284, 24);
             this.comboBox_TypeTren.TabIndex = 3;
@@ -323,8 +357,8 @@ namespace PersonsBase.View
             this.panel_Spa.Controls.Add(this.comboBox_spa);
             this.panel_Spa.Controls.Add(this.label4);
             this.panel_Spa.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_Spa.Location = new System.Drawing.Point(50, 109);
-            this.panel_Spa.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel_Spa.Location = new System.Drawing.Point(50, 110);
+            this.panel_Spa.Margin = new System.Windows.Forms.Padding(2);
             this.panel_Spa.Name = "panel_Spa";
             this.panel_Spa.Size = new System.Drawing.Size(305, 45);
             this.panel_Spa.TabIndex = 5;
@@ -336,7 +370,7 @@ namespace PersonsBase.View
             this.comboBox_spa.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox_spa.FormattingEnabled = true;
             this.comboBox_spa.Location = new System.Drawing.Point(2, 20);
-            this.comboBox_spa.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox_spa.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_spa.Name = "comboBox_spa";
             this.comboBox_spa.Size = new System.Drawing.Size(283, 24);
             this.comboBox_spa.TabIndex = 3;
@@ -360,9 +394,9 @@ namespace PersonsBase.View
             this.panel_TimeTren.Controls.Add(this.label3);
             this.panel_TimeTren.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_TimeTren.Location = new System.Drawing.Point(50, 56);
-            this.panel_TimeTren.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel_TimeTren.Margin = new System.Windows.Forms.Padding(2);
             this.panel_TimeTren.Name = "panel_TimeTren";
-            this.panel_TimeTren.Size = new System.Drawing.Size(305, 49);
+            this.panel_TimeTren.Size = new System.Drawing.Size(305, 50);
             this.panel_TimeTren.TabIndex = 6;
             // 
             // comboBox_time
@@ -371,8 +405,8 @@ namespace PersonsBase.View
             this.comboBox_time.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_time.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox_time.FormattingEnabled = true;
-            this.comboBox_time.Location = new System.Drawing.Point(2, 23);
-            this.comboBox_time.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox_time.Location = new System.Drawing.Point(2, 24);
+            this.comboBox_time.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_time.Name = "comboBox_time";
             this.comboBox_time.Size = new System.Drawing.Size(284, 24);
             this.comboBox_time.TabIndex = 3;
@@ -394,8 +428,8 @@ namespace PersonsBase.View
             this.panel_PayStatus.Controls.Add(this.label5);
             this.panel_PayStatus.Controls.Add(this.comboBox_Pay);
             this.panel_PayStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_PayStatus.Location = new System.Drawing.Point(50, 158);
-            this.panel_PayStatus.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel_PayStatus.Location = new System.Drawing.Point(50, 159);
+            this.panel_PayStatus.Margin = new System.Windows.Forms.Padding(2);
             this.panel_PayStatus.Name = "panel_PayStatus";
             this.panel_PayStatus.Size = new System.Drawing.Size(305, 45);
             this.panel_PayStatus.TabIndex = 7;
@@ -419,7 +453,7 @@ namespace PersonsBase.View
             this.comboBox_Pay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox_Pay.FormattingEnabled = true;
             this.comboBox_Pay.Location = new System.Drawing.Point(2, 19);
-            this.comboBox_Pay.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox_Pay.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_Pay.Name = "comboBox_Pay";
             this.comboBox_Pay.Size = new System.Drawing.Size(283, 24);
             this.comboBox_Pay.TabIndex = 3;
@@ -431,44 +465,10 @@ namespace PersonsBase.View
             this.flowLayoutPanel1.Controls.Add(this.groupBox4);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(11, 11);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(384, 464);
             this.flowLayoutPanel1.TabIndex = 9;
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker1.Enabled = false;
-            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePicker1.Location = new System.Drawing.Point(7, 61);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(271, 26);
-            this.dateTimePicker1.TabIndex = 11;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.dateTimePicker1);
-            this.groupBox1.Controls.Add(this.checkBox_Activated);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.Location = new System.Drawing.Point(51, 208);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(284, 98);
-            this.groupBox1.TabIndex = 10;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Старая дата Активации";
-            // 
-            // checkBox_Activated
-            // 
-            this.checkBox_Activated.AutoSize = true;
-            this.checkBox_Activated.Location = new System.Drawing.Point(7, 22);
-            this.checkBox_Activated.Name = "checkBox_Activated";
-            this.checkBox_Activated.Size = new System.Drawing.Size(179, 20);
-            this.checkBox_Activated.TabIndex = 0;
-            this.checkBox_Activated.Text = "Если уже Активирован";
-            this.checkBox_Activated.UseVisualStyleBackColor = true;
-            this.checkBox_Activated.CheckedChanged += new System.EventHandler(this.checkBox_Activated_CheckedChanged);
             // 
             // AbonementForm
             // 
@@ -477,7 +477,7 @@ namespace PersonsBase.View
             this.ClientSize = new System.Drawing.Size(409, 520);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(342, 507);
@@ -497,6 +497,8 @@ namespace PersonsBase.View
             this.groupBox4.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.panel_TypeTren.ResumeLayout(false);
             this.panel_TypeTren.PerformLayout();
             this.panel_Spa.ResumeLayout(false);
@@ -506,8 +508,6 @@ namespace PersonsBase.View
             this.panel_PayStatus.ResumeLayout(false);
             this.panel_PayStatus.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
