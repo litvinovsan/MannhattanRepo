@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using PersonsBase.data;
 
 namespace PersonsBase.myStd
@@ -60,10 +61,8 @@ namespace PersonsBase.myStd
                 catch (Exception e)
                 {
                     MessageBox.Show(e.Message);
-                    throw new ArgumentException(e.Message, listView.Groups[i].Header);
                 }
             }
-
             return groupsDict;
         }
 
@@ -76,14 +75,19 @@ namespace PersonsBase.myStd
             listViewIn.Items.Add(new ListViewItem(message));
             listViewIn.Update();
         }
+        /// <summary>
+        /// Добавляет Текст в список с 2 колонками. Колонки должны быть настроены и должны существовать
+        /// </summary>
         public static void AddNote(ListView listViewIn, string messageColumn1, string messageColumn2)
         {
-            var item = new ListViewItem {Text = messageColumn1};
+            var item = new ListViewItem { Text = messageColumn1 };
             item.SubItems.Add(messageColumn2);
-
             listViewIn.Items.Add(item);
             listViewIn.Update();
         }
+        /// <summary>
+        /// Заполняет ЛистВью из коллекции List
+        /// </summary>
         public static void AddNotes(ListView listViewIn, List<string> notes)
         {
             if (notes == null || notes.Count == 0) return;
@@ -113,22 +117,21 @@ namespace PersonsBase.myStd
         {
             lv.Columns[0].Width = -2;
         }
-        public static void ListView_Resize_Event1(object sender, EventArgs e)
-        {
-            MaximizeLastColumn((ListView)sender);
-        }
+        // Пример
+        //public static void ListView_Resize_Event1(object sender, EventArgs e)
+        //{
+        //    MaximizeLastColumn((ListView)sender);
+        //}
 
         /// <summary>
         /// Массив содержит текст выбранной строки. Первый элемент это 1ая колонка. Итд..
         /// </summary>
-        /// <param name="lv"></param>
-        /// <returns></returns>
         public static string[] GetSelectedText(ListView lv)
         {
             string[] result = null;
             if (lv.SelectedItems.Count != 0)
             {
-                List<string> temp = new List<string>();
+                var temp = new List<string>();
                 foreach (ListViewItem.ListViewSubItem item in lv.SelectedItems[0].SubItems)
                 {
                     temp.Add(item.Text);
@@ -146,7 +149,7 @@ namespace PersonsBase.myStd
         /// <returns></returns>
         public static bool RemoveSelectedItem(ListView lv)
         {
-            bool result = false;
+            var result = false;
             if (lv.SelectedItems.Count > 0)
             {
                 var listViewitem = lv.SelectedItems[0];
@@ -161,45 +164,14 @@ namespace PersonsBase.myStd
         /// </summary>
         public static void AlternateColors(ListView listView)
         {
-            for (int i = 0; i <= listView.Items.Count - 1; i++)
+            for (var i = 0; i <= listView.Items.Count - 1; i++)
             {
                 listView.Items[i].BackColor = listView.Items[i].Index % 2 == 0 ? Color.White : Color.LightGray;
             }
         }
         #endregion
 
-        #region /// ДОБАВЛЕНИЕ ИМЕНИ И ВРЕМЕНИ В КОЛОНКИ LIST VIEW на главной форме /// 
-
-        public static void AddNameTime(ListView listViewIn, ListViewGroup toGroup, string personName, bool showTime)
-        {
-            if (!listViewIn.Groups.Contains(toGroup))
-                AddGroup(listViewIn, toGroup.Header);
-
-            listViewIn.Items.Add(new NameTimeItem(personName, toGroup, showTime));
-
-            listViewIn.Update();
-        }
-        public static void AddNameTime(ListView listViewIn, string newGroupName, string personName, bool showTime)
-        {
-            string personNameTemp = string.IsNullOrEmpty(personName) ? "Имя неизвестно" : personName;
-            var groups = GetGroupsDict(listViewIn);
-            if (!groups.Keys.Contains(newGroupName))
-            {
-                AddGroup(listViewIn, newGroupName);
-            }
-            listViewIn.Items.Add(new NameTimeItem(personNameTemp, GetGroupsDict(listViewIn)[newGroupName], showTime));
-
-            listViewIn.Update();
-        }
-        public static void AddNameTime(ListView listViewIn, string personName, bool showTime)
-        {
-            string personNameTemp = string.IsNullOrEmpty(personName) ? "Имя неизвестно" : personName;
-            listViewIn.Items.Add(new NameTimeItem(personNameTemp, showTime));
-            listViewIn.Update();
-        }
-        #endregion
-
-        #region /// ДОБАВЛЕНИЕ Времени И Названия тренировки В КОЛОНКИ LIST VIEW /// 
+        #region ///  BOSS Form ///
 
         public static void AddScheduleNote(ListView listViewIn, ScheduleNote scheduleNote)
         {
@@ -217,46 +189,77 @@ namespace PersonsBase.myStd
             }
             listViewIn.Update();
         }
+
         #endregion
+
+        #region /// 
+
+        #endregion
+
+
+        //public static void AddNameTime(ListView listViewIn, string newGroupName, string personName, bool showTime)
+        //{
+        //    string personNameTemp = string.IsNullOrEmpty(personName) ? "Имя неизвестно" : personName;
+        //    var groups = GetGroupsDict(listViewIn);
+        //    if (!groups.Keys.Contains(newGroupName))
+        //    {
+        //        AddGroup(listViewIn, newGroupName);
+        //    }
+        //    listViewIn.Items.Add(new NameTimeItem(personNameTemp, GetGroupsDict(listViewIn)[newGroupName], showTime));
+
+        //    listViewIn.Update();
+        //}
+        //public static void AddNameTime(ListView listViewIn, DailyVisits.GymItem gymItem)
+        //{
+        // //   listViewIn.Items.Add(new NameTimeItem(personName, VisualStyleElement.TaskbarClock.Time));
+        //    listViewIn.Update();
+        //}
+        ////#endregion
+
+        //#region /// ДОБАВЛЕНИЕ Времени И Названия тренировки В КОЛОНКИ LIST VIEW /// 
+
+
+        //#endregion
+
     }
 
     // Вспомогательный класс для добавления Имени и текущего времени в ЛВ
-    [Serializable]
-    public class NameTimeItem : ListViewItem
-    {
-        // Доступные варианты строки
-        // Время  |  Имя Клиента
-        //        |  Имя Клиента
+    //[Serializable]
+    //public class NameTimeItem : ListViewItem
+    //{
+    //    // Доступные варианты строки
+    //    // Время  |  Имя Клиента
+    //    //        |  Имя Клиента
 
-        public NameTimeItem(string name)
-        {
-            var dateTime = DateTime.Now;
+    //    public NameTimeItem(string name)
+    //    {
+    //        var dateTime = DateTime.Now;
 
-            Text = dateTime.ToString("HH:mm");
-            // SubItems.Add(messageType.ToString());
-            SubItems.Add(name);
-        }
-        public NameTimeItem(string name, ListViewGroup group, bool showTime)
-        {
-            var dateTime = DateTime.Now;
-            Text = (showTime) ? dateTime.ToString("HH:mm") : "";
-            if (group != null) Group = group;
+    //        Text = dateTime.ToString("HH:mm");
+    //        // SubItems.Add(messageType.ToString());
+    //        SubItems.Add(name);
+    //    }
+    //    public NameTimeItem(string name, ListViewGroup group, bool showTime)
+    //    {
+    //        var dateTime = DateTime.Now;
+    //        Text = (showTime) ? dateTime.ToString("HH:mm") : "";
+    //        if (group != null) Group = group;
 
-            SubItems.Add(name);
-        }
-        public NameTimeItem(string name, bool showTime)
-        {
-            var dateTime = DateTime.Now;
-            Text = (showTime) ? dateTime.ToString("HH:mm") : "";
+    //        SubItems.Add(name);
+    //    }
+    //    public NameTimeItem(string name, string showTime)
+    //    {
+    //        Text = showTime;
+    //        SubItems.Add(name);
+    //    }
+    //    public NameTimeItem()
+    //    {
+    //    }
+    //}
 
-            SubItems.Add(name);
-        }
 
-        protected NameTimeItem(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
-    }
 
+    #region /// BOSS Form ///
     // Вспомогательный класс для добавления в ЛВ заметок о Времени и Названии групповой тренировки
     [Serializable]
     public class ScheduleNoteItem : ListViewItem
@@ -267,10 +270,8 @@ namespace PersonsBase.myStd
             Text = note.Time.HourMinuteTime;
             SubItems.Add(note.WorkoutsName);
         }
-
-        protected ScheduleNoteItem(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
     }
+    #endregion
+
 }
 

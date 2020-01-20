@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using PersonsBase.data;
@@ -24,24 +25,16 @@ namespace PersonsBase.control
 
         #endregion
 
-        #region/// ОБЬЕКТЫ Приватные /////
+        #region/// ОБЬЕКТЫ /////
 
-        [NonSerialized] private static Logic _logicInstance; //Singleton.
+        [NonSerialized]
+        private static Logic _logicInstance; //Singleton.
+
         // Маркеры для выделения красным цветом в таблице ShortInfo. Если текст равен...
         private const string StrMorning = "Утро";
         private const string StrNoPay = "Не_Оплачено";
 
-        #endregion
-
-        #region///  События ////
-
-        // Клиент Отметился на тренировке
-        [field: NonSerialized] public event Action<string, WorkoutOptions> VisitEvent;
-        private void OnNewVisit(string personName, WorkoutOptions workout)
-        {
-            VisitEvent?.Invoke(personName, workout);
-        }
-
+        public DailyVisits Daily = new DailyVisits();
         #endregion
 
         #region /// РАЗНЫЕ МЕТОДЫ ///
@@ -93,6 +86,58 @@ namespace PersonsBase.control
                 e.Handled = true;
             }
         }
+        /// <summary>
+        ///  Возвращает True если дата сохраненная в настройках при прошлом выходе не совпадает с текущей датой
+        /// </summary>
+        private static bool IsCurentDateNotChanged()
+        {
+            var dateNow = DateTime.Now.Date.ToString("MM/dd/yyyy");
+            var oldDate = Properties.Settings.Default.curentDate;
+
+            return dateNow.Equals(oldDate);
+        }
+
+        public DailyVisits GetDailyVisitsObj()
+        {
+            return Daily;
+        }
+        /// <summary>
+        /// Загрузка Посетивших клиентов в прошлую сессию если не было смены даты.
+        /// Программа считает что закрытие было не корректным если день не сменился
+        /// </summary>
+        public void LoadLastSession()
+        {
+            var dailyVisits = new List<DailyVisits.GymItem>();
+
+            SerializeClass.DeSerializeJson(ref dailyVisits, "GymObserList.json");
+            foreach (var item in dailyVisits)
+            {
+                Daily.ListViewGymList.Add(item);
+                Daily.OnGymListChanged();
+            }
+
+            dailyVisits = new List<DailyVisits.GymItem>();
+
+            SerializeClass.DeSerialize(ref dailyVisits, "GymObserList.bin");
+
+            foreach (var item in dailyVisits)
+            {
+                Daily.ListViewGymList.Add(item);
+                Daily.OnGymListChanged();
+            }
+
+
+            if (IsCurentDateNotChanged())
+            {
+            }
+        }
+
+        public void SaveCurentSession()
+        {
+            SerializeClass.SerializeJson(Daily.ListViewGymList, "GymObserList.json");
+            SerializeClass.Serialize(Daily.ListViewGymList, "GymObserList.bin");
+        }
+
         #endregion
 
         #region /// ФОРМА Босса /// 
@@ -523,10 +568,10 @@ namespace PersonsBase.control
                 $@"Осталось посещений: {person.AbonementCurent.GetRemainderDays()}{infoAerobic}{infoPersonal}",
                 @"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            Visit.AddVisit2Journal(person, selectedOptions);
+            Visit.Add2Journal(person, selectedOptions);
 
             // Cобытие для добавления текущего посещения на главную форму
-            OnNewVisit(personName, selectedOptions);
+            Daily.AddToDailyLog(personName, selectedOptions);
 
             IsAbonementValid(ref person);
             return true;

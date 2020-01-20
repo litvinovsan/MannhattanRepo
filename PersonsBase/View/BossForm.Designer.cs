@@ -63,8 +63,8 @@
             this.textBox_FiO = new System.Windows.Forms.TextBox();
             this.tabPage_settings = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.checkBox_Passp_Drive = new System.Windows.Forms.CheckBox();
             this.checkBox_SimpsonPhoto = new System.Windows.Forms.CheckBox();
+            this.checkBox_Passp_Drive = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -512,21 +512,10 @@
             this.groupBox9.Controls.Add(this.checkBox_Passp_Drive);
             this.groupBox9.Location = new System.Drawing.Point(8, 3);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(571, 404);
+            this.groupBox9.Size = new System.Drawing.Size(939, 404);
             this.groupBox9.TabIndex = 0;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Вкл/Откл опций";
-            // 
-            // checkBox_Passp_Drive
-            // 
-            this.checkBox_Passp_Drive.AutoSize = true;
-            this.checkBox_Passp_Drive.Location = new System.Drawing.Point(6, 22);
-            this.checkBox_Passp_Drive.Name = "checkBox_Passp_Drive";
-            this.checkBox_Passp_Drive.Size = new System.Drawing.Size(357, 21);
-            this.checkBox_Passp_Drive.TabIndex = 0;
-            this.checkBox_Passp_Drive.Text = "Учитывать Пасспорт и Права в создании клиента";
-            this.checkBox_Passp_Drive.UseVisualStyleBackColor = true;
-            this.checkBox_Passp_Drive.CheckedChanged += new System.EventHandler(this.checkBox_Passp_Drive_CheckedChanged);
             // 
             // checkBox_SimpsonPhoto
             // 
@@ -538,6 +527,17 @@
             this.checkBox_SimpsonPhoto.Text = "Разрешить Мульт фото при создании Клиентов";
             this.checkBox_SimpsonPhoto.UseVisualStyleBackColor = true;
             this.checkBox_SimpsonPhoto.CheckedChanged += new System.EventHandler(this.checkBox_SimpsonPhoto_CheckedChanged);
+            // 
+            // checkBox_Passp_Drive
+            // 
+            this.checkBox_Passp_Drive.AutoSize = true;
+            this.checkBox_Passp_Drive.Location = new System.Drawing.Point(6, 22);
+            this.checkBox_Passp_Drive.Name = "checkBox_Passp_Drive";
+            this.checkBox_Passp_Drive.Size = new System.Drawing.Size(357, 21);
+            this.checkBox_Passp_Drive.TabIndex = 0;
+            this.checkBox_Passp_Drive.Text = "Учитывать Пасспорт и Права в создании клиента";
+            this.checkBox_Passp_Drive.UseVisualStyleBackColor = true;
+            this.checkBox_Passp_Drive.CheckedChanged += new System.EventHandler(this.checkBox_Passp_Drive_CheckedChanged);
             // 
             // BossForm
             // 

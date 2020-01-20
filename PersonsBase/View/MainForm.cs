@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.control;
@@ -8,29 +9,17 @@ using PersonsBase.myStd;
 
 namespace PersonsBase.View
 {
-    // FIXME добавить пиктограммы и иконки везде в менюхах и на формах
-    // FIXME использовать паттерн Мементо для сохранения списков посещений. https://shwanoff.ru/memento/#more-682
-
-    public delegate void MyListViewDelegate(string namePerson, WorkoutOptions workoutOptions);
-
     public partial class MainForm : Form
     {
         #region /// ОСНОВНЫЕ ОБЬЕКТЫ ///
 
         private readonly DataBaseLevel _dataB = DataBaseLevel.GetInstance();
-
         private SortedList<string, Person> PersonsList
         {
             get { return DataBaseLevel.GetListPersons(); }
         }
-
-        private readonly Dictionary<TypeWorkout, MyListViewDelegate>
-            _visitorsListViewSelector; // Для заполнения 1 из 3х списков с Клиентами
-
-        private readonly Logic _logic; // Логика и управляющие методы программы.
         private readonly Timer _time = new Timer();
-        private int _totalPersonToday;
-
+        private readonly Logic _logic = Logic.GetInstance();
         #endregion
 
         #region /// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ///
@@ -38,40 +27,29 @@ namespace PersonsBase.View
         public MainForm()
         {
             InitializeComponent();
-            _logic = Logic.GetInstance();
-
-            // Загрузка пользовательских настроек
-            Options.LoadProperties();
-
-            // В зависимости от типа тренировки запускаются разные методы записи в один из трех столбцов
-            _visitorsListViewSelector = new Dictionary<TypeWorkout, MyListViewDelegate>
-            {
-                {TypeWorkout.Аэробный_Зал, AddToGroupList},
-                {TypeWorkout.Персональная, AddToPersonalnList},
-                {TypeWorkout.Тренажерный_Зал, AddToGymList}
-            };
+            Options.LoadProperties(); // Загрузка пользовательских настроек
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            StartTimer(); // Инициализация Таймера для Часов
+
             // Подписка на события в пользовательской Базе Данных
             _dataB.ListChangedEvent += UpdateFindComboBoxMenu; // Список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
-            _dataB.ListChangedEvent += UpdateUsersCountTextBox; // Счетчик пользователей
+            _dataB.ListChangedEvent += SetNumberTotalPersons; // Счетчик пользователей
             _dataB.ListChangedEvent += UpdateBirthDateComboBox; // Поле Сегодняшних Дней рождений
 
             _dataB.OnListChanged(); // Событие запускающееся при изменении количества Клиентов в списке.
 
-            comboBox_BDay.SelectedIndexChanged += comboBox_BDay_SelectedIndexChanged;
+            comboBox_BDay.SelectedIndexChanged += comboBox_BDay_SelectedIndexChanged;// Открытие карточки клиента
             PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
 
-            _logic.VisitEvent += AddPersonToTable;
-            _logic.VisitEvent += UpdateDailyCounter;
+            DailyVisits.NumberDailyPersonsEvent += DailyVisits_NumberDailyPersonsEvent;// Счетчик пользователей
+            DailyVisits.GymListChangedEvent += DailyVisits_GymCollectionChanged;
 
-            // Инициализация Таймера для Часов
-            StartTimer();
+           // _logic.LoadLastSession();
 
-            // Инициализация 3х Списков Клиентов
-            //   Изменение размера приводит к увеличению последней колонки до максимума
+            // Изменение размера приводит к увеличению последней колонки до максимума
             MyListViewEx.MaximizeLastColumn(listView_Gym_Zal);
             MyListViewEx.MaximizeLastColumn(listView_Group);
             MyListViewEx.MaximizeLastColumn(listView_Personal);
@@ -79,76 +57,87 @@ namespace PersonsBase.View
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Options.SaveProperties(); // Сохранение пользовательских настроек
+            _logic.SaveCurentSession();// Сериализация текущих списков посещений 
 
-            // Сохранение пользовательских настроек
-            Options.SaveProperties();
-
-            // Автоматическое Сохранение в Excel всей базы на всякий случай
-            MyFile.ExportToExcel(DataBaseM.CreatePersonsTable(), false);
-
+            MyFile.ExportToExcel(DataBaseM.CreatePersonsTable(), false); // Автоматическое Сохранение в Excel всей базы на всякий случай
             if (MessageBox.Show(@"Вы хотите закрыть приложение?", @"Завершение работы", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
                 e.Cancel = true;
             }
         }
 
-
         #endregion
 
         #region /// МЕТОДЫ ///
-
         private void StartTimer()
         {
             _time.Interval = 1000;
             _time.Tick += _time_ClockTick;
             _time.Start();
         }
-
-        /// <summary>
-        /// Добавляет персону в список Тренажерного зала
-        /// </summary>
-        /// <param name="namePerson"></param>
-        /// <param name="arg"></param>
-        private void AddToGymList(string namePerson, WorkoutOptions arg)
+        public void ClearFindCombo()
         {
-            MyListViewEx.AddNameTime(listView_Gym_Zal, namePerson, true);
-            // MyListViewEx.AlternateColors(listView_Gym_Zal); // Убрано пока чтобы небыло полосатости
+            void MyDelegate() => сomboBox_PersonsList.SelectedText = "";
+            if (InvokeRequired)
+            {
+                Invoke((Action)MyDelegate);
+            }
+            else
+            {
+                MyDelegate();
+            }
         }
 
-        // Добавляет в список Групповых тренировок
-        private void AddToGroupList(string namePerson, WorkoutOptions arg)
+        private void DailyVisits_NumberDailyPersonsEvent(object sender, int e)
         {
-            if (arg.GroupInfo.ScheduleNote == null) return;
-            var groupName = arg.GroupInfo.ScheduleNote.GetTimeAndNameStr();
-            MyListViewEx.AddNameTime(listView_Group, groupName, namePerson, false);
+            SetNumberDailyPersons(e);
         }
 
-        private void AddToPersonalnList(string namePerson, WorkoutOptions arg)
+        private void DailyVisits_GymCollectionChanged()
         {
-            string persTrenerName = (arg.PersonalTrener != null) ? arg.PersonalTrener.Name : "Имя неизвестно";
-            MyListViewEx.AddNameTime(listView_Personal, persTrenerName, namePerson, true);
+            var daily = _logic?.GetDailyVisitsObj().ListViewGymList;
+            if (daily == null || daily.Count == 0) return;
+
+            var item = daily.Last();
+
+            MyListViewEx.AddNote(listView_Gym_Zal, item.Time, item.Name);
         }
+
 
         #endregion
 
         #region /// ОБРАБОТЧИКИ ///
+
+        /// <summary>
+        /// Записывает в текстовое поле число с текущим ежедневным количеством посетивших Клиентов.
+        /// Потокобезопасный метод.
+        /// </summary>
+        /// <param name="numPersons"></param>
+        public void SetNumberDailyPersons(int numPersons)
+        {
+            void MyDelegate() => textBox_PeopleForDay.Text = numPersons.ToString();
+            if (InvokeRequired)
+            {
+                Invoke((Action)MyDelegate);
+            }
+            else
+            {
+                MyDelegate();
+            }
+        }
+
+        private void SetNumberTotalPersons(object sender, EventArgs arg)
+        {
+            textBox_Total_persons.Text = DataBaseLevel.GetNumberOfPersons().ToString();
+            Invalidate();
+        }
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
             MyListViewEx.MaximizeLastColumn(listView_Gym_Zal);
             MyListViewEx.MaximizeLastColumn(listView_Group);
             MyListViewEx.MaximizeLastColumn(listView_Personal);
-        }
-
-        private void AddPersonToTable(string name, WorkoutOptions arg)
-        {
-            _visitorsListViewSelector[arg.TypeWorkout].Invoke(name, arg);
-        }
-
-        private void UpdateDailyCounter(string arg1, WorkoutOptions arg2)
-        {
-            _totalPersonToday++;
-            textBox_PeopleForDay.Text = _totalPersonToday.ToString();
         }
 
         private void PwdForm_LockChangedEvent()
@@ -158,12 +147,13 @@ namespace PersonsBase.View
 
         private void UpdateBirthDateComboBox(object sender, EventArgs e)
         {
-            Action myDelegate = delegate
+            void MyDelegate()
             {
                 comboBox_BDay.Items.Clear();
                 label4.Text = @"Дней Рождения: 0";
                 var array = PersonsList.Values.Where(c => c.BirthDate.ToString("M") == DateTime.Today.ToString("M"))
-                    .Select(c => c.Name).ToArray<object>();
+                    .Select(c => c.Name)
+                    .ToArray<object>();
                 if (array.Length != 0)
                 {
                     comboBox_BDay.Items.AddRange(array);
@@ -172,10 +162,10 @@ namespace PersonsBase.View
                 }
 
                 Invalidate();
-            };
+            }
 
-            if (InvokeRequired) Invoke(myDelegate);
-            else myDelegate();
+            if (InvokeRequired) Invoke((Action)MyDelegate);
+            else MyDelegate();
         }
 
         private void UpdateFindComboBoxMenu(object sender, EventArgs arg)
@@ -197,25 +187,6 @@ namespace PersonsBase.View
 
             if (InvokeRequired) Invoke((Action)MyDelegate);
             else MyDelegate();
-        }
-
-        public void ClearFindCombo()
-        {
-            Action myDelegate = () => сomboBox_PersonsList.SelectedText = "";
-            if (InvokeRequired)
-            {
-                Invoke(myDelegate);
-            }
-            else
-            {
-                myDelegate();
-            }
-        }
-
-        private void UpdateUsersCountTextBox(object sender, EventArgs arg)
-        {
-            textBox1.Text = DataBaseLevel.GetNumberOfPersons().ToString();
-            Invalidate();
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
@@ -264,8 +235,6 @@ namespace PersonsBase.View
             Logic.SelectPerson();
         }
 
-        #endregion
-
         private void продатьАбонементToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Logic.SellAbonement();
@@ -300,5 +269,7 @@ namespace PersonsBase.View
         {
             Logic.CreateReport();
         }
+        #endregion
+
     }
 }

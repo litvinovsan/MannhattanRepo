@@ -6,10 +6,10 @@ using System.Runtime.Serialization.Formatters.Soap;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
-/// <summary>
-///  Для JSON сериализации необходимо подключить NUGET Packet в менеджере Нугет Пакетов
-///  Для STATIC сериализации добавить в Reference проекта System.Runtime.Serialization.Formatters.Soap;
-/// </summary>
+//  Для JSON сериализации необходимо подключить NUGET Packet в менеджере Нугет Пакетов
+//  Для STATIC сериализации добавить в Reference проекта System.Runtime.Serialization.Formatters.Soap;
+
+// [OtionalField] Для добавления новых полей, чтобы открылись старые файлы сериализации, где этих полей нет
 
 namespace PersonsBase.myStd
 {
@@ -60,6 +60,7 @@ namespace PersonsBase.myStd
         }
         #endregion
 
+
         #region // JSON Сериализация
         public static bool SerializeJson<T>(T objectToSerialize, string nameOutFile)
         {
@@ -81,7 +82,7 @@ namespace PersonsBase.myStd
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка Сериализации", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Ошибка Сериализации", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return result;
         }
@@ -97,11 +98,11 @@ namespace PersonsBase.myStd
             }
             catch (ArgumentNullException e)
             {
-                MessageBox.Show(e.Message, "Ошибка Файла", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(e.Message, @"Ошибка Файла", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка Доступа к файлу", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Ошибка Доступа к файлу", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             if (!string.IsNullOrEmpty(objAsJson))
@@ -118,7 +119,7 @@ namespace PersonsBase.myStd
         #region // STATIC Сериализация
 
         #region // Пример запуска статической сериализации
-        ///
+        //
         //    public static class A
         //    {
         //    public static string s;
@@ -129,7 +130,7 @@ namespace PersonsBase.myStd
         //  bool ok = SerializeStatic.Save(typeof(A), "c:\\tests\\a.dat");
         //  bool ok2 = SerializeStatic.Load(typeof(A), "c:\\tests\\a.dat");
 
-        ///
+        //
         #endregion
 
         public static bool StaticSave(Type staticClass, string filename)
@@ -144,9 +145,10 @@ namespace PersonsBase.myStd
                     a[i, 0] = field.Name;
                     a[i, 1] = field.GetValue(null);
                     i++;
-                };
+                }
+
                 Stream f = File.Open(filename, FileMode.Create);
-                SoapFormatter formatter = new SoapFormatter();
+                var formatter = new SoapFormatter();
                 formatter.Serialize(f, a);
                 f.Close();
                 return true;
@@ -161,22 +163,22 @@ namespace PersonsBase.myStd
         {
             try
             {
-                FieldInfo[] fields = staticClass.GetFields(BindingFlags.Static | BindingFlags.Public);
-                object[,] a;
+                var fields = staticClass.GetFields(BindingFlags.Static | BindingFlags.Public);
                 Stream f = File.Open(filename, FileMode.Open);
-                SoapFormatter formatter = new SoapFormatter();
-                a = formatter.Deserialize(f) as object[,];
+                var formatter = new SoapFormatter();
+                var a = formatter.Deserialize(f) as object[,];
                 f.Close();
-                if (a.GetLength(0) != fields.Length) return false;
-                int i = 0;
-                foreach (FieldInfo field in fields)
+                if (a != null && a.GetLength(0) != fields.Length) return false;
+                var i = 0;
+                foreach (var field in fields)
                 {
-                    if (field.Name == (a[i, 0] as string))
+                    if (a != null && field.Name == (a[i, 0] as string))
                     {
                         field.SetValue(null, a[i, 1]);
                     }
                     i++;
-                };
+                }
+
                 return true;
             }
             catch
