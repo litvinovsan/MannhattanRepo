@@ -21,7 +21,7 @@ namespace PersonsBase.View
         private TimeForTr _timeTren;
         private SpaService _spa;
         private Pay _pay;
-        private DateTime defaultForActivation = new DateTime(2020, 1, 1);
+        private readonly DateTime _defaultForActivation = new DateTime(2020, 1, 1);
 
         ///////////////// КОНСТРУКТОР. МЕТОДЫ ////////////////////////////////
         public AbonementForm(string nameKey)
@@ -109,7 +109,7 @@ namespace PersonsBase.View
             comboBox_ClubCard.SelectedIndexChanged += ComboBox_ClubCard_SelectedIndexChanged;
 
             // Дата Активации
-            dateTimePicker1.Value = defaultForActivation;
+            dateTimePicker1.Value = _defaultForActivation;
             dateTimePicker1.MinDate = new DateTime(2019, 1, 1);
         }
 
@@ -136,7 +136,7 @@ namespace PersonsBase.View
             // Если введена дата Активации в прошлом
             if ((_person.AbonementCurent.AbonementName != SingleVisit.NameAbonement) &&
                 checkBox_Activated.Checked &&
-                dateTimePicker1.Value.Date.CompareTo(defaultForActivation.Date) != 0)
+                dateTimePicker1.Value.Date.CompareTo(_defaultForActivation.Date) != 0)
             {
                 _person.AbonementCurent.TryActivate(dateTimePicker1.Value);
             }

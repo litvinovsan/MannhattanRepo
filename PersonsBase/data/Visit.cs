@@ -25,14 +25,14 @@ namespace PersonsBase.data
         public readonly string AbonementName;
 
         // Свойства абонемента на момент посещения
-        public SpaService SpaStatus { get; }
-        public Pay PayStatus { get; }
-        public TimeForTr AvailableTimeTren { get; }
-        public DateTime AbonStartDate { get; } // FIXME Переделать даты в абонементе
-        public DateTime AbonEndDate { get; } // FIXME Переделать даты в абонементе
-        public int NumAllDaysAbon { get; }
-        public int NumAerobicTr { get; }
-        public int NumPersonalTr { get; }
+        private SpaService SpaStatus { get; }
+        private Pay PayStatus { get; }
+        private TimeForTr AvailableTimeTren { get; }
+        private DateTime AbonStartDate { get; } // FIXME Переделать даты в абонементе
+        private DateTime AbonEndDate { get; } // FIXME Переделать даты в абонементе
+        private int NumAllDaysAbon { get; }
+        private int NumAerobicTr { get; }
+        private int NumPersonalTr { get; }
 
         // Конструкторы
         public Visit(AbonementBasic abon, WorkoutOptions workoutOptions, string administratorName)

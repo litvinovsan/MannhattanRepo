@@ -27,7 +27,7 @@ namespace PersonsBase.data.Abonements
         public TypeWorkout TrainingsType;    // Доступные тренировки
         public DateTime BuyDate;             // Дата покупки
         public bool IsActivated;             // Активирован? Дата окончания отсчитывается с момента
-        public int DaysLeft { get; set; }  //Дней до конца абонемента, от активации,т.е. с первого посещения. 
+        protected int DaysLeft { get; set; }  //Дней до конца абонемента, от активации,т.е. с первого посещения. 
 
         private DateTime _endDate;             // Дата завершения абонемента. 
         public DateTime EndDate

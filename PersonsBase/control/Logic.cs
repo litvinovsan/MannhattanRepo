@@ -423,7 +423,7 @@ namespace PersonsBase.control
         {
             if (!FormsRunner.RunSelectPersonForm(out var selectedName, "Выберите клиента для добавления Абонемента")) return false;
 
-            if (String.IsNullOrEmpty(selectedName)) return false;
+            if (string.IsNullOrEmpty(selectedName)) return false;
 
             var res = MessageBox.Show($@"{selectedName}", @"Добавить абонемент?", MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
@@ -632,7 +632,7 @@ namespace PersonsBase.control
 
         private static IEnumerable<Tuple<Label, Control>> TupleConverter(IEnumerable<Tuple<string, string>> data)
         {// Преобразует Список вида List<Tuple<string, string>> в универсальный Список: List<Tuple<Label, Control>>
-            List<Tuple<Label, Control>> result = data.Select(item => CreateRowInfo(item.Item1, item.Item2)).ToList();
+            var result = data.Select(item => CreateRowInfo(item.Item1, item.Item2)).ToList();
 
             // Выделяем жирным первую строку
             result[0].Item1.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point, 204);

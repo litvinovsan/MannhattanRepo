@@ -7,12 +7,9 @@ namespace PersonsBase.data.Abonements
     public class ClubCardA : AbonementBasic //Безлимитный Абонемент
     {
         private int _numAerobicTr;
-
         // Свойства
         private int _numberMonths;
-
         private PeriodClubCard _periodAbonem;
-
         public FreezeClass Freeze;
         public const string NameAbonement = "Клубная Карта";
 
@@ -81,6 +78,7 @@ namespace PersonsBase.data.Abonements
             return checkDate;
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Стандартная активация. Изменяет Дату окончания основываясь на сегодняшнем текущем числе.
         /// </summary>
