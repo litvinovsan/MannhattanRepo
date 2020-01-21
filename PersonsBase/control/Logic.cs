@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using PersonsBase.data;
@@ -28,13 +27,14 @@ namespace PersonsBase.control
         #region/// ОБЬЕКТЫ /////
 
         [NonSerialized]
-        private static Logic _logicInstance; //Singleton.
+        private static Logic _logicInstance;
 
         // Маркеры для выделения красным цветом в таблице ShortInfo. Если текст равен...
         private const string StrMorning = "Утро";
         private const string StrNoPay = "Не_Оплачено";
 
-        public DailyVisits Daily = new DailyVisits();
+        private readonly DailyVisits _daily = DailyVisits.GetInstance();
+
         #endregion
 
         #region /// РАЗНЫЕ МЕТОДЫ ///
@@ -81,61 +81,10 @@ namespace PersonsBase.control
         public static void CheckForDigits(KeyPressEventArgs e)
         {
             var number = e.KeyChar;
-            if (!Char.IsDigit(number) && number != 8) // цифры и клавиша BackSpace
+            if (!char.IsDigit(number) && number != 8) // цифры и клавиша BackSpace
             {
                 e.Handled = true;
             }
-        }
-        /// <summary>
-        ///  Возвращает True если дата сохраненная в настройках при прошлом выходе не совпадает с текущей датой
-        /// </summary>
-        private static bool IsCurentDateNotChanged()
-        {
-            var dateNow = DateTime.Now.Date.ToString("MM/dd/yyyy");
-            var oldDate = Properties.Settings.Default.curentDate;
-
-            return dateNow.Equals(oldDate);
-        }
-
-        public DailyVisits GetDailyVisitsObj()
-        {
-            return Daily;
-        }
-        /// <summary>
-        /// Загрузка Посетивших клиентов в прошлую сессию если не было смены даты.
-        /// Программа считает что закрытие было не корректным если день не сменился
-        /// </summary>
-        public void LoadLastSession()
-        {
-            var dailyVisits = new List<DailyVisits.GymItem>();
-
-            SerializeClass.DeSerializeJson(ref dailyVisits, "GymObserList.json");
-            foreach (var item in dailyVisits)
-            {
-                Daily.ListViewGymList.Add(item);
-                Daily.OnGymListChanged();
-            }
-
-            dailyVisits = new List<DailyVisits.GymItem>();
-
-            SerializeClass.DeSerialize(ref dailyVisits, "GymObserList.bin");
-
-            foreach (var item in dailyVisits)
-            {
-                Daily.ListViewGymList.Add(item);
-                Daily.OnGymListChanged();
-            }
-
-
-            if (IsCurentDateNotChanged())
-            {
-            }
-        }
-
-        public void SaveCurentSession()
-        {
-            SerializeClass.SerializeJson(Daily.ListViewGymList, "GymObserList.json");
-            SerializeClass.Serialize(Daily.ListViewGymList, "GymObserList.bin");
         }
 
         #endregion
@@ -571,7 +520,7 @@ namespace PersonsBase.control
             Visit.Add2Journal(person, selectedOptions);
 
             // Cобытие для добавления текущего посещения на главную форму
-            Daily.AddToDailyLog(personName, selectedOptions);
+            _daily.AddToDailyLog(personName, selectedOptions);
 
             IsAbonementValid(ref person);
             return true;
@@ -829,7 +778,5 @@ namespace PersonsBase.control
             return time;
         }
         #endregion
-
-
     }
 }

@@ -185,7 +185,7 @@ namespace PersonsBase.data
         /// <summary>
         /// ДеСериализация всех обьектов Базы данных. Клиенты, Администраторы, Тренеры, Расписание груповых тренировок
         /// </summary>
-        public void DeSerializeObjects()
+        private void DeSerializeObjects()
         {
             MyFile.CreateFolder(Options.FolderNameDataBase);
             var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase;

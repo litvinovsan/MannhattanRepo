@@ -191,10 +191,6 @@ namespace PersonsBase.View
                             button_Add_Abon.Enabled = false;
                             break;
                         }
-                    case StatusPerson.Вероятный_Клиент:
-                        {
-                            break;
-                        }
                 }
 
                 UpdateNameText();
@@ -322,9 +318,7 @@ namespace PersonsBase.View
                     Logic.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
                     return;
                 // Если Заморожен
-                case StatusPerson.Заморожен when _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA a &&
-                                                 _person.Status != StatusPerson.Вероятный_Клиент &&
-                                                 _person.Status != StatusPerson.Гостевой:
+                case StatusPerson.Заморожен when _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA a && _person.Status != StatusPerson.Гостевой:
                     {
                         textBox_Name.ForeColor = Color.SeaGreen;
                         var dateEnd = a.Freeze?.AllFreezes.Last().GetEndDate().Date.ToString("d");
@@ -337,8 +331,6 @@ namespace PersonsBase.View
                     break;
                 case StatusPerson.Гостевой:
                     break;
-                case StatusPerson.Вероятный_Клиент:
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -346,7 +338,7 @@ namespace PersonsBase.View
             // Заморозка запланирована в будущем
             var card = _person.AbonementCurent as ClubCardA;
             if (card?.Freeze != null && _person.Status != StatusPerson.Заморожен &&
-                _person.Status != StatusPerson.Вероятный_Клиент && _person.Status != StatusPerson.Гостевой)
+                _person.Status != StatusPerson.Гостевой)
                 if (card.Freeze.IsConfiguredForFuture())
                 {
                     textBox_Name.ForeColor = Color.SeaGreen;

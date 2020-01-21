@@ -24,8 +24,7 @@ namespace PersonsBase.data
         Нет_Карты,
         Заморожен,
         Гостевой,
-        Запрещён,
-        Вероятный_Клиент
+        Запрещён
     }
 
     [Serializable]
@@ -118,7 +117,43 @@ namespace PersonsBase.data
         public string Value;
     }
 
+    [Serializable]
+    public struct GymItem
+    {
+        public readonly string Time;
+        public readonly string Name;
 
+        public GymItem(string t, string n)
+        {
+            Time = t;
+            Name = n;
+        }
+    }
+
+    [Serializable]
+    public struct AerobItem
+    {
+        public readonly string GroupTimeName;
+        public readonly string NamePerson;
+
+        public AerobItem(string groupTime, string namePerson)
+        {
+            GroupTimeName = groupTime;
+            NamePerson = namePerson;
+        }
+    }
+    [Serializable]
+    public struct PersonalItem
+    {
+        public readonly string TrenerName;
+        public readonly string NamePerson;
+
+        public PersonalItem(string namePerson, string trenerName)
+        {
+            TrenerName = trenerName;
+            NamePerson = namePerson;
+        }
+    }
     #endregion
 
     #region /// КЛАССЫ ///

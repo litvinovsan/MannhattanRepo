@@ -1,12 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters.Soap;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 
-//  Для JSON сериализации необходимо подключить NUGET Packet в менеджере Нугет Пакетов
+
 //  Для STATIC сериализации добавить в Reference проекта System.Runtime.Serialization.Formatters.Soap;
 
 // [OtionalField] Для добавления новых полей, чтобы открылись старые файлы сериализации, где этих полей нет
@@ -57,62 +57,6 @@ namespace PersonsBase.myStd
                 MessageBox.Show($@"Ошибка в файле {nameFile}: " + e.Message, @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-        }
-        #endregion
-
-
-        #region // JSON Сериализация
-        public static bool SerializeJson<T>(T objectToSerialize, string nameOutFile)
-        {
-            bool result = false;
-            try
-            {
-                var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All, Formatting = Formatting.Indented };
-
-                // "JSON documents|*.json";
-                var objectAsJson = JsonConvert.SerializeObject(objectToSerialize, settings);
-
-                using (var file = new FileStream(nameOutFile, FileMode.OpenOrCreate, FileAccess.Write))
-                {
-                    var streamWriter = new StreamWriter(file);
-                    streamWriter.Write(objectAsJson);
-                    streamWriter.Close();
-                    result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, @"Ошибка Сериализации", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return result;
-        }
-
-        public static bool DeSerializeJson<T>(ref T objectToDeSerialize, string nameFile)
-        {
-            bool result = false;
-            string objAsJson = string.Empty;
-            try
-            {
-                objAsJson = File.ReadAllText(nameFile);
-
-            }
-            catch (ArgumentNullException e)
-            {
-                MessageBox.Show(e.Message, @"Ошибка Файла", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, @"Ошибка Доступа к файлу", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            if (!string.IsNullOrEmpty(objAsJson))
-            {
-                var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
-
-                objectToDeSerialize = JsonConvert.DeserializeObject<T>(objAsJson, settings);
-                result = true;
-            }
-            return result;
         }
         #endregion
 

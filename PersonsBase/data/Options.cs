@@ -48,11 +48,16 @@ namespace PersonsBase.data
         #region/// ИМЕНА ФАЙЛОВ и АДРЕСА ДИРЕКТОРИЙ///
 
         // Файлы базы данных для сериализации
-        public const string PersonsDbFile = "ClientsDataBase.bin";
-        public const string TrenersDbFile = "TrenersDataBase.bin";
-        public const string AdminsDbFile = "AdminsDataBase.bin";
-        public const string AdminCurrFile = "AdminToday.bin";
+        public const string PersonsDbFile = "DataBase_Clients.bin";
+        public const string TrenersDbFile = "DataBase_Treners.bin";
+        public const string AdminsDbFile = "DataBase_Admins.bin";
+        public const string AdminCurrFile = "DataBase_AdminToday.bin";
         public const string GroupSchFile = "GroupSchedule.bin";
+
+        public const string DailyVisitsAerobFile = "DailyVisits_Aerobic.bin";
+        public const string DailyVisitsPersonalsFile = "DailyVisits_Personal.bin";
+        public const string DailyVisitsGymFile = "DailyVisits_Gym.bin";
+
 
         // Названия ПАПОК
         public const string FolderNameUserPhoto = "UsersPhoto";

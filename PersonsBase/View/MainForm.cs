@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.control;
@@ -14,12 +13,12 @@ namespace PersonsBase.View
         #region /// ОСНОВНЫЕ ОБЬЕКТЫ ///
 
         private readonly DataBaseLevel _dataB = DataBaseLevel.GetInstance();
+        private readonly DailyVisits _dailyVisits = DailyVisits.GetInstance();
+        private readonly Timer _time = new Timer();
         private SortedList<string, Person> PersonsList
         {
             get { return DataBaseLevel.GetListPersons(); }
         }
-        private readonly Timer _time = new Timer();
-        private readonly Logic _logic = Logic.GetInstance();
         #endregion
 
         #region /// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ///
@@ -44,10 +43,13 @@ namespace PersonsBase.View
             comboBox_BDay.SelectedIndexChanged += comboBox_BDay_SelectedIndexChanged;// Открытие карточки клиента
             PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
 
+            // События для 
             DailyVisits.NumberDailyPersonsEvent += DailyVisits_NumberDailyPersonsEvent;// Счетчик пользователей
             DailyVisits.GymListChangedEvent += DailyVisits_GymCollectionChanged;
+            DailyVisits.PersonalListChangedEvent += DailyVisits_PersonalListChangedEvent;
+            DailyVisits.AerobListChangedEvent += DailyVisits_AerobListChangedEvent;
 
-           // _logic.LoadLastSession();
+            _dailyVisits.LoadLastSession();
 
             // Изменение размера приводит к увеличению последней колонки до максимума
             MyListViewEx.MaximizeLastColumn(listView_Gym_Zal);
@@ -58,7 +60,8 @@ namespace PersonsBase.View
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Options.SaveProperties(); // Сохранение пользовательских настроек
-            _logic.SaveCurentSession();// Сериализация текущих списков посещений 
+
+            _dailyVisits.SaveCurentSession();// Сериализация текущих списков посещений 
 
             MyFile.ExportToExcel(DataBaseM.CreatePersonsTable(), false); // Автоматическое Сохранение в Excel всей базы на всякий случай
             if (MessageBox.Show(@"Вы хотите закрыть приложение?", @"Завершение работы", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
@@ -96,15 +99,33 @@ namespace PersonsBase.View
 
         private void DailyVisits_GymCollectionChanged()
         {
-            var daily = _logic?.GetDailyVisitsObj().ListViewGymList;
+            var daily = _dailyVisits.GymList;
             if (daily == null || daily.Count == 0) return;
 
             var item = daily.Last();
 
             MyListViewEx.AddNote(listView_Gym_Zal, item.Time, item.Name);
         }
+        private void DailyVisits_PersonalListChangedEvent()
+        {
+            var dailyList = _dailyVisits.PersonalList;
+            if (dailyList == null || dailyList.Count == 0) return;
 
+            var lastVisit = dailyList.Last();
+            var newGroupName = string.IsNullOrEmpty(lastVisit.TrenerName) ? "Имя неизвестно" : lastVisit.TrenerName;
 
+            MyListViewEx.AddItemAndGroup(listView_Personal, newGroupName, lastVisit.NamePerson, false);
+        }
+        private void DailyVisits_AerobListChangedEvent()
+        {
+            var dailyList = _dailyVisits.AerobList;
+            if (dailyList == null || dailyList.Count == 0) return;
+
+            var lastVisit = dailyList.Last();
+            var newGroupName = string.IsNullOrEmpty(lastVisit.GroupTimeName) ? "Имя неизвестно" : lastVisit.GroupTimeName;
+
+            MyListViewEx.AddItemAndGroup(listView_Group, newGroupName, lastVisit.NamePerson, false);
+        }
         #endregion
 
         #region /// ОБРАБОТЧИКИ ///
@@ -114,7 +135,7 @@ namespace PersonsBase.View
         /// Потокобезопасный метод.
         /// </summary>
         /// <param name="numPersons"></param>
-        public void SetNumberDailyPersons(int numPersons)
+        private void SetNumberDailyPersons(int numPersons)
         {
             void MyDelegate() => textBox_PeopleForDay.Text = numPersons.ToString();
             if (InvokeRequired)
