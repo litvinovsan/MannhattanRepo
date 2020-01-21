@@ -182,6 +182,7 @@ namespace PersonsBase.data.Abonements
                 new Tuple<string, string>("Время Тренировок ", TimeTraining.ToString()),
                 new Tuple<string, string>("Услуги", Spa.ToString()),
                 new Tuple<string, string>("Срок Клубной Карты", _numberMonths + "  мес."),
+                new Tuple<string, string>("Дата Активации", BuyActivationDate.ToString("d")),
                 new Tuple<string, string>("Дата Окончания Карты", EndDate.Date.ToString("d")),
                 new Tuple<string, string>("Осталось Дней", GetRemainderDays().ToString())
             };
@@ -206,20 +207,23 @@ namespace PersonsBase.data.Abonements
 
         private void SetNewEndDate()
         {
+            BuyActivationDate = DateTime.Now.Date;
             var date = DateTime.Now.AddMonths(_numberMonths).Date;
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
         }
         private void SetNewEndDate(DateTime startDate)
         {
+
             // Если +, то DateTime.Now позднее startDate
             // Если 0, то даты совпали
             // Если -, то DateTime.Now раньше startdate
             if (DateTime.Now.Date.CompareTo(startDate) < 0) return;
-
+            BuyActivationDate = startDate;
             var date = startDate.AddMonths(_numberMonths).Date;
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = date;
+
         }
 
         public PeriodClubCard GetTypeClubCard()

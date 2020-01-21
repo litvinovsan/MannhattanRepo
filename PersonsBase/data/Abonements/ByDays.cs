@@ -43,6 +43,7 @@ namespace PersonsBase.data.Abonements
             var date = DateTime.Now.AddMonths(ValidityPeriod).Date;
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = date;
+            BuyActivationDate = DateTime.Now.Date;
         }
 
         public override void TryActivate(DateTime startDate)
@@ -54,7 +55,7 @@ namespace PersonsBase.data.Abonements
 
             if (IsActivated) return; // Уже Активирован.
             IsActivated = true;
-
+            BuyActivationDate = startDate;
             var date = startDate.AddMonths(ValidityPeriod).Date;
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = date;
@@ -95,6 +96,7 @@ namespace PersonsBase.data.Abonements
               new Tuple<string, string>("Время Тренировок ", TimeTraining.ToString()),
               new Tuple<string, string>("Осталось Занятий", GetRemainderDays().ToString()),
               new Tuple<string, string>("Услуги", Spa.ToString()),
+              new Tuple<string, string>("Дата Активации", BuyActivationDate.ToString("d")),
               new Tuple<string, string>("Дата Окончания", EndDate.ToString("d"))
           };
             if (PayStatus == Pay.Не_Оплачено) { result.Add(new Tuple<string, string>("Статус Оплаты ", PayStatus.ToString())); }

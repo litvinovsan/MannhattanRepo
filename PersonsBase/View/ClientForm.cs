@@ -68,7 +68,7 @@ namespace PersonsBase.View
             {
                 button_RemoveCurrentAbon.Visible = true;
                 button__remove_abon.Enabled = true;
-                groupBox_Detailed.Enabled = true; // FIXME тут надо включать и выключать выборочные поля.
+              //  groupBox_Detailed.Enabled = true; // FIXME тут надо включать и выключать выборочные поля.
                                                   // Например, админ должен менять статус оплаты
                 textBox_Number.Enabled = true;
             }
@@ -76,7 +76,7 @@ namespace PersonsBase.View
             {
                 button_RemoveCurrentAbon.Visible = false;
                 button__remove_abon.Enabled = false;
-                groupBox_Detailed.Enabled = true; // / FIXME тут надо включать и выключать выборочные поля.
+               // groupBox_Detailed.Enabled = true; // / FIXME тут надо включать и выключать выборочные поля.
                                                   // Например, админ должен менять статус оплаты
                 textBox_Number.Enabled = false;
             }

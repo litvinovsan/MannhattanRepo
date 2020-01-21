@@ -118,15 +118,15 @@ namespace PersonsBase.View
             comboBox.SelectedItem = _person.AbonementCurent.TrainingsType.ToString(); // Выбор по умолчанию
                                                                                       // Подписываемся на событие по изменению
             comboBox.SelectedIndexChanged += comboBox_TypeWorkout_SelectedIndexChanged;
-
-            _saveDelegateChain += () =>
-            {
-                if (_person.AbonementCurent != null && _editedTypeWorkout != _person.AbonementCurent.TrainingsType)
-                {
-                    _person.AbonementCurent.TrainingsType = _editedTypeWorkout;
-                    ComboBoxColor(comboBox, _editedTypeWorkout.ToString(), _person.AbonementCurent.TrainingsType.ToString());
-                }
-            };
+            comboBox.Enabled = false;
+            //_saveDelegateChain += () =>
+            //{
+            //    if (_person.AbonementCurent != null && _editedTypeWorkout != _person.AbonementCurent.TrainingsType)
+            //    {
+            //        _person.AbonementCurent.TrainingsType = _editedTypeWorkout;
+            //        ComboBoxColor(comboBox, _editedTypeWorkout.ToString(), _person.AbonementCurent.TrainingsType.ToString());
+            //    }
+            //};
 
             return new Tuple<Label, Control>(lableType, comboBox);
         }
@@ -266,7 +266,7 @@ namespace PersonsBase.View
             }
             // Подписываемся на событие по изменению комбобокса
             comboBox.SelectedIndexChanged += comboBox_TypeClubCard_SelectedIndexChanged;
-
+            comboBox.Enabled = false;
             return new Tuple<Label, Control>(lableType, comboBox);
         }
         private bool _typeClubCardChanged = false; // Костыль для того чтобы при изменении Длительности карты - не слетало количество дней. Так как Дата перетирается в следующем поле Дата Окончания в цепочке делегатов.
@@ -455,23 +455,23 @@ namespace PersonsBase.View
         private DateTime _editedBuyDate;
         private Tuple<Label, Control> CreateBuyDateField()
         {
-            const string labelText = "Дата Покупки Карты ";
+            const string labelText = "Дата Покупки/Активации Карты ";
             Label lableType = CreateLabel(labelText);
             DateTimePicker dateTime = CreateDateTimePicker();
-            var init = (_person.AbonementCurent.BuyDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? _person.AbonementCurent.BuyDate.Date : dateTime.Value;
+            var init = (_person.AbonementCurent.BuyActivationDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? _person.AbonementCurent.BuyActivationDate.Date : dateTime.Value;
 
             dateTime.Value = init;
             _editedBuyDate = init;
-
+            dateTime.Enabled = false;
             dateTime.ValueChanged += DateTime_BuyDate_ValueChanged;
 
-            _saveDelegateChain += () =>
-            {
-                if (_person.IsAbonementExist() && _editedBuyDate.CompareTo(_person.AbonementCurent.BuyDate.Date) != 0)
-                {
-                    _person.AbonementCurent.BuyDate = _editedBuyDate;
-                }
-            };
+            //_saveDelegateChain += () =>
+            //{
+            //    if (_person.IsAbonementExist() && _editedBuyDate.CompareTo(_person.AbonementCurent.BuyActivationDate.Date) != 0)
+            //    {
+            //        _person.AbonementCurent.BuyActivationDate = _editedBuyDate;
+            //    }
+            //};
             return new Tuple<Label, Control>(lableType, dateTime);
         }
 
@@ -498,15 +498,17 @@ namespace PersonsBase.View
             {
                 comboBox.SelectedItem = abonement.GetTypeAbonementByDays().ToString(); // Выбор по умолчанию
                 _editedDaysInAbon = abonement.GetTypeAbonementByDays();
-                _saveDelegateChain += () =>
-                {
-                    if (_person.AbonementCurent != null && _editedDaysInAbon != abonement.GetTypeAbonementByDays())
-                    {
-                        abonement.SetTypeAbonementByDays(_editedDaysInAbon);
-                        ComboBoxColor(comboBox, abonement.GetTypeAbonementByDays().ToString(), _editedDaysInAbon.ToString());
-                    }
-                };
+                //_saveDelegateChain += () =>
+                //{
+                //    if (_person.AbonementCurent != null && _editedDaysInAbon != abonement.GetTypeAbonementByDays())
+                //    {
+                //        abonement.SetTypeAbonementByDays(_editedDaysInAbon);
+                //        ComboBoxColor(comboBox, abonement.GetTypeAbonementByDays().ToString(), _editedDaysInAbon.ToString());
+                //    }
+                //};
             }
+
+            comboBox.Enabled = false;
             // Подписываемся на событие по изменению
             comboBox.SelectedIndexChanged += comboBox_DaysInAbon_SelectedIndexChanged;
             return new Tuple<Label, Control>(lableType, comboBox);

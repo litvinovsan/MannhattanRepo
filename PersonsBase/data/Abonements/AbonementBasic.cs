@@ -25,7 +25,8 @@ namespace PersonsBase.data.Abonements
         public Pay PayStatus;                // Оплачен?
         public TimeForTr TimeTraining;       // Время занятий
         public TypeWorkout TrainingsType;    // Доступные тренировки
-        public DateTime BuyDate;             // Дата покупки
+        public DateTime BuyActivationDate;             // Дата покупки// Дата активации
+
         public bool IsActivated;             // Активирован? Дата окончания отсчитывается с момента
         protected int DaysLeft { get; set; }  //Дней до конца абонемента, от активации,т.е. с первого посещения. 
 
@@ -51,7 +52,7 @@ namespace PersonsBase.data.Abonements
             TrainingsType = tr;
             this.Spa = spa;
             IsActivated = false;
-            BuyDate = DateTime.Now.Date;
+            BuyActivationDate = DateTime.Now.Date;
         }
         protected AbonementBasic()
         {
@@ -60,7 +61,7 @@ namespace PersonsBase.data.Abonements
             TrainingsType = TypeWorkout.Тренажерный_Зал;
             this.Spa = SpaService.Спа;
             IsActivated = false;
-            BuyDate = DateTime.Now.Date;
+            BuyActivationDate = DateTime.Now.Date;
         }
 
         //МЕТОДЫ АБСТРАКТНЫЕ

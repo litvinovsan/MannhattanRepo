@@ -45,7 +45,7 @@ namespace PersonsBase.data
             SpaStatus = abon.Spa;
             PayStatus = abon.PayStatus;
             AvailableTimeTren = abon.TimeTraining;
-            AbonStartDate = abon.BuyDate;
+            AbonStartDate = abon.BuyActivationDate;
             AbonEndDate = abon.EndDate;
             AbonementName = abon.AbonementName; // "Клубная Карта"  "Абонемент"   "Разовое Занятие"
             CurrAdmName = administratorName ?? NameUnknown;
