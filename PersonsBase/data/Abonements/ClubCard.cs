@@ -35,7 +35,7 @@ namespace PersonsBase.data.Abonements
         public PeriodClubCard PeriodAbonem
         {
             get { return _periodAbonem; }
-            set
+            private set
             {
                 _periodAbonem = value;
                 _numberMonths = (int)_periodAbonem;
@@ -201,6 +201,8 @@ namespace PersonsBase.data.Abonements
 
         public override int GetRemainderDays()
         {
+            var numFreezDays = Freeze?.GetSpentDays() ?? 0; //Вычитаем дни заморозки
+            DaysLeft = (EndDate.Date - DateTime.Now.Date).Days - numFreezDays;
             return DaysLeft;
         }
 

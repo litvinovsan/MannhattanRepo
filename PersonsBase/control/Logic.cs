@@ -531,11 +531,6 @@ namespace PersonsBase.control
 
         public static void LoadShortInfo(GroupBox gbBoxToShow, Person person)
         {
-            CreateShortInfo(gbBoxToShow, person);
-        }
-
-        private static void CreateShortInfo(GroupBox gbBoxToShow, Person person)
-        {
             var labelTextBoxList = CreateLabelTextBoxList(person);
 
             // Отрисовка Short Info
