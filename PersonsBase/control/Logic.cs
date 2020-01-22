@@ -339,8 +339,7 @@ namespace PersonsBase.control
 
             var oldName = string.Copy(curentName);
             // Получаем обьекты для работы
-            var dataBase = DataBaseLevel.GetInstance();
-            var person = DataBaseO.GetPersonLink(oldName);
+            var person = PersonObject.GetLink(oldName);
             // Если текущее имя совпадает с новым
             if (person.Name == newName) return false;
             // Пытаемся переименовать старое имя в новое
@@ -436,7 +435,7 @@ namespace PersonsBase.control
 
         public static bool AddAbonement(string personName)
         {
-            var person = DataBaseO.GetPersonLink(personName);
+            var person = PersonObject.GetLink(personName);
             if (person == null) return false;
 
             var dialogResult = DialogResult.Cancel;
@@ -474,7 +473,7 @@ namespace PersonsBase.control
         /// <returns></returns>
         public bool CheckInWorkout(string personName)
         {
-            var person = DataBaseO.GetPersonLink(personName);
+            var person = PersonObject.GetLink(personName);
             person.AbonementCurent.TryActivate(); // Если не Активирован
 
             if (!IsAbonementValid(ref person)) return false;

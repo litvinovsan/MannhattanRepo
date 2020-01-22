@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using PersonsBase.control;
@@ -111,7 +110,6 @@ namespace PersonsBase.data
                     OnAbonementCurentChanged();
             }
         }
-        public List<Visit> JournalVisits;
         #endregion
 
         #region/// КОНСТРУКТОРЫ.  ///////////////////////////
@@ -131,8 +129,6 @@ namespace PersonsBase.data
             _abonementCurent = null;
 
             AbonementsQueue = new ObservableCollection<AbonementBasic>();
-            JournalVisits = new List<Visit>(); // FIXME вынести в отдельный класс. Там сделать Dictionary<string Имя клиента,List<Visit>> 
-                                               // Доступ будет по Имени клиента, а дальше как обычно. То есть не хранить Журнал визитов в самом клиенте
         }
         public Person()
         {
@@ -150,7 +146,6 @@ namespace PersonsBase.data
             _abonementCurent = null;
 
             AbonementsQueue = new ObservableCollection<AbonementBasic>();
-            JournalVisits = new List<Visit>();
         }
 
         #endregion

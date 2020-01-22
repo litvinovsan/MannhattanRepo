@@ -23,7 +23,7 @@ namespace PersonsBase.View
         public ClientForm(string keyName)
         {
             InitializeComponent();
-            _person = DataBaseO.GetPersonLink(keyName);
+            _person = PersonObject.GetLink(keyName);
             _isAnythingChanged = false;
             _logic = Logic.GetInstance();
         }
@@ -68,16 +68,16 @@ namespace PersonsBase.View
             {
                 button_RemoveCurrentAbon.Visible = true;
                 button__remove_abon.Enabled = true;
-              //  groupBox_Detailed.Enabled = true; // FIXME тут надо включать и выключать выборочные поля.
-                                                  // Например, админ должен менять статус оплаты
+                //  groupBox_Detailed.Enabled = true; // FIXME тут надо включать и выключать выборочные поля.
+                // Например, админ должен менять статус оплаты
                 textBox_Number.Enabled = true;
             }
             else
             {
                 button_RemoveCurrentAbon.Visible = false;
                 button__remove_abon.Enabled = false;
-               // groupBox_Detailed.Enabled = true; // / FIXME тут надо включать и выключать выборочные поля.
-                                                  // Например, админ должен менять статус оплаты
+                // groupBox_Detailed.Enabled = true; // / FIXME тут надо включать и выключать выборочные поля.
+                // Например, админ должен менять статус оплаты
                 textBox_Number.Enabled = false;
             }
 
@@ -291,9 +291,9 @@ namespace PersonsBase.View
         private void SetupVisitsDataGridView()
         {
             var dt = Visit.GetVisitsTable(_person);
-            var journalVisits = _person.JournalVisits;
+           var journalVisits = PersonObject.GetVisitsList(_person.Name);
 
-            var helpStrings = (journalVisits != null && journalVisits.Count > 0) ? journalVisits.First().GetHeadersToolTipHelp() : new[] { "" };
+            var helpStrings = (journalVisits != null && journalVisits.Count > 0) ? journalVisits.First().GetHeadersToolTipHelp() : new[] { "===" };
 
             MyDataGridView.SetSourceDataGridView(dataGridView_Visits, dt);
             MyDataGridView.ImplementStyle(dataGridView_Visits);

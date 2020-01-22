@@ -27,7 +27,7 @@ namespace PersonsBase.View
         public AbonementForm(string nameKey)
         {
             InitializeComponent();
-            _person = DataBaseO.GetPersonLink(nameKey); // Получаем ссылку на обьект персоны
+            _person = PersonObject.GetLink(nameKey); // Получаем ссылку на обьект персоны
         }
 
         private void AbonementForm_Load(object sender, EventArgs e)

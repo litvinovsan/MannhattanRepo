@@ -91,7 +91,7 @@ namespace PersonsBase.View
         private void UpdatePersonalContols()
         {
             // Получили Персону
-            var person = DataBaseO.GetPersonLink(SelectedName);
+            var person = PersonObject.GetLink(SelectedName);
 
             // Телефон
             maskedTextBox_PhoneNumber.Text = person.Phone;

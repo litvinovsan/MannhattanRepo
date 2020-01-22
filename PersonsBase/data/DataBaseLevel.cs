@@ -87,6 +87,12 @@ namespace PersonsBase.data
                 return _dataBaseList;
             }
         }
+
+        /// Возвращает Коллекцию с журналами посещений всех пользователей
+        public static Dictionary<string, List<Visit>> GetDictVisits()
+        {
+            return _visitsDictionary;
+        }
         public static ManhattanInfo GetManhattanInfo()
         {
             return _manhattanInfo;

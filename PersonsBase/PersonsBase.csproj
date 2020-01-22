@@ -77,7 +77,7 @@
     <Compile Include="data\CAdministrator.cs" />
     <Compile Include="data\CWorkout.cs" />
     <Compile Include="data\DailyVisits.cs" />
-    <Compile Include="data\DataBaseO.cs" />
+    <Compile Include="data\PersonObject.cs" />
     <Compile Include="data\ExtensionMethods.cs" />
     <Compile Include="data\Photo.cs" />
     <Compile Include="data\ScheduleNote.cs" />

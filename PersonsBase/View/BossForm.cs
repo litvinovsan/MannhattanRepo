@@ -18,7 +18,6 @@ namespace PersonsBase.View
         public BossForm()
         {
             InitializeComponent();
-            DataBaseLevel.GetInstance();
             _manhattanInfo = DataBaseLevel.GetManhattanInfo();
         }
 

@@ -199,9 +199,16 @@ namespace PersonsBase.data
         /// <param name="selectedOptions"></param>
         public static void Add2Journal(Person person, WorkoutOptions selectedOptions)
         {
-            var journalVisits = person.JournalVisits ?? new List<Visit>();
             var currentAdmin = DataBaseLevel.GetManhattanInfo().CurrentAdmin;
-            journalVisits.Add(new Visit(person.AbonementCurent, selectedOptions, currentAdmin.Name));
+            var visit = new Visit(person.AbonementCurent, selectedOptions, currentAdmin.Name);
+            if (DataBaseLevel.GetDictVisits().ContainsKey(person.Name))
+            {
+                DataBaseLevel.GetDictVisits()[person.Name].Add(visit);
+            }
+            else
+            {
+                DataBaseLevel.GetDictVisits().Add(person.Name, new List<Visit>() { visit });
+            }
         }
 
         /// <summary>
@@ -211,8 +218,8 @@ namespace PersonsBase.data
         public static DataTable GetVisitsTable(Person person)
         {
             var table = new DataTable();
-            var journalVisits = person.JournalVisits ?? new List<Visit>();
-
+            var journal = PersonObject.GetVisitsList(person.Name);
+            var journalVisits = journal ?? new List<Visit>();
             if (journalVisits.Count == 0)
             {
                 table.Columns.Add(" ");

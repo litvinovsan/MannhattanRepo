@@ -23,7 +23,7 @@ namespace PersonsBase.View
             InitializeComponent();
             SelectedOptions = new WorkoutOptions();// Обьект по умолчанию
 
-            _person = DataBaseO.GetPersonLink(personName);
+            _person = PersonObject.GetLink(personName);
             var abonement = _person.AbonementCurent;
             var manhattanInfo = DataBaseLevel.GetManhattanInfo();
             _treners = manhattanInfo.Treners;
@@ -37,16 +37,16 @@ namespace PersonsBase.View
 
         private void WorkoutForm_Load(object sender, EventArgs e)
         {
-            List<string> actualTrenersNames = _treners.Select(x => x.Name).ToList();
-            List<string> actualSchedule = _schedule.Select(x => $"{x.Time.HourMinuteTime} - {x.WorkoutsName}").ToList();
+            var actualTrenersNames = _treners.Select(x => x.Name).ToList();
+            var actualSchedule = _schedule.Select(x => $"{x.Time.HourMinuteTime} - {x.WorkoutsName}").ToList();
 
             // Смотрим Прошлый визит Клиента
-            string lastTrener = actualTrenersNames.FirstOrDefault();
-            string lastGroupTimeName = actualSchedule.FirstOrDefault();
-
-            if (_person.JournalVisits != null && _person.JournalVisits.Count > 0)
+            var lastTrener = actualTrenersNames.FirstOrDefault();
+            var lastGroupTimeName = actualSchedule.FirstOrDefault();
+            var vi = PersonObject.GetVisitsList(_person.Name);
+            if (vi != null && vi.Count > 0)
             {
-                var lastVisit = _person.JournalVisits.Last();
+                var lastVisit = vi.Last();
                 switch (lastVisit.TypeWorkoutToday)
                 {
                     case TypeWorkout.Аэробный_Зал:

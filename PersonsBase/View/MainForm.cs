@@ -11,11 +11,10 @@ namespace PersonsBase.View
     public partial class MainForm : Form
     {
         #region /// ОСНОВНЫЕ ОБЬЕКТЫ ///
-
-        private readonly DataBaseLevel _dataB = DataBaseLevel.GetInstance();
+        private readonly DataBaseLevel _dataB = DataBaseLevel.GetInstance();// Создаем все обьекты
         private readonly DailyVisits _dailyVisits = DailyVisits.GetInstance();
         private readonly Timer _time = new Timer();
-        private SortedList<string, Person> PersonsList
+        private static SortedList<string, Person> PersonsList
         {
             get { return DataBaseLevel.GetListPersons(); }
         }
@@ -197,7 +196,7 @@ namespace PersonsBase.View
 
                 try
                 {
-                    сomboBox_PersonsList.Items.AddRange(PersonsList.Values.Select(c => c.Name).ToArray<object>());
+                    сomboBox_PersonsList.Items.AddRange(PersonsList?.Values?.Select(c => c.Name).ToArray<object>());
                     Invalidate();
                 }
                 catch (Exception)

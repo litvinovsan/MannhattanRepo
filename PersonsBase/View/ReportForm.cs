@@ -113,11 +113,19 @@ namespace PersonsBase.View
             {
                 var dataInPast = DateTime.Now.Subtract(new TimeSpan(30, 0, 0, 0)).Date;//Вычитаем 30 дней
 
-                //Выборка из тех кто уже был в зале хоть один раз
-                var personsWasInGym = _personsAll.Where(x => x.Value.JournalVisits.Count != 0);
+                // var personsWasInGym = _personsAll.Where(x => x.Value.JournalVisits.Count != 0);
+                //  _reqLastVisit = personsWasInGym.Where(x =>x.Value?.JournalVisits?.Last().DateTimeVisit.CompareTo(dataInPast) <= 0).ToList();
 
-                _reqLastVisit = personsWasInGym.Where(x =>
-                    x.Value?.JournalVisits?.Last().DateTimeVisit.CompareTo(dataInPast) <= 0).ToList();
+                var fullJournal = DataBaseLevel.GetDictVisits();
+                //Выборка из тех кто уже был в зале хоть один раз
+                IEnumerable<KeyValuePair<string, Person>> personsWasInGym = fullJournal.Where(x => x.Value.Count != 0)
+                    .Select((x) => new KeyValuePair<string, Person>(x.Key, PersonObject.GetLink(x.Key)) {});
+
+
+                //  IEnumerable<KeyValuePair<string, List<Visit>>> p = personsWasInGym.Where(x => x.Value?.Last().DateTimeVisit.CompareTo(dataInPast) <= 0);
+                //  IEnumerable<KeyValuePair<string, Person>> res = p.Select((x) => new KeyValuePair<string, Person>(x.Key, PersonObject.GetLink(x.Key)));
+
+                //   _reqLastVisit = res.ToList();
             }
             ShowPersons(GetUpdatedRequests());
         }

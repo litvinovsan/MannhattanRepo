@@ -140,7 +140,7 @@ namespace PersonsBase.data
                 MessageBox.Show($@"Такой ПЕРСОНАЛЬНЫЙ номер уже назначен клиенту: {person.Name}", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
-            DataBaseO.GetPersonLink(namePerson).PersonalNumber = newNumber;
+            PersonObject.GetLink(namePerson).PersonalNumber = newNumber;
             return true;
         }
 
@@ -202,12 +202,12 @@ namespace PersonsBase.data
         // Path To Photo
         public static void EditPathToPhoto(string personName, string newFileNameNoExtens)
         {
-            var oldPathToPhoto = DataBaseO.GetPersonLink(personName)?.PathToPhoto;
+            var oldPathToPhoto = PersonObject.GetLink(personName)?.PathToPhoto;
             if (oldPathToPhoto == null) return;
             var fileInfo = new FileInfo(oldPathToPhoto);
             var newFilePath = fileInfo.DirectoryName + "\\" + newFileNameNoExtens + fileInfo.Extension;
             if (personName != null && DataBaseLevel.ContainsNameKey(personName))
-                DataBaseO.GetPersonLink(personName).PathToPhoto = newFilePath;
+                PersonObject.GetLink(personName).PathToPhoto = newFilePath;
         }
 
         #endregion
@@ -357,9 +357,10 @@ namespace PersonsBase.data
             personFields.Add(new PersonField { HeaderName = "Абон. Конец", Value = $"{person.AbonementCurent.EndDate:MM/dd/yyyy}" });
 
             // Последнее посещение в журнале
-            if (person.JournalVisits?.Count > 0)
+            var journal = PersonObject.GetVisitsList(person.Name);
+            if (journal?.Count > 0)
             {
-                var lastVisit = person.JournalVisits.Last().DateTimeVisit.Date; //.ToString("MM/dd/yyyy");
+                var lastVisit = journal.Last().DateTimeVisit.Date; //.ToString("MM/dd/yyyy");
                 var numDays = (DateTime.Now - lastVisit).Days;
                 personFields.Add(new PersonField { HeaderName = "Был (дней назад)", Value = $"  {numDays}" });
             }
