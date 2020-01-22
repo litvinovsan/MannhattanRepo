@@ -150,9 +150,9 @@ namespace PersonsBase.data
         {
             var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase;
 
-            SerializeClass.Serialize(GymList, currentPath + "\\" + Options.DailyVisitsGymFile);
-            SerializeClass.Serialize(PersonalList, currentPath + "\\" + Options.DailyVisitsPersonalsFile);
-            SerializeClass.Serialize(AerobList, currentPath + "\\" + Options.DailyVisitsAerobFile);
+            SerializeClass.Serialize(GymList, currentPath + "\\" + Options.DailyVisitGymFile);
+            SerializeClass.Serialize(PersonalList, currentPath + "\\" + Options.DailyVisitPersonalsFile);
+            SerializeClass.Serialize(AerobList, currentPath + "\\" + Options.DailyVisitAerobFile);
 
         }
         /// <summary>
@@ -166,7 +166,7 @@ namespace PersonsBase.data
 
             // Тренажерка
             var dailyGymVisits = new List<GymItem>();
-            SerializeClass.DeSerialize(ref dailyGymVisits, currentPath + "\\" + Options.DailyVisitsGymFile);
+            SerializeClass.DeSerialize(ref dailyGymVisits, currentPath + "\\" + Options.DailyVisitGymFile);
             foreach (var item in dailyGymVisits)
             {
                 GymList.Add(item);
@@ -175,7 +175,7 @@ namespace PersonsBase.data
 
             // Аэробный залл
             var dailyAerobVisits = new List<AerobItem>();
-            SerializeClass.DeSerialize(ref dailyAerobVisits, currentPath + "\\" + Options.DailyVisitsAerobFile);
+            SerializeClass.DeSerialize(ref dailyAerobVisits, currentPath + "\\" + Options.DailyVisitAerobFile);
             foreach (var item in dailyAerobVisits)
             {
                 AerobList.Add(item);
@@ -183,7 +183,7 @@ namespace PersonsBase.data
             }
             // Персональные тренировки
             var dailyPersonalVisits = new List<PersonalItem>();
-            SerializeClass.DeSerialize(ref dailyPersonalVisits, currentPath + "\\" + Options.DailyVisitsPersonalsFile);
+            SerializeClass.DeSerialize(ref dailyPersonalVisits, currentPath + "\\" + Options.DailyVisitPersonalsFile);
             foreach (var item in dailyPersonalVisits)
             {
                 PersonalList.Add(item);

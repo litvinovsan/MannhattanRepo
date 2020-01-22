@@ -18,6 +18,8 @@ namespace PersonsBase.data
 
         // База Клиентов
         private static SortedList<string, Person> _dataBaseList;
+        // База с Журналом посещений
+        private static Dictionary<string, List<Visit>> _visitsDictionary;
         // База Администраторов 
         private static List<Administrator> _adminsList;
         // База Тренеров
@@ -44,7 +46,8 @@ namespace PersonsBase.data
             // База Клиентов
             _dataBaseList = new SortedList<string, Person>(StringComparer.OrdinalIgnoreCase);
 
-            DeSerializeObjects();
+            DeSerializeObjects(); // Там же сразу создаются обьекты базы
+
             // Cтруктура для удобства доступа
             _manhattanInfo = new ManhattanInfo
             {
@@ -96,7 +99,7 @@ namespace PersonsBase.data
 
             lock (Locker)
             {
-                bool containsCopy = DataBaseM.IsContainsCopyOfValues(_dataBaseList, person, out response);
+                var containsCopy = DataBaseM.IsContainsCopyOfValues(_dataBaseList, person, out response);
                 if (containsCopy == false && (!string.IsNullOrEmpty(person.Key)))
                 {
                     try
@@ -137,11 +140,15 @@ namespace PersonsBase.data
             }
             return result;
         }
+
         public bool PersonEditName(string curentName, string newName)
         {
-            var result = _dataBaseList != null && DataBaseM.EditName(_dataBaseList, curentName, newName);
-            if (result) OnListChanged();
-            return result;
+            lock (Locker)
+            {
+                var result = _dataBaseList != null && DataBaseM.EditName(_dataBaseList, curentName, newName);
+                if (result) OnListChanged();
+                return result;
+            }
         }
         /// Returns numberof elements in collection
         public static int GetNumberOfPersons()
@@ -162,7 +169,7 @@ namespace PersonsBase.data
         /// <summary>
         /// Сериализация всех обьектов Базы данных. Клиенты, Администраторы, Тренеры, Расписание груповых тренировок
         /// </summary>
-        public void SerializeObjects()
+        public static void SerializeObjects()
         {
             MyFile.CreateFolder(Options.FolderNameDataBase);
             var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase;
@@ -171,6 +178,8 @@ namespace PersonsBase.data
             {
                 SerializeClass.Serialize(_dataBaseList, currentPath + "\\" + Options.PersonsDbFile);
             }
+            // Журнал посещений
+            SerializeClass.Serialize(_visitsDictionary, currentPath + "\\" + Options.PersonVisitsDbFile);
 
             // База Тренеров
             SerializeClass.Serialize(_trenersList, currentPath + "\\" + Options.TrenersDbFile);
@@ -185,7 +194,7 @@ namespace PersonsBase.data
         /// <summary>
         /// ДеСериализация всех обьектов Базы данных. Клиенты, Администраторы, Тренеры, Расписание груповых тренировок
         /// </summary>
-        private void DeSerializeObjects()
+        private static void DeSerializeObjects()
         {
             MyFile.CreateFolder(Options.FolderNameDataBase);
             var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase;
@@ -194,6 +203,9 @@ namespace PersonsBase.data
             {
                 SerializeClass.DeSerialize(ref _dataBaseList, currentPath + "\\" + Options.PersonsDbFile);
             }
+            // Журнал посещений клиентов
+            _visitsDictionary = new Dictionary<string, List<Visit>>();
+            SerializeClass.DeSerialize(ref _visitsDictionary, currentPath + "\\" + Options.PersonVisitsDbFile);
 
             // База Тренеров
             _trenersList = new List<Trener>();

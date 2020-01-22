@@ -278,7 +278,7 @@ namespace PersonsBase.View
             var table = DataBaseM.CreatePersonsTable();
             MyFile.ExportToExcel(table, true);
             //Сохраним и Базу данных
-            DataBaseLevel.GetInstance().SerializeObjects();
+            DataBaseLevel.SerializeObjects();
         }
 
         private void сканироватьToolStripMenuItem_Click(object sender, EventArgs e)

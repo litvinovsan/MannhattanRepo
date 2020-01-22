@@ -32,7 +32,7 @@ namespace PersonsBase.data.Abonements
         public PeriodClubCard PeriodAbonem
         {
             get { return _periodAbonem; }
-            private set
+            set
             {
                 _periodAbonem = value;
                 _numberMonths = (int)_periodAbonem;
