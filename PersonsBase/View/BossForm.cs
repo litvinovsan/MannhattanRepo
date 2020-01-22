@@ -19,7 +19,7 @@ namespace PersonsBase.View
         {
             InitializeComponent();
             DataBaseLevel.GetInstance();
-            _manhattanInfo = DataBaseO.GetManhattanInfo();
+            _manhattanInfo = DataBaseLevel.GetManhattanInfo();
         }
 
         private void BossForm_Load(object sender, EventArgs e)

@@ -23,7 +23,7 @@ namespace PersonsBase.View
         public ClientForm(string keyName)
         {
             InitializeComponent();
-            _person = DataBaseLevel.GetListPersons()[keyName];
+            _person = DataBaseO.GetPersonLink(keyName);
             _isAnythingChanged = false;
             _logic = Logic.GetInstance();
         }

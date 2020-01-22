@@ -25,7 +25,7 @@ namespace PersonsBase.View
 
             _person = DataBaseO.GetPersonLink(personName);
             var abonement = _person.AbonementCurent;
-            var manhattanInfo = DataBaseO.GetManhattanInfo();
+            var manhattanInfo = DataBaseLevel.GetManhattanInfo();
             _treners = manhattanInfo.Treners;
             _schedule = manhattanInfo.Schedule;
 

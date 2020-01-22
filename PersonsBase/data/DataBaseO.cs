@@ -1,13 +1,13 @@
-﻿namespace PersonsBase.data
+﻿using System.Collections.Generic;
+
+namespace PersonsBase.data
 {
     public static class DataBaseO
     {
         private static Person _person;
-        private static readonly ManhattanInfo ManhattanInfo;
 
         static DataBaseO()
         {
-            ManhattanInfo = DataBaseLevel.GetManhattanInfo();
         }
 
         public static Person GetPersonLink(string name)
@@ -17,9 +17,10 @@
             return _person;
         }
 
-        public static ManhattanInfo GetManhattanInfo()
-        {
-            return ManhattanInfo;
-        }
+        //public static List<Visit> GetPersonVisits(string name)
+        //{
+        //    if (!DataBaseLevel.ContainsNameKey(name)) return new List<Visit>();
+
+        //}
     }
 }

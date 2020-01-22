@@ -200,7 +200,7 @@ namespace PersonsBase.data
         public static void Add2Journal(Person person, WorkoutOptions selectedOptions)
         {
             var journalVisits = person.JournalVisits ?? new List<Visit>();
-            var currentAdmin = DataBaseO.GetManhattanInfo().CurrentAdmin;
+            var currentAdmin = DataBaseLevel.GetManhattanInfo().CurrentAdmin;
             journalVisits.Add(new Visit(person.AbonementCurent, selectedOptions, currentAdmin.Name));
         }
 

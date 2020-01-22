@@ -93,7 +93,7 @@ namespace PersonsBase.control
 
         public static bool SchedulesAdd2DataBase(MyTime time, ScheduleNote sch)
         {
-            var manhattanInfo = DataBaseO.GetManhattanInfo();
+            var manhattanInfo = DataBaseLevel.GetManhattanInfo();
 
             //  Проверка. Содержит ли список запись с добавляемым временем
             var isExist = IsSchedExists(time.HourMinuteTime, sch.WorkoutsName, manhattanInfo);
@@ -110,7 +110,7 @@ namespace PersonsBase.control
 
         public static void SchedulesRemoveDataBase(string time, string nameWorkout)
         {
-            var manhattanInfo = DataBaseO.GetManhattanInfo();
+            var manhattanInfo = DataBaseLevel.GetManhattanInfo();
 
             //  Проверка. Содержит ли список запись с временем
             var isExist = IsSchedExists(time, nameWorkout, manhattanInfo);
@@ -128,7 +128,7 @@ namespace PersonsBase.control
         // Работники Тренеры Админ
         public static bool EmployeeAdd2DataBase(Employee emploerToAdd)
         {
-            var manhattanInfo = DataBaseO.GetManhattanInfo();
+            var manhattanInfo = DataBaseLevel.GetManhattanInfo();
 
             var isTrener = emploerToAdd.IsTrener;
 
@@ -218,7 +218,7 @@ namespace PersonsBase.control
 
         public static void EmployeeRemoveDataBase(string name, bool isTrener)
         {
-            var manhattanInfo = DataBaseO.GetManhattanInfo();
+            var manhattanInfo = DataBaseLevel.GetManhattanInfo();
 
             //  Проверка. Содержит ли список
             var isExist = isTrener
@@ -261,14 +261,14 @@ namespace PersonsBase.control
         {
             if (!FormsRunner.RunSelectPersonForm(out var selectedName, "УДАЛЕНИЕ КЛИЕНТА")) return false;
 
-            if (String.IsNullOrEmpty(selectedName)) return false;
+            if (string.IsNullOrEmpty(selectedName)) return false;
 
             var res = MessageBox.Show($@"{selectedName}", @"Удалить клиента из базы???", MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
             if (res == DialogResult.No) return false;
 
-            var response = DataBaseLevel.GetInstance().PersonRemove(selectedName);
+            var response = DataBaseLevel.PersonRemove(selectedName);
             return (response == ResponseCode.Success);
         }
 
@@ -344,7 +344,7 @@ namespace PersonsBase.control
             // Если текущее имя совпадает с новым
             if (person.Name == newName) return false;
             // Пытаемся переименовать старое имя в новое
-            var isSuccess = dataBase.PersonEditName(person.Name, newName);
+            var isSuccess = DataBaseLevel.PersonEditName(person.Name, newName);
             if (isSuccess)
             {
                 var isRenamedOk = MyFile.TryRenameFile(person.PathToPhoto, newName);

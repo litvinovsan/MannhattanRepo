@@ -34,13 +34,11 @@ namespace PersonsBase.View
             StartTimer(); // Инициализация Таймера для Часов
 
             // Подписка на события в пользовательской Базе Данных
-            _dataB.ListChangedEvent += UpdateFindComboBoxMenu; // Список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
-            _dataB.ListChangedEvent += SetNumberTotalPersons; // Счетчик пользователей
-            _dataB.ListChangedEvent += UpdateBirthDateComboBox; // Поле Сегодняшних Дней рождений
+            DataBaseLevel.PersonsListChangedEvent += UpdateFindComboBoxMenu; // Список клиентов в окне Поиска. Автоматически,когда изменяется самая главная коллекция с клиентами.
+            DataBaseLevel.PersonsListChangedEvent += SetNumberTotalPersons; // Счетчик пользователей
+            DataBaseLevel.PersonsListChangedEvent += UpdateBirthDateComboBox; // Поле Сегодняшних Дней рождений
 
-            _dataB.OnListChanged(); // Событие запускающееся при изменении количества Клиентов в списке.
-
-            comboBox_BDay.SelectedIndexChanged += comboBox_BDay_SelectedIndexChanged;// Открытие карточки клиента
+            DataBaseLevel.OnListChanged(); // Событие запускающееся при изменении количества Клиентов в списке.
             PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
 
             // События для 
@@ -148,7 +146,7 @@ namespace PersonsBase.View
             }
         }
 
-        private void SetNumberTotalPersons(object sender, EventArgs arg)
+        private void SetNumberTotalPersons(EventArgs arg)
         {
             textBox_Total_persons.Text = DataBaseLevel.GetNumberOfPersons().ToString();
             Invalidate();
@@ -166,8 +164,9 @@ namespace PersonsBase.View
             // MessageBox.Show("Изменен Пароль В гл Форме");
         }
 
-        private void UpdateBirthDateComboBox(object sender, EventArgs e)
+        private void UpdateBirthDateComboBox(EventArgs e)
         {
+            comboBox_BDay.SelectedIndexChanged -= comboBox_BDay_SelectedIndexChanged_1;
             void MyDelegate()
             {
                 comboBox_BDay.Items.Clear();
@@ -187,9 +186,10 @@ namespace PersonsBase.View
 
             if (InvokeRequired) Invoke((Action)MyDelegate);
             else MyDelegate();
+            comboBox_BDay.SelectedIndexChanged += comboBox_BDay_SelectedIndexChanged_1;
         }
 
-        private void UpdateFindComboBoxMenu(object sender, EventArgs arg)
+        private void UpdateFindComboBoxMenu(EventArgs arg)
         {
             void MyDelegate()
             {
@@ -220,10 +220,6 @@ namespace PersonsBase.View
             Logic.OpenPersonCard(сomboBox_PersonsList.SelectedItem.ToString());
         }
 
-        private void comboBox_BDay_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Logic.OpenPersonCard(comboBox_BDay.SelectedItem.ToString());
-        }
 
         private void _time_ClockTick(object sender, EventArgs e)
         {
@@ -290,7 +286,10 @@ namespace PersonsBase.View
         {
             Logic.CreateReport();
         }
+        private void comboBox_BDay_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            Logic.OpenPersonCard(comboBox_BDay.SelectedItem.ToString());
+        }
         #endregion
-
     }
 }

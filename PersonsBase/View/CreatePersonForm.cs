@@ -333,7 +333,7 @@ namespace PersonsBase.View
             }
 
             var p = Logic.CreateNewPerson(_dataStruct);
-            var result = DataBaseLevel.GetInstance().PersonAdd(p);
+            var result = DataBaseLevel.PersonAdd(p);
             if (result == ResponseCode.Success)
             {
                 DialogResult = DialogResult.OK;

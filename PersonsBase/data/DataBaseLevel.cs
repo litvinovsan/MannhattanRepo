@@ -66,14 +66,14 @@ namespace PersonsBase.data
 
         #region/// CОБЫТИЯ ////
         // Список Клиентов
-        public delegate void MyEventDelegate(object sender, EventArgs e);
+        public delegate void MyEventDelegate(EventArgs e);
         /// <summary>
         /// Событие возникает когда изменяется количество клиентов в базе.
         /// </summary>
-        public event MyEventDelegate ListChangedEvent;
-        public void OnListChanged()
+        public static event MyEventDelegate PersonsListChangedEvent;
+        public static void OnListChanged()
         {
-            ListChangedEvent?.Invoke(this, EventArgs.Empty);
+            PersonsListChangedEvent?.Invoke(EventArgs.Empty);
         }
         #endregion
 
@@ -93,7 +93,7 @@ namespace PersonsBase.data
         }
 
         /// Возвращает ответ Базы Данных об успешности Добавления новой персоны.Success если успех. Код Поля- ошибки или Fail в непонятных случаях.
-        public ResponseCode PersonAdd(Person person)
+        public static ResponseCode PersonAdd(Person person)
         {
             ResponseCode response;
 
@@ -117,7 +117,7 @@ namespace PersonsBase.data
 
             return response;
         }
-        public ResponseCode PersonRemove(string nameKey)
+        public static ResponseCode PersonRemove(string nameKey)
         {
             var result = ResponseCode.Fail;
 
@@ -141,7 +141,7 @@ namespace PersonsBase.data
             return result;
         }
 
-        public bool PersonEditName(string curentName, string newName)
+        public static bool PersonEditName(string curentName, string newName)
         {
             lock (Locker)
             {
