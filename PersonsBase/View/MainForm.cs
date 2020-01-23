@@ -16,7 +16,7 @@ namespace PersonsBase.View
         private readonly Timer _time = new Timer();
         private static SortedList<string, Person> PersonsList
         {
-            get { return DataBaseLevel.GetListPersons(); }
+            get { return DataBaseLevel.GetPersonsList(); }
         }
         #endregion
 
@@ -196,7 +196,8 @@ namespace PersonsBase.View
 
                 try
                 {
-                    сomboBox_PersonsList.Items.AddRange(PersonsList?.Values?.Select(c => c.Name).ToArray<object>());
+                    if (PersonsList != null)
+                        сomboBox_PersonsList.Items.AddRange(PersonsList?.Values.Select(c => c.Name).ToArray<object>());
                     Invalidate();
                 }
                 catch (Exception)

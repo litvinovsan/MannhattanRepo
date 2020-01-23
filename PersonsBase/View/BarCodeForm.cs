@@ -68,7 +68,7 @@ namespace PersonsBase.View
                 return;
             }
 
-            var isFinded = DataBaseM.FindByPersonalNumber(DataBaseLevel.GetListPersons(), number, out var person);
+            var isFinded = DataBaseM.FindByPersonalNumber(DataBaseLevel.GetPersonsList(), number, out var person);
             if (isFinded)
             {
                 _nameFinded = person.Name;

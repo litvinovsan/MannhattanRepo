@@ -108,7 +108,7 @@ namespace PersonsBase.View
             _maskPassport = maskedTextBox_Passport.Text;
             _maskDriverId = maskedTextBox_DriverID.Text;
 
-            _persons = DataBaseLevel.GetListPersons();
+            _persons = DataBaseLevel.GetPersonsList();
             _dataStateOk = new PersonalDataState();
             _dataStruct = new PersonalDataStruct();
 
@@ -294,7 +294,7 @@ namespace PersonsBase.View
             }
 
             _dataStruct.PersonalNumber = tempNum;
-            var isExist = DataBaseM.FindByPersonalNumber(DataBaseLevel.GetListPersons(), tempNum, out var person);
+            var isExist = DataBaseM.FindByPersonalNumber(DataBaseLevel.GetPersonsList(), tempNum, out var person);
 
             return !isExist;
         }

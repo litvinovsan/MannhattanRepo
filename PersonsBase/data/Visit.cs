@@ -192,26 +192,6 @@ namespace PersonsBase.data
         #region /// ЖУРНАЛ ПОСЕЩЕНИЙ
 
         /// <summary>
-        /// Добавляет в Журнал посещений параметры выбранной Тренировки, Текущего администратора, время тренировки.
-        /// Статический метод, на вход нужно подать Персону.
-        /// </summary>
-        /// <param name="person"></param>
-        /// <param name="selectedOptions"></param>
-        public static void Add2Journal(Person person, WorkoutOptions selectedOptions)
-        {
-            var currentAdmin = DataBaseLevel.GetManhattanInfo().CurrentAdmin;
-            var visit = new Visit(person.AbonementCurent, selectedOptions, currentAdmin.Name);
-            if (DataBaseLevel.GetDictVisits().ContainsKey(person.Name))
-            {
-                DataBaseLevel.GetDictVisits()[person.Name].Add(visit);
-            }
-            else
-            {
-                DataBaseLevel.GetDictVisits().Add(person.Name, new List<Visit>() { visit });
-            }
-        }
-
-        /// <summary>
         /// Создает DataTable обьект содержащий все посещения пользователя.
         /// </summary>
         /// <returns></returns>

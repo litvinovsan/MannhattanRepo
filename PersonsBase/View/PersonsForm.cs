@@ -47,7 +47,7 @@ namespace PersonsBase.View
             // Инициализация всех контролов
 
             //ComboBox Persons
-            var objects = DataBaseLevel.GetListPersons().Values.Select(c => c.Name).ToArray<object>();
+            var objects = DataBaseLevel.GetPersonsList().Values.Select(c => c.Name).ToArray<object>();
             MyComboBox.Initialize(comboBox_Names, objects);
 
             // Пол

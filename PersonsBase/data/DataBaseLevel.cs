@@ -43,8 +43,7 @@ namespace PersonsBase.data
         #region/// КОНСТРУКТОР и ДЕСТРУКТОР /////
         private DataBaseLevel()
         {
-            // База Клиентов
-            _dataBaseList = new SortedList<string, Person>(StringComparer.OrdinalIgnoreCase);
+
 
             DeSerializeObjects(); // Там же сразу создаются обьекты базы
 
@@ -80,7 +79,7 @@ namespace PersonsBase.data
         #region /// МЕТОДЫ ////
 
         // Доступ к Коллекциям и Спискам Клиентов, Тренеров, Администраторов, Тренировок
-        public static SortedList<string, Person> GetListPersons()
+        public static SortedList<string, Person> GetPersonsList()
         {
             lock (Locker)
             {
@@ -89,7 +88,7 @@ namespace PersonsBase.data
         }
 
         /// Возвращает Коллекцию с журналами посещений всех пользователей
-        public static Dictionary<string, List<Visit>> GetDictVisits()
+        public static Dictionary<string, List<Visit>> GetPersonsVisitDict()
         {
             return _visitsDictionary;
         }
@@ -205,6 +204,8 @@ namespace PersonsBase.data
             MyFile.CreateFolder(Options.FolderNameDataBase);
             var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase;
 
+            // База Клиентов
+            _dataBaseList = new SortedList<string, Person>(StringComparer.OrdinalIgnoreCase);
             lock (Locker)
             {
                 SerializeClass.DeSerialize(ref _dataBaseList, currentPath + "\\" + Options.PersonsDbFile);

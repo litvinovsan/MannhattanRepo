@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -12,7 +13,7 @@ namespace PersonsBase.View
     {
         #region /// ПОЛЯ 
         // Список всех персон. Исходная коллекция со всеми клиентами
-        private readonly SortedList<string, Person> _personsAll = DataBaseLevel.GetListPersons();
+        private readonly SortedList<string, Person> _personsAll = DataBaseLevel.GetPersonsList();
 
         // ВЫБОРКИ по параметрам
         private IEnumerable<KeyValuePair<string, Person>> _reqStatuses;
@@ -112,20 +113,10 @@ namespace PersonsBase.View
             else
             {
                 var dataInPast = DateTime.Now.Subtract(new TimeSpan(30, 0, 0, 0)).Date;//Вычитаем 30 дней
-
-                // var personsWasInGym = _personsAll.Where(x => x.Value.JournalVisits.Count != 0);
-                //  _reqLastVisit = personsWasInGym.Where(x =>x.Value?.JournalVisits?.Last().DateTimeVisit.CompareTo(dataInPast) <= 0).ToList();
-
-                var fullJournal = DataBaseLevel.GetDictVisits();
-                //Выборка из тех кто уже был в зале хоть один раз
-                IEnumerable<KeyValuePair<string, Person>> personsWasInGym = fullJournal.Where(x => x.Value.Count != 0)
-                    .Select((x) => new KeyValuePair<string, Person>(x.Key, PersonObject.GetLink(x.Key)) {});
-
-
-                //  IEnumerable<KeyValuePair<string, List<Visit>>> p = personsWasInGym.Where(x => x.Value?.Last().DateTimeVisit.CompareTo(dataInPast) <= 0);
-                //  IEnumerable<KeyValuePair<string, Person>> res = p.Select((x) => new KeyValuePair<string, Person>(x.Key, PersonObject.GetLink(x.Key)));
-
-                //   _reqLastVisit = res.ToList();
+                var fullJournal = DataBaseLevel.GetPersonsVisitDict();
+                var resultByCondition = fullJournal.Where(x => x.Value?.Last().DateTimeVisit.CompareTo(dataInPast) <= 0);
+                var resultConverted = resultByCondition.Select(y => new KeyValuePair<string, Person>(y.Key, PersonObject.GetLink(y.Key)));
+                _reqLastVisit = resultConverted.ToList();
             }
             ShowPersons(GetUpdatedRequests());
         }

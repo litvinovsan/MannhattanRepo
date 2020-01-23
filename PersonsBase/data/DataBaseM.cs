@@ -133,7 +133,7 @@ namespace PersonsBase.data
         }
         public static bool EditPersonalNumber(string namePerson, int newNumber)
         {
-            var isExist = FindByPersonalNumber(DataBaseLevel.GetListPersons(), newNumber, out var person);
+            var isExist = FindByPersonalNumber(DataBaseLevel.GetPersonsList(), newNumber, out var person);
 
             if (newNumber <= 0 || isExist)
             {
@@ -220,7 +220,7 @@ namespace PersonsBase.data
         /// <returns></returns>
         public static DataTable CreatePersonsTable()
         {
-            var persons = DataBaseLevel.GetListPersons();
+            var persons = DataBaseLevel.GetPersonsList();
             var dt = CreatePersonsTable(persons, GetPersonFieldsFull);
             return dt;
         }
@@ -263,7 +263,7 @@ namespace PersonsBase.data
         private static DataColumn[] GetHeaders(Func<KeyValuePair<string, Person>, IEnumerable<PersonField>> getFieldsFunc)
         {
             // Создаем массив с полями и заголовками будущей таблицы по текущему посещению
-            var persons = DataBaseLevel.GetListPersons();
+            var persons = DataBaseLevel.GetPersonsList();
             var p = persons.Select(x => x).FirstOrDefault(x => (x.Value.AbonementCurent != null));
             IEnumerable<PersonField> personFields;
 

@@ -344,6 +344,14 @@ namespace PersonsBase.control
             if (person.Name == newName) return false;
             // Пытаемся переименовать старое имя в новое
             var isSuccess = DataBaseLevel.PersonEditName(person.Name, newName);
+
+            // Переименование коллекции с Посещениями
+            if (isSuccess)
+            {
+                DataBaseLevel.GetPersonsVisitDict().RenameKey(oldName, PrepareName(newName));
+            }
+
+            // Переименование файлов и Пути к фотке
             if (isSuccess)
             {
                 var isRenamedOk = MyFile.TryRenameFile(person.PathToPhoto, newName);
@@ -516,7 +524,7 @@ namespace PersonsBase.control
                 $@"Осталось посещений: {person.AbonementCurent.GetRemainderDays()}{infoAerobic}{infoPersonal}",
                 @"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            Visit.Add2Journal(person, selectedOptions);
+            PersonObject.SaveCurentVisit(person, selectedOptions);
 
             // Cобытие для добавления текущего посещения на главную форму
             _daily.AddToDailyLog(personName, selectedOptions);

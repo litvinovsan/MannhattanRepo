@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Windows.Forms;
 using PersonsBase.data;
 
@@ -218,6 +219,9 @@ namespace PersonsBase.myStd
 
             SubItems.Add(name);
         }
+
+        protected NameTimeItem(SerializationInfo info, StreamingContext context) : base(info, context)
+        { }
     }
 
     #region /// BOSS Form ///
@@ -230,6 +234,9 @@ namespace PersonsBase.myStd
         {
             Text = note.Time.HourMinuteTime;
             SubItems.Add(note.WorkoutsName);
+        }
+        protected ScheduleNoteItem(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
         }
     }
     #endregion
