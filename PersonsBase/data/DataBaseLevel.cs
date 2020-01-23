@@ -105,11 +105,11 @@ namespace PersonsBase.data
             lock (Locker)
             {
                 var containsCopy = DataBaseM.IsContainsCopyOfValues(_dataBaseList, person, out response);
-                if (containsCopy == false && (!string.IsNullOrEmpty(person.Key)))
+                if (containsCopy == false && (!string.IsNullOrEmpty(person.Name)))
                 {
                     try
                     {
-                        _dataBaseList.Add(person.Key, person);
+                        _dataBaseList.Add(person.Name, person);
                         response = ResponseCode.Success;
                         OnListChanged();
                     }

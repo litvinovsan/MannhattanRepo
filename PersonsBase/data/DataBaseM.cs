@@ -29,7 +29,7 @@ namespace PersonsBase.data
             }
 
             //быстрая Проверка на Ключ/Имя клиента    
-            if (inputDict.ContainsKey(person.Key))
+            if (inputDict.ContainsKey(person.Name))
             {
                 containsCopy = true;
                 response = ResponseCode.KeyExist;
@@ -160,7 +160,7 @@ namespace PersonsBase.data
 
                 personForEdit.Name = newName;
                 inputCollection.Remove(localKey);
-                inputCollection.Add(personForEdit.Key, personForEdit);
+                inputCollection.Add(personForEdit.Name, personForEdit);
             }
             return isSuccess;
         }

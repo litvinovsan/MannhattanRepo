@@ -233,17 +233,17 @@ namespace PersonsBase.View
                 // Мужчины
                 if ((MyCheckedListBox.IsChecked(checkedListBox_Gender, 0)))
                 {
-                    r1 = _personsAll.Where(x => x.Value?.GenderType == Gender.Мужской);
+                    r1 = _personsAll.Where(x => x.Value.GenderType == Gender.Мужской);
                 }
                 // Женщины
                 if (MyCheckedListBox.IsChecked(checkedListBox_Gender, 1))
                 {
-                    r2 = _personsAll.Where(x => (x.Value?.GenderType == Gender.Женский));
+                    r2 = _personsAll.Where(x => (x.Value.GenderType == Gender.Женский));
                 }
                 // Неизвестно
                 if (MyCheckedListBox.IsChecked(checkedListBox_Gender, 2))
                 {
-                    r3 = _personsAll.Where(x => (x.Value?.GenderType == Gender.Неизвестен));
+                    r3 = _personsAll.Where(x => (x.Value.GenderType == Gender.Неизвестен));
                 }
                 _reqGender = r1.Union(r2).Union(r3);
             }

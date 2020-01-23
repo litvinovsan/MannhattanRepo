@@ -11,37 +11,53 @@ namespace PersonsBase.data
     {
         #region/// СОБЫТИЯ ////
 
-        // Статус
-        [field: NonSerialized]
-        public event EventHandler StatusChanged;
+        [field: NonSerialized] public event EventHandler StatusChanged;
+        [field: NonSerialized] public event EventHandler PathToPhotoChanged;
+        [field: NonSerialized] public event EventHandler AbonementCurentChanged;
+        [field: NonSerialized] public event EventHandler<string> PhoneChanged;
+        [field: NonSerialized] public event EventHandler<string> NameChanged;
+
+
+
         public void OnStatusChanged()
         {
             StatusChanged?.Invoke(this, EventArgs.Empty);
         }
-
-        // Фото Клиента
-        [field: NonSerialized]
-        public event EventHandler PathToPhotoChanged;
-
-        private void OnPathPhotoChanged()
+        private void OnPathPhotoChanged()// Фото Клиента
         {
             PathToPhotoChanged?.Invoke(this, EventArgs.Empty);
         }
-
-        // Абонемент
-        [field: NonSerialized]
-        public event EventHandler AbonementCurentChanged;
-
-        private void OnAbonementCurentChanged()
+        private void OnAbonementCurentChanged() // Абонемент
         {
             AbonementCurentChanged?.Invoke(this, EventArgs.Empty);
         }
+        private void OnPhoneChanged(string text)   // Запускатор события
+        {
+            PhoneChanged?.Invoke(this, text);
+        }
+        private void OnNameChanged(string text)   // Запускатор события
+        {
+            NameChanged?.Invoke(this, text);
+        }
+
+        //Passport
+        //DriverIdNum
+        //PersonalNumber
+        //     BirthDate
+        //       GenderType
+        //_specialNotes
         #endregion
 
         #region/// ПРИВАТНЫЕ ПОЛЯ ////
         private string _phone;
         private string _name;
         private string _pathToPhoto;
+        private string _passport;
+        private string _driverIdNum;
+        private string _specialNotes;
+        private int _personalNumber;
+        private DateTime _birthDate;
+        private Gender _genderType;
         private StatusPerson _status;
         private AbonementBasic _abonementCurent;
         #endregion
@@ -54,35 +70,50 @@ namespace PersonsBase.data
             set
             {
                 _name = Logic.PrepareName(value);
-                Key = _name;
+                OnNameChanged(_name);
             }
         }
-        public string Key { get; private set; }
         public string Phone
         {
             get { return _phone; }
             set
             {
                 _phone = string.IsNullOrEmpty(value) ? "" : value;
+                OnPhoneChanged(_phone);
             }
         }
-        public string Passport { get; set; }
-        public string DriverIdNum { get; set; }
+        public string Passport
+        {
+            get { return _passport; }
+            set { _passport = value; }
+        }
+        public string DriverIdNum
+        {
+            get { return _driverIdNum; }
+            set { _driverIdNum = value; }
+        }
         public string PathToPhoto
         {
             get
             {
                 return _pathToPhoto;
             }
-
             set
             {
                 _pathToPhoto = value;
                 OnPathPhotoChanged();
             }
         }
-        public string SpecialNotes { get; set; }
-        public int PersonalNumber { get; set; }
+        public string SpecialNotes
+        {
+            get { return _specialNotes; }
+            set { _specialNotes = value; }
+        }
+        public int PersonalNumber
+        {
+            get { return _personalNumber; }
+            set { _personalNumber = value; }
+        }
         public StatusPerson Status
         {
             get
@@ -95,8 +126,11 @@ namespace PersonsBase.data
                 OnStatusChanged();
             }
         }
-        public DateTime BirthDate { get; set; }
-        public Gender GenderType;
+        public DateTime BirthDate
+        {
+            get { return _birthDate; }
+            set { _birthDate = value; }
+        }
         public ObservableCollection<AbonementBasic> AbonementsQueue;
         public AbonementBasic AbonementCurent
         {
@@ -110,6 +144,12 @@ namespace PersonsBase.data
                     OnAbonementCurentChanged();
             }
         }
+        public Gender GenderType
+        {
+            get { return _genderType; }
+            set { _genderType = value; }
+        }
+
         #endregion
 
         #region/// КОНСТРУКТОРЫ.  ///////////////////////////
@@ -359,7 +399,6 @@ namespace PersonsBase.data
                 hashCode = (hashCode * 397) ^ (int)GenderType;
                 hashCode = (hashCode * 397) ^ (AbonementCurent != null ? AbonementCurent.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ PersonalNumber;
-                hashCode = (hashCode * 397) ^ (Key != null ? Key.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ BirthDate.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Passport != null ? Passport.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (PathToPhoto != null ? PathToPhoto.GetHashCode() : 0);
