@@ -16,6 +16,9 @@ namespace PersonsBase.data
         [field: NonSerialized] public event EventHandler AbonementCurentChanged;
         [field: NonSerialized] public event EventHandler<string> PhoneChanged;
         [field: NonSerialized] public event EventHandler<string> NameChanged;
+        [field: NonSerialized] public event EventHandler<string> PassportChanged;
+        [field: NonSerialized] public event EventHandler<string> DriverIdChanged;
+        [field: NonSerialized] public event EventHandler<string> SpecialNotesChanged;
 
 
 
@@ -39,13 +42,24 @@ namespace PersonsBase.data
         {
             NameChanged?.Invoke(this, text);
         }
+        private void OnPassportChanged(string text)   // Запускатор события
+        {
+            PassportChanged?.Invoke(this, text);
+        }
+        private void OnDriverIdChanged(string text)   // Запускатор события
+        {
+            DriverIdChanged?.Invoke(this, text);
+        }
+        private void OnSpecialNotesChanged(string text)   // Запускатор события
+        {
+            SpecialNotesChanged?.Invoke(this, text);
+        }
 
-        //Passport
-        //DriverIdNum
+
         //PersonalNumber
         //     BirthDate
         //       GenderType
-        //_specialNotes
+
         #endregion
 
         #region/// ПРИВАТНЫЕ ПОЛЯ ////
@@ -85,12 +99,20 @@ namespace PersonsBase.data
         public string Passport
         {
             get { return _passport; }
-            set { _passport = value; }
+            set
+            {
+                _passport = value;
+                OnPassportChanged(_passport);
+            }
         }
         public string DriverIdNum
         {
             get { return _driverIdNum; }
-            set { _driverIdNum = value; }
+            set
+            {
+                _driverIdNum = value;
+                OnDriverIdChanged(_driverIdNum);
+            }
         }
         public string PathToPhoto
         {
@@ -107,7 +129,11 @@ namespace PersonsBase.data
         public string SpecialNotes
         {
             get { return _specialNotes; }
-            set { _specialNotes = value; }
+            set
+            {
+                _specialNotes = value;
+                OnSpecialNotesChanged(_specialNotes);
+            }
         }
         public int PersonalNumber
         {
