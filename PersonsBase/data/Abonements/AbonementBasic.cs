@@ -84,7 +84,7 @@ namespace PersonsBase.data.Abonements
         ///  Добавление Персональных или Аэробных тренировок к текущему абонементу.  
         /// </summary>
         public abstract bool AddTrainingsToAbon(TypeWorkout type, int numberToAdd);
-        public abstract List<Tuple<string, string>> GetShortInfoList();
+        public abstract IEnumerable<Tuple<string, string>> GetShortInfoList();
         /// <summary>
         /// Получить оставшиеся в абонементе дни
         /// Получить оставшиеся в абонементе дни

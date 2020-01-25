@@ -102,7 +102,7 @@ namespace PersonsBase.data
         public static Person FindByDriveId(SortedList<string, Person> inputCollection, string driveLic)
         {
             Person findedPerson;
-            if (inputCollection == null || String.IsNullOrEmpty(driveLic) || inputCollection.Count <= 0) return null;
+            if (inputCollection == null || string.IsNullOrEmpty(driveLic) || inputCollection.Count <= 0) return null;
             try
             {
                 var matches = inputCollection.ToList().FindAll(p => (p.Value.DriverIdNum == driveLic));
@@ -242,7 +242,7 @@ namespace PersonsBase.data
             if (!keyValuePairs.Any()) return dt;
 
             // Заголовки Таблицы
-            DataColumn[] headers = GetHeaders(getFieldsFunc);
+            var headers = GetHeaders(getFieldsFunc);
             dt.Columns.AddRange(headers);
 
             // Данные всех Клиентов

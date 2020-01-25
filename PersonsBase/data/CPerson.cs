@@ -19,46 +19,55 @@ namespace PersonsBase.data
         [field: NonSerialized] public event EventHandler<string> PassportChanged;
         [field: NonSerialized] public event EventHandler<string> DriverIdChanged;
         [field: NonSerialized] public event EventHandler<string> SpecialNotesChanged;
-
+        [field: NonSerialized] public event EventHandler<int> PersonalNumberChanged;
+        [field: NonSerialized] public event EventHandler<DateTime> BirthDateChanged;
+        [field: NonSerialized] public event EventHandler<Gender> GenderTypeChanged;
 
 
         public void OnStatusChanged()
         {
             StatusChanged?.Invoke(this, EventArgs.Empty);
         }
-        private void OnPathPhotoChanged()// Фото Клиента
+        private void OnPathPhotoChanged()
         {
             PathToPhotoChanged?.Invoke(this, EventArgs.Empty);
         }
-        private void OnAbonementCurentChanged() // Абонемент
+        private void OnAbonementCurentChanged()
         {
             AbonementCurentChanged?.Invoke(this, EventArgs.Empty);
         }
-        private void OnPhoneChanged(string text)   // Запускатор события
+        private void OnPhoneChanged(string text)
         {
             PhoneChanged?.Invoke(this, text);
         }
-        private void OnNameChanged(string text)   // Запускатор события
+        private void OnNameChanged(string text)
         {
             NameChanged?.Invoke(this, text);
         }
-        private void OnPassportChanged(string text)   // Запускатор события
+        private void OnPassportChanged(string text)
         {
             PassportChanged?.Invoke(this, text);
         }
-        private void OnDriverIdChanged(string text)   // Запускатор события
+        private void OnDriverIdChanged(string text)
         {
             DriverIdChanged?.Invoke(this, text);
         }
-        private void OnSpecialNotesChanged(string text)   // Запускатор события
+        private void OnSpecialNotesChanged(string text)
         {
             SpecialNotesChanged?.Invoke(this, text);
         }
-
-
-        //PersonalNumber
-        //     BirthDate
-        //       GenderType
+        private void OnPersonalNumberChanged(int number)
+        {
+            PersonalNumberChanged?.Invoke(this, number);
+        }
+        private void OnBirthDateChanged(DateTime date)
+        {
+            BirthDateChanged?.Invoke(this, date);
+        }
+        private void OnGenderTypeChanged(Gender gender)
+        {
+            GenderTypeChanged?.Invoke(this, gender);
+        }
 
         #endregion
 
@@ -78,6 +87,7 @@ namespace PersonsBase.data
 
         #region/// ПУБЛИЧНЫЕ ПОЛЯ, ДОСТУПНЫЕ ДАННЫЕ О КЛИЕНТЕ ////////////
 
+        // FIXME Добавить проверку, вызывать событие только тогда когда значение отличается от текущего.
         public string Name
         {
             get { return _name; }
@@ -138,7 +148,11 @@ namespace PersonsBase.data
         public int PersonalNumber
         {
             get { return _personalNumber; }
-            set { _personalNumber = value; }
+            set
+            {
+                _personalNumber = value;
+                OnPersonalNumberChanged(_personalNumber);
+            }
         }
         public StatusPerson Status
         {
@@ -155,7 +169,11 @@ namespace PersonsBase.data
         public DateTime BirthDate
         {
             get { return _birthDate; }
-            set { _birthDate = value; }
+            set
+            {
+                _birthDate = value;
+                OnBirthDateChanged(_birthDate);
+            }
         }
         public ObservableCollection<AbonementBasic> AbonementsQueue;
         public AbonementBasic AbonementCurent
@@ -173,7 +191,11 @@ namespace PersonsBase.data
         public Gender GenderType
         {
             get { return _genderType; }
-            set { _genderType = value; }
+            set
+            {
+                _genderType = value;
+                OnGenderTypeChanged(_genderType);
+            }
         }
 
         #endregion
@@ -293,6 +315,7 @@ namespace PersonsBase.data
         #endregion
 
         #region //Перегрузка операторов для сравнения клиентов
+        /// <inheritdoc />
         /// <summary>
         /// Перегружаем операторы ==  !=, а так же метод Equal для сравнения по значению классов
         /// </summary>

@@ -58,7 +58,7 @@ namespace PersonsBase.data.Abonements
             return (DaysLeft > 0);
         }
 
-        public override List<Tuple<string, string>> GetShortInfoList()
+        public override IEnumerable<Tuple<string, string>> GetShortInfoList()
         {
             // Информация о текущем состоянии Абонемента. Добавляем всё что должно выводиться для Пользователя
             var result = new List<Tuple<string, string>>
