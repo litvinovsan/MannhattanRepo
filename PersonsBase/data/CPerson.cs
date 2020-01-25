@@ -10,7 +10,7 @@ namespace PersonsBase.data
     public class Person : IEquatable<Person>
     {
         #region/// СОБЫТИЯ ////
-
+        // Test1
         // Статус
         [field: NonSerialized]
         public event EventHandler StatusChanged;
