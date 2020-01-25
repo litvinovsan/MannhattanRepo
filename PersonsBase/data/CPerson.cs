@@ -10,6 +10,7 @@ namespace PersonsBase.data
     public class Person : IEquatable<Person>
     {
         #region/// СОБЫТИЯ ////
+        // Test1
         
         
         //Test2
