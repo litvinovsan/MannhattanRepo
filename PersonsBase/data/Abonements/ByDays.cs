@@ -113,10 +113,9 @@ namespace PersonsBase.data.Abonements
             return TypeAbonement;
         }
 
-        public void SetTypeAbonementByDays(DaysInAbon numberDaysType)
+        public void SetDaysLeft(int numberDaysLeft)
         {
-            TypeAbonement = numberDaysType;
-            DaysLeft = (int)numberDaysType;
+            DaysLeft = (int)numberDaysLeft;
         }
     }
 }
