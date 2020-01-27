@@ -287,6 +287,45 @@
   <ItemGroup>
     <None Include="Resources\barcode %281%29.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Abon.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\abonement.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SinglVisit.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SinglVisit2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\абонемент 2.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\абонемент.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\timeTren.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\spa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\spa1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ВыборТрени.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Personal1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Personal2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Personal21.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

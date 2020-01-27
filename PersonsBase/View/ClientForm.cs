@@ -247,7 +247,14 @@ namespace PersonsBase.View
             textBox_Number.Text = _person.PersonalNumber.ToString();
 
             // День Рождения
-            dateTimePicker_birthDate.Value = _person.BirthDate;
+            try
+            {
+                dateTimePicker_birthDate.Value = _person.BirthDate;
+            }
+            catch (Exception)
+            {
+                dateTimePicker_birthDate.Value = DateTime.Now;
+            }
 
             // Пол
             var gendRange = Enum.GetNames(typeof(Gender)).ToArray<object>();
@@ -291,7 +298,7 @@ namespace PersonsBase.View
         private void SetupVisitsDataGridView()
         {
             var dt = Visit.GetVisitsTable(_person);
-           var journalVisits = PersonObject.GetVisitsList(_person.Name);
+            var journalVisits = PersonObject.GetVisitsList(_person.Name);
 
             var helpStrings = (journalVisits != null && journalVisits.Count > 0) ? journalVisits.First().GetHeadersToolTipHelp() : new[] { "===" };
 

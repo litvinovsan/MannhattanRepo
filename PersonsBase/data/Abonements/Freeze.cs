@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using PBase;
 
 namespace PersonsBase.data.Abonements
 {
@@ -82,12 +81,12 @@ namespace PersonsBase.data.Abonements
         /// <summary>
         /// Список всех заморозок
         /// </summary>
-        public List<FreezePeriod> AllFreezes;
+        public readonly List<FreezePeriod> AllFreezes;
 
         /// <summary>
         /// Максимальное количество дней заморозки для текущего периода клубной карты
         /// </summary>
-        public readonly int MaxDaysAvailable;
+        private readonly int _maxDaysAvailable;
 
         #endregion
 
@@ -96,7 +95,7 @@ namespace PersonsBase.data.Abonements
         {
             AllFreezes = new List<FreezePeriod>();
 
-            MaxDaysAvailable = GetMaxDaysForPeriod(period);
+            _maxDaysAvailable = GetMaxDaysForPeriod(period);
 
             _totalDaysFreezed = 0;
         }
@@ -111,7 +110,7 @@ namespace PersonsBase.data.Abonements
         /// <returns></returns>
         public int GetAvailableDays()
         {
-            return MaxDaysAvailable - _totalDaysFreezed;
+            return _maxDaysAvailable - _totalDaysFreezed;
         }
 
         /// <summary>
@@ -121,6 +120,11 @@ namespace PersonsBase.data.Abonements
         public int GetSpentDays() // 
         {
             return _totalDaysFreezed;
+        }
+
+        public void SetAvailableDays(int numAvailableDays)
+        {
+            _totalDaysFreezed = _maxDaysAvailable - numAvailableDays;
         }
 
         /// <summary>
@@ -255,7 +259,7 @@ namespace PersonsBase.data.Abonements
         {
             if (numDaysToFreeze == 0) return false;
             var temp = numDaysToFreeze + _totalDaysFreezed;
-            return (temp <= MaxDaysAvailable) && (_totalDaysFreezed <= MaxDaysAvailable);
+            return (temp <= _maxDaysAvailable) && (_totalDaysFreezed <= _maxDaysAvailable);
         }
 
         #endregion

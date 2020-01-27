@@ -183,6 +183,26 @@ namespace PersonsBase.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Personal1 {
+            get {
+                object obj = ResourceManager.GetObject("Personal1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Personal21 {
+            get {
+                object obj = ResourceManager.GetObject("Personal21", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap PersonalMini {
             get {
                 object obj = ResourceManager.GetObject("PersonalMini", resourceCulture);
@@ -196,6 +216,46 @@ namespace PersonsBase.Properties {
         internal static System.Drawing.Bitmap sca {
             get {
                 object obj = ResourceManager.GetObject("sca", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SinglVisit {
+            get {
+                object obj = ResourceManager.GetObject("SinglVisit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SinglVisit2 {
+            get {
+                object obj = ResourceManager.GetObject("SinglVisit2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap spa1 {
+            get {
+                object obj = ResourceManager.GetObject("spa1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap timeTren {
+            get {
+                object obj = ResourceManager.GetObject("timeTren", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -226,6 +286,26 @@ namespace PersonsBase.Properties {
         internal static System.Drawing.Bitmap user_male_remove {
             get {
                 object obj = ResourceManager.GetObject("user_male_remove", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap абонемент {
+            get {
+                object obj = ResourceManager.GetObject("абонемент", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ВыборТрени {
+            get {
+                object obj = ResourceManager.GetObject("ВыборТрени", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

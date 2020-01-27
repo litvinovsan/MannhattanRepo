@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using PBase;
 using PersonsBase.data.Abonements;
 
 namespace PersonsBase.View
@@ -30,7 +23,7 @@ namespace PersonsBase.View
             InitializeFreezeObject();
 
             // Заголовок Формы
-            this.Text = @"Карта " + _clubCard.GetTypeClubCard().ToString().Replace("_", " ");
+            Text = @"Карта " + _clubCard.GetTypeClubCard().ToString().Replace("_", " ");
 
             // Доступно Дней      
             textBox_available.Text = _clubCard.Freeze.GetAvailableDays().ToString();
@@ -71,8 +64,8 @@ namespace PersonsBase.View
             var freezes = _clubCard.Freeze.AllFreezes;
             foreach (var item in freezes)
             {
-                string str = $"{item.StartDate:D}    {item.DaysToFreeze}";
-                bool status = item.IsFreezedNow() || !item.IsFreezeInFuture();
+                var str = $"{item.StartDate:D}    {item.DaysToFreeze}";
+                var status = item.IsFreezedNow() || !item.IsFreezeInFuture();
                 checkedListBox_allFreeze.Items.Add(str, status);
             }
         }
@@ -99,12 +92,12 @@ namespace PersonsBase.View
                 {
                     _clubCard.EndDate = _clubCard.EndDate.AddDays(numDays);
                     MessageBox.Show($@"Заморозка начинается c {startDate:d}.
-Осталось дней: {_clubCard.Freeze.GetAvailableDays()} ", "Установка Заморозки", MessageBoxButtons.OK, MessageBoxIcon.Information);
+Осталось дней: {_clubCard.Freeze.GetAvailableDays()} ", @"Установка Заморозки", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DialogResult = DialogResult.OK;
                 }
                 else
                 {
-                    MessageBox.Show($@"Ошибка! Возможно, не хватает дней или не корректная дата.Осталось дней: {_clubCard.Freeze.GetAvailableDays()}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($@"Ошибка! Возможно, не хватает дней или не корректная дата.Осталось дней: {_clubCard.Freeze.GetAvailableDays()}", @"Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -123,7 +116,7 @@ namespace PersonsBase.View
 
             if (DateTime.Now.Date.CompareTo(startDate) > 0)
             {
-                MessageBox.Show(@"Дата должна быть позднее сегодняшнего дня!", "Выберите Дату!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(@"Дата должна быть позднее сегодняшнего дня!", @"Выберите Дату!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 dateTimePicker_startFreeze.Value = DateTime.Now.Date;
                 return false;
             }

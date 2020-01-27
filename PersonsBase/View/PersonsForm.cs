@@ -13,7 +13,8 @@ namespace PersonsBase.View
 
         [field: NonSerialized]
         public event EventHandler SelectedNameСhanged;
-        public void OnSelectedNameChanged()
+
+        private void OnSelectedNameChanged()
         {
             SelectedNameСhanged?.Invoke(this, EventArgs.Empty);
         }
@@ -22,7 +23,8 @@ namespace PersonsBase.View
 
         #region /// ОСНОВНЫЕ ОБЬЕКТЫ ///
         private string _selectedName;
-        public string SelectedName
+
+        private string SelectedName
         {
             get { return _selectedName; }
             set
@@ -40,6 +42,12 @@ namespace PersonsBase.View
         {
             InitializeComponent();
             Text = headerName;
+        }
+
+        public sealed override string Text
+        {
+            get { return base.Text; }
+            set { base.Text = value; }
         }
 
         private void PersonsListForm_Load(object sender, EventArgs e)
@@ -98,7 +106,16 @@ namespace PersonsBase.View
             // Пол
             MyComboBox.SetSelectedValue(comboBox_Gender, person.GenderType.ToString());
             // ДР
-            dateTimePicker_birthDate.Value = person.BirthDate.Date;
+            try
+            {
+                dateTimePicker_birthDate.Value = person.BirthDate.Date;
+            }
+            catch (Exception )
+            {
+                dateTimePicker_birthDate.Value = DateTime.Now;
+            }
+
+
             // Пасспорт
             maskedTextBox_Passport.Text = person.Passport ?? "";
             // Права

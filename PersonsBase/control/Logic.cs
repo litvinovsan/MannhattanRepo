@@ -243,18 +243,15 @@ namespace PersonsBase.control
         /// <returns></returns>
         public static bool CreatePerson()
         {
-            string createdPersoName;
+            var isSuccess = FormsRunner.RunCreatePersonForm(out var createdPersoName);
 
-            var isSuccess = FormsRunner.RunCreatePersonForm(out createdPersoName);
+            if (!isSuccess) return false;
+            var res = MessageBox.Show(@"Желаете Добавить Абонемент?", @"Клиент Добавлен!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //  Создаем Абонемент если выбрали Да
+            if (res == DialogResult.Yes) AddAbonement(createdPersoName);
+            OpenPersonCard(createdPersoName);
 
-            if (isSuccess)
-            {
-                var res = MessageBox.Show(@"Желаете Добавить Абонемент?", @"Клиент Добавлен!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                //  Создаем Абонемент если выбрали Да
-                if (res == DialogResult.Yes) AddAbonement(createdPersoName);
-            }
-
-            return isSuccess;
+            return true;
         }
 
         public static bool RemovePerson()
@@ -373,7 +370,7 @@ namespace PersonsBase.control
         /// <param name="namePerson"></param>
         public static void OpenPersonCard(string namePerson)
         {
-            if (String.IsNullOrEmpty(namePerson)) return;
+            if (string.IsNullOrEmpty(namePerson)) return;
 
             FormsRunner.RunClientForm(namePerson);
         }

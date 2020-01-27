@@ -160,6 +160,7 @@
             this.dateTimePicker_startFreeze.Location = new System.Drawing.Point(138, 103);
             this.dateTimePicker_startFreeze.MinDate = new System.DateTime(2019, 8, 7, 0, 0, 0, 0);
             this.dateTimePicker_startFreeze.Name = "dateTimePicker_startFreeze";
+            this.dateTimePicker_startFreeze.ShowUpDown = true;
             this.dateTimePicker_startFreeze.Size = new System.Drawing.Size(170, 23);
             this.dateTimePicker_startFreeze.TabIndex = 14;
             // 

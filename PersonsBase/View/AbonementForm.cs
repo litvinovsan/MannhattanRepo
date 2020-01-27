@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.data;
 using PersonsBase.data.Abonements;
+using PersonsBase.myStd;
 
 namespace PersonsBase.View
 {
@@ -105,14 +106,27 @@ namespace PersonsBase.View
 
             // Длительность Клубной Карты
             comboBox_ClubCard.Items.AddRange(Enum.GetNames(typeof(PeriodClubCard)).ToArray<object>()); // Записываем Поля в Комбобокс
-            comboBox_ClubCard.SelectedItem = _periodClubCard.ToString();                    // Выбор по умолчанию
+            comboBox_ClubCard.SelectedItem = _periodClubCard.ToString();                               // Выбор по умолчанию
             comboBox_ClubCard.SelectedIndexChanged += ComboBox_ClubCard_SelectedIndexChanged;
 
             // Дата Активации
-            dateTimePicker1.Value = _defaultForActivation;
-            dateTimePicker1.MinDate = new DateTime(2019, 1, 1);
+            dateTimePicker_ActivationDate.Value = _defaultForActivation;
+            dateTimePicker_ActivationDate.MinDate = new DateTime(2019, 1, 1);
+
+            // Персональные трени
+            comboBox_Personal.Items.AddRange(Enumerable.Range(0, 31).Select(x => (object)x).ToArray());
+            comboBox_Personal.SelectedItem = 0;
+            // Аэробные
+            comboBox_Aerob.Items.AddRange(Enumerable.Range(0, 121).Select(x => (object)x).ToArray());
+            comboBox_Aerob.SelectedItem = 120;
+            // Заморозки
+            comboBox_freez.Items.AddRange(Enumerable.Range(0, 46).Select(x => (object)x).ToArray());
+            comboBox_freez.SelectedItem = 45;
         }
 
+        /// <summary>
+        ///  Вызывать этот метод для задания абонемента пользователю.
+        /// </summary>
         public void ApplyChanges()
         {
             switch (_selectedAbonementName)
@@ -133,20 +147,52 @@ namespace PersonsBase.View
                         break;
                     }
             }
-            // Если введена дата Активации в прошлом
-            if ((_person.AbonementCurent.AbonementName != SingleVisit.NameAbonement) &&
-                checkBox_Activated.Checked &&
-                dateTimePicker1.Value.Date.CompareTo(_defaultForActivation.Date) != 0)
+
+            CorrectionValues();//  Корректировка абонемента по дате, количеству оставшихся посещений
+        }
+
+        private void CorrectionValues()
+        {
+            if (!checkBox_Activated.Checked) return;
+
+            var personNum = int.Parse(comboBox_Personal.Text);
+            var aerobNum = int.Parse(comboBox_Aerob.Text);
+
+            var abonementCurent = _person.AbonementCurent;
+
+            switch (abonementCurent.AbonementName)
             {
-                _person.AbonementCurent.TryActivate(dateTimePicker1.Value);
+                case SingleVisit.NameAbonement:
+                    return;
+                case ClubCardA.NameAbonement:
+                    {
+                        (abonementCurent as ClubCardA)?.Freeze?.SetAvailableDays(int.Parse(comboBox_freez.Text));
+                        abonementCurent.NumAerobicTr = aerobNum;
+                        abonementCurent.NumPersonalTr = personNum;
+                        break;
+                    }
+                case AbonementByDays.NameAbonement:
+                    {
+                        if (((abonementCurent as AbonementByDays)?.TrainingsType == TypeWorkout.Аэробный_Зал))
+                        {
+                            abonementCurent.NumAerobicTr = aerobNum;
+                            break;
+                        }
+                        if (((abonementCurent as AbonementByDays)?.TrainingsType == TypeWorkout.Персональная))
+                        {
+                            abonementCurent.NumPersonalTr = personNum;
+                        }
+                        break;
+                    }
+            }
+
+            if (dateTimePicker_ActivationDate.Value.Date.CompareTo(_defaultForActivation.Date) != 0)
+            {
+                abonementCurent?.TryActivate(dateTimePicker_ActivationDate.Value);
             }
         }
 
-        private static T GetVarFromCombo<T>(ComboBox cmbx)
-        {
-            var tempVar = (T)Enum.Parse(typeof(T), cmbx.SelectedItem.ToString());
-            return tempVar;
-        }
+
 
         ///////////////// ОБРАБОТЧИКИ ////////////////////////////////
         private void button_Cancel(object sender, EventArgs e)
@@ -156,7 +202,7 @@ namespace PersonsBase.View
 
         private void radioButton_Abonement_CheckedChanged(object sender, EventArgs e)
         {
-            RadioButton radioButton = (RadioButton)sender;
+            var radioButton = (RadioButton)sender;
             if (radioButton.Checked)
             {
                 _selectedAbonementName = "Абонемент";
@@ -177,7 +223,7 @@ namespace PersonsBase.View
 
         private void radioButton_ClubCard_CheckedChanged(object sender, EventArgs e)
         {
-            RadioButton radioButton = (RadioButton)sender;
+            var radioButton = (RadioButton)sender;
             if (radioButton.Checked)
             {
                 _selectedAbonementName = "Клубная Карта";
@@ -201,7 +247,7 @@ namespace PersonsBase.View
 
         private void radioButton_Single_CheckedChanged(object sender, EventArgs e)
         {
-            RadioButton radioButton = (RadioButton)sender;
+            var radioButton = (RadioButton)sender;
             if (radioButton.Checked)
             {
                 _selectedAbonementName = "Разовое Занятие";
@@ -217,32 +263,51 @@ namespace PersonsBase.View
         private void ComboBox_TypeTren_SelectedIndexChanged(object sender, EventArgs e)
         {
             var combo = (ComboBox)sender;
-            _typeWorkout = GetVarFromCombo<TypeWorkout>(combo);
+            _typeWorkout = MyComboBox.GetComboBoxValue<TypeWorkout>(combo);
         }
+
+        private void NewMethod()
+        {
+            // выключаем недоступные комбобоксы
+            if (radioButton_Abonement.Checked)
+            {
+                if (_typeWorkout == TypeWorkout.Тренажерный_Зал)
+                {
+                    comboBox_Personal.Enabled = false;
+                    comboBox_Aerob.Enabled = false;
+                }
+                else
+                {
+                    comboBox_Personal.Enabled = _typeWorkout == TypeWorkout.Персональная;
+                    comboBox_Aerob.Enabled = _typeWorkout == TypeWorkout.Аэробный_Зал;
+                }
+            }
+        }
+
         private void ComboBox_time_SelectedIndexChanged(object sender, EventArgs e)
         {
             var combo = (ComboBox)sender;
-            _timeTren = GetVarFromCombo<TimeForTr>(combo);
+            _timeTren = MyComboBox.GetComboBoxValue<TimeForTr>(combo);
         }
         private void ComboBox_spa_SelectedIndexChanged(object sender, EventArgs e)
         {
             var combo = (ComboBox)sender;
-            _spa = GetVarFromCombo<SpaService>(combo);
+            _spa = MyComboBox.GetComboBoxValue<SpaService>(combo);
         }
         private void ComboBox_Pay_SelectedIndexChanged(object sender, EventArgs e)
         {
             var combo = (ComboBox)sender;
-            _pay = GetVarFromCombo<Pay>(combo);
+            _pay = MyComboBox.GetComboBoxValue<Pay>(combo);
         }
         private void ComboBox_Abonem_SelectedIndexChanged(object sender, EventArgs e)
         {
             var combo = (ComboBox)sender;
-            _daysInAbon = GetVarFromCombo<DaysInAbon>(combo);
+            _daysInAbon = MyComboBox.GetComboBoxValue<DaysInAbon>(combo);
         }
         private void ComboBox_ClubCard_SelectedIndexChanged(object sender, EventArgs e)
         {
             var combo = (ComboBox)sender;
-            _periodClubCard = GetVarFromCombo<PeriodClubCard>(combo);
+            _periodClubCard = MyComboBox.GetComboBoxValue<PeriodClubCard>(combo);
         }
 
         private void button_Aplly_Click(object sender, EventArgs e)
@@ -263,7 +328,7 @@ namespace PersonsBase.View
 
         private void checkBox_Activated_CheckedChanged(object sender, EventArgs e)
         {
-            dateTimePicker1.Enabled = checkBox_Activated.Checked;
+            flowLayoutPanel2.Enabled = checkBox_Activated.Checked;
         }
     }
 }

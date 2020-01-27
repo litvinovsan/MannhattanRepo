@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PersonsBase.myStd
@@ -38,16 +34,15 @@ namespace PersonsBase.myStd
         /// <typeparam name="T"></typeparam>
         /// <param name="cbx"></param>
         /// <returns></returns>
-        public static T GetComboBoxValue<T>(ComboBox cbx)
+        public static T GetComboBoxValue<T>(ComboBox cmbx)
         {
-            var val = (T)Enum.Parse(typeof(T), cbx.SelectedItem.ToString());
-            return val;
+            var tempVar = (T)Enum.Parse(typeof(T), cmbx.SelectedItem.ToString());
+            return tempVar;
         }
 
         // ПРИМЕНЕНИЕ  var result = MyComboBox.GetComboBoxValue((ComboBox)sender);
         public static string GetComboBoxValue(ComboBox cbx)
         {
-
             var resultString = cbx.SelectedItem != null ? cbx.SelectedItem.ToString() : "";
             return resultString;
         }
