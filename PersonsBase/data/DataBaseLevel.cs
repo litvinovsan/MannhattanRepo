@@ -43,7 +43,8 @@ namespace PersonsBase.data
         #region/// КОНСТРУКТОР и ДЕСТРУКТОР /////
         private DataBaseLevel()
         {
-
+            MyFile.CreateFolder(Options.FolderNameDataBase);
+            MyFile.CreateFolder(Options.FolderNameUserPhoto);
 
             DeSerializeObjects(); // Там же сразу создаются обьекты базы
 
@@ -201,7 +202,6 @@ namespace PersonsBase.data
         /// </summary>
         private static void DeSerializeObjects()
         {
-            MyFile.CreateFolder(Options.FolderNameDataBase);
             var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase;
 
             // База Клиентов
