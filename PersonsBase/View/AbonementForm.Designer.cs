@@ -111,22 +111,23 @@ namespace PersonsBase.View
             // 
             // button_Aplly
             // 
+            this.button_Aplly.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.button_Aplly.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_Aplly.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_Aplly.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_Aplly.Location = new System.Drawing.Point(3, 2);
             this.button_Aplly.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_Aplly.Name = "button_Aplly";
             this.button_Aplly.Size = new System.Drawing.Size(416, 46);
             this.button_Aplly.TabIndex = 0;
             this.button_Aplly.Text = "Применить";
-            this.button_Aplly.UseVisualStyleBackColor = true;
+            this.button_Aplly.UseVisualStyleBackColor = false;
             this.button_Aplly.Click += new System.EventHandler(this.button_Aplly_Click);
             // 
             // button2_Cancel
             // 
             this.button2_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button2_Cancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button2_Cancel.Location = new System.Drawing.Point(425, 2);
             this.button2_Cancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2_Cancel.Name = "button2_Cancel";
