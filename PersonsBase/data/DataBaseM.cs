@@ -135,9 +135,15 @@ namespace PersonsBase.data
         {
             var isExist = FindByPersonalNumber(DataBaseLevel.GetPersonsList(), newNumber, out var person);
 
-            if (newNumber <= 0 || isExist)
+            if ( isExist)
             {
-                MessageBox.Show($@"Такой ПЕРСОНАЛЬНЫЙ номер уже назначен клиенту: {person.Name}", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Такой номер уже назначен клиенту: \n\r {person.Name}", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            else if (newNumber <= 0 )
+            {
+                MessageBox.Show($@"Личный номер удалён", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                PersonObject.GetLink(namePerson).PersonalNumber = 0;
                 return false;
             }
             PersonObject.GetLink(namePerson).PersonalNumber = newNumber;

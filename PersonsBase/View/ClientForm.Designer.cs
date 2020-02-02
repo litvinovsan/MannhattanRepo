@@ -107,7 +107,7 @@ namespace PersonsBase.View
             // 
             this.dateTimePicker_birthDate.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.dateTimePicker_birthDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePicker_birthDate.Location = new System.Drawing.Point(120, 107);
+            this.dateTimePicker_birthDate.Location = new System.Drawing.Point(114, 107);
             this.dateTimePicker_birthDate.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker_birthDate.MinimumSize = new System.Drawing.Size(115, 22);
             this.dateTimePicker_birthDate.Name = "dateTimePicker_birthDate";
@@ -457,9 +457,9 @@ namespace PersonsBase.View
             this.label4.Location = new System.Drawing.Point(2, 111);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(99, 15);
+            this.label4.Size = new System.Drawing.Size(108, 15);
             this.label4.TabIndex = 5;
-            this.label4.Text = "День Рождения";
+            this.label4.Text = "День    Рождения";
             // 
             // label6
             // 
@@ -468,7 +468,7 @@ namespace PersonsBase.View
             this.label6.Location = new System.Drawing.Point(2, 57);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(114, 15);
+            this.label6.Size = new System.Drawing.Size(108, 15);
             this.label6.TabIndex = 2;
             this.label6.Text = "Права";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -477,7 +477,7 @@ namespace PersonsBase.View
             // 
             this.maskedTextBox_PhoneNumber.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.maskedTextBox_PhoneNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maskedTextBox_PhoneNumber.Location = new System.Drawing.Point(120, 2);
+            this.maskedTextBox_PhoneNumber.Location = new System.Drawing.Point(114, 2);
             this.maskedTextBox_PhoneNumber.Margin = new System.Windows.Forms.Padding(2);
             this.maskedTextBox_PhoneNumber.Mask = "8(999) 000-00-00";
             this.maskedTextBox_PhoneNumber.Name = "maskedTextBox_PhoneNumber";
@@ -489,7 +489,7 @@ namespace PersonsBase.View
             // 
             this.maskedTextBox_Passport.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.maskedTextBox_Passport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maskedTextBox_Passport.Location = new System.Drawing.Point(120, 29);
+            this.maskedTextBox_Passport.Location = new System.Drawing.Point(114, 29);
             this.maskedTextBox_Passport.Margin = new System.Windows.Forms.Padding(2);
             this.maskedTextBox_Passport.Mask = "9999   № 999999";
             this.maskedTextBox_Passport.Name = "maskedTextBox_Passport";
@@ -512,7 +512,7 @@ namespace PersonsBase.View
             // 
             this.maskedTextBox_DriverID.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.maskedTextBox_DriverID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maskedTextBox_DriverID.Location = new System.Drawing.Point(120, 54);
+            this.maskedTextBox_DriverID.Location = new System.Drawing.Point(114, 54);
             this.maskedTextBox_DriverID.Margin = new System.Windows.Forms.Padding(2);
             this.maskedTextBox_DriverID.Mask = "9999   № 999999";
             this.maskedTextBox_DriverID.Name = "maskedTextBox_DriverID";
@@ -527,7 +527,7 @@ namespace PersonsBase.View
             this.label_Phone.Location = new System.Drawing.Point(2, 6);
             this.label_Phone.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_Phone.Name = "label_Phone";
-            this.label_Phone.Size = new System.Drawing.Size(114, 15);
+            this.label_Phone.Size = new System.Drawing.Size(108, 15);
             this.label_Phone.TabIndex = 7;
             this.label_Phone.Text = "Телефон";
             // 
@@ -549,16 +549,16 @@ namespace PersonsBase.View
             this.label1.Location = new System.Drawing.Point(2, 138);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(114, 15);
+            this.label1.Size = new System.Drawing.Size(99, 15);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Табельный Номер";
+            this.label1.Text = "Личный   Номер";
             // 
             // comboBox_Gender
             // 
             this.comboBox_Gender.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.comboBox_Gender.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox_Gender.FormattingEnabled = true;
-            this.comboBox_Gender.Location = new System.Drawing.Point(120, 79);
+            this.comboBox_Gender.Location = new System.Drawing.Point(114, 79);
             this.comboBox_Gender.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_Gender.Name = "comboBox_Gender";
             this.comboBox_Gender.Size = new System.Drawing.Size(166, 24);
@@ -570,7 +570,7 @@ namespace PersonsBase.View
             this.textBox_Number.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.textBox_Number.Enabled = false;
             this.textBox_Number.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox_Number.Location = new System.Drawing.Point(120, 134);
+            this.textBox_Number.Location = new System.Drawing.Point(114, 134);
             this.textBox_Number.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_Number.Name = "textBox_Number";
             this.textBox_Number.Size = new System.Drawing.Size(166, 23);
