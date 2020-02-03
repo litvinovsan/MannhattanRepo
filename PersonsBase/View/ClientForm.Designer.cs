@@ -628,7 +628,7 @@ namespace PersonsBase.View
             // button_Cancel
             // 
             this.button_Cancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_Cancel.Location = new System.Drawing.Point(152, 2);
             this.button_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.button_Cancel.Name = "button_Cancel";
@@ -641,7 +641,7 @@ namespace PersonsBase.View
             // button_SavePersonalData
             // 
             this.button_SavePersonalData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_SavePersonalData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_SavePersonalData.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_SavePersonalData.Location = new System.Drawing.Point(2, 2);
             this.button_SavePersonalData.Margin = new System.Windows.Forms.Padding(2);
             this.button_SavePersonalData.Name = "button_SavePersonalData";
@@ -654,7 +654,7 @@ namespace PersonsBase.View
             // button2
             // 
             this.button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button2.Location = new System.Drawing.Point(872, 2);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";

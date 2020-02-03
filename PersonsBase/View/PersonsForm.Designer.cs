@@ -82,7 +82,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(306, 559);
+            this.groupBox1.Size = new System.Drawing.Size(306, 573);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Имя Клиента:";
@@ -131,7 +131,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(506, 603);
+            this.groupBox2.Size = new System.Drawing.Size(506, 617);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Информация";
@@ -143,7 +143,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_AbonInfo.Location = new System.Drawing.Point(8, 223);
             this.groupBox_AbonInfo.Name = "groupBox_AbonInfo";
-            this.groupBox_AbonInfo.Size = new System.Drawing.Size(490, 373);
+            this.groupBox_AbonInfo.Size = new System.Drawing.Size(490, 387);
             this.groupBox_AbonInfo.TabIndex = 4;
             this.groupBox_AbonInfo.TabStop = false;
             this.groupBox_AbonInfo.Text = "Абонемент / Карта / Посещения";
@@ -379,7 +379,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.button_Cancel, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.button_Ok, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(16, 582);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(16, 596);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -390,7 +390,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(849, 625);
+            this.ClientSize = new System.Drawing.Size(849, 639);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);

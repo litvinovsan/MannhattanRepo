@@ -73,6 +73,8 @@ namespace PersonsBase.View
             this.label7 = new System.Windows.Forms.Label();
             this.comboBox_freez = new System.Windows.Forms.ComboBox();
             this.checkBox_Activated = new System.Windows.Forms.CheckBox();
+            this.comboBox_Tren = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel_AbonType.SuspendLayout();
@@ -96,10 +98,10 @@ namespace PersonsBase.View
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.48086F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.51914F));
-            this.tableLayoutPanel1.Controls.Add(this.button_Aplly, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button2_Cancel, 1, 0);
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.78107F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.21893F));
+            this.tableLayoutPanel1.Controls.Add(this.button_Aplly, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button2_Cancel, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 472);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -114,10 +116,10 @@ namespace PersonsBase.View
             this.button_Aplly.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.button_Aplly.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_Aplly.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_Aplly.Location = new System.Drawing.Point(3, 2);
+            this.button_Aplly.Location = new System.Drawing.Point(326, 2);
             this.button_Aplly.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_Aplly.Name = "button_Aplly";
-            this.button_Aplly.Size = new System.Drawing.Size(416, 46);
+            this.button_Aplly.Size = new System.Drawing.Size(347, 46);
             this.button_Aplly.TabIndex = 0;
             this.button_Aplly.Text = "Применить";
             this.button_Aplly.UseVisualStyleBackColor = false;
@@ -128,10 +130,10 @@ namespace PersonsBase.View
             this.button2_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button2_Cancel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button2_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2_Cancel.Location = new System.Drawing.Point(425, 2);
+            this.button2_Cancel.Location = new System.Drawing.Point(3, 2);
             this.button2_Cancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2_Cancel.Name = "button2_Cancel";
-            this.button2_Cancel.Size = new System.Drawing.Size(248, 46);
+            this.button2_Cancel.Size = new System.Drawing.Size(317, 46);
             this.button2_Cancel.TabIndex = 1;
             this.button2_Cancel.Text = "Отмена";
             this.button2_Cancel.UseVisualStyleBackColor = true;
@@ -504,11 +506,11 @@ namespace PersonsBase.View
             this.groupBox1.Controls.Add(this.flowLayoutPanel2);
             this.groupBox1.Controls.Add(this.checkBox_Activated);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.Location = new System.Drawing.Point(449, 208);
+            this.groupBox1.Location = new System.Drawing.Point(449, 13);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(224, 254);
+            this.groupBox1.Size = new System.Drawing.Size(224, 424);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Корректировка Абонемента";
@@ -517,6 +519,8 @@ namespace PersonsBase.View
             // 
             this.flowLayoutPanel2.Controls.Add(this.label8);
             this.flowLayoutPanel2.Controls.Add(this.dateTimePicker_ActivationDate);
+            this.flowLayoutPanel2.Controls.Add(this.label9);
+            this.flowLayoutPanel2.Controls.Add(this.comboBox_Tren);
             this.flowLayoutPanel2.Controls.Add(this.label1);
             this.flowLayoutPanel2.Controls.Add(this.comboBox_Personal);
             this.flowLayoutPanel2.Controls.Add(this.label6);
@@ -525,9 +529,9 @@ namespace PersonsBase.View
             this.flowLayoutPanel2.Controls.Add(this.comboBox_freez);
             this.flowLayoutPanel2.Enabled = false;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(7, 54);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(7, 52);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(209, 196);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(209, 244);
             this.flowLayoutPanel2.TabIndex = 13;
             // 
             // label8
@@ -555,7 +559,7 @@ namespace PersonsBase.View
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(3, 50);
+            this.label1.Location = new System.Drawing.Point(3, 93);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(187, 17);
             this.label1.TabIndex = 11;
@@ -565,7 +569,7 @@ namespace PersonsBase.View
             // 
             this.comboBox_Personal.Enabled = false;
             this.comboBox_Personal.FormattingEnabled = true;
-            this.comboBox_Personal.Location = new System.Drawing.Point(3, 70);
+            this.comboBox_Personal.Location = new System.Drawing.Point(3, 113);
             this.comboBox_Personal.Name = "comboBox_Personal";
             this.comboBox_Personal.Size = new System.Drawing.Size(196, 24);
             this.comboBox_Personal.TabIndex = 17;
@@ -574,7 +578,7 @@ namespace PersonsBase.View
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(3, 97);
+            this.label6.Location = new System.Drawing.Point(3, 140);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(155, 17);
             this.label6.TabIndex = 13;
@@ -584,7 +588,7 @@ namespace PersonsBase.View
             // 
             this.comboBox_Aerob.Enabled = false;
             this.comboBox_Aerob.FormattingEnabled = true;
-            this.comboBox_Aerob.Location = new System.Drawing.Point(3, 117);
+            this.comboBox_Aerob.Location = new System.Drawing.Point(3, 160);
             this.comboBox_Aerob.Name = "comboBox_Aerob";
             this.comboBox_Aerob.Size = new System.Drawing.Size(196, 24);
             this.comboBox_Aerob.TabIndex = 17;
@@ -593,7 +597,7 @@ namespace PersonsBase.View
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(3, 144);
+            this.label7.Location = new System.Drawing.Point(3, 187);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(147, 17);
             this.label7.TabIndex = 15;
@@ -602,7 +606,7 @@ namespace PersonsBase.View
             // comboBox_freez
             // 
             this.comboBox_freez.FormattingEnabled = true;
-            this.comboBox_freez.Location = new System.Drawing.Point(3, 164);
+            this.comboBox_freez.Location = new System.Drawing.Point(3, 207);
             this.comboBox_freez.Name = "comboBox_freez";
             this.comboBox_freez.Size = new System.Drawing.Size(196, 24);
             this.comboBox_freez.TabIndex = 17;
@@ -618,6 +622,23 @@ namespace PersonsBase.View
             this.checkBox_Activated.Text = "Разрешить";
             this.checkBox_Activated.UseVisualStyleBackColor = true;
             this.checkBox_Activated.CheckedChanged += new System.EventHandler(this.checkBox_Activated_CheckedChanged);
+            // 
+            // comboBox_Tren
+            // 
+            this.comboBox_Tren.FormattingEnabled = true;
+            this.comboBox_Tren.Location = new System.Drawing.Point(3, 69);
+            this.comboBox_Tren.Name = "comboBox_Tren";
+            this.comboBox_Tren.Size = new System.Drawing.Size(196, 24);
+            this.comboBox_Tren.TabIndex = 18;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(3, 50);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(127, 16);
+            this.label9.TabIndex = 19;
+            this.label9.Text = "Тренажерный Зал";
             // 
             // AbonementForm
             // 
@@ -713,5 +734,7 @@ namespace PersonsBase.View
         private PictureBox pictureBox5;
         private PictureBox pictureBox6;
         private PictureBox pictureBox7;
+        private Label label9;
+        private ComboBox comboBox_Tren;
     }
 }
