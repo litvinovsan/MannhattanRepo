@@ -36,6 +36,13 @@ namespace PersonsBase.data
         }
 
         [field: NonSerialized]
+        public static event Action MiniGroupListChangedEvent;
+        private static void OnMiniGroupListChanged()
+        {
+            MiniGroupListChangedEvent?.Invoke();
+        }
+
+        [field: NonSerialized]
         public static event Action AerobListChangedEvent;
         private static void OnAerobListChanged()
         {
@@ -52,7 +59,8 @@ namespace PersonsBase.data
             {
                 {TypeWorkout.Аэробный_Зал, AddToGroupList},
                 {TypeWorkout.Персональная, AddToPersonalnList},
-                {TypeWorkout.Тренажерный_Зал, AddToGymList}
+                {TypeWorkout.Тренажерный_Зал, AddToGymList},
+                {TypeWorkout.МиниГруппа, AddToMiniGroupList}
             };
         }
         private static DailyVisits _dailyVisits;
@@ -80,6 +88,8 @@ namespace PersonsBase.data
         // Списки с посещениями по разным типам. Тренажерка, Аэробный и Персоналки
         public readonly List<GymItem> GymList = new List<GymItem>();
         public readonly List<PersonalItem> PersonalList = new List<PersonalItem>();
+        public readonly List<PersonalItem> MiniGroupList = new List<PersonalItem>();
+
         public readonly List<AerobItem> AerobList = new List<AerobItem>();
 
         #endregion
@@ -134,15 +144,30 @@ namespace PersonsBase.data
             if (namePerson == null || arg == null) return;
 
             var persTrenerName = (arg.PersonalTrener != null) ? arg.PersonalTrener.Name : "Имя неизвестно";
-            var item = CreatePersonalItem(namePerson, persTrenerName);
+            var item = CreateItem(namePerson, persTrenerName);
             PersonalList.Add(item);
             OnPersonalListChanged();
         }
-        private static PersonalItem CreatePersonalItem(string personName, string trenerName)
+        private static PersonalItem CreateItem(string personName, string trenerName)
         {
             return new PersonalItem(personName, trenerName);
         }
         #endregion
+
+        #region /// ВИЗИТЫ МИНИ ГРУПП ///
+        private void AddToMiniGroupList(string namePerson, WorkoutOptions arg)
+        {
+            if (namePerson == null || arg == null) return;
+
+            var persTrenerName = (arg.PersonalTrener != null) ? arg.PersonalTrener.Name : "Имя неизвестно";
+            var item = CreateItem(namePerson, persTrenerName);
+            MiniGroupList.Add(item);
+            OnMiniGroupListChanged();
+        }
+
+        #endregion
+
+
 
         #region /// CОХРАНЕНИЕ и ЗАГРУЗКА Посещений ///
 

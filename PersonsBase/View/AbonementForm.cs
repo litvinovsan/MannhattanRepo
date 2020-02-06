@@ -148,6 +148,9 @@ namespace PersonsBase.View
                         abonementNew = new SingleVisit(_typeWorkout, _spa, _pay, _timeTren);
                         break;
                     }
+
+                default:
+                    break;
             }
 
             ApplyCorrectedValues(ref abonementNew);//  Корректировка абонемента по дате, количеству оставшихся посещений
@@ -177,20 +180,26 @@ namespace PersonsBase.View
                     }
                 case AbonementByDays.NameAbonement:
                     {
+                        var nums = 0;
                         switch (((AbonementByDays)abonementCurent).TrainingsType)
                         {
                             case TypeWorkout.Тренажерный_Зал:
-                                (abonementCurent as AbonementByDays).SetDaysLeft(trenZalNum);
+                                nums = trenZalNum;
                                 break;
                             case TypeWorkout.Аэробный_Зал:
-                                (abonementCurent as AbonementByDays).SetDaysLeft(aerobNum);
+                                nums = aerobNum;
                                 break;
                             case TypeWorkout.Персональная:
-                                (abonementCurent as AbonementByDays).SetDaysLeft(personNum);
+                                nums = personNum;
+                                break;
+                            case TypeWorkout.МиниГруппа:
+                           //     nums = personNum;
                                 break;
                             default:
                                 break;
                         }
+
+                        ((AbonementByDays)abonementCurent).SetDaysLeft(nums);
                         break;
                     }
 
@@ -309,6 +318,9 @@ namespace PersonsBase.View
                         case TypeWorkout.Персональная:
                             comboBox_Personal.Enabled = true;
                             break;
+                        case TypeWorkout.МиниГруппа:
+                            comboBox_Personal.Enabled = true;
+                            break;
                         default:
                             break;
                     }
@@ -371,11 +383,6 @@ namespace PersonsBase.View
         {
             flowLayoutPanel2.Enabled = checkBox_Activated.Checked;
             if (checkBox_Activated.Checked) UpdateCorrectFieldsEn();
-        }
-
-        private void comboBox_TypeTren_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-
         }
 
         private void comboBox_TypeTren_SelectedValueChanged(object sender, EventArgs e)

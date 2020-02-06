@@ -37,17 +37,17 @@ namespace PersonsBase.View
             this.dateTimePicker_birthDate = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button_photo = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.button_CheckInWorkout = new System.Windows.Forms.Button();
             this.button_add_dop_tren = new System.Windows.Forms.Button();
             this.button_Add_Abon = new System.Windows.Forms.Button();
             this.button_Freeze = new System.Windows.Forms.Button();
             this.button_RemoveCurrentAbon = new System.Windows.Forms.Button();
+            this.pictureBox_ClientPhoto = new System.Windows.Forms.PictureBox();
             this.groupBox_abonList = new System.Windows.Forms.GroupBox();
             this.button__remove_abon = new System.Windows.Forms.Button();
             this.listBox_abonements = new System.Windows.Forms.ListBox();
-            this.button_photo = new System.Windows.Forms.Button();
-            this.pictureBox_ClientPhoto = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox_Notes = new System.Windows.Forms.TextBox();
             this.groupBox_Info = new System.Windows.Forms.GroupBox();
@@ -75,8 +75,8 @@ namespace PersonsBase.View
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.groupBox_abonList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).BeginInit();
+            this.groupBox_abonList.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -144,6 +144,18 @@ namespace PersonsBase.View
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Информация";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button_photo
+            // 
+            this.button_photo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_photo.Location = new System.Drawing.Point(842, 229);
+            this.button_photo.Margin = new System.Windows.Forms.Padding(2);
+            this.button_photo.Name = "button_photo";
+            this.button_photo.Size = new System.Drawing.Size(188, 26);
+            this.button_photo.TabIndex = 4;
+            this.button_photo.Text = "Фото";
+            this.button_photo.UseVisualStyleBackColor = true;
+            this.button_photo.Click += new System.EventHandler(this.button_photo_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -225,6 +237,17 @@ namespace PersonsBase.View
             this.button_RemoveCurrentAbon.Visible = false;
             this.button_RemoveCurrentAbon.Click += new System.EventHandler(this.button_remove_current_abon_Click);
             // 
+            // pictureBox_ClientPhoto
+            // 
+            this.pictureBox_ClientPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(842, 46);
+            this.pictureBox_ClientPhoto.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox_ClientPhoto.Name = "pictureBox_ClientPhoto";
+            this.pictureBox_ClientPhoto.Size = new System.Drawing.Size(188, 179);
+            this.pictureBox_ClientPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox_ClientPhoto.TabIndex = 0;
+            this.pictureBox_ClientPhoto.TabStop = false;
+            // 
             // groupBox_abonList
             // 
             this.groupBox_abonList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -263,29 +286,6 @@ namespace PersonsBase.View
             this.listBox_abonements.Name = "listBox_abonements";
             this.listBox_abonements.Size = new System.Drawing.Size(192, 84);
             this.listBox_abonements.TabIndex = 0;
-            // 
-            // button_photo
-            // 
-            this.button_photo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_photo.Location = new System.Drawing.Point(842, 229);
-            this.button_photo.Margin = new System.Windows.Forms.Padding(2);
-            this.button_photo.Name = "button_photo";
-            this.button_photo.Size = new System.Drawing.Size(188, 26);
-            this.button_photo.TabIndex = 4;
-            this.button_photo.Text = "Фото";
-            this.button_photo.UseVisualStyleBackColor = true;
-            this.button_photo.Click += new System.EventHandler(this.button_photo_Click);
-            // 
-            // pictureBox_ClientPhoto
-            // 
-            this.pictureBox_ClientPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(842, 46);
-            this.pictureBox_ClientPhoto.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox_ClientPhoto.Name = "pictureBox_ClientPhoto";
-            this.pictureBox_ClientPhoto.Size = new System.Drawing.Size(188, 179);
-            this.pictureBox_ClientPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox_ClientPhoto.TabIndex = 0;
-            this.pictureBox_ClientPhoto.TabStop = false;
             // 
             // groupBox1
             // 
@@ -356,7 +356,7 @@ namespace PersonsBase.View
             this.groupBox_Detailed.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_Detailed.Name = "groupBox_Detailed";
             this.groupBox_Detailed.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox_Detailed.Size = new System.Drawing.Size(700, 569);
+            this.groupBox_Detailed.Size = new System.Drawing.Size(700, 602);
             this.groupBox_Detailed.TabIndex = 1;
             this.groupBox_Detailed.TabStop = false;
             this.groupBox_Detailed.Text = "Детальная информация";
@@ -371,7 +371,7 @@ namespace PersonsBase.View
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(313, 568);
+            this.groupBox2.Size = new System.Drawing.Size(313, 601);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Персональные данные";
@@ -660,8 +660,8 @@ namespace PersonsBase.View
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
-            this.groupBox_abonList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).EndInit();
+            this.groupBox_abonList.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);

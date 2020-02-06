@@ -3,34 +3,34 @@ using System.Windows.Forms;
 
 namespace PersonsBase.View
 {
-   partial class WorkoutForm
-   {
-      /// <summary>
-      /// Required designer variable.
-      /// </summary>
-      private IContainer components = null;
+    partial class WorkoutForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private IContainer components = null;
 
-      /// <summary>
-      /// Clean up any resources being used.
-      /// </summary>
-      /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-      protected override void Dispose(bool disposing)
-      {
-         if (disposing && (components != null))
-         {
-            components.Dispose();
-         }
-         base.Dispose(disposing);
-      }
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-      #region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-      /// <summary>
-      /// Required method for Designer support - do not modify
-      /// the contents of this method with the code editor.
-      /// </summary>
-      private void InitializeComponent()
-      {
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.button_Ok = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.button_Cancel = new System.Windows.Forms.Button();
@@ -45,13 +45,16 @@ namespace PersonsBase.View
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel_tren = new System.Windows.Forms.Panel();
             this.radioButton_tren = new System.Windows.Forms.RadioButton();
+            this.pictureBox_tren = new System.Windows.Forms.PictureBox();
             this.panel_aero = new System.Windows.Forms.Panel();
             this.radioButton_aerob = new System.Windows.Forms.RadioButton();
+            this.pictureBox_aero = new System.Windows.Forms.PictureBox();
             this.panel_personal = new System.Windows.Forms.Panel();
             this.radioButton_personal = new System.Windows.Forms.RadioButton();
-            this.pictureBox_tren = new System.Windows.Forms.PictureBox();
-            this.pictureBox_aero = new System.Windows.Forms.PictureBox();
             this.pictureBox_person = new System.Windows.Forms.PictureBox();
+            this.panel_miniGroup = new System.Windows.Forms.Panel();
+            this.radioButton_miniGr = new System.Windows.Forms.RadioButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -61,11 +64,13 @@ namespace PersonsBase.View
             this.groupBox2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel_tren.SuspendLayout();
-            this.panel_aero.SuspendLayout();
-            this.panel_personal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_tren)).BeginInit();
+            this.panel_aero.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_aero)).BeginInit();
+            this.panel_personal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_person)).BeginInit();
+            this.panel_miniGroup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // button_Ok
@@ -90,7 +95,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel1.Controls.Add(this.button_Ok, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.button_Cancel, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 276);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 374);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
@@ -121,7 +126,7 @@ namespace PersonsBase.View
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(635, 276);
+            this.groupBox1.Size = new System.Drawing.Size(635, 374);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             // 
@@ -158,7 +163,7 @@ namespace PersonsBase.View
             // 
             // comboBox_treners
             // 
-            this.comboBox_treners.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.comboBox_treners.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_treners.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_treners.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -183,7 +188,7 @@ namespace PersonsBase.View
             // 
             // comboBox_Time_Name_Workout
             // 
-            this.comboBox_Time_Name_Workout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.comboBox_Time_Name_Workout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_Time_Name_Workout.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_Time_Name_Workout.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -200,7 +205,7 @@ namespace PersonsBase.View
             this.groupBox2.Controls.Add(this.flowLayoutPanel1);
             this.groupBox2.Location = new System.Drawing.Point(12, 18);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(304, 241);
+            this.groupBox2.Size = new System.Drawing.Size(304, 322);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Тип Тренировки:";
@@ -210,9 +215,10 @@ namespace PersonsBase.View
             this.flowLayoutPanel1.Controls.Add(this.panel_tren);
             this.flowLayoutPanel1.Controls.Add(this.panel_aero);
             this.flowLayoutPanel1.Controls.Add(this.panel_personal);
+            this.flowLayoutPanel1.Controls.Add(this.panel_miniGroup);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(6, 25);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(287, 206);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(287, 278);
             this.flowLayoutPanel1.TabIndex = 10;
             // 
             // panel_tren
@@ -227,7 +233,7 @@ namespace PersonsBase.View
             // 
             // radioButton_tren
             // 
-            this.radioButton_tren.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.radioButton_tren.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButton_tren.AutoSize = true;
             this.radioButton_tren.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -242,58 +248,6 @@ namespace PersonsBase.View
             this.radioButton_tren.UseVisualStyleBackColor = true;
             this.radioButton_tren.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
-            // panel_aero
-            // 
-            this.panel_aero.Controls.Add(this.radioButton_aerob);
-            this.panel_aero.Controls.Add(this.pictureBox_aero);
-            this.panel_aero.Location = new System.Drawing.Point(3, 69);
-            this.panel_aero.Name = "panel_aero";
-            this.panel_aero.Size = new System.Drawing.Size(270, 60);
-            this.panel_aero.TabIndex = 8;
-            // 
-            // radioButton_aerob
-            // 
-            this.radioButton_aerob.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.radioButton_aerob.AutoSize = true;
-            this.radioButton_aerob.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.radioButton_aerob.Location = new System.Drawing.Point(12, 15);
-            this.radioButton_aerob.Margin = new System.Windows.Forms.Padding(2);
-            this.radioButton_aerob.Name = "radioButton_aerob";
-            this.radioButton_aerob.Size = new System.Drawing.Size(101, 24);
-            this.radioButton_aerob.TabIndex = 1;
-            this.radioButton_aerob.TabStop = true;
-            this.radioButton_aerob.Text = "Аэробная";
-            this.radioButton_aerob.UseVisualStyleBackColor = true;
-            this.radioButton_aerob.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
-            // 
-            // panel_personal
-            // 
-            this.panel_personal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel_personal.Controls.Add(this.radioButton_personal);
-            this.panel_personal.Controls.Add(this.pictureBox_person);
-            this.panel_personal.Location = new System.Drawing.Point(3, 135);
-            this.panel_personal.Name = "panel_personal";
-            this.panel_personal.Size = new System.Drawing.Size(270, 60);
-            this.panel_personal.TabIndex = 7;
-            // 
-            // radioButton_personal
-            // 
-            this.radioButton_personal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.radioButton_personal.AutoSize = true;
-            this.radioButton_personal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.radioButton_personal.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.radioButton_personal.Location = new System.Drawing.Point(12, 15);
-            this.radioButton_personal.Margin = new System.Windows.Forms.Padding(2);
-            this.radioButton_personal.Name = "radioButton_personal";
-            this.radioButton_personal.Size = new System.Drawing.Size(138, 24);
-            this.radioButton_personal.TabIndex = 0;
-            this.radioButton_personal.TabStop = true;
-            this.radioButton_personal.Text = "Персональная";
-            this.radioButton_personal.UseVisualStyleBackColor = true;
-            this.radioButton_personal.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
-            // 
             // pictureBox_tren
             // 
             this.pictureBox_tren.BackColor = System.Drawing.Color.White;
@@ -306,6 +260,31 @@ namespace PersonsBase.View
             this.pictureBox_tren.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox_tren.TabIndex = 5;
             this.pictureBox_tren.TabStop = false;
+            // 
+            // panel_aero
+            // 
+            this.panel_aero.Controls.Add(this.radioButton_aerob);
+            this.panel_aero.Controls.Add(this.pictureBox_aero);
+            this.panel_aero.Location = new System.Drawing.Point(3, 69);
+            this.panel_aero.Name = "panel_aero";
+            this.panel_aero.Size = new System.Drawing.Size(270, 60);
+            this.panel_aero.TabIndex = 8;
+            // 
+            // radioButton_aerob
+            // 
+            this.radioButton_aerob.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.radioButton_aerob.AutoSize = true;
+            this.radioButton_aerob.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButton_aerob.Location = new System.Drawing.Point(12, 15);
+            this.radioButton_aerob.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButton_aerob.Name = "radioButton_aerob";
+            this.radioButton_aerob.Size = new System.Drawing.Size(101, 24);
+            this.radioButton_aerob.TabIndex = 1;
+            this.radioButton_aerob.TabStop = true;
+            this.radioButton_aerob.Text = "Аэробная";
+            this.radioButton_aerob.UseVisualStyleBackColor = true;
+            this.radioButton_aerob.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // pictureBox_aero
             // 
@@ -320,6 +299,33 @@ namespace PersonsBase.View
             this.pictureBox_aero.TabIndex = 4;
             this.pictureBox_aero.TabStop = false;
             // 
+            // panel_personal
+            // 
+            this.panel_personal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_personal.Controls.Add(this.radioButton_personal);
+            this.panel_personal.Controls.Add(this.pictureBox_person);
+            this.panel_personal.Location = new System.Drawing.Point(3, 135);
+            this.panel_personal.Name = "panel_personal";
+            this.panel_personal.Size = new System.Drawing.Size(270, 60);
+            this.panel_personal.TabIndex = 7;
+            // 
+            // radioButton_personal
+            // 
+            this.radioButton_personal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.radioButton_personal.AutoSize = true;
+            this.radioButton_personal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButton_personal.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.radioButton_personal.Location = new System.Drawing.Point(12, 15);
+            this.radioButton_personal.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButton_personal.Name = "radioButton_personal";
+            this.radioButton_personal.Size = new System.Drawing.Size(138, 24);
+            this.radioButton_personal.TabIndex = 0;
+            this.radioButton_personal.TabStop = true;
+            this.radioButton_personal.Text = "Персональная";
+            this.radioButton_personal.UseVisualStyleBackColor = true;
+            this.radioButton_personal.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
+            // 
             // pictureBox_person
             // 
             this.pictureBox_person.BackColor = System.Drawing.Color.White;
@@ -333,12 +339,52 @@ namespace PersonsBase.View
             this.pictureBox_person.TabIndex = 3;
             this.pictureBox_person.TabStop = false;
             // 
+            // panel_miniGroup
+            // 
+            this.panel_miniGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_miniGroup.Controls.Add(this.radioButton_miniGr);
+            this.panel_miniGroup.Controls.Add(this.pictureBox1);
+            this.panel_miniGroup.Location = new System.Drawing.Point(3, 201);
+            this.panel_miniGroup.Name = "panel_miniGroup";
+            this.panel_miniGroup.Size = new System.Drawing.Size(270, 60);
+            this.panel_miniGroup.TabIndex = 13;
+            // 
+            // radioButton_miniGr
+            // 
+            this.radioButton_miniGr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.radioButton_miniGr.AutoSize = true;
+            this.radioButton_miniGr.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButton_miniGr.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.radioButton_miniGr.Location = new System.Drawing.Point(12, 15);
+            this.radioButton_miniGr.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButton_miniGr.Name = "radioButton_miniGr";
+            this.radioButton_miniGr.Size = new System.Drawing.Size(123, 24);
+            this.radioButton_miniGr.TabIndex = 0;
+            this.radioButton_miniGr.TabStop = true;
+            this.radioButton_miniGr.Text = "Мини Группа";
+            this.radioButton_miniGr.UseVisualStyleBackColor = true;
+            this.radioButton_miniGr.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pictureBox1.Image = global::PersonsBase.Properties.Resources.clients;
+            this.pictureBox1.Location = new System.Drawing.Point(217, 0);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(53, 60);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
+            // 
             // WorkoutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(635, 312);
+            this.ClientSize = new System.Drawing.Size(635, 410);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.DoubleBuffered = true;
@@ -361,39 +407,45 @@ namespace PersonsBase.View
             this.flowLayoutPanel1.ResumeLayout(false);
             this.panel_tren.ResumeLayout(false);
             this.panel_tren.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_tren)).EndInit();
             this.panel_aero.ResumeLayout(false);
             this.panel_aero.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_aero)).EndInit();
             this.panel_personal.ResumeLayout(false);
             this.panel_personal.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_tren)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_aero)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_person)).EndInit();
+            this.panel_miniGroup.ResumeLayout(false);
+            this.panel_miniGroup.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
-      }
+        }
 
-      #endregion
+        #endregion
 
-      private Button button_Ok;
-      private TableLayoutPanel tableLayoutPanel1;
-      private Button button_Cancel;
-      private GroupBox groupBox1;
-      private RadioButton radioButton_tren;
-      private RadioButton radioButton_aerob;
-      private RadioButton radioButton_personal;
-      private PictureBox pictureBox_person;
-      private PictureBox pictureBox_aero;
-      private PictureBox pictureBox_tren;
-      private GroupBox groupBox_SelectWorkout;
-      private Panel panel_personal;
-      private Panel panel_tren;
-      private Panel panel_aero;
-      private FlowLayoutPanel flowLayoutPanel1;
-      private ComboBox comboBox_Time_Name_Workout;
-      private FlowLayoutPanel flowLayoutPanel2;
-      private GroupBox groupBox_TrenerName;
-      private ComboBox comboBox_treners;
+        private Button button_Ok;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Button button_Cancel;
+        private GroupBox groupBox1;
+        private RadioButton radioButton_tren;
+        private RadioButton radioButton_aerob;
+        private RadioButton radioButton_personal;
+        private PictureBox pictureBox_person;
+        private PictureBox pictureBox_aero;
+        private PictureBox pictureBox_tren;
+        private GroupBox groupBox_SelectWorkout;
+        private Panel panel_personal;
+        private Panel panel_tren;
+        private Panel panel_aero;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private ComboBox comboBox_Time_Name_Workout;
+        private FlowLayoutPanel flowLayoutPanel2;
+        private GroupBox groupBox_TrenerName;
+        private ComboBox comboBox_treners;
         private GroupBox groupBox3;
         private GroupBox groupBox2;
+        private Panel panel_miniGroup;
+        private RadioButton radioButton_miniGr;
+        private PictureBox pictureBox1;
     }
 }

@@ -33,6 +33,8 @@ namespace PersonsBase.View
             panel_tren.Visible = (!(abonement is SingleVisit)) || ((abonement.NumAerobicTr != 0) || (abonement.NumPersonalTr != 0));
             panel_aero.Visible = (abonement.TrainingsType == TypeWorkout.Аэробный_Зал || (abonement.NumAerobicTr != 0));
             panel_personal.Visible = (abonement.TrainingsType == TypeWorkout.Персональная || (abonement.NumPersonalTr != 0));
+            var r = abonement.GetRemainderDays() > 0;
+            panel_miniGroup.Visible = (abonement.TrainingsType == TypeWorkout.МиниГруппа);
         }
 
         private void WorkoutForm_Load(object sender, EventArgs e)
@@ -68,6 +70,12 @@ namespace PersonsBase.View
                         }
                     case TypeWorkout.Тренажерный_Зал:
                         break;
+                    case TypeWorkout.МиниГруппа:
+                        {
+                            if (lastVisit.PeronalTrenerName != null)
+                                lastTrener = (actualTrenersNames.Contains(lastVisit.PeronalTrenerName)) ? lastVisit.PeronalTrenerName : "Имя неизвестно";
+                            break;
+                        }
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -94,32 +102,51 @@ namespace PersonsBase.View
         {
             var radioButton = (RadioButton)sender;
 
-            if (radioButton.Checked)
+            if (!radioButton.Checked) return;
+
+            groupBox_TrenerName.Enabled = false;
+            groupBox_SelectWorkout.Enabled = false;
+
+
+            if (radioButton.Name == radioButton_tren.Name) // Тренажерный Зал
             {
-                if (radioButton.Name == radioButton_personal.Name)
-                {
-                    SelectedOptions.TypeWorkout = TypeWorkout.Персональная;
-                    radioButton_aerob.Checked = false;
-                    radioButton_tren.Checked = false;
-                    groupBox_SelectWorkout.Enabled = false;
-                    groupBox_TrenerName.Enabled = true;
-                }
-                else if (radioButton.Name == radioButton_aerob.Name)
-                {
-                    SelectedOptions.TypeWorkout = TypeWorkout.Аэробный_Зал;
-                    radioButton_personal.Checked = false;
-                    radioButton_tren.Checked = false;
-                    groupBox_SelectWorkout.Enabled = true;
-                    groupBox_TrenerName.Enabled = true;
-                }
-                else
-                {
-                    SelectedOptions.TypeWorkout = TypeWorkout.Тренажерный_Зал;
-                    radioButton_personal.Checked = false;
-                    radioButton_aerob.Checked = false;
-                    groupBox_SelectWorkout.Enabled = false;
-                    groupBox_TrenerName.Enabled = false;
-                }
+                SelectedOptions.TypeWorkout = TypeWorkout.Тренажерный_Зал;
+                radioButton_tren.Checked = true;
+
+                radioButton_aerob.Checked = false;
+                radioButton_personal.Checked = false;
+                radioButton_miniGr.Checked = false;
+            }
+            else if (radioButton.Name == radioButton_aerob.Name) // Аэробные трени
+            {
+                SelectedOptions.TypeWorkout = TypeWorkout.Аэробный_Зал;
+                groupBox_SelectWorkout.Enabled = true;
+                groupBox_TrenerName.Enabled = true;
+                radioButton_aerob.Checked = true;
+
+                radioButton_tren.Checked = false;
+                radioButton_personal.Checked = false;
+                radioButton_miniGr.Checked = false;
+            }
+            else if (radioButton.Name == radioButton_personal.Name) // Персональные трени
+            {
+                SelectedOptions.TypeWorkout = TypeWorkout.Персональная;
+                groupBox_TrenerName.Enabled = true;
+                radioButton_personal.Checked = true;
+
+                radioButton_tren.Checked = false;
+                radioButton_aerob.Checked = false;
+                radioButton_miniGr.Checked = false;
+            }
+            else if (radioButton.Name == radioButton_miniGr.Name) // Мини Группы
+            {
+                SelectedOptions.TypeWorkout = TypeWorkout.МиниГруппа;
+                groupBox_TrenerName.Enabled = true;
+                radioButton_miniGr.Checked = true;
+
+                radioButton_tren.Checked = false;
+                radioButton_aerob.Checked = false;
+                radioButton_personal.Checked = false;
             }
         }
 
@@ -137,19 +164,30 @@ namespace PersonsBase.View
 
         private void button_Ok_Click(object sender, EventArgs e)
         {
-            if (radioButton_tren.Checked == false && radioButton_aerob.Checked == false && radioButton_personal.Checked == false)
+            if ((radioButton_tren.Checked == false && radioButton_aerob.Checked == false && radioButton_personal.Checked == false && radioButton_miniGr.Checked == false))
             {
                 MessageBox.Show(@"Выберите один из вариантов");
                 return;
             }
-            if (SelectedOptions.TypeWorkout == TypeWorkout.Аэробный_Зал)
+
+            switch (SelectedOptions.TypeWorkout)
             {
-                SelectedOptions.GroupInfo.TrenerName = string.IsNullOrEmpty(_selectedTrenerName) ? "Имя неизвестно" : _selectedTrenerName;// проверить, если пусто, заменить на "Имя неизвестно"
-                SelectedOptions.GroupInfo.ScheduleNote.SetTimeAndNameString(_selectedGroupTimeName);
-            }
-            else
-            {
-                SelectedOptions.PersonalTrener = _treners.Find(x => x.Name == _selectedTrenerName);
+                case TypeWorkout.Аэробный_Зал:
+                    {
+                        SelectedOptions.GroupInfo.TrenerName = string.IsNullOrEmpty(_selectedTrenerName) ? "Имя неизвестно" : _selectedTrenerName;
+                        SelectedOptions.GroupInfo.ScheduleNote.SetTimeAndNameString(_selectedGroupTimeName);
+                        break;
+                    }
+                case TypeWorkout.Тренажерный_Зал:
+                    break;
+                case TypeWorkout.Персональная:
+                    SelectedOptions.PersonalTrener = _treners?.Find(x => x.Name == _selectedTrenerName);
+                    break;
+                case TypeWorkout.МиниГруппа:
+                    SelectedOptions.PersonalTrener = _treners?.Find(x => x.Name == _selectedTrenerName);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
             DialogResult = DialogResult.OK;
         }

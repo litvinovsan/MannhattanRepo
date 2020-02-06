@@ -45,6 +45,7 @@ namespace PersonsBase.View
             DailyVisits.GymListChangedEvent += DailyVisits_GymCollectionChanged;
             DailyVisits.PersonalListChangedEvent += DailyVisits_PersonalListChangedEvent;
             DailyVisits.AerobListChangedEvent += DailyVisits_AerobListChangedEvent;
+            DailyVisits.MiniGroupListChangedEvent += DailyVisits_MiniGroupListChangedEvent;
 
             _dailyVisits.LoadLastSession();
 
@@ -53,6 +54,8 @@ namespace PersonsBase.View
             MyListViewEx.MaximizeLastColumn(listView_Group);
             MyListViewEx.MaximizeLastColumn(listView_Personal);
         }
+
+
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -122,6 +125,10 @@ namespace PersonsBase.View
             var newGroupName = string.IsNullOrEmpty(lastVisit.GroupTimeName) ? "Имя неизвестно" : lastVisit.GroupTimeName;
 
             MyListViewEx.AddItemAndGroup(listView_Group, newGroupName, lastVisit.NamePerson, false);
+        }
+        private void DailyVisits_MiniGroupListChangedEvent()
+        {
+            throw new NotImplementedException();
         }
         #endregion
 

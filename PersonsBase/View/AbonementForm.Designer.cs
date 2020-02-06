@@ -337,7 +337,6 @@ namespace PersonsBase.View
             this.comboBox_TypeTren.Name = "comboBox_TypeTren";
             this.comboBox_TypeTren.Size = new System.Drawing.Size(308, 24);
             this.comboBox_TypeTren.TabIndex = 3;
-            this.comboBox_TypeTren.SelectedIndexChanged += new System.EventHandler(this.comboBox_TypeTren_SelectedIndexChanged_1);
             this.comboBox_TypeTren.SelectedValueChanged += new System.EventHandler(this.comboBox_TypeTren_SelectedValueChanged);
             // 
             // label2
