@@ -115,7 +115,7 @@ namespace PersonsBase.data.Abonements
 
         public void SetDaysLeft(int numberDaysLeft)
         {
-            DaysLeft = (int)numberDaysLeft;
+            DaysLeft = numberDaysLeft;
         }
     }
 }

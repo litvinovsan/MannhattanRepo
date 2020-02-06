@@ -111,13 +111,15 @@ namespace PersonsBase.View
             // Дата Активации
             dateTimePicker_ActivationDate.Value = _defaultForActivation;
             dateTimePicker_ActivationDate.MinDate = new DateTime(2019, 1, 1);
-
+            // Тренажерный зал
+            comboBox_Tren.Items.AddRange(Enumerable.Range(0, 11).Select(x => (object)x).ToArray());
+            comboBox_Tren.SelectedItem = 0;
             // Персональные трени
             comboBox_Personal.Items.AddRange(Enumerable.Range(0, 31).Select(x => (object)x).ToArray());
             comboBox_Personal.SelectedItem = 0;
             // Аэробные
             comboBox_Aerob.Items.AddRange(Enumerable.Range(0, 121).Select(x => (object)x).ToArray());
-            comboBox_Aerob.SelectedItem = 120;
+            comboBox_Aerob.SelectedItem = 0;
             // Заморозки
             comboBox_freez.Items.AddRange(Enumerable.Range(0, 46).Select(x => (object)x).ToArray());
             comboBox_freez.SelectedItem = 45;
@@ -147,42 +149,50 @@ namespace PersonsBase.View
                     }
             }
 
-            CorrectionValues();//  Корректировка абонемента по дате, количеству оставшихся посещений
+            ApplyCorrectedValues();//  Корректировка абонемента по дате, количеству оставшихся посещений
         }
 
-        private void CorrectionValues()
+        private void ApplyCorrectedValues()
         {
             if (!checkBox_Activated.Checked) return;
 
+            var abonementCurent = _person.AbonementCurent;
+            var trenZalNum = int.Parse(comboBox_Tren.Text);
             var personNum = int.Parse(comboBox_Personal.Text);
             var aerobNum = int.Parse(comboBox_Aerob.Text);
-
-            var abonementCurent = _person.AbonementCurent;
-
+            //заморозку добавить сюда
             switch (abonementCurent.AbonementName)
             {
                 case SingleVisit.NameAbonement:
                     return;
                 case ClubCardA.NameAbonement:
                     {
-                        (abonementCurent as ClubCardA)?.Freeze?.SetAvailableDays(int.Parse(comboBox_freez.Text));
+                        (abonementCurent as ClubCardA)?.Freeze?.SetAvailableDays(int.Parse(comboBox_freez.Text));// доб заморозку
                         abonementCurent.NumAerobicTr = aerobNum;
                         abonementCurent.NumPersonalTr = personNum;
                         break;
                     }
                 case AbonementByDays.NameAbonement:
                     {
-                        if ((abonementCurent as AbonementByDays)?.TrainingsType == TypeWorkout.Аэробный_Зал)
+                        switch (((AbonementByDays)abonementCurent).TrainingsType)
                         {
-                            (abonementCurent as AbonementByDays).SetDaysLeft(aerobNum);
-                            break;
-                        }
-                        if ((abonementCurent as AbonementByDays)?.TrainingsType == TypeWorkout.Персональная)
-                        {
-                            (abonementCurent as AbonementByDays).SetDaysLeft(personNum);
+                            case TypeWorkout.Тренажерный_Зал:
+                                (abonementCurent as AbonementByDays).SetDaysLeft(trenZalNum);
+                                break;
+                            case TypeWorkout.Аэробный_Зал:
+                                (abonementCurent as AbonementByDays).SetDaysLeft(aerobNum);
+                                break;
+                            case TypeWorkout.Персональная:
+                                (abonementCurent as AbonementByDays).SetDaysLeft(personNum);
+                                break;
+                            default:
+                                break;
                         }
                         break;
                     }
+
+                default:
+                    break;
             }
 
             if (dateTimePicker_ActivationDate.Value.Date.CompareTo(_defaultForActivation.Date) != 0)
@@ -204,7 +214,7 @@ namespace PersonsBase.View
             var radioButton = (RadioButton)sender;
             if (radioButton.Checked)
             {
-                _selectedAbonementName = "Абонемент";
+                _selectedAbonementName = AbonementByDays.NameAbonement;
 
                 comboBox_Abonem.Visible = true;
                 comboBox_ClubCard.Visible = false;
@@ -213,13 +223,12 @@ namespace PersonsBase.View
                 radioButton_Single.Checked = false;
 
                 comboBox_Abonem.SelectedItem = _daysInAbon.ToString();
-
-                NewMethod();
             }
             else
             {
                 comboBox_Abonem.Visible = false;
             }
+            UpdateCorrectFieldsEn();
         }
 
         private void radioButton_ClubCard_CheckedChanged(object sender, EventArgs e)
@@ -227,10 +236,10 @@ namespace PersonsBase.View
             var radioButton = (RadioButton)sender;
             if (radioButton.Checked)
             {
-                _selectedAbonementName = "Клубная Карта";
+                _selectedAbonementName = ClubCardA.NameAbonement;
 
-                comboBox_Abonem.Visible = false;
                 comboBox_ClubCard.Visible = true;
+                comboBox_Abonem.Visible = false;
 
                 radioButton_Abonement.Checked = false;
                 radioButton_Single.Checked = false;
@@ -238,19 +247,13 @@ namespace PersonsBase.View
                 comboBox_ClubCard.SelectedItem = _periodClubCard.ToString();
                 comboBox_TypeTren.SelectedItem = TypeWorkout.Тренажерный_Зал.ToString();
                 comboBox_TypeTren.Enabled = false;
-
-                // Включаем комбобоксы расширенных данных. на тот случай если они выключились
-                comboBox_Personal.Enabled = true;
-                comboBox_Aerob.Enabled = true;
             }
             else
             {
                 comboBox_ClubCard.Visible = false;
                 comboBox_TypeTren.Enabled = true;
-
-                comboBox_Personal.Enabled = false;
-                comboBox_Aerob.Enabled = false;
             }
+            UpdateCorrectFieldsEn();
         }
 
         private void radioButton_Single_CheckedChanged(object sender, EventArgs e)
@@ -266,33 +269,57 @@ namespace PersonsBase.View
                 radioButton_Abonement.Checked = false;
                 radioButton_ClubCard.Checked = false;
             }
+            UpdateCorrectFieldsEn();
         }
 
         private void ComboBox_TypeTren_SelectedIndexChanged(object sender, EventArgs e)
         {
             var combo = (ComboBox)sender;
             _typeWorkout = MyComboBox.GetComboBoxValue<TypeWorkout>(combo);
+            UpdateCorrectFieldsEn();
         }
 
-        private void NewMethod()
+        private void UpdateCorrectFieldsEn()
         {
-            // выключаем недоступные комбобоксы
+            // Выходим если не нужна корректировка
+            if (!checkBox_Activated.Checked) return;
+
+            comboBox_Tren.Enabled = false;
+            comboBox_Personal.Enabled = false;
+            comboBox_Aerob.Enabled = false;
+            comboBox_freez.Enabled = false;
+
             if (radioButton_Abonement.Checked)
             {
                 if (comboBox_TypeTren.SelectedItem != null)
+                {
                     _typeWorkout = MyComboBox.GetComboBoxValue<TypeWorkout>(comboBox_TypeTren);
 
-                if (_typeWorkout == TypeWorkout.Тренажерный_Зал)
-                {
-                    comboBox_Personal.Enabled = false;
-                    comboBox_Aerob.Enabled = false;
-                }
-                else
-                {
-                    comboBox_Personal.Enabled = _typeWorkout == TypeWorkout.Персональная;
-                    comboBox_Aerob.Enabled = _typeWorkout == TypeWorkout.Аэробный_Зал;
+                    switch (_typeWorkout)
+                    {
+                        case TypeWorkout.Тренажерный_Зал:
+                            comboBox_Tren.Enabled = true;
+                            break;
+                        case TypeWorkout.Аэробный_Зал:
+                            comboBox_Aerob.Enabled = true;
+                            break;
+                        case TypeWorkout.Персональная:
+                            comboBox_Personal.Enabled = true;
+                            break;
+                        default:
+                            break;
+                    }
+                    comboBox_freez.Enabled = true;
                 }
             }
+
+            if (radioButton_ClubCard.Checked)
+            {
+                comboBox_Personal.Enabled = true;
+                comboBox_freez.Enabled = true;
+                comboBox_Aerob.Enabled = true;
+            }
+
         }
 
         private void ComboBox_time_SelectedIndexChanged(object sender, EventArgs e)
@@ -340,6 +367,7 @@ namespace PersonsBase.View
         private void checkBox_Activated_CheckedChanged(object sender, EventArgs e)
         {
             flowLayoutPanel2.Enabled = checkBox_Activated.Checked;
+            if (checkBox_Activated.Checked) UpdateCorrectFieldsEn();
         }
 
         private void comboBox_TypeTren_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -349,7 +377,7 @@ namespace PersonsBase.View
 
         private void comboBox_TypeTren_SelectedValueChanged(object sender, EventArgs e)
         {
-            NewMethod();
+            UpdateCorrectFieldsEn();
         }
     }
 }

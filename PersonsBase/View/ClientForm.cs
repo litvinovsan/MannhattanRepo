@@ -37,12 +37,14 @@ namespace PersonsBase.View
             Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto);
 
             UpdateControlState(this, EventArgs.Empty);
+            UpdateNameText(this, EventArgs.Empty);
             LoadListBoxQueue();
             SetupVisitsDataGridView();
 
             // Подписка на События
             _saveDelegateChain += SaveUserData; // Цепочка Делегатов для сохранения измененных данных.
             _person.StatusChanged += UpdateControlState;
+            _person.StatusChanged += UpdateNameText;
             _person.PathToPhotoChanged += PathToPhotoChangedMethod;
             PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
 
@@ -54,7 +56,6 @@ namespace PersonsBase.View
 
             // На всякий случай, может уменьшит мерцание
             tabControl1.DoubleBuffered(true);
-            groupBox4.DoubleBuffered(true);
             groupBox_Info.DoubleBuffered(true);
             groupBox_Detailed.DoubleBuffered(true);
         }
@@ -193,7 +194,7 @@ namespace PersonsBase.View
                         }
                 }
 
-                UpdateNameText();
+                //    UpdateNameText();
             };
 
             if (InvokeRequired)
@@ -228,8 +229,8 @@ namespace PersonsBase.View
             // Загружаем данные на Вкладку Редактирование, в Группу Персональных данных
 
             _person.UpdateActualStatus(); // Обновляем текущий статус
-            // Имя Клиента на форме.
-            UpdateNameText();
+                                          // Имя Клиента на форме.
+                                          // UpdateNameText();
 
             // Телефон
             maskedTextBox_PhoneNumber.Text = _person.Phone;
@@ -309,7 +310,7 @@ namespace PersonsBase.View
 
         #region // Хелп Методы для Загрузки и обновления пользовательских данных
 
-        private void UpdateNameText()
+        private void UpdateNameText(object sender, EventArgs e)
         {
             Text = @"Карточка Клиента:    " + _person.Name; // Имя формы
 
@@ -449,7 +450,7 @@ namespace PersonsBase.View
             {
                 // Обновление всех полей и состояний
                 _person.UpdateActualStatus();
-                UpdateNameText();
+                //  UpdateNameText();
                 Logic.LoadShortInfo(groupBox_Info, _person);
                 LoadEditableData();
                 UpdateControlState(this, EventArgs.Empty);
@@ -489,7 +490,7 @@ namespace PersonsBase.View
             if (isSuccess)
             {
                 _person.UpdateActualStatus(); // Обновляем текущий статус
-                UpdateNameText();
+                                              // UpdateNameText();
 
                 Logic.LoadShortInfo(groupBox_Info, _person);
                 LoadEditableData();
