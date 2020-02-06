@@ -130,44 +130,47 @@ namespace PersonsBase.View
         /// </summary>
         public void ApplyChanges()
         {
+            AbonementBasic abonementNew = null;
             switch (_selectedAbonementName)
             {
                 case "Клубная Карта":
                     {
-                        _person.AbonementCurent = new ClubCardA(_pay, _timeTren, TypeWorkout.Тренажерный_Зал, _spa, _periodClubCard);
+                        abonementNew = new ClubCardA(_pay, _timeTren, TypeWorkout.Тренажерный_Зал, _spa, _periodClubCard);
                         break;
                     }
                 case "Абонемент":
                     {
-                        _person.AbonementCurent = new AbonementByDays(_pay, _timeTren, _typeWorkout, _spa, _daysInAbon);
+                        abonementNew = new AbonementByDays(_pay, _timeTren, _typeWorkout, _spa, _daysInAbon);
                         break;
                     }
                 case "Разовое Занятие":
                     {
-                        _person.AbonementCurent = new SingleVisit(_typeWorkout, _spa, _pay, _timeTren);
+                        abonementNew = new SingleVisit(_typeWorkout, _spa, _pay, _timeTren);
                         break;
                     }
             }
 
-            ApplyCorrectedValues();//  Корректировка абонемента по дате, количеству оставшихся посещений
+            ApplyCorrectedValues(ref abonementNew);//  Корректировка абонемента по дате, количеству оставшихся посещений
+            _person.AbonementCurent = abonementNew;
         }
 
-        private void ApplyCorrectedValues()
+        private void ApplyCorrectedValues(ref AbonementBasic abonement)
         {
             if (!checkBox_Activated.Checked) return;
 
-            var abonementCurent = _person.AbonementCurent;
+            var abonementCurent = abonement;
             var trenZalNum = int.Parse(comboBox_Tren.Text);
             var personNum = int.Parse(comboBox_Personal.Text);
             var aerobNum = int.Parse(comboBox_Aerob.Text);
-            //заморозку добавить сюда
+            var freezeNum = int.Parse(comboBox_freez.Text);
+
             switch (abonementCurent.AbonementName)
             {
                 case SingleVisit.NameAbonement:
                     return;
                 case ClubCardA.NameAbonement:
                     {
-                        (abonementCurent as ClubCardA)?.Freeze?.SetAvailableDays(int.Parse(comboBox_freez.Text));// доб заморозку
+                        (abonementCurent as ClubCardA)?.Freeze?.SetAvailableDays(freezeNum);
                         abonementCurent.NumAerobicTr = aerobNum;
                         abonementCurent.NumPersonalTr = personNum;
                         break;
