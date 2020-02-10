@@ -54,6 +54,9 @@ namespace PersonsBase.View
                 AbonementsQueue_CollectionChanged; // Список Абонементов. Если изменился
             _person.AbonementsQueue.CollectionChanged += ShowAbonementList;
 
+            _person.AbonementCurentChanged += UpdateNameText;//FIXME  протестировать это место
+
+
             // На всякий случай, может уменьшит мерцание
             tabControl1.DoubleBuffered(true);
             groupBox_Info.DoubleBuffered(true);
@@ -450,7 +453,7 @@ namespace PersonsBase.View
             {
                 // Обновление всех полей и состояний
                 _person.UpdateActualStatus();
-                //  UpdateNameText();
+                UpdateNameText(this, EventArgs.Empty);
                 Logic.LoadShortInfo(groupBox_Info, _person);
                 LoadEditableData();
                 UpdateControlState(this, EventArgs.Empty);
@@ -550,6 +553,7 @@ namespace PersonsBase.View
             Logic.LoadShortInfo(groupBox_Info, _person);
             LoadEditableData();
             UpdateControlState(this, EventArgs.Empty);
+            UpdateNameText(this, EventArgs.Empty);
         }
 
         private void button_Password_Click(object sender, EventArgs e)

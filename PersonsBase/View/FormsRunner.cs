@@ -88,14 +88,28 @@ namespace PersonsBase.View
         /// </summary>
         public static DialogResult RunWorkoutOptionsForm(ref WorkoutOptions optionsWorkout, string personName)
         {
-            var workoutForm = new WorkoutForm(personName);
-
-            var dlgReult = workoutForm.ShowDialog();
-            if (dlgReult == DialogResult.OK)
+            // Если нет Персональных или Аэробных тренировок - не выводить окно выбора тренировок. По умолчанию отмечается Тренажерный зал
+            var abon = PersonObject.GetLink(personName)?.AbonementCurent;
+            if (abon?.NumPersonalTr == 0 && abon?.NumAerobicTr == 0 && (abon is ClubCardA))
             {
-                optionsWorkout = workoutForm.SelectedOptions;
+                optionsWorkout.TypeWorkout = TypeWorkout.Тренажерный_Зал;
+                return DialogResult.OK;
             }
-            return dlgReult;
+
+            if (abon is AbonementByDays && (abon.TypeWorkout == TypeWorkout.МиниГруппа || abon.TypeWorkout == TypeWorkout.Персональная))
+            {
+                var workoutForm = new WorkoutForm(personName);
+
+                var dlgReult = workoutForm.ShowDialog();
+                if (dlgReult == DialogResult.OK)
+                {
+                    optionsWorkout = workoutForm.SelectedOptions;
+                }
+                return dlgReult;
+            }
+
+            if (abon != null) optionsWorkout.TypeWorkout = abon.TypeWorkout;
+            return DialogResult.OK;
         }
 
         #endregion

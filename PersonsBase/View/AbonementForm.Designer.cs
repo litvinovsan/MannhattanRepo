@@ -266,7 +266,7 @@ namespace PersonsBase.View
             this.pictureBox2.Location = new System.Drawing.Point(3, 46);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(50, 37);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 9;
             this.pictureBox2.TabStop = false;
             // 
@@ -277,7 +277,7 @@ namespace PersonsBase.View
             this.pictureBox3.Location = new System.Drawing.Point(3, 89);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(50, 37);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox3.TabIndex = 10;
             this.pictureBox3.TabStop = false;
             // 
@@ -460,7 +460,7 @@ namespace PersonsBase.View
             this.pictureBox4.Location = new System.Drawing.Point(3, 3);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(49, 50);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 8;
             this.pictureBox4.TabStop = false;
             // 
@@ -471,7 +471,7 @@ namespace PersonsBase.View
             this.pictureBox5.Location = new System.Drawing.Point(3, 59);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(49, 50);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox5.TabIndex = 9;
             this.pictureBox5.TabStop = false;
             // 
@@ -482,7 +482,7 @@ namespace PersonsBase.View
             this.pictureBox6.Location = new System.Drawing.Point(3, 115);
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.Size = new System.Drawing.Size(49, 50);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox6.TabIndex = 10;
             this.pictureBox6.TabStop = false;
             // 
@@ -493,7 +493,7 @@ namespace PersonsBase.View
             this.pictureBox7.Location = new System.Drawing.Point(3, 171);
             this.pictureBox7.Name = "pictureBox7";
             this.pictureBox7.Size = new System.Drawing.Size(49, 50);
-            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox7.TabIndex = 11;
             this.pictureBox7.TabStop = false;
             // 
@@ -613,7 +613,7 @@ namespace PersonsBase.View
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(3, 187);
+            this.label7.Location = new System.Drawing.Point(3, 190);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(147, 17);
             this.label7.TabIndex = 15;
@@ -623,7 +623,7 @@ namespace PersonsBase.View
             // 
             this.comboBox_freez.Enabled = false;
             this.comboBox_freez.FormattingEnabled = true;
-            this.comboBox_freez.Location = new System.Drawing.Point(3, 207);
+            this.comboBox_freez.Location = new System.Drawing.Point(3, 210);
             this.comboBox_freez.Name = "comboBox_freez";
             this.comboBox_freez.Size = new System.Drawing.Size(196, 24);
             this.comboBox_freez.TabIndex = 17;

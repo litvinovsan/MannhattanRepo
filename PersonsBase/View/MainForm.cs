@@ -40,12 +40,12 @@ namespace PersonsBase.View
             DataBaseLevel.OnListChanged(); // Событие запускающееся при изменении количества Клиентов в списке.
             PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
 
-            // События для 
+            // События для Колонок и  т д
             DailyVisits.NumberDailyPersonsEvent += DailyVisits_NumberDailyPersonsEvent;// Счетчик пользователей
-            DailyVisits.GymListChangedEvent += DailyVisits_GymCollectionChanged;
-            DailyVisits.PersonalListChangedEvent += DailyVisits_PersonalListChangedEvent;
-            DailyVisits.AerobListChangedEvent += DailyVisits_AerobListChangedEvent;
-            DailyVisits.MiniGroupListChangedEvent += DailyVisits_MiniGroupListChangedEvent;
+            DailyVisits.GymListChangedEvent += DailyVisits_GymCollectionChanged;       // Тренажерка
+            DailyVisits.PersonalListChangedEvent += DailyVisits_PersonalListChangedEvent; // Персоналки
+            DailyVisits.AerobListChangedEvent += DailyVisits_AerobListChangedEvent;       // Аэробный
+            DailyVisits.MiniGroupListChangedEvent += DailyVisits_MiniGroupListChangedEvent; // Минигруппы
 
             _dailyVisits.LoadLastSession();
 
@@ -53,6 +53,7 @@ namespace PersonsBase.View
             MyListViewEx.MaximizeLastColumn(listView_Gym_Zal);
             MyListViewEx.MaximizeLastColumn(listView_Group);
             MyListViewEx.MaximizeLastColumn(listView_Personal);
+            MyListViewEx.MaximizeLastColumn(listView_MiniGroup);
         }
 
 
@@ -128,7 +129,13 @@ namespace PersonsBase.View
         }
         private void DailyVisits_MiniGroupListChangedEvent()
         {
-            throw new NotImplementedException();
+           var dailyList = _dailyVisits.MiniGroupList;
+            if (dailyList == null || dailyList.Count == 0) return;
+
+            var lastVisit = dailyList.Last();
+            var newGroupName = string.IsNullOrEmpty(lastVisit.TrenerName) ? "Имя неизвестно" : lastVisit.TrenerName;
+
+            MyListViewEx.AddItemAndGroup(listView_MiniGroup, newGroupName, lastVisit.NamePerson, false);
         }
         #endregion
 

@@ -179,6 +179,9 @@ namespace PersonsBase.data
                         result = PeronalTrenerName;
                         break;
                     }
+                case TypeWorkout.МиниГруппа:
+                    result = PeronalTrenerName;
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

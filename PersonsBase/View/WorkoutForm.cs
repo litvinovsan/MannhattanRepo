@@ -31,10 +31,13 @@ namespace PersonsBase.View
 
             // Скрываем Панели с РадиоБатоннами
             panel_tren.Visible = (!(abonement is SingleVisit)) || ((abonement.NumAerobicTr != 0) || (abonement.NumPersonalTr != 0));
-            panel_aero.Visible = (abonement.TrainingsType == TypeWorkout.Аэробный_Зал || (abonement.NumAerobicTr != 0));
-            panel_personal.Visible = (abonement.TrainingsType == TypeWorkout.Персональная || (abonement.NumPersonalTr != 0));
-            var r = abonement.GetRemainderDays() > 0;
-            panel_miniGroup.Visible = (abonement.TrainingsType == TypeWorkout.МиниГруппа);
+            panel_aero.Visible = (abonement.TypeWorkout == TypeWorkout.Аэробный_Зал || (abonement.NumAerobicTr != 0));
+            panel_personal.Visible = (abonement.TypeWorkout == TypeWorkout.Персональная || (abonement.NumPersonalTr != 0));
+
+            var isMiniGrClubCard = ((abonement is ClubCardA) && abonement.NumPersonalTr > 0);
+            var isMiniGrByDays = ((abonement is AbonementByDays) && abonement.GetRemainderDays() > 0 && abonement.TypeWorkout == TypeWorkout.МиниГруппа);
+
+            panel_miniGroup.Visible = (abonement.TypeWorkout == TypeWorkout.МиниГруппа) || isMiniGrClubCard || isMiniGrByDays;
         }
 
         private void WorkoutForm_Load(object sender, EventArgs e)

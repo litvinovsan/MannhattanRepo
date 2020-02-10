@@ -324,7 +324,7 @@ namespace PersonsBase.data
                 personFields.Add(new PersonField { HeaderName = "Аэробных", Value = person.AbonementCurent.NumAerobicTr.ToString() });
                 personFields.Add(new PersonField { HeaderName = "Персональных", Value = person.AbonementCurent.NumPersonalTr.ToString() });
                 personFields.Add(new PersonField { HeaderName = "Спа услуги", Value = person.AbonementCurent.Spa.ToString() });
-                personFields.Add(new PersonField { HeaderName = "Доступный тип", Value = person.AbonementCurent.TrainingsType.ToString() });
+                personFields.Add(new PersonField { HeaderName = "Доступный тип", Value = person.AbonementCurent.TypeWorkout.ToString() });
                 personFields.Add(new PersonField { HeaderName = "Оплата", Value = person.AbonementCurent.PayStatus.ToString() });
                 personFields.Add(new PersonField { HeaderName = "Абон. Активация", Value = $"{person.AbonementCurent.BuyActivationDate:MM/dd/yyyy}" });
                 personFields.Add(new PersonField { HeaderName = "Абон. Конец", Value = $"{person.AbonementCurent.EndDate:MM/dd/yyyy}" });

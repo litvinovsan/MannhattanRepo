@@ -131,6 +131,18 @@ namespace PersonsBase.data.Abonements
                         result = true;
                         break;
                     }
+                case TypeWorkout.МиниГруппа:
+                    {
+                        if (NumPersonalTr > 0)
+                        {
+                            --NumPersonalTr;
+                            result = true;
+                        }
+
+                        break;
+                    }
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
 
             return result;
@@ -178,7 +190,7 @@ namespace PersonsBase.data.Abonements
             var result = new List<Tuple<string, string>>
             {
                 new Tuple<string, string>("Тип: ", AbonementName),
-                new Tuple<string, string>("Доступные Тренировки ", TrainingsType.ToString()),
+                new Tuple<string, string>("Доступные Тренировки ", TypeWorkout.ToString()),
                 new Tuple<string, string>("Время Тренировок ", TimeTraining.ToString()),
                 new Tuple<string, string>("Услуги", Spa.ToString()),
                 new Tuple<string, string>("Срок Клубной Карты", _numberMonths + "  мес."),

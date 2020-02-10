@@ -147,6 +147,7 @@ namespace PersonsBase.View
             // 
             // button_photo
             // 
+            this.button_photo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_photo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_photo.Location = new System.Drawing.Point(842, 229);
             this.button_photo.Margin = new System.Windows.Forms.Padding(2);
@@ -239,6 +240,7 @@ namespace PersonsBase.View
             // 
             // pictureBox_ClientPhoto
             // 
+            this.pictureBox_ClientPhoto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox_ClientPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(842, 46);
             this.pictureBox_ClientPhoto.Margin = new System.Windows.Forms.Padding(2);

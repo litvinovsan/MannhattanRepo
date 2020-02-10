@@ -53,7 +53,7 @@ namespace PersonsBase.View
             else // Абонемент Существует
             {
                 _selectedAbonementName = _person.AbonementCurent.AbonementName;
-                _typeWorkout = _person.AbonementCurent.TrainingsType;
+                _typeWorkout = _person.AbonementCurent.TypeWorkout;
                 _timeTren = _person.AbonementCurent.TimeTraining;
                 _spa = _person.AbonementCurent.Spa;
                 _pay = _person.AbonementCurent.PayStatus;
@@ -79,9 +79,12 @@ namespace PersonsBase.View
 
             // Тип Тренировки
 
-            comboBox_TypeTren.Items.AddRange(Enum.GetNames(typeof(TypeWorkout)).ToArray<object>()); // Записываем Поля в Комбобокс
-            comboBox_TypeTren.SelectedItem = _typeWorkout.ToString(); // Выбор по умолчанию
-            comboBox_TypeTren.SelectedIndexChanged += ComboBox_TypeTren_SelectedIndexChanged;
+            if (comboBox_TypeTren.Items.Count == 0)
+            {
+                comboBox_TypeTren.Items.AddRange(Enum.GetNames(typeof(TypeWorkout)).ToArray<object>()); // Записываем Поля в Комбобокс
+                comboBox_TypeTren.SelectedItem = _typeWorkout.ToString(); // Выбор по умолчанию
+                comboBox_TypeTren.SelectedIndexChanged += ComboBox_TypeTren_SelectedIndexChanged;
+            }
 
             // Время Тренировки
             comboBox_time.Items.AddRange(Enum.GetNames(typeof(TimeForTr)).ToArray<object>()); // Записываем Поля в Комбобокс
@@ -181,7 +184,7 @@ namespace PersonsBase.View
                 case AbonementByDays.NameAbonement:
                     {
                         var nums = 0;
-                        switch (((AbonementByDays)abonementCurent).TrainingsType)
+                        switch (((AbonementByDays)abonementCurent).TypeWorkout)
                         {
                             case TypeWorkout.Тренажерный_Зал:
                                 nums = trenZalNum;
@@ -193,7 +196,7 @@ namespace PersonsBase.View
                                 nums = personNum;
                                 break;
                             case TypeWorkout.МиниГруппа:
-                           //     nums = personNum;
+                                //     nums = personNum;
                                 break;
                             default:
                                 break;
@@ -241,6 +244,19 @@ namespace PersonsBase.View
                 comboBox_Abonem.Visible = false;
             }
             UpdateCorrectFieldsEn();
+
+            // Удаляем Мини группы из списка для всех кроме абонемента
+            if (radioButton.Checked)
+            {
+                comboBox_TypeTren.Items.Clear();
+                comboBox_TypeTren.Items.AddRange(Enum.GetNames(typeof(TypeWorkout)).ToArray<object>()); // Записываем Поля в Комбобокс
+            }
+            else
+            {
+                comboBox_TypeTren.Items.Clear();
+                var array = Enum.GetNames(typeof(TypeWorkout)).Where(x => (x != TypeWorkout.МиниГруппа.ToString())).Select(x => x);
+                comboBox_TypeTren.Items.AddRange(array.ToArray<object>());
+            }
         }
 
         private void radioButton_ClubCard_CheckedChanged(object sender, EventArgs e)

@@ -483,50 +483,55 @@ namespace PersonsBase.control
 
             if (!IsAbonementValid(ref person)) return false;
 
-            // Условия для отображения\не отображения окна с выбором
-            var isSingleVisit = person.AbonementCurent is SingleVisit;
-            var isByDays = person.AbonementCurent is AbonementByDays;
-            var isClubCard = person.AbonementCurent is ClubCardA;
-
-            var isTrenZallOnly = person.AbonementCurent.TrainingsType == TypeWorkout.Тренажерный_Зал;
-            var isNoAeroAndPerson = person.AbonementCurent.NumAerobicTr + person.AbonementCurent.NumPersonalTr == 0;
-
             var selectedOptions = new WorkoutOptions();
 
-            if ((isSingleVisit || isByDays) && isTrenZallOnly || isClubCard && isNoAeroAndPerson)
+
+            // Вот тут можно сделать проверку. Если Абонемент по дням или Персональная и выбран Тренажерный зал,то отмечать посещение как разовое
+            var isSuccess = false;
+            switch (person.AbonementCurent)
             {
-                selectedOptions.TypeWorkout = person.AbonementCurent.TrainingsType;
-                selectedOptions.GroupInfo = new Group(); // dummy
-                selectedOptions.PersonalTrener = new Trener(); // dummy
+                case AbonementByDays byDays:
+                    {
+                        var dlgResult = FormsRunner.RunWorkoutOptionsForm(ref selectedOptions, person.Name);
+                        if (dlgResult == DialogResult.Cancel) return false;
+
+                        if (selectedOptions.TypeWorkout == TypeWorkout.Тренажерный_Зал &&
+                            person.AbonementCurent.TypeWorkout != TypeWorkout.Тренажерный_Зал)
+                        {
+                            PersonObject.SaveSingleVisit(person, selectedOptions); // Сохраняет текущий визит 
+                        }
+                        else
+                        {
+                            isSuccess = person.AbonementCurent.CheckInWorkout(selectedOptions.TypeWorkout);
+                            if (!isSuccess) return false;
+                            PersonObject.SaveCurentVisit(person, selectedOptions); // Сохраняет текущий визит 
+                        }
+
+                        break;
+                    }
+                case ClubCardA clubCardA:
+                    {
+                        var dlgResult = FormsRunner.RunWorkoutOptionsForm(ref selectedOptions, person.Name);
+                        if (dlgResult == DialogResult.Cancel) return false;
+
+                        isSuccess = person.AbonementCurent.CheckInWorkout(selectedOptions.TypeWorkout);
+                        if (!isSuccess) return false;
+                        PersonObject.SaveCurentVisit(person, selectedOptions); // Сохраняет текущий визит 
+                        break;
+                    }
+                case SingleVisit singleVisit:
+                    {
+                        selectedOptions.TypeWorkout = person.AbonementCurent.TypeWorkout;
+                        isSuccess = person.AbonementCurent.CheckInWorkout(person.AbonementCurent.TypeWorkout);
+
+                        if (!isSuccess) return false;
+                        PersonObject.SaveCurentVisit(person, selectedOptions); // Сохраняет текущий визит 
+                        break;
+                    }
             }
-            else
-            {
-                var dlgResult = FormsRunner.RunWorkoutOptionsForm(ref selectedOptions, person.Name);
-                if (dlgResult == DialogResult.Cancel) return false;
-            }
-
-            var isSuccess = person.AbonementCurent.CheckInWorkout(selectedOptions.TypeWorkout);
-
-            if (!isSuccess) return false;
-
-            // Дополнительная информация для вывода если успешный учет.
-            var infoAerobic = person.AbonementCurent.NumAerobicTr > 0
-                ? $"\r\nОсталось Аэробных: {person.AbonementCurent.NumAerobicTr}"
-                : "";
-            var infoPersonal = person.AbonementCurent.NumPersonalTr > 0
-                ? $"\r\nОсталось Персональных: {person.AbonementCurent.NumPersonalTr}"
-                : "";
-
-            MessageBox.Show(
-                $@"Осталось посещений: {person.AbonementCurent.GetRemainderDays()}{infoAerobic}{infoPersonal}",
-                @"Тренировка Учтена!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            PersonObject.SaveCurentVisit(person, selectedOptions);
-
-            // Cобытие для добавления текущего посещения на главную форму
-            _daily.AddToDailyLog(personName, selectedOptions);
-
+            _daily.AddToVisitsLog(personName, selectedOptions); // Cобытие для добавления текущего посещения на главную форму
             IsAbonementValid(ref person);
+            MessageBox.Show(@"Тренировка Учтена!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return true;
         }
         #endregion

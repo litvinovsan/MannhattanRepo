@@ -7,7 +7,7 @@ namespace PersonsBase.data
     {
         #region /// ПУБЛИЧНЫЕ ///
 
-        public ScheduleNote ScheduleNote;
+        public readonly ScheduleNote ScheduleNote;
         public string TrenerName { get; set; }
         public string Notes { get; set; }
         #endregion

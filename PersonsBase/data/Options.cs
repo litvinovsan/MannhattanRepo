@@ -58,6 +58,7 @@ namespace PersonsBase.data
         public const string DailyVisitAerobFile = "DailyVisits_Aerobic.bin";
         public const string DailyVisitPersonalsFile = "DailyVisits_Personal.bin";
         public const string DailyVisitGymFile = "DailyVisits_Gym.bin";
+        public const string DailyMiniGroupFile = "DailyVisits_MiniGroup.bin";
 
 
         // Названия ПАПОК

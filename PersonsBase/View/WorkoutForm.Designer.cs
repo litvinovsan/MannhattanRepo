@@ -45,15 +45,15 @@ namespace PersonsBase.View
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel_tren = new System.Windows.Forms.Panel();
             this.radioButton_tren = new System.Windows.Forms.RadioButton();
-            this.pictureBox_tren = new System.Windows.Forms.PictureBox();
             this.panel_aero = new System.Windows.Forms.Panel();
             this.radioButton_aerob = new System.Windows.Forms.RadioButton();
-            this.pictureBox_aero = new System.Windows.Forms.PictureBox();
             this.panel_personal = new System.Windows.Forms.Panel();
             this.radioButton_personal = new System.Windows.Forms.RadioButton();
-            this.pictureBox_person = new System.Windows.Forms.PictureBox();
             this.panel_miniGroup = new System.Windows.Forms.Panel();
             this.radioButton_miniGr = new System.Windows.Forms.RadioButton();
+            this.pictureBox_tren = new System.Windows.Forms.PictureBox();
+            this.pictureBox_aero = new System.Windows.Forms.PictureBox();
+            this.pictureBox_person = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -64,12 +64,12 @@ namespace PersonsBase.View
             this.groupBox2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel_tren.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_tren)).BeginInit();
             this.panel_aero.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_aero)).BeginInit();
             this.panel_personal.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_person)).BeginInit();
             this.panel_miniGroup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_tren)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_aero)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_person)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,7 +77,7 @@ namespace PersonsBase.View
             // 
             this.button_Ok.AutoSize = true;
             this.button_Ok.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_Ok.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_Ok.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_Ok.Location = new System.Drawing.Point(2, 2);
             this.button_Ok.Margin = new System.Windows.Forms.Padding(2);
             this.button_Ok.Name = "button_Ok";
@@ -95,7 +95,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel1.Controls.Add(this.button_Ok, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.button_Cancel, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 374);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 348);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
@@ -108,7 +108,7 @@ namespace PersonsBase.View
             this.button_Cancel.AutoSize = true;
             this.button_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button_Cancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_Cancel.Location = new System.Drawing.Point(319, 2);
             this.button_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.button_Cancel.Name = "button_Cancel";
@@ -126,7 +126,7 @@ namespace PersonsBase.View
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(635, 374);
+            this.groupBox1.Size = new System.Drawing.Size(635, 348);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             // 
@@ -135,7 +135,7 @@ namespace PersonsBase.View
             this.groupBox3.Controls.Add(this.flowLayoutPanel2);
             this.groupBox3.Location = new System.Drawing.Point(322, 18);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(304, 241);
+            this.groupBox3.Size = new System.Drawing.Size(304, 322);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Дополнительно:";
@@ -146,7 +146,7 @@ namespace PersonsBase.View
             this.flowLayoutPanel2.Controls.Add(this.groupBox_SelectWorkout);
             this.flowLayoutPanel2.Location = new System.Drawing.Point(14, 19);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(284, 212);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(284, 284);
             this.flowLayoutPanel2.TabIndex = 11;
             // 
             // groupBox_TrenerName
@@ -163,7 +163,7 @@ namespace PersonsBase.View
             // 
             // comboBox_treners
             // 
-            this.comboBox_treners.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.comboBox_treners.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_treners.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_treners.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -188,7 +188,7 @@ namespace PersonsBase.View
             // 
             // comboBox_Time_Name_Workout
             // 
-            this.comboBox_Time_Name_Workout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.comboBox_Time_Name_Workout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_Time_Name_Workout.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_Time_Name_Workout.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -218,7 +218,7 @@ namespace PersonsBase.View
             this.flowLayoutPanel1.Controls.Add(this.panel_miniGroup);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(6, 25);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(287, 278);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(292, 278);
             this.flowLayoutPanel1.TabIndex = 10;
             // 
             // panel_tren
@@ -233,7 +233,7 @@ namespace PersonsBase.View
             // 
             // radioButton_tren
             // 
-            this.radioButton_tren.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.radioButton_tren.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButton_tren.AutoSize = true;
             this.radioButton_tren.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -248,19 +248,6 @@ namespace PersonsBase.View
             this.radioButton_tren.UseVisualStyleBackColor = true;
             this.radioButton_tren.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
-            // pictureBox_tren
-            // 
-            this.pictureBox_tren.BackColor = System.Drawing.Color.White;
-            this.pictureBox_tren.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox_tren.Image = global::PersonsBase.Properties.Resources.TrenZal;
-            this.pictureBox_tren.Location = new System.Drawing.Point(217, 0);
-            this.pictureBox_tren.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox_tren.Name = "pictureBox_tren";
-            this.pictureBox_tren.Size = new System.Drawing.Size(53, 60);
-            this.pictureBox_tren.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox_tren.TabIndex = 5;
-            this.pictureBox_tren.TabStop = false;
-            // 
             // panel_aero
             // 
             this.panel_aero.Controls.Add(this.radioButton_aerob);
@@ -272,7 +259,7 @@ namespace PersonsBase.View
             // 
             // radioButton_aerob
             // 
-            this.radioButton_aerob.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.radioButton_aerob.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButton_aerob.AutoSize = true;
             this.radioButton_aerob.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -286,19 +273,6 @@ namespace PersonsBase.View
             this.radioButton_aerob.UseVisualStyleBackColor = true;
             this.radioButton_aerob.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
-            // pictureBox_aero
-            // 
-            this.pictureBox_aero.BackColor = System.Drawing.Color.White;
-            this.pictureBox_aero.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox_aero.Image = global::PersonsBase.Properties.Resources.Aerob;
-            this.pictureBox_aero.Location = new System.Drawing.Point(217, 0);
-            this.pictureBox_aero.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox_aero.Name = "pictureBox_aero";
-            this.pictureBox_aero.Size = new System.Drawing.Size(53, 60);
-            this.pictureBox_aero.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox_aero.TabIndex = 4;
-            this.pictureBox_aero.TabStop = false;
-            // 
             // panel_personal
             // 
             this.panel_personal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -311,7 +285,7 @@ namespace PersonsBase.View
             // 
             // radioButton_personal
             // 
-            this.radioButton_personal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.radioButton_personal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButton_personal.AutoSize = true;
             this.radioButton_personal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -326,19 +300,6 @@ namespace PersonsBase.View
             this.radioButton_personal.UseVisualStyleBackColor = true;
             this.radioButton_personal.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
-            // pictureBox_person
-            // 
-            this.pictureBox_person.BackColor = System.Drawing.Color.White;
-            this.pictureBox_person.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox_person.Image = global::PersonsBase.Properties.Resources.Personal21;
-            this.pictureBox_person.Location = new System.Drawing.Point(217, 0);
-            this.pictureBox_person.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox_person.Name = "pictureBox_person";
-            this.pictureBox_person.Size = new System.Drawing.Size(53, 60);
-            this.pictureBox_person.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox_person.TabIndex = 3;
-            this.pictureBox_person.TabStop = false;
-            // 
             // panel_miniGroup
             // 
             this.panel_miniGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -351,7 +312,7 @@ namespace PersonsBase.View
             // 
             // radioButton_miniGr
             // 
-            this.radioButton_miniGr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.radioButton_miniGr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButton_miniGr.AutoSize = true;
             this.radioButton_miniGr.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -366,16 +327,55 @@ namespace PersonsBase.View
             this.radioButton_miniGr.UseVisualStyleBackColor = true;
             this.radioButton_miniGr.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
+            // pictureBox_tren
+            // 
+            this.pictureBox_tren.BackColor = System.Drawing.Color.White;
+            this.pictureBox_tren.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pictureBox_tren.Image = global::PersonsBase.Properties.Resources.TrenZal;
+            this.pictureBox_tren.Location = new System.Drawing.Point(205, 0);
+            this.pictureBox_tren.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox_tren.Name = "pictureBox_tren";
+            this.pictureBox_tren.Size = new System.Drawing.Size(65, 60);
+            this.pictureBox_tren.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_tren.TabIndex = 5;
+            this.pictureBox_tren.TabStop = false;
+            // 
+            // pictureBox_aero
+            // 
+            this.pictureBox_aero.BackColor = System.Drawing.Color.White;
+            this.pictureBox_aero.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pictureBox_aero.Image = global::PersonsBase.Properties.Resources.Aerob;
+            this.pictureBox_aero.Location = new System.Drawing.Point(205, 0);
+            this.pictureBox_aero.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox_aero.Name = "pictureBox_aero";
+            this.pictureBox_aero.Size = new System.Drawing.Size(65, 60);
+            this.pictureBox_aero.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_aero.TabIndex = 4;
+            this.pictureBox_aero.TabStop = false;
+            // 
+            // pictureBox_person
+            // 
+            this.pictureBox_person.BackColor = System.Drawing.Color.White;
+            this.pictureBox_person.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pictureBox_person.Image = global::PersonsBase.Properties.Resources.Personal21;
+            this.pictureBox_person.Location = new System.Drawing.Point(205, 0);
+            this.pictureBox_person.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox_person.Name = "pictureBox_person";
+            this.pictureBox_person.Size = new System.Drawing.Size(65, 60);
+            this.pictureBox_person.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_person.TabIndex = 3;
+            this.pictureBox_person.TabStop = false;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.White;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox1.Image = global::PersonsBase.Properties.Resources.clients;
-            this.pictureBox1.Location = new System.Drawing.Point(217, 0);
+            this.pictureBox1.Image = global::PersonsBase.Properties.Resources.clientsCopy;
+            this.pictureBox1.Location = new System.Drawing.Point(205, 0);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(53, 60);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.Size = new System.Drawing.Size(65, 60);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
@@ -384,7 +384,7 @@ namespace PersonsBase.View
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(635, 410);
+            this.ClientSize = new System.Drawing.Size(635, 384);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.DoubleBuffered = true;
@@ -407,15 +407,15 @@ namespace PersonsBase.View
             this.flowLayoutPanel1.ResumeLayout(false);
             this.panel_tren.ResumeLayout(false);
             this.panel_tren.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_tren)).EndInit();
             this.panel_aero.ResumeLayout(false);
             this.panel_aero.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_aero)).EndInit();
             this.panel_personal.ResumeLayout(false);
             this.panel_personal.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_person)).EndInit();
             this.panel_miniGroup.ResumeLayout(false);
             this.panel_miniGroup.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_tren)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_aero)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_person)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 

@@ -92,7 +92,7 @@ namespace PersonsBase.data.Abonements
             var result = new List<Tuple<string, string>>
           {
               new Tuple<string, string>("Тип: ", AbonementName),
-              new Tuple<string, string>("Доступные Тренировки ", TrainingsType.ToString()),
+              new Tuple<string, string>("Доступные Тренировки ", TypeWorkout.ToString()),
               new Tuple<string, string>("Время Тренировок ", TimeTraining.ToString()),
               new Tuple<string, string>("Осталось Занятий", GetRemainderDays().ToString()),
               new Tuple<string, string>("Услуги", Spa.ToString()),

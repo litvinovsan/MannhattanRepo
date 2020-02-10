@@ -96,7 +96,7 @@ namespace PersonsBase.data
 
 
         // Главный метод. Запускает  1 из 3х методов.
-        public void AddToDailyLog(string name, WorkoutOptions arg)
+        public void AddToVisitsLog(string name, WorkoutOptions arg)
         {
             TotalPersonToday++; // Счетчик посетителей за день
             _methodSelectCollection[arg.TypeWorkout].Invoke(name, arg);
@@ -178,6 +178,7 @@ namespace PersonsBase.data
             SerializeClass.Serialize(GymList, currentPath + "\\" + Options.DailyVisitGymFile);
             SerializeClass.Serialize(PersonalList, currentPath + "\\" + Options.DailyVisitPersonalsFile);
             SerializeClass.Serialize(AerobList, currentPath + "\\" + Options.DailyVisitAerobFile);
+            SerializeClass.Serialize(MiniGroupList, currentPath + "\\" + Options.DailyMiniGroupFile);
 
         }
         /// <summary>
@@ -213,6 +214,15 @@ namespace PersonsBase.data
             {
                 PersonalList.Add(item);
                 OnPersonalListChanged();
+            }
+
+            // Мини Группы
+            var dailyMiniGroupVisits = new List<PersonalItem>();
+            SerializeClass.DeSerialize(ref dailyMiniGroupVisits, currentPath + "\\" + Options.DailyMiniGroupFile);
+            foreach (var item in dailyMiniGroupVisits)
+            {
+                MiniGroupList.Add(item);
+                OnMiniGroupListChanged();
             }
 
             // Посещений в день

@@ -111,11 +111,11 @@ namespace PersonsBase.View
             const string labelText = "Доступные Тренировки: ";
             Label lableType = CreateLabel(labelText);
             ComboBox comboBox = CreateComboBox();
-            _editedTypeWorkout = _person.AbonementCurent.TrainingsType;
+            _editedTypeWorkout = _person.AbonementCurent.TypeWorkout;
             // Инициализируем наши Контролы
             var array = Enum.GetNames(typeof(TypeWorkout));
             comboBox.Items.AddRange(array.ToArray<object>()); // Записываем Поля в Комбобокс
-            comboBox.SelectedItem = _person.AbonementCurent.TrainingsType.ToString(); // Выбор по умолчанию
+            comboBox.SelectedItem = _person.AbonementCurent.TypeWorkout.ToString(); // Выбор по умолчанию
                                                                                       // Подписываемся на событие по изменению
             comboBox.SelectedIndexChanged += comboBox_TypeWorkout_SelectedIndexChanged;
             comboBox.Enabled = false;
@@ -132,7 +132,7 @@ namespace PersonsBase.View
         }
         private void comboBox_TypeWorkout_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboChangedMethod<TypeWorkout>(sender, out _editedTypeWorkout, _person.AbonementCurent.TrainingsType);
+            ComboChangedMethod<TypeWorkout>(sender, out _editedTypeWorkout, _person.AbonementCurent.TypeWorkout);
         }
 
         #endregion
