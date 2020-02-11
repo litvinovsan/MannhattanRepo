@@ -54,7 +54,7 @@ namespace PersonsBase.data
         {
             var currentAdmin = DataBaseLevel.GetManhattanInfo().CurrentAdmin;
             var abonCurr = person.AbonementCurent;
-            var v = new SingleVisit(selectedOptions.TypeWorkout, abonCurr.Spa, Pay.Оплачено, abonCurr.TimeTraining);
+            var v = new SingleVisit(selectedOptions.TypeWorkout, abonCurr.Spa, Pay.Не_Оплачено, abonCurr.TimeTraining);
             v.CheckInWorkout(selectedOptions.TypeWorkout);
             var visit = new Visit(v, selectedOptions, currentAdmin.Name);
             var personsVisitDict = DataBaseLevel.GetPersonsVisitDict();

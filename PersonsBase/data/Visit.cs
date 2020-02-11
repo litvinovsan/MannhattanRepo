@@ -92,7 +92,7 @@ namespace PersonsBase.data
             reportRowsList.Add(new DataGridItem("Тренировка", TypeWorkoutToday.ToString().Replace("_", " "), "Тип тренировки в указанную дату (Аэробная, Персональная или Тренажерный залл)"));
             reportRowsList.Add(new DataGridItem("Разрешенное Время", AvailableTimeTren.ToString().Replace("_", " "), "Время занятий (Утро или Весь день)"));
             reportRowsList.Add(new DataGridItem("Оплата", PayStatus.ToString().Replace("_", " "), "Статус Оплата в указанную дату"));
-            reportRowsList.Add(new DataGridItem("Занятий", numTrenZal, "Осталось занятий в тренажерном зале или всего занятий если у клиента Абонемент"));
+            reportRowsList.Add(new DataGridItem("Занятий ост.", numTrenZal, "Осталось занятий в тренажерном зале или всего занятий если у клиента Абонемент"));
             reportRowsList.Add(new DataGridItem("Групповые", numAerob, "Остаток Групповых тренировок"));
             reportRowsList.Add(new DataGridItem("Персоны", numPersonal, "Остаток Персональных тренировок"));
             reportRowsList.Add(new DataGridItem("Спа", SpaStatus.ToString().Replace("_", " "), "Разрешена ли Спа зона"));
@@ -109,7 +109,7 @@ namespace PersonsBase.data
         /// Создает массив со значениями полей о текущем посещении
         /// </summary>
         /// <returns></returns>
-        public object[] GetValues()
+        private object[] GetValues()
         {
             // Создаем массив с полями и заголовками будущей таблицы по текущему посещению
             var reportRowsList = CreateReportList();
@@ -123,7 +123,7 @@ namespace PersonsBase.data
         /// Возвращает массив с названиями Полей в такой же очередности что и в функции GetValues. Не менять порядок!!!
         /// </summary>
         /// <returns></returns>
-        public DataColumn[] GetHeadersForValues()
+        private DataColumn[] GetHeadersForValues()
         {
             // Создаем массив с полями и заголовками будущей таблицы по текущему посещению
             var reportRowsList = CreateReportList();

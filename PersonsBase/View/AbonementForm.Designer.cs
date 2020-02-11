@@ -103,12 +103,12 @@ namespace PersonsBase.View
             this.tableLayoutPanel1.Controls.Add(this.button_Aplly, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.button2_Cancel, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 450);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 412);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(656, 50);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(644, 50);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // button_Aplly
@@ -116,10 +116,10 @@ namespace PersonsBase.View
             this.button_Aplly.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.button_Aplly.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_Aplly.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_Aplly.Location = new System.Drawing.Point(276, 2);
+            this.button_Aplly.Location = new System.Drawing.Point(271, 2);
             this.button_Aplly.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_Aplly.Name = "button_Aplly";
-            this.button_Aplly.Size = new System.Drawing.Size(377, 46);
+            this.button_Aplly.Size = new System.Drawing.Size(370, 46);
             this.button_Aplly.TabIndex = 0;
             this.button_Aplly.Text = "Применить";
             this.button_Aplly.UseVisualStyleBackColor = false;
@@ -133,7 +133,7 @@ namespace PersonsBase.View
             this.button2_Cancel.Location = new System.Drawing.Point(3, 2);
             this.button2_Cancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2_Cancel.Name = "button2_Cancel";
-            this.button2_Cancel.Size = new System.Drawing.Size(267, 46);
+            this.button2_Cancel.Size = new System.Drawing.Size(262, 46);
             this.button2_Cancel.TabIndex = 1;
             this.button2_Cancel.Text = "Отмена";
             this.button2_Cancel.UseVisualStyleBackColor = true;
@@ -295,7 +295,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel3.Controls.Add(this.pictureBox5, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.pictureBox6, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.pictureBox7, 0, 8);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(6, 200);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(6, 165);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 11;
@@ -504,11 +504,11 @@ namespace PersonsBase.View
             this.groupBox1.Controls.Add(this.flowLayoutPanel2);
             this.groupBox1.Controls.Add(this.checkBox_Activated);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.Location = new System.Drawing.Point(429, 8);
+            this.groupBox1.Location = new System.Drawing.Point(417, 8);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(224, 429);
+            this.groupBox1.Size = new System.Drawing.Size(224, 379);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Корректировка Абонемента";
@@ -644,17 +644,18 @@ namespace PersonsBase.View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(656, 500);
+            this.ClientSize = new System.Drawing.Size(644, 462);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tableLayoutPanel3);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AbonementForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Добавление Абонемента/Карты";
             this.Load += new System.EventHandler(this.AbonementForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);

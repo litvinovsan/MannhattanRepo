@@ -33,7 +33,7 @@ namespace PersonsBase.data.Abonements
             get { return "Абонемент Закончился!"; }
         }
 
-        private DaysInAbon TypeAbonement { get; set; }
+        public DaysInAbon TypeAbonement { get; set; }
 
         // Методы
         public override void TryActivate()

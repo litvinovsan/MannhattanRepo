@@ -72,7 +72,6 @@ namespace PersonsBase.View
             {
                 button_RemoveCurrentAbon.Visible = true;
                 button__remove_abon.Enabled = true;
-                //  groupBox_Detailed.Enabled = true; // FIXME тут надо включать и выключать выборочные поля.
                 // Например, админ должен менять статус оплаты
                 textBox_Number.Enabled = true;
             }
@@ -80,11 +79,11 @@ namespace PersonsBase.View
             {
                 button_RemoveCurrentAbon.Visible = false;
                 button__remove_abon.Enabled = false;
-                // groupBox_Detailed.Enabled = true; // / FIXME тут надо включать и выключать выборочные поля.
                 // Например, админ должен менять статус оплаты
                 textBox_Number.Enabled = false;
             }
-
+            LoadEditableData();
+            Logic.ClearSelection(groupBox_Detailed);
             Invalidate();
         }
 
@@ -277,7 +276,7 @@ namespace PersonsBase.View
             var table = Logic.CreateTable(SelectList(_person.AbonementCurent));
             if (groupBox_Detailed.Controls.Count != 0) groupBox_Detailed.Controls.Clear();
 
-            table.Font = new Font("Arial", 10);
+            table.Font = new Font("Arial", 11);
 
             groupBox_Detailed.Controls.Add(table);
             _isAnythingChanged = false;
@@ -294,6 +293,7 @@ namespace PersonsBase.View
 
             for (var i = 0; i < lst.Count; i++) lst[i].Text = listUpdated[i].Item2.Text;
             _isAnythingChanged = false;
+            Logic.ClearSelection(groupBox_Detailed);
         }
 
         /// <summary>
@@ -476,8 +476,7 @@ namespace PersonsBase.View
             LoadUserData();
             Logic.LoadShortInfo(groupBox_Info, _person);
             UpdateEditableData();
-            Logic.ClearSelection(groupBox_Detailed);
-
+          
             Logic.SetControlsColorDefault(groupBox_Detailed);
             Logic.SetControlsColorDefault(tableLayoutPanel1);
         }

@@ -74,7 +74,7 @@ namespace PersonsBase.View
             }
 
             // Записываем Поля в Комбобокс
-            comboStatus.Items.AddRange(array);
+            comboStatus.Items.AddRange(array.ToArray<object>());
             comboStatus.SelectedItem = _person.Status.ToString(); // Выбор по умолчанию
                                                                   // Подписываемся на событие по изменению
             comboStatus.SelectedIndexChanged += ComboStatus_SelectedIndexChanged;
@@ -110,23 +110,24 @@ namespace PersonsBase.View
         {
             const string labelText = "Доступные Тренировки: ";
             Label lableType = CreateLabel(labelText);
-            ComboBox comboBox = CreateComboBox();
+            ComboBox comboBox = CreateComboBox(PwdForm.IsPassUnLocked());
+            comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             _editedTypeWorkout = _person.AbonementCurent.TypeWorkout;
             // Инициализируем наши Контролы
             var array = Enum.GetNames(typeof(TypeWorkout));
             comboBox.Items.AddRange(array.ToArray<object>()); // Записываем Поля в Комбобокс
             comboBox.SelectedItem = _person.AbonementCurent.TypeWorkout.ToString(); // Выбор по умолчанию
-                                                                                      // Подписываемся на событие по изменению
+                                                                                    // Подписываемся на событие по изменению
             comboBox.SelectedIndexChanged += comboBox_TypeWorkout_SelectedIndexChanged;
-            comboBox.Enabled = false;
-            //_saveDelegateChain += () =>
-            //{
-            //    if (_person.AbonementCurent != null && _editedTypeWorkout != _person.AbonementCurent.TrainingsType)
-            //    {
-            //        _person.AbonementCurent.TrainingsType = _editedTypeWorkout;
-            //        ComboBoxColor(comboBox, _editedTypeWorkout.ToString(), _person.AbonementCurent.TrainingsType.ToString());
-            //    }
-            //};
+
+            _saveDelegateChain += () =>
+            {
+                if (_person.AbonementCurent != null && _editedTypeWorkout != _person.AbonementCurent.TypeWorkout)
+                {
+                    _person.AbonementCurent.TypeWorkout = _editedTypeWorkout;
+                    ComboBoxColor(comboBox, _editedTypeWorkout.ToString(), _person.AbonementCurent.TypeWorkout.ToString());
+                }
+            };
 
             return new Tuple<Label, Control>(lableType, comboBox);
         }
@@ -146,7 +147,8 @@ namespace PersonsBase.View
             const string labelText = "Услуги: ";
             Label lableType = CreateLabel(labelText);
             var array = Enum.GetNames(typeof(SpaService));
-            ComboBox comboBox = CreateComboBox();
+            ComboBox comboBox = CreateComboBox(PwdForm.IsPassUnLocked());
+            comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             _editedSpaService = _person.AbonementCurent.Spa;
             // Инициализируем наши Контролы
             comboBox.Items.AddRange(array.ToArray<object>()); // Записываем Поля в Комбобокс
@@ -179,7 +181,8 @@ namespace PersonsBase.View
         {
             const string labelText = "Статус Оплаты: ";
             Label lableType = CreateLabel(labelText);
-            ComboBox comboBox = CreateComboBox();
+            ComboBox comboBox = CreateComboBox(PwdForm.IsPassUnLocked());
+            comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             _editedPay = _person.AbonementCurent.PayStatus;
             // Инициализируем наши Контролы
             var array = Enum.GetNames(typeof(Pay));
@@ -212,7 +215,8 @@ namespace PersonsBase.View
         {
             const string labelText = "Время Тренировок: ";
             Label lableType = CreateLabel(labelText);
-            ComboBox comboBox = CreateComboBox();
+            ComboBox comboBox = CreateComboBox(PwdForm.IsPassUnLocked());
+            comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             _editedTimeForTr = _person.AbonementCurent.TimeTraining;
             // Инициализируем наши Контролы
             var array = Enum.GetNames(typeof(TimeForTr));
@@ -245,8 +249,8 @@ namespace PersonsBase.View
             const string labelText = "Тип Клубной Карты";
 
             Label lableType = CreateLabel(labelText);
-            ComboBox comboBox = CreateComboBox();
-
+            ComboBox comboBox = CreateComboBox(PwdForm.IsPassUnLocked());
+            comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             var array = Enum.GetNames(typeof(PeriodClubCard));
             comboBox.Items.AddRange(array.ToArray<object>()); // Записываем Поля в Комбобокс
 
@@ -266,7 +270,7 @@ namespace PersonsBase.View
             }
             // Подписываемся на событие по изменению комбобокса
             comboBox.SelectedIndexChanged += comboBox_TypeClubCard_SelectedIndexChanged;
-            comboBox.Enabled = false;
+
             return new Tuple<Label, Control>(lableType, comboBox);
         }
         private bool _typeClubCardChanged = false; // Костыль для того чтобы при изменении Длительности карты - не слетало количество дней. Так как Дата перетирается в следующем поле Дата Окончания в цепочке делегатов.
@@ -327,7 +331,7 @@ namespace PersonsBase.View
             string tbInitialText = _person.AbonementCurent.GetRemainderDays().ToString();
             _editedNumRemainder = _person.AbonementCurent.GetRemainderDays();
             Label lableType = CreateLabel(nameLabel);
-            TextBox textbox = CreateTextBox(false);
+            TextBox textbox = (_person.AbonementCurent is AbonementByDays) ? CreateTextBox(!PwdForm.IsPassUnLocked()) : CreateTextBox(true);
 
             // Инициализируем наши Контролы
             textbox.Text = tbInitialText;
@@ -335,15 +339,14 @@ namespace PersonsBase.View
             // Подписываемся на событие по изменению
             textbox.KeyPress += Textbox_KeyPress;
             textbox.TextChanged += Textbox_Remainder_TextChanged;
-            textbox.Enabled = false;
-            //_saveDelegateChain += () =>
-            //{
-            //    if (_person.AbonementCurent.GetRemainderDays() != _editedNumRemainder && (_editedNumRemainder >= 0) && !_typeClubCardChanged)
-            //    {
-            //        _person.AbonementCurent.DaysLeft = _editedNumRemainder;
-            //        Methods.SetControlBackColor(textbox, _editedNumRemainder.ToString(), _person.AbonementCurent.GetRemainderDays().ToString());
-            //    }
-            //};
+            _saveDelegateChain += () =>
+            {
+                if (_person.AbonementCurent is AbonementByDays days)
+                {
+                    if (_editedNumRemainder != days.GetRemainderDays())
+                        days.SetDaysLeft(_editedNumRemainder);
+                }
+            };
             return new Tuple<Label, Control>(lableType, textbox);
         }
 
@@ -371,7 +374,7 @@ namespace PersonsBase.View
             string tbInitialText = _person.AbonementCurent.NumPersonalTr.ToString();
 
             Label lableType = CreateLabel(nameLabel);
-            TextBox textbox = CreateTextBox(false);
+            TextBox textbox = CreateTextBox(!PwdForm.IsPassUnLocked());
             _editedNumPersonalTr = _person.AbonementCurent.NumPersonalTr;
             // Инициализируем наши Контролы
             textbox.Text = tbInitialText;
@@ -416,7 +419,7 @@ namespace PersonsBase.View
             string tbInitialText = _person.AbonementCurent.NumAerobicTr.ToString();
 
             Label lableType = CreateLabel(nameLabel);
-            TextBox textbox = CreateTextBox(false);
+            TextBox textbox = CreateTextBox(!PwdForm.IsPassUnLocked());
             _editedNumAerobicTr = _person.AbonementCurent.NumAerobicTr;
             // Инициализируем наши Контролы
             textbox.Text = tbInitialText;
@@ -490,7 +493,8 @@ namespace PersonsBase.View
             // Этот метод отличается от других из-за Полей,присущих только данному классу. Например, Количество дней в Абонементе
             const string labelText = "Тип Абонемента: ";
             Label lableType = CreateLabel(labelText);
-            ComboBox comboBox = CreateComboBox();
+            ComboBox comboBox = CreateComboBox(PwdForm.IsPassUnLocked());
+            comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             var array = Enum.GetNames(typeof(DaysInAbon));
             comboBox.Items.AddRange(array.ToArray<object>());
 
@@ -498,17 +502,17 @@ namespace PersonsBase.View
             {
                 comboBox.SelectedItem = abonement.GetTypeAbonementByDays().ToString(); // Выбор по умолчанию
                 _editedDaysInAbon = abonement.GetTypeAbonementByDays();
-                //_saveDelegateChain += () =>
-                //{
-                //    if (_person.AbonementCurent != null && _editedDaysInAbon != abonement.GetTypeAbonementByDays())
-                //    {
-                //        abonement.SetTypeAbonementByDays(_editedDaysInAbon);
-                //        ComboBoxColor(comboBox, abonement.GetTypeAbonementByDays().ToString(), _editedDaysInAbon.ToString());
-                //    }
-                //};
+                _saveDelegateChain += () =>
+                {
+                    if (_person.AbonementCurent != null && _editedDaysInAbon != abonement.GetTypeAbonementByDays())
+                    {
+                        abonement.SetDaysLeft((int)_editedDaysInAbon);
+                        ComboBoxColor(comboBox, abonement.GetTypeAbonementByDays().ToString(), _editedDaysInAbon.ToString());
+                        ((AbonementByDays)_person.AbonementCurent).TypeAbonement = _editedDaysInAbon;
+                    }
+                };
             }
 
-            comboBox.Enabled = false;
             // Подписываемся на событие по изменению
             comboBox.SelectedIndexChanged += comboBox_DaysInAbon_SelectedIndexChanged;
             return new Tuple<Label, Control>(lableType, comboBox);
@@ -677,6 +681,16 @@ namespace PersonsBase.View
             {
                 Dock = DockStyle.Fill,
                 DropDownStyle = ComboBoxStyle.DropDown
+            };
+            return cmbx;
+        }
+        private static ComboBox CreateComboBox(bool isEnabled)
+        {
+            var cmbx = new ComboBox
+            {
+                Dock = DockStyle.Fill,
+                DropDownStyle = ComboBoxStyle.DropDown,
+                Enabled = isEnabled
             };
             return cmbx;
         }

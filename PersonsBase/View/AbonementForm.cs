@@ -81,7 +81,11 @@ namespace PersonsBase.View
 
             if (comboBox_TypeTren.Items.Count == 0)
             {
-                comboBox_TypeTren.Items.AddRange(Enum.GetNames(typeof(TypeWorkout)).ToArray<object>()); // Записываем Поля в Комбобокс
+                var array = Enum.GetNames(typeof(TypeWorkout)).Where(x => (x != TypeWorkout.МиниГруппа.ToString()))
+                    .Select(x => x).ToArray<object>();
+
+                comboBox_TypeTren.Items.AddRange(array); // Записываем Поля в Комбобокс
+              //  comboBox_TypeTren.Items.AddRange(Enum.GetNames(typeof(TypeWorkout)).ToArray<object>()); // Записываем Поля в Комбобокс
                 comboBox_TypeTren.SelectedItem = _typeWorkout.ToString(); // Выбор по умолчанию
                 comboBox_TypeTren.SelectedIndexChanged += ComboBox_TypeTren_SelectedIndexChanged;
             }
@@ -245,16 +249,28 @@ namespace PersonsBase.View
             }
             UpdateCorrectFieldsEn();
 
+            RemoveItem();
+        }
+
+        private void RemoveItem()
+        {
             // Удаляем Мини группы из списка для всех кроме абонемента
-            if (radioButton.Checked)
+            if (radioButton_Abonement.Checked)
             {
+                if (comboBox_TypeTren.Items.Contains(TypeWorkout.МиниГруппа.ToString())) return;
+
+
                 comboBox_TypeTren.Items.Clear();
-                comboBox_TypeTren.Items.AddRange(Enum.GetNames(typeof(TypeWorkout)).ToArray<object>()); // Записываем Поля в Комбобокс
+                comboBox_TypeTren.Items.AddRange(Enum.GetNames(typeof(TypeWorkout))
+                    .ToArray<object>()); // Записываем Поля в Комбобокс
             }
             else
             {
+                if (!comboBox_TypeTren.Items.Contains(TypeWorkout.МиниГруппа.ToString())) return;
+
                 comboBox_TypeTren.Items.Clear();
-                var array = Enum.GetNames(typeof(TypeWorkout)).Where(x => (x != TypeWorkout.МиниГруппа.ToString())).Select(x => x);
+                var array = Enum.GetNames(typeof(TypeWorkout)).Where(x => (x != TypeWorkout.МиниГруппа.ToString()))
+                    .Select(x => x);
                 comboBox_TypeTren.Items.AddRange(array.ToArray<object>());
             }
         }
@@ -302,6 +318,8 @@ namespace PersonsBase.View
 
         private void ComboBox_TypeTren_SelectedIndexChanged(object sender, EventArgs e)
         {
+            RemoveItem();
+
             var combo = (ComboBox)sender;
             _typeWorkout = MyComboBox.GetComboBoxValue<TypeWorkout>(combo);
             UpdateCorrectFieldsEn();
@@ -390,7 +408,12 @@ namespace PersonsBase.View
             {
                 MessageBox.Show(@"Выберите Длительность Клубной Карты!", @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
+            }
 
+            if (comboBox_TypeTren.SelectedItem == null)
+            {
+                MessageBox.Show(@"Выберите Тип тренировки!", @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return;
             }
             DialogResult = DialogResult.OK;// Cancel;
         }

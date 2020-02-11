@@ -485,9 +485,7 @@ namespace PersonsBase.control
 
             var selectedOptions = new WorkoutOptions();
 
-
-            // Вот тут можно сделать проверку. Если Абонемент по дням или Персональная и выбран Тренажерный зал,то отмечать посещение как разовое
-            var isSuccess = false;
+            bool isSuccess;
             switch (person.AbonementCurent)
             {
                 case AbonementByDays byDays:
@@ -496,13 +494,13 @@ namespace PersonsBase.control
                         if (dlgResult == DialogResult.Cancel) return false;
 
                         if (selectedOptions.TypeWorkout == TypeWorkout.Тренажерный_Зал &&
-                            person.AbonementCurent.TypeWorkout != TypeWorkout.Тренажерный_Зал)
+                            byDays.TypeWorkout != TypeWorkout.Тренажерный_Зал)
                         {
                             PersonObject.SaveSingleVisit(person, selectedOptions); // Сохраняет текущий визит 
                         }
                         else
                         {
-                            isSuccess = person.AbonementCurent.CheckInWorkout(selectedOptions.TypeWorkout);
+                            isSuccess = byDays.CheckInWorkout(selectedOptions.TypeWorkout);
                             if (!isSuccess) return false;
                             PersonObject.SaveCurentVisit(person, selectedOptions); // Сохраняет текущий визит 
                         }
@@ -514,15 +512,15 @@ namespace PersonsBase.control
                         var dlgResult = FormsRunner.RunWorkoutOptionsForm(ref selectedOptions, person.Name);
                         if (dlgResult == DialogResult.Cancel) return false;
 
-                        isSuccess = person.AbonementCurent.CheckInWorkout(selectedOptions.TypeWorkout);
+                        isSuccess = clubCardA.CheckInWorkout(selectedOptions.TypeWorkout);
                         if (!isSuccess) return false;
                         PersonObject.SaveCurentVisit(person, selectedOptions); // Сохраняет текущий визит 
                         break;
                     }
                 case SingleVisit singleVisit:
                     {
-                        selectedOptions.TypeWorkout = person.AbonementCurent.TypeWorkout;
-                        isSuccess = person.AbonementCurent.CheckInWorkout(person.AbonementCurent.TypeWorkout);
+                        selectedOptions.TypeWorkout = singleVisit.TypeWorkout;
+                        isSuccess = singleVisit.CheckInWorkout(person.AbonementCurent.TypeWorkout);
 
                         if (!isSuccess) return false;
                         PersonObject.SaveCurentVisit(person, selectedOptions); // Сохраняет текущий визит 
@@ -630,7 +628,7 @@ namespace PersonsBase.control
                 BorderStyle = BorderStyle.FixedSingle,
                 Text = @" " + info.Replace("_", " "),
                 Dock = DockStyle.Fill,
-                Font = new Font("Microsoft Sans Serif", 9F)
+                Font = new Font("Microsoft Sans Serif", 10F)
             };
 
             // Выделение цветом по какому-либо признакму
