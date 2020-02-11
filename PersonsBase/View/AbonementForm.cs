@@ -223,8 +223,6 @@ namespace PersonsBase.View
             }
         }
 
-
-
         ///////////////// ОБРАБОТЧИКИ ////////////////////////////////
         private void button_Cancel(object sender, EventArgs e)
         {

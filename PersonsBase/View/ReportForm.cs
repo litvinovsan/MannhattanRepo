@@ -54,6 +54,7 @@ namespace PersonsBase.View
             // Инициализация всех группбоксов стартовыми значениями
             InitCBoxStatus();
             InitCBoxLastVisit();
+            InitDateVisit();
             InitCheckedListBoxPay();
             InitCheckedListBoxAge();
             InitCheckedListBoxGender();
@@ -120,6 +121,40 @@ namespace PersonsBase.View
             }
             ShowPersons(GetUpdatedRequests());
         }
+        #endregion
+
+        #region /// МЕТОДЫ. ДАТА ПОСЕЩЕНИЯ КОНКРЕТНАЯ
+        /// <summary>
+        /// Устанавливает стартовые значения CheckedListBox при загрузке формы. Список строк и галочку.
+        /// </summary>
+        private void InitDateVisit()
+        {
+            dateTimePicker_Visit.Value = DateTime.Now.Date;
+        }
+        private void dateTimePicker_Visit_ValueChanged(object sender, EventArgs e)
+        {
+            var lVisit = dateTimePicker_Visit.Value.Date;
+            if (lVisit.CompareTo(DateTime.Now.Date) > 0)
+            {
+                dateTimePicker_Visit.Value = DateTime.Now;
+                return;
+            }
+
+            // Если последний визит не важен -выходим
+            if (lVisit.CompareTo(DateTime.Now.Date) == 0)
+            {
+                _reqLastVisit = _personsAll;
+            }
+            else
+            {
+                var fullJournal = DataBaseLevel.GetPersonsVisitDict();
+                var resultByCondition = fullJournal.Where(x => x.Value.Any(y => y.DateTimeVisit.Date.CompareTo(lVisit) == 0));
+                var resultConverted = resultByCondition.Select(y => new KeyValuePair<string, Person>(y.Key, PersonObject.GetLink(y.Key)));
+                _reqLastVisit = resultConverted.ToList();
+            }
+            ShowPersons(GetUpdatedRequests());
+        }
+
         #endregion
 
         #region /// МЕТОДЫ. ОПЛАТА
@@ -436,6 +471,11 @@ namespace PersonsBase.View
             var personsSelected = GetUpdatedRequests();
             var table = DataBaseM.CreatePersonsTable(personsSelected, DataBaseM.GetPersonFieldsFull);
             MyFile.ExportToExcel(table, true);
+        }
+
+        private void button_resetDate_Click(object sender, EventArgs e)
+        {
+            dateTimePicker_Visit.Value = DateTime.Now;
         }
     }
 }

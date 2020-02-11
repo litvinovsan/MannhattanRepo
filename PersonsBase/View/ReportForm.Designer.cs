@@ -50,6 +50,9 @@
             this.groupBox_Activation = new System.Windows.Forms.GroupBox();
             this.checkedListBox_Activation = new System.Windows.Forms.CheckedListBox();
             this.dataGridView_Persons = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dateTimePicker_Visit = new System.Windows.Forms.DateTimePicker();
+            this.button1 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox_All_Options.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -62,6 +65,7 @@
             this.groupBox_TimeTren.SuspendLayout();
             this.groupBox_Activation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Persons)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -69,7 +73,7 @@
             this.flowLayoutPanel1.Controls.Add(this.button3);
             this.flowLayoutPanel1.Controls.Add(this.button2);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 673);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 762);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1021, 40);
             this.flowLayoutPanel1.TabIndex = 1;
@@ -103,7 +107,7 @@
             this.groupBox_All_Options.Controls.Add(this.flowLayoutPanel2);
             this.groupBox_All_Options.Location = new System.Drawing.Point(4, 3);
             this.groupBox_All_Options.Name = "groupBox_All_Options";
-            this.groupBox_All_Options.Size = new System.Drawing.Size(216, 664);
+            this.groupBox_All_Options.Size = new System.Drawing.Size(216, 753);
             this.groupBox_All_Options.TabIndex = 2;
             this.groupBox_All_Options.TabStop = false;
             this.groupBox_All_Options.Text = "Параметры клиентов";
@@ -116,16 +120,17 @@
             this.flowLayoutPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flowLayoutPanel2.Controls.Add(this.groupBox_Status);
             this.flowLayoutPanel2.Controls.Add(this.groupBox_LastVisit);
-            this.flowLayoutPanel2.Controls.Add(this.groupBox_Pay);
-            this.flowLayoutPanel2.Controls.Add(this.groupBox_Age);
+            this.flowLayoutPanel2.Controls.Add(this.groupBox1);
             this.flowLayoutPanel2.Controls.Add(this.groupBox_Gender);
             this.flowLayoutPanel2.Controls.Add(this.groupBox_TypeAbon);
             this.flowLayoutPanel2.Controls.Add(this.groupBox_TimeTren);
+            this.flowLayoutPanel2.Controls.Add(this.groupBox_Pay);
+            this.flowLayoutPanel2.Controls.Add(this.groupBox_Age);
             this.flowLayoutPanel2.Controls.Add(this.groupBox_Activation);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 20);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(210, 641);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(210, 730);
             this.flowLayoutPanel2.TabIndex = 0;
             // 
             // groupBox_Status
@@ -176,7 +181,7 @@
             // 
             this.groupBox_Pay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_Pay.Controls.Add(this.checkedListBox_Pay);
-            this.groupBox_Pay.Location = new System.Drawing.Point(3, 126);
+            this.groupBox_Pay.Location = new System.Drawing.Point(3, 480);
             this.groupBox_Pay.Name = "groupBox_Pay";
             this.groupBox_Pay.Size = new System.Drawing.Size(186, 69);
             this.groupBox_Pay.TabIndex = 4;
@@ -201,7 +206,7 @@
             // 
             this.groupBox_Age.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_Age.Controls.Add(this.checkedListBox_Age);
-            this.groupBox_Age.Location = new System.Drawing.Point(3, 201);
+            this.groupBox_Age.Location = new System.Drawing.Point(3, 555);
             this.groupBox_Age.Name = "groupBox_Age";
             this.groupBox_Age.Size = new System.Drawing.Size(186, 85);
             this.groupBox_Age.TabIndex = 0;
@@ -227,7 +232,7 @@
             // 
             this.groupBox_Gender.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_Gender.Controls.Add(this.checkedListBox_Gender);
-            this.groupBox_Gender.Location = new System.Drawing.Point(3, 292);
+            this.groupBox_Gender.Location = new System.Drawing.Point(3, 218);
             this.groupBox_Gender.Name = "groupBox_Gender";
             this.groupBox_Gender.Size = new System.Drawing.Size(186, 86);
             this.groupBox_Gender.TabIndex = 1;
@@ -253,7 +258,7 @@
             // 
             this.groupBox_TypeAbon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_TypeAbon.Controls.Add(this.checkedListBox_TypeAbon);
-            this.groupBox_TypeAbon.Location = new System.Drawing.Point(3, 384);
+            this.groupBox_TypeAbon.Location = new System.Drawing.Point(3, 310);
             this.groupBox_TypeAbon.Name = "groupBox_TypeAbon";
             this.groupBox_TypeAbon.Size = new System.Drawing.Size(186, 89);
             this.groupBox_TypeAbon.TabIndex = 5;
@@ -279,7 +284,7 @@
             // 
             this.groupBox_TimeTren.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_TimeTren.Controls.Add(this.checkedListBox_TimeTren);
-            this.groupBox_TimeTren.Location = new System.Drawing.Point(3, 479);
+            this.groupBox_TimeTren.Location = new System.Drawing.Point(3, 405);
             this.groupBox_TimeTren.Name = "groupBox_TimeTren";
             this.groupBox_TimeTren.Size = new System.Drawing.Size(186, 69);
             this.groupBox_TimeTren.TabIndex = 6;
@@ -304,7 +309,7 @@
             // 
             this.groupBox_Activation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_Activation.Controls.Add(this.checkedListBox_Activation);
-            this.groupBox_Activation.Location = new System.Drawing.Point(3, 554);
+            this.groupBox_Activation.Location = new System.Drawing.Point(3, 646);
             this.groupBox_Activation.Name = "groupBox_Activation";
             this.groupBox_Activation.Size = new System.Drawing.Size(186, 70);
             this.groupBox_Activation.TabIndex = 7;
@@ -336,14 +341,44 @@
             this.dataGridView_Persons.MultiSelect = false;
             this.dataGridView_Persons.Name = "dataGridView_Persons";
             this.dataGridView_Persons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_Persons.Size = new System.Drawing.Size(783, 652);
+            this.dataGridView_Persons.Size = new System.Drawing.Size(783, 741);
             this.dataGridView_Persons.TabIndex = 3;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.dateTimePicker_Visit);
+            this.groupBox1.Location = new System.Drawing.Point(3, 126);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(186, 86);
+            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Дата Посещения";
+            // 
+            // dateTimePicker_Visit
+            // 
+            this.dateTimePicker_Visit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dateTimePicker_Visit.Location = new System.Drawing.Point(3, 20);
+            this.dateTimePicker_Visit.Name = "dateTimePicker_Visit";
+            this.dateTimePicker_Visit.Size = new System.Drawing.Size(180, 24);
+            this.dateTimePicker_Visit.TabIndex = 0;
+            this.dateTimePicker_Visit.ValueChanged += new System.EventHandler(this.dateTimePicker_Visit_ValueChanged);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(3, 50);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(177, 29);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Сброс";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button_resetDate_Click);
             // 
             // ReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1021, 713);
+            this.ClientSize = new System.Drawing.Size(1021, 802);
             this.Controls.Add(this.dataGridView_Persons);
             this.Controls.Add(this.groupBox_All_Options);
             this.Controls.Add(this.flowLayoutPanel1);
@@ -366,6 +401,7 @@
             this.groupBox_TimeTren.ResumeLayout(false);
             this.groupBox_Activation.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Persons)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -393,5 +429,8 @@
         private System.Windows.Forms.ComboBox comboBox_LastVisit;
         private System.Windows.Forms.ComboBox comboBox_Status;
         private System.Windows.Forms.CheckedListBox checkedListBox_TimeTren;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_Visit;
+        private System.Windows.Forms.Button button1;
     }
 }
