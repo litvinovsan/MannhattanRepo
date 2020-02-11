@@ -10,6 +10,7 @@ namespace PersonsBase.data
 
         private static bool _checkPasspAndDriveId;
         private static bool _simpsonsPhoto;
+        private static bool _correctableAbonOnCreate;
 
         public static bool SimpsonsPhoto
         {
@@ -26,11 +27,21 @@ namespace PersonsBase.data
             }
         }
 
+        public static bool CorrectableAbonOnCreate
+        {
+            get { return _correctableAbonOnCreate; }
+            set
+            {
+                _correctableAbonOnCreate = value;
+            }
+        }
+
         public static void SaveProperties()
         {
             Properties.Settings.Default.SimpsonMode = SimpsonsPhoto;
             Properties.Settings.Default.PassAndDriveIdCheck = CheckPasspAndDriveId;
             Properties.Settings.Default.curentDate = DateTime.Now.Date.ToString("MM/dd/yyyy");
+            Properties.Settings.Default.SimpsonMode = CorrectableAbonOnCreate;
 
             Properties.Settings.Default.Save();
         }
@@ -40,6 +51,7 @@ namespace PersonsBase.data
             Properties.Settings.Default.Reload();
 
             SimpsonsPhoto = Properties.Settings.Default.SimpsonMode;
+            CorrectableAbonOnCreate = Properties.Settings.Default.AbonCorrectable;
             CheckPasspAndDriveId = Properties.Settings.Default.PassAndDriveIdCheck;
         }
 
@@ -71,7 +83,7 @@ namespace PersonsBase.data
 
         #region /// Разные текстовые и около того данные
         // Число тренировок для покупки
-        public static readonly object[] NumAvailTrenToBuy = { "1", "5", "10" };
+        public static readonly object[] NumAvailTrenToBuy = { "1", "5", "8", "10" };
         public const string CorrectPassword = "1234";
 
         #endregion

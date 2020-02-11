@@ -58,5 +58,17 @@ namespace PersonsBase.Properties {
                 this["curentDate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AbonCorrectable {
+            get {
+                return ((bool)(this["AbonCorrectable"]));
+            }
+            set {
+                this["AbonCorrectable"] = value;
+            }
+        }
     }
 }

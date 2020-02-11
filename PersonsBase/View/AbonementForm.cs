@@ -35,6 +35,9 @@ namespace PersonsBase.View
         {
             SetInitialValues();
             LoadDefaultValues();
+
+            // Не выключено ли в настройках разрешение на корректировку абонементов при создании их
+            groupBox_Correctable.Enabled = Options.CorrectableAbonOnCreate;
         }
 
         private void SetInitialValues()
@@ -85,7 +88,7 @@ namespace PersonsBase.View
                     .Select(x => x).ToArray<object>();
 
                 comboBox_TypeTren.Items.AddRange(array); // Записываем Поля в Комбобокс
-              //  comboBox_TypeTren.Items.AddRange(Enum.GetNames(typeof(TypeWorkout)).ToArray<object>()); // Записываем Поля в Комбобокс
+                                                         //  comboBox_TypeTren.Items.AddRange(Enum.GetNames(typeof(TypeWorkout)).ToArray<object>()); // Записываем Поля в Комбобокс
                 comboBox_TypeTren.SelectedItem = _typeWorkout.ToString(); // Выбор по умолчанию
                 comboBox_TypeTren.SelectedIndexChanged += ComboBox_TypeTren_SelectedIndexChanged;
             }

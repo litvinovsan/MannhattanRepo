@@ -62,7 +62,7 @@ namespace PersonsBase.View
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox_Correctable = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.label8 = new System.Windows.Forms.Label();
             this.dateTimePicker_ActivationDate = new System.Windows.Forms.DateTimePicker();
@@ -91,15 +91,15 @@ namespace PersonsBase.View
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.groupBox_Correctable.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 41.67963F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58.32037F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.68944F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.31056F));
             this.tableLayoutPanel1.Controls.Add(this.button_Aplly, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.button2_Cancel, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -116,10 +116,10 @@ namespace PersonsBase.View
             this.button_Aplly.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.button_Aplly.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_Aplly.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_Aplly.Location = new System.Drawing.Point(271, 2);
+            this.button_Aplly.Location = new System.Drawing.Point(323, 2);
             this.button_Aplly.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_Aplly.Name = "button_Aplly";
-            this.button_Aplly.Size = new System.Drawing.Size(370, 46);
+            this.button_Aplly.Size = new System.Drawing.Size(318, 46);
             this.button_Aplly.TabIndex = 0;
             this.button_Aplly.Text = "Применить";
             this.button_Aplly.UseVisualStyleBackColor = false;
@@ -133,7 +133,7 @@ namespace PersonsBase.View
             this.button2_Cancel.Location = new System.Drawing.Point(3, 2);
             this.button2_Cancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2_Cancel.Name = "button2_Cancel";
-            this.button2_Cancel.Size = new System.Drawing.Size(262, 46);
+            this.button2_Cancel.Size = new System.Drawing.Size(314, 46);
             this.button2_Cancel.TabIndex = 1;
             this.button2_Cancel.Text = "Отмена";
             this.button2_Cancel.UseVisualStyleBackColor = true;
@@ -497,21 +497,21 @@ namespace PersonsBase.View
             this.pictureBox7.TabIndex = 11;
             this.pictureBox7.TabStop = false;
             // 
-            // groupBox1
+            // groupBox_Correctable
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupBox_Correctable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.flowLayoutPanel2);
-            this.groupBox1.Controls.Add(this.checkBox_Activated);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.Location = new System.Drawing.Point(417, 8);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(224, 379);
-            this.groupBox1.TabIndex = 10;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Корректировка Абонемента";
+            this.groupBox_Correctable.Controls.Add(this.flowLayoutPanel2);
+            this.groupBox_Correctable.Controls.Add(this.checkBox_Activated);
+            this.groupBox_Correctable.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox_Correctable.Location = new System.Drawing.Point(413, 8);
+            this.groupBox_Correctable.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox_Correctable.Name = "groupBox_Correctable";
+            this.groupBox_Correctable.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox_Correctable.Size = new System.Drawing.Size(228, 379);
+            this.groupBox_Correctable.TabIndex = 10;
+            this.groupBox_Correctable.TabStop = false;
+            this.groupBox_Correctable.Text = "Корректировка Абонемента";
             // 
             // flowLayoutPanel2
             // 
@@ -646,7 +646,7 @@ namespace PersonsBase.View
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(644, 462);
             this.Controls.Add(this.tableLayoutPanel2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox_Correctable);
             this.Controls.Add(this.tableLayoutPanel3);
             this.Controls.Add(this.tableLayoutPanel1);
             this.DoubleBuffered = true;
@@ -682,8 +682,8 @@ namespace PersonsBase.View
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBox_Correctable.ResumeLayout(false);
+            this.groupBox_Correctable.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
@@ -717,7 +717,7 @@ namespace PersonsBase.View
       private Label label5;
       private ComboBox comboBox_Pay;
         private DateTimePicker dateTimePicker_ActivationDate;
-        private GroupBox groupBox1;
+        private GroupBox groupBox_Correctable;
         private CheckBox checkBox_Activated;
         private FlowLayoutPanel flowLayoutPanel2;
         private Label label8;

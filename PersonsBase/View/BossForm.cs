@@ -44,6 +44,8 @@ namespace PersonsBase.View
             // Заполнение вкладки Настроек
             checkBox_Passp_Drive.Checked = Options.CheckPasspAndDriveId;
             checkBox_SimpsonPhoto.Checked = Options.SimpsonsPhoto;
+            checkBox_CorrectOnCreateAbon.Checked = Options.CorrectableAbonOnCreate;
+
         }
         private void BossForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -237,6 +239,11 @@ namespace PersonsBase.View
         private void checkBox_SimpsonPhoto_CheckedChanged(object sender, EventArgs e)
         {
             Options.SimpsonsPhoto = checkBox_SimpsonPhoto.Checked;
+        }
+
+        private void checkBox_CorrectOnCreateAbon_CheckedChanged(object sender, EventArgs e)
+        {
+            Options.CorrectableAbonOnCreate = checkBox_CorrectOnCreateAbon.Checked;
         }
     }
 }

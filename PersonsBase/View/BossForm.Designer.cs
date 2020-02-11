@@ -65,6 +65,7 @@
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.checkBox_SimpsonPhoto = new System.Windows.Forms.CheckBox();
             this.checkBox_Passp_Drive = new System.Windows.Forms.CheckBox();
+            this.checkBox_CorrectOnCreateAbon = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -508,6 +509,7 @@
             // 
             this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox9.Controls.Add(this.checkBox_CorrectOnCreateAbon);
             this.groupBox9.Controls.Add(this.checkBox_SimpsonPhoto);
             this.groupBox9.Controls.Add(this.checkBox_Passp_Drive);
             this.groupBox9.Location = new System.Drawing.Point(8, 3);
@@ -538,6 +540,17 @@
             this.checkBox_Passp_Drive.Text = "Учитывать Пасспорт и Права в создании клиента";
             this.checkBox_Passp_Drive.UseVisualStyleBackColor = true;
             this.checkBox_Passp_Drive.CheckedChanged += new System.EventHandler(this.checkBox_Passp_Drive_CheckedChanged);
+            // 
+            // checkBox_CorrectOnCreateAbon
+            // 
+            this.checkBox_CorrectOnCreateAbon.AutoSize = true;
+            this.checkBox_CorrectOnCreateAbon.Location = new System.Drawing.Point(6, 76);
+            this.checkBox_CorrectOnCreateAbon.Name = "checkBox_CorrectOnCreateAbon";
+            this.checkBox_CorrectOnCreateAbon.Size = new System.Drawing.Size(385, 21);
+            this.checkBox_CorrectOnCreateAbon.TabIndex = 1;
+            this.checkBox_CorrectOnCreateAbon.Text = "Разрешить корректировку при создании Абонемента ";
+            this.checkBox_CorrectOnCreateAbon.UseVisualStyleBackColor = true;
+            this.checkBox_CorrectOnCreateAbon.CheckedChanged += new System.EventHandler(this.checkBox_CorrectOnCreateAbon_CheckedChanged);
             // 
             // BossForm
             // 
@@ -616,5 +629,6 @@
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.CheckBox checkBox_Passp_Drive;
         private System.Windows.Forms.CheckBox checkBox_SimpsonPhoto;
+        private System.Windows.Forms.CheckBox checkBox_CorrectOnCreateAbon;
     }
 }
