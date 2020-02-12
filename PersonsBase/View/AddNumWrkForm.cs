@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using PersonsBase.data;
 using PersonsBase.data.Abonements;
+using PersonsBase.myStd;
 
 namespace PersonsBase.View
 {
@@ -19,9 +20,8 @@ namespace PersonsBase.View
             _selectedValue = 1;
             _selectedTypeWorkout = TypeWorkout.Персональная;
 
-            var numAvailTrenToBuy = Options.NumAvailTrenToBuy;
-            comboBox_num.Items.AddRange(numAvailTrenToBuy); // 1,5,8,10 тренировок
-            comboBox_num.SelectedItem = numAvailTrenToBuy[0];
+            var numbersAvailable = Options.NumAvailTrenToBuy;// 1,5,10 тренировок
+            MyComboBox.Initialize(comboBox_num, numbersAvailable, numbersAvailable[0]);
 
             radioButton_mini.Visible = (abonement is ClubCardA);
         }
@@ -61,6 +61,10 @@ namespace PersonsBase.View
         private void radioButtons_CheckedChanged(object sender, EventArgs e)
         {
             var radioB = (RadioButton)sender;
+
+            var numbersAvailable = Options.NumAvailTrenToBuy;// 1,5,10 тренировок по умолчанию
+
+
             if (radioB.Name == radioButton_personal.Name)
             {
                 _selectedTypeWorkout = TypeWorkout.Персональная;
@@ -73,13 +77,15 @@ namespace PersonsBase.View
             if (radioB.Name == radioButton_mini.Name)
             {
                 _selectedTypeWorkout = TypeWorkout.МиниГруппа;
-
+                numbersAvailable = Options.NumAvailMiniGroup;// 8 
             }
+            // Сколько тренировок доступно для конкретного типа трени
+            MyComboBox.Initialize(comboBox_num, numbersAvailable, numbersAvailable[0]);
         }
 
         private void comboBox_num_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _selectedValue = Int32.Parse(comboBox_num.SelectedItem.ToString());
+            _selectedValue = int.Parse(comboBox_num.SelectedItem.ToString());
         }
 
 
