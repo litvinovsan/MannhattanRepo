@@ -494,9 +494,9 @@ namespace PersonsBase.control
                         if (dlgResult == DialogResult.Cancel) return false;
 
                         if (selectedOptions.TypeWorkout == TypeWorkout.Тренажерный_Зал &&
-                            byDays.TypeWorkout != TypeWorkout.Тренажерный_Зал)
+                            byDays.TypeWorkout != TypeWorkout.Тренажерный_Зал)// Если выбран ТЗ, но в абонементе основной тип другой. 
                         {
-                            PersonObject.SaveSingleVisit(person, selectedOptions); // Сохраняет текущий визит 
+                            PersonObject.SaveSingleVisit(person, selectedOptions); // Сохраняет текущий разовый новый визит 
                         }
                         else
                         {

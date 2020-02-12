@@ -273,7 +273,7 @@ namespace PersonsBase.View
         private void LoadEditableData()
         {
             // Данные подробные,разрешено редактирование через события.
-            var table = Logic.CreateTable(SelectList(_person.AbonementCurent));
+            var table = Logic.CreateTable(CreateControlsFields(_person.AbonementCurent));
             if (groupBox_Detailed.Controls.Count != 0) groupBox_Detailed.Controls.Clear();
 
             table.Font = new Font("Arial", 11);
@@ -284,7 +284,7 @@ namespace PersonsBase.View
 
         private void UpdateEditableData()
         {
-            var listUpdated = SelectList(_person.AbonementCurent);
+            var listUpdated = CreateControlsFields(_person.AbonementCurent);
             var lst = new List<Control>();
             Logic.ForAllControls(groupBox_Detailed, x =>
             {
@@ -369,17 +369,24 @@ namespace PersonsBase.View
                 button_Freeze.Enabled = true;
             }
         }
-        private List<Tuple<Label, Control>> SelectList(AbonementBasic currentAbon)
+        private List<Tuple<Label, Control>> CreateControlsFields(AbonementBasic currentAbon)
         {
             List<Tuple<Label, Control>> listResult;
-            if (currentAbon is AbonementByDays)
-                listResult = CreateListAbonement();
-            else if (currentAbon is ClubCardA)
-                listResult = CreateListClubCard();
-            else if (currentAbon is SingleVisit)
-                listResult = CreateListSingleVisit();
-            else
-                listResult = CreateListNoAbonement();
+            switch (currentAbon)
+            {
+                case AbonementByDays _:
+                    listResult = CreateListAbonement();
+                    break;
+                case ClubCardA _:
+                    listResult = CreateListClubCard();
+                    break;
+                case SingleVisit _:
+                    listResult = CreateListSingleVisit();
+                    break;
+                default:
+                    listResult = CreateListNoAbonement();
+                    break;
+            }
             return listResult;
         }
         private List<Tuple<Label, Control>> CreateListNoAbonement()

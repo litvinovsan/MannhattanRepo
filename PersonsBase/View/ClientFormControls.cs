@@ -504,12 +504,20 @@ namespace PersonsBase.View
                 _editedDaysInAbon = abonement.GetTypeAbonementByDays();
                 _saveDelegateChain += () =>
                 {
-                    if (_person.AbonementCurent != null && _editedDaysInAbon != abonement.GetTypeAbonementByDays())
+                    try
                     {
-                        abonement.SetDaysLeft((int)_editedDaysInAbon);
-                        ComboBoxColor(comboBox, abonement.GetTypeAbonementByDays().ToString(), _editedDaysInAbon.ToString());
-                        ((AbonementByDays)_person.AbonementCurent).TypeAbonement = _editedDaysInAbon;
+                        if (_editedDaysInAbon != abonement.GetTypeAbonementByDays())
+                        {
+                            abonement.SetDaysLeft((int)_editedDaysInAbon);
+                            ComboBoxColor(comboBox, abonement.GetTypeAbonementByDays().ToString(), _editedDaysInAbon.ToString());
+                            ((AbonementByDays)_person.AbonementCurent).TypeAbonement = _editedDaysInAbon;
+                        }
                     }
+                    catch (Exception )
+                    {
+                        MessageBox.Show("Exception 1");
+                    }
+                    
                 };
             }
 

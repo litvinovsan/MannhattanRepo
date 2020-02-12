@@ -40,8 +40,11 @@ namespace PersonsBase.View
                     _abonement.NumAerobicTr += _selectedValue;
                     break;
                 case TypeWorkout.МиниГруппа:
-                    _abonement.NumPersonalTr += _selectedValue;
+                    _abonement.NumPersonalTr += _selectedValue; // УДАЛИТЬ
+                   // _abonement.NumMiniGroups += _selectedValue;
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

@@ -88,9 +88,7 @@ namespace PersonsBase.View
                     .Select(x => x).ToArray<object>();
 
                 comboBox_TypeTren.Items.AddRange(array); // Записываем Поля в Комбобокс
-                                                         //  comboBox_TypeTren.Items.AddRange(Enum.GetNames(typeof(TypeWorkout)).ToArray<object>()); // Записываем Поля в Комбобокс
                 comboBox_TypeTren.SelectedItem = _typeWorkout.ToString(); // Выбор по умолчанию
-                comboBox_TypeTren.SelectedIndexChanged += ComboBox_TypeTren_SelectedIndexChanged;
             }
 
             // Время Тренировки
@@ -238,7 +236,7 @@ namespace PersonsBase.View
 
                 comboBox_Abonem.Visible = true;
                 comboBox_ClubCard.Visible = false;
-
+                comboBox_TypeTren.SelectedItem = TypeWorkout.Тренажерный_Зал.ToString();
                 radioButton_ClubCard.Checked = false;
                 radioButton_Single.Checked = false;
 
@@ -310,19 +308,10 @@ namespace PersonsBase.View
 
                 comboBox_Abonem.Visible = false;
                 comboBox_ClubCard.Visible = false;
-
+                comboBox_TypeTren.SelectedItem = TypeWorkout.Тренажерный_Зал.ToString();
                 radioButton_Abonement.Checked = false;
                 radioButton_ClubCard.Checked = false;
             }
-            UpdateCorrectFieldsEn();
-        }
-
-        private void ComboBox_TypeTren_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            RemoveItem();
-
-            var combo = (ComboBox)sender;
-            _typeWorkout = MyComboBox.GetComboBoxValue<TypeWorkout>(combo);
             UpdateCorrectFieldsEn();
         }
 
@@ -427,6 +416,10 @@ namespace PersonsBase.View
 
         private void comboBox_TypeTren_SelectedValueChanged(object sender, EventArgs e)
         {
+            RemoveItem();
+
+            var combo = (ComboBox)sender;
+            _typeWorkout = MyComboBox.GetComboBoxValue<TypeWorkout>(combo);
             UpdateCorrectFieldsEn();
         }
     }

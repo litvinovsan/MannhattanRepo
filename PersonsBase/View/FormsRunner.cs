@@ -90,26 +90,45 @@ namespace PersonsBase.View
         {
             // Если нет Персональных или Аэробных тренировок - не выводить окно выбора тренировок. По умолчанию отмечается Тренажерный зал
             var abon = PersonObject.GetLink(personName)?.AbonementCurent;
-            if (abon?.NumPersonalTr == 0 && abon?.NumAerobicTr == 0 && (abon is ClubCardA))
+
+            if (abon == null) return DialogResult.Cancel;
+
+            optionsWorkout.TypeWorkout = abon.TypeWorkout; // Значение по умолчанию
+
+            switch (abon)
             {
-                optionsWorkout.TypeWorkout = TypeWorkout.Тренажерный_Зал;
-                return DialogResult.OK;
+                case ClubCardA clubCardA:
+                    {
+                        if (clubCardA?.NumPersonalTr == 0 && clubCardA?.NumAerobicTr == 0 && clubCardA.NumMiniGroups == 0)
+                        {
+                            optionsWorkout.TypeWorkout = TypeWorkout.Тренажерный_Зал;
+                            return DialogResult.OK;
+                        }
+                        break;
+                    }
+                case AbonementByDays byDays:
+                    {
+                        if (byDays.TypeWorkout == TypeWorkout.Аэробный_Зал ||
+                            byDays.TypeWorkout == TypeWorkout.Тренажерный_Зал)
+                        {
+                            // Возвращаем текущий тип тренировки
+                            //optionsWorkout.TypeWorkout = abon.TypeWorkout;
+                            return DialogResult.OK;
+                        }
+                        break;
+                    }
+                case SingleVisit singleVisit:
+                    {
+                        return DialogResult.OK;
+
+                    }
             }
 
-            if (abon is AbonementByDays && (abon.TypeWorkout == TypeWorkout.МиниГруппа || abon.TypeWorkout == TypeWorkout.Персональная))
-            {
-                var workoutForm = new WorkoutForm(personName);
+            var workoutForm = new WorkoutForm(personName);
 
-                var dlgReult = workoutForm.ShowDialog();
-                if (dlgReult == DialogResult.OK)
-                {
-                    optionsWorkout = workoutForm.SelectedOptions;
-                }
-                return dlgReult;
-            }
-
-            if (abon != null) optionsWorkout.TypeWorkout = abon.TypeWorkout;
-            return DialogResult.OK;
+            var dlgReult = workoutForm.ShowDialog();
+            if (dlgReult == DialogResult.OK) optionsWorkout = workoutForm.SelectedOptions;
+            return dlgReult;
         }
 
         #endregion
