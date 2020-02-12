@@ -168,9 +168,9 @@ namespace PersonsBase.View
                                 a.PeriodAbonem != PeriodClubCard.На_1_Месяц)
                             {
                                 button_Freeze.Visible = true;
-                                // Кнопка Добавить для Клубной Карты
-                                button_add_dop_tren.Visible = true;
                             }
+                            // Кнопка Добавить для Клубной Карты
+                            button_add_dop_tren.Visible = (_person.AbonementCurent is ClubCardA);
 
                             break;
                         }
@@ -194,9 +194,9 @@ namespace PersonsBase.View
                             button_Add_Abon.Enabled = false;
                             break;
                         }
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
-
-                //    UpdateNameText();
             };
 
             if (InvokeRequired)
@@ -483,7 +483,7 @@ namespace PersonsBase.View
             LoadUserData();
             Logic.LoadShortInfo(groupBox_Info, _person);
             UpdateEditableData();
-          
+
             Logic.SetControlsColorDefault(groupBox_Detailed);
             Logic.SetControlsColorDefault(tableLayoutPanel1);
         }

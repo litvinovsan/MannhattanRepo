@@ -34,7 +34,7 @@ namespace PersonsBase.View
             panel_aero.Visible = (abonement.TypeWorkout == TypeWorkout.Аэробный_Зал || (abonement.NumAerobicTr != 0));
             panel_personal.Visible = (abonement.TypeWorkout == TypeWorkout.Персональная || (abonement.NumPersonalTr != 0));
 
-            var isMiniGrClubCard = ((abonement is ClubCardA) && abonement.NumMiniGroups > 0);
+            var isMiniGrClubCard = ((abonement is ClubCardA) && abonement.NumMiniGroup > 0);
             var isMiniGrByDays = ((abonement is AbonementByDays) && abonement.GetRemainderDays() > 0 && abonement.TypeWorkout == TypeWorkout.МиниГруппа);
 
             panel_miniGroup.Visible = (abonement.TypeWorkout == TypeWorkout.МиниГруппа) || isMiniGrClubCard || isMiniGrByDays;

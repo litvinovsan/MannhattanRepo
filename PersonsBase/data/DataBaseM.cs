@@ -318,11 +318,12 @@ namespace PersonsBase.data
             };
             if (person.AbonementCurent != null)
             {
-                personFields.Add(new PersonField { HeaderName = "Название Абон.", Value = person.AbonementCurent.AbonementName });
+                personFields.Add(new PersonField { HeaderName = "Название", Value = person.AbonementCurent.AbonementName });
                 personFields.Add(new PersonField { HeaderName = "Доступное время", Value = person.AbonementCurent.TimeTraining.ToString() });
                 personFields.Add(new PersonField { HeaderName = "Осталось дней", Value = person.AbonementCurent.GetRemainderDays().ToString() });
                 personFields.Add(new PersonField { HeaderName = "Аэробных", Value = person.AbonementCurent.NumAerobicTr.ToString() });
                 personFields.Add(new PersonField { HeaderName = "Персональных", Value = person.AbonementCurent.NumPersonalTr.ToString() });
+                personFields.Add(new PersonField { HeaderName = "Мини Групп", Value = person.AbonementCurent.NumMiniGroup.ToString() });
                 personFields.Add(new PersonField { HeaderName = "Спа услуги", Value = person.AbonementCurent.Spa.ToString() });
                 personFields.Add(new PersonField { HeaderName = "Доступный тип", Value = person.AbonementCurent.TypeWorkout.ToString() });
                 personFields.Add(new PersonField { HeaderName = "Оплата", Value = person.AbonementCurent.PayStatus.ToString() });

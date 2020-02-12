@@ -99,7 +99,7 @@ namespace PersonsBase.View
             {
                 case ClubCardA clubCardA:
                     {
-                        if (clubCardA?.NumPersonalTr == 0 && clubCardA?.NumAerobicTr == 0 && clubCardA.NumMiniGroups == 0)
+                        if (clubCardA?.NumPersonalTr == 0 && clubCardA?.NumAerobicTr == 0 && clubCardA.NumMiniGroup == 0)
                         {
                             optionsWorkout.TypeWorkout = TypeWorkout.Тренажерный_Зал;
                             return DialogResult.OK;

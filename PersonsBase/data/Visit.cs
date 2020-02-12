@@ -33,6 +33,7 @@ namespace PersonsBase.data
         private int NumAllDaysAbon { get; }
         private int NumAerobicTr { get; }
         private int NumPersonalTr { get; }
+        private  int NumMiniGroup { get; }
 
         // Конструкторы
         public Visit(AbonementBasic abon, WorkoutOptions workoutOptions, string administratorName)
@@ -42,6 +43,7 @@ namespace PersonsBase.data
             NumAllDaysAbon = abon.GetRemainderDays();
             NumAerobicTr = abon.NumAerobicTr;
             NumPersonalTr = abon.NumPersonalTr;
+            NumMiniGroup = abon.NumMiniGroup;
             SpaStatus = abon.Spa;
             PayStatus = abon.PayStatus;
             AvailableTimeTren = abon.TimeTraining;
@@ -61,6 +63,7 @@ namespace PersonsBase.data
             NumAllDaysAbon = 0;
             NumAerobicTr = 0;
             NumPersonalTr = 0;
+            NumMiniGroup = 0;
             SpaStatus = SpaService.Без_Спа;
             PayStatus = Pay.Не_Оплачено;
             AvailableTimeTren = TimeForTr.Утро;
@@ -81,11 +84,12 @@ namespace PersonsBase.data
         {
             var reportRowsList = new List<DataGridItem>();
 
-            string numTrenZal = NumAllDaysAbon.ToString();
-            string numAerob = NumAerobicTr.ToString();
-            string numPersonal = NumPersonalTr.ToString();
-            string trenerName = GetTrenerName();
-            string groupTimeNameInfo = GetGroupTimeNameInfo();
+            var numTrenZal = NumAllDaysAbon.ToString();
+            var numAerob = NumAerobicTr.ToString();
+            var numPersonal = NumPersonalTr.ToString();
+            var numMiniGr = NumMiniGroup.ToString();
+            var trenerName = GetTrenerName();
+            var groupTimeNameInfo = GetGroupTimeNameInfo();
 
             reportRowsList.Add(new DataGridItem("Дата", $"{DateTimeVisit:g}", "Дата и время посещения"));
             reportRowsList.Add(new DataGridItem("Вид Карты", AbonementName, "Тип карты/абонемента клиента. (Клубная Карта / Абонемент / Разовое Занятие"));
@@ -95,6 +99,7 @@ namespace PersonsBase.data
             reportRowsList.Add(new DataGridItem("Занятий ост.", numTrenZal, "Осталось занятий в тренажерном зале или всего занятий если у клиента Абонемент"));
             reportRowsList.Add(new DataGridItem("Групповые", numAerob, "Остаток Групповых тренировок"));
             reportRowsList.Add(new DataGridItem("Персоны", numPersonal, "Остаток Персональных тренировок"));
+            reportRowsList.Add(new DataGridItem("МиниГруп.", numMiniGr, "Остаток Мини Групп"));
             reportRowsList.Add(new DataGridItem("Спа", SpaStatus.ToString().Replace("_", " "), "Разрешена ли Спа зона"));
             reportRowsList.Add(new DataGridItem("Тренер", trenerName, "Имя Тренера, проводившего тренировку. Если известно"));
             reportRowsList.Add(new DataGridItem("Расписание Группы", groupTimeNameInfo, "Название и время Групповой тренировки. Если известно."));

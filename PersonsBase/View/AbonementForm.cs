@@ -236,7 +236,7 @@ namespace PersonsBase.View
 
                 comboBox_Abonem.Visible = true;
                 comboBox_ClubCard.Visible = false;
-                comboBox_TypeTren.SelectedItem = TypeWorkout.Тренажерный_Зал.ToString();
+
                 radioButton_ClubCard.Checked = false;
                 radioButton_Single.Checked = false;
 
@@ -272,6 +272,8 @@ namespace PersonsBase.View
                     .Select(x => x);
                 comboBox_TypeTren.Items.AddRange(array.ToArray<object>());
             }
+
+            comboBox_TypeTren.SelectedItem = TypeWorkout.Тренажерный_Зал.ToString();
         }
 
         private void radioButton_ClubCard_CheckedChanged(object sender, EventArgs e)
@@ -419,7 +421,16 @@ namespace PersonsBase.View
             RemoveItem();
 
             var combo = (ComboBox)sender;
-            _typeWorkout = MyComboBox.GetComboBoxValue<TypeWorkout>(combo);
+            try
+            {
+                _typeWorkout = MyComboBox.GetComboBoxValue<TypeWorkout>(combo);
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Exception 2");
+            }
+
             UpdateCorrectFieldsEn();
         }
     }

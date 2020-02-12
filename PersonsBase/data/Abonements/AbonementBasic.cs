@@ -21,7 +21,15 @@ namespace PersonsBase.data.Abonements
         public abstract string InfoMessageEnd { get; }
         public abstract int NumAerobicTr { get; set; } // Количество Аэробных тренировок. 10 в клубн карте,каждый месяц
         public abstract int NumPersonalTr { get; set; } // Количество Персональных тренировок. Могут быть добавлены к Клубному абонементу.
-        public int NumMiniGroups { get; set; }
+
+        public int NumMiniGroup
+        {
+            get { return _numMiniGroup; }
+            set
+            {
+                _numMiniGroup = (value >= 0) ? value : 0;
+            }
+        }
 
         public SpaService Spa;               // Услуги спа
         public Pay PayStatus;                // Оплачен?
@@ -33,6 +41,8 @@ namespace PersonsBase.data.Abonements
         protected int DaysLeft { get; set; }  //Дней до конца абонемента, от активации,т.е. с первого посещения. 
 
         private DateTime _endDate;             // Дата завершения абонемента. 
+        private int _numMiniGroup;
+
         public DateTime EndDate
         {
             get

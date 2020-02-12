@@ -21,6 +21,7 @@ namespace PersonsBase.data.Abonements
             _numberMonths = (int)periodInMonths;
             _numAerobicTr = _numberMonths * 10;
             NumPersonalTr = 0;
+            NumMiniGroup = 0;
             _periodAbonem = periodInMonths;
 
             Freeze = new FreezeClass(periodInMonths);
@@ -133,12 +134,11 @@ namespace PersonsBase.data.Abonements
                     }
                 case TypeWorkout.МиниГруппа:
                     {
-                        if (NumPersonalTr > 0)
+                        if (NumMiniGroup > 0)
                         {
-                            --NumPersonalTr;
+                            --NumMiniGroup;
                             result = true;
                         }
-
                         break;
                     }
                 default:
@@ -174,6 +174,13 @@ namespace PersonsBase.data.Abonements
                         result = false;
                         break;
                     }
+                case TypeWorkout.МиниГруппа:
+                    {
+                        NumMiniGroup += numberToAdd;
+                        result = true;
+
+                        break;
+                    }
                 default:
                     {
                         result = false;
@@ -200,7 +207,13 @@ namespace PersonsBase.data.Abonements
             };
             if (NumPersonalTr > 0)
                 result.Add(new Tuple<string, string>("Осталось Персональных", NumPersonalTr.ToString()));
-            if (NumAerobicTr > 0) result.Add(new Tuple<string, string>("Осталось Аэробных", NumAerobicTr.ToString()));
+
+            if (NumAerobicTr > 0)
+                result.Add(new Tuple<string, string>("Осталось Аэробных", NumAerobicTr.ToString()));
+
+            if (NumMiniGroup > 0)
+                result.Add(new Tuple<string, string>("Осталось МиниГрупп", NumMiniGroup.ToString()));
+
             if (PayStatus == Pay.Не_Оплачено)
                 result.Add(new Tuple<string, string>("Статус Оплаты ", PayStatus.ToString()));
 
