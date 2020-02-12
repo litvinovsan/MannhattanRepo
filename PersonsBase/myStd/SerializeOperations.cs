@@ -21,6 +21,8 @@ namespace PersonsBase.myStd
         {
             try
             {
+                if (objectToSerialize == null) return false;
+
                 using (var ms = new MemoryStream())
                 {
                     var formatter = new BinaryFormatter();

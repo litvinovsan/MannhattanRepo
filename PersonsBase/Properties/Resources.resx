@@ -130,20 +130,20 @@
   <data name="Personal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Personal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="clients" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\clients.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="абонемент" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\абонемент.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\edit_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="barcode (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\barcode (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="list_all_participants" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\list_all_participants.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="clientsCopy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\clientsCopy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Personal1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Personal1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="sca" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sca.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -154,20 +154,20 @@
   <data name="SinglVisit2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SinglVisit2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TrenZal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TrenZal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="list_all_participants" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\list_all_participants.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ВыборТрени" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ВыборТрени.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="user_male_remove" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\user_male_remove.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="list" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\list.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="абонемент" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\абонемент.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="timeTren" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\timeTren.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Personal21" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Personal21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PersonalMini" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PersonalMini.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -178,22 +178,25 @@
   <data name="SinglVisit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SinglVisit.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TrenZal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TrenZal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="clients" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\clients.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="spa1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\spa1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="edit_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\edit_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="timeTren" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\timeTren.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="list" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\list.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Personal21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Personal21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="currency_dollar_green" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\currency_dollar_green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ВыборТрени" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ВыборТрени.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="clientsCopy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\clientsCopy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrow.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

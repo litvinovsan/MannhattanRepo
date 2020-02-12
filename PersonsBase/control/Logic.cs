@@ -8,7 +8,6 @@ using PersonsBase.data;
 using PersonsBase.data.Abonements;
 using PersonsBase.myStd;
 using PersonsBase.View;
-using Group = PersonsBase.data.Group;
 
 namespace PersonsBase.control
 {
@@ -417,6 +416,18 @@ namespace PersonsBase.control
         public static void CreateReport()
         {
             FormsRunner.RunReportForm();
+        }
+
+        #endregion
+
+        #region /// АДМИНИСТРАТОРЫ ///
+
+        /// <summary>
+        /// Создание,запуск формы выбора Администратора
+        /// </summary>
+        public static void SelectCurentAdmin()
+        {
+            FormsRunner.RunAdminForm();
         }
 
         #endregion

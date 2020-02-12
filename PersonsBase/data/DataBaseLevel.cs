@@ -192,7 +192,7 @@ namespace PersonsBase.data
             // База Администраторов 
             SerializeClass.Serialize(_adminsList, currentPath + "\\" + Options.AdminsDbFile);
             // Текущий Администратор на Ресепшн
-            SerializeClass.Serialize(_adminCurrent, currentPath + "\\" + Options.AdminCurrFile);
+            SerializeClass.Serialize(_manhattanInfo.CurrentAdmin, currentPath + "\\" + Options.AdminCurrFile);
             // Список ежедневных Групповых Тренировок
             SerializeClass.Serialize(_groupScheduleList, currentPath + "\\" + Options.GroupSchFile);
         }

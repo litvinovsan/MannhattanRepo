@@ -44,6 +44,7 @@ namespace PersonsBase.View
             this.руководительToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьВExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.администраторыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.клиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьКлиентаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокКлиентовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,6 +65,9 @@ namespace PersonsBase.View
             this.textBox_Total_persons = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.listView_MiniGroup = new System.Windows.Forms.ListView();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listView_Gym_Zal = new System.Windows.Forms.ListView();
             this.column_Time = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.column_Persons = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -77,9 +81,6 @@ namespace PersonsBase.View
             this.label_personal = new System.Windows.Forms.Label();
             this.label_tren_zal = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.listView_MiniGroup = new System.Windows.Forms.ListView();
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -100,6 +101,7 @@ namespace PersonsBase.View
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(19, 19);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.конфигурацииToolStripMenuItem,
+            this.администраторыToolStripMenuItem,
             this.клиентыToolStripMenuItem,
             this.отчетыToolStripMenuItem,
             this.сomboBox_PersonsList,
@@ -146,6 +148,15 @@ namespace PersonsBase.View
             this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
+            // 
+            // администраторыToolStripMenuItem
+            // 
+            this.администраторыToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.arrow;
+            this.администраторыToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.администраторыToolStripMenuItem.Name = "администраторыToolStripMenuItem";
+            this.администраторыToolStripMenuItem.Size = new System.Drawing.Size(150, 28);
+            this.администраторыToolStripMenuItem.Text = "Администраторы";
+            this.администраторыToolStripMenuItem.Click += new System.EventHandler(this.администраторыToolStripMenuItem_Click);
             // 
             // клиентыToolStripMenuItem
             // 
@@ -238,8 +249,8 @@ namespace PersonsBase.View
             this.SellAbonToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.SellAbonToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.currency_dollar_green;
             this.SellAbonToolStripMenuItem.Name = "SellAbonToolStripMenuItem";
-            this.SellAbonToolStripMenuItem.Size = new System.Drawing.Size(176, 28);
-            this.SellAbonToolStripMenuItem.Text = "Добавить Абонемент";
+            this.SellAbonToolStripMenuItem.Size = new System.Drawing.Size(141, 28);
+            this.SellAbonToolStripMenuItem.Text = "Добавить Абон.";
             this.SellAbonToolStripMenuItem.Click += new System.EventHandler(this.SellButtonMenuItem_Click);
             // 
             // groupBox1
@@ -375,6 +386,35 @@ namespace PersonsBase.View
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1084, 514);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // listView_MiniGroup
+            // 
+            this.listView_MiniGroup.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader5,
+            this.columnHeader6});
+            this.listView_MiniGroup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView_MiniGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listView_MiniGroup.FullRowSelect = true;
+            this.listView_MiniGroup.GridLines = true;
+            this.listView_MiniGroup.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listView_MiniGroup.Location = new System.Drawing.Point(6, 31);
+            this.listView_MiniGroup.MultiSelect = false;
+            this.listView_MiniGroup.Name = "listView_MiniGroup";
+            this.listView_MiniGroup.Size = new System.Drawing.Size(246, 477);
+            this.listView_MiniGroup.Sorting = System.Windows.Forms.SortOrder.Descending;
+            this.listView_MiniGroup.TabIndex = 4;
+            this.listView_MiniGroup.UseCompatibleStateImageBehavior = false;
+            this.listView_MiniGroup.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "";
+            this.columnHeader5.Width = 41;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "";
+            this.columnHeader6.Width = 130;
+            // 
             // listView_Gym_Zal
             // 
             this.listView_Gym_Zal.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -507,35 +547,6 @@ namespace PersonsBase.View
             this.label3.Text = "Мини Группы";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // listView_miniGroup
-            // 
-            this.listView_MiniGroup.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader5,
-            this.columnHeader6});
-            this.listView_MiniGroup.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView_MiniGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.listView_MiniGroup.FullRowSelect = true;
-            this.listView_MiniGroup.GridLines = true;
-            this.listView_MiniGroup.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView_MiniGroup.Location = new System.Drawing.Point(6, 31);
-            this.listView_MiniGroup.MultiSelect = false;
-            this.listView_MiniGroup.Name = "listView_MiniGroup";
-            this.listView_MiniGroup.Size = new System.Drawing.Size(246, 477);
-            this.listView_MiniGroup.Sorting = System.Windows.Forms.SortOrder.Descending;
-            this.listView_MiniGroup.TabIndex = 4;
-            this.listView_MiniGroup.UseCompatibleStateImageBehavior = false;
-            this.listView_MiniGroup.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "";
-            this.columnHeader5.Width = 41;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "";
-            this.columnHeader6.Width = 130;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -610,5 +621,6 @@ namespace PersonsBase.View
         private ColumnHeader columnHeader5;
         private ColumnHeader columnHeader6;
         private Label label3;
+        private ToolStripMenuItem администраторыToolStripMenuItem;
     }
 }

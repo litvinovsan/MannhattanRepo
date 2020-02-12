@@ -99,7 +99,7 @@ namespace PersonsBase.View
             {
                 case ClubCardA clubCardA:
                     {
-                        if (clubCardA?.NumPersonalTr == 0 && clubCardA?.NumAerobicTr == 0 && clubCardA.NumMiniGroup == 0)
+                        if (clubCardA.NumPersonalTr == 0 && clubCardA.NumAerobicTr == 0 && clubCardA.NumMiniGroup == 0)
                         {
                             optionsWorkout.TypeWorkout = TypeWorkout.Тренажерный_Зал;
                             return DialogResult.OK;
@@ -120,7 +120,6 @@ namespace PersonsBase.View
                 case SingleVisit singleVisit:
                     {
                         return DialogResult.OK;
-
                     }
             }
 
@@ -188,5 +187,14 @@ namespace PersonsBase.View
             frm.Show();
         }
         #endregion
+
+        #region /// ВЫБОР ТЕКУЩЕГО АДМИНИСТРАТОРА ///
+        public static void RunAdminForm()
+        {
+            var frm = new AdminSelectForm();
+            frm.Show();
+        }
+        #endregion
+
     }
 }

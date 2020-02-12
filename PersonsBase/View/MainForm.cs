@@ -129,7 +129,7 @@ namespace PersonsBase.View
         }
         private void DailyVisits_MiniGroupListChangedEvent()
         {
-           var dailyList = _dailyVisits.MiniGroupList;
+            var dailyList = _dailyVisits.MiniGroupList;
             if (dailyList == null || dailyList.Count == 0) return;
 
             var lastVisit = dailyList.Last();
@@ -303,6 +303,11 @@ namespace PersonsBase.View
         private void comboBox_BDay_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             Logic.OpenPersonCard(comboBox_BDay.SelectedItem.ToString());
+        }
+
+        private void администраторыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Logic.SelectCurentAdmin();
         }
         #endregion
     }

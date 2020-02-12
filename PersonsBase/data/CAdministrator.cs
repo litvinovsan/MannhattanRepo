@@ -14,7 +14,7 @@ namespace PersonsBase.data
       }
       public Administrator()
       {
-         Name = "Имя неизвестно";
+         Name = "";
          Phone = "";
       }
     }
