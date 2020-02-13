@@ -31,6 +31,12 @@ namespace PersonsBase.View
             _logic = Logic.GetInstance();
         }
 
+        public AbonementBasic CurentAbonement
+        {
+            get { return _curentAbonement; }
+            set { _curentAbonement = value; }
+        }
+
         private void ClientForm_Load(object sender, EventArgs e)
         {
             // Заполнение стартовое всех полей
@@ -39,7 +45,7 @@ namespace PersonsBase.View
             Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto);
             LoadEditableData();
             UpdateControlState(this, EventArgs.Empty);
-            UpdateNameText(this, EventArgs.Empty);
+            _person_AbonementCurentChanged(this, EventArgs.Empty);
             LoadListBoxQueue();
             SetupVisitsDataGridView();
 
@@ -101,7 +107,42 @@ namespace PersonsBase.View
 
         private void _person_AbonementCurentChanged(object sender, EventArgs e)
         {
-            _curentAbonement = _person.AbonementCurent;
+            CurentAbonement = _person.AbonementCurent;
+            switch (CurentAbonement)
+            {
+                case AbonementByDays byDays:
+                    {
+                        break;
+                    }
+                case ClubCardA clubCardA:
+                    {
+                        
+                        // Заморозка запланирована в будущем
+                        if (clubCardA.Freeze != null && _person.Status != StatusPerson.Заморожен && _person.Status != StatusPerson.Гостевой)
+                            if (clubCardA.Freeze.IsConfiguredForFuture())
+                            {
+                                textBox_Name.ForeColor = Color.SeaGreen;
+                                textBox_Info.Text = $@"Заморозка c {clubCardA.Freeze.GetFutureFreeze().StartDate.Date:d}, дней: {clubCardA.Freeze.GetDaysToFreeze()}";
+                            }
+                        break;
+                    }
+                case SingleVisit singleVisit:
+                    {
+                        break;
+                    }
+            }
+
+            // Не Активирован
+            if (_person.IsAbonementExist() && !_person.AbonementCurent.IsActivated)
+            {
+                textBox_Name.ForeColor = Color.Green;
+                textBox_Info.Text = @" Не Активирован";
+                button_Freeze.Enabled = false;
+            }
+            else
+            {
+                button_Freeze.Enabled = true;
+            }
 
         }
 
@@ -296,62 +337,62 @@ namespace PersonsBase.View
             MyDataGridView.ImplementStyle(dataGridView_Visits);
             MyDataGridView.AddHeaderToolTips(dataGridView_Visits, helpStrings);
         }
-        private void UpdateNameText(object sender, EventArgs e)
-        {
-            Text = @"Карточка Клиента:    " + _person.Name; // Имя формы
+        //private void UpdateNameText(object sender, EventArgs e)
+        //{
+        //    Text = @"Карточка Клиента:    " + _person.Name; // Имя формы
 
-            textBox_Name.Text = _person.Name;
-            Logic.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
+        //    textBox_Name.Text = _person.Name;
+        //    Logic.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
 
 
-            switch (_person.Status)
-            {
-                // Если Запрещен 
-                case StatusPerson.Запрещён:
-                    textBox_Name.Text = _person.Name;
-                    Logic.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
-                    return;
-                // Если Заморожен
-                case StatusPerson.Заморожен when _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA a && _person.Status != StatusPerson.Гостевой:
-                    {
-                        textBox_Name.ForeColor = Color.SeaGreen;
-                        var dateEnd = a.Freeze?.AllFreezes.Last().GetEndDate().Date.ToString("d");
-                        textBox_Name.Text = _person.Name + @"   (Заморожен До " + dateEnd + @" )";
-                        break;
-                    }
-                case StatusPerson.Активный:
-                    break;
-                case StatusPerson.Нет_Карты:
-                    break;
-                case StatusPerson.Гостевой:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+        //    switch (_person.Status)
+        //    {
+        //        // Если Запрещен 
+        //        case StatusPerson.Запрещён:
+        //            textBox_Name.Text = _person.Name;
+        //            Logic.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
+        //            return;
+        //        // Если Заморожен
+        //        case StatusPerson.Заморожен when _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA a && _person.Status != StatusPerson.Гостевой:
+        //            {
+        //                textBox_Name.ForeColor = Color.SeaGreen;
+        //                var dateEnd = a.Freeze?.AllFreezes.Last().GetEndDate().Date.ToString("d");
+        //                textBox_Name.Text = _person.Name + @"   (Заморожен До " + dateEnd + @" )";
+        //                break;
+        //            }
+        //        case StatusPerson.Активный:
+        //            break;
+        //        case StatusPerson.Нет_Карты:
+        //            break;
+        //        case StatusPerson.Гостевой:
+        //            break;
+        //        default:
+        //            throw new ArgumentOutOfRangeException();
+        //    }
 
-            // Заморозка запланирована в будущем
-            var card = _person.AbonementCurent as ClubCardA;
-            if (card?.Freeze != null && _person.Status != StatusPerson.Заморожен &&
-                _person.Status != StatusPerson.Гостевой)
-                if (card.Freeze.IsConfiguredForFuture())
-                {
-                    textBox_Name.ForeColor = Color.SeaGreen;
-                    textBox_Name.Text = _person.Name +
-                                        $@"   (Заморозка c {card.Freeze.GetFutureFreeze().StartDate.Date:d}, дней: {card.Freeze.GetDaysToFreeze()} )";
-                }
+        //    // Заморозка запланирована в будущем
+        //    var card = _person.AbonementCurent as ClubCardA;
+        //    if (card?.Freeze != null && _person.Status != StatusPerson.Заморожен &&
+        //        _person.Status != StatusPerson.Гостевой)
+        //        if (card.Freeze.IsConfiguredForFuture())
+        //        {
+        //            textBox_Name.ForeColor = Color.SeaGreen;
+        //            textBox_Name.Text = _person.Name +
+        //                                $@"   (Заморозка c {card.Freeze.GetFutureFreeze().StartDate.Date:d}, дней: {card.Freeze.GetDaysToFreeze()} )";
+        //        }
 
-            // Не Активирован
-            if (_person.IsAbonementExist() && !_person.AbonementCurent.IsActivated)
-            {
-                textBox_Name.ForeColor = Color.Green;
-                textBox_Name.Text = _person.Name + @"   (Не Активирован)";
-                button_Freeze.Enabled = false;
-            }
-            else
-            {
-                button_Freeze.Enabled = true;
-            }
-        }
+        //    // Не Активирован
+        //    if (_person.IsAbonementExist() && !_person.AbonementCurent.IsActivated)
+        //    {
+        //        textBox_Name.ForeColor = Color.Green;
+        //        textBox_Name.Text = _person.Name + @"   (Не Активирован)";
+        //        button_Freeze.Enabled = false;
+        //    }
+        //    else
+        //    {
+        //        button_Freeze.Enabled = true;
+        //    }
+        //}
         private List<Tuple<Label, Control>> CreateControlsFields(AbonementBasic currentAbon)
         {
             List<Tuple<Label, Control>> listResult;
@@ -507,7 +548,6 @@ namespace PersonsBase.View
             {
                 // Обновление всех полей и состояний
                 _person.UpdateActualStatus();
-                UpdateNameText(this, EventArgs.Empty);
                 Logic.LoadShortInfo(groupBox_Info, _person);
                 LoadEditableData();
                 UpdateControlState(this, EventArgs.Empty);
@@ -605,7 +645,6 @@ namespace PersonsBase.View
             Logic.LoadShortInfo(groupBox_Info, _person);
             LoadEditableData();
             UpdateControlState(this, EventArgs.Empty);
-            UpdateNameText(this, EventArgs.Empty);
         }
 
         private void button_Password_Click(object sender, EventArgs e)
