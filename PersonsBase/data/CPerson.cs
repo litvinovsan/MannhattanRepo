@@ -93,7 +93,10 @@ namespace PersonsBase.data
             get { return _name; }
             set
             {
-                _name = Logic.PrepareName(value);
+                var newName = Logic.PrepareName(value);
+                if (newName.Equals(_name)) return;
+
+                _name = newName;
                 OnNameChanged(_name);
             }
         }
@@ -102,7 +105,9 @@ namespace PersonsBase.data
             get { return _phone; }
             set
             {
-                _phone = string.IsNullOrEmpty(value) ? "" : value;
+                var newPhone = string.IsNullOrEmpty(value) ? "" : value;
+                if (_phone.Equals(newPhone)) return;
+                _phone = newPhone;
                 OnPhoneChanged(_phone);
             }
         }

@@ -37,6 +37,8 @@ namespace PersonsBase.View
             this.dateTimePicker_birthDate = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBox_Info = new System.Windows.Forms.TextBox();
             this.button_photo = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.button_CheckInWorkout = new System.Windows.Forms.Button();
@@ -74,6 +76,7 @@ namespace PersonsBase.View
             this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).BeginInit();
             this.groupBox_abonList.SuspendLayout();
@@ -90,12 +93,11 @@ namespace PersonsBase.View
             // 
             this.textBox_Name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_Name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox_Name.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox_Name.Location = new System.Drawing.Point(7, 2);
+            this.textBox_Name.Location = new System.Drawing.Point(2, 2);
             this.textBox_Name.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_Name.Name = "textBox_Name";
-            this.textBox_Name.Size = new System.Drawing.Size(1023, 32);
+            this.textBox_Name.Size = new System.Drawing.Size(499, 32);
             this.textBox_Name.TabIndex = 1;
             this.textBox_Name.Text = "ФИО";
             // 
@@ -129,13 +131,13 @@ namespace PersonsBase.View
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.tableLayoutPanel2);
             this.tabPage1.Controls.Add(this.button_photo);
             this.tabPage1.Controls.Add(this.flowLayoutPanel1);
             this.tabPage1.Controls.Add(this.pictureBox_ClientPhoto);
             this.tabPage1.Controls.Add(this.groupBox_abonList);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.groupBox_Info);
-            this.tabPage1.Controls.Add(this.textBox_Name);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
@@ -144,6 +146,32 @@ namespace PersonsBase.View
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Информация";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.31774F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.68226F));
+            this.tableLayoutPanel2.Controls.Add(this.textBox_Info, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.textBox_Name, 0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(10, 4);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1020, 36);
+            this.tableLayoutPanel2.TabIndex = 12;
+            // 
+            // textBox_Info
+            // 
+            this.textBox_Info.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_Info.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox_Info.Location = new System.Drawing.Point(505, 2);
+            this.textBox_Info.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_Info.Name = "textBox_Info";
+            this.textBox_Info.Size = new System.Drawing.Size(513, 32);
+            this.textBox_Info.TabIndex = 12;
+            this.textBox_Info.Text = "info";
             // 
             // button_photo
             // 
@@ -660,7 +688,8 @@ namespace PersonsBase.View
             this.Resize += new System.EventHandler(this.ClientForm_Resize);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).EndInit();
             this.groupBox_abonList.ResumeLayout(false);
@@ -736,5 +765,7 @@ namespace PersonsBase.View
       private FlowLayoutPanel flowLayoutPanel1;
         private TabPage tabPage3;
         private DataGridView dataGridView_Visits;
+        private TextBox textBox_Info;
+        private TableLayoutPanel tableLayoutPanel2;
     }
 }

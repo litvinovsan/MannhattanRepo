@@ -14,12 +14,15 @@ namespace PersonsBase.View
 {
     public partial class ClientForm : Form
     {
-        ///////////////// ОСНОВНЫЕ ОБЬЕКТЫ ////////////////////////////////
+        #region /// ОСНОВНЫЕ ОБЬЕКТЫ ///
         private readonly Logic _logic;
         private readonly Person _person;
         private bool _isAnythingChanged;
+        private AbonementBasic _curentAbonement;
 
-        ///////////////// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ////////////////////////////////
+        #endregion
+
+        #region /// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ///
         public ClientForm(string keyName)
         {
             InitializeComponent();
@@ -30,12 +33,11 @@ namespace PersonsBase.View
 
         private void ClientForm_Load(object sender, EventArgs e)
         {
+            // Заполнение стартовое всех полей
             LoadUserData();
             Logic.LoadShortInfo(groupBox_Info, _person);
-            LoadEditableData();
-
             Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto);
-
+            LoadEditableData();
             UpdateControlState(this, EventArgs.Empty);
             UpdateNameText(this, EventArgs.Empty);
             LoadListBoxQueue();
@@ -43,63 +45,33 @@ namespace PersonsBase.View
 
             // Подписка на События
             _saveDelegateChain += SaveUserData; // Цепочка Делегатов для сохранения измененных данных.
-            _person.StatusChanged += UpdateControlState;
-            _person.StatusChanged += UpdateNameText;
+            _person.NameChanged += _person_NameChanged;
+            //  _person.StatusChanged += UpdateControlState;
+            //  _person.StatusChanged += UpdateNameText;
             _person.PathToPhotoChanged += PathToPhotoChangedMethod;
+            _person.PhoneChanged += _person_PhoneChanged;
+            _person.PassportChanged += _person_PassportChanged;
+            _person.DriverIdChanged += _person_DriverIdChanged;
+            _person.PersonalNumberChanged += _person_PersonalNumberChanged;
+            _person.AbonementCurentChanged += _person_AbonementCurentChanged;
+
+
             PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
 
             // События Очередь абонементов
             if (_person.AbonementsQueue == null) _person.AbonementsQueue = new ObservableCollection<AbonementBasic>();
-            _person.AbonementsQueue.CollectionChanged +=
-                AbonementsQueue_CollectionChanged; // Список Абонементов. Если изменился
+            _person.AbonementsQueue.CollectionChanged += AbonQueueChanged; // Список Абонементов. Если изменился
             _person.AbonementsQueue.CollectionChanged += ShowAbonementList;
 
-            _person.AbonementCurentChanged += UpdateNameText;//FIXME  протестировать это место
 
 
-            // На всякий случай, может уменьшит мерцание
-            tabControl1.DoubleBuffered(true);
-            groupBox_Info.DoubleBuffered(true);
-            groupBox_Detailed.DoubleBuffered(true);
+            //// На всякий случай, может уменьшит мерцание
+            //tabControl1.DoubleBuffered(true);
+            //groupBox_Info.DoubleBuffered(true);
+            //groupBox_Detailed.DoubleBuffered(true);
         }
 
-        /// <summary>
-        /// Включаются|Отключаются различные контролы на форме если был введен пароль руководителя
-        /// </summary>
-        private void PwdForm_LockChangedEvent()
-        {
-            if (PwdForm.IsPassUnLocked())
-            {
-                button_RemoveCurrentAbon.Visible = true;
-                button__remove_abon.Enabled = true;
-                // Например, админ должен менять статус оплаты
-                textBox_Number.Enabled = true;
-            }
-            else
-            {
-                button_RemoveCurrentAbon.Visible = false;
-                button__remove_abon.Enabled = false;
-                // Например, админ должен менять статус оплаты
-                textBox_Number.Enabled = false;
-            }
-            LoadEditableData();
-            Logic.ClearSelection(groupBox_Detailed);
-            Invalidate();
-        }
 
-        /// <summary>
-        /// Заполняет ЛистБокс с списком Абонементов КЛиента из очереди абонементов.Только отображение
-        /// </summary>
-        private void LoadListBoxQueue()
-        {
-            if (_person.AbonementsQueue == null) return;
-            var list = new List<string>();
-            foreach (var x in _person.AbonementsQueue) list.Add(x.AbonementName);
-
-            listBox_abonements.Items.AddRange(list.ToArray<object>());
-            // Отображение Группы списка абонементов
-            groupBox_abonList.Visible = list.Count > 0;
-        }
 
         private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -123,9 +95,56 @@ namespace PersonsBase.View
             // Блокируем админскую учетку на всякий случай
             PwdForm.LockPassword();
         }
+        #endregion
 
-        //////////// ЛОГИКА ФОРМЫ ////////////////////////////////////////////////////////
-        private void AbonementsQueue_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        #region /// ОБРАБОТЧИКИ ПОДПИСОК ///
+
+        private void _person_AbonementCurentChanged(object sender, EventArgs e)
+        {
+            _curentAbonement = _person.AbonementCurent;
+
+        }
+
+        private void _person_PersonalNumberChanged(object sender, int e)
+        {
+            if (!textBox_Number.Text.Equals(_person.PersonalNumber.ToString()))
+                textBox_Number.Text = _person.PersonalNumber.ToString();
+            Logic.SetControlBackColor(textBox_Number, _person.PersonalNumber.ToString(), textBox_Number.Text);
+        }
+
+        private void _person_DriverIdChanged(object sender, string e)
+        {
+            if (!maskedTextBox_DriverID.Text.Equals(_person.DriverIdNum))
+                maskedTextBox_DriverID.Text = _person.DriverIdNum;
+            Logic.SetControlBackColor(maskedTextBox_DriverID, _editedDriveId, _person.DriverIdNum);
+        }
+        private void _person_PassportChanged(object sender, string e)
+        {
+            if (!maskedTextBox_Passport.Text.Equals(_person.Passport))
+                maskedTextBox_Passport.Text = _person.Passport;
+            Logic.SetControlBackColor(maskedTextBox_Passport, _editedPassport, _person.Passport);
+        }
+        private void _person_NameChanged(object sender, string e)
+        {
+            Text = @"Карточка Клиента:    " + _person.Name; // Имя формы
+            textBox_Name.Text = _person.Name;
+            Logic.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
+        }
+        private void _person_PhoneChanged(object sender, string e)
+        {
+            if (!maskedTextBox_PhoneNumber.Text.Equals(_person.Phone))
+                maskedTextBox_PhoneNumber.Text = _person.Phone;
+            Logic.SetControlBackColor(maskedTextBox_PhoneNumber, maskedTextBox_PhoneNumber.Text, _person.Phone);
+        }
+        // Список абонементов в очереди
+        private void ShowAbonementList(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            groupBox_abonList.Visible = _person.AbonementsQueue.Count > 0;
+        }
+        /// <summary>
+        /// Добавление и удаление абонементов из Листбокса на форме если изменилась очередь
+        /// </summary>
+        private void AbonQueueChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
@@ -145,107 +164,62 @@ namespace PersonsBase.View
                     throw new ArgumentOutOfRangeException();
             }
         }
-
-        private void UpdateControlState(object sender, EventArgs arg)
+        /// <summary>
+        /// Включаются|Отключаются различные контролы на форме если был введен пароль руководителя
+        /// </summary>
+        private void PwdForm_LockChangedEvent()
         {
-            // Различные изменения, которые зависят от СТАТУСА клиента.
-            Action myDelegate = delegate
+            if (PwdForm.IsPassUnLocked())
             {
-                // По умолчанию для всех карт
-                button_add_dop_tren.Visible = false;
-                button_CheckInWorkout.Visible = false;
-                button_Freeze.Visible = false;
-                button_Add_Abon.Enabled = true;
-                // Вкл/Выкл Кнопки ЗАМОРОЗКА и ПОСЕЩЕНИЕ если проблемы с абонементом
-                switch (_person.UpdateActualStatus())
-                {
-                    case StatusPerson.Активный:
-                        {
-                            button_CheckInWorkout.Visible = true;
-
-                            // Кнопка Заморозка Клубной Карты
-                            if (_person.AbonementCurent is ClubCardA a &&
-                                a.PeriodAbonem != PeriodClubCard.На_1_Месяц)
-                            {
-                                button_Freeze.Visible = true;
-                            }
-                            // Кнопка Добавить для Клубной Карты
-                            button_add_dop_tren.Visible = (_person.AbonementCurent is ClubCardA);
-
-                            break;
-                        }
-                    case StatusPerson.Нет_Карты:
-                        {
-                            break;
-                        }
-                    case StatusPerson.Заморожен:
-                        {
-                            button_Add_Abon.Enabled = false;
-                            button_Freeze.Visible = _person.IsAbonementExist();
-                            break;
-                        }
-                    case StatusPerson.Гостевой:
-                        {
-                            button_Add_Abon.Enabled = true;
-                            break;
-                        }
-                    case StatusPerson.Запрещён:
-                        {
-                            button_Add_Abon.Enabled = false;
-                            break;
-                        }
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            };
-
-            if (InvokeRequired)
-                Invoke(myDelegate);
+                button_RemoveCurrentAbon.Visible = true;
+                button__remove_abon.Enabled = true;
+                // Например, админ должен менять статус оплаты
+                textBox_Number.Enabled = true;
+            }
             else
-                myDelegate();
+            {
+                button_RemoveCurrentAbon.Visible = false;
+                button__remove_abon.Enabled = false;
+                // Например, админ должен менять статус оплаты
+                textBox_Number.Enabled = false;
+            }
+            LoadEditableData();
+            Logic.ClearSelection(groupBox_Detailed);
+            Invalidate();
         }
-
-        private void ShowAbonementList(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            groupBox_abonList.Visible = _person.AbonementsQueue.Count > 0;
-        }
-
         private void PathToPhotoChangedMethod(object sender, EventArgs e)
         {
             Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto);
         }
+        #endregion
 
-        // Сохранение данных 
-        private void SaveData()
+        #region  /// МЕТОДЫ
+
+        /// <summary>
+        /// Заполняет ЛистБокс с списком Абонементов КЛиента из очереди абонементов.Только отображение
+        /// </summary>
+        private void LoadListBoxQueue()
         {
-            _saveDelegateChain?.Invoke(); //Цепочка делегатов на сохранение всех полей
-            _isAnythingChanged = false;
-            _typeClubCardChanged = false;
+            if (_person.AbonementsQueue == null) return;
+            var list = new List<string>();
+            foreach (var x in _person.AbonementsQueue) list.Add(x.AbonementName);
+
+            listBox_abonements.Items.AddRange(list.ToArray<object>());
+            // Отображение Группы списка абонементов
+            groupBox_abonList.Visible = list.Count > 0;
         }
-
-        /////////// ДАННЫЕ АБОНЕМЕНТА И КЛИЕНТА /////////////////////////////
-
-        // Загрузка Данных
         private void LoadUserData()
         {
             // Загружаем данные на Вкладку Редактирование, в Группу Персональных данных
 
             _person.UpdateActualStatus(); // Обновляем текущий статус
-                                          // Имя Клиента на форме.
-                                          // UpdateNameText();
 
             // Телефон
             maskedTextBox_PhoneNumber.Text = _person.Phone;
-            Logic.SetControlBackColor(maskedTextBox_PhoneNumber, maskedTextBox_PhoneNumber.Text, _person.Phone);
-
             // Паспорт
             maskedTextBox_Passport.Text = _person.Passport;
-            Logic.SetControlBackColor(maskedTextBox_Passport, _editedPassport, _person.Passport);
-
             // Права
             maskedTextBox_DriverID.Text = _person.DriverIdNum;
-            Logic.SetControlBackColor(maskedTextBox_DriverID, _editedDriveId, _person.DriverIdNum);
-
             // Персональный Номер
             textBox_Number.Text = _person.PersonalNumber.ToString();
 
@@ -264,12 +238,24 @@ namespace PersonsBase.View
             var gendSelected = _person.GenderType.ToString();
             MyComboBox.Initialize(comboBox_Gender, gendRange, gendSelected);
 
-
             // Особые Отметки
             textBox_Notes.Text = _person.SpecialNotes;
             _editedSpecialNote = _person.SpecialNotes;
         }
 
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+        #region // Хелп Методы для Загрузки и обновления пользовательских данных
         private void LoadEditableData()
         {
             // Данные подробные,разрешено редактирование через события.
@@ -310,9 +296,6 @@ namespace PersonsBase.View
             MyDataGridView.ImplementStyle(dataGridView_Visits);
             MyDataGridView.AddHeaderToolTips(dataGridView_Visits, helpStrings);
         }
-
-        #region // Хелп Методы для Загрузки и обновления пользовательских данных
-
         private void UpdateNameText(object sender, EventArgs e)
         {
             Text = @"Карточка Клиента:    " + _person.Name; // Имя формы
@@ -448,9 +431,73 @@ namespace PersonsBase.View
 
             return list;
         }
+        private void UpdateControlState(object sender, EventArgs arg)
+        {
+            // Различные изменения, которые зависят от СТАТУСА клиента.
+            void MyDelegate()
+            {
+                // По умолчанию для всех карт
+                button_add_dop_tren.Visible = false;
+                button_CheckInWorkout.Visible = false;
+                button_Freeze.Visible = false;
+                button_Add_Abon.Enabled = true;
+                // Вкл/Выкл Кнопки ЗАМОРОЗКА и ПОСЕЩЕНИЕ если проблемы с абонементом
+                switch (_person.UpdateActualStatus())
+                {
+                    case StatusPerson.Активный:
+                        {
+                            button_CheckInWorkout.Visible = true;
 
+                            // Кнопка Заморозка Клубной Карты
+                            if (_person.AbonementCurent is ClubCardA a && a.PeriodAbonem != PeriodClubCard.На_1_Месяц)
+                            {
+                                button_Freeze.Visible = true;
+                            }
+
+                            // Кнопка Добавить для Клубной Карты
+                            button_add_dop_tren.Visible = (_person.AbonementCurent is ClubCardA);
+
+                            break;
+                        }
+                    case StatusPerson.Нет_Карты:
+                        {
+                            break;
+                        }
+                    case StatusPerson.Заморожен:
+                        {
+                            button_Add_Abon.Enabled = false;
+                            button_Freeze.Visible = _person.IsAbonementExist();
+                            break;
+                        }
+                    case StatusPerson.Гостевой:
+                        {
+                            button_Add_Abon.Enabled = true;
+                            break;
+                        }
+                    case StatusPerson.Запрещён:
+                        {
+                            button_Add_Abon.Enabled = false;
+                            break;
+                        }
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            if (InvokeRequired)
+                Invoke((Action)MyDelegate);
+            else
+                MyDelegate();
+        }
+        private void SaveData()
+        {
+            _saveDelegateChain?.Invoke(); //Цепочка делегатов на сохранение всех полей
+            _isAnythingChanged = false;
+            _typeClubCardChanged = false;
+        }
         #endregion
-        //////////// СТАНДАРТНЫЕ ОБРАБОТЧИКИ ///////////////////////////////////////////////
+
+        #region /// СТАНДАРТНЫЕ ОБРАБОТЧИКИ ////
 
         private void button_CheckInWorkout_Click(object sender, EventArgs e)
         {
@@ -480,7 +527,6 @@ namespace PersonsBase.View
         private void button_SavePersonalData_Click(object sender, EventArgs e)
         {
             SaveData();
-            LoadUserData();
             Logic.LoadShortInfo(groupBox_Info, _person);
             UpdateEditableData();
 
@@ -583,7 +629,6 @@ namespace PersonsBase.View
                 FormsRunner.RunFreezeForm(_person.Name);
             }
 
-            LoadUserData();
             Logic.LoadShortInfo(groupBox_Info, _person);
             UpdateEditableData();
         }
@@ -593,5 +638,6 @@ namespace PersonsBase.View
             var success = Photo.OpenPhoto(out var img);
             if (success) _person.PathToPhoto = Photo.SaveToPhotoDir(img, _person.Name);
         }
+        #endregion
     }
 }
