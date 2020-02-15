@@ -102,10 +102,10 @@ namespace PersonsBase.data
             reportRowsList.Add(new DataGridItem("МиниГруп.", numMiniGr, "Остаток Мини Групп"));
             reportRowsList.Add(new DataGridItem("Спа", SpaStatus.ToString().Replace("_", " "), "Разрешена ли Спа зона"));
             reportRowsList.Add(new DataGridItem("Тренер", trenerName, "Имя Тренера, проводившего тренировку. Если известно"));
-            reportRowsList.Add(new DataGridItem("Расписание Группы", groupTimeNameInfo, "Название и время Групповой тренировки. Если известно."));
-            reportRowsList.Add(new DataGridItem("Администратор", CurrAdmName, "Администратор в клубе на момент посещения"));
-            reportRowsList.Add(new DataGridItem("Покупка абонем.", $"{AbonStartDate:d}", "Дата Покупки абонемента"));
-            reportRowsList.Add(new DataGridItem("Конец абонем.", $"{AbonEndDate:d}", "Дата Конеца абонемента"));
+            reportRowsList.Add(new DataGridItem("Расписание", groupTimeNameInfo, "Название и время Групповой тренировки. Если известно."));
+            reportRowsList.Add(new DataGridItem("Админ.", CurrAdmName, "Администратор в клубе на момент посещения"));
+            reportRowsList.Add(new DataGridItem("Покупка А.", $"{AbonStartDate:d}", "Дата Покупки абонемента"));
+            reportRowsList.Add(new DataGridItem("Конец А.", $"{AbonEndDate:d}", "Дата Конеца абонемента"));
 
             return reportRowsList;
         }

@@ -63,9 +63,9 @@
             this.textBox_FiO = new System.Windows.Forms.TextBox();
             this.tabPage_settings = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.checkBox_CorrectOnCreateAbon = new System.Windows.Forms.CheckBox();
             this.checkBox_SimpsonPhoto = new System.Windows.Forms.CheckBox();
             this.checkBox_Passp_Drive = new System.Windows.Forms.CheckBox();
-            this.checkBox_CorrectOnCreateAbon = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -519,6 +519,17 @@
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Вкл/Откл опций";
             // 
+            // checkBox_CorrectOnCreateAbon
+            // 
+            this.checkBox_CorrectOnCreateAbon.AutoSize = true;
+            this.checkBox_CorrectOnCreateAbon.Location = new System.Drawing.Point(6, 76);
+            this.checkBox_CorrectOnCreateAbon.Name = "checkBox_CorrectOnCreateAbon";
+            this.checkBox_CorrectOnCreateAbon.Size = new System.Drawing.Size(385, 21);
+            this.checkBox_CorrectOnCreateAbon.TabIndex = 1;
+            this.checkBox_CorrectOnCreateAbon.Text = "Разрешить корректировку при создании Абонемента ";
+            this.checkBox_CorrectOnCreateAbon.UseVisualStyleBackColor = true;
+            this.checkBox_CorrectOnCreateAbon.CheckedChanged += new System.EventHandler(this.checkBox_CorrectOnCreateAbon_CheckedChanged);
+            // 
             // checkBox_SimpsonPhoto
             // 
             this.checkBox_SimpsonPhoto.AutoSize = true;
@@ -535,22 +546,11 @@
             this.checkBox_Passp_Drive.AutoSize = true;
             this.checkBox_Passp_Drive.Location = new System.Drawing.Point(6, 22);
             this.checkBox_Passp_Drive.Name = "checkBox_Passp_Drive";
-            this.checkBox_Passp_Drive.Size = new System.Drawing.Size(357, 21);
+            this.checkBox_Passp_Drive.Size = new System.Drawing.Size(350, 21);
             this.checkBox_Passp_Drive.TabIndex = 0;
-            this.checkBox_Passp_Drive.Text = "Учитывать Пасспорт и Права в создании клиента";
+            this.checkBox_Passp_Drive.Text = "Учитывать Паспорт и Права в создании клиента";
             this.checkBox_Passp_Drive.UseVisualStyleBackColor = true;
             this.checkBox_Passp_Drive.CheckedChanged += new System.EventHandler(this.checkBox_Passp_Drive_CheckedChanged);
-            // 
-            // checkBox_CorrectOnCreateAbon
-            // 
-            this.checkBox_CorrectOnCreateAbon.AutoSize = true;
-            this.checkBox_CorrectOnCreateAbon.Location = new System.Drawing.Point(6, 76);
-            this.checkBox_CorrectOnCreateAbon.Name = "checkBox_CorrectOnCreateAbon";
-            this.checkBox_CorrectOnCreateAbon.Size = new System.Drawing.Size(385, 21);
-            this.checkBox_CorrectOnCreateAbon.TabIndex = 1;
-            this.checkBox_CorrectOnCreateAbon.Text = "Разрешить корректировку при создании Абонемента ";
-            this.checkBox_CorrectOnCreateAbon.UseVisualStyleBackColor = true;
-            this.checkBox_CorrectOnCreateAbon.CheckedChanged += new System.EventHandler(this.checkBox_CorrectOnCreateAbon_CheckedChanged);
             // 
             // BossForm
             // 

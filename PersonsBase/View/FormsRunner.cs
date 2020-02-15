@@ -94,7 +94,7 @@ namespace PersonsBase.View
             if (abon == null) return DialogResult.Cancel;
 
             optionsWorkout.TypeWorkout = abon.TypeWorkout; // Значение по умолчанию
-
+                // установка праметров и выход в свитче
             switch (abon)
             {
                 case ClubCardA clubCardA:
@@ -122,7 +122,7 @@ namespace PersonsBase.View
                         return DialogResult.OK;
                     }
             }
-
+            // если не вышли , то запуск формы опций
             var workoutForm = new WorkoutForm(personName);
 
             var dlgReult = workoutForm.ShowDialog();
