@@ -30,9 +30,11 @@ namespace PersonsBase.View
             _schedule = manhattanInfo.Schedule;
 
             // Скрываем Панели с РадиоБатоннами
-            panel_tren.Visible = (!(abonement is SingleVisit)) || ((abonement.NumAerobicTr != 0) || (abonement.NumPersonalTr != 0));
+            panel_tren.Visible = ((abonement is ClubCardA) || abonement is AbonementByDays) || ((abonement.NumAerobicTr != 0) || (abonement.NumPersonalTr != 0));
             panel_aero.Visible = (abonement.TypeWorkout == TypeWorkout.Аэробный_Зал || (abonement.NumAerobicTr != 0));
             panel_personal.Visible = (abonement.TypeWorkout == TypeWorkout.Персональная || (abonement.NumPersonalTr != 0));
+            //
+            panel_tren.Visible = !((abonement is AbonementByDays) && abonement.TypeWorkout == TypeWorkout.МиниГруппа);
 
             var isMiniGrClubCard = ((abonement is ClubCardA) && abonement.NumMiniGroup > 0);
             var isMiniGrByDays = ((abonement is AbonementByDays) && abonement.GetRemainderDays() > 0 && abonement.TypeWorkout == TypeWorkout.МиниГруппа);

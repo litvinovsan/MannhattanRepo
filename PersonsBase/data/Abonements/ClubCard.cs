@@ -10,7 +10,7 @@ namespace PersonsBase.data.Abonements
         // Свойства
         private int _numberMonths;
         private PeriodClubCard _periodAbonem;
-        public FreezeClass Freeze;
+     
         public const string NameAbonement = "Клубная Карта";
 
         // Конструктор
