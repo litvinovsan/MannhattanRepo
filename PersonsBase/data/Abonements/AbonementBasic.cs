@@ -36,7 +36,7 @@ namespace PersonsBase.data.Abonements
         public TimeForTr TimeTraining;       // Время занятий
         public TypeWorkout TypeWorkout;    // Доступные тренировки
         public DateTime BuyActivationDate;             // Дата покупки// Дата активации
-
+        public FreezeClass Freeze;
         public bool IsActivated;             // Активирован? Дата окончания отсчитывается с момента
         protected int DaysLeft { get; set; }  //Дней до конца абонемента, от активации,т.е. с первого посещения. 
 

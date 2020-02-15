@@ -18,7 +18,6 @@ namespace PersonsBase.View
         private readonly Logic _logic;
         private readonly Person _person;
         private bool _isAnythingChanged;
-        private AbonementBasic _curentAbonement;
 
         #endregion
 
@@ -31,12 +30,6 @@ namespace PersonsBase.View
             _logic = Logic.GetInstance();
         }
 
-        public AbonementBasic CurentAbonement
-        {
-            get { return _curentAbonement; }
-            set { _curentAbonement = value; }
-        }
-
         private void ClientForm_Load(object sender, EventArgs e)
         {
             // Заполнение стартовое всех полей
@@ -45,22 +38,26 @@ namespace PersonsBase.View
             Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto);
             LoadEditableData();
             UpdateControlState(this, EventArgs.Empty);
-            _person_AbonementCurentChanged(this, EventArgs.Empty);
+            CurentAbonementChanged(this, EventArgs.Empty);
+            UpdateInfoTextBoxField(this, EventArgs.Empty);
             LoadListBoxQueue();
             SetupVisitsDataGridView();
 
             // Подписка на События
             _saveDelegateChain += SaveUserData; // Цепочка Делегатов для сохранения измененных данных.
             _person.NameChanged += _person_NameChanged;
-            //  _person.StatusChanged += UpdateControlState;
-            //  _person.StatusChanged += UpdateNameText;
             _person.PathToPhotoChanged += PathToPhotoChangedMethod;
             _person.PhoneChanged += _person_PhoneChanged;
             _person.PassportChanged += _person_PassportChanged;
             _person.DriverIdChanged += _person_DriverIdChanged;
             _person.PersonalNumberChanged += _person_PersonalNumberChanged;
-            _person.AbonementCurentChanged += _person_AbonementCurentChanged;
+            _person.AbonementCurentChanged += CurentAbonementChanged;
 
+            //
+            // _person.StatusChanged += UpdateControlState;
+            _person.StatusChanged += UpdateInfoTextBoxField;
+            _person.StatusChanged += updateControls;
+            //
 
             PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
 
@@ -68,13 +65,6 @@ namespace PersonsBase.View
             if (_person.AbonementsQueue == null) _person.AbonementsQueue = new ObservableCollection<AbonementBasic>();
             _person.AbonementsQueue.CollectionChanged += AbonQueueChanged; // Список Абонементов. Если изменился
             _person.AbonementsQueue.CollectionChanged += ShowAbonementList;
-
-
-
-            //// На всякий случай, может уменьшит мерцание
-            //tabControl1.DoubleBuffered(true);
-            //groupBox_Info.DoubleBuffered(true);
-            //groupBox_Detailed.DoubleBuffered(true);
         }
 
 
@@ -105,10 +95,65 @@ namespace PersonsBase.View
 
         #region /// ОБРАБОТЧИКИ ПОДПИСОК ///
 
-        private void _person_AbonementCurentChanged(object sender, EventArgs e)
+        // Информационное текстовое поле
+        private void UpdateInfoTextBoxField(object sender, EventArgs e)
         {
-            CurentAbonement = _person.AbonementCurent;
-            switch (CurentAbonement)
+            switch (_person?.Status)
+            {
+                case StatusPerson.Активный:
+                    textBox_Info.Text = @"";
+                    textBox_Info.ForeColor = Color.SeaGreen;
+                    // Заморозка запланирована в будущем
+                    if (_person?.AbonementCurent?.Freeze != null && _person?.Status != StatusPerson.Заморожен && _person.Status != StatusPerson.Гостевой)
+                        if (_person.AbonementCurent.Freeze.IsConfiguredForFuture())
+                        {
+                            textBox_Info.Text = $@"Заморозка c {_person.AbonementCurent.Freeze.GetFutureFreeze().StartDate.Date:d}, дней: {_person.AbonementCurent.Freeze.GetDaysToFreeze()}";
+                        }
+                    break;
+                case StatusPerson.Нет_Карты:
+                    {
+                        textBox_Info.Text = @"Нет Карты";
+                        textBox_Info.ForeColor = Color.DarkRed;
+                        break;
+                    }
+                case StatusPerson.Заморожен:
+                    {
+                        textBox_Info.ForeColor = Color.SeaGreen;
+                        if (_person.IsAbonementExist() && _person.AbonementCurent?.Freeze != null &&
+                            _person.Status != StatusPerson.Гостевой)
+                        {
+                            var dateEnd = _person.AbonementCurent.Freeze?.AllFreezes.Last().GetEndDate().Date.ToString("d");
+                            textBox_Info.Text = @"Заморожен до " + dateEnd;
+                        }
+                        break;
+                    }
+                case StatusPerson.Гостевой:
+                    textBox_Info.Text = @"Был Гостевой визит";
+                    textBox_Info.ForeColor = Color.SeaGreen;
+                    break;
+                case StatusPerson.Запрещён:
+                    textBox_Info.Text = StatusPerson.Запрещён.ToString();
+                    textBox_Info.ForeColor = Color.DarkRed;
+                    break;
+                case null:
+                    break;
+                default:
+                    break;
+            }
+
+
+        }
+
+        // Кнопки
+        private void updateControls(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CurentAbonementChanged(object sender, EventArgs e)
+        {
+
+            switch (_person.AbonementCurent)
             {
                 case AbonementByDays byDays:
                     {
@@ -116,14 +161,8 @@ namespace PersonsBase.View
                     }
                 case ClubCardA clubCardA:
                     {
-                        
-                        // Заморозка запланирована в будущем
-                        if (clubCardA.Freeze != null && _person.Status != StatusPerson.Заморожен && _person.Status != StatusPerson.Гостевой)
-                            if (clubCardA.Freeze.IsConfiguredForFuture())
-                            {
-                                textBox_Name.ForeColor = Color.SeaGreen;
-                                textBox_Info.Text = $@"Заморозка c {clubCardA.Freeze.GetFutureFreeze().StartDate.Date:d}, дней: {clubCardA.Freeze.GetDaysToFreeze()}";
-                            }
+
+
                         break;
                     }
                 case SingleVisit singleVisit:
@@ -252,9 +291,7 @@ namespace PersonsBase.View
         private void LoadUserData()
         {
             // Загружаем данные на Вкладку Редактирование, в Группу Персональных данных
-
             _person.UpdateActualStatus(); // Обновляем текущий статус
-
             // Телефон
             maskedTextBox_PhoneNumber.Text = _person.Phone;
             // Паспорт
