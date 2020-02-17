@@ -91,9 +91,10 @@ namespace PersonsBase.View
             // 
             // textBox_Name
             // 
-            this.textBox_Name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_Name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox_Name.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox_Name.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox_Name.ForeColor = System.Drawing.Color.DarkBlue;
             this.textBox_Name.Location = new System.Drawing.Point(2, 2);
             this.textBox_Name.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_Name.Name = "textBox_Name";
@@ -163,8 +164,8 @@ namespace PersonsBase.View
             // 
             // textBox_Info
             // 
-            this.textBox_Info.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_Info.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox_Info.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox_Info.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox_Info.Location = new System.Drawing.Point(505, 2);
             this.textBox_Info.Margin = new System.Windows.Forms.Padding(2);
@@ -172,6 +173,7 @@ namespace PersonsBase.View
             this.textBox_Info.Size = new System.Drawing.Size(513, 32);
             this.textBox_Info.TabIndex = 12;
             this.textBox_Info.Text = "info";
+            this.textBox_Info.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // button_photo
             // 
@@ -679,7 +681,7 @@ namespace PersonsBase.View
             this.Controls.Add(this.tabControl1);
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.MinimumSize = new System.Drawing.Size(1065, 761);
+            this.MinimumSize = new System.Drawing.Size(1065, 726);
             this.Name = "ClientForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Карточка Клиента";

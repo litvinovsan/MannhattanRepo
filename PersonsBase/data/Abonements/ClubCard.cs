@@ -56,16 +56,16 @@ namespace PersonsBase.data.Abonements
             set
             {
                 if (value >= 0 && value <= _numberMonths * 10) _numAerobicTr = value;
+                OnValuesChanged();
             }
         }
-
-        public sealed override int NumPersonalTr { get; set; }
 
         private void CalculateDaysLeft(object sender, EventArgs e)
         {
             var numFreezDays = 0;
             if (Freeze != null) numFreezDays = Freeze.GetSpentDays(); //Вычитаем дни заморозки
             DaysLeft = (EndDate.Date - DateTime.Now.Date).Days - numFreezDays;
+            OnValuesChanged();
         }
 
         // Методы
@@ -87,6 +87,7 @@ namespace PersonsBase.data.Abonements
             if (IsActivated) return; // Уже Активирован.
             IsActivated = true;
             SetNewEndDate();
+            OnValuesChanged();
         }
         /// <summary>
         /// Для абонементов которые на половину исхожены. Позволяет установить дату активации в прошлом и пересчитать
@@ -97,6 +98,7 @@ namespace PersonsBase.data.Abonements
             if (IsActivated) return; // Уже Активирован.
             IsActivated = true;
             SetNewEndDate(dateInPast);
+            OnValuesChanged();
         }
 
         public override bool CheckInWorkout(TypeWorkout type)
@@ -143,10 +145,11 @@ namespace PersonsBase.data.Abonements
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
-
+            OnValuesChanged();
             return result;
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Добавить Блок Персональных или Аэробных тренировок к Клубной Карте
         /// </summary>
@@ -186,7 +189,7 @@ namespace PersonsBase.data.Abonements
                         break;
                     }
             }
-
+            OnValuesChanged();
             return result;
         }
 
@@ -235,6 +238,7 @@ namespace PersonsBase.data.Abonements
             var date = DateTime.Now.AddMonths(_numberMonths).Date;
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
+            OnValuesChanged();
         }
         private void SetNewEndDate(DateTime startDate)
         {
@@ -247,7 +251,7 @@ namespace PersonsBase.data.Abonements
             var date = startDate.AddMonths(_numberMonths).Date;
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = date;
-
+            OnValuesChanged();
         }
 
         public PeriodClubCard GetTypeClubCard()
@@ -259,6 +263,7 @@ namespace PersonsBase.data.Abonements
         {
             PeriodAbonem = newTypeCc;
             SetNewEndDate();
+            OnValuesChanged();
         }
     }
 }

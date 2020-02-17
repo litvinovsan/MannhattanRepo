@@ -87,7 +87,6 @@ namespace PersonsBase.data
 
         #region/// ПУБЛИЧНЫЕ ПОЛЯ, ДОСТУПНЫЕ ДАННЫЕ О КЛИЕНТЕ ////////////
 
-        // FIXME Добавить проверку, вызывать событие только тогда когда значение отличается от текущего.
         public string Name
         {
             get { return _name; }
@@ -167,6 +166,7 @@ namespace PersonsBase.data
             }
             set
             {
+                if (_status == value) return;
                 _status = value;
                 OnStatusChanged();
             }
@@ -190,7 +190,10 @@ namespace PersonsBase.data
             set
             {
                 if (UpdateQueue(value))
+                {
+                    // StatusDirector();
                     OnAbonementCurentChanged();
+                }
             }
         }
         public Gender GenderType
@@ -210,7 +213,7 @@ namespace PersonsBase.data
         {
             Name = nameFio;
             PersonalNumber = 0;
-            Status = StatusPerson.Нет_Карты;
+            _status = StatusPerson.Нет_Карты;
             GenderType = Gender.Неизвестен;
             BirthDate = DateTime.Parse("02.02.2000");
             Passport = string.Empty;
@@ -227,7 +230,7 @@ namespace PersonsBase.data
         {
             Name = "Empty Name";
             PersonalNumber = 0;
-            Status = StatusPerson.Нет_Карты;
+            _status = StatusPerson.Нет_Карты;
             GenderType = Gender.Неизвестен;
             BirthDate = DateTime.Parse("02.02.2000");
             Passport = string.Empty;
@@ -245,39 +248,44 @@ namespace PersonsBase.data
 
         #region /// МЕТОДЫ  ///////////////////////////
 
-        // Публичные
-        public StatusPerson UpdateActualStatus()
+
+
+        private void StatusDirector()
         {
-            //Обновляем статус клиента.
-            if (Status == StatusPerson.Запрещён) return Status;
-
-            if (AbonementCurent != null)
+            if (Status == StatusPerson.Запрещён)
             {
-                if (AbonementCurent.IsValid())
-                {
-                    var clubCard = _abonementCurent as ClubCardA;
-                    if (clubCard?.Freeze != null)
-                    {
-                        _status = clubCard.Freeze.IsFreezedNow() ? StatusPerson.Заморожен : StatusPerson.Активный;
-                    }
+                AbonementCurent = null;
+                return;
+            }
 
-                    if (_status != StatusPerson.Заморожен)
-                    {
-                        _status = StatusPerson.Активный;
-                    }
-                }
-                else // Кончился Абонемент
-                {
-                    _status = StatusPerson.Нет_Карты;
-                    // FIXME Надо придумать способ когда нужно удалять абонемент
-                    // AbonementCurent = null;
-                }
+            if (Status == StatusPerson.Гостевой)
+            {
+                if (AbonementCurent == null) return;
+            }
+
+            // Нет Карты
+            if (AbonementCurent == null)
+            {
+                Status = StatusPerson.Нет_Карты;
+                return;
+            }
+
+            // Активный
+            if (AbonementCurent != null && AbonementCurent.IsValid())
+            {
+                Status = AbonementCurent.Freeze != null && AbonementCurent.Freeze.IsFreezedNow() ? StatusPerson.Заморожен : StatusPerson.Активный;
             }
             else
             {
-                if (Status == StatusPerson.Активный || Status == StatusPerson.Заморожен) _status = StatusPerson.Нет_Карты;
+                Status = StatusPerson.Нет_Карты;
+                _abonementCurent = null;
             }
-            return Status;
+        }
+
+        public void AbonValuesChanged(object sender, EventArgs e)
+        {
+            StatusDirector();
+            OnAbonementCurentChanged();
         }
 
         #endregion
@@ -285,8 +293,8 @@ namespace PersonsBase.data
         #region /// АБОНЕМЕНТ МЕТОДЫ ///
 
         public bool IsAbonementExist()
-        {// FIXME сделать тут проверку валидности абонемента по всем полям. Дата,занятия,дни
-            return AbonementCurent != null;
+        {
+            return AbonementCurent != null && AbonementCurent.IsValid();
         }
 
         private bool UpdateQueue(AbonementBasic newAbonementValue)

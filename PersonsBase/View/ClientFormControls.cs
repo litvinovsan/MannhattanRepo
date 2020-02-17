@@ -82,15 +82,12 @@ namespace PersonsBase.View
             {
                 if (_editedStatusPerson != _person.Status)
                 {
-                    _person.StatusChanged -= UpdateControlState;
-
                     // Костыль для того чтобы изменение Ручками сбрасывало заморозку
                     if (_editedStatusPerson == StatusPerson.Активный && _person.Status == StatusPerson.Заморожен && (_person.AbonementCurent is ClubCardA a))
                     {
                         a.Freeze.RemoveLast();
                     }
                     _person.Status = _editedStatusPerson;
-                    _person.StatusChanged += UpdateControlState;
                     ComboBoxColor(comboStatus, _person.Status.ToString(), _editedStatusPerson.ToString());
                     _person.OnStatusChanged();
                 }

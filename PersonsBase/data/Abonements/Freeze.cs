@@ -76,6 +76,26 @@ namespace PersonsBase.data.Abonements
 
         #endregion
 
+        #region /// СОБЫТИЯ ///
+        [field: NonSerialized] public event EventHandler FreezeChanged;
+
+        private int TotalDaysFreezed
+        {
+            get { return _totalDaysFreezed; }
+            set
+            {
+                if (value == _totalDaysFreezed) return;
+                _totalDaysFreezed = value;
+                OnFreezeChanged();
+            }
+        }
+
+        private void OnFreezeChanged()
+        {
+            FreezeChanged?.Invoke(this, EventArgs.Empty);
+        }
+        #endregion
+
         #region/// ПУБЛИЧНЫЕ ПОЛЯ ////////////
 
         /// <summary>
@@ -97,7 +117,7 @@ namespace PersonsBase.data.Abonements
 
             _maxDaysAvailable = GetMaxDaysForPeriod(period);
 
-            _totalDaysFreezed = 0;
+            TotalDaysFreezed = 0;
         }
 
         #endregion
@@ -110,7 +130,7 @@ namespace PersonsBase.data.Abonements
         /// <returns></returns>
         public int GetAvailableDays()
         {
-            return _maxDaysAvailable - _totalDaysFreezed;
+            return _maxDaysAvailable - TotalDaysFreezed;
         }
 
         /// <summary>
@@ -119,12 +139,12 @@ namespace PersonsBase.data.Abonements
         /// <returns></returns>
         public int GetSpentDays() // 
         {
-            return _totalDaysFreezed;
+            return TotalDaysFreezed;
         }
 
         public void SetAvailableDays(int numAvailableDays)
         {
-            _totalDaysFreezed = _maxDaysAvailable - numAvailableDays;
+            TotalDaysFreezed = _maxDaysAvailable - numAvailableDays;
         }
 
         /// <summary>
@@ -151,8 +171,8 @@ namespace PersonsBase.data.Abonements
             var lastElement = AllFreezes.LastOrDefault();
 
             if (lastElement == null) return;
-            _totalDaysFreezed -= lastElement.DaysToFreeze;
-            if (_totalDaysFreezed < 0) _totalDaysFreezed = 0;
+            TotalDaysFreezed -= lastElement.DaysToFreeze;
+            if (TotalDaysFreezed < 0) TotalDaysFreezed = 0;
             AllFreezes.Remove(lastElement);
 
             MessageBox.Show(@"Удалена последняя запись о заморозке!");
@@ -194,7 +214,7 @@ namespace PersonsBase.data.Abonements
             if (!IsPossibleToFreeze(numDays, startDate)) return false;
 
             AllFreezes.Add(new FreezePeriod(startDate, numDays));
-            _totalDaysFreezed += numDays;
+            TotalDaysFreezed += numDays;
             return true;
         }
 
@@ -258,8 +278,8 @@ namespace PersonsBase.data.Abonements
         private bool IsPossibleToFreeze(int numDaysToFreeze)
         {
             if (numDaysToFreeze == 0) return false;
-            var temp = numDaysToFreeze + _totalDaysFreezed;
-            return (temp <= _maxDaysAvailable) && (_totalDaysFreezed <= _maxDaysAvailable);
+            var temp = numDaysToFreeze + TotalDaysFreezed;
+            return (temp <= _maxDaysAvailable) && (TotalDaysFreezed <= _maxDaysAvailable);
         }
 
         #endregion

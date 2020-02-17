@@ -25,7 +25,7 @@ namespace PersonsBase.View
         public ClientForm(string keyName)
         {
             InitializeComponent();
-            _person = PersonObject.GetLink(keyName);
+            _person = PersonObject.GetLink(keyName) ?? new Person();
             _isAnythingChanged = false;
             _logic = Logic.GetInstance();
         }
@@ -37,7 +37,8 @@ namespace PersonsBase.View
             Logic.LoadShortInfo(groupBox_Info, _person);
             Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto);
             LoadEditableData();
-            UpdateControlState(this, EventArgs.Empty);
+            // для заполнения полей на форме
+            UpdateControls(this, EventArgs.Empty);
             CurentAbonementChanged(this, EventArgs.Empty);
             UpdateInfoTextBoxField(this, EventArgs.Empty);
             LoadListBoxQueue();
@@ -51,13 +52,23 @@ namespace PersonsBase.View
             _person.PassportChanged += _person_PassportChanged;
             _person.DriverIdChanged += _person_DriverIdChanged;
             _person.PersonalNumberChanged += _person_PersonalNumberChanged;
-            _person.AbonementCurentChanged += CurentAbonementChanged;
 
-            //
-            // _person.StatusChanged += UpdateControlState;
+            // Когда изменился какой-либо параметр Абонемента
+            _person.AbonementCurentChanged += CurentAbonementChanged;
+            _person.AbonementCurentChanged += UpdateInfoTextBoxField;
+            _person.AbonementCurentChanged += UpdateControls;
+
+            // Когда изменилась заморозка абонемента - Обновим Инфо поле
+            if (_person.AbonementCurent?.Freeze != null)
+            {
+                _person.AbonementCurent.Freeze.FreezeChanged -= UpdateInfoTextBoxField;
+                _person.AbonementCurent.Freeze.FreezeChanged += UpdateInfoTextBoxField;
+                _person.AbonementCurent.Freeze.FreezeChanged += UpdateControls;
+            }
+
+            // Когда изменился Статус Абонемента
             _person.StatusChanged += UpdateInfoTextBoxField;
-            _person.StatusChanged += updateControls;
-            //
+            _person.StatusChanged += UpdateControls;
 
             PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
 
@@ -101,15 +112,26 @@ namespace PersonsBase.View
             switch (_person?.Status)
             {
                 case StatusPerson.Активный:
-                    textBox_Info.Text = @"";
-                    textBox_Info.ForeColor = Color.SeaGreen;
-                    // Заморозка запланирована в будущем
-                    if (_person?.AbonementCurent?.Freeze != null && _person?.Status != StatusPerson.Заморожен && _person.Status != StatusPerson.Гостевой)
-                        if (_person.AbonementCurent.Freeze.IsConfiguredForFuture())
+                    {
+                        textBox_Info.Text = @"";
+                        textBox_Info.ForeColor = Color.SeaGreen;
+                        // Заморозка запланирована в будущем
+                        if (_person?.AbonementCurent?.Freeze != null && _person?.Status != StatusPerson.Заморожен && _person.Status != StatusPerson.Гостевой)
                         {
-                            textBox_Info.Text = $@"Заморозка c {_person.AbonementCurent.Freeze.GetFutureFreeze().StartDate.Date:d}, дней: {_person.AbonementCurent.Freeze.GetDaysToFreeze()}";
+                            if (_person.AbonementCurent.Freeze.IsConfiguredForFuture())
+                            {
+                                textBox_Info.Text =
+                                    $@"Заморозка c {_person.AbonementCurent.Freeze.GetFutureFreeze().StartDate.Date:d}, дней: {_person.AbonementCurent.Freeze.GetDaysToFreeze()}";
+                            }
                         }
-                    break;
+                        // Не Активирован
+                        if (_person.IsAbonementExist() && _person.AbonementCurent != null && !_person.AbonementCurent.IsActivated)
+                        {
+                            textBox_Info.Text = @" Не активирован";
+                        }
+
+                        break;
+                    }
                 case StatusPerson.Нет_Карты:
                     {
                         textBox_Info.Text = @"Нет Карты";
@@ -141,18 +163,89 @@ namespace PersonsBase.View
                     break;
             }
 
-
         }
 
         // Кнопки
-        private void updateControls(object sender, EventArgs e)
+        private void UpdateControls(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            // Прячем кнопку если не активирован абонемент
+            button_Freeze.Enabled = _person.IsAbonementExist() && !_person.AbonementCurent.IsActivated && (_person.AbonementCurent is ClubCardA);
+
+            switch (_person.Status)
+            {
+                case StatusPerson.Активный:
+                    {
+                        button_Add_Abon.Enabled = true;
+                        button_CheckInWorkout.Visible = true;
+
+                        if (_person.AbonementCurent is ClubCardA a && a.PeriodAbonem != PeriodClubCard.На_1_Месяц)
+                        {
+                            button_Freeze.Visible = true;
+                        }
+                        else
+                        {
+                            button_Freeze.Visible = false;
+                        }
+
+                        // Кнопка Добавить 
+                        button_add_dop_tren.Visible = (_person.AbonementCurent is ClubCardA);
+
+                        break;
+                    }
+                case StatusPerson.Нет_Карты:
+                    {
+                        button_Add_Abon.Enabled = true;
+                        button_CheckInWorkout.Visible = false;
+                        button_Freeze.Visible = false;
+                        button_add_dop_tren.Visible = false;
+                        break;
+                    }
+                case StatusPerson.Заморожен:
+                    {
+                        button_CheckInWorkout.Visible = false;
+                        button_Add_Abon.Enabled = false;
+                        button_Freeze.Visible = true;
+                        button_add_dop_tren.Visible = false;
+                        break;
+                    }
+                case StatusPerson.Гостевой:
+                    {
+                        button_CheckInWorkout.Visible = false;
+                        button_Add_Abon.Enabled = true;
+                        button_Freeze.Visible = false;
+                        button_add_dop_tren.Visible = false;
+                        break;
+                    }
+                case StatusPerson.Запрещён:
+                    {
+                        button_CheckInWorkout.Visible = false;
+                        button_Add_Abon.Enabled = false;
+                        button_add_dop_tren.Visible = false;
+                        button_Freeze.Visible = false;
+                        break;
+                    }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private void CurentAbonementChanged(object sender, EventArgs e)
         {
+            // Подписываемся на заморозку если появился абонемент
+            if (_person.AbonementCurent?.Freeze != null)
+            {
+                _person.AbonementCurent.Freeze.FreezeChanged -= UpdateInfoTextBoxField;
+                _person.AbonementCurent.Freeze.FreezeChanged += UpdateInfoTextBoxField;
+            }
 
+            // Подписываемся на изменения в обонементе
+            if (_person.AbonementCurent != null)
+            {
+                _person.AbonementCurent.ValuesChanged -= _person.AbonValuesChanged;
+                _person.AbonementCurent.ValuesChanged += _person.AbonValuesChanged;
+            }
+
+            // Тут брать данные изменившегося абонемента и отрисовывать на форме изменения.
             switch (_person.AbonementCurent)
             {
                 case AbonementByDays byDays:
@@ -161,8 +254,6 @@ namespace PersonsBase.View
                     }
                 case ClubCardA clubCardA:
                     {
-
-
                         break;
                     }
                 case SingleVisit singleVisit:
@@ -170,19 +261,6 @@ namespace PersonsBase.View
                         break;
                     }
             }
-
-            // Не Активирован
-            if (_person.IsAbonementExist() && !_person.AbonementCurent.IsActivated)
-            {
-                textBox_Name.ForeColor = Color.Green;
-                textBox_Info.Text = @" Не Активирован";
-                button_Freeze.Enabled = false;
-            }
-            else
-            {
-                button_Freeze.Enabled = true;
-            }
-
         }
 
         private void _person_PersonalNumberChanged(object sender, int e)
@@ -290,8 +368,8 @@ namespace PersonsBase.View
         }
         private void LoadUserData()
         {
-            // Загружаем данные на Вкладку Редактирование, в Группу Персональных данных
-            _person.UpdateActualStatus(); // Обновляем текущий статус
+            // Имя Клиента
+            textBox_Name.Text = _person.Name;
             // Телефон
             maskedTextBox_PhoneNumber.Text = _person.Phone;
             // Паспорт
@@ -509,64 +587,7 @@ namespace PersonsBase.View
 
             return list;
         }
-        private void UpdateControlState(object sender, EventArgs arg)
-        {
-            // Различные изменения, которые зависят от СТАТУСА клиента.
-            void MyDelegate()
-            {
-                // По умолчанию для всех карт
-                button_add_dop_tren.Visible = false;
-                button_CheckInWorkout.Visible = false;
-                button_Freeze.Visible = false;
-                button_Add_Abon.Enabled = true;
-                // Вкл/Выкл Кнопки ЗАМОРОЗКА и ПОСЕЩЕНИЕ если проблемы с абонементом
-                switch (_person.UpdateActualStatus())
-                {
-                    case StatusPerson.Активный:
-                        {
-                            button_CheckInWorkout.Visible = true;
 
-                            // Кнопка Заморозка Клубной Карты
-                            if (_person.AbonementCurent is ClubCardA a && a.PeriodAbonem != PeriodClubCard.На_1_Месяц)
-                            {
-                                button_Freeze.Visible = true;
-                            }
-
-                            // Кнопка Добавить для Клубной Карты
-                            button_add_dop_tren.Visible = (_person.AbonementCurent is ClubCardA);
-
-                            break;
-                        }
-                    case StatusPerson.Нет_Карты:
-                        {
-                            break;
-                        }
-                    case StatusPerson.Заморожен:
-                        {
-                            button_Add_Abon.Enabled = false;
-                            button_Freeze.Visible = _person.IsAbonementExist();
-                            break;
-                        }
-                    case StatusPerson.Гостевой:
-                        {
-                            button_Add_Abon.Enabled = true;
-                            break;
-                        }
-                    case StatusPerson.Запрещён:
-                        {
-                            button_Add_Abon.Enabled = false;
-                            break;
-                        }
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-
-            if (InvokeRequired)
-                Invoke((Action)MyDelegate);
-            else
-                MyDelegate();
-        }
         private void SaveData()
         {
             _saveDelegateChain?.Invoke(); //Цепочка делегатов на сохранение всех полей
@@ -584,10 +605,8 @@ namespace PersonsBase.View
             if (result)
             {
                 // Обновление всех полей и состояний
-                _person.UpdateActualStatus();
                 Logic.LoadShortInfo(groupBox_Info, _person);
                 LoadEditableData();
-                UpdateControlState(this, EventArgs.Empty);
                 // Для обновления списка посещений при добавлении новой тренировки
                 MyDataGridView.SetSourceDataGridView(dataGridView_Visits, Visit.GetVisitsTable(_person));
             }
@@ -621,12 +640,8 @@ namespace PersonsBase.View
             var isSuccess = Logic.AddAbonement(_person.Name);
             if (isSuccess)
             {
-                _person.UpdateActualStatus(); // Обновляем текущий статус
-                                              // UpdateNameText();
-
                 Logic.LoadShortInfo(groupBox_Info, _person);
                 LoadEditableData();
-                UpdateControlState(this, EventArgs.Empty);
             }
 
             button_CheckInWorkout.Focus();
@@ -642,10 +657,8 @@ namespace PersonsBase.View
                     form.ApplyChanges();
                     // FIXME Убрать эти функции отсюда, возвращать диалог резалт
                     // Обновляем Если выбрано что-то.
-                    _person.UpdateActualStatus(); // Обновляем текущий статус
                     Logic.LoadShortInfo(groupBox_Info, _person);
                     LoadEditableData();
-                    UpdateControlState(this, EventArgs.Empty);
                 }
                 else
                 {
@@ -677,11 +690,9 @@ namespace PersonsBase.View
 Продолжить?", @"Удаление Абонемента!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result != DialogResult.Yes) return;
             _person.AbonementCurent = null;
-            _person.UpdateActualStatus(); // Обновляем текущий статус
 
             Logic.LoadShortInfo(groupBox_Info, _person);
             LoadEditableData();
-            UpdateControlState(this, EventArgs.Empty);
         }
 
         private void button_Password_Click(object sender, EventArgs e)

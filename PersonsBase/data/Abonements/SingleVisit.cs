@@ -20,8 +20,19 @@ namespace PersonsBase.data.Abonements
         // Свойства
         private int _numAerobicTr;
         private int _numPersonalTr;
-        public sealed override int NumAerobicTr { get { return _numAerobicTr; } set { if (_numAerobicTr >= 0) _numAerobicTr = value; } }
-        public sealed override int NumPersonalTr { get { return _numPersonalTr; } set { if (_numPersonalTr >= 0) _numPersonalTr = value; } }
+        public sealed override int NumAerobicTr
+        {
+            get
+            {
+                return _numAerobicTr;
+            }
+            set
+            {
+                if (_numAerobicTr >= 0) _numAerobicTr = value;
+                OnValuesChanged();
+            }
+        }
+        public sealed override int NumPersonalTr { get { return _numPersonalTr; } set { if (_numPersonalTr >= 0) _numPersonalTr = value; OnValuesChanged(); } }
         public const string NameAbonement = "Разовое Занятие";
         public override string AbonementName
         {
@@ -39,6 +50,7 @@ namespace PersonsBase.data.Abonements
             if (IsActivated) return; // Уже Активирован.
             IsActivated = true;
             EndDate = DateTime.Now.Date;
+            OnValuesChanged();
         }
 
         public override void TryActivate(DateTime startDate)
@@ -50,6 +62,7 @@ namespace PersonsBase.data.Abonements
         {
             if (DaysLeft <= 0) return false;
             DaysLeft--;
+            OnValuesChanged();
             return true;
         }
 

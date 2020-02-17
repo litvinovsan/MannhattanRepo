@@ -6,6 +6,7 @@ namespace PersonsBase.data.Abonements
     [Serializable]
     public class AbonementByDays : AbonementBasic //Абонемент на несколько занятий
     {
+        private DaysInAbon _typeAbonement;
         private const int ValidityPeriod = 2;
         public const string NameAbonement = "Абонемент";
 
@@ -15,14 +16,11 @@ namespace PersonsBase.data.Abonements
         {
             DaysLeft = (int)numDays;
             TypeAbonement = numDays;
-            NumAerobicTr = 0;  // Нужны тут только из-за абстракции. 
-            NumPersonalTr = 0; // Нужны тут только из-за абстракции. 
+
             EndDate = DateTime.Now.AddMonths(2).Date;
         }
 
         // Свойства
-        public sealed override int NumAerobicTr { get; set; }
-        public sealed override int NumPersonalTr { get; set; }
         public override string AbonementName
         {
             get { return NameAbonement; }
@@ -33,7 +31,15 @@ namespace PersonsBase.data.Abonements
             get { return "Абонемент Закончился!"; }
         }
 
-        public DaysInAbon TypeAbonement { get; set; }
+        public DaysInAbon TypeAbonement
+        {
+            get { return _typeAbonement; }
+            set
+            {
+                _typeAbonement = value;
+                OnValuesChanged();
+            }
+        }
 
         // Методы
         public override void TryActivate()
@@ -44,6 +50,7 @@ namespace PersonsBase.data.Abonements
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = date;
             BuyActivationDate = DateTime.Now.Date;
+            OnValuesChanged();
         }
 
         public override void TryActivate(DateTime startDate)
@@ -59,6 +66,7 @@ namespace PersonsBase.data.Abonements
             var date = startDate.AddMonths(ValidityPeriod).Date;
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = date;
+            OnValuesChanged();
         }
 
         public override bool CheckInWorkout(TypeWorkout type)
@@ -69,6 +77,7 @@ namespace PersonsBase.data.Abonements
                 DaysLeft--;
                 result = true;
             }
+            OnValuesChanged();
             return result;
         }
 
@@ -83,6 +92,7 @@ namespace PersonsBase.data.Abonements
         public override bool AddTrainingsToAbon(TypeWorkout type, int numberToAdd)
         {
             DaysLeft += numberToAdd;
+            OnValuesChanged();
             return true;
         }
 
@@ -116,6 +126,7 @@ namespace PersonsBase.data.Abonements
         public void SetDaysLeft(int numberDaysLeft)
         {
             DaysLeft = numberDaysLeft;
+            OnValuesChanged();
         }
     }
 }
