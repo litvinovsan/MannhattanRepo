@@ -30,7 +30,7 @@ namespace PersonsBase.data
         /// <param name="selectedOptions"></param>
         public static void SaveCurentVisit(Person person, WorkoutOptions selectedOptions)
         {
-            var currentAdmin = DataBaseLevel.GetManhattanInfo().CurrentAdmin;
+            var currentAdmin = (DataBaseLevel.GetManhattanInfo()?.CurrentAdmin) ?? new Administrator();
             var visit = new Visit(person.AbonementCurent, selectedOptions, currentAdmin.Name);
             var personsVisitDict = DataBaseLevel.GetPersonsVisitDict();
 

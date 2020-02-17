@@ -249,7 +249,7 @@ namespace PersonsBase.control
             //  Создаем Абонемент если выбрали Да
             if (res == DialogResult.Yes) AddAbonement(createdPersoName);
             OpenPersonCard(createdPersoName);
-
+            DataBaseLevel.SerializeObjects();//Сохраним в базу клиентов
             return true;
         }
 
@@ -265,6 +265,7 @@ namespace PersonsBase.control
             if (res == DialogResult.No) return false;
 
             var response = DataBaseLevel.PersonRemove(selectedName);
+            DataBaseLevel.SerializeObjects();
             return (response == ResponseCode.Success);
         }
 
