@@ -545,7 +545,6 @@ namespace PersonsBase.View
             // textBox_Number
             // 
             this.textBox_Number.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.textBox_Number.Enabled = false;
             this.textBox_Number.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox_Number.Location = new System.Drawing.Point(130, 134);
             this.textBox_Number.Margin = new System.Windows.Forms.Padding(2);
@@ -651,7 +650,7 @@ namespace PersonsBase.View
             this.Controls.Add(this.tabControl1);
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.MinimumSize = new System.Drawing.Size(1065, 761);
+            this.MinimumSize = new System.Drawing.Size(1065, 726);
             this.Name = "ClientForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Карточка Клиента";
