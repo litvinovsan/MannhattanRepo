@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using PersonsBase.data;
 using PersonsBase.myStd;
@@ -15,14 +10,14 @@ namespace PersonsBase.View
     public partial class AdminSelectForm : Form
     {
         private readonly ManhattanInfo _manhattanInfo = DataBaseLevel.GetManhattanInfo();
-        private List<Administrator> _administrators;
-        private Administrator _curenAdministrator;
+        private readonly List<Administrator> _administrators;
+
         public AdminSelectForm()
         {
             InitializeComponent();
-            _administrators = _manhattanInfo.Admins;
-            _curenAdministrator = _manhattanInfo.CurrentAdmin;
-            label_Name.Text = _curenAdministrator.Name;
+            _administrators = _manhattanInfo?.Admins;
+            var curenAdministrator = _manhattanInfo?.CurrentAdmin;
+            label_Name.Text = curenAdministrator?.Name;
 
             // Заполняем именами Админов
             if (_administrators?.Count > 0)
@@ -35,8 +30,8 @@ namespace PersonsBase.View
             {
                 if (_administrators == null || _administrators.Count <= 0) return;
 
-                var isNameExist = _administrators.Select(x => x.Name).Contains(_curenAdministrator.Name);
-                comboBox_all_admins.SelectedItem = isNameExist ? _curenAdministrator.Name : "Нет";
+                var isNameExist = curenAdministrator != null && _administrators.Select(x => x.Name).Contains(curenAdministrator.Name);
+                comboBox_all_admins.SelectedItem = isNameExist ? curenAdministrator.Name : "Нет";
             }
             catch (Exception)
             {
@@ -56,7 +51,7 @@ namespace PersonsBase.View
                 MessageBox.Show(@"Exception admins select");
             }
 
-            this.DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.OK;
             Close();
         }
 

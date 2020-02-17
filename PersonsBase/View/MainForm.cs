@@ -252,8 +252,6 @@ namespace PersonsBase.View
             {
                 FormsRunner.CreateBossForm();
             }
-
-            // FIXME  Выбор текущего администратора
         }
 
         private void удалитьКлиентаToolStripMenuItem_Click(object sender, EventArgs e)

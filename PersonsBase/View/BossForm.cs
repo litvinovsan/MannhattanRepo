@@ -50,6 +50,7 @@ namespace PersonsBase.View
         private void BossForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             PwdForm.LockPassword();
+            DataBaseLevel.SerializeObjects();
         }
 
         #endregion

@@ -5,7 +5,7 @@ namespace PersonsBase.data
    [Serializable]
    public class Administrator
    {
-      public string Name { get; set; }
+      public string Name { get; private set; }
       public string Phone { get; set; }
       public Administrator(string name, string phone)
       {
