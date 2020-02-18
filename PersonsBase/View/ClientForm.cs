@@ -155,6 +155,8 @@ namespace PersonsBase.View
                 button_add_dop_tren.Visible = false;
                 button_CheckInWorkout.Visible = false;
                 button_Freeze.Visible = false;
+                button_Freeze.Text = @"Заморозить";
+
                 button_Add_Abon.Enabled = true;
                 // Вкл/Выкл Кнопки ЗАМОРОЗКА и ПОСЕЩЕНИЕ если проблемы с абонементом
                 switch (_person.UpdateActualStatus())
@@ -180,7 +182,8 @@ namespace PersonsBase.View
                         }
                     case StatusPerson.Заморожен:
                         {
-                            button_Add_Abon.Enabled = false;
+                            button_Freeze.Text = @"Разморозить";
+                            button_Add_Abon.Enabled = true;
                             button_Freeze.Visible = _person.IsAbonementExist();
                             break;
                         }
@@ -586,6 +589,8 @@ namespace PersonsBase.View
             LoadUserData();
             Logic.LoadShortInfo(groupBox_Info, _person);
             UpdateEditableData();
+            UpdateControlState(this, EventArgs.Empty);
+            UpdateNameText(this, EventArgs.Empty);
         }
 
         private void button_photo_Click(object sender, EventArgs e)
