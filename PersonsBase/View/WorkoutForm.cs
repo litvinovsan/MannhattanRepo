@@ -30,16 +30,41 @@ namespace PersonsBase.View
             _schedule = manhattanInfo.Schedule;
 
             // Скрываем Панели с РадиоБатоннами
-            panel_tren.Visible = ((abonement is ClubCardA) || abonement is AbonementByDays) || ((abonement.NumAerobicTr != 0) || (abonement.NumPersonalTr != 0));
-            panel_aero.Visible = (abonement.TypeWorkout == TypeWorkout.Аэробный_Зал || (abonement.NumAerobicTr != 0));
-            panel_personal.Visible = (abonement.TypeWorkout == TypeWorkout.Персональная || (abonement.NumPersonalTr != 0));
-            //
-            panel_tren.Visible = !((abonement is AbonementByDays) && (abonement.TypeWorkout == TypeWorkout.МиниГруппа || abonement.TypeWorkout == TypeWorkout.Аэробный_Зал));
+            panel_tren.Visible = false;
+            panel_aero.Visible = false;
+            panel_personal.Visible = false;
+            panel_miniGroup.Visible = false;
 
-            var isMiniGrClubCard = ((abonement is ClubCardA) && abonement.NumMiniGroup > 0);
-            var isMiniGrByDays = ((abonement is AbonementByDays) && abonement.GetRemainderDays() > 0 && abonement.TypeWorkout == TypeWorkout.МиниГруппа);
+            switch (abonement)
+            {
+                case ClubCardA clubCardA:
+                    {
+                        panel_tren.Visible = true;
+                        panel_aero.Visible = (clubCardA.NumAerobicTr != 0);
+                        panel_personal.Visible = clubCardA.NumPersonalTr != 0;
+                        panel_miniGroup.Visible = clubCardA.NumMiniGroup > 0;
+                        break;
+                    }
+                case AbonementByDays byDays:
+                    {
+                        panel_tren.Visible = byDays.TypeWorkout == TypeWorkout.Персональная ||
+                                             byDays.TypeWorkout == TypeWorkout.Тренажерный_Зал;
+                        panel_aero.Visible = (byDays.TypeWorkout == TypeWorkout.Аэробный_Зал);
+                        panel_personal.Visible = byDays.TypeWorkout == TypeWorkout.Персональная;
+                        panel_miniGroup.Visible = byDays.GetRemainderDays() > 0 && byDays.TypeWorkout == TypeWorkout.МиниГруппа;
 
-            panel_miniGroup.Visible = (abonement.TypeWorkout == TypeWorkout.МиниГруппа) || isMiniGrClubCard || isMiniGrByDays;
+                        break;
+                    }
+                case SingleVisit singleVisit:
+                    {
+                        panel_tren.Visible = false;
+                        panel_aero.Visible = (singleVisit.TypeWorkout == TypeWorkout.Аэробный_Зал); 
+                        panel_personal.Visible = singleVisit.TypeWorkout == TypeWorkout.Персональная; 
+                        panel_miniGroup.Visible = false;
+
+                        break;
+                    }
+            }
         }
 
         private void WorkoutForm_Load(object sender, EventArgs e)
@@ -91,7 +116,7 @@ namespace PersonsBase.View
             {
                 comboBox_treners.Items.Clear();
                 comboBox_treners.Items.AddRange(actualTrenersNames.ToArray<object>());  // Заполняем комбобокс
-                comboBox_treners.SelectedItem = lastTrener;
+                comboBox_treners.SelectedItem = lastTrener != null && lastTrener.Equals("Имя неизвестно") ? actualTrenersNames.FirstOrDefault() : lastTrener;
             }
 
             // Список с Расписанием Групповых тренировок
@@ -99,7 +124,7 @@ namespace PersonsBase.View
             {
                 comboBox_Time_Name_Workout.Items.Clear();
                 comboBox_Time_Name_Workout.Items.AddRange(actualSchedule.ToArray<object>());
-                comboBox_Time_Name_Workout.SelectedItem = lastGroupTimeName;
+                comboBox_Time_Name_Workout.SelectedItem = lastGroupTimeName != null && lastGroupTimeName.Equals("Имя неизвестно") ? actualSchedule.FirstOrDefault() : lastGroupTimeName;
             }
         }
 
