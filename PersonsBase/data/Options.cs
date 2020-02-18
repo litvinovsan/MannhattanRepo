@@ -77,6 +77,7 @@ namespace PersonsBase.data
         public const string FolderNameUserPhoto = "UsersPhoto";
         public const string FolderNameDataBase = "DataBase";
         public const string FolderNameStdPhoto = "StandartPhotos";
+        public const string FolderNameExcel = "Excel";
 
 
         #endregion

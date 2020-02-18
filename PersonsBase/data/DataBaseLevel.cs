@@ -45,7 +45,7 @@ namespace PersonsBase.data
         {
             MyFile.CreateFolder(Options.FolderNameDataBase);
             MyFile.CreateFolder(Options.FolderNameUserPhoto);
-
+         
             DeSerializeObjects(); // Там же сразу создаются обьекты базы
 
             // Cтруктура для удобства доступа

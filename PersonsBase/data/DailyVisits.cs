@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using PersonsBase.control;
 using PersonsBase.myStd;
 using PersonsBase.Properties;
 
@@ -117,7 +118,7 @@ namespace PersonsBase.data
         {
             var personNameTemp = string.IsNullOrEmpty(personName) ? "Имя неизвестно" : personName;
             var time = DateTime.Now.ToString("HH:mm");
-            var shortName = personNameTemp.Split(' ')[0];
+            var shortName = Logic.GetPersonShortName(personNameTemp);
 
             return new GymItem(time, shortName);
         }
@@ -136,7 +137,7 @@ namespace PersonsBase.data
         private static AerobItem CreateAerobItem(string personName, string groupTimeName)
         {
             var personNameTemp = string.IsNullOrEmpty(personName) ? "Имя неизвестно" : personName;
-            var shortName = personNameTemp.Split(' ')[0];
+            var shortName = Logic.GetPersonShortName(personNameTemp);
             return new AerobItem(groupTimeName, shortName.ToString());
         }
         #endregion
@@ -153,7 +154,7 @@ namespace PersonsBase.data
         }
         private static PersonalItem CreateItem(string personName, string trenerName)
         {
-            var shortName = personName.Split(' ')[0];
+            var shortName = Logic.GetPersonShortName(personName);
             return new PersonalItem(shortName.ToString(), trenerName);
         }
         #endregion
@@ -164,7 +165,7 @@ namespace PersonsBase.data
             if (namePerson == null || arg == null) return;
 
             var persTrenerName = (arg.PersonalTrener != null) ? arg.PersonalTrener.Name : "Имя неизвестно";
-            var shortName = namePerson.Split(' ')[0];
+            var shortName = Logic.GetPersonShortName(namePerson);
 
             var item = CreateItem(shortName, persTrenerName);
             MiniGroupList.Add(item);

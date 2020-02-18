@@ -719,6 +719,8 @@ namespace PersonsBase.View
 
             Logic.LoadShortInfo(groupBox_Info, _person);
             UpdateEditableData();
+            UpdateControlState(this, EventArgs.Empty);
+            UpdateNameText(this, EventArgs.Empty);
         }
 
         private void button_photo_Click(object sender, EventArgs e)
@@ -726,6 +728,14 @@ namespace PersonsBase.View
             var success = Photo.OpenPhoto(out var img);
             if (success) _person.PathToPhoto = Photo.SaveToPhotoDir(img, _person.Name);
         }
-        #endregion
+
+        private void textBox_Number_Click(object sender, EventArgs e)
+        {
+            if (textBox_Number.Text.Equals("0"))
+            {
+                textBox_Number.Text = "";
+                // textBox_Number.SelectionStart = textBox_Number.Text.Length;
+            }
+        }
     }
 }

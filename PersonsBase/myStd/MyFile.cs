@@ -86,11 +86,13 @@ namespace PersonsBase.myStd
             }
             else
             {
-                var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase + "\\";
+                var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase + "\\" + Options.FolderNameExcel + "\\";
 
+                SaveToExcel(table, $"{currentPath}CписокКлиентов" + "_" + DateTime.Now.ToShortDateString());
                 SaveToExcel(table, $"{currentPath}CписокКлиентов");
             }
         }
+
 
         /// <summary>
         /// Добавляет таблицу DataTable в Excel. Таблица DataTable должна быть уже с заголовками
