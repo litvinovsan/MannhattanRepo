@@ -29,27 +29,11 @@ namespace PersonsBase.data.Abonements
         public abstract string AbonementName { get; }
         public abstract string InfoMessageEnd { get; }
 
-        public virtual int NumAerobicTr
-        {
-            get { return _numAerobicTr; }
-            set
-            {
-                if (_numAerobicTr == value) return;
-                _numAerobicTr = value;
-                OnValuesChanged();
-            }
-        } 
+        public abstract int NumAerobicTr { get; set; }
 
-        public virtual int NumPersonalTr
-        {
-            get { return _numPersonalTr; }
-            set
-            {
-                if (_numPersonalTr == value) return;
-                _numPersonalTr = value;
-                OnValuesChanged();
-            }
-        } // Количество Персональных тренировок. Могут быть добавлены к Клубному абонементу.
+
+        public abstract int NumPersonalTr { get; set; }
+        // Количество Персональных тренировок. Могут быть добавлены к Клубному абонементу.
 
         public int NumMiniGroup
         {
@@ -72,8 +56,6 @@ namespace PersonsBase.data.Abonements
 
         private DateTime _endDate;             // Дата завершения абонемента. 
         private int _numMiniGroup;
-        private int _numAerobicTr;
-        private int _numPersonalTr;
 
         public DateTime EndDate
         {

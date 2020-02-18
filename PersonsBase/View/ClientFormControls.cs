@@ -89,7 +89,7 @@ namespace PersonsBase.View
                     }
                     _person.Status = _editedStatusPerson;
                     ComboBoxColor(comboStatus, _person.Status.ToString(), _editedStatusPerson.ToString());
-                    _person.OnStatusChanged();
+                  //  _person.OnStatusChanged();
                 }
             };
 
@@ -368,11 +368,11 @@ namespace PersonsBase.View
         private Tuple<Label, Control> CreateNumPersonalTrField()
         {
             const string nameLabel = "Осталось Персональных";
-            string tbInitialText = _person.AbonementCurent.NumPersonalTr.ToString();
+            string tbInitialText = _person.AbonementCurent?.NumPersonalTr.ToString();
 
             Label lableType = CreateLabel(nameLabel);
             TextBox textbox = CreateTextBox(!PwdForm.IsPassUnLocked());
-            _editedNumPersonalTr = _person.AbonementCurent.NumPersonalTr;
+            _editedNumPersonalTr = _person.AbonementCurent?.NumPersonalTr ?? 0;
             // Инициализируем наши Контролы
             textbox.Text = tbInitialText;
             textbox.MaxLength = 3;

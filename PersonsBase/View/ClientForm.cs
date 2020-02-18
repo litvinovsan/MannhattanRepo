@@ -239,11 +239,11 @@ namespace PersonsBase.View
             }
 
             // Подписываемся на изменения в обонементе
-            if (_person.AbonementCurent != null)
-            {
-                _person.AbonementCurent.ValuesChanged -= _person.AbonValuesChanged;
-                _person.AbonementCurent.ValuesChanged += _person.AbonValuesChanged;
-            }
+            //if (_person.AbonementCurent != null)
+            //{
+            //    _person.AbonementCurent.ValuesChanged -= _person.AbonValuesChanged;
+            //    _person.AbonementCurent.ValuesChanged += _person.AbonValuesChanged;
+            //}
 
             // Тут брать данные изменившегося абонемента и отрисовывать на форме изменения.
             switch (_person.AbonementCurent)

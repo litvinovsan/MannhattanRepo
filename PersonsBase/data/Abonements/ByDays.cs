@@ -7,6 +7,8 @@ namespace PersonsBase.data.Abonements
     public class AbonementByDays : AbonementBasic //Абонемент на несколько занятий
     {
         private DaysInAbon _typeAbonement;
+        private int _numAerobicTr1;
+        private int _numPersonalTr1;
         private const int ValidityPeriod = 2;
         public const string NameAbonement = "Абонемент";
 
@@ -15,8 +17,9 @@ namespace PersonsBase.data.Abonements
             : base(payStatus, time, typeTr, spa)
         {
             DaysLeft = (int)numDays;
-            TypeAbonement = numDays;
-
+            _typeAbonement = numDays;
+            NumAerobicTr = 0;
+            NumPersonalTr = 0;
             EndDate = DateTime.Now.AddMonths(2).Date;
         }
 
@@ -29,6 +32,18 @@ namespace PersonsBase.data.Abonements
         public override string InfoMessageEnd
         {
             get { return "Абонемент Закончился!"; }
+        }
+
+        public sealed override int NumAerobicTr
+        {
+            get { return _numAerobicTr1; }
+            set { _numAerobicTr1 = value; }
+        }
+
+        public sealed override int NumPersonalTr
+        {
+            get { return _numPersonalTr1; }
+            set { _numPersonalTr1 = value; }
         }
 
         public DaysInAbon TypeAbonement
@@ -77,7 +92,7 @@ namespace PersonsBase.data.Abonements
                 DaysLeft--;
                 result = true;
             }
-            OnValuesChanged();
+           // OnValuesChanged();
             return result;
         }
 

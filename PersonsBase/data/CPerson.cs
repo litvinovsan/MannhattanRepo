@@ -191,8 +191,8 @@ namespace PersonsBase.data
             {
                 if (UpdateQueue(value))
                 {
-                    // StatusDirector();
-                    OnAbonementCurentChanged();
+                    StatusDirector();
+                    OnAbonementCurentChanged();//
                 }
             }
         }
@@ -254,13 +254,14 @@ namespace PersonsBase.data
         {
             if (Status == StatusPerson.Запрещён)
             {
-                AbonementCurent = null;
+                // AbonementCurent = null;
                 return;
             }
 
             if (Status == StatusPerson.Гостевой)
             {
-                if (AbonementCurent == null) return;
+                //if (AbonementCurent == null) return;
+                return;
             }
 
             // Нет Карты
@@ -269,17 +270,20 @@ namespace PersonsBase.data
                 Status = StatusPerson.Нет_Карты;
                 return;
             }
+            else // Активный
+            {
+                var isValid = AbonementCurent.IsValid();
+                if (isValid)
+                {
+                    Status = AbonementCurent.Freeze != null && AbonementCurent.Freeze.IsFreezedNow() ? StatusPerson.Заморожен : StatusPerson.Активный;
+                }
+                else
+                {
+                    Status = StatusPerson.Нет_Карты;
+                    AbonementCurent = null;
+                }
+            }
 
-            // Активный
-            if (AbonementCurent != null && AbonementCurent.IsValid())
-            {
-                Status = AbonementCurent.Freeze != null && AbonementCurent.Freeze.IsFreezedNow() ? StatusPerson.Заморожен : StatusPerson.Активный;
-            }
-            else
-            {
-                Status = StatusPerson.Нет_Карты;
-                _abonementCurent = null;
-            }
         }
 
         public void AbonValuesChanged(object sender, EventArgs e)

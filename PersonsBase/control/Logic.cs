@@ -474,12 +474,16 @@ namespace PersonsBase.control
 
         private static bool IsAbonementValid(ref Person person)
         {
-            // Если Кончился абонемент и не сработали проверки в других местах
+            if (person.AbonementCurent == null)
+            {
+                return false;
+            }
             if (person.AbonementCurent.IsValid()) return true;
-            person.AbonementCurent = null;
-            if (person.AbonementCurent != null) return true;
-            person.Status = StatusPerson.Нет_Карты;
-            return false;
+            else
+            {
+                person.AbonementCurent = null;
+                return false;
+            }
         }
 
         /// <summary>
@@ -491,6 +495,7 @@ namespace PersonsBase.control
         public bool CheckInWorkout(string personName)
         {
             var person = PersonObject.GetLink(personName);
+            if (person.AbonementCurent == null) return false;
             person.AbonementCurent.TryActivate(); // Если не Активирован
 
             if (!IsAbonementValid(ref person)) return false;
@@ -515,6 +520,7 @@ namespace PersonsBase.control
                             isSuccess = byDays.CheckInWorkout(selectedOptions.TypeWorkout);
                             if (!isSuccess) return false;
                             PersonObject.SaveCurentVisit(person, selectedOptions); // Сохраняет текущий визит 
+
                         }
 
                         break;
@@ -540,6 +546,7 @@ namespace PersonsBase.control
                     }
             }
             _daily.AddToVisitsLog(personName, selectedOptions); // Cобытие для добавления текущего посещения на главную форму
+            person.AbonValuesChanged(this, EventArgs.Empty);
             IsAbonementValid(ref person);
             MessageBox.Show(@"Тренировка Учтена!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return true;

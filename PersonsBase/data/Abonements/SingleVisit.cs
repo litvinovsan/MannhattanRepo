@@ -62,7 +62,7 @@ namespace PersonsBase.data.Abonements
         {
             if (DaysLeft <= 0) return false;
             DaysLeft--;
-            OnValuesChanged();
+          //  OnValuesChanged();
             return true;
         }
 

@@ -6,8 +6,8 @@ namespace PersonsBase.data.Abonements
     [Serializable]
     public class ClubCardA : AbonementBasic //Безлимитный Абонемент
     {
-        private int _numAerobicTr;
         // Свойства
+        private int _numAerobicTr;
         private int _numberMonths;
         private PeriodClubCard _periodAbonem;
         public const string NameAbonement = "Клубная Карта";
@@ -28,6 +28,8 @@ namespace PersonsBase.data.Abonements
             EndDateChanged += CalculateDaysLeft;
             EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
         }
+
+        public sealed override int NumPersonalTr { get; set; }
 
         public PeriodClubCard PeriodAbonem
         {
@@ -145,7 +147,7 @@ namespace PersonsBase.data.Abonements
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
-            OnValuesChanged();
+           // OnValuesChanged();
             return result;
         }
 

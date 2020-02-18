@@ -108,8 +108,7 @@ namespace PersonsBase.View
                     }
                 case AbonementByDays byDays:
                     {
-                        if (byDays.TypeWorkout == TypeWorkout.Аэробный_Зал ||
-                            byDays.TypeWorkout == TypeWorkout.Тренажерный_Зал)
+                        if (byDays.TypeWorkout == TypeWorkout.Тренажерный_Зал)
                         {
                             // Возвращаем текущий тип тренировки
                             //optionsWorkout.TypeWorkout = abon.TypeWorkout;
