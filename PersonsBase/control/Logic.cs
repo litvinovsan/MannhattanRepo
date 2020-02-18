@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using PersonsBase.data;
@@ -302,7 +303,8 @@ namespace PersonsBase.control
             {
                 return "";
             }
-
+            // Удаляет все пустые подстроки
+            // text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
             string resultName = String.Empty;
             var minimumSpaces = Regex.Replace(fio.ToLower().Trim(), @"[^\S\r\n]+", " "); // Уплотняем пробелы
             var lowercase = minimumSpaces.ToLower();
@@ -360,7 +362,23 @@ namespace PersonsBase.control
 
             return isSuccess;
         }
+        public static string GetPersonShortName(string nameLong)
+        {
+            if (string.IsNullOrWhiteSpace(nameLong) || string.IsNullOrEmpty(nameLong)) return string.Empty;
 
+            var longNameArray = PrepareName(nameLong).Split(' ');
+
+            var totalString = new StringBuilder();
+            totalString.Append(longNameArray[0] + " ");
+
+            for (var i = 1; i < longNameArray.Length; i++)
+            {
+                var firstLetter = longNameArray[i][0];
+                totalString.Append(firstLetter + ". ");
+            }
+
+            return totalString.ToString().Trim();
+        }
         #endregion
 
         #region /// КАРТОЧКА КЛИЕНТА. СКАНЕР  ///
@@ -533,7 +551,7 @@ namespace PersonsBase.control
                     {
                         var dlgResult = FormsRunner.RunWorkoutOptionsForm(ref selectedOptions, person.Name);
                         if (dlgResult == DialogResult.Cancel) return false;
-                        
+
                         isSuccess = singleVisit.CheckInWorkout(person.AbonementCurent.TypeWorkout);
 
                         if (!isSuccess) return false;
@@ -794,5 +812,7 @@ namespace PersonsBase.control
             return time;
         }
         #endregion
+
+
     }
 }

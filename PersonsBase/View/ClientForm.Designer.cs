@@ -553,6 +553,7 @@ namespace PersonsBase.View
             this.textBox_Number.TabIndex = 5;
             this.textBox_Number.Text = "123";
             this.textBox_Number.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox_Number.Click += new System.EventHandler(this.textBox_Number_Click);
             this.textBox_Number.TextChanged += new System.EventHandler(this.textBox_Number_TextChanged);
             // 
             // tabPage3

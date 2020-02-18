@@ -54,6 +54,9 @@ namespace PersonsBase.View
             MyListViewEx.MaximizeLastColumn(listView_Group);
             MyListViewEx.MaximizeLastColumn(listView_Personal);
             MyListViewEx.MaximizeLastColumn(listView_MiniGroup);
+
+            // Показать окно выбора Администратора
+            Logic.SelectCurentAdmin();
         }
 
 
@@ -63,8 +66,9 @@ namespace PersonsBase.View
             Options.SaveProperties(); // Сохранение пользовательских настроек
 
             _dailyVisits.SaveCurentSession();// Сериализация текущих списков посещений 
-
+            //Сохранение в Эксель
             MyFile.ExportToExcel(DataBaseM.CreatePersonsTable(), false); // Автоматическое Сохранение в Excel всей базы на всякий случай
+
             if (MessageBox.Show(@"Вы хотите закрыть приложение?", @"Завершение работы", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
                 e.Cancel = true;
@@ -256,7 +260,12 @@ namespace PersonsBase.View
 
         private void удалитьКлиентаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Logic.RemovePerson();
+            Logic.AccessRootUser();
+            if (PwdForm.IsPassUnLocked())
+            {
+                Logic.RemovePerson();
+            }
+            PwdForm.LockPassword();
         }
 
         private void списокКлиентовToolStripMenuItem_Click(object sender, EventArgs e)

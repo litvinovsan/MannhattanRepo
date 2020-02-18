@@ -192,7 +192,7 @@ namespace PersonsBase.View
         public static void RunAdminForm()
         {
             var frm = new AdminSelectForm();
-            frm.Show();
+            frm.ShowDialog();
         }
         #endregion
 

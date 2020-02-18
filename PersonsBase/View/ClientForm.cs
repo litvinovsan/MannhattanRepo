@@ -598,5 +598,14 @@ namespace PersonsBase.View
             var success = Photo.OpenPhoto(out var img);
             if (success) _person.PathToPhoto = Photo.SaveToPhotoDir(img, _person.Name);
         }
+
+        private void textBox_Number_Click(object sender, EventArgs e)
+        {
+            if (textBox_Number.Text.Equals("0"))
+            {
+                textBox_Number.Text = "";
+                // textBox_Number.SelectionStart = textBox_Number.Text.Length;
+            }
+        }
     }
 }
