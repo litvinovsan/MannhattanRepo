@@ -719,8 +719,7 @@ namespace PersonsBase.View
 
             Logic.LoadShortInfo(groupBox_Info, _person);
             UpdateEditableData();
-            UpdateControlState(this, EventArgs.Empty);
-            UpdateNameText(this, EventArgs.Empty);
+          
         }
 
         private void button_photo_Click(object sender, EventArgs e)
@@ -737,5 +736,6 @@ namespace PersonsBase.View
                 // textBox_Number.SelectionStart = textBox_Number.Text.Length;
             }
         }
+        #endregion
     }
 }

@@ -88,9 +88,9 @@ namespace PersonsBase.View
                         a.Freeze.RemoveLast();
                     }
                     _person.Status = _editedStatusPerson == StatusPerson.Заморожен ? _person.Status : _editedStatusPerson;
-                    _person.StatusChanged += UpdateControlState;
+                   
                     ComboBoxColor(comboStatus, _person.Status.ToString(), _editedStatusPerson.ToString());
-                  //  _person.OnStatusChanged();
+                   
                 }
             };
 
