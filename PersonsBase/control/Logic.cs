@@ -531,7 +531,9 @@ namespace PersonsBase.control
                     }
                 case SingleVisit singleVisit:
                     {
-                        selectedOptions.TypeWorkout = singleVisit.TypeWorkout;
+                        var dlgResult = FormsRunner.RunWorkoutOptionsForm(ref selectedOptions, person.Name);
+                        if (dlgResult == DialogResult.Cancel) return false;
+                        
                         isSuccess = singleVisit.CheckInWorkout(person.AbonementCurent.TypeWorkout);
 
                         if (!isSuccess) return false;

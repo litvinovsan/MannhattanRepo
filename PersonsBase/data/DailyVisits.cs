@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using PersonsBase.myStd;
 using PersonsBase.Properties;
 
@@ -89,7 +90,6 @@ namespace PersonsBase.data
         public readonly List<GymItem> GymList = new List<GymItem>();
         public readonly List<PersonalItem> PersonalList = new List<PersonalItem>();
         public readonly List<PersonalItem> MiniGroupList = new List<PersonalItem>();
-
         public readonly List<AerobItem> AerobList = new List<AerobItem>();
 
         #endregion
@@ -117,7 +117,9 @@ namespace PersonsBase.data
         {
             var personNameTemp = string.IsNullOrEmpty(personName) ? "Имя неизвестно" : personName;
             var time = DateTime.Now.ToString("HH:mm");
-            return new GymItem(time, personNameTemp);
+            var shortName = personNameTemp.Split(' ')[0];
+
+            return new GymItem(time, shortName);
         }
         #endregion
 
@@ -134,7 +136,8 @@ namespace PersonsBase.data
         private static AerobItem CreateAerobItem(string personName, string groupTimeName)
         {
             var personNameTemp = string.IsNullOrEmpty(personName) ? "Имя неизвестно" : personName;
-            return new AerobItem(groupTimeName, personNameTemp);
+            var shortName = personNameTemp.Split(' ')[0];
+            return new AerobItem(groupTimeName, shortName.ToString());
         }
         #endregion
 
@@ -150,7 +153,8 @@ namespace PersonsBase.data
         }
         private static PersonalItem CreateItem(string personName, string trenerName)
         {
-            return new PersonalItem(personName, trenerName);
+            var shortName = personName.Split(' ')[0];
+            return new PersonalItem(shortName.ToString(), trenerName);
         }
         #endregion
 
@@ -160,7 +164,9 @@ namespace PersonsBase.data
             if (namePerson == null || arg == null) return;
 
             var persTrenerName = (arg.PersonalTrener != null) ? arg.PersonalTrener.Name : "Имя неизвестно";
-            var item = CreateItem(namePerson, persTrenerName);
+            var shortName = namePerson.Split(' ')[0];
+
+            var item = CreateItem(shortName, persTrenerName);
             MiniGroupList.Add(item);
             OnMiniGroupListChanged();
         }

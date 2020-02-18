@@ -45,15 +45,15 @@ namespace PersonsBase.View
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel_tren = new System.Windows.Forms.Panel();
             this.radioButton_tren = new System.Windows.Forms.RadioButton();
+            this.pictureBox_tren = new System.Windows.Forms.PictureBox();
             this.panel_aero = new System.Windows.Forms.Panel();
             this.radioButton_aerob = new System.Windows.Forms.RadioButton();
+            this.pictureBox_aero = new System.Windows.Forms.PictureBox();
             this.panel_personal = new System.Windows.Forms.Panel();
             this.radioButton_personal = new System.Windows.Forms.RadioButton();
+            this.pictureBox_person = new System.Windows.Forms.PictureBox();
             this.panel_miniGroup = new System.Windows.Forms.Panel();
             this.radioButton_miniGr = new System.Windows.Forms.RadioButton();
-            this.pictureBox_tren = new System.Windows.Forms.PictureBox();
-            this.pictureBox_aero = new System.Windows.Forms.PictureBox();
-            this.pictureBox_person = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -64,12 +64,12 @@ namespace PersonsBase.View
             this.groupBox2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel_tren.SuspendLayout();
-            this.panel_aero.SuspendLayout();
-            this.panel_personal.SuspendLayout();
-            this.panel_miniGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_tren)).BeginInit();
+            this.panel_aero.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_aero)).BeginInit();
+            this.panel_personal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_person)).BeginInit();
+            this.panel_miniGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,10 +78,10 @@ namespace PersonsBase.View
             this.button_Ok.AutoSize = true;
             this.button_Ok.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_Ok.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_Ok.Location = new System.Drawing.Point(2, 2);
+            this.button_Ok.Location = new System.Drawing.Point(319, 2);
             this.button_Ok.Margin = new System.Windows.Forms.Padding(2);
             this.button_Ok.Name = "button_Ok";
-            this.button_Ok.Size = new System.Drawing.Size(313, 32);
+            this.button_Ok.Size = new System.Drawing.Size(314, 32);
             this.button_Ok.TabIndex = 0;
             this.button_Ok.Text = "Применить";
             this.button_Ok.UseVisualStyleBackColor = true;
@@ -92,8 +92,8 @@ namespace PersonsBase.View
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.button_Ok, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button_Cancel, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button_Ok, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button_Cancel, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 348);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
@@ -109,10 +109,10 @@ namespace PersonsBase.View
             this.button_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button_Cancel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_Cancel.Location = new System.Drawing.Point(319, 2);
+            this.button_Cancel.Location = new System.Drawing.Point(2, 2);
             this.button_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.button_Cancel.Name = "button_Cancel";
-            this.button_Cancel.Size = new System.Drawing.Size(314, 32);
+            this.button_Cancel.Size = new System.Drawing.Size(313, 32);
             this.button_Cancel.TabIndex = 1;
             this.button_Cancel.Text = "Отмена";
             this.button_Cancel.UseVisualStyleBackColor = true;
@@ -248,6 +248,19 @@ namespace PersonsBase.View
             this.radioButton_tren.UseVisualStyleBackColor = true;
             this.radioButton_tren.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
+            // pictureBox_tren
+            // 
+            this.pictureBox_tren.BackColor = System.Drawing.Color.White;
+            this.pictureBox_tren.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pictureBox_tren.Image = global::PersonsBase.Properties.Resources.TrenZal;
+            this.pictureBox_tren.Location = new System.Drawing.Point(205, 0);
+            this.pictureBox_tren.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox_tren.Name = "pictureBox_tren";
+            this.pictureBox_tren.Size = new System.Drawing.Size(65, 60);
+            this.pictureBox_tren.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_tren.TabIndex = 5;
+            this.pictureBox_tren.TabStop = false;
+            // 
             // panel_aero
             // 
             this.panel_aero.Controls.Add(this.radioButton_aerob);
@@ -272,6 +285,19 @@ namespace PersonsBase.View
             this.radioButton_aerob.Text = "Аэробная";
             this.radioButton_aerob.UseVisualStyleBackColor = true;
             this.radioButton_aerob.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
+            // 
+            // pictureBox_aero
+            // 
+            this.pictureBox_aero.BackColor = System.Drawing.Color.White;
+            this.pictureBox_aero.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pictureBox_aero.Image = global::PersonsBase.Properties.Resources.Aerob;
+            this.pictureBox_aero.Location = new System.Drawing.Point(205, 0);
+            this.pictureBox_aero.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox_aero.Name = "pictureBox_aero";
+            this.pictureBox_aero.Size = new System.Drawing.Size(65, 60);
+            this.pictureBox_aero.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_aero.TabIndex = 4;
+            this.pictureBox_aero.TabStop = false;
             // 
             // panel_personal
             // 
@@ -300,6 +326,19 @@ namespace PersonsBase.View
             this.radioButton_personal.UseVisualStyleBackColor = true;
             this.radioButton_personal.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
+            // pictureBox_person
+            // 
+            this.pictureBox_person.BackColor = System.Drawing.Color.White;
+            this.pictureBox_person.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pictureBox_person.Image = global::PersonsBase.Properties.Resources.Personal21;
+            this.pictureBox_person.Location = new System.Drawing.Point(205, 0);
+            this.pictureBox_person.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox_person.Name = "pictureBox_person";
+            this.pictureBox_person.Size = new System.Drawing.Size(65, 60);
+            this.pictureBox_person.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_person.TabIndex = 3;
+            this.pictureBox_person.TabStop = false;
+            // 
             // panel_miniGroup
             // 
             this.panel_miniGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -326,45 +365,6 @@ namespace PersonsBase.View
             this.radioButton_miniGr.Text = "Мини Группа";
             this.radioButton_miniGr.UseVisualStyleBackColor = true;
             this.radioButton_miniGr.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
-            // 
-            // pictureBox_tren
-            // 
-            this.pictureBox_tren.BackColor = System.Drawing.Color.White;
-            this.pictureBox_tren.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox_tren.Image = global::PersonsBase.Properties.Resources.TrenZal;
-            this.pictureBox_tren.Location = new System.Drawing.Point(205, 0);
-            this.pictureBox_tren.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox_tren.Name = "pictureBox_tren";
-            this.pictureBox_tren.Size = new System.Drawing.Size(65, 60);
-            this.pictureBox_tren.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox_tren.TabIndex = 5;
-            this.pictureBox_tren.TabStop = false;
-            // 
-            // pictureBox_aero
-            // 
-            this.pictureBox_aero.BackColor = System.Drawing.Color.White;
-            this.pictureBox_aero.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox_aero.Image = global::PersonsBase.Properties.Resources.Aerob;
-            this.pictureBox_aero.Location = new System.Drawing.Point(205, 0);
-            this.pictureBox_aero.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox_aero.Name = "pictureBox_aero";
-            this.pictureBox_aero.Size = new System.Drawing.Size(65, 60);
-            this.pictureBox_aero.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox_aero.TabIndex = 4;
-            this.pictureBox_aero.TabStop = false;
-            // 
-            // pictureBox_person
-            // 
-            this.pictureBox_person.BackColor = System.Drawing.Color.White;
-            this.pictureBox_person.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox_person.Image = global::PersonsBase.Properties.Resources.Personal21;
-            this.pictureBox_person.Location = new System.Drawing.Point(205, 0);
-            this.pictureBox_person.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox_person.Name = "pictureBox_person";
-            this.pictureBox_person.Size = new System.Drawing.Size(65, 60);
-            this.pictureBox_person.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox_person.TabIndex = 3;
-            this.pictureBox_person.TabStop = false;
             // 
             // pictureBox1
             // 
@@ -407,15 +407,15 @@ namespace PersonsBase.View
             this.flowLayoutPanel1.ResumeLayout(false);
             this.panel_tren.ResumeLayout(false);
             this.panel_tren.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_tren)).EndInit();
             this.panel_aero.ResumeLayout(false);
             this.panel_aero.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_aero)).EndInit();
             this.panel_personal.ResumeLayout(false);
             this.panel_personal.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_person)).EndInit();
             this.panel_miniGroup.ResumeLayout(false);
             this.panel_miniGroup.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_tren)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_aero)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_person)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 

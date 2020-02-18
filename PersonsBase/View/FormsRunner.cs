@@ -94,7 +94,7 @@ namespace PersonsBase.View
             if (abon == null) return DialogResult.Cancel;
 
             optionsWorkout.TypeWorkout = abon.TypeWorkout; // Значение по умолчанию
-                // установка праметров и выход в свитче
+                                                           // установка праметров и выход в свитче
             switch (abon)
             {
                 case ClubCardA clubCardA:
@@ -108,8 +108,7 @@ namespace PersonsBase.View
                     }
                 case AbonementByDays byDays:
                     {
-                        if (byDays.TypeWorkout == TypeWorkout.Аэробный_Зал ||
-                            byDays.TypeWorkout == TypeWorkout.Тренажерный_Зал)
+                        if (byDays.TypeWorkout == TypeWorkout.Тренажерный_Зал)
                         {
                             // Возвращаем текущий тип тренировки
                             //optionsWorkout.TypeWorkout = abon.TypeWorkout;
@@ -119,7 +118,8 @@ namespace PersonsBase.View
                     }
                 case SingleVisit singleVisit:
                     {
-                        return DialogResult.OK;
+                        if (singleVisit.TypeWorkout == TypeWorkout.Тренажерный_Зал) return DialogResult.OK;
+                        break;
                     }
             }
             // если не вышли , то запуск формы опций
