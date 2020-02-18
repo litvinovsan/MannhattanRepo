@@ -144,6 +144,7 @@ namespace PersonsBase.View
                         if (_person.IsAbonementExist() && _person.AbonementCurent?.Freeze != null &&
                             _person.Status != StatusPerson.Гостевой)
                         {
+                            if (_person.AbonementCurent.Freeze?.AllFreezes.Count == 0) break;
                             var dateEnd = _person.AbonementCurent.Freeze?.AllFreezes.Last().GetEndDate().Date.ToString("d");
                             textBox_Info.Text = @"Заморожен до " + dateEnd;
                         }
