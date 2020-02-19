@@ -24,7 +24,7 @@ namespace PersonsBase.data
         [field: NonSerialized] public event EventHandler<Gender> GenderTypeChanged;
 
 
-        public void OnStatusChanged()
+        private void OnStatusChanged()
         {
             StatusChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -32,6 +32,7 @@ namespace PersonsBase.data
         {
             PathToPhotoChanged?.Invoke(this, EventArgs.Empty);
         }
+
         private void OnAbonementCurentChanged()
         {
             AbonementCurentChanged?.Invoke(this, EventArgs.Empty);
@@ -192,7 +193,7 @@ namespace PersonsBase.data
                 if (UpdateQueue(value))
                 {
                     StatusDirector();
-                    OnAbonementCurentChanged();//
+                    OnAbonementCurentChanged();
                 }
             }
         }
@@ -268,7 +269,6 @@ namespace PersonsBase.data
             if (AbonementCurent == null)
             {
                 Status = StatusPerson.Нет_Карты;
-                return;
             }
             else // Активный
             {
@@ -283,13 +283,6 @@ namespace PersonsBase.data
                     AbonementCurent = null;
                 }
             }
-
-        }
-
-        public void AbonValuesChanged(object sender, EventArgs e)
-        {
-            StatusDirector();
-            OnAbonementCurentChanged();
         }
 
         #endregion

@@ -174,7 +174,7 @@ namespace PersonsBase.data.Abonements
             TotalDaysFreezed -= lastElement.DaysToFreeze;
             if (TotalDaysFreezed < 0) TotalDaysFreezed = 0;
             AllFreezes.Remove(lastElement);
-
+            OnFreezeChanged();
             MessageBox.Show(@"Удалена последняя запись о заморозке!");
         }
 

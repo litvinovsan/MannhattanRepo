@@ -566,7 +566,7 @@ namespace PersonsBase.control
                     }
             }
             _daily.AddToVisitsLog(personName, selectedOptions); // Cобытие для добавления текущего посещения на главную форму
-            person.AbonValuesChanged(this, EventArgs.Empty);
+          //  person.AbonValuesChanged(this, EventArgs.Empty);
             IsAbonementValid(ref person);
             MessageBox.Show(@"Тренировка Учтена!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return true;

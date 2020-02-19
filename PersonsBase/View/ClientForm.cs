@@ -55,14 +55,15 @@ namespace PersonsBase.View
 
             // Когда изменился какой-либо параметр Абонемента
             _person.AbonementCurentChanged += CurentAbonementChanged;
-            _person.AbonementCurentChanged += UpdateInfoTextBoxField;
-            _person.AbonementCurentChanged += UpdateControls;
+            _person.AbonementCurentChanged += UpdateInfoTextBoxField;// возможно удалить
+            _person.AbonementCurentChanged += UpdateControls; // возможно удалить
 
             // Когда изменилась заморозка абонемента - Обновим Инфо поле
             if (_person.AbonementCurent?.Freeze != null)
             {
                 _person.AbonementCurent.Freeze.FreezeChanged -= UpdateInfoTextBoxField;
                 _person.AbonementCurent.Freeze.FreezeChanged += UpdateInfoTextBoxField;
+                _person.AbonementCurent.Freeze.FreezeChanged -= UpdateControls;
                 _person.AbonementCurent.Freeze.FreezeChanged += UpdateControls;
             }
 
@@ -160,8 +161,6 @@ namespace PersonsBase.View
                     break;
                 case null:
                     break;
-                default:
-                    break;
             }
 
         }
@@ -169,9 +168,6 @@ namespace PersonsBase.View
         // Кнопки
         private void UpdateControls(object sender, EventArgs e)
         {
-            // Прячем кнопку если не активирован абонемент
-            button_Freeze.Enabled = _person.IsAbonementExist() && !_person.AbonementCurent.IsActivated && (_person.AbonementCurent is ClubCardA);
-
             switch (_person.Status)
             {
                 case StatusPerson.Активный:
@@ -182,6 +178,7 @@ namespace PersonsBase.View
                         if (_person.AbonementCurent is ClubCardA a && a.PeriodAbonem != PeriodClubCard.На_1_Месяц)
                         {
                             button_Freeze.Visible = true;
+                            button_Freeze.Enabled = _person.AbonementCurent.IsActivated;
                         }
                         else
                         {
@@ -239,12 +236,15 @@ namespace PersonsBase.View
                 _person.AbonementCurent.Freeze.FreezeChanged += UpdateInfoTextBoxField;
             }
 
-            // Подписываемся на изменения в обонементе
-            //if (_person.AbonementCurent != null)
-            //{
-            //    _person.AbonementCurent.ValuesChanged -= _person.AbonValuesChanged;
-            //    _person.AbonementCurent.ValuesChanged += _person.AbonValuesChanged;
-            //}
+            // Подписываемся на изменения в обонементе когда абонемент существует
+            if (_person.AbonementCurent != null)
+            {
+                _person.AbonementCurent.ValuesChanged -= UpdateInfoTextBoxField;
+                _person.AbonementCurent.ValuesChanged += UpdateInfoTextBoxField;
+
+                _person.AbonementCurent.ValuesChanged -= UpdateControls;
+                _person.AbonementCurent.ValuesChanged += UpdateControls;
+            }
 
             // Тут брать данные изменившегося абонемента и отрисовывать на форме изменения.
             switch (_person.AbonementCurent)
@@ -453,62 +453,7 @@ namespace PersonsBase.View
             MyDataGridView.ImplementStyle(dataGridView_Visits);
             MyDataGridView.AddHeaderToolTips(dataGridView_Visits, helpStrings);
         }
-        //private void UpdateNameText(object sender, EventArgs e)
-        //{
-        //    Text = @"Карточка Клиента:    " + _person.Name; // Имя формы
 
-        //    textBox_Name.Text = _person.Name;
-        //    Logic.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
-
-
-        //    switch (_person.Status)
-        //    {
-        //        // Если Запрещен 
-        //        case StatusPerson.Запрещён:
-        //            textBox_Name.Text = _person.Name;
-        //            Logic.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
-        //            return;
-        //        // Если Заморожен
-        //        case StatusPerson.Заморожен when _person.IsAbonementExist() && _person.AbonementCurent is ClubCardA a && _person.Status != StatusPerson.Гостевой:
-        //            {
-        //                textBox_Name.ForeColor = Color.SeaGreen;
-        //                var dateEnd = a.Freeze?.AllFreezes.Last().GetEndDate().Date.ToString("d");
-        //                textBox_Name.Text = _person.Name + @"   (Заморожен До " + dateEnd + @" )";
-        //                break;
-        //            }
-        //        case StatusPerson.Активный:
-        //            break;
-        //        case StatusPerson.Нет_Карты:
-        //            break;
-        //        case StatusPerson.Гостевой:
-        //            break;
-        //        default:
-        //            throw new ArgumentOutOfRangeException();
-        //    }
-
-        //    // Заморозка запланирована в будущем
-        //    var card = _person.AbonementCurent as ClubCardA;
-        //    if (card?.Freeze != null && _person.Status != StatusPerson.Заморожен &&
-        //        _person.Status != StatusPerson.Гостевой)
-        //        if (card.Freeze.IsConfiguredForFuture())
-        //        {
-        //            textBox_Name.ForeColor = Color.SeaGreen;
-        //            textBox_Name.Text = _person.Name +
-        //                                $@"   (Заморозка c {card.Freeze.GetFutureFreeze().StartDate.Date:d}, дней: {card.Freeze.GetDaysToFreeze()} )";
-        //        }
-
-        //    // Не Активирован
-        //    if (_person.IsAbonementExist() && !_person.AbonementCurent.IsActivated)
-        //    {
-        //        textBox_Name.ForeColor = Color.Green;
-        //        textBox_Name.Text = _person.Name + @"   (Не Активирован)";
-        //        button_Freeze.Enabled = false;
-        //    }
-        //    else
-        //    {
-        //        button_Freeze.Enabled = true;
-        //    }
-        //}
         private List<Tuple<Label, Control>> CreateControlsFields(AbonementBasic currentAbon)
         {
             List<Tuple<Label, Control>> listResult;
@@ -719,7 +664,7 @@ namespace PersonsBase.View
 
             Logic.LoadShortInfo(groupBox_Info, _person);
             UpdateEditableData();
-          
+
         }
 
         private void button_photo_Click(object sender, EventArgs e)

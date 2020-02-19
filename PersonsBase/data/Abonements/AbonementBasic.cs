@@ -67,7 +67,6 @@ namespace PersonsBase.data.Abonements
             {
                 _endDate = value;
                 OnEndDateChanged();
-                OnValuesChanged();
             }
         }
 
