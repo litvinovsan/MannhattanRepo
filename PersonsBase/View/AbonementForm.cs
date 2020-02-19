@@ -38,6 +38,11 @@ namespace PersonsBase.View
 
             // Не выключено ли в настройках разрешение на корректировку абонементов при создании их
             groupBox_Correctable.Enabled = Options.CorrectableAbonOnCreate;
+
+            // Гостевой визит Радиобатон показывается если не были посещения
+            var lastVisits = PersonObject.GetVisitsList(_person.Name);
+            radioButton_guest.Visible = lastVisits == null || lastVisits.Count == 0;
+            pictureBox8.Visible = lastVisits == null || lastVisits.Count == 0;
         }
 
         private void SetInitialValues()
@@ -156,11 +161,33 @@ namespace PersonsBase.View
                         abonementNew = new SingleVisit(_typeWorkout, _spa, _pay, _timeTren);
                         break;
                     }
+                case "Гостевой визит":
+                    {
+                        abonementNew = new SingleVisit(_typeWorkout, _spa, Pay.Не_Оплачено, _timeTren);
+                        _person.AbonementCurent = abonementNew;
+                        _person.AbonementCurent.TryActivate();
+                        var selectedOptions = new WorkoutOptions();
+                        var dlgResult = FormsRunner.RunWorkoutOptionsForm(ref selectedOptions, _person.Name);
+                        if (dlgResult == DialogResult.Cancel) return;
+
+                        bool isSuccess = _person.AbonementCurent.CheckInWorkout(_person.AbonementCurent.TypeWorkout);
+
+                        if (!isSuccess) return;
+                        PersonObject.SaveCurentVisit(_person, selectedOptions); // Сохраняет текущий визит 
+                        DailyVisits.GetInstance().AddToVisitsLog(_person.Name, selectedOptions); // Cобытие для добавления текущего посещения на главную форму
+                        _person.Status = StatusPerson.Гостевой;
+                        _person.AbonementCurent = null;
+                        _person.UpdateActualStatus();
+                        // Для обновления списка посещений при добавлении новой тренировки
+                      //  MyDataGridView.SetSourceDataGridView(dataGridView_Visits, Visit.GetVisitsTable(_person));
+                        return;
+                    }
 
                 default:
                     break;
             }
 
+            if (_person.Status == StatusPerson.Гостевой) _person.Status = StatusPerson.Активный;
             ApplyCorrectedValues(ref abonementNew);//  Корректировка абонемента по дате, количеству оставшихся посещений
             _person.AbonementCurent = abonementNew;
         }
@@ -239,6 +266,7 @@ namespace PersonsBase.View
 
                 radioButton_ClubCard.Checked = false;
                 radioButton_Single.Checked = false;
+                radioButton_guest.Checked = false;
 
                 comboBox_Abonem.SelectedItem = _daysInAbon.ToString();
             }
@@ -288,6 +316,7 @@ namespace PersonsBase.View
 
                 radioButton_Abonement.Checked = false;
                 radioButton_Single.Checked = false;
+                radioButton_guest.Checked = false;
 
                 comboBox_ClubCard.SelectedItem = _periodClubCard.ToString();
                 comboBox_TypeTren.SelectedItem = TypeWorkout.Тренажерный_Зал.ToString();
@@ -313,8 +342,26 @@ namespace PersonsBase.View
                 comboBox_TypeTren.SelectedItem = TypeWorkout.Тренажерный_Зал.ToString();
                 radioButton_Abonement.Checked = false;
                 radioButton_ClubCard.Checked = false;
+                radioButton_guest.Checked = false;
             }
             UpdateCorrectFieldsEn();
+        }
+
+        private void radioButton_guest_CheckedChanged(object sender, EventArgs e)
+        {
+            var radioButton = (RadioButton)sender;
+            if (radioButton.Checked)
+            {
+                _selectedAbonementName = "Гостевой визит";
+
+                comboBox_Abonem.Visible = false;
+                comboBox_ClubCard.Visible = false;
+                comboBox_TypeTren.SelectedItem = TypeWorkout.Тренажерный_Зал.ToString();
+                radioButton_Abonement.Checked = false;
+                radioButton_ClubCard.Checked = false;
+                radioButton_Single.Checked = false;
+                groupBox_Correctable.Enabled = false;
+            }
         }
 
         private void UpdateCorrectFieldsEn()
@@ -407,7 +454,7 @@ namespace PersonsBase.View
                 MessageBox.Show(@"Выберите Тип тренировки!", @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
-            DialogResult = DialogResult.OK;// Cancel;
+            DialogResult = DialogResult.OK;
         }
 
         private void checkBox_Activated_CheckedChanged(object sender, EventArgs e)
@@ -428,10 +475,12 @@ namespace PersonsBase.View
             }
             catch (Exception)
             {
-                MessageBox.Show("Exception 2");
+                MessageBox.Show(@"Exception 2");
             }
 
             UpdateCorrectFieldsEn();
         }
+
+
     }
 }

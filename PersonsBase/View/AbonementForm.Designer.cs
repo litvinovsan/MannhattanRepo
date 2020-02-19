@@ -3,34 +3,34 @@ using System.Windows.Forms;
 
 namespace PersonsBase.View
 {
-   partial class AbonementForm
-   {
-      /// <summary>
-      /// Required designer variable.
-      /// </summary>
-      private IContainer components = null;
+    partial class AbonementForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private IContainer components = null;
 
-      /// <summary>
-      /// Clean up any resources being used.
-      /// </summary>
-      /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-      protected override void Dispose(bool disposing)
-      {
-         if (disposing && (components != null))
-         {
-            components.Dispose();
-         }
-         base.Dispose(disposing);
-      }
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-      #region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-      /// <summary>
-      /// Required method for Designer support - do not modify
-      /// the contents of this method with the code editor.
-      /// </summary>
-      private void InitializeComponent()
-      {
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.button_Aplly = new System.Windows.Forms.Button();
             this.button2_Cancel = new System.Windows.Forms.Button();
@@ -45,6 +45,8 @@ namespace PersonsBase.View
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.radioButton_guest = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel_TypeTren = new System.Windows.Forms.Panel();
             this.comboBox_TypeTren = new System.Windows.Forms.ComboBox();
@@ -82,6 +84,7 @@ namespace PersonsBase.View
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel_TypeTren.SuspendLayout();
             this.panel_Spa.SuspendLayout();
@@ -98,12 +101,12 @@ namespace PersonsBase.View
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.68944F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.31056F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.36025F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 77.63976F));
             this.tableLayoutPanel1.Controls.Add(this.button_Aplly, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.button2_Cancel, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 412);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 454);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
@@ -116,10 +119,10 @@ namespace PersonsBase.View
             this.button_Aplly.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.button_Aplly.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_Aplly.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_Aplly.Location = new System.Drawing.Point(323, 2);
+            this.button_Aplly.Location = new System.Drawing.Point(146, 2);
             this.button_Aplly.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_Aplly.Name = "button_Aplly";
-            this.button_Aplly.Size = new System.Drawing.Size(318, 46);
+            this.button_Aplly.Size = new System.Drawing.Size(495, 46);
             this.button_Aplly.TabIndex = 0;
             this.button_Aplly.Text = "Применить";
             this.button_Aplly.UseVisualStyleBackColor = false;
@@ -133,7 +136,7 @@ namespace PersonsBase.View
             this.button2_Cancel.Location = new System.Drawing.Point(3, 2);
             this.button2_Cancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2_Cancel.Name = "button2_Cancel";
-            this.button2_Cancel.Size = new System.Drawing.Size(314, 46);
+            this.button2_Cancel.Size = new System.Drawing.Size(137, 46);
             this.button2_Cancel.TabIndex = 1;
             this.button2_Cancel.Text = "Отмена";
             this.button2_Cancel.UseVisualStyleBackColor = true;
@@ -143,22 +146,25 @@ namespace PersonsBase.View
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.01416F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.98583F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.98584F));
             this.tableLayoutPanel2.Controls.Add(this.panel_AbonType, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel_ClubCardType, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.radioButton_Single, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.pictureBox1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.pictureBox2, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.pictureBox3, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.pictureBox8, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.radioButton_guest, 1, 3);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 13);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 4;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(378, 129);
+            this.tableLayoutPanel2.RowCount = 5;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(378, 187);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // panel_AbonType
@@ -168,7 +174,7 @@ namespace PersonsBase.View
             this.panel_AbonType.Location = new System.Drawing.Point(59, 2);
             this.panel_AbonType.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel_AbonType.Name = "panel_AbonType";
-            this.panel_AbonType.Size = new System.Drawing.Size(313, 39);
+            this.panel_AbonType.Size = new System.Drawing.Size(313, 37);
             this.panel_AbonType.TabIndex = 7;
             // 
             // comboBox_Abonem
@@ -177,7 +183,7 @@ namespace PersonsBase.View
             this.comboBox_Abonem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_Abonem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox_Abonem.FormattingEnabled = true;
-            this.comboBox_Abonem.Location = new System.Drawing.Point(151, 6);
+            this.comboBox_Abonem.Location = new System.Drawing.Point(151, 5);
             this.comboBox_Abonem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox_Abonem.Name = "comboBox_Abonem";
             this.comboBox_Abonem.Size = new System.Drawing.Size(159, 24);
@@ -191,7 +197,7 @@ namespace PersonsBase.View
             this.radioButton_Abonement.Location = new System.Drawing.Point(0, 0);
             this.radioButton_Abonement.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButton_Abonement.Name = "radioButton_Abonement";
-            this.radioButton_Abonement.Size = new System.Drawing.Size(99, 39);
+            this.radioButton_Abonement.Size = new System.Drawing.Size(99, 37);
             this.radioButton_Abonement.TabIndex = 1;
             this.radioButton_Abonement.Text = "Абонемент";
             this.radioButton_Abonement.UseVisualStyleBackColor = true;
@@ -201,10 +207,10 @@ namespace PersonsBase.View
             // 
             this.panel_ClubCardType.Controls.Add(this.radioButton_ClubCard);
             this.panel_ClubCardType.Controls.Add(this.comboBox_ClubCard);
-            this.panel_ClubCardType.Location = new System.Drawing.Point(59, 45);
+            this.panel_ClubCardType.Location = new System.Drawing.Point(59, 43);
             this.panel_ClubCardType.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel_ClubCardType.Name = "panel_ClubCardType";
-            this.panel_ClubCardType.Size = new System.Drawing.Size(316, 39);
+            this.panel_ClubCardType.Size = new System.Drawing.Size(316, 37);
             this.panel_ClubCardType.TabIndex = 7;
             // 
             // radioButton_ClubCard
@@ -215,7 +221,7 @@ namespace PersonsBase.View
             this.radioButton_ClubCard.Location = new System.Drawing.Point(0, 0);
             this.radioButton_ClubCard.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButton_ClubCard.Name = "radioButton_ClubCard";
-            this.radioButton_ClubCard.Size = new System.Drawing.Size(126, 39);
+            this.radioButton_ClubCard.Size = new System.Drawing.Size(126, 37);
             this.radioButton_ClubCard.TabIndex = 0;
             this.radioButton_ClubCard.Text = "Клубная Карта";
             this.radioButton_ClubCard.UseVisualStyleBackColor = true;
@@ -227,7 +233,7 @@ namespace PersonsBase.View
             this.comboBox_ClubCard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_ClubCard.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox_ClubCard.FormattingEnabled = true;
-            this.comboBox_ClubCard.Location = new System.Drawing.Point(151, 8);
+            this.comboBox_ClubCard.Location = new System.Drawing.Point(151, 7);
             this.comboBox_ClubCard.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox_ClubCard.Name = "comboBox_ClubCard";
             this.comboBox_ClubCard.Size = new System.Drawing.Size(162, 24);
@@ -239,10 +245,10 @@ namespace PersonsBase.View
             this.radioButton_Single.AutoSize = true;
             this.radioButton_Single.Dock = System.Windows.Forms.DockStyle.Left;
             this.radioButton_Single.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.radioButton_Single.Location = new System.Drawing.Point(59, 88);
+            this.radioButton_Single.Location = new System.Drawing.Point(59, 84);
             this.radioButton_Single.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButton_Single.Name = "radioButton_Single";
-            this.radioButton_Single.Size = new System.Drawing.Size(159, 39);
+            this.radioButton_Single.Size = new System.Drawing.Size(159, 37);
             this.radioButton_Single.TabIndex = 2;
             this.radioButton_Single.Text = "Разовое посещение";
             this.radioButton_Single.UseVisualStyleBackColor = true;
@@ -254,7 +260,7 @@ namespace PersonsBase.View
             this.pictureBox1.Image = global::PersonsBase.Properties.Resources.абонемент;
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(50, 37);
+            this.pictureBox1.Size = new System.Drawing.Size(50, 35);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
@@ -263,9 +269,9 @@ namespace PersonsBase.View
             // 
             this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox2.Image = global::PersonsBase.Properties.Resources.SinglVisit;
-            this.pictureBox2.Location = new System.Drawing.Point(3, 46);
+            this.pictureBox2.Location = new System.Drawing.Point(3, 44);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(50, 37);
+            this.pictureBox2.Size = new System.Drawing.Size(50, 35);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 9;
             this.pictureBox2.TabStop = false;
@@ -274,15 +280,41 @@ namespace PersonsBase.View
             // 
             this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox3.Image = global::PersonsBase.Properties.Resources.SinglVisit2;
-            this.pictureBox3.Location = new System.Drawing.Point(3, 89);
+            this.pictureBox3.Location = new System.Drawing.Point(3, 85);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(50, 37);
+            this.pictureBox3.Size = new System.Drawing.Size(50, 35);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox3.TabIndex = 10;
             this.pictureBox3.TabStop = false;
             // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Image = global::PersonsBase.Properties.Resources.user_male_add;
+            this.pictureBox8.Location = new System.Drawing.Point(3, 126);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(48, 35);
+            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox8.TabIndex = 12;
+            this.pictureBox8.TabStop = false;
+            // 
+            // radioButton_guest
+            // 
+            this.radioButton_guest.AutoSize = true;
+            this.radioButton_guest.Dock = System.Windows.Forms.DockStyle.Left;
+            this.radioButton_guest.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButton_guest.Location = new System.Drawing.Point(59, 125);
+            this.radioButton_guest.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.radioButton_guest.Name = "radioButton_guest";
+            this.radioButton_guest.Size = new System.Drawing.Size(128, 37);
+            this.radioButton_guest.TabIndex = 11;
+            this.radioButton_guest.Text = "Гостевой визит";
+            this.radioButton_guest.UseVisualStyleBackColor = true;
+            this.radioButton_guest.Visible = false;
+            this.radioButton_guest.CheckedChanged += new System.EventHandler(this.radioButton_guest_CheckedChanged);
+            // 
             // tableLayoutPanel3
             // 
+            this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tableLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel3.ColumnCount = 2;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.71963F));
@@ -295,7 +327,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel3.Controls.Add(this.pictureBox5, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.pictureBox6, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.pictureBox7, 0, 8);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(6, 165);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 213);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 11;
@@ -504,11 +536,11 @@ namespace PersonsBase.View
             this.groupBox_Correctable.Controls.Add(this.flowLayoutPanel2);
             this.groupBox_Correctable.Controls.Add(this.checkBox_Activated);
             this.groupBox_Correctable.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox_Correctable.Location = new System.Drawing.Point(413, 8);
+            this.groupBox_Correctable.Location = new System.Drawing.Point(416, 8);
             this.groupBox_Correctable.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox_Correctable.Name = "groupBox_Correctable";
             this.groupBox_Correctable.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox_Correctable.Size = new System.Drawing.Size(228, 379);
+            this.groupBox_Correctable.Size = new System.Drawing.Size(225, 427);
             this.groupBox_Correctable.TabIndex = 10;
             this.groupBox_Correctable.TabStop = false;
             this.groupBox_Correctable.Text = "Корректировка Абонемента";
@@ -644,7 +676,7 @@ namespace PersonsBase.View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(644, 462);
+            this.ClientSize = new System.Drawing.Size(644, 504);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.groupBox_Correctable);
             this.Controls.Add(this.tableLayoutPanel3);
@@ -655,6 +687,7 @@ namespace PersonsBase.View
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(664, 547);
             this.Name = "AbonementForm";
             this.Text = "Добавление Абонемента/Карты";
             this.Load += new System.EventHandler(this.AbonementForm_Load);
@@ -668,6 +701,7 @@ namespace PersonsBase.View
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.panel_TypeTren.ResumeLayout(false);
@@ -688,34 +722,34 @@ namespace PersonsBase.View
             this.flowLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
 
-      }
+        }
 
-      #endregion
+        #endregion
 
-      private TableLayoutPanel tableLayoutPanel1;
-      private Button button_Aplly;
-      private Button button2_Cancel;
-      private TableLayoutPanel tableLayoutPanel2;
-      private Panel panel_AbonType;
-      private ComboBox comboBox_Abonem;
-      private RadioButton radioButton_Abonement;
-      private Panel panel_ClubCardType;
-      private RadioButton radioButton_ClubCard;
-      private ComboBox comboBox_ClubCard;
-      private RadioButton radioButton_Single;
-      private TableLayoutPanel tableLayoutPanel3;
-      private Panel panel_TypeTren;
-      private ComboBox comboBox_TypeTren;
-      private Label label2;
-      private Panel panel_Spa;
-      private ComboBox comboBox_spa;
-      private Label label4;
-      private Panel panel_TimeTren;
-      private ComboBox comboBox_time;
-      private Label label3;
-      private Panel panel_PayStatus;
-      private Label label5;
-      private ComboBox comboBox_Pay;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Button button_Aplly;
+        private Button button2_Cancel;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Panel panel_AbonType;
+        private ComboBox comboBox_Abonem;
+        private RadioButton radioButton_Abonement;
+        private Panel panel_ClubCardType;
+        private RadioButton radioButton_ClubCard;
+        private ComboBox comboBox_ClubCard;
+        private RadioButton radioButton_Single;
+        private TableLayoutPanel tableLayoutPanel3;
+        private Panel panel_TypeTren;
+        private ComboBox comboBox_TypeTren;
+        private Label label2;
+        private Panel panel_Spa;
+        private ComboBox comboBox_spa;
+        private Label label4;
+        private Panel panel_TimeTren;
+        private ComboBox comboBox_time;
+        private Label label3;
+        private Panel panel_PayStatus;
+        private Label label5;
+        private ComboBox comboBox_Pay;
         private DateTimePicker dateTimePicker_ActivationDate;
         private GroupBox groupBox_Correctable;
         private CheckBox checkBox_Activated;
@@ -736,5 +770,7 @@ namespace PersonsBase.View
         private PictureBox pictureBox7;
         private Label label9;
         private ComboBox comboBox_Tren;
+        private PictureBox pictureBox8;
+        private RadioButton radioButton_guest;
     }
 }
