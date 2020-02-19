@@ -41,11 +41,12 @@ namespace PersonsBase.data
         #endregion
 
         #region/// КОНСТРУКТОР и ДЕСТРУКТОР /////
+
         private DataBaseLevel()
         {
             MyFile.CreateFolder(Options.FolderNameDataBase);
             MyFile.CreateFolder(Options.FolderNameUserPhoto);
-         
+
             DeSerializeObjects(); // Там же сразу создаются обьекты базы
 
             // Cтруктура для удобства доступа
@@ -202,33 +203,34 @@ namespace PersonsBase.data
         /// </summary>
         private static void DeSerializeObjects()
         {
-            var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase;
+            var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase + "\\";
 
             // База Клиентов
             _dataBaseList = new SortedList<string, Person>(StringComparer.OrdinalIgnoreCase);
             lock (Locker)
             {
-                SerializeClass.DeSerialize(ref _dataBaseList, currentPath + "\\" + Options.PersonsDbFile);
+                SerializeClass.DeSerialize(ref _dataBaseList, currentPath + Options.PersonsDbFile);
             }
+
             // Журнал посещений клиентов
             _visitsDictionary = new Dictionary<string, List<Visit>>();
-            SerializeClass.DeSerialize(ref _visitsDictionary, currentPath + "\\" + Options.PersonVisitsDbFile);
+            SerializeClass.DeSerialize(ref _visitsDictionary, currentPath + Options.PersonVisitsDbFile);
 
             // База Тренеров
             _trenersList = new List<Trener>();
-            SerializeClass.DeSerialize(ref _trenersList, currentPath + "\\" + Options.TrenersDbFile);
+            SerializeClass.DeSerialize(ref _trenersList, currentPath + Options.TrenersDbFile);
 
             // База Администраторов 
             _adminsList = new List<Administrator>();
-            SerializeClass.DeSerialize(ref _adminsList, currentPath + "\\" + Options.AdminsDbFile);
+            SerializeClass.DeSerialize(ref _adminsList, currentPath + Options.AdminsDbFile);
 
             // Текущий Администратор на Ресепшн
             _adminCurrent = new Administrator();
-            SerializeClass.DeSerialize(ref _adminCurrent, currentPath + "\\" + Options.AdminCurrFile);
+            SerializeClass.DeSerialize(ref _adminCurrent, currentPath + Options.AdminCurrFile);
 
             // Список ежедневных Групповых Тренировок
             _groupScheduleList = new List<ScheduleNote>();
-            SerializeClass.DeSerialize(ref _groupScheduleList, currentPath + "\\" + Options.GroupSchFile);
+            SerializeClass.DeSerialize(ref _groupScheduleList, currentPath + Options.GroupSchFile);
         }
 
         #endregion

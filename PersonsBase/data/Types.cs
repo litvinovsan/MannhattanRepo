@@ -104,7 +104,7 @@ namespace PersonsBase.data
         public string Phone;
         public string Passport;
         public string DriveId;
-        public string PathToPhoto;
+        public string photoName;
         public string SpecialNotes;
         public int PersonalNumber;
         public Gender Gender;

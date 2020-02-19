@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -40,13 +41,16 @@ namespace PersonsBase.control
         #region /// РАЗНЫЕ МЕТОДЫ ///
 
         /// <summary>
-        /// Загрузка фотографии в PictureBox на форме. Выполняется проверка на существование фотки на диске
+        /// Загрузка фотографии в PictureBox на форме.
+        /// На вход подать либо полный путь, либо только имя файла.
+        /// Поиск в стандартных директориях
+        /// Выполняется проверка на существование фотки на диске
         /// </summary>
         /// <param name="pictureBox"></param>
-        /// <param name="pathToPhoto"></param>
-        public static void TryLoadPhoto(PictureBox pictureBox, string pathToPhoto)
+        /// <param name="pathOrNamePhoto"></param>
+        public static void TryLoadPhoto(PictureBox pictureBox, string pathOrNamePhoto)
         {
-            if (string.IsNullOrEmpty(pathToPhoto))
+            if (string.IsNullOrEmpty(pathOrNamePhoto))
             {
                 pictureBox.Image = null;
                 return;
@@ -54,9 +58,11 @@ namespace PersonsBase.control
 
             try
             {
-                if (MyFile.IsFileExist(pathToPhoto))
+                var path = Photo.GetFullPathToPhoto(pathOrNamePhoto);
+
+                if (MyFile.IsFileExist(path))
                 {
-                    pictureBox.Image = Photo.OpenPhoto(pathToPhoto);
+                    pictureBox.Image = Photo.OpenPhoto(path);
                     pictureBox.Invalidate();
                 }
                 else
@@ -284,7 +290,7 @@ namespace PersonsBase.control
                 GenderType = dataStruct.Gender,
                 DriverIdNum = dataStruct.DriveId,
                 Passport = dataStruct.Passport,
-                PathToPhoto = dataStruct.PathToPhoto,
+                PathToPhoto = dataStruct.photoName,
                 PersonalNumber = dataStruct.PersonalNumber,
                 Phone = dataStruct.Phone,
                 SpecialNotes = dataStruct.SpecialNotes,
@@ -566,7 +572,7 @@ namespace PersonsBase.control
                     }
             }
             _daily.AddToVisitsLog(personName, selectedOptions); // Cобытие для добавления текущего посещения на главную форму
-          //  person.AbonValuesChanged(this, EventArgs.Empty);
+                                                                //  person.AbonValuesChanged(this, EventArgs.Empty);
             IsAbonementValid(ref person);
             MessageBox.Show(@"Тренировка Учтена!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return true;

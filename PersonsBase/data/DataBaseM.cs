@@ -135,12 +135,12 @@ namespace PersonsBase.data
         {
             var isExist = FindByPersonalNumber(DataBaseLevel.GetPersonsList(), newNumber, out var person);
 
-            if ( isExist)
+            if (isExist)
             {
-                MessageBox.Show($"Такой номер уже назначен клиенту: \n\r {person.Name}", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Такой номер уже назначен клиенту: \n\r {person.Name}", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
-            else if (newNumber <= 0 )
+            else if (newNumber <= 0)
             {
                 MessageBox.Show($@"Личный номер удалён", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 PersonObject.GetLink(namePerson).PersonalNumber = 0;
@@ -304,6 +304,8 @@ namespace PersonsBase.data
         public static IEnumerable<PersonField> GetPersonFieldsFull(KeyValuePair<string, Person> first)
         {// FIXME  Попробовать тут Рефлексию
             var person = first.Value;
+            var abon = person.AbonementCurent;
+            var isAbonExist = abon != null;
             var personFields = new List<PersonField>
             {
                 new PersonField {HeaderName = "Имя", Value = person.Name},
@@ -314,28 +316,24 @@ namespace PersonsBase.data
                 new PersonField {HeaderName = "ID номер", Value = person.PersonalNumber.ToString()},
                 new PersonField {HeaderName = "Паспорт", Value = person.Passport},
                 new PersonField {HeaderName = "Права", Value = person.DriverIdNum},
-                new PersonField { HeaderName = "Фото", Value = Path.GetFileName(person.PathToPhoto)}
+                new PersonField { HeaderName = "Фото", Value = Path.GetFileName(person.PathToPhoto)},
+                // Абонемент
+                new PersonField { HeaderName = "Название", Value = (isAbonExist) ?abon.AbonementName: "" },
+                new PersonField { HeaderName = "Доступное время", Value = (isAbonExist) ?abon.TimeTraining.ToString():"" },
+                new PersonField { HeaderName = "Осталось дней", Value = (isAbonExist) ?abon.GetRemainderDays().ToString():"" },
+                new PersonField { HeaderName = "Аэробных", Value = (isAbonExist) ?abon.NumAerobicTr.ToString():"" },
+                new PersonField { HeaderName = "Персональных", Value = (isAbonExist) ?abon.NumPersonalTr.ToString():""},
+
+                new PersonField { HeaderName = "Мини Групп", Value =(isAbonExist) ?abon.NumMiniGroup.ToString():"" },
+                new PersonField { HeaderName = "Спа услуги", Value = (isAbonExist) ?abon.Spa.ToString():"" },
+                new PersonField { HeaderName = "Доступный тип", Value =(isAbonExist) ?abon.TypeWorkout.ToString():"" },
+                new PersonField { HeaderName = "Оплата", Value = (isAbonExist) ?abon.PayStatus.ToString():"" },
+                new PersonField { HeaderName = "Абон. Активация", Value =(isAbonExist) ? $"{abon.BuyActivationDate:MM/dd/yyyy}" :""},
+                new PersonField { HeaderName = "Абон. Конец", Value =(isAbonExist) ? $"{person.AbonementCurent.EndDate:MM/dd/yyyy}":"" },
+                new PersonField { HeaderName = "Активация", Value = (isAbonExist) ?abon.IsActivated.ToString():"" },
+                new PersonField { HeaderName = "Заметки", Value = person.SpecialNotes },
+                new PersonField { HeaderName = "Заморозки", Value = GetFreezeString(person) }
             };
-            if (person.AbonementCurent != null)
-            {
-                personFields.Add(new PersonField { HeaderName = "Название", Value = person.AbonementCurent.AbonementName });
-                personFields.Add(new PersonField { HeaderName = "Доступное время", Value = person.AbonementCurent.TimeTraining.ToString() });
-                personFields.Add(new PersonField { HeaderName = "Осталось дней", Value = person.AbonementCurent.GetRemainderDays().ToString() });
-                personFields.Add(new PersonField { HeaderName = "Аэробных", Value = person.AbonementCurent.NumAerobicTr.ToString() });
-                personFields.Add(new PersonField { HeaderName = "Персональных", Value = person.AbonementCurent.NumPersonalTr.ToString() });
-                personFields.Add(new PersonField { HeaderName = "Мини Групп", Value = person.AbonementCurent.NumMiniGroup.ToString() });
-                personFields.Add(new PersonField { HeaderName = "Спа услуги", Value = person.AbonementCurent.Spa.ToString() });
-                personFields.Add(new PersonField { HeaderName = "Доступный тип", Value = person.AbonementCurent.TypeWorkout.ToString() });
-                personFields.Add(new PersonField { HeaderName = "Оплата", Value = person.AbonementCurent.PayStatus.ToString() });
-                personFields.Add(new PersonField { HeaderName = "Абон. Активация", Value = $"{person.AbonementCurent.BuyActivationDate:MM/dd/yyyy}" });
-                personFields.Add(new PersonField { HeaderName = "Абон. Конец", Value = $"{person.AbonementCurent.EndDate:MM/dd/yyyy}" });
-                personFields.Add(new PersonField { HeaderName = "Активация", Value = person.AbonementCurent.IsActivated.ToString() });
-            }
-
-            personFields.Add(new PersonField { HeaderName = "Заметки", Value = person.SpecialNotes });
-
-            // Вывод Списка Заморозок
-            personFields.Add(new PersonField { HeaderName = "Заморозки", Value = GetFreezeString(person) });
 
             return personFields;
         }

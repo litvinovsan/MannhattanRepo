@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.control;
@@ -407,11 +408,6 @@ namespace PersonsBase.View
 
 
 
-
-
-
-
-
         #region // Хелп Методы для Загрузки и обновления пользовательских данных
         private void LoadEditableData()
         {
@@ -670,7 +666,7 @@ namespace PersonsBase.View
         private void button_photo_Click(object sender, EventArgs e)
         {
             var success = Photo.OpenPhoto(out var img);
-            if (success) _person.PathToPhoto = Photo.SaveToPhotoDir(img, _person.Name);
+            if (success) _person.PathToPhoto = Path.GetFileName(Photo.SaveToPhotoDir(img, _person.Name));
         }
 
         private void textBox_Number_Click(object sender, EventArgs e)

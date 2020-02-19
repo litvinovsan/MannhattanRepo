@@ -100,15 +100,31 @@ namespace PersonsBase.data
         /// Возвращает путь до директории с фотографиями клиентов "UserPhoto\\". Есть \\
         /// </summary>
         /// <returns></returns>
-        public static string GetPathToPhotoDir()
+        private static string GetPathUsersPhotoDir()
         {
             return Directory.GetCurrentDirectory() + "\\" + Options.FolderNameUserPhoto + "\\";
         }
-
-        // FIXME. Можно хранить не полный путь к фотке клиента, а только Имя файла. А дальше искать в стандартных папках
-        public static string GetFullPathToPhoto(string personOrFileName)
+        /// <summary>
+        /// Возвращает путь до директории с стандартными симпсон фотографиями клиентов "StandartPhotos\\".
+        /// </summary>
+        /// <returns></returns>
+        private static string GetPathStandartPhotoDir()
         {
-            return GetPathToPhotoDir() + personOrFileName + ".jpg";
+            return Directory.GetCurrentDirectory() + "\\" + Options.FolderNameStdPhoto + "\\";
+        }
+
+        public static string GetFullPathToPhoto(string photoNameWithExtens)
+        {
+            var fName = Path.GetFileName(photoNameWithExtens);
+            var stdPath = GetPathStandartPhotoDir() + fName;
+            var userPhotoPath = GetPathUsersPhotoDir() + fName;
+
+            if (MyFile.IsFileExist(userPhotoPath))
+            {
+                return userPhotoPath;
+            }
+
+            return MyFile.IsFileExist(stdPath) ? stdPath : string.Empty;
         }
 
         #region /// Генератор случайных фото
@@ -147,7 +163,9 @@ namespace PersonsBase.data
 
         };
         /// <summary>
-        /// Возвращает путь до Симпсон фотки. Выбирает рандомно в зависимости от Пола и Возраста
+        /// Возвращает имя Симпсон фотки. Выбирает рандомно в зависимости от Пола и Возраста
+        /// В базу дальше сохранится только имя. Путь подстраивается автоматически. Поиск совпадения в станд папке с фотками.
+        /// 
         /// </summary>
         /// <param name="gender"></param>
         /// <returns></returns>
@@ -173,15 +191,15 @@ namespace PersonsBase.data
                     }
                 default:
                     {
-                        var index = random.Next(1, 12);
+                        var index = random.Next(1, MaleFileNames.Count);
                         name = MaleFileNames[index];
                         break;
                     }
 
             }
-            var path = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameStdPhoto + "\\" + name;
+            var simpsonFileName = name;
 
-            return path;
+            return simpsonFileName;
         }
         #endregion
 

@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using PersonsBase.data;
 using PersonsBase.control;
 using PersonsBase.myStd;
+using System.IO;
 
 namespace PersonsBase.View
 {
@@ -315,8 +316,8 @@ namespace PersonsBase.View
             }
             else
             {
-                _dataStruct.PathToPhoto = Photo.SaveToPhotoDir(img, _dataStruct.Name);
-                Logic.TryLoadPhoto(pictureBox_Client, _dataStruct.PathToPhoto);
+                _dataStruct.photoName = Path.GetFileName(Photo.SaveToPhotoDir(img, _dataStruct.Name));
+                Logic.TryLoadPhoto(pictureBox_Client, _dataStruct.photoName);
             }
         }
 
@@ -329,9 +330,9 @@ namespace PersonsBase.View
             }
 
             // Если разрешены фейковые фото и не присвоена реальная фотка
-            if (Options.SimpsonsPhoto && string.IsNullOrEmpty(_dataStruct.PathToPhoto))
+            if (Options.SimpsonsPhoto && string.IsNullOrEmpty(_dataStruct.photoName))
             {
-                _dataStruct.PathToPhoto = Photo.GetRndPhoto(_dataStruct.Gender);
+                _dataStruct.photoName = Photo.GetRndPhoto(_dataStruct.Gender);
             }
 
             var p = Logic.CreateNewPerson(_dataStruct);
