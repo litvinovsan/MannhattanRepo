@@ -108,7 +108,7 @@ namespace PersonsBase.View
 
             // Оплата
             comboBox_Pay.Items.AddRange(Enum.GetNames(typeof(Pay)).ToArray<object>()); // Записываем Поля в Комбобокс
-            comboBox_Pay.SelectedItem = _pay.ToString();                       // Выбор по умолчанию
+            // comboBox_Pay.SelectedItem = _pay.ToString();                       // Выбор по умолчанию
             comboBox_Pay.SelectedIndexChanged += ComboBox_Pay_SelectedIndexChanged;
 
             // Количество Дней в Абонементе
@@ -179,7 +179,6 @@ namespace PersonsBase.View
                         _person.AbonementCurent = null;
                         _person.UpdateActualStatus();
                         // Для обновления списка посещений при добавлении новой тренировки
-                      //  MyDataGridView.SetSourceDataGridView(dataGridView_Visits, Visit.GetVisitsTable(_person));
                         return;
                     }
 
@@ -454,6 +453,13 @@ namespace PersonsBase.View
                 MessageBox.Show(@"Выберите Тип тренировки!", @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
+
+            if (comboBox_Pay.SelectedItem == null)
+            {
+                MessageBox.Show(@"Выберите статус Оплаты", @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return;
+            }
+
             DialogResult = DialogResult.OK;
         }
 
