@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.data;
@@ -108,7 +109,7 @@ namespace PersonsBase.View
 
             // Оплата
             comboBox_Pay.Items.AddRange(Enum.GetNames(typeof(Pay)).ToArray<object>()); // Записываем Поля в Комбобокс
-            comboBox_Pay.SelectedItem = _pay.ToString();                       // Выбор по умолчанию
+            //comboBox_Pay.SelectedItem = _pay.ToString();                       // Выбор по умолчанию
             comboBox_Pay.SelectedIndexChanged += ComboBox_Pay_SelectedIndexChanged;
 
             // Количество Дней в Абонементе
@@ -178,7 +179,6 @@ namespace PersonsBase.View
                         _person.Status = StatusPerson.Гостевой;
                         _person.AbonementCurent = null;
                         // Для обновления списка посещений при добавлении новой тренировки
-                      //  MyDataGridView.SetSourceDataGridView(dataGridView_Visits, Visit.GetVisitsTable(_person));
                         return;
                     }
 
@@ -439,20 +439,37 @@ namespace PersonsBase.View
         {
             if (radioButton_Abonement.Checked && _daysInAbon == 0)
             {
+                comboBox_Abonem.DropDownStyle = ComboBoxStyle.DropDown;
+                comboBox_Abonem.BackColor = Color.Pink;
                 MessageBox.Show(@"Выберите Количество посещений!", @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
             if (radioButton_ClubCard.Checked && _periodClubCard == 0)
             {
+                comboBox_ClubCard.DropDownStyle = ComboBoxStyle.DropDown;
+                comboBox_ClubCard.BackColor = Color.Pink;
+
                 MessageBox.Show(@"Выберите Длительность Клубной Карты!", @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
 
             if (comboBox_TypeTren.SelectedItem == null)
             {
+                comboBox_TypeTren.DropDownStyle = ComboBoxStyle.DropDown;
+                comboBox_TypeTren.BackColor = Color.Pink;
                 MessageBox.Show(@"Выберите Тип тренировки!", @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
+
+            if (comboBox_Pay.SelectedItem == null)
+            {
+                comboBox_Pay.DropDownStyle = ComboBoxStyle.DropDown;
+                comboBox_Pay.BackColor = Color.Pink;
+                MessageBox.Show(@"Уточните статус оплаты!", @"Оплата", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+
+                return;
+            }
+
             DialogResult = DialogResult.OK;
         }
 
