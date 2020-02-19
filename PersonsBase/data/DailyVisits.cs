@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using PersonsBase.control;
 using PersonsBase.myStd;
 using PersonsBase.Properties;
@@ -138,7 +137,7 @@ namespace PersonsBase.data
         {
             var personNameTemp = string.IsNullOrEmpty(personName) ? "Имя неизвестно" : personName;
             var shortName = Logic.GetPersonShortName(personNameTemp);
-            return new AerobItem(groupTimeName, shortName.ToString());
+            return new AerobItem(groupTimeName, shortName);
         }
         #endregion
 
@@ -155,7 +154,7 @@ namespace PersonsBase.data
         private static PersonalItem CreateItem(string personName, string trenerName)
         {
             var shortName = Logic.GetPersonShortName(personName);
-            return new PersonalItem(shortName.ToString(), trenerName);
+            return new PersonalItem(shortName, trenerName);
         }
         #endregion
 

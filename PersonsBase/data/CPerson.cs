@@ -24,7 +24,7 @@ namespace PersonsBase.data
         [field: NonSerialized] public event EventHandler<Gender> GenderTypeChanged;
 
 
-        public void OnStatusChanged()
+        private void OnStatusChanged()
         {
             StatusChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -32,6 +32,7 @@ namespace PersonsBase.data
         {
             PathToPhotoChanged?.Invoke(this, EventArgs.Empty);
         }
+
         private void OnAbonementCurentChanged()
         {
             AbonementCurentChanged?.Invoke(this, EventArgs.Empty);
@@ -87,13 +88,15 @@ namespace PersonsBase.data
 
         #region/// ПУБЛИЧНЫЕ ПОЛЯ, ДОСТУПНЫЕ ДАННЫЕ О КЛИЕНТЕ ////////////
 
-        // FIXME Добавить проверку, вызывать событие только тогда когда значение отличается от текущего.
         public string Name
         {
             get { return _name; }
             set
             {
-                _name = Logic.PrepareName(value);
+                var newName = Logic.PrepareName(value);
+                if (newName.Equals(_name)) return;
+
+                _name = newName;
                 OnNameChanged(_name);
             }
         }
@@ -102,7 +105,9 @@ namespace PersonsBase.data
             get { return _phone; }
             set
             {
-                _phone = string.IsNullOrEmpty(value) ? "" : value;
+                var newPhone = string.IsNullOrEmpty(value) ? "" : value;
+                if (_phone.Equals(newPhone)) return;
+                _phone = newPhone;
                 OnPhoneChanged(_phone);
             }
         }
@@ -162,6 +167,7 @@ namespace PersonsBase.data
             }
             set
             {
+                if (_status == value) return;
                 _status = value;
                 OnStatusChanged();
             }
@@ -185,7 +191,10 @@ namespace PersonsBase.data
             set
             {
                 if (UpdateQueue(value))
+                {
+                    StatusDirector();
                     OnAbonementCurentChanged();
+                }
             }
         }
         public Gender GenderType
@@ -205,7 +214,7 @@ namespace PersonsBase.data
         {
             Name = nameFio;
             PersonalNumber = 0;
-            Status = StatusPerson.Нет_Карты;
+            _status = StatusPerson.Нет_Карты;
             GenderType = Gender.Неизвестен;
             BirthDate = DateTime.Parse("02.02.2000");
             Passport = string.Empty;
@@ -222,7 +231,7 @@ namespace PersonsBase.data
         {
             Name = "Empty Name";
             PersonalNumber = 0;
-            Status = StatusPerson.Нет_Карты;
+            _status = StatusPerson.Нет_Карты;
             GenderType = Gender.Неизвестен;
             BirthDate = DateTime.Parse("02.02.2000");
             Passport = string.Empty;
@@ -240,39 +249,40 @@ namespace PersonsBase.data
 
         #region /// МЕТОДЫ  ///////////////////////////
 
-        // Публичные
-        public StatusPerson UpdateActualStatus()
-        {
-            //Обновляем статус клиента.
-            if (Status == StatusPerson.Запрещён) return Status;
-            if (Status == StatusPerson.Гостевой) return Status;
-            if (AbonementCurent != null)
-            {
-                if (AbonementCurent.IsValid())
-                {
-                    var clubCard = _abonementCurent as ClubCardA;
-                    if (clubCard?.Freeze != null)
-                    {
-                        _status = clubCard.Freeze.IsFreezedNow() ? StatusPerson.Заморожен : StatusPerson.Активный;
-                    }
 
-                    if (_status != StatusPerson.Заморожен)
-                    {
-                        _status = StatusPerson.Активный;
-                    }
-                }
-                else // Кончился Абонемент
-                {
-                    _status = StatusPerson.Нет_Карты;
-                    // FIXME Надо придумать способ когда нужно удалять абонемент
-                    // AbonementCurent = null;
-                }
-            }
-            else
+
+        private void StatusDirector()
+        {
+            if (Status == StatusPerson.Запрещён)
             {
-                if (Status == StatusPerson.Активный || Status == StatusPerson.Заморожен) _status = StatusPerson.Нет_Карты;
+                // AbonementCurent = null;
+                return;
             }
-            return Status;
+
+            if (Status == StatusPerson.Гостевой)
+            {
+                //if (AbonementCurent == null) return;
+                return;
+            }
+
+            // Нет Карты
+            if (AbonementCurent == null)
+            {
+                Status = StatusPerson.Нет_Карты;
+            }
+            else // Активный
+            {
+                var isValid = AbonementCurent.IsValid();
+                if (isValid)
+                {
+                    Status = AbonementCurent.Freeze != null && AbonementCurent.Freeze.IsFreezedNow() ? StatusPerson.Заморожен : StatusPerson.Активный;
+                }
+                else
+                {
+                    Status = StatusPerson.Нет_Карты;
+                    AbonementCurent = null;
+                }
+            }
         }
 
         #endregion
@@ -280,8 +290,8 @@ namespace PersonsBase.data
         #region /// АБОНЕМЕНТ МЕТОДЫ ///
 
         public bool IsAbonementExist()
-        {// FIXME сделать тут проверку валидности абонемента по всем полям. Дата,занятия,дни
-            return AbonementCurent != null;
+        {
+            return AbonementCurent != null && AbonementCurent.IsValid();
         }
 
         private bool UpdateQueue(AbonementBasic newAbonementValue)

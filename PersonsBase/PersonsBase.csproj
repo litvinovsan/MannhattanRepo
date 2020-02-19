@@ -327,12 +327,6 @@
     <None Include="Resources\clientsCopy.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ChangeArrow.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ChangeArrow1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\arrow.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

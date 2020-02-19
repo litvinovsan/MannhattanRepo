@@ -7,20 +7,33 @@ namespace PersonsBase.data.Abonements
     [Serializable]
     public abstract class AbonementBasic
     {
-        // СОБЫТИЯ
+        #region /// СОБЫТИЯ
         [field: NonSerialized]
         public event EventHandler EndDateChanged;
         private void OnEndDateChanged()
         {
             EndDateChanged?.Invoke(this, EventArgs.Empty);
         }
-        // FIXME. Обьединить даты в одну структуру
+
+        [field: NonSerialized]
+        public event EventHandler ValuesChanged;
+
+        protected void OnValuesChanged()
+        {
+            ValuesChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        #endregion
 
         // ПОЛЯ и СВОЙСТВА
         public abstract string AbonementName { get; }
         public abstract string InfoMessageEnd { get; }
-        public abstract int NumAerobicTr { get; set; } // Количество Аэробных тренировок. 10 в клубн карте,каждый месяц
-        public abstract int NumPersonalTr { get; set; } // Количество Персональных тренировок. Могут быть добавлены к Клубному абонементу.
+
+        public abstract int NumAerobicTr { get; set; }
+
+
+        public abstract int NumPersonalTr { get; set; }
+        // Количество Персональных тренировок. Могут быть добавлены к Клубному абонементу.
 
         public int NumMiniGroup
         {
@@ -28,6 +41,7 @@ namespace PersonsBase.data.Abonements
             set
             {
                 _numMiniGroup = (value >= 0) ? value : 0;
+                OnValuesChanged();
             }
         }
 

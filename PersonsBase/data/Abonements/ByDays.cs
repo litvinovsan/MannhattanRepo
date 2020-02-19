@@ -6,6 +6,9 @@ namespace PersonsBase.data.Abonements
     [Serializable]
     public class AbonementByDays : AbonementBasic //Абонемент на несколько занятий
     {
+        private DaysInAbon _typeAbonement;
+        private int _numAerobicTr1;
+        private int _numPersonalTr1;
         private const int ValidityPeriod = 2;
         public const string NameAbonement = "Абонемент";
 
@@ -14,15 +17,13 @@ namespace PersonsBase.data.Abonements
             : base(payStatus, time, typeTr, spa)
         {
             DaysLeft = (int)numDays;
-            TypeAbonement = numDays;
-            NumAerobicTr = 0;  // Нужны тут только из-за абстракции. 
-            NumPersonalTr = 0; // Нужны тут только из-за абстракции. 
+            _typeAbonement = numDays;
+            NumAerobicTr = 0;
+            NumPersonalTr = 0;
             EndDate = DateTime.Now.AddMonths(2).Date;
         }
 
         // Свойства
-        public sealed override int NumAerobicTr { get; set; }
-        public sealed override int NumPersonalTr { get; set; }
         public override string AbonementName
         {
             get { return NameAbonement; }
@@ -33,7 +34,27 @@ namespace PersonsBase.data.Abonements
             get { return "Абонемент Закончился!"; }
         }
 
-        public DaysInAbon TypeAbonement { get; set; }
+        public sealed override int NumAerobicTr
+        {
+            get { return _numAerobicTr1; }
+            set { _numAerobicTr1 = value; }
+        }
+
+        public sealed override int NumPersonalTr
+        {
+            get { return _numPersonalTr1; }
+            set { _numPersonalTr1 = value; }
+        }
+
+        public DaysInAbon TypeAbonement
+        {
+            get { return _typeAbonement; }
+            set
+            {
+                _typeAbonement = value;
+                OnValuesChanged();
+            }
+        }
 
         // Методы
         public override void TryActivate()
@@ -44,6 +65,7 @@ namespace PersonsBase.data.Abonements
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = date;
             BuyActivationDate = DateTime.Now.Date;
+            OnValuesChanged();
         }
 
         public override void TryActivate(DateTime startDate)
@@ -59,6 +81,7 @@ namespace PersonsBase.data.Abonements
             var date = startDate.AddMonths(ValidityPeriod).Date;
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = date;
+            OnValuesChanged();
         }
 
         public override bool CheckInWorkout(TypeWorkout type)
@@ -69,6 +92,7 @@ namespace PersonsBase.data.Abonements
                 DaysLeft--;
                 result = true;
             }
+           // OnValuesChanged();
             return result;
         }
 
@@ -83,6 +107,7 @@ namespace PersonsBase.data.Abonements
         public override bool AddTrainingsToAbon(TypeWorkout type, int numberToAdd)
         {
             DaysLeft += numberToAdd;
+            OnValuesChanged();
             return true;
         }
 
@@ -116,6 +141,7 @@ namespace PersonsBase.data.Abonements
         public void SetDaysLeft(int numberDaysLeft)
         {
             DaysLeft = numberDaysLeft;
+            OnValuesChanged();
         }
     }
 }
