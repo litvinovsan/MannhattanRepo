@@ -245,7 +245,7 @@ namespace PersonsBase.data
         {
             //Обновляем статус клиента.
             if (Status == StatusPerson.Запрещён) return Status;
-
+            if (Status == StatusPerson.Гостевой) return Status;
             if (AbonementCurent != null)
             {
                 if (AbonementCurent.IsValid())
