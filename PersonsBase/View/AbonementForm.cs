@@ -178,7 +178,6 @@ namespace PersonsBase.View
                         DailyVisits.GetInstance().AddToVisitsLog(_person.Name, selectedOptions); // Cобытие для добавления текущего посещения на главную форму
                         _person.Status = StatusPerson.Гостевой;
                         _person.AbonementCurent = null;
-                        // Для обновления списка посещений при добавлении новой тренировки
                         return;
                     }
 

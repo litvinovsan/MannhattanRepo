@@ -36,7 +36,7 @@ namespace PersonsBase.View
             // Заполнение стартовое всех полей
             LoadUserData();
             Logic.LoadShortInfo(groupBox_Info, _person);
-            Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto);
+            Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto, _person.GenderType);
             LoadEditableData();
             // для заполнения полей на форме
             UpdateControls(this, EventArgs.Empty);
@@ -349,7 +349,7 @@ namespace PersonsBase.View
         }
         private void PathToPhotoChangedMethod(object sender, EventArgs e)
         {
-            Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto);
+            Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto, _person.GenderType);
         }
         #endregion
 

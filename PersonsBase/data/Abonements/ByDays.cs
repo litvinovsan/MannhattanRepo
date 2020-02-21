@@ -9,7 +9,7 @@ namespace PersonsBase.data.Abonements
         private DaysInAbon _typeAbonement;
         private int _numAerobicTr1;
         private int _numPersonalTr1;
-        private const int ValidityPeriod = 2;
+        private int ValidityPeriod = 2;
         public const string NameAbonement = "Абонемент";
 
         // Конструктор
@@ -48,7 +48,7 @@ namespace PersonsBase.data.Abonements
 
         public DaysInAbon TypeAbonement
         {
-            get { return _typeAbonement; }
+            private get { return _typeAbonement; }
             set
             {
                 _typeAbonement = value;

@@ -98,6 +98,7 @@ namespace PersonsBase.View
             this.textBox_Name.Location = new System.Drawing.Point(2, 2);
             this.textBox_Name.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_Name.Name = "textBox_Name";
+            this.textBox_Name.ReadOnly = true;
             this.textBox_Name.Size = new System.Drawing.Size(499, 32);
             this.textBox_Name.TabIndex = 1;
             this.textBox_Name.Text = "ФИО";

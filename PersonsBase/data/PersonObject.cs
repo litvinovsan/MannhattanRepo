@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using PersonsBase.data.Abonements;
 
 namespace PersonsBase.data
@@ -33,7 +34,7 @@ namespace PersonsBase.data
             var currentAdmin = (DataBaseLevel.GetManhattanInfo()?.CurrentAdmin) ?? new Administrator();
             var visit = new Visit(person.AbonementCurent, selectedOptions, currentAdmin.Name);
             var personsVisitDict = DataBaseLevel.GetPersonsVisitDict();
-
+            
             if (personsVisitDict.ContainsKey(person.Name))
             {
                 personsVisitDict[person.Name].Add(visit);

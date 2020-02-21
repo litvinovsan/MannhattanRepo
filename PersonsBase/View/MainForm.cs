@@ -58,13 +58,6 @@ namespace PersonsBase.View
 
             // Показать окно выбора Администратора
             Logic.SelectCurentAdmin();
-
-            // FIXME УДАЛИТЬ после запуска на компе админов
-            foreach (var item in DataBaseLevel.GetPersonsList())
-            {
-                var fullPath = item.Value.PathToPhoto;
-                item.Value.PathToPhoto = Path.GetFileName(fullPath);
-            }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

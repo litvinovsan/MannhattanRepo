@@ -48,17 +48,31 @@ namespace PersonsBase.control
         /// </summary>
         /// <param name="pictureBox"></param>
         /// <param name="pathOrNamePhoto"></param>
-        public static void TryLoadPhoto(PictureBox pictureBox, string pathOrNamePhoto)
+        /// <param name="gender"></param>
+        public static void TryLoadPhoto(PictureBox pictureBox, string pathOrNamePhoto, Gender inputGender)
         {
-            if (string.IsNullOrEmpty(pathOrNamePhoto))
+            Gender gender = inputGender;
+
+            var fileName = pathOrNamePhoto;
+            if (string.IsNullOrEmpty(fileName))
             {
-                pictureBox.Image = null;
-                return;
+                // Если разрешены фейковые фото и не присвоена реальная фотка
+                if (Options.SimpsonsPhoto)
+                {
+                    fileName = Photo.GetRndPhoto(gender);
+                }
+                else
+                {
+                    pictureBox.Image = null;
+                    return;
+                }
             }
 
             try
             {
-                var path = Photo.GetFullPathToPhoto(pathOrNamePhoto);
+                if (string.IsNullOrEmpty(fileName)) return;
+
+                var path = Photo.GetFullPathToPhoto(fileName);
 
                 if (MyFile.IsFileExist(path))
                 {

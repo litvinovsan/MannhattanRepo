@@ -317,7 +317,7 @@ namespace PersonsBase.View
             else
             {
                 _dataStruct.photoName = Path.GetFileName(Photo.SaveToPhotoDir(img, _dataStruct.Name));
-                Logic.TryLoadPhoto(pictureBox_Client, _dataStruct.photoName);
+                Logic.TryLoadPhoto(pictureBox_Client, _dataStruct.photoName, _dataStruct.Gender);
             }
         }
 
@@ -327,12 +327,6 @@ namespace PersonsBase.View
             {
                 ButtonAddEnable(false);
                 return;
-            }
-
-            // Если разрешены фейковые фото и не присвоена реальная фотка
-            if (Options.SimpsonsPhoto && string.IsNullOrEmpty(_dataStruct.photoName))
-            {
-                _dataStruct.photoName = Photo.GetRndPhoto(_dataStruct.Gender);
             }
 
             var p = Logic.CreateNewPerson(_dataStruct);

@@ -124,7 +124,7 @@ namespace PersonsBase.View
             maskedTextBox_number.Text = person.PersonalNumber.ToString();
 
             // Фото
-            Logic.TryLoadPhoto(pictureBox_Client, person.PathToPhoto);
+            Logic.TryLoadPhoto(pictureBox_Client, person.PathToPhoto, person.GenderType);
 
             // Краткая инфа об абонементе
             Logic.LoadShortInfo(groupBox_AbonInfo, person);

@@ -129,37 +129,50 @@ namespace PersonsBase.data
 
         #region /// Генератор случайных фото
 
-        // 12
-        private static readonly Dictionary<int, string> MaleFileNames = new Dictionary<int, string>
+        private static readonly List<string> MaleFileNames = new List<string>
         {
-            {1, "Апу Нахасапима.jpg"},
-            {2, "Бёрнс Монтгомери.jpg"},
-            {3,"Гомер Симпсон.jpg" },
-            {4,"Директор Скиннер.jpg" },
-            {5,"Кент Брокман.jpg" },
-            {6,"КлоунКрасти.jpg" },
-            {7,"Садовник Вилли.jpg" },
-            {8,"Симпсон Барт.jpg" },
-            {9,"Симпсон Эйбрахам.jpg" },
-            {10,"Скиннер Сеймур.jpeg" },
-            {11,"Трактирщик Мо.jpg" },
-            {12,"Фландерс Нед.jpg" },
-            {13,"Джаспер Бердли.jpg" },
-            {14,"Ленни Леонард.jpg" }
+            { "Апу Нахасапима.jpg"},
+            { "Бёрнс Монтгомери.jpg"},
+            {"Гомер Симпсон.jpg" },
+            {"Директор Скиннер.jpg" },
+            {"Кент Брокман.jpg" },
+            {"КлоунКрасти.jpg" },
+            {"Садовник Вилли.jpg" },
+            {"Симпсон Барт.jpg" },
+            {"Симпсон Эйбрахам.jpg" },
+            {"Скиннер Сеймур.jpeg" },
+            {"Трактирщик Мо.jpg" },
+            {"Фландерс Нед.jpg" },
+            {"Джаспер Бердли.jpg" },
+            {"Ленни Леонард.jpg" },
+            {"Джон Сноу.jpg" },
+            "Ральф.jpg",
+            "Водитель Оттоо.jpg",
+            "Обиван.JPG",
+            "Повар.jpg",
+            "Mer.JPG"
         };
-        // 6
-        private static readonly Dictionary<int, string> FeMaleFileNames = new Dictionary<int, string>
+        private static readonly List<string> FeMaleFileNames = new List<string>
         {
-            {1, "АникаВанХуттен.png"},
-            {2, "СельмаБульве.png"},
-            {3,"Симпсон Мардж.jpg" },
-            {4,"Симспон Лиза.jpg" },
-            {5,"Эдна Крабапл.jpg" },
-            {6,"КлоунКрасти.jpg" },
-            {7,"Терри Макльберри.jpg" },
-            {8,"Элизабет Гувер.jpg" },
-            {9,"Симспон Лиза язык.jpg" },
-            {10,"Дженни.png" }
+            {"АникаВанХуттен.png"},
+            {"СельмаБульве.png"},
+            {"Симпсон Мардж.jpg" },
+            {"Симспон Лиза.jpg" },
+            {"Эдна Крабапл.jpg" },
+            {"КлоунКрасти.jpg" },
+            {"Терри Макльберри.jpg" },
+            {"Элизабет Гувер.jpg" },
+            {"Симспон Лиза язык.jpg" },
+            {"Дженни.png" },
+            {"Красная Дама.jpg" },
+            {"Леди.jpg" },
+            "Леди2.jpg",
+            "Леди3.jpg",
+            "Леди4.jpg",
+            "Леди5.jpg",
+            "Леди6.jpg",
+            "Леди7.jpg",
+            "МатьДраконов.JPG"
 
         };
         /// <summary>
@@ -173,30 +186,37 @@ namespace PersonsBase.data
         {
             var random = new Random(DateTime.Now.Millisecond);
 
-            string name;
-
-            switch (gender)
+            var name = "";
+            try
             {
-                case Gender.Мужской:
-                    {
-                        var index = random.Next(1, MaleFileNames.Count);
-                        name = MaleFileNames[index];
-                        break;
-                    }
-                case Gender.Женский:
-                    {
-                        var index = random.Next(1, FeMaleFileNames.Count);
-                        name = FeMaleFileNames[index];
-                        break;
-                    }
-                default:
-                    {
-                        var index = random.Next(1, MaleFileNames.Count);
-                        name = MaleFileNames[index];
-                        break;
-                    }
+                switch (gender)
+                {
+                    case Gender.Мужской:
+                        {
+                            var index = random.Next(1, MaleFileNames.Count);
+                            name = MaleFileNames[index];
+                            break;
+                        }
+                    case Gender.Женский:
+                        {
+                            var index = random.Next(1, FeMaleFileNames.Count);
+                            name = FeMaleFileNames[index];
+                            break;
+                        }
+                    default:
+                        {
+                            var index = random.Next(1, MaleFileNames.Count);
+                            name = MaleFileNames[index];
+                            break;
+                        }
 
+                }
             }
+            catch (Exception)
+            {
+                // ignored
+            }
+
             var simpsonFileName = name;
 
             return simpsonFileName;
