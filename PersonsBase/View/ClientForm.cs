@@ -71,6 +71,7 @@ namespace PersonsBase.View
             // Когда изменился Статус Абонемента
             _person.StatusChanged += UpdateInfoTextBoxField;
             _person.StatusChanged += UpdateControls;
+            _person.StatusChanged += UpdateVisitsTable;
 
             PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
 
@@ -115,50 +116,50 @@ namespace PersonsBase.View
             {
                 case StatusPerson.Активный:
                     {
-                        textBox_Info.Text = @"";
-                        textBox_Info.ForeColor = Color.SeaGreen;
+                        label_infoText.Text = @"";
+                        label_infoText.ForeColor = Color.SeaGreen;
                         // Заморозка запланирована в будущем
                         if (_person?.AbonementCurent?.Freeze != null && _person?.Status != StatusPerson.Заморожен && _person.Status != StatusPerson.Гостевой)
                         {
                             if (_person.AbonementCurent.Freeze.IsConfiguredForFuture())
                             {
-                                textBox_Info.Text =
+                                label_infoText.Text =
                                     $@"Заморозка c {_person.AbonementCurent.Freeze.GetFutureFreeze().StartDate.Date:d}, дней: {_person.AbonementCurent.Freeze.GetDaysToFreeze()}";
                             }
                         }
                         // Не Активирован
                         if (_person.IsAbonementExist() && _person.AbonementCurent != null && !_person.AbonementCurent.IsActivated)
                         {
-                            textBox_Info.Text = @" Не активирован";
+                            label_infoText.Text = @" Не активирован";
                         }
 
                         break;
                     }
                 case StatusPerson.Нет_Карты:
                     {
-                        textBox_Info.Text = @"Нет Карты";
-                        textBox_Info.ForeColor = Color.DarkRed;
+                        label_infoText.Text = @"Нет Карты";
+                        label_infoText.ForeColor = Color.DarkRed;
                         break;
                     }
                 case StatusPerson.Заморожен:
                     {
-                        textBox_Info.ForeColor = Color.SeaGreen;
+                        label_infoText.ForeColor = Color.SeaGreen;
                         if (_person.IsAbonementExist() && _person.AbonementCurent?.Freeze != null &&
                             _person.Status != StatusPerson.Гостевой)
                         {
                             if (_person.AbonementCurent.Freeze?.AllFreezes.Count == 0) break;
                             var dateEnd = _person.AbonementCurent.Freeze?.AllFreezes.Last().GetEndDate().Date.ToString("d");
-                            textBox_Info.Text = @"Заморожен до " + dateEnd;
+                            label_infoText.Text = @"Заморожен до " + dateEnd;
                         }
                         break;
                     }
                 case StatusPerson.Гостевой:
-                    textBox_Info.Text = @"Был Гостевой визит";
-                    textBox_Info.ForeColor = Color.SeaGreen;
+                    label_infoText.Text = @"Был Гостевой визит";
+                    label_infoText.ForeColor = Color.SeaGreen;
                     break;
                 case StatusPerson.Запрещён:
-                    textBox_Info.Text = StatusPerson.Запрещён.ToString();
-                    textBox_Info.ForeColor = Color.DarkRed;
+                    label_infoText.Text = StatusPerson.Запрещён.ToString();
+                    label_infoText.ForeColor = Color.DarkRed;
                     break;
                 case null:
                     break;
@@ -264,6 +265,13 @@ namespace PersonsBase.View
                     }
             }
         }
+        private void UpdateVisitsTable(object sender, EventArgs e)
+        {
+            if (_person.Status == StatusPerson.Гостевой)
+            {
+                MyDataGridView.SetSourceDataGridView(dataGridView_Visits, Visit.GetVisitsTable(_person));
+            }
+        }
 
         private void _person_PersonalNumberChanged(object sender, int e)
         {
@@ -287,8 +295,7 @@ namespace PersonsBase.View
         private void _person_NameChanged(object sender, string e)
         {
             Text = @"Карточка Клиента:    " + _person.Name; // Имя формы
-            textBox_Name.Text = _person.Name;
-            Logic.SetFontColor(textBox_Name, _person.Status.ToString(), StatusPerson.Активный.ToString());
+            label_PersonName.Text = _person.Name;
         }
         private void _person_PhoneChanged(object sender, string e)
         {
@@ -371,7 +378,7 @@ namespace PersonsBase.View
         private void LoadUserData()
         {
             // Имя Клиента
-            textBox_Name.Text = _person.Name;
+            label_PersonName.Text = _person.Name;
             // Телефон
             maskedTextBox_PhoneNumber.Text = _person.Phone;
             // Паспорт
@@ -678,5 +685,18 @@ namespace PersonsBase.View
             }
         }
         #endregion
+
+        //public void ClearFindCombo()
+        //{
+        //    void MyDelegate() => сomboBox_PersonsList.SelectedText = "";
+        //    if (InvokeRequired)
+        //    {
+        //        Invoke((Action)MyDelegate);
+        //    }
+        //    else
+        //    {
+        //        MyDelegate();
+        //    }
+        //}
     }
 }

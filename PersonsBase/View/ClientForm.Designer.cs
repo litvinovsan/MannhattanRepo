@@ -33,12 +33,12 @@ namespace PersonsBase.View
       /// </summary>
       private void InitializeComponent()
       {
-            this.textBox_Name = new System.Windows.Forms.TextBox();
             this.dateTimePicker_birthDate = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox_Info = new System.Windows.Forms.TextBox();
+            this.label_infoText = new System.Windows.Forms.Label();
+            this.label_PersonName = new System.Windows.Forms.Label();
             this.button_photo = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.button_CheckInWorkout = new System.Windows.Forms.Button();
@@ -88,20 +88,6 @@ namespace PersonsBase.View
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Visits)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // textBox_Name
-            // 
-            this.textBox_Name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox_Name.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_Name.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox_Name.ForeColor = System.Drawing.Color.DarkBlue;
-            this.textBox_Name.Location = new System.Drawing.Point(2, 2);
-            this.textBox_Name.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox_Name.Name = "textBox_Name";
-            this.textBox_Name.ReadOnly = true;
-            this.textBox_Name.Size = new System.Drawing.Size(499, 32);
-            this.textBox_Name.TabIndex = 1;
-            this.textBox_Name.Text = "ФИО";
             // 
             // dateTimePicker_birthDate
             // 
@@ -156,8 +142,8 @@ namespace PersonsBase.View
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.31774F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.68226F));
-            this.tableLayoutPanel2.Controls.Add(this.textBox_Info, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.textBox_Name, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label_infoText, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label_PersonName, 0, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(10, 4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
@@ -165,18 +151,33 @@ namespace PersonsBase.View
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1020, 36);
             this.tableLayoutPanel2.TabIndex = 12;
             // 
-            // textBox_Info
+            // label_infoText
             // 
-            this.textBox_Info.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox_Info.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_Info.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox_Info.Location = new System.Drawing.Point(505, 2);
-            this.textBox_Info.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox_Info.Name = "textBox_Info";
-            this.textBox_Info.Size = new System.Drawing.Size(513, 32);
-            this.textBox_Info.TabIndex = 12;
-            this.textBox_Info.Text = "info";
-            this.textBox_Info.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.label_infoText.AutoSize = true;
+            this.label_infoText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_infoText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label_infoText.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_infoText.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label_infoText.Location = new System.Drawing.Point(506, 0);
+            this.label_infoText.Name = "label_infoText";
+            this.label_infoText.Size = new System.Drawing.Size(511, 36);
+            this.label_infoText.TabIndex = 1;
+            this.label_infoText.Text = "Info";
+            this.label_infoText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label_PersonName
+            // 
+            this.label_PersonName.AutoSize = true;
+            this.label_PersonName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_PersonName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label_PersonName.Font = new System.Drawing.Font("Microsoft Sans Serif", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_PersonName.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label_PersonName.Location = new System.Drawing.Point(3, 0);
+            this.label_PersonName.Name = "label_PersonName";
+            this.label_PersonName.Size = new System.Drawing.Size(497, 36);
+            this.label_PersonName.TabIndex = 0;
+            this.label_PersonName.Text = "ФИО";
+            this.label_PersonName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // button_photo
             // 
@@ -714,8 +715,6 @@ namespace PersonsBase.View
 
       #endregion
       [NonSerialized]
-      private TextBox textBox_Name;
-      [NonSerialized]
       private TabControl tabControl1;
       [NonSerialized]
       private TabPage tabPage1;
@@ -770,7 +769,8 @@ namespace PersonsBase.View
       private FlowLayoutPanel flowLayoutPanel1;
         private TabPage tabPage3;
         private DataGridView dataGridView_Visits;
-        private TextBox textBox_Info;
         private TableLayoutPanel tableLayoutPanel2;
+        private Label label_PersonName;
+        private Label label_infoText;
     }
 }
