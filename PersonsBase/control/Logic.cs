@@ -286,6 +286,14 @@ namespace PersonsBase.control
             if (res == DialogResult.No) return false;
 
             var response = DataBaseLevel.PersonRemove(selectedName);
+            if (response == ResponseCode.Success)
+            {
+                // Удаляем из журнала посещений данные о selectedName клиенте
+                if (DataBaseLevel.GetPersonsVisitDict().ContainsKey(selectedName))
+                {
+                    DataBaseLevel.GetPersonsVisitDict().Remove(selectedName);
+                }
+            }
             DataBaseLevel.SerializeObjects();
             return (response == ResponseCode.Success);
         }
