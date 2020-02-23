@@ -151,7 +151,7 @@ namespace PersonsBase.View
         /// <param name="numPersons"></param>
         private void SetNumberDailyPersons(int numPersons)
         {
-            void MyDelegate() => textBox_PeopleForDay.Text = numPersons.ToString();
+            void MyDelegate() => label_PeopleForDay.Text = numPersons.ToString();
             if (InvokeRequired)
             {
                 Invoke((Action)MyDelegate);
@@ -164,7 +164,7 @@ namespace PersonsBase.View
 
         private void SetNumberTotalPersons(EventArgs arg)
         {
-            textBox_Total_persons.Text = DataBaseLevel.GetNumberOfPersons().ToString();
+            label_Total_persons.Text = DataBaseLevel.GetNumberOfPersons().ToString();
             Invalidate();
         }
 

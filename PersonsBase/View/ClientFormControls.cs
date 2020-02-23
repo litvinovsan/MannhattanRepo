@@ -88,9 +88,9 @@ namespace PersonsBase.View
                         a.Freeze.RemoveLast();
                     }
                     _person.Status = _editedStatusPerson == StatusPerson.Заморожен ? _person.Status : _editedStatusPerson;
-                   
+
                     ComboBoxColor(comboStatus, _person.Status.ToString(), _editedStatusPerson.ToString());
-                   
+
                 }
             };
 
@@ -124,6 +124,19 @@ namespace PersonsBase.View
                 {
                     _person.AbonementCurent.TypeWorkout = _editedTypeWorkout;
                     ComboBoxColor(comboBox, _editedTypeWorkout.ToString(), _person.AbonementCurent.TypeWorkout.ToString());
+                    if (_person.AbonementCurent is AbonementByDays abonementByDays)
+                    {
+                        if (_editedTypeWorkout == TypeWorkout.Персональная)
+                        {
+                            var newEndDate = abonementByDays.BuyActivationDate.AddMonths(12).Date;
+                            abonementByDays.SetNewEndDate(12, newEndDate);
+                        }
+                        else
+                        {
+                            var newEndDate = abonementByDays.BuyActivationDate.AddMonths(2).Date;
+                           abonementByDays.SetNewEndDate(2, newEndDate);
+                        }
+                    }
                 }
             };
 

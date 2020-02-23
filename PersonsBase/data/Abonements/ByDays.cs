@@ -9,7 +9,7 @@ namespace PersonsBase.data.Abonements
         private DaysInAbon _typeAbonement;
         private int _numAerobicTr1;
         private int _numPersonalTr1;
-        private int ValidityPeriod = 2;
+        private int _validityPeriod = 2;
         public const string NameAbonement = "Абонемент";
 
         // Конструктор
@@ -20,7 +20,8 @@ namespace PersonsBase.data.Abonements
             _typeAbonement = numDays;
             NumAerobicTr = 0;
             NumPersonalTr = 0;
-            EndDate = DateTime.Now.AddMonths(2).Date;
+            // 12 месяцев - длительность абонемента с персональными тренировками
+            EndDate = (typeTr == TypeWorkout.Персональная) ? DateTime.Now.AddMonths(12).Date : DateTime.Now.AddMonths(_validityPeriod).Date;
         }
 
         // Свойства
@@ -61,7 +62,7 @@ namespace PersonsBase.data.Abonements
         {
             if (IsActivated) return; // Уже Активирован.
             IsActivated = true;
-            var date = DateTime.Now.AddMonths(ValidityPeriod).Date;
+            var date = DateTime.Now.AddMonths(_validityPeriod).Date;
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = date;
             BuyActivationDate = DateTime.Now.Date;
@@ -78,7 +79,7 @@ namespace PersonsBase.data.Abonements
             if (IsActivated) return; // Уже Активирован.
             IsActivated = true;
             BuyActivationDate = startDate;
-            var date = startDate.AddMonths(ValidityPeriod).Date;
+            var date = startDate.AddMonths(_validityPeriod).Date;
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = date;
             OnValuesChanged();
@@ -92,7 +93,7 @@ namespace PersonsBase.data.Abonements
                 DaysLeft--;
                 result = true;
             }
-           // OnValuesChanged();
+            // OnValuesChanged();
             return result;
         }
 
@@ -142,6 +143,14 @@ namespace PersonsBase.data.Abonements
         {
             DaysLeft = numberDaysLeft;
             OnValuesChanged();
+        }
+
+        public void SetNewEndDate(int numberMonths, DateTime dateEndNew)
+        {
+            if (numberMonths <= 0) return;
+            if (_validityPeriod.Equals(numberMonths)) return;
+            EndDate = dateEndNew;
+            _validityPeriod = numberMonths;
         }
     }
 }

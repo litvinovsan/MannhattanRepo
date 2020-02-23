@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using ClosedXML;
 using PersonsBase.data;
 using PersonsBase.data.Abonements;
 using PersonsBase.myStd;
@@ -186,6 +187,7 @@ namespace PersonsBase.View
             }
 
             if (_person.Status == StatusPerson.Гостевой) _person.Status = StatusPerson.Активный;
+
             ApplyCorrectedValues(ref abonementNew);//  Корректировка абонемента по дате, количеству оставшихся посещений
             _person.AbonementCurent = abonementNew;
         }

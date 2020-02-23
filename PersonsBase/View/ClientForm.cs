@@ -573,8 +573,7 @@ namespace PersonsBase.View
         {
             SaveData();
             Logic.LoadShortInfo(groupBox_Info, _person);
-            UpdateEditableData();
-
+            LoadEditableData();
             Logic.SetControlsColorDefault(groupBox_Detailed);
             Logic.SetControlsColorDefault(tableLayoutPanel1);
         }
