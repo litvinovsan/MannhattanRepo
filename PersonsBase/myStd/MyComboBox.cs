@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace PersonsBase.myStd
@@ -23,6 +24,17 @@ namespace PersonsBase.myStd
             comboBox.Items.AddRange(items); // Обновляем комбобокс
         }
 
+        private static void InitializeTemp(ComboBox comboBox, List<KeyValuePair<int, string>> dataList)
+        {
+            // Очищаем camListComboBox
+            comboBox.DataSource = null;
+            comboBox.Items.Clear();
+            // Забиваем значения в camListComboBox
+            comboBox.DataSource = new BindingSource(dataList, null);
+            comboBox.DisplayMember = "Value";
+            comboBox.ValueMember = "Key";
+            if (comboBox.Items.Count > 0) comboBox.SelectedIndex = 0;
+        }
         public static void SetSelectedValue(ComboBox cbx, string selectedValue)
         {
             cbx.SelectedItem = selectedValue;

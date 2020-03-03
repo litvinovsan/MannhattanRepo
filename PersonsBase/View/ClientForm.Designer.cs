@@ -36,10 +36,11 @@ namespace PersonsBase.View
             this.dateTimePicker_birthDate = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button_photo = new System.Windows.Forms.Button();
+            this.button_photo_cam = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label_infoText = new System.Windows.Forms.Label();
             this.label_PersonName = new System.Windows.Forms.Label();
-            this.button_photo = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.button_CheckInWorkout = new System.Windows.Forms.Button();
             this.button_add_dop_tren = new System.Windows.Forms.Button();
@@ -119,8 +120,9 @@ namespace PersonsBase.View
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.tableLayoutPanel2);
             this.tabPage1.Controls.Add(this.button_photo);
+            this.tabPage1.Controls.Add(this.button_photo_cam);
+            this.tabPage1.Controls.Add(this.tableLayoutPanel2);
             this.tabPage1.Controls.Add(this.flowLayoutPanel1);
             this.tabPage1.Controls.Add(this.pictureBox_ClientPhoto);
             this.tabPage1.Controls.Add(this.groupBox_abonList);
@@ -134,6 +136,31 @@ namespace PersonsBase.View
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Информация";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button_photo
+            // 
+            this.button_photo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_photo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_photo.Location = new System.Drawing.Point(843, 277);
+            this.button_photo.Margin = new System.Windows.Forms.Padding(2);
+            this.button_photo.Name = "button_photo";
+            this.button_photo.Size = new System.Drawing.Size(188, 42);
+            this.button_photo.TabIndex = 4;
+            this.button_photo.Text = "Из файла";
+            this.button_photo.UseVisualStyleBackColor = true;
+            this.button_photo.Click += new System.EventHandler(this.button_photo_Click);
+            // 
+            // button_photo_cam
+            // 
+            this.button_photo_cam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_photo_cam.BackgroundImage = global::PersonsBase.Properties.Resources.icons8_камера_100;
+            this.button_photo_cam.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button_photo_cam.Location = new System.Drawing.Point(843, 230);
+            this.button_photo_cam.Name = "button_photo_cam";
+            this.button_photo_cam.Size = new System.Drawing.Size(187, 42);
+            this.button_photo_cam.TabIndex = 13;
+            this.button_photo_cam.UseVisualStyleBackColor = true;
+            this.button_photo_cam.Click += new System.EventHandler(this.button_photo_cam_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -178,19 +205,6 @@ namespace PersonsBase.View
             this.label_PersonName.TabIndex = 0;
             this.label_PersonName.Text = "ФИО";
             this.label_PersonName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // button_photo
-            // 
-            this.button_photo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_photo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_photo.Location = new System.Drawing.Point(842, 229);
-            this.button_photo.Margin = new System.Windows.Forms.Padding(2);
-            this.button_photo.Name = "button_photo";
-            this.button_photo.Size = new System.Drawing.Size(188, 26);
-            this.button_photo.TabIndex = 4;
-            this.button_photo.Text = "Фото";
-            this.button_photo.UseVisualStyleBackColor = true;
-            this.button_photo.Click += new System.EventHandler(this.button_photo_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -772,5 +786,6 @@ namespace PersonsBase.View
         private TableLayoutPanel tableLayoutPanel2;
         private Label label_PersonName;
         private Label label_infoText;
+        private Button button_photo_cam;
     }
 }

@@ -672,7 +672,8 @@ namespace PersonsBase.View
         private void button_photo_Click(object sender, EventArgs e)
         {
             var success = Photo.OpenPhoto(out var img);
-            if (success) _person.PathToPhoto = Path.GetFileName(Photo.SaveToPhotoDir(img, _person.Name));
+            var path = Photo.SaveToPhotoDir(img, _person.Name);
+            if (success) _person.PathToPhoto = Path.GetFileName(path);
         }
 
         private void textBox_Number_Click(object sender, EventArgs e)
@@ -680,8 +681,16 @@ namespace PersonsBase.View
             if (textBox_Number.Text.Equals("0"))
             {
                 textBox_Number.Text = "";
-                // textBox_Number.SelectionStart = textBox_Number.Text.Length;
             }
+        }
+
+        private void button_photo_cam_Click(object sender, EventArgs e)
+        {
+            var success = FormsRunner.RunSnapshotForm(out var imageCam);
+            if (imageCam == null || success == false) return;
+
+            var path = Photo.SaveToPhotoDir(imageCam, _person.Name);
+            _person.PathToPhoto = Path.GetFileName(path);
         }
         #endregion
 

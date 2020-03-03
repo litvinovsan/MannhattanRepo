@@ -1,4 +1,5 @@
-﻿using PersonsBase.data;
+﻿using System.Drawing;
+using PersonsBase.data;
 using System.Windows.Forms;
 using PersonsBase.data.Abonements;
 
@@ -196,5 +197,16 @@ namespace PersonsBase.View
         }
         #endregion
 
+        #region /// СФОТОГРАФИРОВАТЬ КЛИЕНТА ///
+        public static bool RunSnapshotForm(out Image imageFromCamera)
+        {
+            imageFromCamera = null;
+            var snapshot = new SnapshotForm();
+
+            if (snapshot.ShowDialog() != DialogResult.OK) return false;
+            imageFromCamera = snapshot.GetImage();
+            return true;
+        }
+        #endregion
     }
 }
