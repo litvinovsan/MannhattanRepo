@@ -71,8 +71,10 @@ namespace PersonsBase.myStd
         public EmguCv()
         {
             FrameMat = new Mat();
-            _faceCascade = new CascadeClassifier("haarcascade_frontalface_default.xml");
-            _eyeCascade = new CascadeClassifier("haarcascade_eye.xml");
+            if (MyFile.IsFileExist("haarcascade_frontalface_default.xml"))
+                _faceCascade = new CascadeClassifier("haarcascade_frontalface_default.xml");
+            if (MyFile.IsFileExist("haarcascade_eye.xml"))
+                _eyeCascade = new CascadeClassifier("haarcascade_eye.xml");
         }
 
         ~EmguCv()
@@ -110,7 +112,7 @@ namespace PersonsBase.myStd
 
                     _capture.SetCaptureProperty(CapProp.FrameWidth, 1024);
                     _capture.SetCaptureProperty(CapProp.FrameHeight, 768);
-                    _capture.SetCaptureProperty(CapProp.Exposure, -3);
+                    _capture.SetCaptureProperty(CapProp.Exposure, -2);
                     _capture.SetCaptureProperty(CapProp.Fps, 15);
                     _capture.FlipHorizontal = true;
                     _capture.ImageGrabbed += ProcessFrame;
@@ -248,14 +250,18 @@ namespace PersonsBase.myStd
         public List<Rectangle> GetFaces(Image<Gray, byte> grayImage)
         {
             //Face detection
-            var facesDetectedList = _faceCascade.DetectMultiScale(
+            var facesDetectedList = _faceCascade?.DetectMultiScale(
                 grayImage, //image
                 1.1, //scaleFactor
                 10, //minNeighbors
                 new Size(20, 20), //minSize
                 Size.Empty); //maxSize
             GC.Collect();
-            return facesDetectedList.ToList<Rectangle>();
+            if (facesDetectedList != null) return facesDetectedList.ToList<Rectangle>();
+            else
+            {
+                return new List<Rectangle>();
+            }
         }
 
         private List<Rectangle> GetEyesList(List<Rectangle> facesDetected, Image<Gray, byte> gray)
@@ -265,19 +271,20 @@ namespace PersonsBase.myStd
             foreach (Rectangle f in facesDetected)
             {
                 gray.ROI = f;
-                Rectangle[] eyesDetected = _eyeCascade.DetectMultiScale(
+                Rectangle[] eyesDetected = _eyeCascade?.DetectMultiScale(
                     gray,
                     1.1,
                     10,
                     new Size(20, 20),
                     Size.Empty);
                 gray.ROI = Rectangle.Empty;
-                foreach (Rectangle ey in eyesDetected)
-                {
-                    Rectangle eyeRect = ey;
-                    eyeRect.Offset(f.X, f.Y);
-                    eyesList.Add(eyeRect);
-                }
+                if (eyesDetected != null)
+                    foreach (Rectangle ey in eyesDetected)
+                    {
+                        Rectangle eyeRect = ey;
+                        eyeRect.Offset(f.X, f.Y);
+                        eyesList.Add(eyeRect);
+                    }
             }
             GC.Collect();
             return eyesList;

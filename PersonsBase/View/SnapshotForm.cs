@@ -97,14 +97,9 @@ namespace PersonsBase.View
                 var facesList = curCv.GetFaces(grayImage);
                 if (facesList.Count > 1)
                 {
-                    MessageBox.Show(@"Ошибка поиска лица или В кадре несколько лиц!");
+                    MessageBox.Show(@"Ошибка поиска или в кадре несколько лиц!");
                     curCv.DrawRectangleOnImage(facesList, ref imageTemp, Color.Blue);
                     button_Ok.Enabled = false;
-                }
-                else if (facesList.Count == 0)
-                {
-                    button_Ok.Enabled = false;
-                    MessageBox.Show(@"Ошибка поиска лица или В кадре несколько лиц!");
                 }
                 else
                 {
