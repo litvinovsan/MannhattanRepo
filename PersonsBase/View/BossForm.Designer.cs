@@ -66,6 +66,7 @@
             this.checkBox_CorrectOnCreateAbon = new System.Windows.Forms.CheckBox();
             this.checkBox_SimpsonPhoto = new System.Windows.Forms.CheckBox();
             this.checkBox_Passp_Drive = new System.Windows.Forms.CheckBox();
+            this.checkBox_faceDetector = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -509,6 +510,7 @@
             // 
             this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox9.Controls.Add(this.checkBox_faceDetector);
             this.groupBox9.Controls.Add(this.checkBox_CorrectOnCreateAbon);
             this.groupBox9.Controls.Add(this.checkBox_SimpsonPhoto);
             this.groupBox9.Controls.Add(this.checkBox_Passp_Drive);
@@ -551,6 +553,17 @@
             this.checkBox_Passp_Drive.Text = "Учитывать Паспорт и Права в создании клиента";
             this.checkBox_Passp_Drive.UseVisualStyleBackColor = true;
             this.checkBox_Passp_Drive.CheckedChanged += new System.EventHandler(this.checkBox_Passp_Drive_CheckedChanged);
+            // 
+            // checkBox_faceDetector
+            // 
+            this.checkBox_faceDetector.AutoSize = true;
+            this.checkBox_faceDetector.Location = new System.Drawing.Point(6, 103);
+            this.checkBox_faceDetector.Name = "checkBox_faceDetector";
+            this.checkBox_faceDetector.Size = new System.Drawing.Size(213, 21);
+            this.checkBox_faceDetector.TabIndex = 2;
+            this.checkBox_faceDetector.Text = "Включить определение Лиц";
+            this.checkBox_faceDetector.UseVisualStyleBackColor = true;
+            this.checkBox_faceDetector.CheckedChanged += new System.EventHandler(this.checkBox_faceDetector_CheckedChanged);
             // 
             // BossForm
             // 
@@ -630,5 +643,6 @@
         private System.Windows.Forms.CheckBox checkBox_Passp_Drive;
         private System.Windows.Forms.CheckBox checkBox_SimpsonPhoto;
         private System.Windows.Forms.CheckBox checkBox_CorrectOnCreateAbon;
+        private System.Windows.Forms.CheckBox checkBox_faceDetector;
     }
 }

@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SnapshotForm));
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button_Ok = new System.Windows.Forms.Button();
             this.button_Cancel = new System.Windows.Forms.Button();
             this.pictureBox_Original = new System.Windows.Forms.PictureBox();
@@ -110,8 +108,8 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -172,7 +170,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Фотография Клиента";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SnapshotForm_FormClosing);
-            this.Shown += new System.EventHandler(this.SnapshotForm_Shown);
+            this.Load += new System.EventHandler(this.SnapshotForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Original)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Final)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -184,8 +182,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button button_Ok;
         private System.Windows.Forms.Button button_Cancel;
         private System.Windows.Forms.PictureBox pictureBox_Original;

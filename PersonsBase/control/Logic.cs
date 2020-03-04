@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using PersonsBase.data;
 using PersonsBase.data.Abonements;
@@ -107,6 +108,12 @@ namespace PersonsBase.control
             }
         }
 
+        public static void SaveEverithing()
+        {
+            Options.SaveProperties(); // Сохранение пользовательских настроек
+            DailyVisits.GetInstance().SaveCurentSession();// Сериализация текущих списков посещений 
+            DataBaseLevel.SerializeObjects();
+        }
         #endregion
 
         #region /// ФОРМА Босса /// 

@@ -686,6 +686,7 @@ namespace PersonsBase.View
 
         private void button_photo_cam_Click(object sender, EventArgs e)
         {
+            Logic.SaveEverithing();
             var success = FormsRunner.RunSnapshotForm(out var imageCam);
             if (imageCam == null || success == false) return;
 

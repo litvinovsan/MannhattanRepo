@@ -13,6 +13,7 @@ using Emgu.CV.VideoStab;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Emgu.CV.Cvb;
+using Emgu.CV.ImgHash;
 using Emgu.CV.Ocl;
 using Emgu.CV.Util;
 using Gray = Emgu.CV.Structure.Gray;
@@ -20,7 +21,7 @@ using Gray = Emgu.CV.Structure.Gray;
 
 namespace PersonsBase.myStd
 {
-    public class EmguCv
+    public class EmguCv : IDisposable
     {
         #region /// СОБЫТИЯ ///
         /// <summary>
@@ -42,28 +43,25 @@ namespace PersonsBase.myStd
         private Image<Bgr, Byte> _frameImage;
 
         // Готовое чистое изображение с камеры
-        //  private Bitmap _frameBitmap = null;
-
-        //public Bitmap FrameBitmap
-        //{
-        //    get { return (Bitmap)_frameBitmap.Clone(); }
-        //    private set
-        //    {
-        //        _frameBitmap = value;
-        //        OnFrameChanged();
-        //    }
-        //}
-
-        public Mat FrameMat { get; }
+        public Mat _frameMat;
 
         public Image<Bgr, byte> FrameImage
         {
-            get { return _frameImage; }
-            set
+            get
+            {
+                return _frameImage;
+            }
+            private set
             {
                 _frameImage = value;
                 OnFrameChanged();
             }
+        }
+
+        public Mat FrameMat
+        {
+            get { return _frameMat; }
+            set { _frameMat = value; }
         }
 
         #endregion
@@ -87,6 +85,7 @@ namespace PersonsBase.myStd
             FrameMat?.Dispose();
             _capture?.Stop();
             _capture?.Dispose();
+            _capture = null;
             GC.Collect();
         }
 
@@ -111,6 +110,8 @@ namespace PersonsBase.myStd
 
                     _capture.SetCaptureProperty(CapProp.FrameWidth, 1024);
                     _capture.SetCaptureProperty(CapProp.FrameHeight, 768);
+                    _capture.SetCaptureProperty(CapProp.Exposure, -3);
+                    _capture.SetCaptureProperty(CapProp.Fps, 15);
                     _capture.FlipHorizontal = true;
                     _capture.ImageGrabbed += ProcessFrame;
                 }
@@ -118,6 +119,8 @@ namespace PersonsBase.myStd
             }
             catch
             {
+                MessageBox.Show(
+                    @"Ошибка Стартовой инициализации камеры. Попробуйте переподключить камеру и перезапустить сьемку");
                 _capture?.Stop();
                 _capture?.Dispose();
                 _capture = null;
@@ -153,11 +156,21 @@ namespace PersonsBase.myStd
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ProcessFrame(object sender, EventArgs e)
-        {
+        {//FIXME тут есть баг с вылетанием программы.
             if (_capture != null && _capture.Ptr != IntPtr.Zero && _capture.IsOpened)
             {
-                _capture.Retrieve(FrameMat, 0);
-                FrameImage = FrameMat.ToImage<Bgr, Byte>();
+                try
+                {
+                    _capture.Retrieve(FrameMat, 0);// Вылетает где-то тут. ДОступ к памяти
+                    FrameImage = FrameMat.Clone().ToImage<Bgr, Byte>();
+                    Thread.Sleep(50);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(
+                        @"Ошибка обработки текущего фрейма изображения. Попробуйте перезапустить сьемку");
+                    DisposeAll();
+                }
             }
         }
 
@@ -171,22 +184,31 @@ namespace PersonsBase.myStd
         /// <param name="frame"></param>
         /// <param name="showEye"></param>
         /// <returns></returns>
-        public Bitmap GetImageWithFaces(Mat frame, bool showEye, bool drawRect, bool reduceSizeImg)
+        public Bitmap GetImageWithFaces(Mat frameInput, bool showEye, bool drawRect, bool reduceSizeImg)
         {
+            Mat frame = frameInput.Clone();
             Image<Bgr, Byte> image = null;
             try
             {
-                image = FaceDetection(frame, showEye, drawRect, reduceSizeImg);
+                if (drawRect)
+                {
+                    image = FaceDetection(frame, showEye, true, reduceSizeImg);
+                }
+                else
+                {
+                    image = reduceSizeImg ? frame.ToImage<Bgr, Byte>().Resize(400, 200, Inter.Linear) : frame.ToImage<Bgr, Byte>();
+                }
             }
             catch (Exception e)
             {
                 image = new Image<Bgr, byte>(1, 1);
                 MessageBox.Show(@"Ошибка поиска лица 1");
             }
+            GC.Collect();
             return image.ToBitmap();
         }
 
-        public Image<Bgr, byte> FaceDetection(Mat frame, bool showEye, bool drawRect, bool reduceSizeImg)
+        private Image<Bgr, byte> FaceDetection(Mat frame, bool showEye, bool drawRect, bool reduceSizeImg)
         {
             //Load the image
             Image<Bgr, Byte> image = reduceSizeImg ? frame.ToImage<Bgr, Byte>().Resize(400, 200, Inter.Linear) : frame.ToImage<Bgr, Byte>();
@@ -198,7 +220,7 @@ namespace PersonsBase.myStd
 
         private Image<Bgr, byte> FaceDetection(Image<Bgr, Byte> imageInput, bool showEye, bool drawRect, bool reduceSizeImg)
         {
-            Image<Bgr, Byte> image = imageInput;
+            Image<Bgr, Byte> image = reduceSizeImg ? imageInput.Clone().Resize(400, 200, Inter.Linear) : imageInput.Clone();
 
             //The input image of Cascadeclassifier must be grayscale
             Image<Gray, Byte> grayImage = image.Convert<Gray, Byte>();
@@ -216,7 +238,7 @@ namespace PersonsBase.myStd
             return image;
         }
 
-        private void DrawRectangleOnImage(List<Rectangle> listRectangles, ref Image<Bgr, byte> image, Color colr)
+        public void DrawRectangleOnImage(List<Rectangle> listRectangles, ref Image<Bgr, byte> image, Color colr)
         {
             //Draw detected area
             foreach (Rectangle face1 in listRectangles)
@@ -262,6 +284,11 @@ namespace PersonsBase.myStd
         }
 
         #endregion
+
+        public void Dispose()
+        {
+            DisposeAll();
+        }
     }
 }
 ///// <summary> СПИСОК КАМЕР. НЕ ТЕСТИРОВАНО

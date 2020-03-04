@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Emgu.CV;
@@ -14,6 +15,7 @@ using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Emgu.CV.Cvb;
 using Emgu.CV.Util;
+using PersonsBase.data;
 using PersonsBase.myStd;
 
 namespace PersonsBase.View
@@ -30,7 +32,7 @@ namespace PersonsBase.View
         }
 
         // Форма загрузилась
-        private void SnapshotForm_Shown(object sender, EventArgs e)
+        private void SnapshotForm_Load(object sender, EventArgs e)
         {
             if (!_myCv.TryInitCamera(0))
             {
@@ -39,12 +41,14 @@ namespace PersonsBase.View
             };
 
             _myCv.StartCapturing();
-            _myCv.FrameChanged += delegate
-            {
-                pictureBox_Original.Image = _myCv.GetImageWithFaces(_myCv.FrameMat, false, true, true);
-            };
+            _myCv.FrameChanged += RunTimePhotoFace;
             button_TakePicture.Enabled = true;
-            button_Ok.Enabled = true;
+        }
+
+        private void RunTimePhotoFace(object sender, EventArgs e)
+        {
+            pictureBox_Original.Image = _myCv.GetImageWithFaces(_myCv.FrameMat, false, Options.FaceDetectorEn, true);
+            GC.Collect();
         }
 
         /// <summary>
@@ -59,37 +63,62 @@ namespace PersonsBase.View
 
         private void button_TakePicture_Click(object sender, EventArgs e)
         {
-            var finalCvObject = new EmguCv();
+            button_Ok.Enabled = true;
+            button_TakePicture.Enabled = false;
             try
             {
-                var facesList = finalCvObject.GetFaces(_myCv.FrameImage.Convert<Gray, Byte>());
-                if (facesList.Count > 1)
-                {
-                    MessageBox.Show(@"В кадре несколько лиц!");
-                    return;
-                }
+                Image<Bgr, byte> imageTemp = _myCv.FrameImage.Clone();
 
-                var imgFaces = _myCv.FrameImage;
-                
+                var imgFaces = FindFacesIfNeeded(imageTemp, Options.FaceDetectorEn);
 
                 _capturedPersonImg = (Bitmap)imgFaces.ToBitmap();
                 pictureBox_Final.Image = (Bitmap)_capturedPersonImg.Clone();
             }
             catch (Exception exception)
             {
-                MessageBox.Show(@"Ошибка сохранения2");
+                MessageBox.Show(@"Ошибка сохранения2 " + exception.Message);
+            }
+            Thread.Sleep(100);
+            button_TakePicture.Enabled = true;
 
-            }
-            finally
+        }
+
+        private Image<Bgr, byte> FindFacesIfNeeded(Image<Bgr, byte> img, bool isDetectorEn)
+        {
+            Image<Bgr, byte> imageTemp = img;
+
+            // Если не нужно искать лица
+            if (!isDetectorEn) return imageTemp;
+
+            using (var curCv = new EmguCv())
             {
-                finalCvObject.DisposeAll();
-                GC.Collect();
+                var grayImage = img.Convert<Gray, Byte>();
+
+                var facesList = curCv.GetFaces(grayImage);
+                if (facesList.Count > 1)
+                {
+                    MessageBox.Show(@"Ошибка поиска лица или В кадре несколько лиц!");
+                    curCv.DrawRectangleOnImage(facesList, ref imageTemp, Color.Blue);
+                    button_Ok.Enabled = false;
+                }
+                else if (facesList.Count == 0)
+                {
+                    button_Ok.Enabled = false;
+                    MessageBox.Show(@"Ошибка поиска лица или В кадре несколько лиц!");
+                }
+                else
+                {
+                    button_Ok.Enabled = true;
+                }
+                curCv.DisposeAll();
             }
+            return imageTemp.Clone();
         }
 
         private void button_Cancel_Click(object sender, EventArgs e)
         {
             Close();
+            GC.Collect();
         }
 
         private void SnapshotForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -97,5 +126,7 @@ namespace PersonsBase.View
             _myCv.DisposeAll();
             GC.Collect();
         }
+
+
     }
 }

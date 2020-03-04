@@ -10,6 +10,7 @@ namespace PersonsBase.data
 
         private static bool _checkPasspAndDriveId;
         private static bool _simpsonsPhoto;
+        private static bool _faceDetectorEn;
         private static bool _correctableAbonOnCreate;
 
         public static bool SimpsonsPhoto
@@ -36,12 +37,20 @@ namespace PersonsBase.data
             }
         }
 
+        public static bool FaceDetectorEn
+        {
+            get { return _faceDetectorEn; }
+            set { _faceDetectorEn = value; }
+        }
+
         public static void SaveProperties()
         {
             Properties.Settings.Default.SimpsonMode = SimpsonsPhoto;
             Properties.Settings.Default.PassAndDriveIdCheck = CheckPasspAndDriveId;
             Properties.Settings.Default.curentDate = DateTime.Now.Date.ToString("MM/dd/yyyy");
             Properties.Settings.Default.SimpsonMode = CorrectableAbonOnCreate;
+            Properties.Settings.Default.FaceDetect = FaceDetectorEn;
+
 
             Properties.Settings.Default.Save();
         }
@@ -51,6 +60,7 @@ namespace PersonsBase.data
             Properties.Settings.Default.Reload();
 
             SimpsonsPhoto = Properties.Settings.Default.SimpsonMode;
+            FaceDetectorEn = Properties.Settings.Default.FaceDetect;
             CorrectableAbonOnCreate = Properties.Settings.Default.AbonCorrectable;
             CheckPasspAndDriveId = Properties.Settings.Default.PassAndDriveIdCheck;
         }
