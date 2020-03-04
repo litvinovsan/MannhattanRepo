@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DirectShowLib;
+//using DirectShowLib;
 using Emgu.CV;
 using Emgu.Util;
 using Emgu.CV.VideoStab;
@@ -112,8 +112,8 @@ namespace PersonsBase.myStd
 
                     _capture.SetCaptureProperty(CapProp.FrameWidth, 1024);
                     _capture.SetCaptureProperty(CapProp.FrameHeight, 768);
-                    _capture.SetCaptureProperty(CapProp.Exposure, -2);
-                    _capture.SetCaptureProperty(CapProp.Fps, 15);
+                   // _capture.SetCaptureProperty(CapProp.Exposure, -2);
+                   // _capture.SetCaptureProperty(CapProp.Fps, 15);
                     _capture.FlipHorizontal = true;
                     _capture.ImageGrabbed += ProcessFrame;
                 }
