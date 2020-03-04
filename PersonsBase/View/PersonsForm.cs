@@ -110,7 +110,7 @@ namespace PersonsBase.View
             {
                 dateTimePicker_birthDate.Value = person.BirthDate.Date;
             }
-            catch (Exception )
+            catch (Exception)
             {
                 dateTimePicker_birthDate.Value = DateTime.Now;
             }
@@ -124,8 +124,8 @@ namespace PersonsBase.View
             maskedTextBox_number.Text = person.PersonalNumber.ToString();
 
             // Фото
-            Logic.TryLoadPhoto(pictureBox_Client, person.PathToPhoto, person.GenderType);
-
+            var isSuccess = Logic.TryLoadPhoto(pictureBox_Client, person.PathToPhoto, person.GenderType);
+            if (!isSuccess && !string.IsNullOrEmpty(person.PathToPhoto)) person.PathToPhoto = "";
             // Краткая инфа об абонементе
             Logic.LoadShortInfo(groupBox_AbonInfo, person);
         }

@@ -50,10 +50,10 @@ namespace PersonsBase.control
         /// <param name="pictureBox"></param>
         /// <param name="pathOrNamePhoto"></param>
         /// <param name="gender"></param>
-        public static void TryLoadPhoto(PictureBox pictureBox, string pathOrNamePhoto, Gender inputGender)
+        public static bool TryLoadPhoto(PictureBox pictureBox, string pathOrNamePhoto, Gender inputGender)
         {
             Gender gender = inputGender;
-
+            var result = true;
             var fileName = pathOrNamePhoto;
             if (string.IsNullOrEmpty(fileName))
             {
@@ -65,13 +65,13 @@ namespace PersonsBase.control
                 else
                 {
                     pictureBox.Image = null;
-                    return;
+                    return false;
                 }
             }
 
             try
             {
-                if (string.IsNullOrEmpty(fileName)) return;
+                if (string.IsNullOrEmpty(fileName)) return false;
 
                 var path = Photo.GetFullPathToPhoto(fileName);
 
@@ -83,6 +83,7 @@ namespace PersonsBase.control
                 else
                 {
                     pictureBox.Image = null;
+                    result = false;
                 }
             }
             catch
@@ -90,6 +91,7 @@ namespace PersonsBase.control
                 pictureBox.Image = null;
             }
             pictureBox.Refresh();
+            return result;
         }
 
         /// <summary>
