@@ -596,6 +596,7 @@ namespace PersonsBase.View
             // 
             // comboBox_Tren
             // 
+            this.comboBox_Tren.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_Tren.Enabled = false;
             this.comboBox_Tren.FormattingEnabled = true;
             this.comboBox_Tren.Location = new System.Drawing.Point(3, 69);
@@ -615,6 +616,7 @@ namespace PersonsBase.View
             // 
             // comboBox_Personal
             // 
+            this.comboBox_Personal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_Personal.Enabled = false;
             this.comboBox_Personal.FormattingEnabled = true;
             this.comboBox_Personal.Location = new System.Drawing.Point(3, 116);
@@ -634,6 +636,7 @@ namespace PersonsBase.View
             // 
             // comboBox_Aerob
             // 
+            this.comboBox_Aerob.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_Aerob.Enabled = false;
             this.comboBox_Aerob.FormattingEnabled = true;
             this.comboBox_Aerob.Location = new System.Drawing.Point(3, 163);
@@ -653,6 +656,7 @@ namespace PersonsBase.View
             // 
             // comboBox_freez
             // 
+            this.comboBox_freez.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_freez.Enabled = false;
             this.comboBox_freez.FormattingEnabled = true;
             this.comboBox_freez.Location = new System.Drawing.Point(3, 210);
