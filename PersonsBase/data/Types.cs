@@ -84,7 +84,6 @@ namespace PersonsBase.data
     [Serializable]
     public enum DaysInAbon
     {
-        На_5_посещений = 5,
         На_8_посещений = 8,
         На_10_посещений = 10,
         На_12_посещений = 12

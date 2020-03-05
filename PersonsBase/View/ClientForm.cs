@@ -558,6 +558,7 @@ namespace PersonsBase.View
                 LoadEditableData();
                 // Для обновления списка посещений при добавлении новой тренировки
                 MyDataGridView.SetSourceDataGridView(dataGridView_Visits, Visit.GetVisitsTable(_person));
+                Close();
             }
 
             // Перенос Фокуса на кнопку 

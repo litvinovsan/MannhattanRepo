@@ -321,66 +321,48 @@ namespace PersonsBase.View
         {
             Logic.SelectCurentAdmin();
         }
-
-
-        #endregion
-
-
         private void listView_Gym_Zal_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-
-            if (e.KeyData == Keys.Delete) // Если нажат 
-            {
-                Logic.AccessRootUser();
-                var timeName = MyListViewEx.GetSelectedText((ListView)sender);
-                // Удаление из журнала
-                DailyVisits.GetInstance().RemoveFromVisitsLog(timeName[1], TypeWorkout.Тренажерный_Зал, timeName[0]); // itemSel[0] -тут это время
-                // Удаление с экрана
-                MyListViewEx.RemoveSelectedItem((ListView)sender);
-                Logic.AccessRootUser();
-            }
+            DelSelectedItem(sender, e, TypeWorkout.Тренажерный_Зал);
         }
 
         private void listView_Personal_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if (e.KeyData == Keys.Delete) // Если нажат 
-            {
-                Logic.AccessRootUser();
-                var name = MyListViewEx.GetSelectedText((ListView)sender);
-                // Удаление из журнала
-                DailyVisits.GetInstance().RemoveFromVisitsLog(name[1], TypeWorkout.Персональная, name[0]);
-                // Удаление с экрана
-                MyListViewEx.RemoveSelectedItem((ListView)sender);
-                Logic.AccessRootUser();
-            }
+            DelSelectedItem(sender, e, TypeWorkout.Персональная);
         }
 
         private void listView_Group_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if (e.KeyData == Keys.Delete) // Если нажат 
-            {
-                Logic.AccessRootUser();
-                var name = MyListViewEx.GetSelectedText((ListView)sender);
-                // Удаление из журнала
-                DailyVisits.GetInstance().RemoveFromVisitsLog(name[1], TypeWorkout.Аэробный_Зал, name[0]);
-                // Удаление с экрана
-                MyListViewEx.RemoveSelectedItem((ListView)sender);
-                Logic.AccessRootUser();
-            }
+            DelSelectedItem(sender, e, TypeWorkout.Аэробный_Зал);
         }
 
         private void listView_MiniGroup_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if (e.KeyData == Keys.Delete) // Если нажат 
-            {
-                Logic.AccessRootUser();
-                var name = MyListViewEx.GetSelectedText((ListView)sender);
-                // Удаление из журнала
-                DailyVisits.GetInstance().RemoveFromVisitsLog(name[1], TypeWorkout.МиниГруппа, name[0]);
-                // Удаление с экрана
-                MyListViewEx.RemoveSelectedItem((ListView)sender);
-                Logic.AccessRootUser();
-            }
+            DelSelectedItem(sender, e, TypeWorkout.МиниГруппа);
         }
+
+        /// <summary>
+        /// Проверяет если введен пароль.
+        /// Удаляет посещение из списков на экране
+        /// Удаляет посещение из сохраненной базы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <param name="typeWorkout"></param>
+        private static void DelSelectedItem(object sender, PreviewKeyDownEventArgs e, TypeWorkout typeWorkout)
+        {
+            if (e.KeyData != Keys.Delete) return;
+            Logic.AccessRootUser();
+            if (!PwdForm.IsPassUnLocked()) return;
+            var name = MyListViewEx.GetSelectedText((ListView)sender);
+            // Удаление из журнала
+            DailyVisits.GetInstance().RemoveFromVisitsLog(name[1], typeWorkout, name[0]);
+            // Удаление с экрана
+            MyListViewEx.RemoveSelectedItem((ListView)sender);
+            PwdForm.LockPassword();
+        }
+
+        #endregion
+
     }
 }

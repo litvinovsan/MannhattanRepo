@@ -13,7 +13,7 @@ namespace PersonsBase.View
         ///////////////// ОСНОВНЫЕ ОБЬЕКТЫ и Поля ////////////////////////////////
         private readonly Person _person;
 
-        private readonly bool _isChangableForm; // Можно ли изменять значения на форме.Зависит от пароля 
+        private readonly bool _isReadOnlyForm; // Можно ли изменять значения на форме.Зависит от пароля 
 
         // Абонементы
         private string _selectedAbonementName;
@@ -32,17 +32,23 @@ namespace PersonsBase.View
         {
             InitializeComponent();
             _person = PersonObject.GetLink(nameKey); // Получаем ссылку на обьект персоны
-            _isChangableForm = true;
+            _isReadOnlyForm = false;
         }
 
-        public AbonementForm(ref AbonementBasic abonToShow, bool isModifyable)
+        /// <summary>
+        /// Нужен для отображения параметров текущего абонемента из очереди абонементов
+        /// </summary>
+        /// <param name="abonToShow"></param>
+        public AbonementForm(ref AbonementBasic abonToShow)
         {
             InitializeComponent();
             _person = new Person("Temp");
             _person.AbonementCurent = abonToShow;
-            _isChangableForm = isModifyable;
-            button_Aplly.Enabled = _isChangableForm;
-            this.Text = _isChangableForm ? "Изменение абонемента" : "Режим ЧТЕНИЯ";
+            _isReadOnlyForm = true;
+            button_Aplly.Enabled = false;
+            button_Aplly.Visible = false;
+            button2_Cancel.Text = @"Закрыть";
+            this.Text = @"Режим ЧТЕНИЯ";
         }
 
         private void AbonementForm_Load(object sender, EventArgs e)
@@ -123,7 +129,7 @@ namespace PersonsBase.View
             // Оплата
             comboBox_Pay.Items.AddRange(Enum.GetNames(typeof(Pay)).ToArray<object>()); // Записываем Поля в Комбобокс
             // comboBox_Pay.SelectedItem = _pay.ToString();                       // Выбор по умолчанию
-            if(_isChangableForm==false) comboBox_Pay.SelectedItem = _pay.ToString();
+            if (_isReadOnlyForm) comboBox_Pay.SelectedItem = _pay.ToString();
             comboBox_Pay.SelectedIndexChanged += ComboBox_Pay_SelectedIndexChanged;
 
             // Количество Дней в Абонементе

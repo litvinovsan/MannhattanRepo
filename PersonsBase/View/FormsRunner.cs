@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using PersonsBase.data;
+﻿using PersonsBase.data;
 using System.Windows.Forms;
 using PersonsBase.data.Abonements;
 
@@ -77,7 +76,7 @@ namespace PersonsBase.View
         {
             var result = DialogResult.Cancel;
 
-            using (var form = new AbonementForm(ref abonToShow, PwdForm.IsPassUnLocked()))
+            using (var form = new AbonementForm(ref abonToShow))
             {
                 if (form.ShowDialog() != DialogResult.OK) return result;
 
