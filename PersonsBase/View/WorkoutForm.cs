@@ -48,7 +48,9 @@ namespace PersonsBase.View
                 case AbonementByDays byDays:
                     {
                         panel_tren.Visible = byDays.TypeWorkout == TypeWorkout.Персональная ||
+                                             byDays.TypeWorkout == TypeWorkout.МиниГруппа ||
                                              byDays.TypeWorkout == TypeWorkout.Тренажерный_Зал;
+
                         panel_aero.Visible = (byDays.TypeWorkout == TypeWorkout.Аэробный_Зал);
                         panel_personal.Visible = byDays.TypeWorkout == TypeWorkout.Персональная;
                         panel_miniGroup.Visible = byDays.GetRemainderDays() > 0 && byDays.TypeWorkout == TypeWorkout.МиниГруппа;
@@ -58,8 +60,8 @@ namespace PersonsBase.View
                 case SingleVisit singleVisit:
                     {
                         panel_tren.Visible = false;
-                        panel_aero.Visible = (singleVisit.TypeWorkout == TypeWorkout.Аэробный_Зал); 
-                        panel_personal.Visible = singleVisit.TypeWorkout == TypeWorkout.Персональная; 
+                        panel_aero.Visible = (singleVisit.TypeWorkout == TypeWorkout.Аэробный_Зал);
+                        panel_personal.Visible = singleVisit.TypeWorkout == TypeWorkout.Персональная;
                         panel_miniGroup.Visible = false;
 
                         break;

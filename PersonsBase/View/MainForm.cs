@@ -58,7 +58,13 @@ namespace PersonsBase.View
 
             // Показать окно выбора Администратора
             Logic.SelectCurentAdmin();
+            toolTip1.SetToolTip(tableLayoutPanel1, "Для удаления записы, выделите и нажмите клавишу Delete на клавиатуре");
+            toolTip1.SetToolTip(listView_Gym_Zal, "Для удаления записы, выделите и нажмите клавишу Delete на клавиатуре");
+            toolTip1.SetToolTip(listView_Personal, "Для удаления записы, выделите и нажмите клавишу Delete на клавиатуре");
+            toolTip1.SetToolTip(listView_MiniGroup, "Для удаления записы, выделите и нажмите клавишу Delete на клавиатуре");
         }
+
+
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -342,7 +348,7 @@ namespace PersonsBase.View
                 Logic.AccessRootUser();
                 var name = MyListViewEx.GetSelectedText((ListView)sender);
                 // Удаление из журнала
-                DailyVisits.GetInstance().RemoveFromVisitsLog(name[1], TypeWorkout.Персональная, name[0]); 
+                DailyVisits.GetInstance().RemoveFromVisitsLog(name[1], TypeWorkout.Персональная, name[0]);
                 // Удаление с экрана
                 MyListViewEx.RemoveSelectedItem((ListView)sender);
                 Logic.AccessRootUser();
