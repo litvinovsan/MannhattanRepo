@@ -8,6 +8,7 @@ using PersonsBase.Properties;
 namespace PersonsBase.data
 {
     public delegate void MyListViewDelegate(string namePerson, WorkoutOptions workoutOptions);
+    public delegate void MyListViewDelegateRemove(string namePerson, TypeWorkout typeWorkout, string dopInfo);
 
     [Serializable]
     public class DailyVisits
@@ -63,6 +64,14 @@ namespace PersonsBase.data
                 {TypeWorkout.Тренажерный_Зал, AddToGymList},
                 {TypeWorkout.МиниГруппа, AddToMiniGroupList}
             };
+
+            _methodSelectRemoveCollection = new Dictionary<TypeWorkout, MyListViewDelegateRemove>
+            {
+                {TypeWorkout.Аэробный_Зал, RemoveGymList },
+                {TypeWorkout.Персональная, RemoveGymList},
+                {TypeWorkout.Тренажерный_Зал, RemoveGymList},
+                {TypeWorkout.МиниГруппа, RemoveGymList}
+            };
         }
         private static DailyVisits _dailyVisits;
         public static DailyVisits GetInstance()
@@ -85,6 +94,7 @@ namespace PersonsBase.data
             }
         }
         private readonly Dictionary<TypeWorkout, MyListViewDelegate> _methodSelectCollection; // Каждому типу назначен свой метод
+        private readonly Dictionary<TypeWorkout, MyListViewDelegateRemove> _methodSelectRemoveCollection; // Каждому типу назначен свой метод
 
         // Списки с посещениями по разным типам. Тренажерка, Аэробный и Персоналки
         public readonly List<GymItem> GymList = new List<GymItem>();
@@ -102,6 +112,12 @@ namespace PersonsBase.data
             _methodSelectCollection[arg.TypeWorkout].Invoke(name, arg);
         }
 
+        public void RemoveFromVisitsLog(string name, TypeWorkout arg, string dopInfo)
+        {
+            TotalPersonToday--; // Счетчик посетителей за день
+            _methodSelectRemoveCollection[arg].Invoke(name, arg, dopInfo);
+        }
+
         #region /// ВИЗИТЫ ТРЕНАЖЕРНОГО ЗАЛА ///
         /// <summary>
         /// Добавляет персону в список Тренажерного зала
@@ -111,6 +127,13 @@ namespace PersonsBase.data
             var item = CreateGymItem(namePerson);
             GymList.Add(item);
             OnGymListChanged();
+        }
+
+        private void RemoveGymList(string namePerson, TypeWorkout arg, string info)
+        {
+            var gymItem = GymList?.Find(x => x.Time.Equals(info) && x.Name.Equals(namePerson));
+            if (gymItem == null) return;
+            GymList.Remove(new GymItem(info, namePerson));
         }
 
         private static GymItem CreateGymItem(string personName)

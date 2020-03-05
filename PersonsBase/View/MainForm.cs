@@ -326,6 +326,10 @@ namespace PersonsBase.View
             if (e.KeyData == Keys.Delete) // Если нажат 
             {
                 Logic.AccessRootUser();
+                var timeName = MyListViewEx.GetSelectedText((ListView)sender);
+                // Удаление из журнала
+                DailyVisits.GetInstance().RemoveFromVisitsLog(timeName[1], TypeWorkout.Тренажерный_Зал, timeName[0]); // itemSel[0] -тут это время
+                // Удаление с экрана
                 MyListViewEx.RemoveSelectedItem((ListView)sender);
                 Logic.AccessRootUser();
             }
