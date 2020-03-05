@@ -51,7 +51,6 @@ namespace PersonsBase.View
             this.groupBox_abonList = new System.Windows.Forms.GroupBox();
             this.button__remove_abon = new System.Windows.Forms.Button();
             this.listBox_abonements = new System.Windows.Forms.ListBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox_Notes = new System.Windows.Forms.TextBox();
             this.groupBox_Info = new System.Windows.Forms.GroupBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -75,19 +74,21 @@ namespace PersonsBase.View
             this.button_Cancel = new System.Windows.Forms.Button();
             this.button_SavePersonalData = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).BeginInit();
             this.groupBox_abonList.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Visits)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dateTimePicker_birthDate
@@ -115,24 +116,24 @@ namespace PersonsBase.View
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1049, 643);
+            this.tabControl1.Size = new System.Drawing.Size(1049, 707);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Controls.Add(this.button_photo);
             this.tabPage1.Controls.Add(this.button_photo_cam);
             this.tabPage1.Controls.Add(this.tableLayoutPanel2);
             this.tabPage1.Controls.Add(this.flowLayoutPanel1);
             this.tabPage1.Controls.Add(this.pictureBox_ClientPhoto);
             this.tabPage1.Controls.Add(this.groupBox_abonList);
-            this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.groupBox_Info);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Size = new System.Drawing.Size(1041, 614);
+            this.tabPage1.Size = new System.Drawing.Size(1041, 678);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Информация";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -338,36 +339,20 @@ namespace PersonsBase.View
             this.listBox_abonements.Size = new System.Drawing.Size(192, 84);
             this.listBox_abonements.TabIndex = 0;
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.groupBox1.Controls.Add(this.textBox_Notes);
-            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.Location = new System.Drawing.Point(2, 471);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(1037, 141);
-            this.groupBox1.TabIndex = 8;
-            this.groupBox1.TabStop = false;
-            // 
             // textBox_Notes
             // 
-            this.textBox_Notes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_Notes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_Notes.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox_Notes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.textBox_Notes.Location = new System.Drawing.Point(2, 15);
+            this.textBox_Notes.Location = new System.Drawing.Point(2, 48);
             this.textBox_Notes.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_Notes.Multiline = true;
             this.textBox_Notes.Name = "textBox_Notes";
             this.textBox_Notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_Notes.Size = new System.Drawing.Size(1033, 124);
+            this.textBox_Notes.Size = new System.Drawing.Size(1021, 151);
             this.textBox_Notes.TabIndex = 5;
-            this.textBox_Notes.Text = "Заметки о Клиенте";
             this.textBox_Notes.TextChanged += new System.EventHandler(this.textBox_Notes_TextChanged);
             // 
             // groupBox_Info
@@ -643,7 +628,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel4.Controls.Add(this.button_SavePersonalData, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.button2, 4, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 647);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 711);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
@@ -691,11 +676,34 @@ namespace PersonsBase.View
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button_Password_Click);
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.textBox_Notes);
+            this.panel1.Location = new System.Drawing.Point(5, 472);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1025, 201);
+            this.panel1.TabIndex = 14;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label2.Location = new System.Drawing.Point(3, 14);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(226, 26);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Заметки о Клиенте";
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1049, 687);
+            this.ClientSize = new System.Drawing.Size(1049, 751);
             this.Controls.Add(this.tableLayoutPanel4);
             this.Controls.Add(this.tabControl1);
             this.DoubleBuffered = true;
@@ -714,8 +722,6 @@ namespace PersonsBase.View
             this.flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).EndInit();
             this.groupBox_abonList.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -723,6 +729,8 @@ namespace PersonsBase.View
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Visits)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -769,7 +777,6 @@ namespace PersonsBase.View
       private TextBox textBox_Notes;
       private PictureBox pictureBox_ClientPhoto;
       private Button button_CheckInWorkout;
-      private GroupBox groupBox1;
       private Button button_Add_Abon;
       private Button button_Freeze;
       private Button button_Cancel;
@@ -788,5 +795,7 @@ namespace PersonsBase.View
         private Label label_PersonName;
         private Label label_infoText;
         private Button button_photo_cam;
+        private Panel panel1;
+        private Label label2;
     }
 }
