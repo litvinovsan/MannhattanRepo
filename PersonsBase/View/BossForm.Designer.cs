@@ -63,10 +63,10 @@
             this.textBox_FiO = new System.Windows.Forms.TextBox();
             this.tabPage_settings = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.checkBox_faceDetector = new System.Windows.Forms.CheckBox();
             this.checkBox_CorrectOnCreateAbon = new System.Windows.Forms.CheckBox();
             this.checkBox_SimpsonPhoto = new System.Windows.Forms.CheckBox();
             this.checkBox_Passp_Drive = new System.Windows.Forms.CheckBox();
-            this.checkBox_faceDetector = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -521,6 +521,18 @@
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Вкл/Откл опций";
             // 
+            // checkBox_faceDetector
+            // 
+            this.checkBox_faceDetector.AutoSize = true;
+            this.checkBox_faceDetector.Enabled = false;
+            this.checkBox_faceDetector.Location = new System.Drawing.Point(6, 103);
+            this.checkBox_faceDetector.Name = "checkBox_faceDetector";
+            this.checkBox_faceDetector.Size = new System.Drawing.Size(213, 21);
+            this.checkBox_faceDetector.TabIndex = 2;
+            this.checkBox_faceDetector.Text = "Включить определение Лиц";
+            this.checkBox_faceDetector.UseVisualStyleBackColor = true;
+            this.checkBox_faceDetector.CheckedChanged += new System.EventHandler(this.checkBox_faceDetector_CheckedChanged);
+            // 
             // checkBox_CorrectOnCreateAbon
             // 
             this.checkBox_CorrectOnCreateAbon.AutoSize = true;
@@ -553,17 +565,6 @@
             this.checkBox_Passp_Drive.Text = "Учитывать Паспорт и Права в создании клиента";
             this.checkBox_Passp_Drive.UseVisualStyleBackColor = true;
             this.checkBox_Passp_Drive.CheckedChanged += new System.EventHandler(this.checkBox_Passp_Drive_CheckedChanged);
-            // 
-            // checkBox_faceDetector
-            // 
-            this.checkBox_faceDetector.AutoSize = true;
-            this.checkBox_faceDetector.Location = new System.Drawing.Point(6, 103);
-            this.checkBox_faceDetector.Name = "checkBox_faceDetector";
-            this.checkBox_faceDetector.Size = new System.Drawing.Size(213, 21);
-            this.checkBox_faceDetector.TabIndex = 2;
-            this.checkBox_faceDetector.Text = "Включить определение Лиц";
-            this.checkBox_faceDetector.UseVisualStyleBackColor = true;
-            this.checkBox_faceDetector.CheckedChanged += new System.EventHandler(this.checkBox_faceDetector_CheckedChanged);
             // 
             // BossForm
             // 

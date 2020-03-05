@@ -686,12 +686,12 @@ namespace PersonsBase.View
 
         private void button_photo_cam_Click(object sender, EventArgs e)
         {
-            Logic.SaveEverithing();
-            var success = FormsRunner.RunSnapshotForm(out var imageCam);
-            if (imageCam == null || success == false) return;
+           // Logic.SaveEverithing();
+           //// var success = FormsRunner.RunSnapshotForm(out var imageCam);
+           // if (imageCam == null || success == false) return;
 
-            var path = Photo.SaveToPhotoDir(imageCam, _person.Name);
-            _person.PathToPhoto = Path.GetFileName(path);
+           // var path = Photo.SaveToPhotoDir(imageCam, _person.Name);
+           // _person.PathToPhoto = Path.GetFileName(path);
         }
         #endregion
 

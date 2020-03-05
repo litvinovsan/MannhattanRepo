@@ -198,15 +198,15 @@ namespace PersonsBase.View
         #endregion
 
         #region /// СФОТОГРАФИРОВАТЬ КЛИЕНТА ///
-        public static bool RunSnapshotForm(out Image imageFromCamera)
-        {
-            imageFromCamera = null;
-            var snapshot = new SnapshotForm();
+        //public static bool RunSnapshotForm(out Image imageFromCamera)
+        //{
+        //    //imageFromCamera = null;
+        //    //var snapshot = new SnapshotForm();
 
-            if (snapshot.ShowDialog() != DialogResult.OK) return false;
-            imageFromCamera = snapshot.GetImage();
-            return true;
-        }
+        //    //if (snapshot.ShowDialog() != DialogResult.OK) return false;
+        //    //imageFromCamera = snapshot.GetImage();
+        //    return true;
+        //}
         #endregion
     }
 }

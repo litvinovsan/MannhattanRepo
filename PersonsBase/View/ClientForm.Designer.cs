@@ -155,6 +155,7 @@ namespace PersonsBase.View
             this.button_photo_cam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_photo_cam.BackgroundImage = global::PersonsBase.Properties.Resources.icons8_камера_100;
             this.button_photo_cam.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button_photo_cam.Enabled = false;
             this.button_photo_cam.Location = new System.Drawing.Point(843, 230);
             this.button_photo_cam.Name = "button_photo_cam";
             this.button_photo_cam.Size = new System.Drawing.Size(187, 42);
