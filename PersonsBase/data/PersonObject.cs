@@ -23,6 +23,7 @@ namespace PersonsBase.data
         }
 
         /// <summary>
+        /// Сохраняет текущий визит.
         /// Добавляет в Журнал посещений параметры выбранной Тренировки, Текущего администратора, время тренировки.
         /// Статический метод, на вход нужно подать Персону.
         /// </summary>
@@ -33,7 +34,7 @@ namespace PersonsBase.data
             var currentAdmin = (DataBaseLevel.GetManhattanInfo()?.CurrentAdmin) ?? new Administrator();
             var visit = new Visit(person.AbonementCurent, selectedOptions, currentAdmin.Name);
             var personsVisitDict = DataBaseLevel.GetPersonsVisitDict();
-            
+
             if (personsVisitDict.ContainsKey(person.Name))
             {
                 personsVisitDict[person.Name].Add(visit);

@@ -377,7 +377,7 @@ namespace PersonsBase.View
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(1041, 614);
+            this.tabPage2.Size = new System.Drawing.Size(1041, 678);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Персональные данные";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -392,7 +392,7 @@ namespace PersonsBase.View
             this.groupBox_Detailed.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_Detailed.Name = "groupBox_Detailed";
             this.groupBox_Detailed.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox_Detailed.Size = new System.Drawing.Size(700, 606);
+            this.groupBox_Detailed.Size = new System.Drawing.Size(700, 670);
             this.groupBox_Detailed.TabIndex = 1;
             this.groupBox_Detailed.TabStop = false;
             this.groupBox_Detailed.Text = "Детальная информация";
@@ -407,7 +407,7 @@ namespace PersonsBase.View
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(313, 605);
+            this.groupBox2.Size = new System.Drawing.Size(313, 669);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Персональные данные";

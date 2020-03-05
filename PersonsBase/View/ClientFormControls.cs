@@ -60,18 +60,27 @@ namespace PersonsBase.View
             ComboBox comboStatus = CreateComboBox();
             // Инициализируем наши Контролы
             string[] array = Enum.GetNames(typeof(StatusPerson));
-            // Удалим из Массива Активный и Заморожен если у клиента нет абонемента.
+            // Удалим из Массива Активный и Заморожен и Гостевой если у клиента нет абонемента.
             if (_person.AbonementCurent == null)
             {
-                var updatedarray = array.Where(x => (x != StatusPerson.Активный.ToString()) && ((x != StatusPerson.Заморожен.ToString()))).Select(x => x);
+                var updatedarray = array.Where(x => (x != StatusPerson.Активный.ToString()) && ((x != StatusPerson.Заморожен.ToString())) && ((x != StatusPerson.Гостевой.ToString()))).Select(x => x);
                 array = updatedarray.ToArray();
+            }
+            else
+            {
+                if (_person.Status != StatusPerson.Гостевой)
+                {
+                    var updatedarray = array.Where(x => ((x != StatusPerson.Гостевой.ToString()))).Select(x => x);
+                    array = updatedarray.ToArray<string>();
+                }
             }
             // Удалим из Массива Заморожен если не Клубная Карта .
             if (!(_person.AbonementCurent is ClubCardA))
             {
-                var updatedarray = array.Where(x => (x != StatusPerson.Заморожен.ToString())).Select(x => x);
+                var updatedarray = array.Where(x => (x != StatusPerson.Заморожен.ToString()) && ((x != StatusPerson.Гостевой.ToString()))).Select(x => x);
                 array = updatedarray.ToArray<string>();
             }
+
 
             // Записываем Поля в Комбобокс
             comboStatus.Items.AddRange(array.ToArray<object>());
@@ -134,7 +143,7 @@ namespace PersonsBase.View
                         else
                         {
                             var newEndDate = abonementByDays.BuyActivationDate.AddMonths(2).Date;
-                           abonementByDays.SetNewEndDate(2, newEndDate);
+                            abonementByDays.SetNewEndDate(2, newEndDate);
                         }
                     }
                 }

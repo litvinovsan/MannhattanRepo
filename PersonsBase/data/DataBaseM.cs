@@ -358,8 +358,8 @@ namespace PersonsBase.data
             if (person.AbonementCurent == null) return personFields;
 
             personFields.Add(new PersonField { HeaderName = "Название", Value = person.AbonementCurent.AbonementName });
-            personFields.Add(new PersonField { HeaderName = "Покупка", Value = $"{person.AbonementCurent.BuyActivationDate:MM/dd/yyyy}" });
-            personFields.Add(new PersonField { HeaderName = "Конец", Value = $"{person.AbonementCurent.EndDate:MM/dd/yyyy}" });
+            personFields.Add(new PersonField { HeaderName = "Покупка", Value = $"{person.AbonementCurent.BuyActivationDate:dd/MM/yyyy}" });
+            personFields.Add(new PersonField { HeaderName = "Конец", Value = $"{person.AbonementCurent.EndDate:dd/MM/yyyy}" });
 
             // Последнее посещение в журнале
             var journal = PersonObject.GetVisitsList(person.Name);
@@ -367,7 +367,9 @@ namespace PersonsBase.data
             {
                 var lastVisit = journal.Last().DateTimeVisit.Date; //.ToString("MM/dd/yyyy");
                 var numDays = (DateTime.Now - lastVisit).Days;
-                personFields.Add(new PersonField { HeaderName = "Был(дн. назад)", Value = $"  {numDays}" });
+                personFields.Add(numDays == 0
+                    ? new PersonField {HeaderName = "Был (дн. назад)", Value = $"Сегодня"}
+                    : new PersonField {HeaderName = "Был (дн. назад)", Value = $"  {numDays}"});
             }
             else
             {
