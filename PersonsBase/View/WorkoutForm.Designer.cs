@@ -76,15 +76,16 @@ namespace PersonsBase.View
             // button_Ok
             // 
             this.button_Ok.AutoSize = true;
+            this.button_Ok.BackColor = System.Drawing.Color.LightGreen;
             this.button_Ok.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_Ok.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_Ok.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_Ok.Location = new System.Drawing.Point(319, 2);
             this.button_Ok.Margin = new System.Windows.Forms.Padding(2);
             this.button_Ok.Name = "button_Ok";
             this.button_Ok.Size = new System.Drawing.Size(314, 32);
             this.button_Ok.TabIndex = 0;
             this.button_Ok.Text = "Применить";
-            this.button_Ok.UseVisualStyleBackColor = true;
+            this.button_Ok.UseVisualStyleBackColor = false;
             this.button_Ok.Click += new System.EventHandler(this.button_Ok_Click);
             // 
             // tableLayoutPanel1
@@ -108,7 +109,7 @@ namespace PersonsBase.View
             this.button_Cancel.AutoSize = true;
             this.button_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button_Cancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_Cancel.Location = new System.Drawing.Point(2, 2);
             this.button_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.button_Cancel.Name = "button_Cancel";

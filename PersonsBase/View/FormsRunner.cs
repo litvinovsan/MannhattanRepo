@@ -53,11 +53,31 @@ namespace PersonsBase.View
 
         #endregion
 
-        #region /// СОЗДАНИЕ АБОНЕМЕНТА ///
+        #region /// СОЗДАНИЕ АБОНЕМЕНТА и Открытие АБОНЕМЕНТА ///
         public static DialogResult CreateAbonementForm(string personName)
         {
             var result = DialogResult.Cancel;
             using (var form = new AbonementForm(personName))
+            {
+                if (form.ShowDialog() != DialogResult.OK) return result;
+
+                form.ApplyChanges();
+                result = DialogResult.OK;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Метод запускает форму Абонемента для просмотра или редактирования.
+        /// Это зависит от статуса пароля администратора
+        /// </summary>
+        /// <param name="abonToShow"></param>
+        /// <returns></returns>
+        public static DialogResult CreateAbonementForm(ref AbonementBasic abonToShow)
+        {
+            var result = DialogResult.Cancel;
+
+            using (var form = new AbonementForm(ref abonToShow, PwdForm.IsPassUnLocked()))
             {
                 if (form.ShowDialog() != DialogResult.OK) return result;
 
