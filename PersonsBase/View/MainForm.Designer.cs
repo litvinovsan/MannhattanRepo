@@ -37,7 +37,7 @@ namespace PersonsBase.View
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.конфигурацииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -404,6 +404,7 @@ namespace PersonsBase.View
             this.listView_MiniGroup.TabIndex = 4;
             this.listView_MiniGroup.UseCompatibleStateImageBehavior = false;
             this.listView_MiniGroup.View = System.Windows.Forms.View.Details;
+            this.listView_MiniGroup.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.listView_MiniGroup_PreviewKeyDown);
             // 
             // columnHeader5
             // 
@@ -424,10 +425,10 @@ namespace PersonsBase.View
             this.listView_Gym_Zal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView_Gym_Zal.FullRowSelect = true;
             this.listView_Gym_Zal.GridLines = true;
-            listViewGroup1.Header = "ListViewGroup";
-            listViewGroup1.Name = "listViewGroup1";
+            listViewGroup3.Header = "ListViewGroup";
+            listViewGroup3.Name = "listViewGroup1";
             this.listView_Gym_Zal.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1});
+            listViewGroup3});
             this.listView_Gym_Zal.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listView_Gym_Zal.Location = new System.Drawing.Point(819, 31);
             this.listView_Gym_Zal.MultiSelect = false;
@@ -466,6 +467,7 @@ namespace PersonsBase.View
             this.listView_Personal.TabIndex = 2;
             this.listView_Personal.UseCompatibleStateImageBehavior = false;
             this.listView_Personal.View = System.Windows.Forms.View.Details;
+            this.listView_Personal.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.listView_Personal_PreviewKeyDown);
             // 
             // columnHeader1
             // 
@@ -495,6 +497,7 @@ namespace PersonsBase.View
             this.listView_Group.TabIndex = 2;
             this.listView_Group.UseCompatibleStateImageBehavior = false;
             this.listView_Group.View = System.Windows.Forms.View.Details;
+            this.listView_Group.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.listView_Group_PreviewKeyDown);
             // 
             // columnHeader4
             // 

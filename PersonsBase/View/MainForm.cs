@@ -334,5 +334,47 @@ namespace PersonsBase.View
                 Logic.AccessRootUser();
             }
         }
+
+        private void listView_Personal_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyData == Keys.Delete) // Если нажат 
+            {
+                Logic.AccessRootUser();
+                var name = MyListViewEx.GetSelectedText((ListView)sender);
+                // Удаление из журнала
+                DailyVisits.GetInstance().RemoveFromVisitsLog(name[1], TypeWorkout.Персональная, name[0]); 
+                // Удаление с экрана
+                MyListViewEx.RemoveSelectedItem((ListView)sender);
+                Logic.AccessRootUser();
+            }
+        }
+
+        private void listView_Group_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyData == Keys.Delete) // Если нажат 
+            {
+                Logic.AccessRootUser();
+                var name = MyListViewEx.GetSelectedText((ListView)sender);
+                // Удаление из журнала
+                DailyVisits.GetInstance().RemoveFromVisitsLog(name[1], TypeWorkout.Аэробный_Зал, name[0]);
+                // Удаление с экрана
+                MyListViewEx.RemoveSelectedItem((ListView)sender);
+                Logic.AccessRootUser();
+            }
+        }
+
+        private void listView_MiniGroup_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyData == Keys.Delete) // Если нажат 
+            {
+                Logic.AccessRootUser();
+                var name = MyListViewEx.GetSelectedText((ListView)sender);
+                // Удаление из журнала
+                DailyVisits.GetInstance().RemoveFromVisitsLog(name[1], TypeWorkout.МиниГруппа, name[0]);
+                // Удаление с экрана
+                MyListViewEx.RemoveSelectedItem((ListView)sender);
+                Logic.AccessRootUser();
+            }
+        }
     }
 }
