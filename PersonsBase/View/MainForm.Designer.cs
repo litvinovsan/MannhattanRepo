@@ -437,6 +437,7 @@ namespace PersonsBase.View
             this.listView_Gym_Zal.TabIndex = 2;
             this.listView_Gym_Zal.UseCompatibleStateImageBehavior = false;
             this.listView_Gym_Zal.View = System.Windows.Forms.View.Details;
+            this.listView_Gym_Zal.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.listView_Gym_Zal_PreviewKeyDown);
             // 
             // column_Time
             // 

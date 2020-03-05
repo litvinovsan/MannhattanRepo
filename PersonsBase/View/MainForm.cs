@@ -315,6 +315,20 @@ namespace PersonsBase.View
         {
             Logic.SelectCurentAdmin();
         }
+
+
         #endregion
+
+
+        private void listView_Gym_Zal_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+
+            if (e.KeyData == Keys.Delete) // Если нажат 
+            {
+                Logic.AccessRootUser();
+                MyListViewEx.RemoveSelectedItem((ListView)sender);
+                Logic.AccessRootUser();
+            }
+        }
     }
 }

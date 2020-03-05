@@ -116,6 +116,7 @@ namespace PersonsBase.control
             DailyVisits.GetInstance().SaveCurentSession();// Сериализация текущих списков посещений 
             DataBaseLevel.SerializeObjects();
         }
+
         #endregion
 
         #region /// ФОРМА Босса /// 
