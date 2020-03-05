@@ -94,7 +94,7 @@ namespace PersonsBase.data
 
         #region /// Разные текстовые и около того данные
         // Число тренировок для покупки
-        public static readonly object[] NumAvailTrenToBuy = { "1", "5", "10" };
+        public static readonly object[] NumAvailTrenToBuy = { "1", "5", "8", "10" };
         public static readonly object[] NumAvailMiniGroup = { "8" };
 
         public const string CorrectPassword = "1234";
