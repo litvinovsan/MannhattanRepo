@@ -9,7 +9,7 @@ namespace PersonsBase.data.Abonements
         private DaysInAbon _typeAbonement;
         private int _numAerobicTr1;
         private int _numPersonalTr1;
-        private int _validityPeriod = 2;
+        private int _validityPeriod;
         public const string NameAbonement = "Абонемент";
 
         // Конструктор
@@ -20,9 +20,13 @@ namespace PersonsBase.data.Abonements
             _typeAbonement = numDays;
             NumAerobicTr = 0;
             NumPersonalTr = 0;
+            _validityPeriod = (typeTr == TypeWorkout.Персональная)
+                ? Options.ValidPeriod12Month
+                : Options.ValidPeriod2Month;
             // 12 месяцев - длительность абонемента с персональными тренировками
-            EndDate = (typeTr == TypeWorkout.Персональная) ? DateTime.Now.AddMonths(12).Date : DateTime.Now.AddMonths(_validityPeriod).Date;
+            EndDate = CalculateEndDate(DateTime.Now, _validityPeriod);
         }
+
 
         // Свойства
         public override string AbonementName
@@ -62,6 +66,7 @@ namespace PersonsBase.data.Abonements
         {
             if (IsActivated) return; // Уже Активирован.
             IsActivated = true;
+            if (_validityPeriod == 0) _validityPeriod = Options.ValidPeriod2Month;
             var date = DateTime.Now.AddMonths(_validityPeriod).Date;
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = date;
@@ -79,6 +84,7 @@ namespace PersonsBase.data.Abonements
             if (IsActivated) return; // Уже Активирован.
             IsActivated = true;
             BuyActivationDate = startDate;
+            if (_validityPeriod == 0) _validityPeriod = Options.ValidPeriod2Month;
             var date = startDate.AddMonths(_validityPeriod).Date;
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = date;
@@ -102,6 +108,10 @@ namespace PersonsBase.data.Abonements
             // Если +, то DateTime.Now позднее _endDate
             // Если 0, то даты совпали
             // Если -, то DateTime.Now раньше Конца абонемента
+            EndDate = (TypeWorkout == TypeWorkout.Персональная) ?
+                CalculateEndDate(BuyActivationDate, Options.ValidPeriod12Month) :
+                CalculateEndDate(BuyActivationDate, Options.ValidPeriod2Month);
+
             return ((DateTime.Now.Date.CompareTo(EndDate.Date) <= 0) && (GetRemainderDays() > 0));
         }
 
@@ -151,6 +161,15 @@ namespace PersonsBase.data.Abonements
             if (_validityPeriod.Equals(numberMonths)) return;
             EndDate = dateEndNew;
             _validityPeriod = numberMonths;
+        }
+        /// <summary>
+        /// Вычисляет дату окончания. Складывает число месяцев с стартовой датой
+        /// </summary>
+        /// <param name="months"></param>
+        /// <returns></returns>
+        private static DateTime CalculateEndDate(DateTime startDate, int months)
+        {
+            return startDate.AddMonths(months).Date;
         }
     }
 }

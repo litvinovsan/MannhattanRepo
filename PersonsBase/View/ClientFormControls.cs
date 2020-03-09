@@ -137,13 +137,13 @@ namespace PersonsBase.View
                     {
                         if (_editedTypeWorkout == TypeWorkout.Персональная)
                         {
-                            var newEndDate = abonementByDays.BuyActivationDate.AddMonths(12).Date;
-                            abonementByDays.SetNewEndDate(12, newEndDate);
+                            var newEndDate = abonementByDays.BuyActivationDate.AddMonths(Options.ValidPeriod12Month).Date;
+                            abonementByDays.SetNewEndDate(Options.ValidPeriod12Month, newEndDate);
                         }
                         else
                         {
-                            var newEndDate = abonementByDays.BuyActivationDate.AddMonths(2).Date;
-                            abonementByDays.SetNewEndDate(2, newEndDate);
+                            var newEndDate = abonementByDays.BuyActivationDate.AddMonths(Options.ValidPeriod2Month).Date;
+                            abonementByDays.SetNewEndDate(Options.ValidPeriod2Month, newEndDate);
                         }
                     }
                 }
