@@ -49,6 +49,7 @@ namespace PersonsBase.View
                     {
                         panel_tren.Visible = byDays.TypeWorkout == TypeWorkout.Персональная ||
                                              byDays.TypeWorkout == TypeWorkout.МиниГруппа ||
+                                             byDays.TypeWorkout == TypeWorkout.Аэробный_Зал ||
                                              byDays.TypeWorkout == TypeWorkout.Тренажерный_Зал;
 
                         panel_aero.Visible = (byDays.TypeWorkout == TypeWorkout.Аэробный_Зал);

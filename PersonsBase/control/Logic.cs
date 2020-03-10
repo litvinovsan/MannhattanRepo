@@ -564,17 +564,17 @@ namespace PersonsBase.control
                         var dlgResult = FormsRunner.RunWorkoutOptionsForm(ref selectedOptions, person.Name);
                         if (dlgResult == DialogResult.Cancel) return false;
 
-                        if (selectedOptions.TypeWorkout == TypeWorkout.Тренажерный_Зал &&
-                            byDays.TypeWorkout != TypeWorkout.Тренажерный_Зал)// Если выбран ТЗ, но в абонементе основной тип другой. 
+                        // Сохраняем посещение в новую разовую тренировку,а не списываем с абонемента
+                        if (selectedOptions.TypeWorkout == TypeWorkout.Тренажерный_Зал && (
+                            byDays.TypeWorkout == TypeWorkout.Персональная || byDays.TypeWorkout == TypeWorkout.МиниГруппа))
                         {
                             PersonObject.SaveSingleVisit(person, selectedOptions); // Сохраняет текущий разовый новый визит 
                         }
-                        else
+                        else // Если выбран ТЗ, но в абонементе основной тип другой. 
                         {
                             isSuccess = byDays.CheckInWorkout(selectedOptions.TypeWorkout);
                             if (!isSuccess) return false;
                             PersonObject.SaveCurentVisit(person, selectedOptions); // Сохраняет текущий визит 
-
                         }
 
                         break;
