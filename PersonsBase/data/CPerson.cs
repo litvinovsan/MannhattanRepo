@@ -191,7 +191,8 @@ namespace PersonsBase.data
             set
             {
                 if (UpdateQueue(value))
-                {
+                {// Заходим сюда если абонемента нет вообще и добавляется новый.
+                 // Если сюда не заходим - абонементы добавляются в очередь
                     StatusDirector();
                     OnAbonementCurentChanged();
                 }

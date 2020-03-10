@@ -42,8 +42,7 @@ namespace PersonsBase.View
         public AbonementForm(ref AbonementBasic abonToShow)
         {
             InitializeComponent();
-            _person = new Person("Temp");
-            _person.AbonementCurent = abonToShow;
+            _person = new Person("Temp") { AbonementCurent = abonToShow };
             _isReadOnlyForm = true;
             button_Aplly.Enabled = false;
             button_Aplly.Visible = false;
@@ -110,12 +109,14 @@ namespace PersonsBase.View
 
             if (comboBox_TypeTren.Items.Count == 0)
             {
-                var array = Enum.GetNames(typeof(TypeWorkout)).Where(x => (x != TypeWorkout.МиниГруппа.ToString()))
-                    .Select(x => x).ToArray<object>();
+                //var array = Enum.GetNames(typeof(TypeWorkout)).Where(x => (x != TypeWorkout.МиниГруппа.ToString()))
+                //    .Select(x => x).ToArray<object>();
 
+                var array = Enum.GetNames(typeof(TypeWorkout)).Select(x => x).ToArray<object>();
                 comboBox_TypeTren.Items.AddRange(array); // Записываем Поля в Комбобокс
                 comboBox_TypeTren.SelectedItem = _typeWorkout.ToString(); // Выбор по умолчанию
             }
+
 
             // Время Тренировки
             comboBox_time.Items.AddRange(Enum.GetNames(typeof(TimeForTr)).ToArray<object>()); // Записываем Поля в Комбобокс
@@ -296,22 +297,13 @@ namespace PersonsBase.View
             }
             UpdateCorrectFieldsEn();
 
-            RemoveItem();
+            // RemoveItem(radioButton_Abonement);
         }
 
-        private void RemoveItem()
+        private void RemAddMiniGroupItem(RadioButton button)
         {
             // Удаляем Мини группы из списка для всех кроме абонемента
-            if (radioButton_Abonement.Checked)
-            {
-                if (comboBox_TypeTren.Items.Contains(TypeWorkout.МиниГруппа.ToString())) return;
-
-
-                comboBox_TypeTren.Items.Clear();
-                comboBox_TypeTren.Items.AddRange(Enum.GetNames(typeof(TypeWorkout))
-                    .ToArray<object>()); // Записываем Поля в Комбобокс
-            }
-            else
+            if (button.Checked)
             {
                 if (!comboBox_TypeTren.Items.Contains(TypeWorkout.МиниГруппа.ToString())) return;
 
@@ -320,8 +312,16 @@ namespace PersonsBase.View
                     .Select(x => x);
                 comboBox_TypeTren.Items.AddRange(array.ToArray<object>());
             }
+            else
+            {
+                if (comboBox_TypeTren.Items.Contains(TypeWorkout.МиниГруппа.ToString())) return;
 
-            comboBox_TypeTren.SelectedItem = TypeWorkout.Тренажерный_Зал.ToString();
+                comboBox_TypeTren.Items.Clear();
+                comboBox_TypeTren.Items.AddRange(Enum.GetNames(typeof(TypeWorkout))
+                    .ToArray<object>()); // Записываем Поля в Комбобокс
+            }
+
+
         }
 
         private void radioButton_ClubCard_CheckedChanged(object sender, EventArgs e)
@@ -356,13 +356,17 @@ namespace PersonsBase.View
             if (radioButton.Checked)
             {
                 _selectedAbonementName = "Разовое Занятие";
-
+                RemAddMiniGroupItem(radioButton);
                 comboBox_Abonem.Visible = false;
                 comboBox_ClubCard.Visible = false;
                 comboBox_TypeTren.SelectedItem = TypeWorkout.Тренажерный_Зал.ToString();
                 radioButton_Abonement.Checked = false;
                 radioButton_ClubCard.Checked = false;
                 radioButton_guest.Checked = false;
+            }
+            else
+            {
+                RemAddMiniGroupItem(radioButton);
             }
             UpdateCorrectFieldsEn();
         }
@@ -373,7 +377,7 @@ namespace PersonsBase.View
             if (radioButton.Checked)
             {
                 _selectedAbonementName = "Гостевой визит";
-
+                //
                 comboBox_Abonem.Visible = false;
                 comboBox_ClubCard.Visible = false;
                 comboBox_TypeTren.SelectedItem = TypeWorkout.Тренажерный_Зал.ToString();
@@ -382,6 +386,8 @@ namespace PersonsBase.View
                 radioButton_Single.Checked = false;
                 groupBox_Correctable.Enabled = false;
             }
+
+
         }
 
         private void UpdateCorrectFieldsEn()
@@ -502,7 +508,7 @@ namespace PersonsBase.View
 
         private void comboBox_TypeTren_SelectedValueChanged(object sender, EventArgs e)
         {
-            RemoveItem();
+            //  RemoveItem(radioButton_Abonement);
 
             var combo = (ComboBox)sender;
             try
