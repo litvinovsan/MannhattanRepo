@@ -49,6 +49,7 @@ namespace PersonsBase.View
             button_Aplly.Visible = false;
             button2_Cancel.Text = @"Закрыть";
             this.Text = @"Режим ЧТЕНИЯ";
+            tableLayoutPanel2.Enabled = false;
         }
 
         private void AbonementForm_Load(object sender, EventArgs e)

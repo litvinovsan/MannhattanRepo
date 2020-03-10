@@ -76,6 +76,8 @@ namespace PersonsBase.data.Abonements
             // Если +, то DateTime.Now позднее _endDate
             // Если 0, то даты совпали
             // Если -, то DateTime.Now раньше Конца абонемента
+            if (_numberMonths != 0)
+                EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
             var checkDate = DateTime.Now.Date.CompareTo(EndDate.Date) <= 0;
             return checkDate;
         }
@@ -147,7 +149,7 @@ namespace PersonsBase.data.Abonements
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
-           // OnValuesChanged();
+            // OnValuesChanged();
             return result;
         }
 
