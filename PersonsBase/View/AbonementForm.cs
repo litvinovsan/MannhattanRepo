@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.data;
@@ -199,6 +200,8 @@ namespace PersonsBase.View
                         PersonObject.SaveCurentVisit(_person, selectedOptions); // Сохраняет текущий визит 
                         DailyVisits.GetInstance().AddToVisitsLog(_person.Name, selectedOptions); // Cобытие для добавления текущего посещения на главную форму
                         _person.Status = StatusPerson.Гостевой;
+                        _person.SpecialNotes +=
+                            $"\n\r Гостевой визит был: {DateTime.Now.ToString(new DateTimeFormatInfo().LongDatePattern)} ";
                         _person.AbonementCurent = null;
                         return;
                     }

@@ -53,6 +53,7 @@ namespace PersonsBase.View
             _person.PassportChanged += _person_PassportChanged;
             _person.DriverIdChanged += _person_DriverIdChanged;
             _person.PersonalNumberChanged += _person_PersonalNumberChanged;
+            _person.SpecialNotesChanged += _person_SpecialNotesChanged;
 
             // Когда изменился какой-либо параметр Абонемента
             _person.AbonementCurentChanged += CurentAbonementChanged;
@@ -278,6 +279,10 @@ namespace PersonsBase.View
             if (!textBox_Number.Text.Equals(_person.PersonalNumber.ToString()))
                 textBox_Number.Text = _person.PersonalNumber.ToString();
             Logic.SetControlBackColor(textBox_Number, _person.PersonalNumber.ToString(), textBox_Number.Text);
+        }
+        private void _person_SpecialNotesChanged(object sender, string e)
+        {
+            textBox_Notes.Text = _person.SpecialNotes;
         }
 
         private void _person_DriverIdChanged(object sender, string e)

@@ -63,7 +63,8 @@ namespace PersonsBase.View
                         panel_tren.Visible = false;
                         panel_aero.Visible = (singleVisit.TypeWorkout == TypeWorkout.Аэробный_Зал);
                         panel_personal.Visible = singleVisit.TypeWorkout == TypeWorkout.Персональная;
-                        panel_miniGroup.Visible = false;
+
+                        panel_miniGroup.Visible = singleVisit.TypeWorkout == TypeWorkout.МиниГруппа;
 
                         break;
                     }
