@@ -23,7 +23,6 @@ namespace PersonsBase.data
         [field: NonSerialized] public event EventHandler<DateTime> BirthDateChanged;
         [field: NonSerialized] public event EventHandler<Gender> GenderTypeChanged;
 
-
         private void OnStatusChanged()
         {
             StatusChanged?.Invoke(this, EventArgs.Empty);
