@@ -22,7 +22,7 @@ namespace PersonsBase.data.Abonements
             NumPersonalTr = 0;
             _validityPeriod = (typeTr == TypeWorkout.Персональная || typeTr == TypeWorkout.МиниГруппа)
                 ? Options.ValidPeriod12Month
-                : Options.ValidPeriod2Month;
+                : Options.ValidPeriod3Month;
             // 12 месяцев - длительность абонемента с персональными тренировками
             EndDate = CalculateEndDate(DateTime.Now, _validityPeriod);
         }
@@ -66,7 +66,7 @@ namespace PersonsBase.data.Abonements
         {
             if (IsActivated) return; // Уже Активирован.
             IsActivated = true;
-            if (_validityPeriod == 0) _validityPeriod = Options.ValidPeriod2Month;
+            if (_validityPeriod == 0) _validityPeriod = Options.ValidPeriod3Month;
             var date = DateTime.Now.AddMonths(_validityPeriod).Date;
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = date;
@@ -84,7 +84,7 @@ namespace PersonsBase.data.Abonements
             if (IsActivated) return; // Уже Активирован.
             IsActivated = true;
             BuyActivationDate = startDate;
-            if (_validityPeriod == 0) _validityPeriod = Options.ValidPeriod2Month;
+            if (_validityPeriod == 0) _validityPeriod = Options.ValidPeriod3Month;
             var date = startDate.AddMonths(_validityPeriod).Date;
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = date;
@@ -110,7 +110,7 @@ namespace PersonsBase.data.Abonements
             // Если -, то DateTime.Now раньше Конца абонемента
             EndDate = (TypeWorkout == TypeWorkout.Персональная || TypeWorkout == TypeWorkout.МиниГруппа) ?
                 CalculateEndDate(BuyActivationDate, Options.ValidPeriod12Month) :
-                CalculateEndDate(BuyActivationDate, Options.ValidPeriod2Month);
+                CalculateEndDate(BuyActivationDate, Options.ValidPeriod3Month);
 
             return ((DateTime.Now.Date.CompareTo(EndDate.Date) <= 0) && (GetRemainderDays() > 0));
         }

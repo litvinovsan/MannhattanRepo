@@ -142,8 +142,8 @@ namespace PersonsBase.View
                         }
                         else
                         {
-                            var newEndDate = abonementByDays.BuyActivationDate.AddMonths(Options.ValidPeriod2Month).Date;
-                            abonementByDays.SetNewEndDate(Options.ValidPeriod2Month, newEndDate);
+                            var newEndDate = abonementByDays.BuyActivationDate.AddMonths(Options.ValidPeriod3Month).Date;
+                            abonementByDays.SetNewEndDate(Options.ValidPeriod3Month, newEndDate);
                         }
                     }
                 }

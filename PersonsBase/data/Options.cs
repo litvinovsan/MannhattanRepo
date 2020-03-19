@@ -96,7 +96,7 @@ namespace PersonsBase.data
         // Число тренировок для покупки
         public static readonly object[] NumAvailTrenToBuy = { "1", "5", "8", "10" };
         public static readonly object[] NumAvailMiniGroup = { "8" };
-        public const int ValidPeriod2Month = 2;// нужны для расчета даты окончания абонемента. Срок годности абонемента 2 месяца
+        public const int ValidPeriod3Month = 3;// нужны для расчета даты окончания абонемента. Срок годности абонемента 2 месяца
         public const int ValidPeriod12Month = 12;// нужны для расчета даты окончания абонемента. Срок годности абонемента 12 месяца
 
 
