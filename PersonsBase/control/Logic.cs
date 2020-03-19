@@ -615,12 +615,45 @@ namespace PersonsBase.control
         {
             var labelTextBoxList = CreateLabelTextBoxList(person);
 
+            try
+            {
+                HighlightControls(ref labelTextBoxList);
+            }
+            catch (Exception)
+            {
+                SaveEverithing();
+                MessageBox.Show("Ошибка подсветки строк по определенным признакам в карточке клиента");
+            }
+
             // Отрисовка Short Info
             var table = CreateTable(labelTextBoxList); // Создаем таблицу c элементами из списка. Таблица: Лэйбл - Текстбокс
 
             AddTableToGroupBox(table, gbBoxToShow);
         }
 
+        private static void HighlightControls(ref List<Tuple<Label, Control>> inputListOfCntrls)
+        {
+            // Условие подсветки. Если Тренировки только Утром
+            var indexTimeDay = inputListOfCntrls.FindIndex(x =>
+                     x.Item1.Text.Contains("Время Тренировок") && x.Item2.Text.Contains(StrMorning));
+            if (indexTimeDay != -1) inputListOfCntrls[indexTimeDay].Item2.BackColor = Color.LightPink;
+
+            // Условие подсветки. Если Не Оплачено
+            var indexPay = inputListOfCntrls.FindIndex(x =>
+                x.Item1.Text.Contains("Статус Оплаты") && (x.Item2.Text.Contains(StrNoPay.Replace("_", " "))));
+            if (indexPay != -1) inputListOfCntrls[indexPay].Item2.BackColor = Color.LightPink;
+
+            // Условие подсветки. Карта или Абонемент заканчиваются через 3 дня
+            var indexEndsSoon = inputListOfCntrls.FindIndex(x =>
+                x.Item1.Text.Contains("Дата Окончания") && ((DateTime.Parse(x.Item2.Text) - DateTime.Now).Days <= 3));
+            if (indexEndsSoon != -1) inputListOfCntrls[indexEndsSoon].Item2.BackColor = Color.Orange;
+
+            // Условие подсветки. Мало занятий
+            var indexNum = inputListOfCntrls.FindIndex(x =>
+                x.Item1.Text.Contains("Осталось Занятий") && (int.Parse(x.Item2.Text) <= 3));
+            if (indexNum != -1) inputListOfCntrls[indexNum].Item2.BackColor = Color.Orange;
+
+        }
         private static void AddTableToGroupBox(TableLayoutPanel table, GroupBox grpBx)
         {
             if (grpBx.Controls.Count != 0)
@@ -705,9 +738,6 @@ namespace PersonsBase.control
                 Dock = DockStyle.Fill,
                 Font = new Font("Microsoft Sans Serif", 10F)
             };
-
-            // Выделение цветом по какому-либо признакму
-            if (info == StrNoPay || info == StrMorning) tb.BackColor = Color.LightPink;
 
             return Tuple.Create<Label, Control>(lb, tb);
         }
