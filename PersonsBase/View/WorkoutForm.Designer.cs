@@ -79,10 +79,10 @@ namespace PersonsBase.View
             this.button_Ok.BackColor = System.Drawing.Color.LightGreen;
             this.button_Ok.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_Ok.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_Ok.Location = new System.Drawing.Point(319, 2);
+            this.button_Ok.Location = new System.Drawing.Point(356, 2);
             this.button_Ok.Margin = new System.Windows.Forms.Padding(2);
             this.button_Ok.Name = "button_Ok";
-            this.button_Ok.Size = new System.Drawing.Size(314, 32);
+            this.button_Ok.Size = new System.Drawing.Size(350, 32);
             this.button_Ok.TabIndex = 0;
             this.button_Ok.Text = "Применить";
             this.button_Ok.UseVisualStyleBackColor = false;
@@ -101,7 +101,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(635, 36);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(708, 36);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // button_Cancel
@@ -113,7 +113,7 @@ namespace PersonsBase.View
             this.button_Cancel.Location = new System.Drawing.Point(2, 2);
             this.button_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.button_Cancel.Name = "button_Cancel";
-            this.button_Cancel.Size = new System.Drawing.Size(313, 32);
+            this.button_Cancel.Size = new System.Drawing.Size(350, 32);
             this.button_Cancel.TabIndex = 1;
             this.button_Cancel.Text = "Отмена";
             this.button_Cancel.UseVisualStyleBackColor = true;
@@ -127,7 +127,7 @@ namespace PersonsBase.View
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(635, 348);
+            this.groupBox1.Size = new System.Drawing.Size(708, 348);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             // 
@@ -136,7 +136,7 @@ namespace PersonsBase.View
             this.groupBox3.Controls.Add(this.flowLayoutPanel2);
             this.groupBox3.Location = new System.Drawing.Point(322, 18);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(304, 322);
+            this.groupBox3.Size = new System.Drawing.Size(374, 322);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Дополнительно:";
@@ -147,17 +147,17 @@ namespace PersonsBase.View
             this.flowLayoutPanel2.Controls.Add(this.groupBox_SelectWorkout);
             this.flowLayoutPanel2.Location = new System.Drawing.Point(14, 19);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(284, 284);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(354, 284);
             this.flowLayoutPanel2.TabIndex = 11;
             // 
             // groupBox_TrenerName
             // 
             this.groupBox_TrenerName.Controls.Add(this.comboBox_treners);
             this.groupBox_TrenerName.Enabled = false;
-            this.groupBox_TrenerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox_TrenerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox_TrenerName.Location = new System.Drawing.Point(3, 3);
             this.groupBox_TrenerName.Name = "groupBox_TrenerName";
-            this.groupBox_TrenerName.Size = new System.Drawing.Size(269, 60);
+            this.groupBox_TrenerName.Size = new System.Drawing.Size(351, 60);
             this.groupBox_TrenerName.TabIndex = 7;
             this.groupBox_TrenerName.TabStop = false;
             this.groupBox_TrenerName.Text = "Имя Тренера";
@@ -171,7 +171,7 @@ namespace PersonsBase.View
             this.comboBox_treners.FormattingEnabled = true;
             this.comboBox_treners.Location = new System.Drawing.Point(1, 26);
             this.comboBox_treners.Name = "comboBox_treners";
-            this.comboBox_treners.Size = new System.Drawing.Size(262, 28);
+            this.comboBox_treners.Size = new System.Drawing.Size(344, 28);
             this.comboBox_treners.TabIndex = 0;
             this.comboBox_treners.SelectedIndexChanged += new System.EventHandler(this.comboBox_treners_SelectedIndexChanged);
             // 
@@ -179,10 +179,10 @@ namespace PersonsBase.View
             // 
             this.groupBox_SelectWorkout.Controls.Add(this.comboBox_Time_Name_Workout);
             this.groupBox_SelectWorkout.Enabled = false;
-            this.groupBox_SelectWorkout.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox_SelectWorkout.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox_SelectWorkout.Location = new System.Drawing.Point(3, 69);
             this.groupBox_SelectWorkout.Name = "groupBox_SelectWorkout";
-            this.groupBox_SelectWorkout.Size = new System.Drawing.Size(269, 60);
+            this.groupBox_SelectWorkout.Size = new System.Drawing.Size(351, 60);
             this.groupBox_SelectWorkout.TabIndex = 6;
             this.groupBox_SelectWorkout.TabStop = false;
             this.groupBox_SelectWorkout.Text = "Время и Название";
@@ -196,7 +196,7 @@ namespace PersonsBase.View
             this.comboBox_Time_Name_Workout.FormattingEnabled = true;
             this.comboBox_Time_Name_Workout.Location = new System.Drawing.Point(1, 26);
             this.comboBox_Time_Name_Workout.Name = "comboBox_Time_Name_Workout";
-            this.comboBox_Time_Name_Workout.Size = new System.Drawing.Size(262, 28);
+            this.comboBox_Time_Name_Workout.Size = new System.Drawing.Size(344, 28);
             this.comboBox_Time_Name_Workout.Sorted = true;
             this.comboBox_Time_Name_Workout.TabIndex = 0;
             this.comboBox_Time_Name_Workout.SelectedIndexChanged += new System.EventHandler(this.comboBox_Time_Name_Workout_SelectedIndexChanged);
@@ -237,11 +237,11 @@ namespace PersonsBase.View
             this.radioButton_tren.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButton_tren.AutoSize = true;
-            this.radioButton_tren.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButton_tren.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.radioButton_tren.Location = new System.Drawing.Point(12, 15);
             this.radioButton_tren.Margin = new System.Windows.Forms.Padding(2);
             this.radioButton_tren.Name = "radioButton_tren";
-            this.radioButton_tren.Size = new System.Drawing.Size(164, 24);
+            this.radioButton_tren.Size = new System.Drawing.Size(192, 28);
             this.radioButton_tren.TabIndex = 2;
             this.radioButton_tren.TabStop = true;
             this.radioButton_tren.Text = "Тренажерный Зал";
@@ -276,11 +276,11 @@ namespace PersonsBase.View
             this.radioButton_aerob.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButton_aerob.AutoSize = true;
-            this.radioButton_aerob.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButton_aerob.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.radioButton_aerob.Location = new System.Drawing.Point(12, 15);
             this.radioButton_aerob.Margin = new System.Windows.Forms.Padding(2);
             this.radioButton_aerob.Name = "radioButton_aerob";
-            this.radioButton_aerob.Size = new System.Drawing.Size(101, 24);
+            this.radioButton_aerob.Size = new System.Drawing.Size(115, 28);
             this.radioButton_aerob.TabIndex = 1;
             this.radioButton_aerob.TabStop = true;
             this.radioButton_aerob.Text = "Аэробная";
@@ -315,12 +315,12 @@ namespace PersonsBase.View
             this.radioButton_personal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButton_personal.AutoSize = true;
-            this.radioButton_personal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButton_personal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.radioButton_personal.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.radioButton_personal.Location = new System.Drawing.Point(12, 15);
             this.radioButton_personal.Margin = new System.Windows.Forms.Padding(2);
             this.radioButton_personal.Name = "radioButton_personal";
-            this.radioButton_personal.Size = new System.Drawing.Size(138, 24);
+            this.radioButton_personal.Size = new System.Drawing.Size(157, 28);
             this.radioButton_personal.TabIndex = 0;
             this.radioButton_personal.TabStop = true;
             this.radioButton_personal.Text = "Персональная";
@@ -355,12 +355,12 @@ namespace PersonsBase.View
             this.radioButton_miniGr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButton_miniGr.AutoSize = true;
-            this.radioButton_miniGr.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButton_miniGr.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.radioButton_miniGr.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.radioButton_miniGr.Location = new System.Drawing.Point(12, 15);
             this.radioButton_miniGr.Margin = new System.Windows.Forms.Padding(2);
             this.radioButton_miniGr.Name = "radioButton_miniGr";
-            this.radioButton_miniGr.Size = new System.Drawing.Size(123, 24);
+            this.radioButton_miniGr.Size = new System.Drawing.Size(145, 28);
             this.radioButton_miniGr.TabIndex = 0;
             this.radioButton_miniGr.TabStop = true;
             this.radioButton_miniGr.Text = "Мини Группа";
@@ -385,7 +385,7 @@ namespace PersonsBase.View
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(635, 384);
+            this.ClientSize = new System.Drawing.Size(708, 384);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.DoubleBuffered = true;

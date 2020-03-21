@@ -94,14 +94,14 @@ namespace PersonsBase.View
             // dateTimePicker_birthDate
             // 
             this.dateTimePicker_birthDate.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.dateTimePicker_birthDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePicker_birthDate.Location = new System.Drawing.Point(130, 107);
+            this.dateTimePicker_birthDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dateTimePicker_birthDate.Location = new System.Drawing.Point(130, 119);
             this.dateTimePicker_birthDate.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker_birthDate.MaxDate = new System.DateTime(2040, 12, 31, 0, 0, 0, 0);
             this.dateTimePicker_birthDate.MinDate = new System.DateTime(1950, 1, 1, 0, 0, 0, 0);
             this.dateTimePicker_birthDate.MinimumSize = new System.Drawing.Size(115, 22);
             this.dateTimePicker_birthDate.Name = "dateTimePicker_birthDate";
-            this.dateTimePicker_birthDate.Size = new System.Drawing.Size(166, 23);
+            this.dateTimePicker_birthDate.Size = new System.Drawing.Size(190, 24);
             this.dateTimePicker_birthDate.TabIndex = 3;
             this.dateTimePicker_birthDate.ValueChanged += new System.EventHandler(this.dateTimePicker_birthDate_ValueChanged);
             // 
@@ -149,7 +149,7 @@ namespace PersonsBase.View
             this.panel1.Controls.Add(this.textBox_Notes);
             this.panel1.Location = new System.Drawing.Point(5, 472);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1025, 201);
+            this.panel1.Size = new System.Drawing.Size(1025, 263);
             this.panel1.TabIndex = 14;
             // 
             // label2
@@ -175,7 +175,7 @@ namespace PersonsBase.View
             this.textBox_Notes.Multiline = true;
             this.textBox_Notes.Name = "textBox_Notes";
             this.textBox_Notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_Notes.Size = new System.Drawing.Size(1021, 151);
+            this.textBox_Notes.Size = new System.Drawing.Size(1021, 290);
             this.textBox_Notes.TabIndex = 5;
             this.textBox_Notes.TextChanged += new System.EventHandler(this.textBox_Notes_TextChanged);
             // 
@@ -414,11 +414,11 @@ namespace PersonsBase.View
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_Detailed.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox_Detailed.Location = new System.Drawing.Point(334, 4);
+            this.groupBox_Detailed.Location = new System.Drawing.Point(349, 4);
             this.groupBox_Detailed.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_Detailed.Name = "groupBox_Detailed";
             this.groupBox_Detailed.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox_Detailed.Size = new System.Drawing.Size(700, 670);
+            this.groupBox_Detailed.Size = new System.Drawing.Size(685, 670);
             this.groupBox_Detailed.TabIndex = 1;
             this.groupBox_Detailed.TabStop = false;
             this.groupBox_Detailed.Text = "Детальная информация";
@@ -433,7 +433,7 @@ namespace PersonsBase.View
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(313, 669);
+            this.groupBox2.Size = new System.Drawing.Size(341, 669);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Персональные данные";
@@ -458,7 +458,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 13);
             this.tableLayoutPanel1.Controls.Add(this.comboBox_Gender, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.textBox_Number, 1, 13);
-            this.tableLayoutPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tableLayoutPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(4, 24);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -478,7 +478,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(305, 208);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(333, 208);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // label4
@@ -486,7 +486,7 @@ namespace PersonsBase.View
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(2, 110);
+            this.label4.Location = new System.Drawing.Point(2, 122);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(124, 17);
@@ -498,7 +498,7 @@ namespace PersonsBase.View
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(2, 56);
+            this.label6.Location = new System.Drawing.Point(2, 66);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(124, 17);
@@ -509,24 +509,24 @@ namespace PersonsBase.View
             // maskedTextBox_PhoneNumber
             // 
             this.maskedTextBox_PhoneNumber.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.maskedTextBox_PhoneNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.maskedTextBox_PhoneNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.maskedTextBox_PhoneNumber.Location = new System.Drawing.Point(130, 2);
             this.maskedTextBox_PhoneNumber.Margin = new System.Windows.Forms.Padding(2);
             this.maskedTextBox_PhoneNumber.Mask = "8(999) 000-00-00";
             this.maskedTextBox_PhoneNumber.Name = "maskedTextBox_PhoneNumber";
-            this.maskedTextBox_PhoneNumber.Size = new System.Drawing.Size(166, 23);
+            this.maskedTextBox_PhoneNumber.Size = new System.Drawing.Size(190, 29);
             this.maskedTextBox_PhoneNumber.TabIndex = 6;
             this.maskedTextBox_PhoneNumber.TextChanged += new System.EventHandler(this.maskedTextBox_PhoneNumber_TextChanged);
             // 
             // maskedTextBox_Passport
             // 
             this.maskedTextBox_Passport.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.maskedTextBox_Passport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maskedTextBox_Passport.Location = new System.Drawing.Point(130, 29);
+            this.maskedTextBox_Passport.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.maskedTextBox_Passport.Location = new System.Drawing.Point(130, 35);
             this.maskedTextBox_Passport.Margin = new System.Windows.Forms.Padding(2);
             this.maskedTextBox_Passport.Mask = "9999   № 999999";
             this.maskedTextBox_Passport.Name = "maskedTextBox_Passport";
-            this.maskedTextBox_Passport.Size = new System.Drawing.Size(166, 21);
+            this.maskedTextBox_Passport.Size = new System.Drawing.Size(190, 24);
             this.maskedTextBox_Passport.TabIndex = 4;
             this.maskedTextBox_Passport.TextChanged += new System.EventHandler(this.maskedTex_Passport_TextChanged);
             // 
@@ -535,7 +535,7 @@ namespace PersonsBase.View
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(2, 31);
+            this.label3.Location = new System.Drawing.Point(2, 38);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 17);
@@ -545,12 +545,12 @@ namespace PersonsBase.View
             // maskedTextBox_DriverID
             // 
             this.maskedTextBox_DriverID.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.maskedTextBox_DriverID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maskedTextBox_DriverID.Location = new System.Drawing.Point(130, 54);
+            this.maskedTextBox_DriverID.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.maskedTextBox_DriverID.Location = new System.Drawing.Point(130, 63);
             this.maskedTextBox_DriverID.Margin = new System.Windows.Forms.Padding(2);
             this.maskedTextBox_DriverID.Mask = "9999   № 999999";
             this.maskedTextBox_DriverID.Name = "maskedTextBox_DriverID";
-            this.maskedTextBox_DriverID.Size = new System.Drawing.Size(166, 21);
+            this.maskedTextBox_DriverID.Size = new System.Drawing.Size(190, 24);
             this.maskedTextBox_DriverID.TabIndex = 0;
             this.maskedTextBox_DriverID.TextChanged += new System.EventHandler(this.maskedTextBox_DriverID_TextChanged);
             // 
@@ -559,7 +559,7 @@ namespace PersonsBase.View
             this.label_Phone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label_Phone.AutoSize = true;
             this.label_Phone.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_Phone.Location = new System.Drawing.Point(2, 5);
+            this.label_Phone.Location = new System.Drawing.Point(2, 8);
             this.label_Phone.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_Phone.Name = "label_Phone";
             this.label_Phone.Size = new System.Drawing.Size(124, 17);
@@ -571,7 +571,7 @@ namespace PersonsBase.View
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(2, 82);
+            this.label5.Location = new System.Drawing.Point(2, 94);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(34, 17);
@@ -583,7 +583,7 @@ namespace PersonsBase.View
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(2, 137);
+            this.label1.Location = new System.Drawing.Point(2, 153);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(115, 17);
@@ -593,23 +593,23 @@ namespace PersonsBase.View
             // comboBox_Gender
             // 
             this.comboBox_Gender.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.comboBox_Gender.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox_Gender.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox_Gender.FormattingEnabled = true;
-            this.comboBox_Gender.Location = new System.Drawing.Point(130, 79);
+            this.comboBox_Gender.Location = new System.Drawing.Point(130, 91);
             this.comboBox_Gender.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_Gender.Name = "comboBox_Gender";
-            this.comboBox_Gender.Size = new System.Drawing.Size(166, 24);
+            this.comboBox_Gender.Size = new System.Drawing.Size(190, 26);
             this.comboBox_Gender.TabIndex = 2;
             this.comboBox_Gender.SelectedIndexChanged += new System.EventHandler(this.comboBox_Gender_SelectedIndexChanged);
             // 
             // textBox_Number
             // 
             this.textBox_Number.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.textBox_Number.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox_Number.Location = new System.Drawing.Point(130, 134);
+            this.textBox_Number.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox_Number.Location = new System.Drawing.Point(130, 147);
             this.textBox_Number.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_Number.Name = "textBox_Number";
-            this.textBox_Number.Size = new System.Drawing.Size(166, 23);
+            this.textBox_Number.Size = new System.Drawing.Size(190, 29);
             this.textBox_Number.TabIndex = 5;
             this.textBox_Number.Text = "123";
             this.textBox_Number.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
