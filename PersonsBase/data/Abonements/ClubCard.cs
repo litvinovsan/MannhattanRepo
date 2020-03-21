@@ -62,22 +62,14 @@ namespace PersonsBase.data.Abonements
             }
         }
 
-        private void CalculateDaysLeft(object sender, EventArgs e)
-        {
-            var numFreezDays = 0;
-            if (Freeze != null) numFreezDays = Freeze.GetSpentDays(); //Вычитаем дни заморозки
-            DaysLeft = (EndDate.Date - DateTime.Now.Date).Days - numFreezDays;
-            OnValuesChanged();
-        }
-
         // Методы
         public override bool IsValid()
         {
             // Если +, то DateTime.Now позднее _endDate
             // Если 0, то даты совпали
             // Если -, то DateTime.Now раньше Конца абонемента
-            if (_numberMonths != 0)
-                EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
+            var addFreezedDays = Freeze?.GetSpentDays();
+            if (_numberMonths != 0) EndDate = BuyActivationDate.AddMonths(_numberMonths).Date.AddDays((addFreezedDays ?? 0));
             var checkDate = DateTime.Now.Date.CompareTo(EndDate.Date) <= 0;
             return checkDate;
         }
@@ -90,7 +82,7 @@ namespace PersonsBase.data.Abonements
         {
             if (IsActivated) return; // Уже Активирован.
             IsActivated = true;
-            SetNewEndDate();
+            SetBuyActivatDate(DateTime.Now.Date);
             OnValuesChanged();
         }
         /// <summary>
@@ -101,7 +93,7 @@ namespace PersonsBase.data.Abonements
         {
             if (IsActivated) return; // Уже Активирован.
             IsActivated = true;
-            SetNewEndDate(dateInPast);
+            SetBuyActivatDate(dateInPast);
             OnValuesChanged();
         }
 
@@ -228,23 +220,24 @@ namespace PersonsBase.data.Abonements
 
             return result;
         }
-
+        /// <summary>
+        /// Получить оставшиеся дни в клубной карте
+        /// </summary>
+        /// <returns></returns>
         public override int GetRemainderDays()
         {
-            var numFreezDays = Freeze?.GetSpentDays() ?? 0; //Вычитаем дни заморозки
+            var numFreezDays = Freeze?.GetSpentDays() ?? 0; //Продлим на замороженные дни
             DaysLeft = (EndDate.Date - DateTime.Now.Date).Days - numFreezDays;
             return DaysLeft;
         }
 
-        private void SetNewEndDate()
+        private void CalculateDaysLeft(object sender, EventArgs e)
         {
-            BuyActivationDate = DateTime.Now.Date;
-            var date = DateTime.Now.AddMonths(_numberMonths).Date;
-            if (EndDate.Date.CompareTo(date) != 0)
-                EndDate = DateTime.Now.AddMonths(_numberMonths).Date;
+            GetRemainderDays();
             OnValuesChanged();
         }
-        private void SetNewEndDate(DateTime startDate)
+
+        private void SetBuyActivatDate(DateTime startDate)
         {
 
             // Если +, то DateTime.Now позднее startDate
@@ -266,7 +259,7 @@ namespace PersonsBase.data.Abonements
         public void SetTypeClubCard(PeriodClubCard newTypeCc)
         {
             PeriodAbonem = newTypeCc;
-            SetNewEndDate();
+            SetBuyActivatDate(DateTime.Now.Date);
             OnValuesChanged();
         }
     }

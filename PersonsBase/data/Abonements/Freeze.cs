@@ -49,7 +49,9 @@ namespace PersonsBase.data.Abonements
         public bool IsFreezedNow()
         {
             var endDate = GetEndDate();
-            var result = (DaysToFreeze > 0) && (DateTime.Now.CompareTo(_startDate) >= 0) && (DateTime.Now.CompareTo(endDate) <= 0);
+            var todayIsLaterStartDate = DateTime.Now.CompareTo(_startDate) >= 0;
+            var todayIsEarlierEndDate = (DateTime.Now.CompareTo(endDate) <= 0);
+            var result = (DaysToFreeze > 0) && todayIsLaterStartDate && todayIsEarlierEndDate;
 
             return result;
         }
@@ -144,7 +146,12 @@ namespace PersonsBase.data.Abonements
 
         public void SetAvailableDays(int numAvailableDays)
         {
-            TotalDaysFreezed = _maxDaysAvailable - numAvailableDays;
+            if (_maxDaysAvailable >= numAvailableDays)
+                TotalDaysFreezed = _maxDaysAvailable - numAvailableDays;
+            else
+            {
+                TotalDaysFreezed = 0;
+            }
         }
 
         /// <summary>

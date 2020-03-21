@@ -251,7 +251,7 @@ namespace PersonsBase.data
 
 
 
-        private void StatusDirector()
+        public void StatusDirector()
         {
             if (Status == StatusPerson.Запрещён)
             {

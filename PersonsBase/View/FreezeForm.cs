@@ -90,7 +90,7 @@ namespace PersonsBase.View
                 var isConfigured = _clubCard.Freeze.TrySetFreeze(numDays, startDate);
                 if (isConfigured)
                 {
-                    _clubCard.EndDate = _clubCard.EndDate.AddDays(numDays);
+                   
                     MessageBox.Show($@"Заморозка начинается c {startDate:d}.
 Осталось дней: {_clubCard.Freeze.GetAvailableDays()} ", @"Установка Заморозки", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DialogResult = DialogResult.OK;

@@ -63,6 +63,8 @@ namespace PersonsBase.View
             // Когда изменилась заморозка абонемента - Обновим Инфо поле
             if (_person.AbonementCurent?.Freeze != null)
             {
+                _person.AbonementCurent.Freeze.FreezeChanged -= RunStatusDirector;
+                _person.AbonementCurent.Freeze.FreezeChanged += RunStatusDirector;
                 _person.AbonementCurent.Freeze.FreezeChanged -= UpdateInfoTextBoxField;
                 _person.AbonementCurent.Freeze.FreezeChanged += UpdateInfoTextBoxField;
                 _person.AbonementCurent.Freeze.FreezeChanged -= UpdateControls;
@@ -82,7 +84,10 @@ namespace PersonsBase.View
             _person.AbonementsQueue.CollectionChanged += ShowAbonementList;
         }
 
-
+        private void RunStatusDirector(object sender, EventArgs e)
+        {
+            _person.StatusDirector();
+        }
 
         private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
