@@ -252,5 +252,15 @@ namespace PersonsBase.View
         {
             Options.FaceDetectorEn = checkBox_faceDetector.Checked;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var persons = DataBaseLevel.GetPersonsList();
+            var tempPersons = persons.Select(x => x).Where(x => x.Value.AbonementCurent != null).ToList();
+            foreach (var keyValuePair in tempPersons)
+            {
+                keyValuePair.Value.AbonementsQueue.Add(keyValuePair.Value.AbonementCurent);
+            }
+        }
     }
 }

@@ -67,6 +67,7 @@
             this.checkBox_CorrectOnCreateAbon = new System.Windows.Forms.CheckBox();
             this.checkBox_SimpsonPhoto = new System.Windows.Forms.CheckBox();
             this.checkBox_Passp_Drive = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -510,6 +511,7 @@
             // 
             this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox9.Controls.Add(this.button1);
             this.groupBox9.Controls.Add(this.checkBox_faceDetector);
             this.groupBox9.Controls.Add(this.checkBox_CorrectOnCreateAbon);
             this.groupBox9.Controls.Add(this.checkBox_SimpsonPhoto);
@@ -565,6 +567,16 @@
             this.checkBox_Passp_Drive.Text = "Учитывать Паспорт и Права в создании клиента";
             this.checkBox_Passp_Drive.UseVisualStyleBackColor = true;
             this.checkBox_Passp_Drive.CheckedChanged += new System.EventHandler(this.checkBox_Passp_Drive_CheckedChanged);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(7, 148);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(283, 32);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Миграция Абонементов";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // BossForm
             // 
@@ -645,5 +657,6 @@
         private System.Windows.Forms.CheckBox checkBox_SimpsonPhoto;
         private System.Windows.Forms.CheckBox checkBox_CorrectOnCreateAbon;
         private System.Windows.Forms.CheckBox checkBox_faceDetector;
+        private System.Windows.Forms.Button button1;
     }
 }
