@@ -83,6 +83,7 @@ namespace PersonsBase.View
             this.label_tren_zal = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -124,6 +125,7 @@ namespace PersonsBase.View
             this.конфигурацииToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.руководительToolStripMenuItem1,
             this.сохранитьВExcelToolStripMenuItem,
+            this.оПрограммеToolStripMenuItem,
             this.выходToolStripMenuItem});
             this.конфигурацииToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("конфигурацииToolStripMenuItem.Image")));
             this.конфигурацииToolStripMenuItem.Name = "конфигурацииToolStripMenuItem";
@@ -133,7 +135,7 @@ namespace PersonsBase.View
             // руководительToolStripMenuItem1
             // 
             this.руководительToolStripMenuItem1.Name = "руководительToolStripMenuItem1";
-            this.руководительToolStripMenuItem1.Size = new System.Drawing.Size(180, 26);
+            this.руководительToolStripMenuItem1.Size = new System.Drawing.Size(183, 26);
             this.руководительToolStripMenuItem1.Text = "Руководитель";
             this.руководительToolStripMenuItem1.Click += new System.EventHandler(this.руководительToolStripMenuItem1_Click);
             // 
@@ -141,7 +143,7 @@ namespace PersonsBase.View
             // 
             this.сохранитьВExcelToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.diskette;
             this.сохранитьВExcelToolStripMenuItem.Name = "сохранитьВExcelToolStripMenuItem";
-            this.сохранитьВExcelToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.сохранитьВExcelToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
             this.сохранитьВExcelToolStripMenuItem.Text = "Сохранить Базу";
             this.сохранитьВExcelToolStripMenuItem.Click += new System.EventHandler(this.сохранитьВExcelToolStripMenuItem_Click);
             // 
@@ -149,7 +151,7 @@ namespace PersonsBase.View
             // 
             this.выходToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.exit;
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
@@ -553,6 +555,13 @@ namespace PersonsBase.View
             this.label3.Text = "Мини Группы";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // оПрограммеToolStripMenuItem
+            // 
+            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
+            this.оПрограммеToolStripMenuItem.Text = "О программе";
+            this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -568,7 +577,7 @@ namespace PersonsBase.View
             this.MinimumSize = new System.Drawing.Size(1308, 560);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Миграция Базы";
+            this.Text = "Manhattan Fitness Club";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
@@ -633,5 +642,6 @@ namespace PersonsBase.View
         private Label label_Total_persons;
         private GroupBox groupBox2;
         private ToolTip toolTip1;
+        private ToolStripMenuItem оПрограммеToolStripMenuItem;
     }
 }

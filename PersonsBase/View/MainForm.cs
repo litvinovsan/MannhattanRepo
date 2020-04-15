@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using PersonsBase.control;
 using PersonsBase.data;
@@ -364,5 +365,27 @@ namespace PersonsBase.View
 
         #endregion
 
+        private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Изменять номер сборки тут
+            // C:\Work\MBase\MFClub\PersonsBase\Properties\AssemblyInfo.cs
+
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            System.Reflection.AssemblyName assemblyName = assembly.GetName();
+
+            Version version = assemblyName.Version;
+
+            MessageBox.Show($@"Major Version: {version.Major} " + "\r\n" +
+                            $@"Minor Version: {version.Minor} " + "\r\n" +
+                            $@"Build Number: {version.Build}" + "\r\n" +
+                            $@"Revision: {version.Revision}" + "\r\n");
+
+            // // Или так ещё можно
+            //Assembly thisAssem = typeof(MainForm).Assembly;
+            //AssemblyName thisAssemName = thisAssem.GetName();
+            //Version ver = thisAssemName.Version;
+            //MessageBox.Show($"This is version {ver} of {thisAssemName.Name}.");
+
+        }
     }
 }
