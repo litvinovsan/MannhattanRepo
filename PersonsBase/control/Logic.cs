@@ -601,6 +601,9 @@ namespace PersonsBase.control
                         break;
                     }
             }
+
+            //   var shortName = Logic.GetPersonShortName(personName);
+
             _daily.AddToVisitsLog(personName, selectedOptions); // Cобытие для добавления текущего посещения на главную форму
                                                                 //  person.AbonValuesChanged(this, EventArgs.Empty);
             IsAbonementValid(ref person);

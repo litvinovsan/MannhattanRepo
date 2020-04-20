@@ -715,7 +715,8 @@ namespace PersonsBase.View
                 var dlgres = FormsRunner.CreateAbonementForm(ref selAbonementBasic);
             }
         }
-        #endregion
+
+       #endregion
 
         //public void ClearFindCombo()
         //{

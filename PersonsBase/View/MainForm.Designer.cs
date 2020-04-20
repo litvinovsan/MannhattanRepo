@@ -38,12 +38,13 @@ namespace PersonsBase.View
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.конфигурацииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.руководительToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьВExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.администраторыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.клиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,20 +76,23 @@ namespace PersonsBase.View
             this.listView_Personal = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.listView_Group = new System.Windows.Forms.ListView();
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label_group = new System.Windows.Forms.Label();
             this.label_personal = new System.Windows.Forms.Label();
             this.label_tren_zal = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.открытьКарточкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.удалитьЗаписьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listView_Group = new System.Windows.Forms.ListView();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -135,7 +139,7 @@ namespace PersonsBase.View
             // руководительToolStripMenuItem1
             // 
             this.руководительToolStripMenuItem1.Name = "руководительToolStripMenuItem1";
-            this.руководительToolStripMenuItem1.Size = new System.Drawing.Size(183, 26);
+            this.руководительToolStripMenuItem1.Size = new System.Drawing.Size(180, 26);
             this.руководительToolStripMenuItem1.Text = "Руководитель";
             this.руководительToolStripMenuItem1.Click += new System.EventHandler(this.руководительToolStripMenuItem1_Click);
             // 
@@ -143,15 +147,22 @@ namespace PersonsBase.View
             // 
             this.сохранитьВExcelToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.diskette;
             this.сохранитьВExcelToolStripMenuItem.Name = "сохранитьВExcelToolStripMenuItem";
-            this.сохранитьВExcelToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
+            this.сохранитьВExcelToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.сохранитьВExcelToolStripMenuItem.Text = "Сохранить Базу";
             this.сохранитьВExcelToolStripMenuItem.Click += new System.EventHandler(this.сохранитьВExcelToolStripMenuItem_Click);
+            // 
+            // оПрограммеToolStripMenuItem
+            // 
+            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.оПрограммеToolStripMenuItem.Text = "О программе";
+            this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.exit;
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
@@ -369,10 +380,10 @@ namespace PersonsBase.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble;
             this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.59223F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.6699F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.96474F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.60748F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.59165F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.59165F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.59165F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.22506F));
             this.tableLayoutPanel1.Controls.Add(this.listView_MiniGroup, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.listView_Gym_Zal, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.listView_Personal, 2, 1);
@@ -408,12 +419,14 @@ namespace PersonsBase.View
             this.listView_MiniGroup.TabIndex = 4;
             this.listView_MiniGroup.UseCompatibleStateImageBehavior = false;
             this.listView_MiniGroup.View = System.Windows.Forms.View.Details;
+            this.listView_MiniGroup.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listView_MiniGroup_MouseClick);
+            this.listView_MiniGroup.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_MiniGroup_MouseDoubleClick);
             this.listView_MiniGroup.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.listView_MiniGroup_PreviewKeyDown);
             // 
             // columnHeader5
             // 
             this.columnHeader5.Text = "";
-            this.columnHeader5.Width = 41;
+            this.columnHeader5.Width = 40;
             // 
             // columnHeader6
             // 
@@ -429,25 +442,27 @@ namespace PersonsBase.View
             this.listView_Gym_Zal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView_Gym_Zal.FullRowSelect = true;
             this.listView_Gym_Zal.GridLines = true;
-            listViewGroup1.Header = "ListViewGroup";
-            listViewGroup1.Name = "listViewGroup1";
+            listViewGroup4.Header = "ListViewGroup";
+            listViewGroup4.Name = "listViewGroup1";
             this.listView_Gym_Zal.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1});
+            listViewGroup4});
             this.listView_Gym_Zal.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView_Gym_Zal.Location = new System.Drawing.Point(819, 31);
+            this.listView_Gym_Zal.Location = new System.Drawing.Point(771, 31);
             this.listView_Gym_Zal.MultiSelect = false;
             this.listView_Gym_Zal.Name = "listView_Gym_Zal";
             this.listView_Gym_Zal.ShowGroups = false;
-            this.listView_Gym_Zal.Size = new System.Drawing.Size(259, 517);
+            this.listView_Gym_Zal.Size = new System.Drawing.Size(307, 517);
             this.listView_Gym_Zal.TabIndex = 2;
             this.listView_Gym_Zal.UseCompatibleStateImageBehavior = false;
             this.listView_Gym_Zal.View = System.Windows.Forms.View.Details;
+            this.listView_Gym_Zal.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listView_Gym_Zal_MouseClick);
+            this.listView_Gym_Zal.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_Gym_Zal_MouseDoubleClick);
             this.listView_Gym_Zal.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.listView_Gym_Zal_PreviewKeyDown);
             // 
             // column_Time
             // 
             this.column_Time.Text = "";
-            this.column_Time.Width = 61;
+            this.column_Time.Width = 50;
             // 
             // column_Persons
             // 
@@ -464,54 +479,26 @@ namespace PersonsBase.View
             this.listView_Personal.FullRowSelect = true;
             this.listView_Personal.GridLines = true;
             this.listView_Personal.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView_Personal.Location = new System.Drawing.Point(560, 31);
+            this.listView_Personal.Location = new System.Drawing.Point(516, 31);
             this.listView_Personal.MultiSelect = false;
             this.listView_Personal.Name = "listView_Personal";
-            this.listView_Personal.Size = new System.Drawing.Size(250, 517);
+            this.listView_Personal.Size = new System.Drawing.Size(246, 517);
             this.listView_Personal.TabIndex = 2;
             this.listView_Personal.UseCompatibleStateImageBehavior = false;
             this.listView_Personal.View = System.Windows.Forms.View.Details;
+            this.listView_Personal.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listView_Personal_MouseClick);
+            this.listView_Personal.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_Personal_MouseDoubleClick);
             this.listView_Personal.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.listView_Personal_PreviewKeyDown);
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "";
-            this.columnHeader1.Width = 41;
+            this.columnHeader1.Width = 40;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "";
             this.columnHeader2.Width = 130;
-            // 
-            // listView_Group
-            // 
-            this.listView_Group.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader4,
-            this.columnHeader3});
-            this.listView_Group.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView_Group.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.listView_Group.FullRowSelect = true;
-            this.listView_Group.GridLines = true;
-            this.listView_Group.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView_Group.Location = new System.Drawing.Point(261, 31);
-            this.listView_Group.MultiSelect = false;
-            this.listView_Group.Name = "listView_Group";
-            this.listView_Group.Size = new System.Drawing.Size(290, 517);
-            this.listView_Group.Sorting = System.Windows.Forms.SortOrder.Descending;
-            this.listView_Group.TabIndex = 2;
-            this.listView_Group.UseCompatibleStateImageBehavior = false;
-            this.listView_Group.View = System.Windows.Forms.View.Details;
-            this.listView_Group.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.listView_Group_PreviewKeyDown);
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "";
-            this.columnHeader4.Width = 41;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "";
-            this.columnHeader3.Width = 130;
             // 
             // label_group
             // 
@@ -528,7 +515,7 @@ namespace PersonsBase.View
             // 
             this.label_personal.AutoSize = true;
             this.label_personal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_personal.Location = new System.Drawing.Point(560, 3);
+            this.label_personal.Location = new System.Drawing.Point(516, 3);
             this.label_personal.Name = "label_personal";
             this.label_personal.Size = new System.Drawing.Size(106, 17);
             this.label_personal.TabIndex = 2;
@@ -538,7 +525,7 @@ namespace PersonsBase.View
             // 
             this.label_tren_zal.AutoSize = true;
             this.label_tren_zal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_tren_zal.Location = new System.Drawing.Point(819, 3);
+            this.label_tren_zal.Location = new System.Drawing.Point(771, 3);
             this.label_tren_zal.Name = "label_tren_zal";
             this.label_tren_zal.Size = new System.Drawing.Size(127, 17);
             this.label_tren_zal.TabIndex = 3;
@@ -555,12 +542,59 @@ namespace PersonsBase.View
             this.label3.Text = "Мини Группы";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // оПрограммеToolStripMenuItem
+            // contextMenuStrip1
             // 
-            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
-            this.оПрограммеToolStripMenuItem.Text = "О программе";
-            this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.открытьКарточкуToolStripMenuItem,
+            this.удалитьЗаписьToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(184, 48);
+            // 
+            // открытьКарточкуToolStripMenuItem
+            // 
+            this.открытьКарточкуToolStripMenuItem.Name = "открытьКарточкуToolStripMenuItem";
+            this.открытьКарточкуToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.открытьКарточкуToolStripMenuItem.Text = "Открыть карточку";
+            this.открытьКарточкуToolStripMenuItem.Click += new System.EventHandler(this.открытьКарточкуToolStripMenuItem_Click);
+            // 
+            // удалитьЗаписьToolStripMenuItem
+            // 
+            this.удалитьЗаписьToolStripMenuItem.Name = "удалитьЗаписьToolStripMenuItem";
+            this.удалитьЗаписьToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.удалитьЗаписьToolStripMenuItem.Text = "Удалить запись";
+            this.удалитьЗаписьToolStripMenuItem.Click += new System.EventHandler(this.удалитьЗаписьToolStripMenuItem_Click);
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "";
+            this.columnHeader4.Width = 40;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "";
+            this.columnHeader3.Width = 130;
+            // 
+            // listView_Group
+            // 
+            this.listView_Group.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader4,
+            this.columnHeader3});
+            this.listView_Group.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView_Group.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listView_Group.FullRowSelect = true;
+            this.listView_Group.GridLines = true;
+            this.listView_Group.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listView_Group.Location = new System.Drawing.Point(261, 31);
+            this.listView_Group.MultiSelect = false;
+            this.listView_Group.Name = "listView_Group";
+            this.listView_Group.Size = new System.Drawing.Size(246, 517);
+            this.listView_Group.Sorting = System.Windows.Forms.SortOrder.Descending;
+            this.listView_Group.TabIndex = 2;
+            this.listView_Group.UseCompatibleStateImageBehavior = false;
+            this.listView_Group.View = System.Windows.Forms.View.Details;
+            this.listView_Group.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listView_Group_MouseClick);
+            this.listView_Group.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_Group_MouseDoubleClick);
+            this.listView_Group.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.listView_Group_PreviewKeyDown);
             // 
             // MainForm
             // 
@@ -591,6 +625,7 @@ namespace PersonsBase.View
             this.groupBox2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -624,9 +659,6 @@ namespace PersonsBase.View
         private ListView listView_Personal;
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
-        private ListView listView_Group;
-        private ColumnHeader columnHeader4;
-        private ColumnHeader columnHeader3;
         private ToolStripMenuItem SellAbonToolStripMenuItem;
         private ToolStripMenuItem списокКлиентовToolStripMenuItem1;
         private ToolStripMenuItem сохранитьВExcelToolStripMenuItem;
@@ -643,5 +675,11 @@ namespace PersonsBase.View
         private GroupBox groupBox2;
         private ToolTip toolTip1;
         private ToolStripMenuItem оПрограммеToolStripMenuItem;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem открытьКарточкуToolStripMenuItem;
+        private ToolStripMenuItem удалитьЗаписьToolStripMenuItem;
+        private ListView listView_Group;
+        private ColumnHeader columnHeader4;
+        private ColumnHeader columnHeader3;
     }
 }

@@ -8,7 +8,7 @@ using PersonsBase.Properties;
 namespace PersonsBase.data
 {
     public delegate void MyListViewDelegate(string namePerson, WorkoutOptions workoutOptions);
-    public delegate void MyListViewDelegateRemove(string namePerson, TypeWorkout typeWorkout, string dopInfo);
+    public delegate void MyListViewDelegateRemove(string namePerson, TypeWorkout typeWorkout);
 
     [Serializable]
     public class DailyVisits
@@ -112,10 +112,10 @@ namespace PersonsBase.data
             _methodSelectCollection[arg.TypeWorkout].Invoke(name, arg);
         }
 
-        public void RemoveFromVisitsLog(string name, TypeWorkout arg, string dopInfo)
+        public void RemoveFromVisitsLog(string name, TypeWorkout arg)
         {
             TotalPersonToday--; // Счетчик посетителей за день
-            _methodSelectRemoveCollection[arg].Invoke(name, arg, dopInfo);
+            _methodSelectRemoveCollection[arg].Invoke(name, arg);
         }
 
         #region /// ВИЗИТЫ ТРЕНАЖЕРНОГО ЗАЛА ///
@@ -129,9 +129,9 @@ namespace PersonsBase.data
             OnGymListChanged();
         }
 
-        private void RemoveGymList(string namePerson, TypeWorkout arg, string info)
+        private void RemoveGymList(string namePerson, TypeWorkout arg)
         {
-            var gymItem = GymList?.FindIndex(x => x.Time.Equals(info) && x.Name.Equals(namePerson));
+            var gymItem = GymList?.FindLastIndex((x => x.Name.Equals(namePerson)));
             if (gymItem == null) return;
             GymList.RemoveAt((int)gymItem);
         }
@@ -140,9 +140,7 @@ namespace PersonsBase.data
         {
             var personNameTemp = string.IsNullOrEmpty(personName) ? "Имя неизвестно" : personName;
             var time = DateTime.Now.ToString("HH:mm");
-            var shortName = Logic.GetPersonShortName(personNameTemp);
-
-            return new GymItem(time, shortName);
+            return new GymItem(time, personNameTemp);
         }
         #endregion
 
@@ -157,7 +155,7 @@ namespace PersonsBase.data
             OnAerobListChanged();
         }
 
-        private void RemoveGrouplList(string namePerson, TypeWorkout arg, string info)
+        private void RemoveGrouplList(string namePerson, TypeWorkout arg)
         {
             var item = AerobList?.FindIndex((x => x.NamePerson.Equals(namePerson)));
             if (item == null) return;
@@ -167,8 +165,7 @@ namespace PersonsBase.data
         private static AerobItem CreateAerobItem(string personName, string groupTimeName)
         {
             var personNameTemp = string.IsNullOrEmpty(personName) ? "Имя неизвестно" : personName;
-            var shortName = Logic.GetPersonShortName(personNameTemp);
-            return new AerobItem(groupTimeName, shortName);
+            return new AerobItem(groupTimeName, personNameTemp);
         }
         #endregion
 
@@ -183,7 +180,7 @@ namespace PersonsBase.data
             OnPersonalListChanged();
         }
 
-        private void RemovePersonalList(string namePerson, TypeWorkout arg, string info)
+        private void RemovePersonalList(string namePerson, TypeWorkout arg)
         {
             var item = PersonalList?.FindIndex((x => x.NamePerson.Equals(namePerson)));
             if (item == null) return;
@@ -192,8 +189,7 @@ namespace PersonsBase.data
 
         private static PersonalItem CreateItem(string personName, string trenerName)
         {
-            var shortName = Logic.GetPersonShortName(personName);
-            return new PersonalItem(shortName, trenerName);
+            return new PersonalItem(personName, trenerName);
         }
         #endregion
 
@@ -203,14 +199,13 @@ namespace PersonsBase.data
             if (namePerson == null || arg == null) return;
 
             var persTrenerName = (arg.PersonalTrener != null) ? arg.PersonalTrener.Name : "Имя неизвестно";
-            var shortName = Logic.GetPersonShortName(namePerson);
 
-            var item = CreateItem(shortName, persTrenerName);
+            var item = CreateItem(namePerson, persTrenerName);
             MiniGroupList.Add(item);
             OnMiniGroupListChanged();
         }
 
-        private void RemoveMiniGroupList(string namePerson, TypeWorkout arg, string info)
+        private void RemoveMiniGroupList(string namePerson, TypeWorkout arg)
         {
             var item = MiniGroupList?.FindIndex((x => x.NamePerson.Equals(namePerson)));
             if (item == null) return;

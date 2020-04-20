@@ -59,13 +59,10 @@ namespace PersonsBase.View
 
             // Показать окно выбора Администратора
             Logic.SelectCurentAdmin();
+
+            // Всплывающие подсказки
             toolTip1.SetToolTip(tableLayoutPanel1, "Для удаления записы, выделите и нажмите клавишу Delete на клавиатуре");
-            toolTip1.SetToolTip(listView_Gym_Zal, "Для удаления записы, выделите и нажмите клавишу Delete на клавиатуре");
-            toolTip1.SetToolTip(listView_Personal, "Для удаления записы, выделите и нажмите клавишу Delete на клавиатуре");
-            toolTip1.SetToolTip(listView_MiniGroup, "Для удаления записы, выделите и нажмите клавишу Delete на клавиатуре");
         }
-
-
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -342,29 +339,6 @@ namespace PersonsBase.View
             DelSelectedItem(sender, e, TypeWorkout.МиниГруппа);
         }
 
-        /// <summary>
-        /// Проверяет если введен пароль.
-        /// Удаляет посещение из списков на экране
-        /// Удаляет посещение из сохраненной базы
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// <param name="typeWorkout"></param>
-        private static void DelSelectedItem(object sender, PreviewKeyDownEventArgs e, TypeWorkout typeWorkout)
-        {
-            if (e.KeyData != Keys.Delete) return;
-            Logic.AccessRootUser();
-            if (!PwdForm.IsPassUnLocked()) return;
-            var name = MyListViewEx.GetSelectedText((ListView)sender);
-            // Удаление из журнала
-            DailyVisits.GetInstance().RemoveFromVisitsLog(name[1], typeWorkout, name[0]);
-            // Удаление с экрана
-            MyListViewEx.RemoveSelectedItem((ListView)sender);
-            PwdForm.LockPassword();
-        }
-
-        #endregion
-
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Изменять номер сборки тут
@@ -387,5 +361,178 @@ namespace PersonsBase.View
             //MessageBox.Show($"This is version {ver} of {thisAssemName.Name}.");
 
         }
+
+        /// <summary>
+        /// Проверяет если введен пароль.
+        /// Удаляет посещение из списков на экране
+        /// Удаляет посещение из сохраненной базы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <param name="typeWorkout"></param>
+        private static void DelSelectedItem(object sender, PreviewKeyDownEventArgs e, TypeWorkout typeWorkout)
+        {
+            if (e.KeyData != Keys.Delete) return;
+            Logic.AccessRootUser();
+            if (!PwdForm.IsPassUnLocked()) return;
+            var name = MyListViewEx.GetSelectedText((ListView)sender);
+            // Удаление из журнала
+            DailyVisits.GetInstance().RemoveFromVisitsLog(name[1], typeWorkout);
+            // Удаление с экрана
+            MyListViewEx.RemoveSelectedItem((ListView)sender);
+            PwdForm.LockPassword();
+        }
+
+        // Открытие карточки клиента по двойной мышке
+        private static void OpenSelectedItem(object sender)
+        {
+            try
+            {
+                var selectedItem = MyListViewEx.GetSelectedText((ListView)sender);
+                // Состоит из 2х элементов. Первый либо время либо пусто
+                var name = selectedItem[1];
+                Logic.OpenPersonCard(name);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($@"Нельзя открыть карточку клиента. {e.Message}", @"Ошибка открытия", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void listView_Gym_Zal_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            OpenSelectedItem(sender);
+        }
+
+        private void listView_Personal_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            OpenSelectedItem(sender);
+        }
+
+        private void listView_Group_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            OpenSelectedItem(sender);
+        }
+
+        private void listView_MiniGroup_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            OpenSelectedItem(sender);
+        }
+
+
+
+
+        #endregion
+
+        #region /// Контекстное Меню
+
+        private void удалитьЗаписьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Logic.AccessRootUser();
+            if (!PwdForm.IsPassUnLocked()) return;
+
+            try
+            {
+                var control = contextMenuStrip1.SourceControl;
+                var selectedItem = MyListViewEx.GetSelectedText((ListView)control);
+                // Состоит из 2х элементов. Первый либо время либо пусто
+                var name = selectedItem[1];
+
+                var typeW = TypeWorkout.Тренажерный_Зал;
+                switch (control.Name)
+                {
+                    case "listView_Gym_Zal":
+                        typeW = TypeWorkout.Тренажерный_Зал;
+                        break;
+                    case "listView_Personal":
+                        typeW = TypeWorkout.Персональная;
+                        break;
+                    case "listView_Group":
+                        typeW = TypeWorkout.Аэробный_Зал;
+                        break;
+                    case "listView_MiniGroup":
+                        typeW = TypeWorkout.МиниГруппа;
+                        break;
+                    default:
+                        break;
+                }
+
+                // Удаление из журнала
+                DailyVisits.GetInstance().RemoveFromVisitsLog(name, typeW);
+                // Удаление с экрана
+                MyListViewEx.RemoveSelectedItem((ListView)control);
+                PwdForm.LockPassword();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($@"Нельзя удалить посещение клиента. ", @"Ошибка удаления в MainForm", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void открытьКарточкуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var control = contextMenuStrip1.SourceControl;
+                var selectedItem = MyListViewEx.GetSelectedText((ListView)control);
+                // Состоит из 2х элементов. Первый либо время либо пусто
+                var name = selectedItem[1];
+                Logic.OpenPersonCard(name);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($@"Нельзя открыть карточку клиента. ", @"Ошибка открытия в MainForm", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void listView_Gym_Zal_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var item = listView_Gym_Zal.GetItemAt(e.X, e.Y);
+                if (item == null) return;
+                item.Selected = true;
+                contextMenuStrip1.Show(listView_Gym_Zal, e.Location);
+            }
+        }
+
+        private void listView_Personal_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var item = listView_Personal.GetItemAt(e.X, e.Y);
+                if (item == null) return;
+                item.Selected = true;
+                contextMenuStrip1.Show(listView_Personal, e.Location);
+            }
+        }
+
+        private void listView_Group_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var item = listView_Group.GetItemAt(e.X, e.Y);
+                if (item == null) return;
+                item.Selected = true;
+                contextMenuStrip1.Show(listView_Group, e.Location);
+            }
+        }
+
+        private void listView_MiniGroup_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var item = listView_MiniGroup.GetItemAt(e.X, e.Y);
+                if (item == null) return;
+                item.Selected = true;
+                contextMenuStrip1.Show(listView_MiniGroup, e.Location);
+            }
+        }
+        #endregion
+
+
+
+
     }
 }

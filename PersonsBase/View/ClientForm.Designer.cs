@@ -36,9 +36,8 @@ namespace PersonsBase.View
             this.dateTimePicker_birthDate = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
             this.textBox_Notes = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.button_photo = new System.Windows.Forms.Button();
             this.button_photo_cam = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -78,7 +77,6 @@ namespace PersonsBase.View
             this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).BeginInit();
@@ -95,7 +93,7 @@ namespace PersonsBase.View
             // 
             this.dateTimePicker_birthDate.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.dateTimePicker_birthDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePicker_birthDate.Location = new System.Drawing.Point(130, 119);
+            this.dateTimePicker_birthDate.Location = new System.Drawing.Point(130, 121);
             this.dateTimePicker_birthDate.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker_birthDate.MaxDate = new System.DateTime(2040, 12, 31, 0, 0, 0, 0);
             this.dateTimePicker_birthDate.MinDate = new System.DateTime(1950, 1, 1, 0, 0, 0, 0);
@@ -118,12 +116,13 @@ namespace PersonsBase.View
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1049, 707);
+            this.tabControl1.Size = new System.Drawing.Size(1049, 645);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.panel1);
+            this.tabPage1.Controls.Add(this.textBox_Notes);
+            this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.button_photo);
             this.tabPage1.Controls.Add(this.button_photo_cam);
             this.tabPage1.Controls.Add(this.tableLayoutPanel2);
@@ -135,33 +134,10 @@ namespace PersonsBase.View
             this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Size = new System.Drawing.Size(1041, 678);
+            this.tabPage1.Size = new System.Drawing.Size(1041, 616);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Информация";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.textBox_Notes);
-            this.panel1.Location = new System.Drawing.Point(5, 472);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1025, 263);
-            this.panel1.TabIndex = 14;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label2.Location = new System.Drawing.Point(3, 14);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(226, 26);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Заметки о Клиенте";
             // 
             // textBox_Notes
             // 
@@ -170,14 +146,25 @@ namespace PersonsBase.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_Notes.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox_Notes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.textBox_Notes.Location = new System.Drawing.Point(2, 48);
+            this.textBox_Notes.Location = new System.Drawing.Point(10, 483);
             this.textBox_Notes.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_Notes.Multiline = true;
             this.textBox_Notes.Name = "textBox_Notes";
             this.textBox_Notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_Notes.Size = new System.Drawing.Size(1021, 290);
+            this.textBox_Notes.Size = new System.Drawing.Size(1020, 129);
             this.textBox_Notes.TabIndex = 5;
             this.textBox_Notes.TextChanged += new System.EventHandler(this.textBox_Notes_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label2.Location = new System.Drawing.Point(8, 455);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(226, 26);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Заметки о Клиенте";
             // 
             // button_photo
             // 
@@ -259,7 +246,7 @@ namespace PersonsBase.View
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(8, 46);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(169, 419);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(169, 406);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // button_CheckInWorkout
@@ -346,7 +333,7 @@ namespace PersonsBase.View
             this.groupBox_abonList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_abonList.Controls.Add(this.button__remove_abon);
             this.groupBox_abonList.Controls.Add(this.listBox_abonements);
-            this.groupBox_abonList.Location = new System.Drawing.Point(834, 339);
+            this.groupBox_abonList.Location = new System.Drawing.Point(834, 326);
             this.groupBox_abonList.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_abonList.Name = "groupBox_abonList";
             this.groupBox_abonList.Padding = new System.Windows.Forms.Padding(2);
@@ -390,7 +377,7 @@ namespace PersonsBase.View
             this.groupBox_Info.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_Info.Name = "groupBox_Info";
             this.groupBox_Info.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox_Info.Size = new System.Drawing.Size(638, 429);
+            this.groupBox_Info.Size = new System.Drawing.Size(638, 414);
             this.groupBox_Info.TabIndex = 4;
             this.groupBox_Info.TabStop = false;
             this.groupBox_Info.Text = "Информация";
@@ -403,7 +390,7 @@ namespace PersonsBase.View
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(1041, 678);
+            this.tabPage2.Size = new System.Drawing.Size(1041, 674);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Персональные данные";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -486,7 +473,7 @@ namespace PersonsBase.View
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(2, 122);
+            this.label4.Location = new System.Drawing.Point(2, 124);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(124, 17);
@@ -571,7 +558,7 @@ namespace PersonsBase.View
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(2, 94);
+            this.label5.Location = new System.Drawing.Point(2, 95);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(34, 17);
@@ -583,7 +570,7 @@ namespace PersonsBase.View
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(2, 153);
+            this.label1.Location = new System.Drawing.Point(2, 155);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(115, 17);
@@ -606,7 +593,7 @@ namespace PersonsBase.View
             // 
             this.textBox_Number.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.textBox_Number.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox_Number.Location = new System.Drawing.Point(130, 147);
+            this.textBox_Number.Location = new System.Drawing.Point(130, 149);
             this.textBox_Number.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_Number.Name = "textBox_Number";
             this.textBox_Number.Size = new System.Drawing.Size(190, 29);
@@ -622,7 +609,7 @@ namespace PersonsBase.View
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1041, 678);
+            this.tabPage3.Size = new System.Drawing.Size(1041, 674);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Посещения";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -638,7 +625,7 @@ namespace PersonsBase.View
             this.dataGridView_Visits.Location = new System.Drawing.Point(3, 3);
             this.dataGridView_Visits.Name = "dataGridView_Visits";
             this.dataGridView_Visits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_Visits.Size = new System.Drawing.Size(1035, 672);
+            this.dataGridView_Visits.Size = new System.Drawing.Size(1035, 668);
             this.dataGridView_Visits.TabIndex = 0;
             // 
             // tableLayoutPanel4
@@ -654,7 +641,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel4.Controls.Add(this.button_SavePersonalData, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.button2, 4, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 709);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 647);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
@@ -706,7 +693,7 @@ namespace PersonsBase.View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1049, 749);
+            this.ClientSize = new System.Drawing.Size(1049, 687);
             this.Controls.Add(this.tableLayoutPanel4);
             this.Controls.Add(this.tabControl1);
             this.DoubleBuffered = true;
@@ -720,8 +707,7 @@ namespace PersonsBase.View
             this.Resize += new System.EventHandler(this.ClientForm_Resize);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.tabPage1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
@@ -777,7 +763,6 @@ namespace PersonsBase.View
         private ComboBox comboBox_Gender;
         private Button button_SavePersonalData;
         private GroupBox groupBox_Detailed;
-        private TextBox textBox_Notes;
         private PictureBox pictureBox_ClientPhoto;
         private Button button_CheckInWorkout;
         private Button button_Add_Abon;
@@ -798,7 +783,7 @@ namespace PersonsBase.View
         private Label label_PersonName;
         private Label label_infoText;
         private Button button_photo_cam;
-        private Panel panel1;
         private Label label2;
+        private TextBox textBox_Notes;
     }
 }
