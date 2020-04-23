@@ -69,6 +69,7 @@
     <Compile Include="control\Log.cs" />
     <Compile Include="control\Logic.cs" />
     <Compile Include="data\Abonements\AbonementBasic.cs" />
+    <Compile Include="data\Abonements\AbonementsController.cs" />
     <Compile Include="data\Abonements\ByDays.cs" />
     <Compile Include="data\Abonements\ClubCard.cs" />
     <Compile Include="data\Abonements\Freeze.cs" />
