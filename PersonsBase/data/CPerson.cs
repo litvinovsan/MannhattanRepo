@@ -162,11 +162,6 @@ namespace PersonsBase.data
         {
             get
             {
-                if (AbonementCurent != null && AbonementCurent.IsValid()) return _status;
-
-                _status = StatusPerson.Нет_Карты;
-                _abonementCurent = null;
-
                 return _status;
             }
             set
