@@ -329,7 +329,7 @@ namespace PersonsBase.data
                 new PersonField { HeaderName = "Доступный тип", Value =(isAbonExist) ?abon.TypeWorkout.ToString():"" },
                 new PersonField { HeaderName = "Оплата", Value = (isAbonExist) ?abon.PayStatus.ToString():"" },
                 new PersonField { HeaderName = "Абон. Активация", Value =(isAbonExist) ? $"{abon.BuyActivationDate:MM/dd/yyyy}" :""},
-                new PersonField { HeaderName = "Абон. Конец", Value =(isAbonExist) ? $"{person.AbonementCurent.EndDate:MM/dd/yyyy}":"" },
+                new PersonField { HeaderName = "Абон. Конец", Value =(isAbonExist) ? $"{abon?.EndDate:MM/dd/yyyy}":"" },
                 new PersonField { HeaderName = "Активация", Value = (isAbonExist) ?abon.IsActivated.ToString():"" },
                 new PersonField { HeaderName = "Заметки", Value = person.SpecialNotes },
                 new PersonField { HeaderName = "Заморозки", Value = GetFreezeString(person) }
