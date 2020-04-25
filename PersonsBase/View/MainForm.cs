@@ -69,6 +69,9 @@ namespace PersonsBase.View
             Options.SaveProperties(); // Сохранение пользовательских настроек
 
             _dailyVisits.SaveCurentSession();// Сериализация текущих списков посещений 
+
+            // База клиентов сохраняется автоматически, в деструкторе класса DataBaseLevel
+
             //Сохранение в Эксель
             MyFile.ExportToExcel(DataBaseM.CreatePersonsTable(), false); // Автоматическое Сохранение в Excel всей базы на всякий случай
 
@@ -293,12 +296,17 @@ namespace PersonsBase.View
 
         private void сохранитьВExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (DataBaseLevel.GetNumberOfPersons() == 0) MessageBox.Show(@"В Базе нет клиентов");
+            if (DataBaseLevel.GetNumberOfPersons() == 0)
+            {
+                MessageBox.Show(@"В Базе нет клиентов");
+                return;
+            }
 
+            //Сохраним и Базу данных
+            Logic.SaveEverithing();
+            // Сохранение в Excel
             var table = DataBaseM.CreatePersonsTable();
             MyFile.ExportToExcel(table, true);
-            //Сохраним и Базу данных
-            DataBaseLevel.SerializeObjects();
         }
 
         private void сканироватьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -344,8 +352,8 @@ namespace PersonsBase.View
             // Изменять номер сборки тут
             // C:\Work\MBase\MFClub\PersonsBase\Properties\AssemblyInfo.cs
 
-            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            System.Reflection.AssemblyName assemblyName = assembly.GetName();
+            var assembly = Assembly.GetExecutingAssembly();
+            var assemblyName = assembly.GetName();
 
             Version version = assemblyName.Version;
 
@@ -461,6 +469,7 @@ namespace PersonsBase.View
                 DailyVisits.GetInstance().RemoveFromVisitsLog(name, typeW);
                 // Удаление с экрана
                 MyListViewEx.RemoveSelectedItem((ListView)control);
+                Logic.SaveEverithing();
                 PwdForm.LockPassword();
             }
             catch (Exception)
@@ -530,9 +539,5 @@ namespace PersonsBase.View
             }
         }
         #endregion
-
-
-
-
     }
 }
