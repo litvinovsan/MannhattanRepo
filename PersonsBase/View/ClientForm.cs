@@ -587,6 +587,7 @@ namespace PersonsBase.View
             LoadEditableData();
             Logic.SetControlsColorDefault(groupBox_Detailed);
             Logic.SetControlsColorDefault(tableLayoutPanel1);
+            Logic.SaveEverithing();
         }
 
         private void ClientForm_Resize(object sender, EventArgs e)

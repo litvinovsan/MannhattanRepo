@@ -278,7 +278,7 @@ namespace PersonsBase.control
             //  Создаем Абонемент если выбрали Да
             if (res == DialogResult.Yes) AddAbonement(createdPersoName);
             OpenPersonCard(createdPersoName);
-            DataBaseLevel.SerializeObjects();//Сохраним в базу клиентов
+            SaveEverithing();//Сохраним в базу клиентов
             return true;
         }
 
@@ -302,7 +302,7 @@ namespace PersonsBase.control
                     DataBaseLevel.GetPersonsVisitDict().Remove(selectedName);
                 }
             }
-            DataBaseLevel.SerializeObjects();
+            SaveEverithing();
             return (response == ResponseCode.Success);
         }
 
@@ -501,6 +501,7 @@ namespace PersonsBase.control
             if (res == DialogResult.No) return false;
 
             var isSuccess = AddAbonement(selectedName);
+            SaveEverithing();
             return (isSuccess);
         }
 
@@ -608,6 +609,7 @@ namespace PersonsBase.control
                                                                 //  person.AbonValuesChanged(this, EventArgs.Empty);
             IsAbonementValid(ref person);
             MessageBox.Show(@"Тренировка Учтена!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            SaveEverithing();
             return true;
         }
         #endregion
