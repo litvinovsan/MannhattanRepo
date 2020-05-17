@@ -71,6 +71,8 @@ namespace PersonsBase.View
             this.textBox_Number = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView_Visits = new System.Windows.Forms.DataGridView();
+            this.tabPage_abon_history = new System.Windows.Forms.TabPage();
+            this.dataGridView_history_abonements = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.button_Cancel = new System.Windows.Forms.Button();
             this.button_SavePersonalData = new System.Windows.Forms.Button();
@@ -86,6 +88,8 @@ namespace PersonsBase.View
             this.tableLayoutPanel1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Visits)).BeginInit();
+            this.tabPage_abon_history.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_history_abonements)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -111,6 +115,7 @@ namespace PersonsBase.View
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage_abon_history);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
@@ -390,7 +395,7 @@ namespace PersonsBase.View
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(1041, 674);
+            this.tabPage2.Size = new System.Drawing.Size(1041, 616);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Персональные данные";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -609,7 +614,7 @@ namespace PersonsBase.View
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1041, 674);
+            this.tabPage3.Size = new System.Drawing.Size(1041, 616);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Посещения";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -625,8 +630,28 @@ namespace PersonsBase.View
             this.dataGridView_Visits.Location = new System.Drawing.Point(3, 3);
             this.dataGridView_Visits.Name = "dataGridView_Visits";
             this.dataGridView_Visits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_Visits.Size = new System.Drawing.Size(1035, 668);
+            this.dataGridView_Visits.Size = new System.Drawing.Size(1035, 610);
             this.dataGridView_Visits.TabIndex = 0;
+            // 
+            // tabPage_abon_history
+            // 
+            this.tabPage_abon_history.Controls.Add(this.dataGridView_history_abonements);
+            this.tabPage_abon_history.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_abon_history.Name = "tabPage_abon_history";
+            this.tabPage_abon_history.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_abon_history.Size = new System.Drawing.Size(1041, 616);
+            this.tabPage_abon_history.TabIndex = 3;
+            this.tabPage_abon_history.Text = "Архив Абонементов";
+            this.tabPage_abon_history.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView_history_abonements
+            // 
+            this.dataGridView_history_abonements.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_history_abonements.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView_history_abonements.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView_history_abonements.Name = "dataGridView_history_abonements";
+            this.dataGridView_history_abonements.Size = new System.Drawing.Size(1035, 610);
+            this.dataGridView_history_abonements.TabIndex = 0;
             // 
             // tableLayoutPanel4
             // 
@@ -719,6 +744,8 @@ namespace PersonsBase.View
             this.tableLayoutPanel1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Visits)).EndInit();
+            this.tabPage_abon_history.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_history_abonements)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -785,5 +812,7 @@ namespace PersonsBase.View
         private Button button_photo_cam;
         private Label label2;
         private TextBox textBox_Notes;
+        private TabPage tabPage_abon_history;
+        private DataGridView dataGridView_history_abonements;
     }
 }

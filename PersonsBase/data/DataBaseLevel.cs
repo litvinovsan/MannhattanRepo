@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using PersonsBase.data.Abonements;
 using PersonsBase.myStd;
 
 namespace PersonsBase.data
@@ -20,6 +21,8 @@ namespace PersonsBase.data
         private static SortedList<string, Person> _dataBaseList;
         // База с Журналом посещений
         private static Dictionary<string, List<Visit>> _visitsDictionary;
+        // База с История абонементов клиента
+        private static Dictionary<string, List<AbonHistory>> _abonHistoryDictionary;
         // База Администраторов 
         private static List<Administrator> _adminsList;
         // База Тренеров
@@ -94,6 +97,12 @@ namespace PersonsBase.data
         {
             return _visitsDictionary;
         }
+        /// Возвращает Коллекцию c историей абонементов клиента
+        public static Dictionary<string, List<AbonHistory>> GetPersonsAbonHistDict()
+        {
+            return _abonHistoryDictionary;
+        }
+
         public static ManhattanInfo GetManhattanInfo()
         {
             return _manhattanInfo;
@@ -187,7 +196,11 @@ namespace PersonsBase.data
             }
             // Журнал посещений
             SerializeClass.Serialize(_visitsDictionary, currentPath + "\\" + Options.PersonVisitsDbFile);
+            
+            // История Абонементов
+            SerializeClass.Serialize(_abonHistoryDictionary, currentPath + "\\" + Options.PersonAbonHistDbFile);
 
+            
             // База Тренеров
             SerializeClass.Serialize(_trenersList, currentPath + "\\" + Options.TrenersDbFile);
             // База Администраторов 
@@ -215,6 +228,10 @@ namespace PersonsBase.data
             // Журнал посещений клиентов
             _visitsDictionary = new Dictionary<string, List<Visit>>();
             SerializeClass.DeSerialize(ref _visitsDictionary, currentPath + Options.PersonVisitsDbFile);
+
+            // История Абонементов клиента
+            _abonHistoryDictionary = new Dictionary<string, List<AbonHistory>>();
+            SerializeClass.DeSerialize(ref _abonHistoryDictionary, currentPath + Options.PersonAbonHistDbFile);
 
             // База Тренеров
             _trenersList = new List<Trener>();

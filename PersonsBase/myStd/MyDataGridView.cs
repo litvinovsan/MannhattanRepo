@@ -10,6 +10,7 @@ namespace PersonsBase.myStd
 {
     public static class MyDataGridView
     {
+        // FIXME Перенести создание в метод. Не зачем делать это статическим, вдруг несколько мест использ будет
         private static readonly BindingSource BindingSource1 = new BindingSource();
 
         #region /// ИНИЦИАЛИЗАЦИЯ ИСТОЧНИКА ДАННЫХ
@@ -40,6 +41,7 @@ namespace PersonsBase.myStd
                 // ignored
             }
         }
+
         /// <summary>
         /// Инициализация DataGridView из коллекции List T . T может быть классом с полями.
         /// Метод не тестирован.!!!!!!!!!!!!
@@ -49,6 +51,9 @@ namespace PersonsBase.myStd
         /// <param name="dataList"></param>
         public static void SetSourceDataGridView<T>(DataGridView dataGridView1, List<T> dataList)
         {
+            if (dataGridView1 == null) return;
+            if (dataList == null) return;
+
             try
             {
                 // Set up the data source.
@@ -75,6 +80,7 @@ namespace PersonsBase.myStd
             //System.Windows.Forms.DataGridView отображает данные.
             dataGridView1.DataSource = dataTable;
         }
+
         /// <summary>
         /// Добавляет заголовки из массива в датагрид.
         /// </summary>
@@ -82,12 +88,21 @@ namespace PersonsBase.myStd
         /// <param name="columnHeaders"></param>
         public static void AddHeaders(DataGridView dataGrid, string[] columnHeaders)
         {
-            //Задаем текст ячейки заголовка столбца.
-            for (var i = 0; i < dataGrid.Columns.Count; i++)
+            try
             {
-                dataGrid.Columns[i].HeaderText = columnHeaders[i];
+                //Задаем текст ячейки заголовка столбца.
+                for (var i = 0; i < dataGrid.Columns.Count; i++)
+                {
+                    dataGrid.Columns[i].HeaderText = columnHeaders[i];
+                }
             }
+            catch (Exception e)
+            {
+                MessageBox.Show("Ошибка добавления заголовка " + e);
+            }
+
         }
+
         /// <summary>
         /// Добавляет Подсказки к заголовкам при наведении указателя мыши.
         /// </summary>
@@ -149,7 +164,7 @@ namespace PersonsBase.myStd
             dataGridView1.AllowUserToOrderColumns = true;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             if (dataGridView1.Columns.Count != 0)
-                dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+                dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;// AllCellsExceptHeader;
 
             // Внешний вид заголовка
             dataGridView1.EnableHeadersVisualStyles = false;

@@ -72,6 +72,7 @@ namespace PersonsBase.data
         // Файлы базы данных для сериализации
         public const string PersonsDbFile = "DataBase_Clients.bin";
         public const string PersonVisitsDbFile = "DataBase_Clients_Visits.bin";
+        public const string PersonAbonHistDbFile = "DataBase_Abonement_History.bin";
         public const string TrenersDbFile = "DataBase_Treners.bin";
         public const string AdminsDbFile = "DataBase_Admins.bin";
         public const string AdminCurrFile = "DataBase_AdminToday.bin";

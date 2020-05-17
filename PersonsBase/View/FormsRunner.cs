@@ -60,7 +60,9 @@ namespace PersonsBase.View
             {
                 if (form.ShowDialog() != DialogResult.OK) return result;
 
+                // В этом методе присваивается новый абонемент пользователю и добавляется в список истории абонементов.
                 form.ApplyChanges();
+
                 result = DialogResult.OK;
             }
             return result;
