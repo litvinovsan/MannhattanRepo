@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using PersonsBase.control;
 using PersonsBase.data;
@@ -44,6 +46,7 @@ namespace PersonsBase.View
             UpdateInfoTextBoxField(this, EventArgs.Empty);
             LoadListBoxQueue();
             SetupVisitsDataGridView();
+            SetupHistoryAbonement(); //Настройка дата грид вью на вкладке истории абонементов
 
             // Подписка на События
             _saveDelegateChain += SaveUserData; // Цепочка Делегатов для сохранения измененных данных.
@@ -271,6 +274,13 @@ namespace PersonsBase.View
                     }
             }
         }
+
+        /// <summary>
+        /// Обновляет таблицу с посещениями на вкладке посещений.
+        /// Сейчас только для Гостевого посещения. Костыль
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateVisitsTable(object sender, EventArgs e)
         {
             if (_person.Status == StatusPerson.Гостевой)
@@ -421,10 +431,6 @@ namespace PersonsBase.View
 
         #endregion
 
-
-
-
-
         #region // Хелп Методы для Загрузки и обновления пользовательских данных
         private void LoadEditableData()
         {
@@ -466,6 +472,29 @@ namespace PersonsBase.View
             MyDataGridView.ImplementStyle(dataGridView_Visits);
             MyDataGridView.AddHeaderToolTips(dataGridView_Visits, helpStrings);
         }
+
+        #region Вкладка Архив Абонементов
+        /// <summary>
+        /// Настраивает вывод информации о предыдущих абонементах на вкладке Архив Абонементов.
+        /// Для обновления таблицы с архивом абон. вызывать этот метод.
+        /// </summary>
+        private void SetupHistoryAbonement()
+        {
+            // Получение имен всех полей через атрибуты этих полей. В классе АбонХистори есть атрибуты у полей с описанием имени.
+            // var headerStrings = MyReflection.GetPropertiesName(typeof(AbonHistory));
+            var headerStrings = MyReflection.GetPropertyDescriptions(typeof(AbonHistory));
+
+            var abonHistories = PersonObject.GetAbonHistoryList(_person.Name);
+            if (abonHistories == null) return;
+
+            // Перевернем список
+            var abonReverced = abonHistories.Reverse<AbonHistory>().ToList<AbonHistory>();
+
+            MyDataGridView.SetSourceDataGridView<AbonHistory>(dataGridView_history_abonements, abonReverced);
+            MyDataGridView.ImplementStyle(dataGridView_history_abonements);
+            MyDataGridView.AddHeaders(dataGridView_history_abonements, headerStrings);
+        }
+        #endregion
 
         private List<Tuple<Label, Control>> CreateControlsFields(AbonementBasic currentAbon)
         {
@@ -587,6 +616,7 @@ namespace PersonsBase.View
             LoadEditableData();
             Logic.SetControlsColorDefault(groupBox_Detailed);
             Logic.SetControlsColorDefault(tableLayoutPanel1);
+            Logic.SaveEverithing();
         }
 
         private void ClientForm_Resize(object sender, EventArgs e)
@@ -716,7 +746,7 @@ namespace PersonsBase.View
             }
         }
 
-       #endregion
+        #endregion
 
         //public void ClearFindCombo()
         //{

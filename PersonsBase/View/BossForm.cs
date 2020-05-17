@@ -51,7 +51,7 @@ namespace PersonsBase.View
         private void BossForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             PwdForm.LockPassword();
-            DataBaseLevel.SerializeObjects();
+            Logic.SaveEverithing();
         }
 
         #endregion
@@ -257,10 +257,25 @@ namespace PersonsBase.View
         {
             var persons = DataBaseLevel.GetPersonsList();
             var tempPersons = persons.Select(x => x).Where(x => x.Value.AbonementCurent != null).ToList();
-            foreach (var keyValuePair in tempPersons)
-            {
-                keyValuePair.Value.AbonementsQueue.Add(keyValuePair.Value.AbonementCurent);
-            }
+            //foreach (var keyValuePair in tempPersons)
+            //{
+            //    keyValuePair.Value.AbonementsQueue.Add(keyValuePair.Value.AbonementCurent);
+            //}
+
+               // Перебираем все абонементы и очередь абонементов. Добавляем в Коллекцию с архивом абонементов
+            //foreach (var item in tempPersons)
+            //{
+            //    PersonObject.SaveAbonementToHistory(item.Value, item.Value?.AbonementCurent);
+
+            //    if (item.Value?.AbonementsQueue != null && item.Value?.AbonementsQueue.Count != 0)
+            //    {
+            //        foreach (var abonement in item.Value?.AbonementsQueue)
+            //        {
+            //            PersonObject.SaveAbonementToHistory(item.Value, abonement);
+            //        }
+            //    }
+            //}
+
         }
     }
 }

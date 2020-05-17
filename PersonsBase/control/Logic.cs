@@ -47,10 +47,10 @@ namespace PersonsBase.control
         /// </summary>
         /// <param name="pictureBox"></param>
         /// <param name="pathOrNamePhoto"></param>
-        /// <param name="gender"></param>
+        /// <param name="inputGender">Пол клиента</param>
         public static bool TryLoadPhoto(PictureBox pictureBox, string pathOrNamePhoto, Gender inputGender)
         {
-            Gender gender = inputGender;
+            var gender = inputGender;
             var result = true;
             var fileName = pathOrNamePhoto;
             if (string.IsNullOrEmpty(fileName))
@@ -278,7 +278,7 @@ namespace PersonsBase.control
             //  Создаем Абонемент если выбрали Да
             if (res == DialogResult.Yes) AddAbonement(createdPersoName);
             OpenPersonCard(createdPersoName);
-            DataBaseLevel.SerializeObjects();//Сохраним в базу клиентов
+            SaveEverithing();//Сохраним в базу клиентов
             return true;
         }
 
@@ -301,8 +301,14 @@ namespace PersonsBase.control
                 {
                     DataBaseLevel.GetPersonsVisitDict().Remove(selectedName);
                 }
+
+                // Удаляем из журнала посещений данные о selectedName клиенте
+                if (DataBaseLevel.GetPersonsAbonHistDict().ContainsKey(selectedName))
+                {
+                    DataBaseLevel.GetPersonsAbonHistDict().Remove(selectedName);
+                }
             }
-            DataBaseLevel.SerializeObjects();
+            SaveEverithing();
             return (response == ResponseCode.Success);
         }
 
@@ -384,6 +390,7 @@ namespace PersonsBase.control
             if (isSuccess)
             {
                 DataBaseLevel.GetPersonsVisitDict().RenameKey(oldName, PrepareName(newName));
+                DataBaseLevel.GetPersonsAbonHistDict().RenameKey(oldName, PrepareName(newName));
             }
 
             // Переименование файлов и Пути к фотке
@@ -501,11 +508,15 @@ namespace PersonsBase.control
             if (res == DialogResult.No) return false;
 
             var isSuccess = AddAbonement(selectedName);
+            SaveEverithing();
             return (isSuccess);
         }
 
         public static bool AddAbonement(string personName)
         {
+            // Для справки. В архив абонементов новый добавляемый абонемент добавляется в форме абонементов AbonementForm
+            // именно там он создается. Поэтому сразу и добавляем там
+
             var person = PersonObject.GetLink(personName);
             if (person == null) return false;
 
@@ -608,6 +619,7 @@ namespace PersonsBase.control
                                                                 //  person.AbonValuesChanged(this, EventArgs.Empty);
             IsAbonementValid(ref person);
             MessageBox.Show(@"Тренировка Учтена!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            SaveEverithing();
             return true;
         }
         #endregion

@@ -63,11 +63,11 @@
             this.textBox_FiO = new System.Windows.Forms.TextBox();
             this.tabPage_settings = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.checkBox_faceDetector = new System.Windows.Forms.CheckBox();
             this.checkBox_CorrectOnCreateAbon = new System.Windows.Forms.CheckBox();
             this.checkBox_SimpsonPhoto = new System.Windows.Forms.CheckBox();
             this.checkBox_Passp_Drive = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -523,6 +523,16 @@
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Вкл/Откл опций";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(7, 148);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(283, 32);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Миграция Абонементов";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // checkBox_faceDetector
             // 
             this.checkBox_faceDetector.AutoSize = true;
@@ -549,6 +559,8 @@
             // checkBox_SimpsonPhoto
             // 
             this.checkBox_SimpsonPhoto.AutoSize = true;
+            this.checkBox_SimpsonPhoto.Checked = true;
+            this.checkBox_SimpsonPhoto.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox_SimpsonPhoto.Location = new System.Drawing.Point(6, 49);
             this.checkBox_SimpsonPhoto.Name = "checkBox_SimpsonPhoto";
             this.checkBox_SimpsonPhoto.Size = new System.Drawing.Size(343, 21);
@@ -567,16 +579,6 @@
             this.checkBox_Passp_Drive.Text = "Учитывать Паспорт и Права в создании клиента";
             this.checkBox_Passp_Drive.UseVisualStyleBackColor = true;
             this.checkBox_Passp_Drive.CheckedChanged += new System.EventHandler(this.checkBox_Passp_Drive_CheckedChanged);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(7, 148);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(283, 32);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Миграция Абонементов";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // BossForm
             // 
