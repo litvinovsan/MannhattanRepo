@@ -111,14 +111,5 @@
 
 
         }
-        public string ClassName
-        {
-            get
-            {
-                return GetType().Name;
-            }
-        }
-
-
     }
 }

@@ -164,6 +164,7 @@ namespace PersonsBase.View
 
         /// <summary>
         ///  Вызывать этот метод для задания абонемента пользователю.
+        /// Тут сохраняется новый абонемент в историю абонементов
         /// </summary>
         public void ApplyChanges()
         {
@@ -203,6 +204,8 @@ namespace PersonsBase.View
                         _person.SpecialNotes +=
                             $"\n\r Гостевой визит был: {DateTime.Now.ToString(new DateTimeFormatInfo().LongDatePattern)} ";
                         _person.AbonementCurent = null;
+                        //тут добавить абонемент в список истории абонементов. Для гостевого визита.Ибо дальше выход
+                        PersonObject.SaveAbonementToHistory(_person, abonementNew);
                         return;
                     }
 
@@ -214,6 +217,9 @@ namespace PersonsBase.View
 
             ApplyCorrectedValues(ref abonementNew);//  Корректировка абонемента по дате, количеству оставшихся посещений
             _person.AbonementCurent = abonementNew;
+
+            //тут добавить абонемент в список истории абонементов.
+            PersonObject.SaveAbonementToHistory(_person, abonementNew);
         }
 
         private void ApplyCorrectedValues(ref AbonementBasic abonement)

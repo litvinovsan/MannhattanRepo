@@ -15,6 +15,7 @@ namespace PersonsBase.data
             return _person;
         }
 
+        #region /// Журнал посещений пользователя
         public static List<Visit> GetVisitsList(string name)
         {
             var dictVisits = DataBaseLevel.GetPersonsVisitDict();
@@ -69,5 +70,54 @@ namespace PersonsBase.data
                 personsVisitDict.Add(person.Name, new List<Visit> { visit });
             }
         }
+        #endregion
+
+        #region /// Архив абонементов пользователя
+        /// <summary>
+        /// Возвращает коллекцию с старыми абонементами клиента. Если их нет - вернет нулл.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static List<AbonHistory> GetAbonHistoryList(string name)
+        {
+            var dictHistory = DataBaseLevel.GetPersonsAbonHistDict();
+
+            return !dictHistory.ContainsKey(name) ? null : dictHistory[name];
+        }
+
+        public static void SaveAbonementToHistory(Person person, AbonementBasic abon)
+        {
+            if (abon == null) return;
+
+            var currentAdmin = (DataBaseLevel.GetManhattanInfo()?.CurrentAdmin) ?? new Administrator();
+
+            // Список всех абонементов для всех клиентов
+            var personsAbonHistDict = DataBaseLevel.GetPersonsAbonHistDict();
+
+            var abonHistory = new AbonHistory()
+            {
+                AbonementName = abon.AbonementName,
+                AdminName = currentAdmin.Name,
+                TypeWorkout = abon.TypeWorkout.ToString(),
+                Time = abon.TimeTraining.ToString(),
+                SpaStatus = abon.Spa.ToString(),
+                EndDate = abon.EndDate.ToShortDateString(),
+                ActivationDate = abon.BuyActivationDate.ToShortDateString(),
+                ClubCardPeriod = (abon is ClubCardA a) ? a.PeriodAbonem.ToString().Replace("На_", "") : "",
+                NumAerobn = abon.NumAerobicTr.ToString(),
+                NumMini = abon.NumMiniGroup.ToString(),
+                NumPerson = abon.NumPersonalTr.ToString()
+            };
+
+            if (personsAbonHistDict.ContainsKey(person.Name))
+            {
+                personsAbonHistDict[person.Name].Add(abonHistory);
+            }
+            else
+            {
+                personsAbonHistDict.Add(person.Name, new List<AbonHistory> { abonHistory });
+            }
+        }
+        #endregion
     }
 }
