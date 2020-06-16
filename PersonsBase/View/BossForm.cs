@@ -274,18 +274,18 @@ namespace PersonsBase.View
             //}
 
             // Перебираем все абонементы и очередь абонементов. Добавляем в Коллекцию с архивом абонементов
-            //foreach (var item in tempPersons)
-            //{
-            //    PersonObject.SaveAbonementToHistory(item.Value, item.Value?.AbonementCurent);
+            foreach (var item in tempPersons)
+            {
+                PersonObject.SaveAbonementToHistory(item.Value, item.Value?.AbonementCurent);
 
-            //    if (item.Value?.AbonementsQueue != null && item.Value?.AbonementsQueue.Count != 0)
-            //    {
-            //        foreach (var abonement in item.Value?.AbonementsQueue)
-            //        {
-            //            PersonObject.SaveAbonementToHistory(item.Value, abonement);
-            //        }
-            //    }
-            //}
+                if (item.Value?.AbonementsQueue != null && item.Value?.AbonementsQueue.Count != 0)
+                {
+                    foreach (var abonement in item.Value?.AbonementsQueue)
+                    {
+                        PersonObject.SaveAbonementToHistory(item.Value, abonement);
+                    }
+                }
+            }
 
         }
 

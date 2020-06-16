@@ -91,8 +91,14 @@ namespace PersonsBase.data
 
             var currentAdmin = (DataBaseLevel.GetManhattanInfo()?.CurrentAdmin) ?? new Administrator();
 
-            // Список всех абонементов для всех клиентов
-            var personsAbonHistDict = DataBaseLevel.GetPersonsAbonHistDict();
+            var lengAbonOrClCa = string.Empty;
+
+            if (abon is AbonementByDays byDays)
+                lengAbonOrClCa = byDays.GetTypeAbonementByDays().ToString().Replace("На_", "").Replace("_", " ");
+            else if (abon is ClubCardA clubCardA)
+                lengAbonOrClCa = clubCardA.PeriodAbonem.ToString().Replace("На_", "");
+            else if (abon is SingleVisit singleVisit) lengAbonOrClCa = "";
+
 
             var abonHistory = new AbonHistory()
             {
@@ -103,11 +109,14 @@ namespace PersonsBase.data
                 SpaStatus = abon.Spa.ToString(),
                 EndDate = abon.EndDate.ToShortDateString(),
                 ActivationDate = abon.BuyActivationDate.ToShortDateString(),
-                ClubCardPeriod = (abon is ClubCardA a) ? a.PeriodAbonem.ToString().Replace("На_", "") : "",
-                NumAerobn = abon.NumAerobicTr.ToString(),
-                NumMini = abon.NumMiniGroup.ToString(),
-                NumPerson = abon.NumPersonalTr.ToString()
+                LengthAbonOrClubCard = lengAbonOrClCa,
+                NumAerobn = (abon is AbonementByDays days && days.TypeWorkout == TypeWorkout.Аэробный_Зал) ? days.GetRemainderDays().ToString() : abon.NumAerobicTr.ToString(),
+                NumMini = (abon is AbonementByDays daysM && daysM.TypeWorkout == TypeWorkout.МиниГруппа) ? daysM.GetRemainderDays().ToString() : abon.NumMiniGroup.ToString(),
+                NumPerson = (abon is AbonementByDays daysP && daysP.TypeWorkout == TypeWorkout.Персональная) ? daysP.GetRemainderDays().ToString() : abon.NumPersonalTr.ToString()
             };
+
+            // Список всех абонементов для всех клиентов
+            var personsAbonHistDict = DataBaseLevel.GetPersonsAbonHistDict();
 
             if (personsAbonHistDict.ContainsKey(person.Name))
             {

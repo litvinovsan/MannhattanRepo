@@ -291,6 +291,8 @@ namespace PersonsBase.data
 
         public bool IsAbonementExist()
         {
+          // FIXME статусдиректор расскомментировать,тогда абонементы будут сгорать нормально, и статус обновляться
+          // StatusDirector(); 
             return AbonementCurent != null && AbonementCurent.IsValid();
         }
 

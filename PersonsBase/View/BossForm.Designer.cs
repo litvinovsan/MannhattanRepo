@@ -63,13 +63,13 @@
             this.textBox_FiO = new System.Windows.Forms.TextBox();
             this.tabPage_settings = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.comboBox_months = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.checkBox_faceDetector = new System.Windows.Forms.CheckBox();
             this.checkBox_CorrectOnCreateAbon = new System.Windows.Forms.CheckBox();
             this.checkBox_SimpsonPhoto = new System.Windows.Forms.CheckBox();
             this.checkBox_Passp_Drive = new System.Windows.Forms.CheckBox();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.comboBox_months = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -527,10 +527,31 @@
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Вкл/Откл опций";
             // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.comboBox_months);
+            this.groupBox10.Location = new System.Drawing.Point(6, 130);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(169, 57);
+            this.groupBox10.TabIndex = 4;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Абон. действует(мес)";
+            // 
+            // comboBox_months
+            // 
+            this.comboBox_months.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_months.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_months.FormattingEnabled = true;
+            this.comboBox_months.Location = new System.Drawing.Point(6, 22);
+            this.comboBox_months.Name = "comboBox_months";
+            this.comboBox_months.Size = new System.Drawing.Size(157, 24);
+            this.comboBox_months.TabIndex = 0;
+            this.comboBox_months.SelectedIndexChanged += new System.EventHandler(this.comboBox_months_SelectedIndexChanged);
+            // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Enabled = false;
             this.button1.Location = new System.Drawing.Point(6, 366);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(283, 32);
@@ -585,28 +606,6 @@
             this.checkBox_Passp_Drive.Text = "Учитывать Паспорт и Права в создании клиента";
             this.checkBox_Passp_Drive.UseVisualStyleBackColor = true;
             this.checkBox_Passp_Drive.CheckedChanged += new System.EventHandler(this.checkBox_Passp_Drive_CheckedChanged);
-            // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.comboBox_months);
-            this.groupBox10.Location = new System.Drawing.Point(6, 130);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(169, 57);
-            this.groupBox10.TabIndex = 4;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Абон. действует(мес)";
-            // 
-            // comboBox_months
-            // 
-            this.comboBox_months.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox_months.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_months.FormattingEnabled = true;
-            this.comboBox_months.Location = new System.Drawing.Point(6, 22);
-            this.comboBox_months.Name = "comboBox_months";
-            this.comboBox_months.Size = new System.Drawing.Size(157, 24);
-            this.comboBox_months.TabIndex = 0;
-            this.comboBox_months.SelectedIndexChanged += new System.EventHandler(this.comboBox_months_SelectedIndexChanged);
             // 
             // BossForm
             // 

@@ -34,8 +34,8 @@ namespace PersonsBase.data.Abonements
         [Description("Время")]
         public string Time { get; set; }
 
-        [Description("Кл.Карт")]
-        public string ClubCardPeriod { get; set; }
+        [Description("Длительность")] // На сколько мес клубная карта или на сколько занятий абонемент
+        public string LengthAbonOrClubCard { get; set; }
 
         [Description("Персон")]
         public string NumPerson { get; set; }

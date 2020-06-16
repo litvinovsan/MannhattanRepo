@@ -45,6 +45,7 @@ namespace PersonsBase.View
             CurentAbonementChanged(this, EventArgs.Empty);
             UpdateInfoTextBoxField(this, EventArgs.Empty);
             LoadListBoxQueue();
+            // Вкладки Посещений и Архив абонементов
             SetupVisitsDataGridView();
             SetupHistoryAbonement(); //Настройка дата грид вью на вкладке истории абонементов
 
@@ -629,6 +630,7 @@ namespace PersonsBase.View
             var isSuccess = Logic.AddAbonement(_person.Name);
             if (isSuccess)
             {
+                SetupHistoryAbonement(); // Обновляем вкладку с архивом
                 Logic.LoadShortInfo(groupBox_Info, _person);
                 LoadEditableData();
             }
@@ -644,6 +646,7 @@ namespace PersonsBase.View
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     form.ApplyChanges();
+                    PersonObject.SaveAbonementToHistory(_person, _person.AbonementCurent);
                     // FIXME Убрать эти функции отсюда, возвращать диалог резалт
                     // Обновляем Если выбрано что-то.
                     Logic.LoadShortInfo(groupBox_Info, _person);

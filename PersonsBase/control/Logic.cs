@@ -637,7 +637,7 @@ namespace PersonsBase.control
             catch (Exception)
             {
                 SaveEverithing();
-                MessageBox.Show("Ошибка подсветки строк по определенным признакам в карточке клиента");
+                MessageBox.Show(@"Ошибка подсветки строк по определенным признакам в карточке клиента");
             }
 
             // Отрисовка Short Info

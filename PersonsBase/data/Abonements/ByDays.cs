@@ -99,7 +99,6 @@ namespace PersonsBase.data.Abonements
                 DaysLeft--;
                 result = true;
             }
-            // OnValuesChanged();
             return result;
         }
 
@@ -162,9 +161,11 @@ namespace PersonsBase.data.Abonements
             EndDate = dateEndNew;
             _validityPeriod = numberMonths;
         }
+
         /// <summary>
         /// Вычисляет дату окончания. Складывает число месяцев с стартовой датой
         /// </summary>
+        /// <param name="startDate"></param>
         /// <param name="months"></param>
         /// <returns></returns>
         private static DateTime CalculateEndDate(DateTime startDate, int months)
