@@ -86,14 +86,14 @@ namespace PersonsBase.data.Abonements
             OnValuesChanged();
         }
         /// <summary>
-        /// Для абонементов которые на половину исхожены. Позволяет установить дату активации в прошлом и пересчитать
+        /// Для абонементов которые на половину исхожены. Позволяет установить дату активации в прошлом или в будущем
         /// дату окончания.
         /// </summary>
-        public override void TryActivate(DateTime dateInPast)
+        public override void TryActivate(DateTime newDate)
         {
             if (IsActivated) return; // Уже Активирован.
             IsActivated = true;
-            SetBuyActivatDate(dateInPast);
+            SetActivationDate(newDate);
             OnValuesChanged();
         }
 
@@ -244,6 +244,19 @@ namespace PersonsBase.data.Abonements
             // Если 0, то даты совпали
             // Если -, то DateTime.Now раньше startdate
             if (DateTime.Now.Date.CompareTo(startDate) < 0) return;
+            BuyActivationDate = startDate;
+            var date = startDate.AddMonths(_numberMonths).Date;
+            if (EndDate.Date.CompareTo(date) != 0)
+                EndDate = date;
+            OnValuesChanged();
+        }
+
+        /// <summary>
+        /// Позволяет установить дату активации в прошлом и в будущем без проверок! 
+        /// </summary>
+        /// <param name="startDate"></param>
+        private void SetActivationDate(DateTime startDate)
+        {
             BuyActivationDate = startDate;
             var date = startDate.AddMonths(_numberMonths).Date;
             if (EndDate.Date.CompareTo(date) != 0)

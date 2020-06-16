@@ -101,7 +101,7 @@ namespace PersonsBase.data.Abonements
         /// Активация абонемента. Устанавливается дата окончания.
         /// </summary>
         public abstract void TryActivate();
-        public abstract void TryActivate(DateTime startDate);
+        public abstract void TryActivate(DateTime newDate);
 
         /// <summary>
         /// Отметить и Учесть посещение в абонементе

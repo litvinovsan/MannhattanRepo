@@ -74,18 +74,18 @@ namespace PersonsBase.data.Abonements
             OnValuesChanged();
         }
 
-        public override void TryActivate(DateTime startDate)
+        public override void TryActivate(DateTime newDate)
         {
-            // Если +, то DateTime.Now позднее startDate
+            // Если +, то DateTime.Now позднее newDate
             // Если 0, то даты совпали
-            // Если -, то DateTime.Now раньше startdate
-            if (DateTime.Now.Date.CompareTo(startDate) < 0) return;
+            // Если -, то DateTime.Now раньше newDate
+            if (DateTime.Now.Date.CompareTo(newDate) < 0) return;
 
             if (IsActivated) return; // Уже Активирован.
             IsActivated = true;
-            BuyActivationDate = startDate;
+            BuyActivationDate = newDate;
             if (_validityPeriod == 0) _validityPeriod = Options.ValidPeriodInMonth;
-            var date = startDate.AddMonths(_validityPeriod).Date;
+            var date = newDate.AddMonths(_validityPeriod).Date;
             if (EndDate.Date.CompareTo(date) != 0)
                 EndDate = date;
             OnValuesChanged();

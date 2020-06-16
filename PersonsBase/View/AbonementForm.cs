@@ -241,6 +241,10 @@ namespace PersonsBase.View
                         (abonementCurent as ClubCardA)?.Freeze?.SetAvailableDays(freezeNum);
                         abonementCurent.NumAerobicTr = aerobNum;
                         abonementCurent.NumPersonalTr = personNum;
+
+                        // Принудительно активируем. Дата в прошлом или в будущем допускается
+                        abonementCurent.TryActivate(dateTimePicker_ActivationDate.Value);
+
                         break;
                     }
                 case AbonementByDays.NameAbonement:

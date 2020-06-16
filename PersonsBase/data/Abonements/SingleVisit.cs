@@ -53,7 +53,7 @@ namespace PersonsBase.data.Abonements
             OnValuesChanged();
         }
 
-        public override void TryActivate(DateTime startDate)
+        public override void TryActivate(DateTime newDate)
         {
             // заглушка. Тут это не надо
         }
