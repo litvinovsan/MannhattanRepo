@@ -398,7 +398,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1084, 554);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1084, 600);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // listView_MiniGroup
@@ -414,7 +414,7 @@ namespace PersonsBase.View
             this.listView_MiniGroup.Location = new System.Drawing.Point(6, 31);
             this.listView_MiniGroup.MultiSelect = false;
             this.listView_MiniGroup.Name = "listView_MiniGroup";
-            this.listView_MiniGroup.Size = new System.Drawing.Size(246, 517);
+            this.listView_MiniGroup.Size = new System.Drawing.Size(246, 563);
             this.listView_MiniGroup.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.listView_MiniGroup.TabIndex = 4;
             this.listView_MiniGroup.UseCompatibleStateImageBehavior = false;
@@ -451,7 +451,7 @@ namespace PersonsBase.View
             this.listView_Gym_Zal.MultiSelect = false;
             this.listView_Gym_Zal.Name = "listView_Gym_Zal";
             this.listView_Gym_Zal.ShowGroups = false;
-            this.listView_Gym_Zal.Size = new System.Drawing.Size(307, 517);
+            this.listView_Gym_Zal.Size = new System.Drawing.Size(307, 563);
             this.listView_Gym_Zal.TabIndex = 2;
             this.listView_Gym_Zal.UseCompatibleStateImageBehavior = false;
             this.listView_Gym_Zal.View = System.Windows.Forms.View.Details;
@@ -482,7 +482,7 @@ namespace PersonsBase.View
             this.listView_Personal.Location = new System.Drawing.Point(516, 31);
             this.listView_Personal.MultiSelect = false;
             this.listView_Personal.Name = "listView_Personal";
-            this.listView_Personal.Size = new System.Drawing.Size(246, 517);
+            this.listView_Personal.Size = new System.Drawing.Size(246, 563);
             this.listView_Personal.TabIndex = 2;
             this.listView_Personal.UseCompatibleStateImageBehavior = false;
             this.listView_Personal.View = System.Windows.Forms.View.Details;
@@ -513,7 +513,7 @@ namespace PersonsBase.View
             this.listView_Group.Location = new System.Drawing.Point(261, 31);
             this.listView_Group.MultiSelect = false;
             this.listView_Group.Name = "listView_Group";
-            this.listView_Group.Size = new System.Drawing.Size(246, 517);
+            this.listView_Group.Size = new System.Drawing.Size(246, 563);
             this.listView_Group.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.listView_Group.TabIndex = 2;
             this.listView_Group.UseCompatibleStateImageBehavior = false;
@@ -600,7 +600,7 @@ namespace PersonsBase.View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1292, 619);
+            this.ClientSize = new System.Drawing.Size(1292, 665);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
