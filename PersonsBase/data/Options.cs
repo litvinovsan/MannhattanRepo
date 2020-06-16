@@ -43,6 +43,8 @@ namespace PersonsBase.data
             set { _faceDetectorEn = value; }
         }
 
+        public static int AbonementValidityMonths { get; set; }
+
         public static void SaveProperties()
         {
             Properties.Settings.Default.SimpsonMode = SimpsonsPhoto;
@@ -50,7 +52,7 @@ namespace PersonsBase.data
             Properties.Settings.Default.curentDate = DateTime.Now.Date.ToString("MM/dd/yyyy");
             Properties.Settings.Default.SimpsonMode = CorrectableAbonOnCreate;
             Properties.Settings.Default.FaceDetect = FaceDetectorEn;
-
+            Properties.Settings.Default.AbonValidity = ValidPeriodInMonth;
 
             Properties.Settings.Default.Save();
         }
@@ -63,6 +65,7 @@ namespace PersonsBase.data
             FaceDetectorEn = Properties.Settings.Default.FaceDetect;
             CorrectableAbonOnCreate = Properties.Settings.Default.AbonCorrectable;
             CheckPasspAndDriveId = Properties.Settings.Default.PassAndDriveIdCheck;
+            ValidPeriodInMonth = Properties.Settings.Default.AbonValidity;
         }
 
         #endregion
@@ -94,10 +97,11 @@ namespace PersonsBase.data
         #endregion
 
         #region /// Разные текстовые и около того данные
+
         // Число тренировок для покупки
         public static readonly object[] NumAvailTrenToBuy = { "1", "5", "8", "10" };
         public static readonly object[] NumAvailMiniGroup = { "8" };
-        public const int ValidPeriod3Month = 3;// нужны для расчета даты окончания абонемента. Срок годности абонемента 2 месяца
+        public static int ValidPeriodInMonth { get; set; }// нужны для расчета даты окончания абонемента. Срок годности абонемента 2 месяца
         public const int ValidPeriod12Month = 12;// нужны для расчета даты окончания абонемента. Срок годности абонемента 12 месяца
 
 

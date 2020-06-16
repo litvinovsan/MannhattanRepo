@@ -47,6 +47,11 @@ namespace PersonsBase.View
             checkBox_CorrectOnCreateAbon.Checked = Options.CorrectableAbonOnCreate;
             checkBox_faceDetector.Checked = Options.FaceDetectorEn;
 
+            // Период действия абонемента в месяцах.
+            var nums = Enumerable.Range(1, 12).Select(x => (object)x).ToArray(); // отображаются в комбобоксе
+            comboBox_months.Items.AddRange(nums);
+            comboBox_months.SelectedIndex = --Options.ValidPeriodInMonth; // декремент т.к. у нас массив начинается с 1
+
         }
         private void BossForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -207,7 +212,33 @@ namespace PersonsBase.View
             button_Remove_Admin.Enabled = false;
             listView_Admins.SelectedIndices.Clear();
         }
+        private void checkBox_Passp_Drive_CheckedChanged(object sender, EventArgs e)
+        {
+            Options.CheckPasspAndDriveId = checkBox_Passp_Drive.Checked;
+        }
 
+        private void checkBox_SimpsonPhoto_CheckedChanged(object sender, EventArgs e)
+        {
+            Options.SimpsonsPhoto = checkBox_SimpsonPhoto.Checked;
+        }
+
+        private void checkBox_CorrectOnCreateAbon_CheckedChanged(object sender, EventArgs e)
+        {
+            Options.CorrectableAbonOnCreate = checkBox_CorrectOnCreateAbon.Checked;
+        }
+
+        private void checkBox_faceDetector_CheckedChanged(object sender, EventArgs e)
+        {
+            Options.FaceDetectorEn = checkBox_faceDetector.Checked;
+        }
+
+        private void comboBox_months_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox_months.SelectedItem == null) return;
+            var comboB = (ComboBox)sender;
+            var months = int.Parse(comboB.SelectedItem.ToString());
+            Options.ValidPeriodInMonth = months;
+        }
         #endregion
 
         #region /// МЕТОДЫ ///
@@ -233,26 +264,6 @@ namespace PersonsBase.View
 
         #endregion
 
-        private void checkBox_Passp_Drive_CheckedChanged(object sender, EventArgs e)
-        {
-            Options.CheckPasspAndDriveId = checkBox_Passp_Drive.Checked;
-        }
-
-        private void checkBox_SimpsonPhoto_CheckedChanged(object sender, EventArgs e)
-        {
-            Options.SimpsonsPhoto = checkBox_SimpsonPhoto.Checked;
-        }
-
-        private void checkBox_CorrectOnCreateAbon_CheckedChanged(object sender, EventArgs e)
-        {
-            Options.CorrectableAbonOnCreate = checkBox_CorrectOnCreateAbon.Checked;
-        }
-
-        private void checkBox_faceDetector_CheckedChanged(object sender, EventArgs e)
-        {
-            Options.FaceDetectorEn = checkBox_faceDetector.Checked;
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             var persons = DataBaseLevel.GetPersonsList();
@@ -262,7 +273,7 @@ namespace PersonsBase.View
             //    keyValuePair.Value.AbonementsQueue.Add(keyValuePair.Value.AbonementCurent);
             //}
 
-               // Перебираем все абонементы и очередь абонементов. Добавляем в Коллекцию с архивом абонементов
+            // Перебираем все абонементы и очередь абонементов. Добавляем в Коллекцию с архивом абонементов
             //foreach (var item in tempPersons)
             //{
             //    PersonObject.SaveAbonementToHistory(item.Value, item.Value?.AbonementCurent);
@@ -277,5 +288,6 @@ namespace PersonsBase.View
             //}
 
         }
+
     }
 }

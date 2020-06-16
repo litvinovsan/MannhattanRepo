@@ -82,5 +82,17 @@ namespace PersonsBase.Properties {
                 this["FaceDetect"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int AbonValidity {
+            get {
+                return ((int)(this["AbonValidity"]));
+            }
+            set {
+                this["AbonValidity"] = value;
+            }
+        }
     }
 }
