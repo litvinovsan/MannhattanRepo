@@ -27,7 +27,7 @@ namespace PersonsBase.data
                 _checkPasspAndDriveId = value;
             }
         }
-
+        // Разрешена ли корректировка при создании абонемента. Если нет, то галка не доступна на форме создания абон.
         public static bool CorrectableAbonOnCreate
         {
             get { return _correctableAbonOnCreate; }
@@ -49,8 +49,7 @@ namespace PersonsBase.data
         {
             Properties.Settings.Default.SimpsonMode = SimpsonsPhoto;
             Properties.Settings.Default.PassAndDriveIdCheck = CheckPasspAndDriveId;
-            Properties.Settings.Default.curentDate = DateTime.Now.Date.ToString("MM/dd/yyyy");
-            Properties.Settings.Default.SimpsonMode = CorrectableAbonOnCreate;
+            Properties.Settings.Default.AbonCorrectable = CorrectableAbonOnCreate;
             Properties.Settings.Default.FaceDetect = FaceDetectorEn;
             Properties.Settings.Default.AbonValidity = ValidPeriodInMonth;
 

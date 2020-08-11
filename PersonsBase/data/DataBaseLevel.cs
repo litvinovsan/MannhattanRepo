@@ -196,19 +196,21 @@ namespace PersonsBase.data
             }
             // Журнал посещений
             SerializeClass.Serialize(_visitsDictionary, currentPath + "\\" + Options.PersonVisitsDbFile);
-            
+
             // История Абонементов
             SerializeClass.Serialize(_abonHistoryDictionary, currentPath + "\\" + Options.PersonAbonHistDbFile);
 
-            
+
             // База Тренеров
             SerializeClass.Serialize(_trenersList, currentPath + "\\" + Options.TrenersDbFile);
             // База Администраторов 
             SerializeClass.Serialize(_adminsList, currentPath + "\\" + Options.AdminsDbFile);
             // Текущий Администратор на Ресепшн
             SerializeClass.Serialize(_manhattanInfo.CurrentAdmin, currentPath + "\\" + Options.AdminCurrFile);
-            // Список ежедневных Групповых Тренировок
+            // Список названий всех ежедневных Групповых Тренировок
             SerializeClass.Serialize(_groupScheduleList, currentPath + "\\" + Options.GroupSchFile);
+            // Сериализация списков посещений. Списки отображаются на главной форме(4 колонки)
+            DailyVisits.GetInstance().SerializeDailyVisits();
         }
 
         /// <summary>
@@ -248,6 +250,9 @@ namespace PersonsBase.data
             // Список ежедневных Групповых Тренировок
             _groupScheduleList = new List<ScheduleNote>();
             SerializeClass.DeSerialize(ref _groupScheduleList, currentPath + Options.GroupSchFile);
+         
+            // Списки посещений по группам. Отображаются на главной форме.
+            DailyVisits.GetInstance().DeSerializeDailyVisits();
         }
 
         #endregion

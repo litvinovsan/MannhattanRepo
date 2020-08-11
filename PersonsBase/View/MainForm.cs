@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using PersonsBase.control;
 using PersonsBase.data;
@@ -49,7 +50,8 @@ namespace PersonsBase.View
             DailyVisits.AerobListChangedEvent += DailyVisits_AerobListChangedEvent;       // Аэробный
             DailyVisits.MiniGroupListChangedEvent += DailyVisits_MiniGroupListChangedEvent; // Минигруппы
 
-            _dailyVisits.LoadLastSession();
+            // Загрузка последних посещений на сегодняшнюю дату
+            _dailyVisits.LoadSessionOn(DateTime.Now.Date);
 
             // Изменение размера приводит к увеличению последней колонки до максимума
             MyListViewEx.MaximizeLastColumn(listView_Gym_Zal);
@@ -68,7 +70,7 @@ namespace PersonsBase.View
         {
             Options.SaveProperties(); // Сохранение пользовательских настроек
 
-            _dailyVisits.SaveCurentSession();// Сериализация текущих списков посещений 
+            
 
             // База клиентов сохраняется автоматически, в деструкторе класса DataBaseLevel
 
@@ -539,5 +541,16 @@ namespace PersonsBase.View
             }
         }
         #endregion
+
+        public class MyMonthCalendar : MonthCalendar
+        {
+            [DllImport("uxtheme.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
+            static extern int SetWindowTheme(IntPtr hwnd, string pszSubAppName, string pszSubIdList);
+            protected override void OnHandleCreated(EventArgs e)
+            {
+                SetWindowTheme(Handle, string.Empty, string.Empty);
+                base.OnHandleCreated(e);
+            }
+        }
     }
 }
