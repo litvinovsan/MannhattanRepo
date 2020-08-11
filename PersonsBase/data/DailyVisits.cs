@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using PersonsBase.control;
 using PersonsBase.myStd;
-using PersonsBase.Properties;
 
 namespace PersonsBase.data
 {
@@ -98,8 +96,8 @@ namespace PersonsBase.data
 
         // Списки с посещениями по разным типам. Тренажерка, Аэробный и Персоналки
         public readonly List<GymItem> GymList = new List<GymItem>();
-        public readonly List<PersonalItem> PersonalList = new List<PersonalItem>();
-        public readonly List<PersonalItem> MiniGroupList = new List<PersonalItem>();
+        public readonly List<StandartItem> PersonalList = new List<StandartItem>();
+        public readonly List<StandartItem> MiniGroupList = new List<StandartItem>();
         public readonly List<AerobItem> AerobList = new List<AerobItem>();
 
         #endregion
@@ -187,9 +185,9 @@ namespace PersonsBase.data
             PersonalList.RemoveAt((int)item);
         }
 
-        private static PersonalItem CreateItem(string personName, string trenerName)
+        private static StandartItem CreateItem(string personName, string trenerName)
         {
-            return new PersonalItem(personName, trenerName);
+            return new StandartItem(personName, trenerName);
         }
         #endregion
 
@@ -217,7 +215,10 @@ namespace PersonsBase.data
 
         #region /// CОХРАНЕНИЕ и ЗАГРУЗКА Посещений ///
 
-        public void SaveCurentSession()
+        /// <summary>
+        /// Сериализует списки(Аэробн,ТренЗал,Персон,Мини) на диск. Списки со всеми посещениями за все дни
+        /// </summary>
+        public void SerializeDailyVisits()
         {
             var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase;
 
@@ -227,13 +228,42 @@ namespace PersonsBase.data
             SerializeClass.Serialize(MiniGroupList, currentPath + "\\" + Options.DailyMiniGroupFile);
 
         }
+
+        /// <summary>
+        /// ДеСериализует списки(Аэробн,ТренЗал,Персон,Мини) с диска. Списки со всеми посещениями за все дни
+        /// </summary>
+        public void DeSerializeDailyVisits()
+        {
+            var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase;
+
+            // Тренажерка
+            var dailyGymVisits = new List<GymItem>();
+            SerializeClass.DeSerialize(ref dailyGymVisits, currentPath + "\\" + Options.DailyVisitGymFile);
+
+            // Аэробный залл
+            var dailyAerobVisits = new List<AerobItem>();
+            SerializeClass.DeSerialize(ref dailyAerobVisits, currentPath + "\\" + Options.DailyVisitAerobFile);
+
+            // Персональные тренировки
+            var dailyPersonalVisits = new List<StandartItem>();
+            SerializeClass.DeSerialize(ref dailyPersonalVisits, currentPath + "\\" + Options.DailyVisitPersonalsFile);
+
+            // Мини Группы
+            var dailyMiniGroupVisits = new List<StandartItem>();
+            SerializeClass.DeSerialize(ref dailyMiniGroupVisits, currentPath + "\\" + Options.DailyMiniGroupFile);
+
+            // Посещений в день
+            TotalPersonToday = dailyGymVisits.Count + dailyAerobVisits.Count + dailyPersonalVisits.Count + dailyMiniGroupVisits.Count;
+        }
+
         /// <summary>
         /// Загрузка Посетивших клиентов в прошлую сессию если не было смены даты.
         /// Программа считает что закрытие было не корректным если день не сменился
         /// </summary>
-        public void LoadLastSession()
+        public void LoadSessionOn(DateTime dateToLoad)
         {
-            if (IsDateChanged()) return;
+       //FIXME     1  Загружать тут из всех списков сегодняшнюю дату
+       //FIXME   2  Создать перегруженный метод или изменить этот, чтобы принимать дату для загрузки LoadSessionOn(DateTime dateToLoad)
             var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase;
 
             // Тренажерка
@@ -254,7 +284,7 @@ namespace PersonsBase.data
                 OnAerobListChanged();
             }
             // Персональные тренировки
-            var dailyPersonalVisits = new List<PersonalItem>();
+            var dailyPersonalVisits = new List<StandartItem>();
             SerializeClass.DeSerialize(ref dailyPersonalVisits, currentPath + "\\" + Options.DailyVisitPersonalsFile);
             foreach (var item in dailyPersonalVisits)
             {
@@ -263,7 +293,7 @@ namespace PersonsBase.data
             }
 
             // Мини Группы
-            var dailyMiniGroupVisits = new List<PersonalItem>();
+            var dailyMiniGroupVisits = new List<StandartItem>();
             SerializeClass.DeSerialize(ref dailyMiniGroupVisits, currentPath + "\\" + Options.DailyMiniGroupFile);
             foreach (var item in dailyMiniGroupVisits)
             {
@@ -272,20 +302,9 @@ namespace PersonsBase.data
             }
 
             // Посещений в день
-            TotalPersonToday = dailyGymVisits.Count + dailyAerobVisits.Count + dailyPersonalVisits.Count;
+            TotalPersonToday = dailyGymVisits.Count + dailyAerobVisits.Count + dailyPersonalVisits.Count + dailyMiniGroupVisits.Count;
         }
 
-        /// <summary>
-        ///  Возвращает True если дата сохраненная в настройках при прошлом выходе совпадает с текущей датой.
-        /// Значит программа запущена в тот же день и надо восстанавливать настройки
-        /// </summary>
-        private static bool IsDateChanged()
-        {
-            var dateNow = DateTime.Now.Date.ToString("MM/dd/yyyy");
-            var oldDate = Settings.Default.curentDate;
-
-            return !dateNow.Equals(oldDate);
-        }
         #endregion
 
     }

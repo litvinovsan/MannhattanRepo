@@ -145,12 +145,12 @@ namespace PersonsBase.data
         }
     }
     [Serializable]
-    public struct PersonalItem
+    public struct StandartItem
     {
         public readonly string TrenerName;
         public readonly string NamePerson;
 
-        public PersonalItem(string namePerson, string trenerName)
+        public StandartItem(string namePerson, string trenerName)
         {
             TrenerName = trenerName;
             NamePerson = namePerson;

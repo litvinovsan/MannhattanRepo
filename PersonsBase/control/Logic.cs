@@ -111,7 +111,6 @@ namespace PersonsBase.control
         public static void SaveEverithing()
         {
             Options.SaveProperties(); // Сохранение пользовательских настроек
-            DailyVisits.GetInstance().SaveCurentSession();// Сериализация текущих списков посещений 
             DataBaseLevel.SerializeObjects();
         }
 
