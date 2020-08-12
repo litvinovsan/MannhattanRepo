@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using PersonsBase.control;
 using PersonsBase.data;
@@ -259,7 +257,7 @@ namespace PersonsBase.View
         {
             Logic.OpenPersonCard(сomboBox_PersonsList.SelectedItem.ToString());
         }
-        
+
         private void _time_ClockTick(object sender, EventArgs e)
         {
             label_Time.Text = Logic.ClockFormating();
@@ -295,11 +293,6 @@ namespace PersonsBase.View
         }
 
         private void продатьАбонементToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Logic.SellAbonement();
-        }
-
-        private void SellButtonMenuItem_Click(object sender, EventArgs e)
         {
             Logic.SellAbonement();
         }
@@ -527,7 +520,7 @@ namespace PersonsBase.View
                 MessageBox.Show($@"Нельзя открыть карточку клиента. ", @"Ошибка открытия в MainForm", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        
+
         private void listView_Gym_Zal_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -573,9 +566,5 @@ namespace PersonsBase.View
         }
         #endregion
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

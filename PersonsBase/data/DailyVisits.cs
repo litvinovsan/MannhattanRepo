@@ -247,7 +247,6 @@ namespace PersonsBase.data
         }
 
         /// <summary>
-        /// FIXME. Метод не доделан. Проверить отображение на главной форме. Как добавляются в списки там
         /// Загружает в MainForm в 4 списка посетивших людей на указанную дату
         /// </summary>
         public void ShowVisits(DateTime dateToLoad)
