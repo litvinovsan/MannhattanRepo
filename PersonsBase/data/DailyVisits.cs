@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using PersonsBase.myStd;
 
 namespace PersonsBase.data
@@ -22,31 +23,31 @@ namespace PersonsBase.data
         }
 
         [field: NonSerialized]
-        public static event Action GymListChangedEvent;
-        private static void OnGymListChanged()
+        public event EventHandler<DateTime> GymListChangedEvent;
+        private void OnGymListChanged(DateTime dateToShow)
         {
-            GymListChangedEvent?.Invoke();
+            GymListChangedEvent?.Invoke(this, dateToShow);
         }
 
         [field: NonSerialized]
-        public static event Action PersonalListChangedEvent;
-        private static void OnPersonalListChanged()
+        public event EventHandler<DateTime> PersonalListChangedEvent;
+        private void OnPersonalListChanged(DateTime dateToShow)
         {
-            PersonalListChangedEvent?.Invoke();
+            PersonalListChangedEvent?.Invoke(this, dateToShow);
         }
 
         [field: NonSerialized]
-        public static event Action MiniGroupListChangedEvent;
-        private static void OnMiniGroupListChanged()
+        public event EventHandler<DateTime> MiniGroupListChangedEvent;
+        private void OnMiniGroupListChanged(DateTime dateToShow)
         {
-            MiniGroupListChangedEvent?.Invoke();
+            MiniGroupListChangedEvent?.Invoke(this, dateToShow);
         }
 
         [field: NonSerialized]
-        public static event Action AerobListChangedEvent;
-        private static void OnAerobListChanged()
+        public event EventHandler<DateTime> AerobListChangedEvent;
+        private void OnAerobListChanged(DateTime dateToShow)
         {
-            AerobListChangedEvent?.Invoke();
+            AerobListChangedEvent?.Invoke(this,dateToShow);
         }
 
         #endregion ///
@@ -55,7 +56,7 @@ namespace PersonsBase.data
 
         private DailyVisits()
         {
-            _methodSelectCollection = new Dictionary<TypeWorkout, MyListViewDelegate>
+            _methodsCollection = new Dictionary<TypeWorkout, MyListViewDelegate>
             {
                 {TypeWorkout.Аэробный_Зал, AddToGroupList},
                 {TypeWorkout.Персональная, AddToPersonalnList},
@@ -63,7 +64,7 @@ namespace PersonsBase.data
                 {TypeWorkout.МиниГруппа, AddToMiniGroupList}
             };
 
-            _methodSelectRemoveCollection = new Dictionary<TypeWorkout, MyListViewDelegateRemove>
+            _methodsDelCollection = new Dictionary<TypeWorkout, MyListViewDelegateRemove>
             {
                 {TypeWorkout.Аэробный_Зал, RemoveGrouplList },
                 {TypeWorkout.Персональная, RemovePersonalList},
@@ -91,29 +92,29 @@ namespace PersonsBase.data
                 OnNumberChanged(value);
             }
         }
-        private readonly Dictionary<TypeWorkout, MyListViewDelegate> _methodSelectCollection; // Каждому типу назначен свой метод
-        private readonly Dictionary<TypeWorkout, MyListViewDelegateRemove> _methodSelectRemoveCollection; // Каждому типу назначен свой метод
+        private readonly Dictionary<TypeWorkout, MyListViewDelegate> _methodsCollection; // Каждому типу назначен свой метод
+        private readonly Dictionary<TypeWorkout, MyListViewDelegateRemove> _methodsDelCollection; // Каждому типу назначен свой метод
 
         // Списки с посещениями по разным типам. Тренажерка, Аэробный и Персоналки
-        public readonly List<GymItem> GymList = new List<GymItem>();
-        public readonly List<StandartItem> PersonalList = new List<StandartItem>();
-        public readonly List<StandartItem> MiniGroupList = new List<StandartItem>();
-        public readonly List<AerobItem> AerobList = new List<AerobItem>();
+        public List<GymItem> GymList = new List<GymItem>();
+        public List<StandartItem> PersonalList = new List<StandartItem>();
+        public List<StandartItem> MiniGroupList = new List<StandartItem>();
+        public List<AerobItem> AerobList = new List<AerobItem>();
 
         #endregion
 
 
         // Главный метод. Запускает  1 из 3х методов.
-        public void AddToVisitsLog(string name, WorkoutOptions arg)
+        public void AddToLog(string name, WorkoutOptions arg)
         {
             TotalPersonToday++; // Счетчик посетителей за день
-            _methodSelectCollection[arg.TypeWorkout].Invoke(name, arg);
+            _methodsCollection[arg.TypeWorkout].Invoke(name, arg);
         }
 
-        public void RemoveFromVisitsLog(string name, TypeWorkout arg)
+        public void RemoveFromLog(string name, TypeWorkout arg)
         {
             TotalPersonToday--; // Счетчик посетителей за день
-            _methodSelectRemoveCollection[arg].Invoke(name, arg);
+            _methodsDelCollection[arg].Invoke(name, arg);
         }
 
         #region /// ВИЗИТЫ ТРЕНАЖЕРНОГО ЗАЛА ///
@@ -124,7 +125,7 @@ namespace PersonsBase.data
         {
             var item = CreateGymItem(namePerson);
             GymList.Add(item);
-            OnGymListChanged();
+            OnGymListChanged(DateTime.Now);
         }
 
         private void RemoveGymList(string namePerson, TypeWorkout arg)
@@ -150,7 +151,7 @@ namespace PersonsBase.data
             var groupTimeName = arg.GroupInfo.ScheduleNote.GetTimeAndNameStr();
             var item = CreateAerobItem(namePerson, groupTimeName);
             AerobList.Add(item);
-            OnAerobListChanged();
+            OnAerobListChanged(DateTime.Now);
         }
 
         private void RemoveGrouplList(string namePerson, TypeWorkout arg)
@@ -175,7 +176,7 @@ namespace PersonsBase.data
             var persTrenerName = (arg.PersonalTrener != null) ? arg.PersonalTrener.Name : "Имя неизвестно";
             var item = CreateItem(namePerson, persTrenerName);
             PersonalList.Add(item);
-            OnPersonalListChanged();
+            OnPersonalListChanged(DateTime.Now);
         }
 
         private void RemovePersonalList(string namePerson, TypeWorkout arg)
@@ -200,7 +201,7 @@ namespace PersonsBase.data
 
             var item = CreateItem(namePerson, persTrenerName);
             MiniGroupList.Add(item);
-            OnMiniGroupListChanged();
+            OnMiniGroupListChanged(DateTime.Now);
         }
 
         private void RemoveMiniGroupList(string namePerson, TypeWorkout arg)
@@ -218,7 +219,7 @@ namespace PersonsBase.data
         /// <summary>
         /// Сериализует списки(Аэробн,ТренЗал,Персон,Мини) на диск. Списки со всеми посещениями за все дни
         /// </summary>
-        public void SerializeDailyVisits()
+        public void Serialize()
         {
             var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase;
 
@@ -226,83 +227,48 @@ namespace PersonsBase.data
             SerializeClass.Serialize(PersonalList, currentPath + "\\" + Options.DailyVisitPersonalsFile);
             SerializeClass.Serialize(AerobList, currentPath + "\\" + Options.DailyVisitAerobFile);
             SerializeClass.Serialize(MiniGroupList, currentPath + "\\" + Options.DailyMiniGroupFile);
-
         }
 
         /// <summary>
         /// ДеСериализует списки(Аэробн,ТренЗал,Персон,Мини) с диска. Списки со всеми посещениями за все дни
         /// </summary>
-        public void DeSerializeDailyVisits()
+        public void DeSerialize()
         {
             var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase;
 
             // Тренажерка
-            var dailyGymVisits = new List<GymItem>();
-            SerializeClass.DeSerialize(ref dailyGymVisits, currentPath + "\\" + Options.DailyVisitGymFile);
-
+            SerializeClass.DeSerialize(ref GymList, currentPath + "\\" + Options.DailyVisitGymFile);
             // Аэробный залл
-            var dailyAerobVisits = new List<AerobItem>();
-            SerializeClass.DeSerialize(ref dailyAerobVisits, currentPath + "\\" + Options.DailyVisitAerobFile);
-
+            SerializeClass.DeSerialize(ref AerobList, currentPath + "\\" + Options.DailyVisitAerobFile);
             // Персональные тренировки
-            var dailyPersonalVisits = new List<StandartItem>();
-            SerializeClass.DeSerialize(ref dailyPersonalVisits, currentPath + "\\" + Options.DailyVisitPersonalsFile);
-
+            SerializeClass.DeSerialize(ref PersonalList, currentPath + "\\" + Options.DailyVisitPersonalsFile);
             // Мини Группы
-            var dailyMiniGroupVisits = new List<StandartItem>();
-            SerializeClass.DeSerialize(ref dailyMiniGroupVisits, currentPath + "\\" + Options.DailyMiniGroupFile);
-
-            // Посещений в день
-            TotalPersonToday = dailyGymVisits.Count + dailyAerobVisits.Count + dailyPersonalVisits.Count + dailyMiniGroupVisits.Count;
+            SerializeClass.DeSerialize(ref MiniGroupList, currentPath + "\\" + Options.DailyMiniGroupFile);
         }
 
         /// <summary>
-        /// Загрузка Посетивших клиентов в прошлую сессию если не было смены даты.
-        /// Программа считает что закрытие было не корректным если день не сменился
+        /// FIXME. Метод не доделан. Проверить отображение на главной форме. Как добавляются в списки там
+        /// Загружает в MainForm в 4 списка посетивших людей на указанную дату
         /// </summary>
-        public void LoadSessionOn(DateTime dateToLoad)
+        public void ShowVisits(DateTime dateToLoad)
         {
-       //FIXME     1  Загружать тут из всех списков сегодняшнюю дату
-       //FIXME   2  Создать перегруженный метод или изменить этот, чтобы принимать дату для загрузки LoadSessionOn(DateTime dateToLoad)
-            var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase;
-
             // Тренажерка
-            var dailyGymVisits = new List<GymItem>();
-            SerializeClass.DeSerialize(ref dailyGymVisits, currentPath + "\\" + Options.DailyVisitGymFile);
-            foreach (var item in dailyGymVisits)
-            {
-                GymList.Add(item);
-                OnGymListChanged();
-            }
+            var visitsGym = GymList.FindAll(x => x.VisitDateTime.Date.Equals(dateToLoad.Date));
+            OnGymListChanged(dateToLoad);
 
             // Аэробный залл
-            var dailyAerobVisits = new List<AerobItem>();
-            SerializeClass.DeSerialize(ref dailyAerobVisits, currentPath + "\\" + Options.DailyVisitAerobFile);
-            foreach (var item in dailyAerobVisits)
-            {
-                AerobList.Add(item);
-                OnAerobListChanged();
-            }
+            var visitsAerob = AerobList.FindAll(x => x.VisitDateTime.Date.Equals(dateToLoad.Date));
+            OnAerobListChanged(dateToLoad);
             // Персональные тренировки
-            var dailyPersonalVisits = new List<StandartItem>();
-            SerializeClass.DeSerialize(ref dailyPersonalVisits, currentPath + "\\" + Options.DailyVisitPersonalsFile);
-            foreach (var item in dailyPersonalVisits)
-            {
-                PersonalList.Add(item);
-                OnPersonalListChanged();
-            }
+            var visitsPersonal = PersonalList.FindAll(x => x.VisitDateTime.Date.Equals(dateToLoad.Date));
+            OnPersonalListChanged(dateToLoad);
 
             // Мини Группы
-            var dailyMiniGroupVisits = new List<StandartItem>();
-            SerializeClass.DeSerialize(ref dailyMiniGroupVisits, currentPath + "\\" + Options.DailyMiniGroupFile);
-            foreach (var item in dailyMiniGroupVisits)
-            {
-                MiniGroupList.Add(item);
-                OnMiniGroupListChanged();
-            }
+            var visitsMini = MiniGroupList.FindAll(x => x.VisitDateTime.Date.Equals(dateToLoad.Date));
+            OnMiniGroupListChanged(dateToLoad);
 
             // Посещений в день
-            TotalPersonToday = dailyGymVisits.Count + dailyAerobVisits.Count + dailyPersonalVisits.Count + dailyMiniGroupVisits.Count;
+            TotalPersonToday = visitsGym.Count() + visitsAerob.Count() + visitsPersonal.Count() + visitsMini.Count();
         }
 
         #endregion

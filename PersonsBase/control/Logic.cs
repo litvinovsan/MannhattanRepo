@@ -33,7 +33,7 @@ namespace PersonsBase.control
         private const string StrMorning = "Утро";
         private const string StrNoPay = "Не_Оплачено";
 
-        private readonly DailyVisits _daily = DailyVisits.GetInstance();
+        private readonly DailyVisits _dailyVisits = DailyVisits.GetInstance();
 
         #endregion
 
@@ -584,7 +584,7 @@ namespace PersonsBase.control
                         {
                             isSuccess = byDays.CheckInWorkout(selectedOptions.TypeWorkout);
                             if (!isSuccess) return false;
-                            PersonObject.SaveCurentVisit(person, selectedOptions); // Сохраняет текущий визит 
+                            PersonObject.SaveCurentVisit(person, selectedOptions); // Сохраняет текущий визит с деталями в журнале посещений
                         }
 
                         break;
@@ -612,10 +612,8 @@ namespace PersonsBase.control
                     }
             }
 
-            //   var shortName = Logic.GetPersonShortName(personName);
+            _dailyVisits.AddToLog(personName, selectedOptions); // Cобытие для добавления текущего посещения на главную форму
 
-            _daily.AddToVisitsLog(personName, selectedOptions); // Cобытие для добавления текущего посещения на главную форму
-                                                                //  person.AbonValuesChanged(this, EventArgs.Empty);
             IsAbonementValid(ref person);
             MessageBox.Show(@"Тренировка Учтена!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             SaveEverithing();

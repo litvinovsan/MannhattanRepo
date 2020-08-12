@@ -45,13 +45,15 @@ namespace PersonsBase.View
 
             // События для Колонок и  т д
             DailyVisits.NumberDailyPersonsEvent += DailyVisits_NumberDailyPersonsEvent;// Счетчик пользователей
-            DailyVisits.GymListChangedEvent += DailyVisits_GymCollectionChanged;       // Тренажерка
-            DailyVisits.PersonalListChangedEvent += DailyVisits_PersonalListChangedEvent; // Персоналки
-            DailyVisits.AerobListChangedEvent += DailyVisits_AerobListChangedEvent;       // Аэробный
-            DailyVisits.MiniGroupListChangedEvent += DailyVisits_MiniGroupListChangedEvent; // Минигруппы
+            _dailyVisits.GymListChangedEvent += DailyVisits_GymCollectionChanged;       // Тренажерка
+            _dailyVisits.PersonalListChangedEvent += DailyVisits_PersonalListChangedEvent; // Персоналки
+            _dailyVisits.AerobListChangedEvent += DailyVisits_AerobListChangedEvent;       // Аэробный
+            _dailyVisits.MiniGroupListChangedEvent += DailyVisits_MiniGroupListChangedEvent; // Минигруппы
 
             // Загрузка последних посещений на сегодняшнюю дату
-            _dailyVisits.LoadSessionOn(DateTime.Now.Date);
+            // Загрузка в DataBaseLevel через десериализацию.
+
+            _dailyVisits.ShowVisits(DateTime.Now);
 
             // Изменение размера приводит к увеличению последней колонки до максимума
             MyListViewEx.MaximizeLastColumn(listView_Gym_Zal);
@@ -64,13 +66,13 @@ namespace PersonsBase.View
 
             // Всплывающие подсказки
             toolTip1.SetToolTip(tableLayoutPanel1, "Для удаления записы, выделите и нажмите клавишу Delete на клавиатуре");
+            toolTip1.SetToolTip(monthCalendar1, "Для просмотра посещений по дням - выберите необходимую дату.");
+
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Options.SaveProperties(); // Сохранение пользовательских настроек
-
-            
 
             // База клиентов сохраняется автоматически, в деструкторе класса DataBaseLevel
 
@@ -110,44 +112,56 @@ namespace PersonsBase.View
             SetNumberDailyPersons(e);
         }
 
-        private void DailyVisits_GymCollectionChanged()
+        private void DailyVisits_GymCollectionChanged(object sender, DateTime dateToShow)
         {
             var daily = _dailyVisits.GymList;
             if (daily == null || daily.Count == 0) return;
 
-            var item = daily.Last();
-
-            MyListViewEx.AddNote(listView_Gym_Zal, item.Time, item.Name);
+            var items = daily.FindAll(x => x.VisitDateTime.Date.CompareTo(dateToShow.Date) == 0);
+            listView_Gym_Zal.Items.Clear();
+            foreach (var item in items)
+            {
+                MyListViewEx.AddNote(listView_Gym_Zal, item.Time, item.Name);
+            }
         }
-        private void DailyVisits_PersonalListChangedEvent()
+        private void DailyVisits_PersonalListChangedEvent(object sender, DateTime dateToShow)
         {
-            var dailyList = _dailyVisits.PersonalList;
-            if (dailyList == null || dailyList.Count == 0) return;
+            var daily = _dailyVisits.PersonalList;
+            if (daily == null || daily.Count == 0) return;
 
-            var lastVisit = dailyList.Last();
-            var newGroupName = string.IsNullOrEmpty(lastVisit.TrenerName) ? "Имя неизвестно" : lastVisit.TrenerName;
-
-            MyListViewEx.AddItemAndGroup(listView_Personal, newGroupName, lastVisit.NamePerson, false);
+            var items = daily.FindAll(x => x.VisitDateTime.Date.CompareTo(dateToShow.Date) == 0);
+            listView_Personal.Items.Clear();
+            foreach (var item in items)
+            {
+                var newGroupName = string.IsNullOrEmpty(item.TrenerName) ? "Имя неизвестно" : item.TrenerName;
+                MyListViewEx.AddItemAndGroup(listView_Personal, newGroupName, item.NamePerson, false);
+            }
         }
-        private void DailyVisits_AerobListChangedEvent()
+        private void DailyVisits_AerobListChangedEvent(object sender, DateTime dateToShow)
         {
-            var dailyList = _dailyVisits.AerobList;
-            if (dailyList == null || dailyList.Count == 0) return;
+            var daily = _dailyVisits.AerobList;
+            if (daily == null || daily.Count == 0) return;
 
-            var lastVisit = dailyList.Last();
-            var newGroupName = string.IsNullOrEmpty(lastVisit.GroupTimeName) ? "Имя неизвестно" : lastVisit.GroupTimeName;
-
-            MyListViewEx.AddItemAndGroup(listView_Group, newGroupName, lastVisit.NamePerson, false);
+            var items = daily.FindAll(x => x.VisitDateTime.Date.CompareTo(dateToShow.Date) == 0);
+            listView_Group.Items.Clear();
+            foreach (var item in items)
+            {
+                var newGroupName = string.IsNullOrEmpty(item.GroupTimeName) ? "Имя неизвестно" : item.GroupTimeName;
+                MyListViewEx.AddItemAndGroup(listView_Group, newGroupName, item.NamePerson, false);
+            }
         }
-        private void DailyVisits_MiniGroupListChangedEvent()
+        private void DailyVisits_MiniGroupListChangedEvent(object sender, DateTime dateToShow)
         {
-            var dailyList = _dailyVisits.MiniGroupList;
-            if (dailyList == null || dailyList.Count == 0) return;
+            var daily = _dailyVisits.MiniGroupList;
+            if (daily == null || daily.Count == 0) return;
 
-            var lastVisit = dailyList.Last();
-            var newGroupName = string.IsNullOrEmpty(lastVisit.TrenerName) ? "Имя неизвестно" : lastVisit.TrenerName;
-
-            MyListViewEx.AddItemAndGroup(listView_MiniGroup, newGroupName, lastVisit.NamePerson, false);
+            var items = daily.FindAll(x => x.VisitDateTime.Date.CompareTo(dateToShow.Date) == 0);
+            listView_MiniGroup.Items.Clear();
+            foreach (var item in items)
+            {
+                var newGroupName = string.IsNullOrEmpty(item.TrenerName) ? "Имя неизвестно" : item.TrenerName;
+                MyListViewEx.AddItemAndGroup(listView_MiniGroup, newGroupName, item.NamePerson, false);
+            }
         }
         #endregion
 
@@ -245,8 +259,7 @@ namespace PersonsBase.View
         {
             Logic.OpenPersonCard(сomboBox_PersonsList.SelectedItem.ToString());
         }
-
-
+        
         private void _time_ClockTick(object sender, EventArgs e)
         {
             label_Time.Text = Logic.ClockFormating();
@@ -387,7 +400,7 @@ namespace PersonsBase.View
             if (!PwdForm.IsPassUnLocked()) return;
             var name = MyListViewEx.GetSelectedText((ListView)sender);
             // Удаление из журнала
-            DailyVisits.GetInstance().RemoveFromVisitsLog(name[1], typeWorkout);
+            DailyVisits.GetInstance().RemoveFromLog(name[1], typeWorkout);
             // Удаление с экрана
             MyListViewEx.RemoveSelectedItem((ListView)sender);
             PwdForm.LockPassword();
@@ -429,7 +442,26 @@ namespace PersonsBase.View
             OpenSelectedItem(sender);
         }
 
+        private void button_Reset_Date_Click(object sender, EventArgs e)
+        {
+            _dailyVisits.ShowVisits(DateTime.Now);
+            monthCalendar1.SetDate(DateTime.Now);
+        }
 
+        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            var dateToShow = e.Start.Date; // Получаем выбранную дату
+            if (dateToShow.CompareTo(DateTime.Now.Date) == 0)
+            {
+                label_SelectedDate.Visible = false;
+            }
+            else
+            {
+                label_SelectedDate.Text = @"Посещения за: " + dateToShow.ToLongDateString();
+                label_SelectedDate.Visible = true;
+            }
+            _dailyVisits.ShowVisits(dateToShow);
+        }
 
 
         #endregion
@@ -468,7 +500,7 @@ namespace PersonsBase.View
                 }
 
                 // Удаление из журнала
-                DailyVisits.GetInstance().RemoveFromVisitsLog(name, typeW);
+                DailyVisits.GetInstance().RemoveFromLog(name, typeW);
                 // Удаление с экрана
                 MyListViewEx.RemoveSelectedItem((ListView)control);
                 Logic.SaveEverithing();
@@ -495,8 +527,7 @@ namespace PersonsBase.View
                 MessageBox.Show($@"Нельзя открыть карточку клиента. ", @"Ошибка открытия в MainForm", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
+        
         private void listView_Gym_Zal_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -542,15 +573,9 @@ namespace PersonsBase.View
         }
         #endregion
 
-        public class MyMonthCalendar : MonthCalendar
+        private void button1_Click(object sender, EventArgs e)
         {
-            [DllImport("uxtheme.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
-            static extern int SetWindowTheme(IntPtr hwnd, string pszSubAppName, string pszSubIdList);
-            protected override void OnHandleCreated(EventArgs e)
-            {
-                SetWindowTheme(Handle, string.Empty, string.Empty);
-                base.OnHandleCreated(e);
-            }
+
         }
     }
 }

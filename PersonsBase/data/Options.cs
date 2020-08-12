@@ -11,7 +11,7 @@ namespace PersonsBase.data
         private static bool _checkPasspAndDriveId;
         private static bool _simpsonsPhoto;
         private static bool _faceDetectorEn;
-        private static bool _correctableAbonOnCreate;
+        private static bool _abonIsCorrectable;
 
         public static bool SimpsonsPhoto
         {
@@ -28,12 +28,12 @@ namespace PersonsBase.data
             }
         }
         // Разрешена ли корректировка при создании абонемента. Если нет, то галка не доступна на форме создания абон.
-        public static bool CorrectableAbonOnCreate
+        public static bool AbonIsCorrectable
         {
-            get { return _correctableAbonOnCreate; }
+            get { return _abonIsCorrectable; }
             set
             {
-                _correctableAbonOnCreate = value;
+                _abonIsCorrectable = value;
             }
         }
 
@@ -49,7 +49,7 @@ namespace PersonsBase.data
         {
             Properties.Settings.Default.SimpsonMode = SimpsonsPhoto;
             Properties.Settings.Default.PassAndDriveIdCheck = CheckPasspAndDriveId;
-            Properties.Settings.Default.AbonCorrectable = CorrectableAbonOnCreate;
+            Properties.Settings.Default.AllowAbonementChanges = AbonIsCorrectable; // На форме создания абонемента Галка "Разрешить" будет доступна
             Properties.Settings.Default.FaceDetect = FaceDetectorEn;
             Properties.Settings.Default.AbonValidity = ValidPeriodInMonth;
 
@@ -62,7 +62,7 @@ namespace PersonsBase.data
 
             SimpsonsPhoto = Properties.Settings.Default.SimpsonMode;
             FaceDetectorEn = Properties.Settings.Default.FaceDetect;
-            CorrectableAbonOnCreate = Properties.Settings.Default.AbonCorrectable;
+            AbonIsCorrectable = Properties.Settings.Default.AllowAbonementChanges;
             CheckPasspAndDriveId = Properties.Settings.Default.PassAndDriveIdCheck;
             ValidPeriodInMonth = Properties.Settings.Default.AbonValidity;
         }

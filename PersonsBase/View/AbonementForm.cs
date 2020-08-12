@@ -58,7 +58,7 @@ namespace PersonsBase.View
             LoadDefaultValues();
 
             // Не выключено ли в настройках разрешение на корректировку абонементов при создании их
-            groupBox_Correctable.Enabled = Options.CorrectableAbonOnCreate;
+            groupBox_Correctable.Enabled = Options.AbonIsCorrectable;
 
             // Гостевой визит Радиобатон показывается если не были посещения
             var lastVisits = PersonObject.GetVisitsList(_person.Name);
@@ -199,7 +199,7 @@ namespace PersonsBase.View
 
                         if (!isSuccess) return;
                         PersonObject.SaveCurentVisit(_person, selectedOptions); // Сохраняет текущий визит 
-                        DailyVisits.GetInstance().AddToVisitsLog(_person.Name, selectedOptions); // Cобытие для добавления текущего посещения на главную форму
+                        DailyVisits.GetInstance().AddToLog(_person.Name, selectedOptions); // Cобытие для добавления текущего посещения на главную форму
                         _person.Status = StatusPerson.Гостевой;
                         _person.SpecialNotes +=
                             $"\n\r Гостевой визит был: {DateTime.Now.ToString(new DateTimeFormatInfo().LongDatePattern)} ";

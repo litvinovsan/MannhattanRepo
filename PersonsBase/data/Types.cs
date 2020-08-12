@@ -124,11 +124,12 @@ namespace PersonsBase.data
     {
         public readonly string Time;
         public readonly string Name;
-
+        public readonly DateTime VisitDateTime;
         public GymItem(string t, string n)
         {
             Time = t;
             Name = n;
+            VisitDateTime = DateTime.Now;
         }
     }
 
@@ -137,11 +138,12 @@ namespace PersonsBase.data
     {
         public readonly string GroupTimeName;
         public readonly string NamePerson;
-
+        public readonly DateTime VisitDateTime;
         public AerobItem(string groupTime, string namePerson)
         {
             GroupTimeName = groupTime;
             NamePerson = namePerson;
+            VisitDateTime = DateTime.Now;
         }
     }
     [Serializable]
@@ -149,11 +151,12 @@ namespace PersonsBase.data
     {
         public readonly string TrenerName;
         public readonly string NamePerson;
-
+        public readonly DateTime VisitDateTime;
         public StandartItem(string namePerson, string trenerName)
         {
             TrenerName = trenerName;
             NamePerson = namePerson;
+            VisitDateTime = DateTime.Now;
         }
     }
     #endregion

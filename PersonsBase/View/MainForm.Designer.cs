@@ -38,7 +38,7 @@ namespace PersonsBase.View
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.конфигурацииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,13 +86,17 @@ namespace PersonsBase.View
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.открытьКарточкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьЗаписьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button_Reset_Date = new System.Windows.Forms.Button();
+            this.label_SelectedDate = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -264,29 +268,27 @@ namespace PersonsBase.View
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.groupBox4);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.comboBox_BDay);
             this.groupBox1.Controls.Add(this.label_Time);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.monthCalendar1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.Location = new System.Drawing.Point(1090, 46);
+            this.groupBox1.Location = new System.Drawing.Point(1090, 45);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(190, 607);
+            this.groupBox1.Size = new System.Drawing.Size(190, 612);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Сейчас:";
             // 
             // groupBox3
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.label_Total_persons);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox3.Location = new System.Drawing.Point(21, 166);
+            this.groupBox3.Location = new System.Drawing.Point(10, 261);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(163, 70);
+            this.groupBox3.Size = new System.Drawing.Size(174, 70);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Клиентов в Базе: ";
@@ -295,10 +297,10 @@ namespace PersonsBase.View
             // 
             this.label_Total_persons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label_Total_persons.AutoSize = true;
-            this.label_Total_persons.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_Total_persons.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_Total_persons.Location = new System.Drawing.Point(63, 26);
             this.label_Total_persons.Name = "label_Total_persons";
-            this.label_Total_persons.Size = new System.Drawing.Size(29, 31);
+            this.label_Total_persons.Size = new System.Drawing.Size(32, 36);
             this.label_Total_persons.TabIndex = 0;
             this.label_Total_persons.Text = "0";
             // 
@@ -307,9 +309,9 @@ namespace PersonsBase.View
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.label_PeopleForDay);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox2.Location = new System.Drawing.Point(20, 90);
+            this.groupBox2.Location = new System.Drawing.Point(10, 185);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(158, 70);
+            this.groupBox2.Size = new System.Drawing.Size(174, 70);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Клиентов за День:";
@@ -318,20 +320,22 @@ namespace PersonsBase.View
             // 
             this.label_PeopleForDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label_PeopleForDay.AutoSize = true;
-            this.label_PeopleForDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_PeopleForDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_PeopleForDay.Location = new System.Drawing.Point(63, 26);
             this.label_PeopleForDay.Name = "label_PeopleForDay";
-            this.label_PeopleForDay.Size = new System.Drawing.Size(29, 31);
+            this.label_PeopleForDay.Size = new System.Drawing.Size(32, 36);
             this.label_PeopleForDay.TabIndex = 7;
             this.label_PeopleForDay.Text = "0";
             // 
             // comboBox_BDay
             // 
+            this.comboBox_BDay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_BDay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_BDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBox_BDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox_BDay.FormattingEnabled = true;
-            this.comboBox_BDay.Location = new System.Drawing.Point(17, 56);
+            this.comboBox_BDay.Location = new System.Drawing.Point(10, 117);
             this.comboBox_BDay.Name = "comboBox_BDay";
             this.comboBox_BDay.Size = new System.Drawing.Size(166, 28);
             this.comboBox_BDay.Sorted = true;
@@ -339,33 +343,40 @@ namespace PersonsBase.View
             // 
             // label_Time
             // 
+            this.label_Time.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label_Time.AutoSize = true;
-            this.label_Time.Font = new System.Drawing.Font("Comic Sans MS", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_Time.Font = new System.Drawing.Font("Comic Sans MS", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_Time.ForeColor = System.Drawing.Color.Navy;
-            this.label_Time.Location = new System.Drawing.Point(27, 16);
+            this.label_Time.Location = new System.Drawing.Point(12, 19);
             this.label_Time.Name = "label_Time";
-            this.label_Time.Size = new System.Drawing.Size(0, 42);
+            this.label_Time.Size = new System.Drawing.Size(160, 45);
             this.label_Time.TabIndex = 5;
+            this.label_Time.Text = "09:00:00";
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(16, 33);
+            this.label4.Location = new System.Drawing.Point(7, 89);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(123, 18);
+            this.label4.Size = new System.Drawing.Size(115, 18);
             this.label4.TabIndex = 3;
-            this.label4.Text = "День Рождения:";
+            this.label4.Text = "Дни Рождения:";
             // 
             // monthCalendar1
             // 
             this.monthCalendar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.monthCalendar1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.monthCalendar1.Location = new System.Drawing.Point(19, 301);
+            this.monthCalendar1.Location = new System.Drawing.Point(4, 29);
             this.monthCalendar1.MaxDate = new System.DateTime(2030, 12, 31, 0, 0, 0, 0);
+            this.monthCalendar1.MaxSelectionCount = 1;
             this.monthCalendar1.MinDate = new System.DateTime(2019, 1, 1, 0, 0, 0, 0);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.TabIndex = 2;
+            this.monthCalendar1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
             // 
             // tableLayoutPanel1
             // 
@@ -392,7 +403,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1072, 600);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1072, 604);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // listView_MiniGroup
@@ -408,7 +419,7 @@ namespace PersonsBase.View
             this.listView_MiniGroup.Location = new System.Drawing.Point(6, 31);
             this.listView_MiniGroup.MultiSelect = false;
             this.listView_MiniGroup.Name = "listView_MiniGroup";
-            this.listView_MiniGroup.Size = new System.Drawing.Size(243, 563);
+            this.listView_MiniGroup.Size = new System.Drawing.Size(243, 567);
             this.listView_MiniGroup.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.listView_MiniGroup.TabIndex = 4;
             this.listView_MiniGroup.UseCompatibleStateImageBehavior = false;
@@ -436,16 +447,16 @@ namespace PersonsBase.View
             this.listView_Gym_Zal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView_Gym_Zal.FullRowSelect = true;
             this.listView_Gym_Zal.GridLines = true;
-            listViewGroup1.Header = "ListViewGroup";
-            listViewGroup1.Name = "listViewGroup1";
+            listViewGroup3.Header = "ListViewGroup";
+            listViewGroup3.Name = "listViewGroup1";
             this.listView_Gym_Zal.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1});
+            listViewGroup3});
             this.listView_Gym_Zal.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listView_Gym_Zal.Location = new System.Drawing.Point(762, 31);
             this.listView_Gym_Zal.MultiSelect = false;
             this.listView_Gym_Zal.Name = "listView_Gym_Zal";
             this.listView_Gym_Zal.ShowGroups = false;
-            this.listView_Gym_Zal.Size = new System.Drawing.Size(304, 563);
+            this.listView_Gym_Zal.Size = new System.Drawing.Size(304, 567);
             this.listView_Gym_Zal.TabIndex = 2;
             this.listView_Gym_Zal.UseCompatibleStateImageBehavior = false;
             this.listView_Gym_Zal.View = System.Windows.Forms.View.Details;
@@ -476,7 +487,7 @@ namespace PersonsBase.View
             this.listView_Personal.Location = new System.Drawing.Point(510, 31);
             this.listView_Personal.MultiSelect = false;
             this.listView_Personal.Name = "listView_Personal";
-            this.listView_Personal.Size = new System.Drawing.Size(243, 563);
+            this.listView_Personal.Size = new System.Drawing.Size(243, 567);
             this.listView_Personal.TabIndex = 2;
             this.listView_Personal.UseCompatibleStateImageBehavior = false;
             this.listView_Personal.View = System.Windows.Forms.View.Details;
@@ -507,7 +518,7 @@ namespace PersonsBase.View
             this.listView_Group.Location = new System.Drawing.Point(258, 31);
             this.listView_Group.MultiSelect = false;
             this.listView_Group.Name = "listView_Group";
-            this.listView_Group.Size = new System.Drawing.Size(243, 563);
+            this.listView_Group.Size = new System.Drawing.Size(243, 567);
             this.listView_Group.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.listView_Group.TabIndex = 2;
             this.listView_Group.UseCompatibleStateImageBehavior = false;
@@ -590,20 +601,59 @@ namespace PersonsBase.View
             this.удалитьЗаписьToolStripMenuItem.Text = "Удалить запись";
             this.удалитьЗаписьToolStripMenuItem.Click += new System.EventHandler(this.удалитьЗаписьToolStripMenuItem_Click);
             // 
-            // label2
+            // groupBox4
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 275);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(51, 17);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Выбер";
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.button_Reset_Date);
+            this.groupBox4.Controls.Add(this.monthCalendar1);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox4.Location = new System.Drawing.Point(10, 363);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(174, 249);
+            this.groupBox4.TabIndex = 11;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "История посещений:";
+            // 
+            // button_Reset_Date
+            // 
+            this.button_Reset_Date.Location = new System.Drawing.Point(6, 207);
+            this.button_Reset_Date.Name = "button_Reset_Date";
+            this.button_Reset_Date.Size = new System.Drawing.Size(162, 36);
+            this.button_Reset_Date.TabIndex = 3;
+            this.button_Reset_Date.Text = "Сегодня";
+            this.button_Reset_Date.UseVisualStyleBackColor = true;
+            this.button_Reset_Date.Click += new System.EventHandler(this.button_Reset_Date_Click);
+            // 
+            // label_SelectedDate
+            // 
+            this.label_SelectedDate.AutoSize = true;
+            this.label_SelectedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_SelectedDate.ForeColor = System.Drawing.Color.Red;
+            this.label_SelectedDate.Location = new System.Drawing.Point(266, 30);
+            this.label_SelectedDate.Name = "label_SelectedDate";
+            this.label_SelectedDate.Size = new System.Drawing.Size(134, 20);
+            this.label_SelectedDate.TabIndex = 4;
+            this.label_SelectedDate.Text = "Посещения за:";
+            this.label_SelectedDate.Visible = false;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(600, 27);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(165, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1292, 665);
+            this.ClientSize = new System.Drawing.Size(1292, 669);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label_SelectedDate);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
@@ -611,7 +661,7 @@ namespace PersonsBase.View
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(1308, 560);
+            this.MinimumSize = new System.Drawing.Size(1308, 708);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Manhattan Fitness Club";
@@ -629,6 +679,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -683,6 +734,9 @@ namespace PersonsBase.View
         private ListView listView_Group;
         private ColumnHeader columnHeader4;
         private ColumnHeader columnHeader3;
-        private Label label2;
+        private GroupBox groupBox4;
+        private Button button_Reset_Date;
+        private Label label_SelectedDate;
+        private Button button1;
     }
 }

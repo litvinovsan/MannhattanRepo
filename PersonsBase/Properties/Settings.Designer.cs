@@ -62,12 +62,12 @@ namespace PersonsBase.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool AbonCorrectable {
+        public bool AllowAbonementChanges {
             get {
-                return ((bool)(this["AbonCorrectable"]));
+                return ((bool)(this["AllowAbonementChanges"]));
             }
             set {
-                this["AbonCorrectable"] = value;
+                this["AllowAbonementChanges"] = value;
             }
         }
         

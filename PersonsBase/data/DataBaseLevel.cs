@@ -210,7 +210,7 @@ namespace PersonsBase.data
             // Список названий всех ежедневных Групповых Тренировок
             SerializeClass.Serialize(_groupScheduleList, currentPath + "\\" + Options.GroupSchFile);
             // Сериализация списков посещений. Списки отображаются на главной форме(4 колонки)
-            DailyVisits.GetInstance().SerializeDailyVisits();
+            DailyVisits.GetInstance().Serialize();
         }
 
         /// <summary>
@@ -252,7 +252,7 @@ namespace PersonsBase.data
             SerializeClass.DeSerialize(ref _groupScheduleList, currentPath + Options.GroupSchFile);
          
             // Списки посещений по группам. Отображаются на главной форме.
-            DailyVisits.GetInstance().DeSerializeDailyVisits();
+            DailyVisits.GetInstance().DeSerialize();
         }
 
         #endregion
