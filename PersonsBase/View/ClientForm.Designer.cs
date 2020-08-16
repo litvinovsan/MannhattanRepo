@@ -57,6 +57,7 @@ namespace PersonsBase.View
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox_Detailed = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button_SavePersonalData = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -74,9 +75,8 @@ namespace PersonsBase.View
             this.tabPage_abon_history = new System.Windows.Forms.TabPage();
             this.dataGridView_history_abonements = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.button_Cancel = new System.Windows.Forms.Button();
-            this.button_SavePersonalData = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.button_Cancel = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -402,15 +402,14 @@ namespace PersonsBase.View
             // 
             // groupBox_Detailed
             // 
-            this.groupBox_Detailed.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox_Detailed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_Detailed.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox_Detailed.Location = new System.Drawing.Point(349, 4);
             this.groupBox_Detailed.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_Detailed.Name = "groupBox_Detailed";
             this.groupBox_Detailed.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox_Detailed.Size = new System.Drawing.Size(685, 670);
+            this.groupBox_Detailed.Size = new System.Drawing.Size(777, 670);
             this.groupBox_Detailed.TabIndex = 1;
             this.groupBox_Detailed.TabStop = false;
             this.groupBox_Detailed.Text = "Детальная информация";
@@ -430,6 +429,20 @@ namespace PersonsBase.View
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Персональные данные";
+            // 
+            // button_SavePersonalData
+            // 
+            this.button_SavePersonalData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button_SavePersonalData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.button_SavePersonalData.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_SavePersonalData.Location = new System.Drawing.Point(-4, 566);
+            this.button_SavePersonalData.Margin = new System.Windows.Forms.Padding(2);
+            this.button_SavePersonalData.Name = "button_SavePersonalData";
+            this.button_SavePersonalData.Size = new System.Drawing.Size(341, 54);
+            this.button_SavePersonalData.TabIndex = 2;
+            this.button_SavePersonalData.Text = "Сохранить";
+            this.button_SavePersonalData.UseVisualStyleBackColor = false;
+            this.button_SavePersonalData.Click += new System.EventHandler(this.button_SavePersonalData_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -673,33 +686,6 @@ namespace PersonsBase.View
             this.tableLayoutPanel4.Size = new System.Drawing.Size(1141, 40);
             this.tableLayoutPanel4.TabIndex = 2;
             // 
-            // button_Cancel
-            // 
-            this.button_Cancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_Cancel.Location = new System.Drawing.Point(2, 2);
-            this.button_Cancel.Margin = new System.Windows.Forms.Padding(2);
-            this.button_Cancel.Name = "button_Cancel";
-            this.button_Cancel.Size = new System.Drawing.Size(346, 36);
-            this.button_Cancel.TabIndex = 3;
-            this.button_Cancel.Text = "Закрыть";
-            this.button_Cancel.UseVisualStyleBackColor = true;
-            this.button_Cancel.Click += new System.EventHandler(this.button_Cancel_Click);
-            // 
-            // button_SavePersonalData
-            // 
-            this.button_SavePersonalData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button_SavePersonalData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button_SavePersonalData.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_SavePersonalData.Location = new System.Drawing.Point(-4, 566);
-            this.button_SavePersonalData.Margin = new System.Windows.Forms.Padding(2);
-            this.button_SavePersonalData.Name = "button_SavePersonalData";
-            this.button_SavePersonalData.Size = new System.Drawing.Size(341, 54);
-            this.button_SavePersonalData.TabIndex = 2;
-            this.button_SavePersonalData.Text = "Сохранить";
-            this.button_SavePersonalData.UseVisualStyleBackColor = false;
-            this.button_SavePersonalData.Click += new System.EventHandler(this.button_SavePersonalData_Click);
-            // 
             // button2
             // 
             this.button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -713,6 +699,19 @@ namespace PersonsBase.View
             this.button2.Text = "Доступ Руководителя";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button_Password_Click);
+            // 
+            // button_Cancel
+            // 
+            this.button_Cancel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_Cancel.Location = new System.Drawing.Point(2, 2);
+            this.button_Cancel.Margin = new System.Windows.Forms.Padding(2);
+            this.button_Cancel.Name = "button_Cancel";
+            this.button_Cancel.Size = new System.Drawing.Size(346, 36);
+            this.button_Cancel.TabIndex = 3;
+            this.button_Cancel.Text = "Закрыть";
+            this.button_Cancel.UseVisualStyleBackColor = true;
+            this.button_Cancel.Click += new System.EventHandler(this.button_Cancel_Click);
             // 
             // ClientForm
             // 

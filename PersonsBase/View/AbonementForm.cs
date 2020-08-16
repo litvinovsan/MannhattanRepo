@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using PersonsBase.control;
 using PersonsBase.data;
 using PersonsBase.data.Abonements;
 using PersonsBase.myStd;
@@ -49,7 +50,14 @@ namespace PersonsBase.View
             button_Aplly.Visible = false;
             button2_Cancel.Text = @"Закрыть";
             this.Text = @"Режим ЧТЕНИЯ";
+            groupBox_Correctable.Visible = false;
             tableLayoutPanel2.Enabled = false;
+            tableLayoutPanel2.Visible = false;
+            tableLayoutPanel3.Visible = false;
+            groupBox_Details.Visible = true;
+
+            Logic.LoadShortInfo(groupBox_Details, _person);
+
         }
 
         private void AbonementForm_Load(object sender, EventArgs e)
@@ -150,13 +158,13 @@ namespace PersonsBase.View
             dateTimePicker_ActivationDate.MinDate = new DateTime(2019, 1, 1);
             // Тренажерный зал
             comboBox_Tren.Items.AddRange(Enumerable.Range(0, 11).Select(x => (object)x).ToArray());
-            comboBox_Tren.SelectedItem = 0;
+            comboBox_Tren.SelectedItem = 3;
             // Персональные трени
             comboBox_Personal.Items.AddRange(Enumerable.Range(0, 31).Select(x => (object)x).ToArray());
-            comboBox_Personal.SelectedItem = 0;
+            comboBox_Personal.SelectedItem = 3;
             // Аэробные
             comboBox_Aerob.Items.AddRange(Enumerable.Range(0, 121).Select(x => (object)x).ToArray());
-            comboBox_Aerob.SelectedItem = 0;
+            comboBox_Aerob.SelectedItem = 3;
             // Заморозки
             comboBox_freez.Items.AddRange(Enumerable.Range(0, 46).Select(x => (object)x).ToArray());
             comboBox_freez.SelectedItem = 45;
@@ -208,9 +216,6 @@ namespace PersonsBase.View
                         PersonObject.SaveAbonementToHistory(_person, abonementNew);
                         return;
                     }
-
-                default:
-                    break;
             }
 
             if (_person.Status == StatusPerson.Гостевой) _person.Status = StatusPerson.Активный;
@@ -264,16 +269,11 @@ namespace PersonsBase.View
                             case TypeWorkout.МиниГруппа:
                                 //     nums = personNum;
                                 break;
-                            default:
-                                break;
                         }
 
                         ((AbonementByDays)abonementCurent).SetDaysLeft(nums);
                         break;
                     }
-
-                default:
-                    break;
             }
 
             if (dateTimePicker_ActivationDate.Value.Date.CompareTo(DateTime.Now.Date) < 0)
@@ -433,8 +433,6 @@ namespace PersonsBase.View
                         case TypeWorkout.МиниГруппа:
                             comboBox_Personal.Enabled = true;
                             break;
-                        default:
-                            break;
                     }
                     comboBox_freez.Enabled = true;
                 }
@@ -513,16 +511,8 @@ namespace PersonsBase.View
             DialogResult = DialogResult.OK;
         }
 
-        private void checkBox_Activated_CheckedChanged(object sender, EventArgs e)
-        {
-            flowLayoutPanel2.Enabled = checkBox_Activated.Checked;
-            if (checkBox_Activated.Checked) UpdateCorrectFieldsEn();
-        }
-
         private void comboBox_TypeTren_SelectedValueChanged(object sender, EventArgs e)
         {
-            //  RemoveItem(radioButton_Abonement);
-
             var combo = (ComboBox)sender;
             try
             {
@@ -537,6 +527,21 @@ namespace PersonsBase.View
             UpdateCorrectFieldsEn();
         }
 
+        private void checkBox_Activated_MouseClick(object sender, MouseEventArgs e)
+        {
+            Logic.AccessRootUser();
+            if (PwdForm.IsPassUnLocked())
+            {
+                checkBox_Activated.CheckState = CheckState.Checked;
 
+                flowLayoutPanel2.Enabled = true;
+                if (checkBox_Activated.Checked) UpdateCorrectFieldsEn();
+            }
+            else
+            {
+                checkBox_Activated.CheckState = CheckState.Unchecked;
+                flowLayoutPanel2.Enabled = false;
+            }
+        }
     }
 }
