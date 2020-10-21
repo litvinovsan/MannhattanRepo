@@ -716,9 +716,15 @@ namespace PersonsBase.control
 
         private static IEnumerable<Tuple<string, string>> GetEmptyInfoList(Person person)
         {
+            string statusAbonemens = @"Нет карты";
+            if (person.AbonementCurent != null && person.AbonementCurent.IsValid() == false)
+            {
+                statusAbonemens = @"Абонемент сгорел";
+            }
+
             var result = new List<Tuple<string, string>>
             {
-                new Tuple<string, string>("Текущий статус Клиента", person.Status.ToString()),
+                new Tuple<string, string>("Текущий статус Клиента", statusAbonemens),
                 new Tuple<string, string>("Абонемент ", "Нет"),
                 new Tuple<string, string>("Клубная Карта ", "Нет ")
             };
