@@ -37,35 +37,35 @@
             this.comboBox_Status = new System.Windows.Forms.ComboBox();
             this.groupBox_LastVisit = new System.Windows.Forms.GroupBox();
             this.comboBox_LastVisit = new System.Windows.Forms.ComboBox();
-            this.groupBox_Pay = new System.Windows.Forms.GroupBox();
-            this.checkedListBox_Pay = new System.Windows.Forms.CheckedListBox();
-            this.groupBox_Age = new System.Windows.Forms.GroupBox();
-            this.checkedListBox_Age = new System.Windows.Forms.CheckedListBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.dateTimePicker_Visit = new System.Windows.Forms.DateTimePicker();
             this.groupBox_Gender = new System.Windows.Forms.GroupBox();
             this.checkedListBox_Gender = new System.Windows.Forms.CheckedListBox();
             this.groupBox_TypeAbon = new System.Windows.Forms.GroupBox();
             this.checkedListBox_TypeAbon = new System.Windows.Forms.CheckedListBox();
             this.groupBox_TimeTren = new System.Windows.Forms.GroupBox();
             this.checkedListBox_TimeTren = new System.Windows.Forms.CheckedListBox();
+            this.groupBox_Pay = new System.Windows.Forms.GroupBox();
+            this.checkedListBox_Pay = new System.Windows.Forms.CheckedListBox();
+            this.groupBox_Age = new System.Windows.Forms.GroupBox();
+            this.checkedListBox_Age = new System.Windows.Forms.CheckedListBox();
             this.groupBox_Activation = new System.Windows.Forms.GroupBox();
             this.checkedListBox_Activation = new System.Windows.Forms.CheckedListBox();
             this.dataGridView_Persons = new System.Windows.Forms.DataGridView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dateTimePicker_Visit = new System.Windows.Forms.DateTimePicker();
-            this.button1 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox_All_Options.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.groupBox_Status.SuspendLayout();
             this.groupBox_LastVisit.SuspendLayout();
-            this.groupBox_Pay.SuspendLayout();
-            this.groupBox_Age.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.groupBox_Gender.SuspendLayout();
             this.groupBox_TypeAbon.SuspendLayout();
             this.groupBox_TimeTren.SuspendLayout();
+            this.groupBox_Pay.SuspendLayout();
+            this.groupBox_Age.SuspendLayout();
             this.groupBox_Activation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Persons)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -73,9 +73,9 @@
             this.flowLayoutPanel1.Controls.Add(this.button3);
             this.flowLayoutPanel1.Controls.Add(this.button2);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 762);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 469);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1021, 40);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1229, 40);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // button3
@@ -105,9 +105,9 @@
             this.groupBox_All_Options.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox_All_Options.Controls.Add(this.flowLayoutPanel2);
-            this.groupBox_All_Options.Location = new System.Drawing.Point(4, 3);
+            this.groupBox_All_Options.Location = new System.Drawing.Point(4, 12);
             this.groupBox_All_Options.Name = "groupBox_All_Options";
-            this.groupBox_All_Options.Size = new System.Drawing.Size(216, 753);
+            this.groupBox_All_Options.Size = new System.Drawing.Size(235, 451);
             this.groupBox_All_Options.TabIndex = 2;
             this.groupBox_All_Options.TabStop = false;
             this.groupBox_All_Options.Text = "Параметры клиентов";
@@ -130,7 +130,7 @@
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 20);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(210, 730);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(229, 428);
             this.flowLayoutPanel2.TabIndex = 0;
             // 
             // groupBox_Status
@@ -177,56 +177,35 @@
             this.comboBox_LastVisit.TabIndex = 1;
             this.comboBox_LastVisit.SelectedIndexChanged += new System.EventHandler(this.comboBox_LastVisit_SelectedIndexChanged);
             // 
-            // groupBox_Pay
+            // groupBox1
             // 
-            this.groupBox_Pay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox_Pay.Controls.Add(this.checkedListBox_Pay);
-            this.groupBox_Pay.Location = new System.Drawing.Point(3, 480);
-            this.groupBox_Pay.Name = "groupBox_Pay";
-            this.groupBox_Pay.Size = new System.Drawing.Size(186, 69);
-            this.groupBox_Pay.TabIndex = 4;
-            this.groupBox_Pay.TabStop = false;
-            this.groupBox_Pay.Text = "Оплата";
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.dateTimePicker_Visit);
+            this.groupBox1.Location = new System.Drawing.Point(3, 126);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(186, 86);
+            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Дата Посещения";
             // 
-            // checkedListBox_Pay
+            // button1
             // 
-            this.checkedListBox_Pay.CheckOnClick = true;
-            this.checkedListBox_Pay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBox_Pay.FormattingEnabled = true;
-            this.checkedListBox_Pay.Items.AddRange(new object[] {
-            "Н",
-            "О"});
-            this.checkedListBox_Pay.Location = new System.Drawing.Point(3, 20);
-            this.checkedListBox_Pay.Name = "checkedListBox_Pay";
-            this.checkedListBox_Pay.Size = new System.Drawing.Size(180, 46);
-            this.checkedListBox_Pay.TabIndex = 0;
-            this.checkedListBox_Pay.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_Pay_SelectedIndexChanged);
+            this.button1.Location = new System.Drawing.Point(3, 50);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(177, 29);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Сброс";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button_resetDate_Click);
             // 
-            // groupBox_Age
+            // dateTimePicker_Visit
             // 
-            this.groupBox_Age.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox_Age.Controls.Add(this.checkedListBox_Age);
-            this.groupBox_Age.Location = new System.Drawing.Point(3, 555);
-            this.groupBox_Age.Name = "groupBox_Age";
-            this.groupBox_Age.Size = new System.Drawing.Size(186, 85);
-            this.groupBox_Age.TabIndex = 0;
-            this.groupBox_Age.TabStop = false;
-            this.groupBox_Age.Text = "Возраст";
-            // 
-            // checkedListBox_Age
-            // 
-            this.checkedListBox_Age.CheckOnClick = true;
-            this.checkedListBox_Age.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBox_Age.FormattingEnabled = true;
-            this.checkedListBox_Age.Items.AddRange(new object[] {
-            "До 30 лет_Temp",
-            "30 до 40 лет_Temp",
-            "40 лет_Temp"});
-            this.checkedListBox_Age.Location = new System.Drawing.Point(3, 20);
-            this.checkedListBox_Age.Name = "checkedListBox_Age";
-            this.checkedListBox_Age.Size = new System.Drawing.Size(180, 62);
-            this.checkedListBox_Age.TabIndex = 0;
-            this.checkedListBox_Age.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_Age_SelectedIndexChanged);
+            this.dateTimePicker_Visit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dateTimePicker_Visit.Location = new System.Drawing.Point(3, 20);
+            this.dateTimePicker_Visit.Name = "dateTimePicker_Visit";
+            this.dateTimePicker_Visit.Size = new System.Drawing.Size(180, 24);
+            this.dateTimePicker_Visit.TabIndex = 0;
+            this.dateTimePicker_Visit.ValueChanged += new System.EventHandler(this.dateTimePicker_Visit_ValueChanged);
             // 
             // groupBox_Gender
             // 
@@ -305,6 +284,57 @@
             this.checkedListBox_TimeTren.TabIndex = 3;
             this.checkedListBox_TimeTren.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_TimeTren_SelectedIndexChanged);
             // 
+            // groupBox_Pay
+            // 
+            this.groupBox_Pay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox_Pay.Controls.Add(this.checkedListBox_Pay);
+            this.groupBox_Pay.Location = new System.Drawing.Point(3, 480);
+            this.groupBox_Pay.Name = "groupBox_Pay";
+            this.groupBox_Pay.Size = new System.Drawing.Size(186, 69);
+            this.groupBox_Pay.TabIndex = 4;
+            this.groupBox_Pay.TabStop = false;
+            this.groupBox_Pay.Text = "Оплата";
+            // 
+            // checkedListBox_Pay
+            // 
+            this.checkedListBox_Pay.CheckOnClick = true;
+            this.checkedListBox_Pay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBox_Pay.FormattingEnabled = true;
+            this.checkedListBox_Pay.Items.AddRange(new object[] {
+            "Н",
+            "О"});
+            this.checkedListBox_Pay.Location = new System.Drawing.Point(3, 20);
+            this.checkedListBox_Pay.Name = "checkedListBox_Pay";
+            this.checkedListBox_Pay.Size = new System.Drawing.Size(180, 46);
+            this.checkedListBox_Pay.TabIndex = 0;
+            this.checkedListBox_Pay.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_Pay_SelectedIndexChanged);
+            // 
+            // groupBox_Age
+            // 
+            this.groupBox_Age.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox_Age.Controls.Add(this.checkedListBox_Age);
+            this.groupBox_Age.Location = new System.Drawing.Point(3, 555);
+            this.groupBox_Age.Name = "groupBox_Age";
+            this.groupBox_Age.Size = new System.Drawing.Size(186, 85);
+            this.groupBox_Age.TabIndex = 0;
+            this.groupBox_Age.TabStop = false;
+            this.groupBox_Age.Text = "Возраст";
+            // 
+            // checkedListBox_Age
+            // 
+            this.checkedListBox_Age.CheckOnClick = true;
+            this.checkedListBox_Age.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBox_Age.FormattingEnabled = true;
+            this.checkedListBox_Age.Items.AddRange(new object[] {
+            "До 30 лет_Temp",
+            "30 до 40 лет_Temp",
+            "40 лет_Temp"});
+            this.checkedListBox_Age.Location = new System.Drawing.Point(3, 20);
+            this.checkedListBox_Age.Name = "checkedListBox_Age";
+            this.checkedListBox_Age.Size = new System.Drawing.Size(180, 62);
+            this.checkedListBox_Age.TabIndex = 0;
+            this.checkedListBox_Age.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_Age_SelectedIndexChanged);
+            // 
             // groupBox_Activation
             // 
             this.groupBox_Activation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -337,48 +367,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView_Persons.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.dataGridView_Persons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_Persons.Location = new System.Drawing.Point(226, 12);
+            this.dataGridView_Persons.Location = new System.Drawing.Point(245, 12);
             this.dataGridView_Persons.MultiSelect = false;
             this.dataGridView_Persons.Name = "dataGridView_Persons";
             this.dataGridView_Persons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_Persons.Size = new System.Drawing.Size(783, 741);
+            this.dataGridView_Persons.Size = new System.Drawing.Size(972, 451);
             this.dataGridView_Persons.TabIndex = 3;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.dateTimePicker_Visit);
-            this.groupBox1.Location = new System.Drawing.Point(3, 126);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(186, 86);
-            this.groupBox1.TabIndex = 9;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Дата Посещения";
-            // 
-            // dateTimePicker_Visit
-            // 
-            this.dateTimePicker_Visit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dateTimePicker_Visit.Location = new System.Drawing.Point(3, 20);
-            this.dateTimePicker_Visit.Name = "dateTimePicker_Visit";
-            this.dateTimePicker_Visit.Size = new System.Drawing.Size(180, 24);
-            this.dateTimePicker_Visit.TabIndex = 0;
-            this.dateTimePicker_Visit.ValueChanged += new System.EventHandler(this.dateTimePicker_Visit_ValueChanged);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(3, 50);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(177, 29);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Сброс";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button_resetDate_Click);
             // 
             // ReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1021, 802);
+            this.ClientSize = new System.Drawing.Size(1229, 509);
             this.Controls.Add(this.dataGridView_Persons);
             this.Controls.Add(this.groupBox_All_Options);
             this.Controls.Add(this.flowLayoutPanel1);
@@ -388,20 +388,21 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Генератор Отчетов";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.ReportForm_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.groupBox_All_Options.ResumeLayout(false);
             this.groupBox_All_Options.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
             this.groupBox_Status.ResumeLayout(false);
             this.groupBox_LastVisit.ResumeLayout(false);
-            this.groupBox_Pay.ResumeLayout(false);
-            this.groupBox_Age.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.groupBox_Gender.ResumeLayout(false);
             this.groupBox_TypeAbon.ResumeLayout(false);
             this.groupBox_TimeTren.ResumeLayout(false);
+            this.groupBox_Pay.ResumeLayout(false);
+            this.groupBox_Age.ResumeLayout(false);
             this.groupBox_Activation.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Persons)).EndInit();
-            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

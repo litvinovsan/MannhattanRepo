@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using PersonsBase.data;
 using PersonsBase.data.Abonements;
@@ -62,7 +63,7 @@ namespace PersonsBase.View
             InitCheckedListBoxTimeTren();
             InitCheckedListBoxActivation();
 
-            InitDataGridView();
+
         }
 
         #region /// МЕТОДЫ. СТАТУС КЛИЕНТА
@@ -89,7 +90,8 @@ namespace PersonsBase.View
                 _reqStatuses = _personsAll.Where(x => x.Value?.Status == status);
             }
 
-            ShowPersons(GetUpdatedRequests());
+            var result = GetUpdatedRequestsAsync();
+            ShowPersons(result.Result);
         }
 
         #endregion
@@ -103,7 +105,7 @@ namespace PersonsBase.View
             comboBox_LastVisit.Items.Clear();
             MyComboBox.Initialize(comboBox_LastVisit, _lastVisits, _lastVisits[0]);
         }
-        private void comboBox_LastVisit_SelectedIndexChanged(object sender, EventArgs e)
+        private async void comboBox_LastVisit_SelectedIndexChanged(object sender, EventArgs e)
         {
             var lVisit = MyComboBox.GetComboBoxValue(comboBox_LastVisit);
             // Если последний визит не важен -выходим
@@ -119,7 +121,8 @@ namespace PersonsBase.View
                 var resultConverted = resultByCondition.Select(y => new KeyValuePair<string, Person>(y.Key, PersonObject.GetLink(y.Key)));
                 _reqLastVisit = resultConverted.ToList();
             }
-            ShowPersons(GetUpdatedRequests());
+            var result = await GetUpdatedRequestsAsync();
+            ShowPersons(result);
         }
         #endregion
 
@@ -131,7 +134,7 @@ namespace PersonsBase.View
         {
             dateTimePicker_Visit.Value = DateTime.Now.Date;
         }
-        private void dateTimePicker_Visit_ValueChanged(object sender, EventArgs e)
+        private async void dateTimePicker_Visit_ValueChanged(object sender, EventArgs e)
         {
             var lVisit = dateTimePicker_Visit.Value.Date;
             if (lVisit.CompareTo(DateTime.Now.Date) > 0)
@@ -152,7 +155,8 @@ namespace PersonsBase.View
                 var resultConverted = resultByCondition.Select(y => new KeyValuePair<string, Person>(y.Key, PersonObject.GetLink(y.Key)));
                 _reqLastVisit = resultConverted.ToList();
             }
-            ShowPersons(GetUpdatedRequests());
+            var result = await GetUpdatedRequestsAsync();
+            ShowPersons(result);
         }
 
         #endregion
@@ -168,7 +172,7 @@ namespace PersonsBase.View
             checkedListBox_Pay.Items.AddRange(payNames);
         }
 
-        private void checkedListBox_Pay_SelectedIndexChanged(object sender, EventArgs e)
+        private async void checkedListBox_Pay_SelectedIndexChanged(object sender, EventArgs e)
         {
             var checkedIndexes = checkedListBox_Pay.CheckedIndices;
 
@@ -184,7 +188,8 @@ namespace PersonsBase.View
             }
 
             MyCheckedListBox.ClearSelection(checkedListBox_Pay);
-            ShowPersons(GetUpdatedRequests());
+            var result = await GetUpdatedRequestsAsync();
+            ShowPersons(result);
         }
         #endregion
 
@@ -198,7 +203,7 @@ namespace PersonsBase.View
             checkedListBox_Age.Items.AddRange(_ages);
         }
 
-        private void checkedListBox_Age_SelectedIndexChanged(object sender, EventArgs e)
+        private async void checkedListBox_Age_SelectedIndexChanged(object sender, EventArgs e)
         {
             var checkedIndexes = checkedListBox_Age.CheckedIndices;
 
@@ -239,7 +244,8 @@ namespace PersonsBase.View
             }
 
             MyCheckedListBox.ClearSelection(checkedListBox_Age);
-            ShowPersons(GetUpdatedRequests());
+            var result = await GetUpdatedRequestsAsync();
+            ShowPersons(result);
         }
 
         #endregion
@@ -288,7 +294,8 @@ namespace PersonsBase.View
             }
 
             MyCheckedListBox.ClearSelection(checkedListBox_Gender);
-            ShowPersons(GetUpdatedRequests());
+            var result = GetUpdatedRequestsAsync();
+            ShowPersons(result.Result);
         }
         #endregion
 
@@ -303,7 +310,7 @@ namespace PersonsBase.View
             checkedListBox_TypeAbon.Items.AddRange(abbonNames);
         }
 
-        private void checkedListBox_TypeAbon_SelectedIndexChanged(object sender, EventArgs e)
+        private async void checkedListBox_TypeAbon_SelectedIndexChanged(object sender, EventArgs e)
         {
             var checkedIndexes = checkedListBox_TypeAbon.CheckedIndices;
 
@@ -333,7 +340,8 @@ namespace PersonsBase.View
             }
 
             MyCheckedListBox.ClearSelection(checkedListBox_TypeAbon);
-            ShowPersons(GetUpdatedRequests());
+            var result = await GetUpdatedRequestsAsync();
+            ShowPersons(result);
         }
 
         #endregion
@@ -349,7 +357,7 @@ namespace PersonsBase.View
             checkedListBox_TimeTren.Items.AddRange(timeTrenNames);
         }
 
-        private void checkedListBox_TimeTren_SelectedIndexChanged(object sender, EventArgs e)
+        private async void checkedListBox_TimeTren_SelectedIndexChanged(object sender, EventArgs e)
         {
             var checkedIndexes = checkedListBox_TimeTren.CheckedIndices;
 
@@ -365,7 +373,8 @@ namespace PersonsBase.View
             }
 
             MyCheckedListBox.ClearSelection(checkedListBox_TimeTren);
-            ShowPersons(GetUpdatedRequests());
+            var result = await GetUpdatedRequestsAsync();
+            ShowPersons(result);
         }
 
         #endregion
@@ -380,7 +389,7 @@ namespace PersonsBase.View
             checkedListBox_Activation.Items.AddRange(_activation);
         }
 
-        private void checkedListBox_Activation_SelectedIndexChanged(object sender, EventArgs e)
+        private async void checkedListBox_Activation_SelectedIndexChanged(object sender, EventArgs e)
         {
             var checkedIndexes = checkedListBox_Activation.CheckedIndices;
 
@@ -396,7 +405,8 @@ namespace PersonsBase.View
             }
 
             MyCheckedListBox.ClearSelection(checkedListBox_Activation);
-            ShowPersons(GetUpdatedRequests());
+            var result = await GetUpdatedRequestsAsync();
+            ShowPersons(result);
         }
 
         #endregion
@@ -429,14 +439,19 @@ namespace PersonsBase.View
             return personsSelected;
         }
 
+        public async Task<IEnumerable<KeyValuePair<string, Person>>> GetUpdatedRequestsAsync()
+        {
+            return await Task.Run(() => GetUpdatedRequests()).ConfigureAwait(false);
+        }
+
         /// <summary>
         /// Выводит в DataGrid всех Клиентов из коллекции которую подавать на вход надо
         /// </summary>
         /// <param name="personsToShow"></param>
-        private void ShowPersons(IEnumerable<KeyValuePair<string, Person>> personsToShow)
+        private async void ShowPersons(IEnumerable<KeyValuePair<string, Person>> personsToShow)
         {
-            var dt = DataBaseM.CreatePersonsTable(personsToShow, DataBaseM.GetPersonFieldsShort);
-            MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
+            var dt = await Task.Run(() => DataBaseM.CreatePersonsTable(personsToShow, DataBaseM.GetPersonFieldsShort));
+           MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
         }
 
         /// <summary>
@@ -476,6 +491,11 @@ namespace PersonsBase.View
         private void button_resetDate_Click(object sender, EventArgs e)
         {
             dateTimePicker_Visit.Value = DateTime.Now;
+        }
+
+        private async void ReportForm_Load(object sender, EventArgs e)
+        {
+          await Task.Run((() => InitDataGridView()));
         }
     }
 }

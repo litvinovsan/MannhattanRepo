@@ -23,22 +23,34 @@ namespace PersonsBase.myStd
         /// <param name="dataTable"></param>
         public static void SetSourceDataGridView(DataGridView dataGridView1, DataTable dataTable)
         {
-            try
+            void Action(DataTable table)
             {
-                // Automatically generate the DataGridView columns.
-                dataGridView1.AutoGenerateColumns = true;
+                try
+                {
+                    // Automatically generate the DataGridView columns.
+                    dataGridView1.AutoGenerateColumns = true;
 
-                // Set up the data source.
-                BindingSource1.DataSource = dataTable;
-                dataGridView1.DataSource = BindingSource1;
+                    // Set up the data source.
+                    BindingSource1.DataSource = table;
+                    dataGridView1.DataSource = BindingSource1;
 
-                // Automatically resize the visible rows.
-                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+                    // Automatically resize the visible rows.
+                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
-            catch (Exception)
+
+            if (dataGridView1.InvokeRequired)
             {
-                // ignored
+                dataGridView1.Invoke(new Action<DataTable>(Action), dataTable);
+            }
+            else
+            {
+                Action(dataTable);
             }
         }
 
@@ -154,23 +166,35 @@ namespace PersonsBase.myStd
         /// </summary>
         public static void ImplementStyle(DataGridView dataGridView1)
         {
-            DoubleBuffered(dataGridView1, true);
-            // Automatically resize the visible rows.
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            void Action(DataGridView dtgrd)
+            {
+                DoubleBuffered(dtgrd, true);
+                // Automatically resize the visible rows.
+                dtgrd.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dtgrd.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
-            // Set the DataGridView control's settings
-            dataGridView1.BorderStyle = BorderStyle.Fixed3D;
-            dataGridView1.AllowUserToOrderColumns = true;
-            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            if (dataGridView1.Columns.Count != 0)
-                dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;// AllCellsExceptHeader;
+                // Set the DataGridView control's settings
+                dtgrd.BorderStyle = BorderStyle.Fixed3D;
+                dtgrd.AllowUserToOrderColumns = true;
+                dtgrd.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                if (dtgrd.Columns.Count != 0)
+                    dtgrd.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;// AllCellsExceptHeader;
 
-            // Внешний вид заголовка
-            dataGridView1.EnableHeadersVisualStyles = false;
-            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font(dataGridView1.ColumnHeadersDefaultCellStyle.Font.FontFamily, 10f, FontStyle.Bold /*| FontStyle.Italic*/); //жирный курсив размера 16
-            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.Beige; //цвет ячейки
-            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.MidnightBlue; //цвет текста
+                // Внешний вид заголовка
+                dtgrd.EnableHeadersVisualStyles = false;
+                dtgrd.ColumnHeadersDefaultCellStyle.Font = new Font(dataGridView1.ColumnHeadersDefaultCellStyle.Font.FontFamily, 10f, FontStyle.Bold /*| FontStyle.Italic*/); //жирный курсив размера 16
+                dtgrd.ColumnHeadersDefaultCellStyle.BackColor = Color.Beige; //цвет ячейки
+                dtgrd.ColumnHeadersDefaultCellStyle.ForeColor = Color.MidnightBlue; //цвет текста
+            }
+
+            if (dataGridView1.InvokeRequired)
+            {
+                dataGridView1.Invoke(new Action<DataGridView>(Action), dataGridView1);
+            }
+            else
+            {
+                Action(dataGridView1);
+            }
         }
         #endregion
     }
