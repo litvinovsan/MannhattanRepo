@@ -15,10 +15,11 @@ namespace PersonsBase.View
         #region /// ПОЛЯ 
         // Список всех персон. Исходная коллекция со всеми клиентами
         private readonly SortedList<string, Person> _personsAll = DataBaseLevel.GetPersonsList();
+        private List<Person> _toShowList;
 
         // ВЫБОРКИ по параметрам
-        private IEnumerable<KeyValuePair<string, Person>> _reqStatuses;
-        private IEnumerable<KeyValuePair<string, Person>> _reqLastVisit;
+        private Func<Person, bool> _reqStatuses;
+        private Func<Person, bool> _reqLastVisit;
         private IEnumerable<KeyValuePair<string, Person>> _reqPay;
         private IEnumerable<KeyValuePair<string, Person>> _reqAge;
         private IEnumerable<KeyValuePair<string, Person>> _reqGender;
@@ -55,15 +56,22 @@ namespace PersonsBase.View
             // Инициализация всех группбоксов стартовыми значениями
             InitCBoxStatus();
             InitCBoxLastVisit();
-            InitDateVisit();
-            InitCheckedListBoxPay();
-            InitCheckedListBoxAge();
-            InitCheckedListBoxGender();
-            InitCheckedListBoxTypeAbon();
-            InitCheckedListBoxTimeTren();
-            InitCheckedListBoxActivation();
+            //InitDateVisit();
+            //InitCheckedListBoxPay();
+            //InitCheckedListBoxAge();
+            //InitCheckedListBoxGender();
+            //InitCheckedListBoxTypeAbon();
+            //InitCheckedListBoxTimeTren();
+            //InitCheckedListBoxActivation();
 
 
+        }
+        private async void ReportForm_Load(object sender, EventArgs e)
+        {
+            _toShowList = _personsAll.Values.ToList();
+
+            MyDataGridView.ImplementStyle(dataGridView_Persons);
+            UpdateDataGrid(_toShowList);
         }
 
         #region /// МЕТОДЫ. СТАТУС КЛИЕНТА
@@ -82,16 +90,17 @@ namespace PersonsBase.View
         {
             if (comboBox_Status.SelectedItem.ToString().Equals(NotMatter)) // Если не важен статус выводим всех элементов
             {
-                _reqStatuses = _personsAll;
+                _reqStatuses = p => p.Status == StatusPerson.Гостевой ||
+                                    p.Status == StatusPerson.Активный ||
+                                    p.Status == StatusPerson.Заморожен ||
+                                    p.Status == StatusPerson.Запрещён ||
+                                    p.Status == StatusPerson.Нет_Карты;
             }
             else
             {
                 var status = MyComboBox.GetComboBoxValue<StatusPerson>(comboBox_Status);
-                _reqStatuses = _personsAll.Where(x => x.Value?.Status == status);
+                _reqStatuses = p => p.Status == status;
             }
-
-            var result = GetUpdatedRequestsAsync();
-            ShowPersons(result.Result);
         }
 
         #endregion
@@ -111,7 +120,8 @@ namespace PersonsBase.View
             // Если последний визит не важен -выходим
             if (lVisit.Equals(_lastVisits[0]))
             {
-                _reqLastVisit = _personsAll;
+                // Любое значение допустимо. То есть должны попасть все
+                _reqLastVisit = person => person.Name.Length !=0;
             }
             else
             {
@@ -411,91 +421,43 @@ namespace PersonsBase.View
 
         #endregion
 
-        /// <summary>
-        /// Функция пробегает по всем запросам со всех полей и обьединяет в единый итоговый запрос-список.
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<KeyValuePair<string, Person>> GetUpdatedRequests()
+
+        private void UpdateDataGrid(List<Person> listToShow)
         {
-            var personsSelected = (IEnumerable<KeyValuePair<string, Person>>)_personsAll;
+            var columns = from t in listToShow
+                          orderby t.Name
+                          select new
+                          {
+                              ID = t.PersonalNumber,
+                              Name = t.Name,
+                              AbonName = t?.AbonementCurent?.AbonementName,
+                              Status = t.Status,
+                              Date_Activation = t?.AbonementCurent?.BuyActivationDate,
+                              Date_Finish = t?.AbonementCurent?.EndDate,
+                              Spa = t?.AbonementCurent?.Spa
+                          };
 
-            // Статусы
-            personsSelected = ProcessRequest(personsSelected, _reqStatuses);
-            // Последний Визит
-            personsSelected = ProcessRequest(personsSelected, _reqLastVisit);
-            // Оплата
-            personsSelected = ProcessRequest(personsSelected, _reqPay);
-            // Возраст
-            personsSelected = ProcessRequest(personsSelected, _reqAge);
-            // Пол
-            personsSelected = ProcessRequest(personsSelected, _reqGender);
-            // Тип Абонемента
-            personsSelected = ProcessRequest(personsSelected, _reqAbonType);
-            // Время Тренировок
-            personsSelected = ProcessRequest(personsSelected, _reqTimeTren);
-            // Активация
-            personsSelected = ProcessRequest(personsSelected, _reqActivation);
-
-            return personsSelected;
+            dataGridView_Persons.DataSource = columns.ToList();
+            dataGridView_Persons.Refresh();
         }
 
-        public async Task<IEnumerable<KeyValuePair<string, Person>>> GetUpdatedRequestsAsync()
-        {
-            return await Task.Run(() => GetUpdatedRequests()).ConfigureAwait(false);
-        }
 
-        /// <summary>
-        /// Выводит в DataGrid всех Клиентов из коллекции которую подавать на вход надо
-        /// </summary>
-        /// <param name="personsToShow"></param>
-        private async void ShowPersons(IEnumerable<KeyValuePair<string, Person>> personsToShow)
-        {
-            var dt = await Task.Run(() => DataBaseM.CreatePersonsTable(personsToShow, DataBaseM.GetPersonFieldsShort));
-           MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
-        }
 
-        /// <summary>
-        /// Хелп функция, нужна только для функции GetUpdatedRequests. Просто оборачивает вызов обьединения запросов через Intersect
-        /// </summary>
-        /// <param name="allPersons"></param>
-        /// <param name="inputRequest"></param>
-        /// <returns></returns>
-        private static IEnumerable<KeyValuePair<string, Person>> ProcessRequest(IEnumerable<KeyValuePair<string, Person>> allPersons, IEnumerable<KeyValuePair<string, Person>> inputRequest)
-        {
-            if (inputRequest != null) allPersons = allPersons.Intersect(inputRequest);
-            return allPersons;
-        }
-
-        /// <summary>
-        /// Инициализация ДатаГрид. Выводится стартовый список клиентов тоже тут.
-        /// </summary>
-        private void InitDataGridView()
-        {
-            var dt = DataBaseM.CreatePersonsTable(_personsAll, DataBaseM.GetPersonFieldsShort);
-            MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
-            MyDataGridView.ImplementStyle(dataGridView_Persons);
-        }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void button_Close_Click(object sender, EventArgs e)
         {
             Close();
         }
         private void button_Click_SaveExcel(object sender, EventArgs e)
         {
             if (DataBaseLevel.GetNumberOfPersons() == 0) MessageBox.Show(@"В Базе нет клиентов");
-            var personsSelected = GetUpdatedRequests();
-            var table = DataBaseM.CreatePersonsTable(personsSelected, DataBaseM.GetPersonFieldsFull);
-            MyFile.ExportToExcel(table, true);
+
+            //var table = DataBaseM.CreatePersonsTable(personsSelected, DataBaseM.GetPersonFieldsFull);
+            // MyFile.ExportToExcel(table, true);
         }
 
         private void button_resetDate_Click(object sender, EventArgs e)
         {
             dateTimePicker_Visit.Value = DateTime.Now;
-        }
-
-        private async void ReportForm_Load(object sender, EventArgs e)
-        {
-          await Task.Run((() => InitDataGridView()));
         }
     }
 }
