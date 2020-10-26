@@ -102,12 +102,28 @@
                       this.Controls.RemoveLast(controlsArray[i]);
                    }
                }
-
-
-
-
             */
 
+            /* BINDING DataGrid
+     https://www.c-sharpcorner.com/UploadFile/deveshomar/ways-to-bind-datagridview-in-window-forms-C-Sharp/        
+                List does not implement IBindingList so the grid does not know about your new items.
+
+                Bind your DataGridView to a BindingList<T> instead.
+
+                var list = new BindingList<Person>(persons);
+                myGrid.DataSource = list;
+                But I would even go further and bind your grid to a BindingSource
+
+                var list = new List<Person>()
+                {
+                    new Person { Name = "Joe", },
+                    new Person { Name = "Misha", },
+                };
+                var bindingList = new BindingList<Person>(list);
+                var source = new BindingSource(bindingList, null);
+                grid.DataSource = source;
+                    grid.Refresh();        
+             */
 
 
         }
