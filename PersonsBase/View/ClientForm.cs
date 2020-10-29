@@ -21,7 +21,7 @@ namespace PersonsBase.View
         private readonly Logic _logic;
         private readonly Person _person;
         private bool _isAnythingChanged;
-
+        private AbonementController _abonementCntrl;
         #endregion
 
         #region /// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ///
@@ -31,6 +31,7 @@ namespace PersonsBase.View
             _person = PersonObject.GetLink(keyName) ?? new Person();
             _isAnythingChanged = false;
             _logic = Logic.GetInstance();
+            _abonementCntrl = AbonementController.GetInstance();
         }
 
         private void ClientForm_Load(object sender, EventArgs e)

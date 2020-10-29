@@ -56,7 +56,7 @@ namespace PersonsBase.myStd
             }
             catch (Exception e)
             {
-                MessageBox.Show($@"Ошибка в файле {nameFile}: " + e.Message, @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
+             //   MessageBox.Show($@"Ошибка в файле {nameFile}: " + e.Message, @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
