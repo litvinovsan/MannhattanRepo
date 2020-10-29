@@ -59,7 +59,15 @@ namespace PersonsBase.control
         }
         public void Load()
         {
-            _abonementsDictionary = Load<AbonementBasic>();
+            _abonementsDictionary = new Dictionary<string, List<AbonementBasic>>();
+            try
+            {
+                _abonementsDictionary = Load<AbonementBasic>();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         /// <summary>
@@ -69,11 +77,11 @@ namespace PersonsBase.control
         /// <returns></returns>
         public List<AbonementBasic> GetList(string personName)
         {
-            if (!string.IsNullOrEmpty(personName) && _abonementsDictionary != null)
+            if (!string.IsNullOrEmpty(personName) && _abonementsDictionary != null && _abonementsDictionary.ContainsKey(personName))
             {
                 return _abonementsDictionary[personName];
             }
-            return null;
+            return new List<AbonementBasic>();
         }
 
         /// <summary>
@@ -98,6 +106,12 @@ namespace PersonsBase.control
             return result;
         }
 
+        /// <summary>
+        /// Добавляет абонемент к указанному Человеку.
+        /// Если человек не существует, то создает его в коллекции
+        /// </summary>
+        /// <param name="personName"></param>
+        /// <param name="abonement"></param>
         public void AddAbonement(string personName, AbonementBasic abonement)
         {
             if (string.IsNullOrEmpty(personName) || abonement == null) return;
@@ -109,6 +123,51 @@ namespace PersonsBase.control
             _abonementsDictionary[personName].Add(abonement);
         }
 
+        /// <summary>
+        /// Удаляет для Персоны поданый параметром абонемент
+        /// </summary>
+        /// <param name="personName"></param>
+        /// <param name="abonToDelete"></param>
+        public void RemoveAbonement(string personName, AbonementBasic abonToDelete)
+        {
+            if (string.IsNullOrEmpty(personName) || abonToDelete == null || !_abonementsDictionary.ContainsKey(personName)) return;
+
+            _abonementsDictionary[personName].Remove(abonToDelete);
+        }
+
+        /// <summary>
+        /// Возвращает абонемент по индексу из коллекции которую сюда передаем в качестве параметра
+        /// </summary>
+        /// <param name="personName"></param>
+        /// <param name="cList"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public AbonementBasic GetByIndex(string personName, List<AbonementBasic> cList, int index)
+        {
+            if (personName == null) throw new ArgumentNullException(nameof(personName));
+            if (cList == null) throw new ArgumentNullException(nameof(cList));
+            if (index < 0) throw new ArgumentOutOfRangeException(nameof(index));
+
+            return cList[index];
+        }
+
+        /// <summary>
+        /// Возвращает индекс абонемента в основной коллекции,где хранятся и старые и новые абонементы.
+        /// Возвращает -1 если нет пользователя или такого абонемента не существует.
+        /// </summary>
+        /// <param name="personName"></param>
+        /// <param name="inputAbonement"></param>
+        /// <returns></returns>
+        public int GetGlobalIndex(string personName, AbonementBasic inputAbonement)
+        {
+            if (personName == null || (inputAbonement == null) || !_abonementsDictionary.ContainsKey(personName))
+                return -1;
+
+            var index = _abonementsDictionary[personName].IndexOf(inputAbonement);
+            return index;
+        }
+
+        
         #endregion
     }
 }

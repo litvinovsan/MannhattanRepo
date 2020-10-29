@@ -74,24 +74,24 @@ namespace PersonsBase.control.Tests
             Assert.AreEqual(inst.GetListValid(firstPerson).Count(), 0);
             Assert.AreEqual(inst.GetListNotValid(firstPerson).Count(), 0);
 
-            var abon_valid_1 = new AbonementByDays(Pay.Не_Оплачено, TimeForTr.Утро, TypeWorkout.МиниГруппа, SpaService.Спа, DaysInAbon.На_5_посещений);
+            var abonValid1 = new AbonementByDays(Pay.Не_Оплачено, TimeForTr.Утро, TypeWorkout.МиниГруппа, SpaService.Спа, DaysInAbon.На_5_посещений);
 
-            var abon_valid_2 = new SingleVisit(TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, Pay.Не_Оплачено,
+            var abonValid2 = new SingleVisit(TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, Pay.Не_Оплачено,
                 TimeForTr.Весь_День)
             { BuyActivationDate = DateTime.Today.AddDays(-20), NumAerobicTr = 0, NumMiniGroup = 0, NumPersonalTr = 0, IsActivated = true, TypeWorkout = TypeWorkout.Аэробный_Зал };
 
-            var abon_valid_3 = new AbonementByDays(Pay.Оплачено, TimeForTr.Утро, TypeWorkout.МиниГруппа, SpaService.Спа, DaysInAbon.На_5_посещений);
+            var abonValid3 = new AbonementByDays(Pay.Оплачено, TimeForTr.Утро, TypeWorkout.МиниГруппа, SpaService.Спа, DaysInAbon.На_5_посещений);
 
-            var abon_not_Valid = new ClubCardA(Pay.Не_Оплачено, TimeForTr.Весь_День, TypeWorkout.Аэробный_Зал,
+            var abonNotValid = new ClubCardA(Pay.Не_Оплачено, TimeForTr.Весь_День, TypeWorkout.Аэробный_Зал,
                     SpaService.Без_Спа, PeriodClubCard.На_1_Месяц)
             { BuyActivationDate = DateTime.Today.AddDays(-200), IsActivated = true };
 
 
             string name = "myPerson";
-            inst.AddAbonement(name, abon_not_Valid);
-            inst.AddAbonement(name, abon_valid_1);
-            inst.AddAbonement(name, abon_valid_2);
-            inst.AddAbonement(name, abon_valid_3);
+            inst.AddAbonement(name, abonNotValid);
+            inst.AddAbonement(name, abonValid1);
+            inst.AddAbonement(name, abonValid2);
+            inst.AddAbonement(name, abonValid3);
 
             Assert.AreEqual(inst.GetDictionary().Count, 2);
             Assert.AreEqual(inst.GetDictionary()[name].Count, 4);
@@ -100,7 +100,7 @@ namespace PersonsBase.control.Tests
             var t = inst.GetListValid("myPerson");
             Assert.AreEqual(t.Count(), 3);
 
-            var i = t.ToList().IndexOf(abon_valid_1);
+            var i = t.ToList().IndexOf(abonValid1);
             Assert.AreEqual(i, 0); // 0 потому что первый элемент ориг массива отбрасывается.Он не валиден
 
             //1 Проверка как в рабочей программе
@@ -117,11 +117,14 @@ namespace PersonsBase.control.Tests
         }
 
         [TestMethod()]
-        public void GetValidAbonementsTest()
+        public void GetListValidTest()
         {
             var inst = AbonementController.GetInstance();
             inst.GetDictionary().Clear();
             var firstPerson = Guid.NewGuid().ToString();
+            var l1 = inst.GetListValid(firstPerson);
+            Assert.IsNull(l1);
+
             inst.GetDictionary().Add(firstPerson, new List<AbonementBasic>() { new AbonementByDays(Pay.Оплачено, TimeForTr.Утро, TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, DaysInAbon.На_10_посещений) });
 
             var r = inst.GetDictionary().First().Value.Count;
@@ -131,6 +134,8 @@ namespace PersonsBase.control.Tests
             var res = inst.GetListValid(firstPerson).Count();
             Assert.AreEqual(res, 1);
 
+            var res2 = inst.GetListValid(null).Count();
+            Assert.AreEqual(res2, 1);
         }
 
         [TestMethod()]
@@ -155,13 +160,95 @@ namespace PersonsBase.control.Tests
             var inst = AbonementController.GetInstance();
             inst.GetDictionary().Clear();
             var actual = inst.GetDictionary().Count;
-            Assert.AreEqual(0,actual);
+            Assert.AreEqual(0, actual);
 
-            var expected = Guid.NewGuid().ToString();
-            inst.AddAbonement(expected, new AbonementByDays(Pay.Не_Оплачено,TimeForTr.Весь_День,TypeWorkout.Аэробный_Зал,SpaService.Без_Спа,DaysInAbon.На_10_посещений));
-            Assert.IsTrue(inst.GetDictionary().ContainsKey(expected));
+            var name = Guid.NewGuid().ToString();
+            inst.AddAbonement(name, new AbonementByDays(Pay.Не_Оплачено, TimeForTr.Весь_День, TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, DaysInAbon.На_10_посещений));
+            Assert.IsTrue(inst.GetDictionary().ContainsKey(name));
 
-            Assert.AreEqual(1, inst.GetList(expected).Count);
+            Assert.AreEqual(1, inst.GetList(name).Count);
+        }
+
+        [TestMethod()]
+        public void RemoveAbonementTest()
+        {
+            var inst = AbonementController.GetInstance();
+            inst.GetDictionary().Clear();
+            var actual = inst.GetDictionary().Count;
+            Assert.AreEqual(0, actual);
+
+            var personName = Guid.NewGuid().ToString();
+
+            //Добавляем пользователя и абонементы
+            var abonValid1 = new AbonementByDays(Pay.Не_Оплачено, TimeForTr.Утро, TypeWorkout.МиниГруппа, SpaService.Спа, DaysInAbon.На_5_посещений);
+            var abonValid2 = new SingleVisit(TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, Pay.Не_Оплачено, TimeForTr.Весь_День) { IsActivated = true };
+            var abonValid3 = new AbonementByDays(Pay.Оплачено, TimeForTr.Утро, TypeWorkout.МиниГруппа, SpaService.Спа, DaysInAbon.На_5_посещений);
+            var abonNotValid = new ClubCardA(Pay.Не_Оплачено, TimeForTr.Весь_День, TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, PeriodClubCard.На_1_Месяц)
+            { BuyActivationDate = DateTime.Today.AddDays(-200) };
+
+            inst.GetDictionary().Add(personName, new List<AbonementBasic>());
+            inst.GetDictionary()[personName].Add(abonNotValid);
+            inst.GetDictionary()[personName].Add(abonValid1);
+            inst.GetDictionary()[personName].Add(abonValid2);
+            inst.GetDictionary()[personName].Add(abonValid3);
+            Assert.AreEqual(4, inst.GetDictionary()[personName].Count);
+
+            // Проверяем удаление
+            inst.RemoveAbonement(personName, abonValid3);
+            Assert.AreEqual(3, inst.GetDictionary()[personName].Count);
+
+            try
+            {
+                inst.RemoveAbonement("2as", abonValid3);
+            }
+            catch (Exception e)
+            {
+                throw new NullReferenceException();
+            }
+
+        }
+
+        [TestMethod()]
+        public void GetIndexGlobalTest()
+        {
+            var inst = AbonementController.GetInstance();
+            inst.GetDictionary().Clear();
+            var actual = inst.GetDictionary().Count;
+            Assert.AreEqual(0, actual);
+
+            var abonValid1 = new AbonementByDays(Pay.Не_Оплачено, TimeForTr.Утро, TypeWorkout.МиниГруппа, SpaService.Спа, DaysInAbon.На_5_посещений);
+            var abonValid2 = new SingleVisit(TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, Pay.Не_Оплачено, TimeForTr.Весь_День) { IsActivated = true };
+            var abonValid3 = new AbonementByDays(Pay.Оплачено, TimeForTr.Утро, TypeWorkout.МиниГруппа, SpaService.Спа, DaysInAbon.На_5_посещений);
+            var abonNotValid = new ClubCardA(Pay.Не_Оплачено, TimeForTr.Весь_День, TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, PeriodClubCard.На_1_Месяц)
+            { BuyActivationDate = DateTime.Today.AddDays(-200) };
+
+            // Если нет пользователя
+            var result = inst.GetGlobalIndex("nameDummy", abonValid1);
+            Assert.AreEqual(-1, result);
+
+            // Если абонемент есть
+            string personName = "MyName";
+            inst.AddAbonement(personName, abonValid1);
+            inst.AddAbonement(personName, abonValid2);
+            inst.AddAbonement(personName, abonValid3);
+            Assert.AreEqual(3, inst.GetList(personName).Count);
+
+            var index = inst.GetGlobalIndex(personName, abonValid2);
+            Assert.AreEqual(1, index);
+
+            // Если абонемента нет
+            index = inst.GetGlobalIndex(personName, abonNotValid);
+            Assert.AreEqual(-1, index);
+
+            // Получить невалидный и найти его индекс в основной коллекции
+            inst.AddAbonement(personName, abonNotValid);
+            var notValidList = inst.GetListNotValid(personName);
+            //.. Получить абонемент по индексу
+            var curentAbon = inst.GetByIndex(personName, notValidList, 0);
+            Assert.AreSame(curentAbon, abonNotValid);
+
+            var globalIndex = inst.GetGlobalIndex(personName, curentAbon);
+            Assert.AreEqual(3, globalIndex);
         }
     }
 }
