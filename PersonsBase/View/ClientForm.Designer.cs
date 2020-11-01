@@ -49,10 +49,10 @@ namespace PersonsBase.View
             this.button_Add_Abon = new System.Windows.Forms.Button();
             this.button_Freeze = new System.Windows.Forms.Button();
             this.button_RemoveCurrentAbon = new System.Windows.Forms.Button();
-            this.pictureBox_ClientPhoto = new System.Windows.Forms.PictureBox();
             this.groupBox_abonList = new System.Windows.Forms.GroupBox();
             this.button__remove_abon = new System.Windows.Forms.Button();
             this.listBox_abonements = new System.Windows.Forms.ListBox();
+            this.pictureBox_ClientPhoto = new System.Windows.Forms.PictureBox();
             this.groupBox_Info = new System.Windows.Forms.GroupBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox_Detailed = new System.Windows.Forms.GroupBox();
@@ -81,8 +81,8 @@ namespace PersonsBase.View
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).BeginInit();
             this.groupBox_abonList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -121,7 +121,7 @@ namespace PersonsBase.View
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1141, 707);
+            this.tabControl1.Size = new System.Drawing.Size(1141, 657);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -138,7 +138,7 @@ namespace PersonsBase.View
             this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Size = new System.Drawing.Size(1133, 678);
+            this.tabPage1.Size = new System.Drawing.Size(1133, 628);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Информация";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -155,7 +155,7 @@ namespace PersonsBase.View
             this.textBox_Notes.Multiline = true;
             this.textBox_Notes.Name = "textBox_Notes";
             this.textBox_Notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_Notes.Size = new System.Drawing.Size(1112, 141);
+            this.textBox_Notes.Size = new System.Drawing.Size(1112, 91);
             this.textBox_Notes.TabIndex = 5;
             this.textBox_Notes.TextChanged += new System.EventHandler(this.textBox_Notes_TextChanged);
             // 
@@ -257,7 +257,7 @@ namespace PersonsBase.View
             // button_CheckInWorkout
             // 
             this.button_CheckInWorkout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button_CheckInWorkout.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_CheckInWorkout.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_CheckInWorkout.Location = new System.Drawing.Point(2, 2);
             this.button_CheckInWorkout.Margin = new System.Windows.Forms.Padding(2);
             this.button_CheckInWorkout.Name = "button_CheckInWorkout";
@@ -270,7 +270,7 @@ namespace PersonsBase.View
             // button_add_dop_tren
             // 
             this.button_add_dop_tren.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button_add_dop_tren.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_add_dop_tren.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_add_dop_tren.Location = new System.Drawing.Point(2, 69);
             this.button_add_dop_tren.Margin = new System.Windows.Forms.Padding(2);
             this.button_add_dop_tren.Name = "button_add_dop_tren";
@@ -284,7 +284,7 @@ namespace PersonsBase.View
             // button_Add_Abon
             // 
             this.button_Add_Abon.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button_Add_Abon.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_Add_Abon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_Add_Abon.Location = new System.Drawing.Point(2, 136);
             this.button_Add_Abon.Margin = new System.Windows.Forms.Padding(2);
             this.button_Add_Abon.Name = "button_Add_Abon";
@@ -297,19 +297,19 @@ namespace PersonsBase.View
             // button_Freeze
             // 
             this.button_Freeze.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button_Freeze.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_Freeze.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_Freeze.Location = new System.Drawing.Point(2, 203);
             this.button_Freeze.Margin = new System.Windows.Forms.Padding(2);
             this.button_Freeze.Name = "button_Freeze";
             this.button_Freeze.Size = new System.Drawing.Size(194, 53);
             this.button_Freeze.TabIndex = 5;
-            this.button_Freeze.Text = "Заморозить";
+            this.button_Freeze.Text = "Заморозка";
             this.button_Freeze.UseVisualStyleBackColor = true;
             this.button_Freeze.Click += new System.EventHandler(this.button_Freeze_Click);
             // 
             // button_RemoveCurrentAbon
             // 
-            this.button_RemoveCurrentAbon.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_RemoveCurrentAbon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_RemoveCurrentAbon.ForeColor = System.Drawing.Color.Red;
             this.button_RemoveCurrentAbon.Location = new System.Drawing.Point(2, 260);
             this.button_RemoveCurrentAbon.Margin = new System.Windows.Forms.Padding(2);
@@ -320,18 +320,6 @@ namespace PersonsBase.View
             this.button_RemoveCurrentAbon.UseVisualStyleBackColor = true;
             this.button_RemoveCurrentAbon.Visible = false;
             this.button_RemoveCurrentAbon.Click += new System.EventHandler(this.button_remove_current_abon_Click);
-            // 
-            // pictureBox_ClientPhoto
-            // 
-            this.pictureBox_ClientPhoto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox_ClientPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(934, 46);
-            this.pictureBox_ClientPhoto.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox_ClientPhoto.Name = "pictureBox_ClientPhoto";
-            this.pictureBox_ClientPhoto.Size = new System.Drawing.Size(188, 179);
-            this.pictureBox_ClientPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox_ClientPhoto.TabIndex = 0;
-            this.pictureBox_ClientPhoto.TabStop = false;
             // 
             // groupBox_abonList
             // 
@@ -375,6 +363,18 @@ namespace PersonsBase.View
             this.listBox_abonements.TabIndex = 0;
             this.listBox_abonements.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox_abonements_MouseDoubleClick);
             // 
+            // pictureBox_ClientPhoto
+            // 
+            this.pictureBox_ClientPhoto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox_ClientPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(934, 46);
+            this.pictureBox_ClientPhoto.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox_ClientPhoto.Name = "pictureBox_ClientPhoto";
+            this.pictureBox_ClientPhoto.Size = new System.Drawing.Size(188, 179);
+            this.pictureBox_ClientPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox_ClientPhoto.TabIndex = 0;
+            this.pictureBox_ClientPhoto.TabStop = false;
+            // 
             // groupBox_Info
             // 
             this.groupBox_Info.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -397,7 +397,7 @@ namespace PersonsBase.View
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(1133, 633);
+            this.tabPage2.Size = new System.Drawing.Size(1133, 628);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Персональные данные";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -630,7 +630,7 @@ namespace PersonsBase.View
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1133, 633);
+            this.tabPage3.Size = new System.Drawing.Size(1133, 628);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Посещения";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -646,7 +646,7 @@ namespace PersonsBase.View
             this.dataGridView_Visits.Location = new System.Drawing.Point(3, 3);
             this.dataGridView_Visits.Name = "dataGridView_Visits";
             this.dataGridView_Visits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_Visits.Size = new System.Drawing.Size(1127, 627);
+            this.dataGridView_Visits.Size = new System.Drawing.Size(1127, 622);
             this.dataGridView_Visits.TabIndex = 0;
             // 
             // tabPage_abon_history
@@ -655,7 +655,7 @@ namespace PersonsBase.View
             this.tabPage_abon_history.Location = new System.Drawing.Point(4, 25);
             this.tabPage_abon_history.Name = "tabPage_abon_history";
             this.tabPage_abon_history.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_abon_history.Size = new System.Drawing.Size(1133, 633);
+            this.tabPage_abon_history.Size = new System.Drawing.Size(1133, 628);
             this.tabPage_abon_history.TabIndex = 3;
             this.tabPage_abon_history.Text = "Архив Абонементов";
             this.tabPage_abon_history.UseVisualStyleBackColor = true;
@@ -666,7 +666,7 @@ namespace PersonsBase.View
             this.dataGridView_history_abonements.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_history_abonements.Location = new System.Drawing.Point(3, 3);
             this.dataGridView_history_abonements.Name = "dataGridView_history_abonements";
-            this.dataGridView_history_abonements.Size = new System.Drawing.Size(1127, 627);
+            this.dataGridView_history_abonements.Size = new System.Drawing.Size(1127, 622);
             this.dataGridView_history_abonements.TabIndex = 0;
             // 
             // tableLayoutPanel4
@@ -680,7 +680,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel4.Controls.Add(this.button2, 3, 0);
             this.tableLayoutPanel4.Controls.Add(this.button_Cancel, 0, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 709);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 659);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
@@ -719,7 +719,7 @@ namespace PersonsBase.View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1141, 749);
+            this.ClientSize = new System.Drawing.Size(1141, 699);
             this.Controls.Add(this.tableLayoutPanel4);
             this.Controls.Add(this.tabControl1);
             this.DoubleBuffered = true;
@@ -737,8 +737,8 @@ namespace PersonsBase.View
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).EndInit();
             this.groupBox_abonList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);

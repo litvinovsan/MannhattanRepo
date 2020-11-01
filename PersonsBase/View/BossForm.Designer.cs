@@ -587,8 +587,6 @@
             // checkBox_SimpsonPhoto
             // 
             this.checkBox_SimpsonPhoto.AutoSize = true;
-            this.checkBox_SimpsonPhoto.Checked = true;
-            this.checkBox_SimpsonPhoto.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox_SimpsonPhoto.Location = new System.Drawing.Point(6, 49);
             this.checkBox_SimpsonPhoto.Name = "checkBox_SimpsonPhoto";
             this.checkBox_SimpsonPhoto.Size = new System.Drawing.Size(343, 21);

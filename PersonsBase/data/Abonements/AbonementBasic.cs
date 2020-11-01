@@ -31,7 +31,6 @@ namespace PersonsBase.data.Abonements
 
         public abstract int NumAerobicTr { get; set; }
 
-
         public abstract int NumPersonalTr { get; set; }
         // Количество Персональных тренировок. Могут быть добавлены к Клубному абонементу.
 
