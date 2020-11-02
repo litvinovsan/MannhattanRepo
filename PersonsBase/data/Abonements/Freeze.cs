@@ -21,8 +21,7 @@ namespace PersonsBase.data.Abonements
         /// <summary>
         /// Заморозить на Н дней
         /// </summary>
-        public int DaysToFreeze { get; }
-
+        public int DaysToFreeze { get; set; }
 
         // Конструктор
         public FreezePeriod(DateTime startDate, int daysToFreeze)
@@ -62,7 +61,7 @@ namespace PersonsBase.data.Abonements
         /// <returns></returns>
         public bool IsFreezeInFuture()
         {
-            return (DateTime.Now.Date.CompareTo(StartDate.Date) <= 0);// Дата заморозки в будущем
+            return (DateTime.Now.Date.CompareTo(StartDate.Date) < 0);// Дата заморозки в будущем
         }
     }
 
@@ -81,6 +80,9 @@ namespace PersonsBase.data.Abonements
         #region /// СОБЫТИЯ ///
         [field: NonSerialized] public event EventHandler FreezeChanged;
 
+        /// <summary>
+        /// Счетчик использованых дней заморозки
+        /// </summary>
         private int TotalDaysFreezed
         {
             get { return _totalDaysFreezed; }
@@ -169,7 +171,19 @@ namespace PersonsBase.data.Abonements
                 return false;
             }
         }
+        /// <summary>
+        /// Разморозка текущего замороженного абонемента
+        /// </summary>
+        public void UnFreezeCurrent()
+        {
+            if (!IsFreezedNow()) return;
 
+            var curentFreezed = AllFreezes.Find(x => x.IsFreezedNow()); // Ищем любой замороженный сейчас
+            var potrachenoDney = (DateTime.Now - curentFreezed.StartDate).Days;
+            var ostalos = curentFreezed.DaysToFreeze - potrachenoDney;
+            curentFreezed.DaysToFreeze = curentFreezed.DaysToFreeze - ostalos;
+            TotalDaysFreezed = TotalDaysFreezed - ostalos;
+        }
         /// <summary>
         /// Удаляет последнюю заморозку из списка
         /// </summary>
@@ -290,6 +304,7 @@ namespace PersonsBase.data.Abonements
         }
 
         #endregion
+
     }
 }
 // Если +, то DateTime.Now.CompareTo позднее _endDate

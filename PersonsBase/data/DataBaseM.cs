@@ -408,8 +408,9 @@ namespace PersonsBase.data
                         result += item;
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    MessageBox.Show(e.Message);
                     // ignored
                 }
             }

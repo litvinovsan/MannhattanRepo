@@ -192,6 +192,7 @@ namespace PersonsBase.View
                         {
                             button_Freeze.Visible = true;
                             button_Freeze.Enabled = _person.AbonementCurent.IsActivated;
+                            button_Freeze.Text = @"Заморозка";
                         }
                         else
                         {
@@ -217,6 +218,7 @@ namespace PersonsBase.View
                         button_Add_Abon.Enabled = false;
                         button_Freeze.Visible = true;
                         button_add_dop_tren.Visible = false;
+                        button_Freeze.Text = @"Разморозить";
                         break;
                     }
                 case StatusPerson.Гостевой:
@@ -696,22 +698,28 @@ namespace PersonsBase.View
         private void button_Freeze_Click(object sender, EventArgs e)
         {
             var status = _person.Status;
+            // Чередуется заморозка и разморозка. Если абонемент заморожен - доступна только разморозка
+            // Для Разморозки
+            if (status == StatusPerson.Заморожен)
+            {
+                var result = MessageBox.Show(@"Разморозить абонемент?", @"Разморозка", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.No) return;
 
-            if (status != StatusPerson.Заморожен)
+                var abon = _person.AbonementCurent as ClubCardA;
+                abon?.Freeze.UnFreezeCurrent();
+            }
+            else //  Для заморозки
             {
                 var dlgResult = FormsRunner.RunFreezeForm(_person.Name);
-                if (dlgResult == DialogResult.Cancel) return;
-            }
-            else
-            {
-                MessageBox.Show(@"Сейчас абонемент заморожен! Новая заморозка добавится в очередь!", @"Внимание!",
-                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                FormsRunner.RunFreezeForm(_person.Name);
+                if (dlgResult == DialogResult.Cancel)
+                {
+                    return;
+                }
             }
 
+            // Для обновления
             Logic.LoadShortInfo(groupBox_Info, _person);
             UpdateEditableData();
-
         }
 
         private void button_photo_Click(object sender, EventArgs e)

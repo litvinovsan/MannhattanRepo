@@ -39,7 +39,7 @@ namespace PersonsBase.View
             InitCheckBoxHistory();
 
             // Кнопка удаления заморозки
-            // buttonClearFreeze.Visible = PwdForm.IsPassUnLocked() ? true : false;
+             buttonClearFreeze.Visible = PwdForm.IsPassUnLocked();
         }
 
         private void InitComboBox(int maxDaysAvailable)
