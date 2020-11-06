@@ -96,6 +96,7 @@ namespace PersonsBase.View
         {// Cохраняет напрямую в Абонемент
             Person person = PersonObject.GetLink(personName);
             if (!(person.AbonementCurent is ClubCardA)) return DialogResult.Cancel;
+
             ClubCardA clubCard = ((ClubCardA)person.AbonementCurent);
             var freezeForm = new FreezeForm(clubCard);
             return freezeForm.ShowDialog();
@@ -144,6 +145,30 @@ namespace PersonsBase.View
                         break;
                     }
             }
+            // если не вышли , то запуск формы опций
+            var workoutForm = new WorkoutForm(personName);
+
+            var dlgReult = workoutForm.ShowDialog();
+            if (dlgReult == DialogResult.OK) optionsWorkout = workoutForm.SelectedOptions;
+            return dlgReult;
+        }
+
+        /// <summary>
+        /// Перегрузка для работы с SingleVisit Гостевым и диспетчером абонементов. Костыль по факту
+        /// </summary>
+        /// <param name="optionsWorkout"></param>
+        /// <param name="abonement"></param>
+        /// <param name="personName"></param>
+        /// <returns></returns>
+        public static DialogResult RunWorkoutOptionsSingleForm(ref WorkoutOptions optionsWorkout, AbonementBasic abonement, string personName)
+        {
+            if (abonement == null) return DialogResult.Cancel;
+
+            optionsWorkout.TypeWorkout = abonement.TypeWorkout; // Значение по умолчанию
+
+            if (abonement is SingleVisit && abonement.TypeWorkout == TypeWorkout.Тренажерный_Зал)
+                return DialogResult.OK;
+
             // если не вышли , то запуск формы опций
             var workoutForm = new WorkoutForm(personName);
 

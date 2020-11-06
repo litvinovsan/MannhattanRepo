@@ -47,6 +47,30 @@ namespace PersonsBase.data
         }
 
         /// <summary>
+        /// Сохраняет текущий визит. Перегрузка для работы с Диспетчером абонементов
+        /// Добавляет в Журнал посещений параметры выбранной Тренировки, Текущего администратора, время тренировки.
+        /// Статический метод, на вход нужно подать Персону.
+        /// </summary>
+        /// <param name="person"></param>
+        /// <param name="abonement">Абонемент для сохранения</param>
+        /// <param name="selectedOptions"></param>
+        public static void SaveCurentVisit(Person person, AbonementBasic abonement, WorkoutOptions selectedOptions)
+        {
+            var currentAdmin = (DataBaseLevel.GetManhattanInfo()?.CurrentAdmin) ?? new Administrator();
+            var visit = new Visit(abonement, selectedOptions, currentAdmin.Name);
+            var personsVisitDict = DataBaseLevel.GetPersonsVisitDict();
+
+            if (personsVisitDict.ContainsKey(person.Name))
+            {
+                personsVisitDict[person.Name].Add(visit);
+            }
+            else
+            {
+                personsVisitDict.Add(person.Name, new List<Visit> { visit });
+            }
+        }
+
+        /// <summary>
         /// Добавляет в Журнал посещений параметры выбранной Тренировки, Текущего администратора, время тренировки.
         /// Статический метод, на вход нужно подать Персону.
         /// </summary>

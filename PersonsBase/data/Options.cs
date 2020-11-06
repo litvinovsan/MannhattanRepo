@@ -107,7 +107,5 @@ namespace PersonsBase.data
         public const string CorrectPassword = "1234";
 
         #endregion
-
-
     }
 }

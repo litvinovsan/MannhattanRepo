@@ -112,6 +112,7 @@ namespace PersonsBase.control
         {
             Options.SaveProperties(); // Сохранение пользовательских настроек
             DataBaseLevel.SerializeObjects();
+            AbonementController.GetInstance().Save();
         }
 
         #endregion
@@ -402,6 +403,13 @@ namespace PersonsBase.control
                 }
             }
 
+            // Переименование в контроллере абонементов
+            if (isSuccess)
+            {
+                AbonementController.GetInstance().GetDictionary().RenameKey(oldName, PrepareName(newName));
+            }
+            //
+
             return isSuccess;
         }
         public static string GetPersonShortName(string nameLong)
@@ -519,19 +527,7 @@ namespace PersonsBase.control
             var person = PersonObject.GetLink(personName);
             if (person == null) return false;
 
-            var dialogResult = DialogResult.Cancel;
-            if (person.AbonementCurent == null)
-            {
-                dialogResult = FormsRunner.CreateAbonementForm(person.Name);
-            }
-            else
-            {
-                var result = MessageBox.Show($@"Действует:  {person.AbonementCurent.AbonementName}.Добавить новый абонемент к существующему?", @"Добавление Абонемента", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
-                {
-                    dialogResult = FormsRunner.CreateAbonementForm(person.Name);
-                }
-            }
+            var dialogResult = FormsRunner.CreateAbonementForm(person.Name);
 
             return dialogResult == DialogResult.OK;
         }

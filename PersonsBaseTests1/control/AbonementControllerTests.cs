@@ -123,10 +123,10 @@ namespace PersonsBase.control.Tests
             inst.GetDictionary().Clear();
             var firstPerson = Guid.NewGuid().ToString();
             var l1 = inst.GetListValid(firstPerson);
-            Assert.IsNull(l1);
+            Assert.AreEqual(l1.Count, 0);
 
-            inst.GetDictionary().Add(firstPerson, new List<AbonementBasic>() { new AbonementByDays(Pay.Оплачено, TimeForTr.Утро, TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, DaysInAbon.На_10_посещений) });
 
+            inst.AddAbonement(firstPerson, new AbonementByDays(Pay.Оплачено, TimeForTr.Утро, TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, DaysInAbon.На_10_посещений));
             var r = inst.GetDictionary().First().Value.Count;
             Assert.AreEqual(r, 1);
 
@@ -134,8 +134,9 @@ namespace PersonsBase.control.Tests
             var res = inst.GetListValid(firstPerson).Count();
             Assert.AreEqual(res, 1);
 
-            var res2 = inst.GetListValid(null).Count();
-            Assert.AreEqual(res2, 1);
+            // Если имя персоны null
+            var res2 = inst.GetListValid(null);
+            Assert.IsNull(res2);
         }
 
         [TestMethod()]
@@ -244,11 +245,14 @@ namespace PersonsBase.control.Tests
             inst.AddAbonement(personName, abonNotValid);
             var notValidList = inst.GetListNotValid(personName);
             //.. Получить абонемент по индексу
-            var curentAbon = inst.GetByIndex(personName, notValidList, 0);
+            var curentAbon = inst.GetByIndex(notValidList, 0);
             Assert.AreSame(curentAbon, abonNotValid);
 
             var globalIndex = inst.GetGlobalIndex(personName, curentAbon);
             Assert.AreEqual(3, globalIndex);
+
+            var globalIndex2 = inst.GetGlobalIndex(null, curentAbon);
+            Assert.AreEqual(-1, globalIndex2);
         }
     }
 }

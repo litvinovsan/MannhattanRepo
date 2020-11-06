@@ -49,7 +49,6 @@ namespace PersonsBase.View
             button_Aplly.Enabled = false;
             button_Aplly.Visible = false;
             button2_Cancel.Text = @"Закрыть";
-            this.Text = @"Режим ЧТЕНИЯ";
             groupBox_Correctable.Visible = false;
             tableLayoutPanel2.Enabled = false;
             tableLayoutPanel2.Visible = false;
@@ -196,23 +195,26 @@ namespace PersonsBase.View
                     }
                 case "Гостевой визит":
                     {
+                        // Создаем новый абонемент
                         abonementNew = new SingleVisit(_typeWorkout, _spa, Pay.Не_Оплачено, _timeTren);
-                        _person.AbonementCurent = abonementNew;
-                        _person.AbonementCurent.TryActivate();
+                        abonementNew.TryActivate();
+                        // Выбираем опции абонемента
                         var selectedOptions = new WorkoutOptions();
-                        var dlgResult = FormsRunner.RunWorkoutOptionsForm(ref selectedOptions, _person.Name);
+                        _person.AbonementCurent = abonementNew;
+                        var dlgResult = FormsRunner.RunWorkoutOptionsSingleForm(ref selectedOptions, abonementNew, _person.Name);
                         if (dlgResult == DialogResult.Cancel) return;
-
-                        bool isSuccess = _person.AbonementCurent.CheckInWorkout(_person.AbonementCurent.TypeWorkout);
-
+                        // Отмечаем тренировку
+                        bool isSuccess = abonementNew.CheckInWorkout(abonementNew.TypeWorkout);
                         if (!isSuccess) return;
-                        PersonObject.SaveCurentVisit(_person, selectedOptions); // Сохраняет текущий визит 
+
+                        // Сохраняем текущее посещение в истории
+                        PersonObject.SaveCurentVisit(_person, abonementNew, selectedOptions); // Сохраняет текущий визит 
                         DailyVisits.GetInstance().AddToLog(_person.Name, selectedOptions); // Cобытие для добавления текущего посещения на главную форму
                         _person.Status = StatusPerson.Гостевой;
                         _person.SpecialNotes +=
                             $"\n\r Гостевой визит был: {DateTime.Now.ToString(new DateTimeFormatInfo().LongDatePattern)} ";
                         _person.AbonementCurent = null;
-                        //тут добавить абонемент в список истории абонементов. Для гостевого визита.Ибо дальше выход
+                        AbonementController.GetInstance().AddAbonement(_person.Name, abonementNew);
                         PersonObject.SaveAbonementToHistory(_person, abonementNew);
                         return;
                     }
@@ -221,7 +223,7 @@ namespace PersonsBase.View
             if (_person.Status == StatusPerson.Гостевой) _person.Status = StatusPerson.Активный;
 
             ApplyCorrectedValues(ref abonementNew);//  Корректировка абонемента по дате, количеству оставшихся посещений
-            _person.AbonementCurent = abonementNew;
+            AbonementController.GetInstance().AddAbonement(_person.Name, abonementNew);
 
             //тут добавить абонемент в список истории абонементов.
             PersonObject.SaveAbonementToHistory(_person, abonementNew);

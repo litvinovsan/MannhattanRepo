@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 using PersonsBase.control;
 using PersonsBase.data;
@@ -18,10 +14,12 @@ namespace PersonsBase.View
     public partial class ClientForm : Form
     {
         #region /// ОСНОВНЫЕ ОБЬЕКТЫ ///
+
         private readonly Logic _logic;
         private readonly Person _person;
         private bool _isAnythingChanged;
-        private AbonementController _abonementCntrl;
+        private readonly AbonementController _abonementController;
+
         #endregion
 
         #region /// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ///
@@ -31,24 +29,24 @@ namespace PersonsBase.View
             _person = PersonObject.GetLink(keyName) ?? new Person();
             _isAnythingChanged = false;
             _logic = Logic.GetInstance();
-            _abonementCntrl = AbonementController.GetInstance();
+            _abonementController = AbonementController.GetInstance();
         }
 
         private void ClientForm_Load(object sender, EventArgs e)
         {
             // Заполнение стартовое всех полей
             LoadUserData();
-            Logic.LoadShortInfo(groupBox_Info, _person);
-            Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto, _person.GenderType);
+
+            GetCurrentAbonement();
+            UpdateAbonementsListBox(_abonementController.GetListValid(_person.Name));
             LoadEditableData();
-            // для заполнения полей на форме
+            Logic.LoadShortInfo(groupBox_Info, _person);
             UpdateControls(this, EventArgs.Empty);
             CurentAbonementChanged(this, EventArgs.Empty);
             UpdateInfoTextBoxField(this, EventArgs.Empty);
-            LoadListBoxQueue();
-            // Вкладки Посещений и Архив абонементов
-            SetupVisitsDataGridView();
-            SetupHistoryAbonement(); //Настройка дата грид вью на вкладке истории абонементов
+
+            Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto, _person.GenderType);
+            //   LoadListBoxQueue();
 
             // Подписка на События
             _saveDelegateChain += SaveUserData; // Цепочка Делегатов для сохранения измененных данных.
@@ -62,8 +60,13 @@ namespace PersonsBase.View
 
             // Когда изменился какой-либо параметр Абонемента
             _person.AbonementCurentChanged += CurentAbonementChanged;
-            _person.AbonementCurentChanged += UpdateInfoTextBoxField;// возможно удалить
-            _person.AbonementCurentChanged += UpdateControls; // возможно удалить
+            _person.AbonementCurentChanged += (o, args) =>
+            {
+                UpdateInfoTextBoxField(this, EventArgs.Empty);
+                UpdateControls(this, EventArgs.Empty);
+                Logic.LoadShortInfo(groupBox_Info, _person);
+                LoadEditableData();
+            };
 
             // Когда изменилась заморозка абонемента - Обновим Инфо поле
             if (_person.AbonementCurent?.Freeze != null)
@@ -83,10 +86,19 @@ namespace PersonsBase.View
 
             PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
 
-            // События Очередь абонементов
-            if (_person.AbonementsQueue == null) _person.AbonementsQueue = new ObservableCollection<AbonementBasic>();
-            _person.AbonementsQueue.CollectionChanged += AbonQueueChanged; // Список Абонементов. Если изменился
-            _person.AbonementsQueue.CollectionChanged += ShowAbonementList;
+            // Изменение коллекции абонементов в АбонКонтроллере
+            _abonementController.CollectionChanged += (o, args) =>
+                    {
+                        GetCurrentAbonement();
+                        UpdateAbonementsListBox(_abonementController.GetListValid(_person.Name));
+                        UpdateControls(this, EventArgs.Empty);
+                        Logic.LoadShortInfo(groupBox_Info, _person);
+                        LoadEditableData();
+                    };
+
+            // Вкладки Посещений и Архив абонементов
+            SetupVisitsDataGridView();
+            SetupHistoryAbonement(); //Настройка дата грид вью на вкладке истории абонементов
         }
 
         private void RunStatusDirector(object sender, EventArgs e)
@@ -115,6 +127,7 @@ namespace PersonsBase.View
 
             // Блокируем админскую учетку на всякий случай
             PwdForm.LockPassword();
+            _abonementController.Save();
         }
         #endregion
 
@@ -181,6 +194,10 @@ namespace PersonsBase.View
         // Кнопки
         private void UpdateControls(object sender, EventArgs e)
         {
+            // Видимость списка Абонементов
+            groupBox_Abonements.Visible = listBox_abon_selector.Items.Count != 0;
+
+            // Все контролы
             switch (_person.Status)
             {
                 case StatusPerson.Активный:
@@ -215,7 +232,7 @@ namespace PersonsBase.View
                 case StatusPerson.Заморожен:
                     {
                         button_CheckInWorkout.Visible = false;
-                        button_Add_Abon.Enabled = false;
+                        button_Add_Abon.Enabled = true;
                         button_Freeze.Visible = true;
                         button_add_dop_tren.Visible = false;
                         button_Freeze.Text = @"Разморозить";
@@ -242,6 +259,7 @@ namespace PersonsBase.View
             }
         }
 
+        // Абонементы
         private void CurentAbonementChanged(object sender, EventArgs e)
         {
             // Подписываемся на заморозку если появился абонемент
@@ -262,21 +280,21 @@ namespace PersonsBase.View
             }
 
             // Тут брать данные изменившегося абонемента и отрисовывать на форме изменения.
-            switch (_person.AbonementCurent)
-            {
-                case AbonementByDays byDays:
-                    {
-                        break;
-                    }
-                case ClubCardA clubCardA:
-                    {
-                        break;
-                    }
-                case SingleVisit singleVisit:
-                    {
-                        break;
-                    }
-            }
+            //switch (_person.AbonementCurent)
+            //{
+            //    case AbonementByDays byDays:
+            //        {
+            //            break;
+            //        }
+            //    case ClubCardA clubCardA:
+            //        {
+            //            break;
+            //        }
+            //    case SingleVisit singleVisit:
+            //        {
+            //            break;
+            //        }
+            //}
         }
 
         /// <summary>
@@ -327,34 +345,7 @@ namespace PersonsBase.View
                 maskedTextBox_PhoneNumber.Text = _person.Phone;
             Logic.SetControlBackColor(maskedTextBox_PhoneNumber, maskedTextBox_PhoneNumber.Text, _person.Phone);
         }
-        // Список абонементов в очереди
-        private void ShowAbonementList(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            groupBox_abonList.Visible = _person.AbonementsQueue.Count > 0;
-        }
-        /// <summary>
-        /// Добавление и удаление абонементов из Листбокса на форме если изменилась очередь
-        /// </summary>
-        private void AbonQueueChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add: // если добавление
-                    if (e.NewItems[0] is AbonementBasic item) listBox_abonements.Items.Add(item.AbonementName);
-                    break;
-                case NotifyCollectionChangedAction.Remove: // если удаление
-                    listBox_abonements.Items.RemoveAt(0);
-                    break;
-                case NotifyCollectionChangedAction.Replace:
-                    break;
-                case NotifyCollectionChangedAction.Move:
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
+
         /// <summary>
         /// Включаются|Отключаются различные контролы на форме если был введен пароль руководителя
         /// </summary>
@@ -363,14 +354,12 @@ namespace PersonsBase.View
             if (PwdForm.IsPassUnLocked())
             {
                 button_RemoveCurrentAbon.Visible = true;
-                button__remove_abon.Enabled = true;
                 // Например, админ должен менять статус оплаты
                 textBox_Number.Enabled = true;
             }
             else
             {
                 button_RemoveCurrentAbon.Visible = false;
-                button__remove_abon.Enabled = false;
                 // Например, админ должен менять статус оплаты
                 textBox_Number.Enabled = false;
             }
@@ -386,19 +375,6 @@ namespace PersonsBase.View
 
         #region  /// МЕТОДЫ
 
-        /// <summary>
-        /// Заполняет ЛистБокс с списком Абонементов КЛиента из очереди абонементов.Только отображение
-        /// </summary>
-        private void LoadListBoxQueue()
-        {
-            if (_person.AbonementsQueue == null) return;
-            var list = new List<string>();
-            foreach (var x in _person.AbonementsQueue) list.Add(x.AbonementName);
-
-            listBox_abonements.Items.AddRange(list.ToArray<object>());
-            // Отображение Группы списка абонементов
-            groupBox_abonList.Visible = list.Count > 0;
-        }
         private void LoadUserData()
         {
             // Имя Клиента
@@ -432,6 +408,43 @@ namespace PersonsBase.View
             _editedSpecialNote = _person.SpecialNotes;
         }
 
+        /// <summary>
+        /// Загрузка диспетчера Абонементов. Устанавливает _person.AbonementCurent
+        /// </summary>
+        private void GetCurrentAbonement()
+        {
+            // Получение списка Действительных абонементов
+            var abonListValid = _abonementController.GetListValid(_person.Name);
+            // Проверка на пустоту в списке. Если Пустой - нет абонемента curAbon=null
+            if (abonListValid == null || abonListValid.Count == 0)
+            {
+                _person.AbonementCurent = null;
+            }
+            else
+            {
+                var abon = abonListValid.FirstOrDefault();
+                if (_person.AbonementCurent != abon)
+                    _person.AbonementCurent = abon;
+            }
+        }
+
+        /// <summary>
+        /// Инициализирует ЛистБокс с всеми абонементами Клиента. Вызывает прерывание на изменение индекса ЛистБокса
+        /// </summary>
+        /// <param name="abonementsToShow"></param>
+        private void UpdateAbonementsListBox(List<AbonementBasic> abonementsToShow)
+        {
+            if (abonementsToShow == null)
+            {
+                listBox_abon_selector.DataSource = null;
+                return;
+            }
+
+            // Диспетчер Абонементов в ListBox
+            listBox_abon_selector.DataSource = abonementsToShow;
+            listBox_abon_selector.DisplayMember = "AbonementName";
+            listBox_abon_selector.ValueMember = "AbonementName";
+        }
 
         #endregion
 
@@ -492,9 +505,9 @@ namespace PersonsBase.View
             if (abonHistories == null) return;
 
             // Перевернем список
-            var abonReverced = abonHistories.Reverse<AbonHistory>().ToList<AbonHistory>();
+            var abonReverced = abonHistories.Reverse<AbonHistory>().ToList();
 
-            MyDataGridView.SetSourceDataGridView<AbonHistory>(dataGridView_history_abonements, abonReverced);
+            MyDataGridView.SetSourceDataGridView(dataGridView_history_abonements, abonReverced);
             MyDataGridView.ImplementStyle(dataGridView_history_abonements);
             MyDataGridView.AddHeaders(dataGridView_history_abonements, headerStrings);
         }
@@ -630,13 +643,7 @@ namespace PersonsBase.View
 
         private void button_Add_New_Abon_Click(object sender, EventArgs e)
         {
-            var isSuccess = Logic.AddAbonement(_person.Name);
-            if (isSuccess)
-            {
-                SetupHistoryAbonement(); // Обновляем вкладку с архивом
-                Logic.LoadShortInfo(groupBox_Info, _person);
-                LoadEditableData();
-            }
+            Logic.AddAbonement(_person.Name);
 
             button_CheckInWorkout.Focus();
         }
@@ -664,30 +671,17 @@ namespace PersonsBase.View
             button_CheckInWorkout.Focus();
         }
 
-        private void button_remove_abon_Click(object sender, EventArgs e)
-        {
-            var selectedIndex = listBox_abonements.SelectedIndex;
-            if (selectedIndex == -1)
-            {
-                MessageBox.Show(@"Выберите Абонемент для удаления!");
-            }
-            else
-            {
-                _person.AbonementsQueue.RemoveAt(selectedIndex);
-                MessageBox.Show(@"Запись Удалена!");
-            }
-        }
-
         private void button_remove_current_abon_Click(object sender, EventArgs e)
         {
             if (_person.AbonementCurent == null) return;
-            var result = MessageBox.Show($@"Будет удаленo:  {_person.AbonementCurent.AbonementName}.
-Продолжить?", @"Удаление Абонемента!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result != DialogResult.Yes) return;
-            _person.AbonementCurent = null;
 
-            Logic.LoadShortInfo(groupBox_Info, _person);
-            LoadEditableData();
+            var result = MessageBox.Show($@"Будет удаленo: {_person.AbonementCurent.AbonementName}.Продолжить?",
+                @"Удаление Абонемента!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result != DialogResult.Yes) return;
+
+            // Удаляем абонемент из коллекции AbonementController
+            _abonementController.RemoveAbonement(_person.Name, _person.AbonementCurent);
         }
 
         private void button_Password_Click(object sender, EventArgs e)
@@ -707,6 +701,7 @@ namespace PersonsBase.View
 
                 var abon = _person.AbonementCurent as ClubCardA;
                 abon?.Freeze.UnFreezeCurrent();
+                RunStatusDirector(this, EventArgs.Empty);
             }
             else //  Для заморозки
             {
@@ -715,6 +710,7 @@ namespace PersonsBase.View
                 {
                     return;
                 }
+                RunStatusDirector(this, EventArgs.Empty);
             }
 
             // Для обновления
@@ -747,30 +743,23 @@ namespace PersonsBase.View
             // _person.PathToPhoto = Path.GetFileName(path);
         }
 
-
-        private void listBox_abonements_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void listBox_abon_selector_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedIndex = listBox_abonements.SelectedIndex;
-            if (selectedIndex != -1)
+            var selectedIndex = listBox_abon_selector.SelectedIndex;
+            // Если не выбрано ничего - выходим
+            if (selectedIndex == -1 || listBox_abon_selector.Items.Count == 0)
             {
-                var selAbonementBasic = _person.AbonementsQueue[selectedIndex];
-                var dlgres = FormsRunner.CreateAbonementForm(ref selAbonementBasic);
+                _person.AbonementCurent = null;
+                return;
             }
+
+            // Проверяем, изменился ли выбранный абонемент
+            if (_person.AbonementCurent == listBox_abon_selector.SelectedItem as AbonementBasic) return;
+
+            // Абонемент изменился
+            _person.AbonementCurent = listBox_abon_selector.SelectedItem as AbonementBasic;
         }
 
         #endregion
-
-        //public void ClearFindCombo()
-        //{
-        //    void MyDelegate() => сomboBox_PersonsList.SelectedText = "";
-        //    if (InvokeRequired)
-        //    {
-        //        Invoke((Action)MyDelegate);
-        //    }
-        //    else
-        //    {
-        //        MyDelegate();
-        //    }
-        //}
     }
 }

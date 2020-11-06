@@ -189,12 +189,11 @@ namespace PersonsBase.data
             }
             set
             {
-                if (UpdateQueue(value))
-                {// Заходим сюда если абонемента нет вообще и добавляется новый.
-                 // Если сюда не заходим - абонементы добавляются в очередь
-                    StatusDirector();
-                    OnAbonementCurentChanged();
-                }
+                if (_abonementCurent == value) return;
+
+                _abonementCurent = value;
+                StatusDirector();
+                OnAbonementCurentChanged();
             }
         }
         public Gender GenderType
@@ -249,7 +248,7 @@ namespace PersonsBase.data
 
         #region /// МЕТОДЫ  ///////////////////////////
 
-
+        //FIXME  Попробовать тут использовать не AbonementCurent, а _abonementCurent чтобы не вызывать лишний раз событие изменения абон
 
         public void StatusDirector()
         {
@@ -291,40 +290,11 @@ namespace PersonsBase.data
 
         public bool IsAbonementExist()
         {
-          // FIXME статусдиректор расскомментировать,тогда абонементы будут сгорать нормально, и статус обновляться
-          // StatusDirector(); 
+            // FIXME Сделать тут проверку существования Валидного абонемента через Абонемент Контроллер
             return AbonementCurent != null && AbonementCurent.IsValid();
         }
 
-        private bool UpdateQueue(AbonementBasic newAbonementValue)
-        {
-            var result = true;
-            if (_abonementCurent == null)
-            {
-                _abonementCurent = newAbonementValue;
-            }
-            else // Изменяем уже существующий абонемент
-            {
-                if (newAbonementValue != null)
-                {
-                    AbonementsQueue.Add(newAbonementValue);
-                    result = false;
-                }
-                else if (AbonementsQueue.Count == 0)
-                {// Заменяем существующий абонемент на null со смещением по списку
-                    _abonementCurent = null;
-                }
-                else
-                {
-                    _abonementCurent = AbonementsQueue[0];
-                    AbonementsQueue.RemoveAt(0);
-                }
-            }
-
-            return result;
-        }
-
-        #endregion
+       #endregion
 
         #region //Перегрузка операторов для сравнения клиентов
         /// <inheritdoc />
