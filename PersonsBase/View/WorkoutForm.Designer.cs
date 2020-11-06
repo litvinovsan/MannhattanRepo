@@ -55,7 +55,6 @@ namespace PersonsBase.View
             this.panel_miniGroup = new System.Windows.Forms.Panel();
             this.radioButton_miniGr = new System.Windows.Forms.RadioButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label_Pay = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -146,7 +145,6 @@ namespace PersonsBase.View
             // 
             this.flowLayoutPanel2.Controls.Add(this.groupBox_TrenerName);
             this.flowLayoutPanel2.Controls.Add(this.groupBox_SelectWorkout);
-            this.flowLayoutPanel2.Controls.Add(this.label_Pay);
             this.flowLayoutPanel2.Location = new System.Drawing.Point(14, 19);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(354, 284);
@@ -382,18 +380,6 @@ namespace PersonsBase.View
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
-            // label_Pay
-            // 
-            this.label_Pay.AutoSize = true;
-            this.label_Pay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_Pay.ForeColor = System.Drawing.Color.Red;
-            this.label_Pay.Location = new System.Drawing.Point(3, 132);
-            this.label_Pay.Name = "label_Pay";
-            this.label_Pay.Size = new System.Drawing.Size(339, 60);
-            this.label_Pay.TabIndex = 6;
-            this.label_Pay.Text = "Требуется ОПЛАТА.       Выбранная тренировка не входит в действующий абонемент";
-            this.label_Pay.Visible = false;
-            // 
             // WorkoutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -417,7 +403,6 @@ namespace PersonsBase.View
             this.groupBox1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
-            this.flowLayoutPanel2.PerformLayout();
             this.groupBox_TrenerName.ResumeLayout(false);
             this.groupBox_SelectWorkout.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -464,6 +449,5 @@ namespace PersonsBase.View
         private Panel panel_miniGroup;
         private RadioButton radioButton_miniGr;
         private PictureBox pictureBox1;
-        private Label label_Pay;
     }
 }

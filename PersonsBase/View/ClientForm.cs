@@ -192,7 +192,7 @@ namespace PersonsBase.View
         }
 
         // Кнопки
-        private void UpdateControls(object sender, EventArgs e)
+        private  void UpdateControls(object sender, EventArgs e)
         {
             // Видимость списка Абонементов
             groupBox_Abonements.Visible = listBox_abon_selector.Items.Count != 0;

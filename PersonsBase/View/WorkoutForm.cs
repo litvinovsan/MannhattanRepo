@@ -43,17 +43,12 @@ namespace PersonsBase.View
                         panel_aero.Visible = (clubCardA.NumAerobicTr != 0);
                         panel_personal.Visible = clubCardA.NumPersonalTr != 0;
                         panel_miniGroup.Visible = clubCardA.NumMiniGroup > 0;
-                        label_Pay.Visible = false;
                         break;
                     }
                 case AbonementByDays byDays:
                     {
-                        panel_tren.Visible = byDays.TypeWorkout == TypeWorkout.Персональная ||
-                                             byDays.TypeWorkout == TypeWorkout.МиниГруппа ||
-                                             byDays.TypeWorkout == TypeWorkout.Аэробный_Зал ||
-                                             byDays.TypeWorkout == TypeWorkout.Тренажерный_Зал;
-
-                        panel_aero.Visible = (byDays.TypeWorkout == TypeWorkout.Аэробный_Зал);
+                        panel_tren.Visible = byDays.TypeWorkout == TypeWorkout.Тренажерный_Зал;
+                        panel_aero.Visible = byDays.TypeWorkout == TypeWorkout.Аэробный_Зал;
                         panel_personal.Visible = byDays.TypeWorkout == TypeWorkout.Персональная;
                         panel_miniGroup.Visible = byDays.GetRemainderDays() > 0 && byDays.TypeWorkout == TypeWorkout.МиниГруппа;
 
@@ -183,10 +178,6 @@ namespace PersonsBase.View
                 radioButton_aerob.Checked = false;
                 radioButton_personal.Checked = false;
             }
-
-            // Если выбранный тип тренировки не совпадает с типом в абонементе - Вывести сообщение об этом
-            label_Pay.Visible = (!(_person.AbonementCurent is ClubCardA)) && (_person.AbonementCurent.TypeWorkout != SelectedOptions.TypeWorkout);
-
         }
 
         private void comboBox_treners_SelectedIndexChanged(object sender, EventArgs e)
