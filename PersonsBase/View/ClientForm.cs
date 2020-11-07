@@ -37,8 +37,11 @@ namespace PersonsBase.View
             // Заполнение стартовое всех полей
             LoadUserData();
 
-            GetCurrentAbonement();
-            UpdateAbonementsListBox(_abonementController.GetListValid(_person.Name));
+            _person.AbonementCurent = _abonementController.GetFirstValid(_person.Name);
+            //Cписки абонементов
+            UpdateAbonementsListBox(listBox_NotValidAbons, _abonementController.GetListNotValid(_person.Name));
+            UpdateAbonementsListBox(listBox_abon_selector, _abonementController.GetListValid(_person.Name));
+
             LoadEditableData();
             Logic.LoadShortInfo(groupBox_Info, _person);
             UpdateControls(this, EventArgs.Empty);
@@ -89,12 +92,16 @@ namespace PersonsBase.View
             // Изменение коллекции абонементов в АбонКонтроллере
             _abonementController.CollectionChanged += (o, args) =>
                     {
-                        GetCurrentAbonement();
-                        UpdateAbonementsListBox(_abonementController.GetListValid(_person.Name));
+                        _person.AbonementCurent = _abonementController.GetFirstValid(_person.Name);
+
+                        UpdateAbonementsListBox(listBox_abon_selector, _abonementController.GetListValid(_person.Name));
                         UpdateControls(this, EventArgs.Empty);
                         Logic.LoadShortInfo(groupBox_Info, _person);
                         LoadEditableData();
                     };
+
+            // Список закончившихся абонементов
+            this.listBox_NotValidAbons.SelectedIndexChanged += new System.EventHandler(this.listBox_NotValidAbons_SelectedIndexChanged);
 
             // Вкладки Посещений и Архив абонементов
             SetupVisitsDataGridView();
@@ -192,10 +199,11 @@ namespace PersonsBase.View
         }
 
         // Кнопки
-        private  void UpdateControls(object sender, EventArgs e)
+        private void UpdateControls(object sender, EventArgs e)
         {
             // Видимость списка Абонементов
             groupBox_Abonements.Visible = listBox_abon_selector.Items.Count != 0;
+            groupBox_Abon_NotValid.Visible = listBox_NotValidAbons.Items.Count != 0;
 
             // Все контролы
             switch (_person.Status)
@@ -408,42 +416,24 @@ namespace PersonsBase.View
             _editedSpecialNote = _person.SpecialNotes;
         }
 
-        /// <summary>
-        /// Загрузка диспетчера Абонементов. Устанавливает _person.AbonementCurent
-        /// </summary>
-        private void GetCurrentAbonement()
-        {
-            // Получение списка Действительных абонементов
-            var abonListValid = _abonementController.GetListValid(_person.Name);
-            // Проверка на пустоту в списке. Если Пустой - нет абонемента curAbon=null
-            if (abonListValid == null || abonListValid.Count == 0)
-            {
-                _person.AbonementCurent = null;
-            }
-            else
-            {
-                var abon = abonListValid.FirstOrDefault();
-                if (_person.AbonementCurent != abon)
-                    _person.AbonementCurent = abon;
-            }
-        }
 
         /// <summary>
         /// Инициализирует ЛистБокс с всеми абонементами Клиента. Вызывает прерывание на изменение индекса ЛистБокса
         /// </summary>
+        /// <param name="listBox"></param>
         /// <param name="abonementsToShow"></param>
-        private void UpdateAbonementsListBox(List<AbonementBasic> abonementsToShow)
+        private void UpdateAbonementsListBox(ListBox listBox, List<AbonementBasic> abonementsToShow)
         {
             if (abonementsToShow == null)
             {
-                listBox_abon_selector.DataSource = null;
+                listBox.DataSource = null;
                 return;
             }
 
             // Диспетчер Абонементов в ListBox
-            listBox_abon_selector.DataSource = abonementsToShow;
-            listBox_abon_selector.DisplayMember = "AbonementName";
-            listBox_abon_selector.ValueMember = "AbonementName";
+            listBox.DataSource = abonementsToShow;
+            listBox.DisplayMember = "AbonementName";
+            listBox.ValueMember = "AbonementName";
         }
 
         #endregion
@@ -746,20 +736,63 @@ namespace PersonsBase.View
         private void listBox_abon_selector_SelectedIndexChanged(object sender, EventArgs e)
         {
             var selectedIndex = listBox_abon_selector.SelectedIndex;
+            if (selectedIndex == -1) return;
             // Если не выбрано ничего - выходим
-            if (selectedIndex == -1 || listBox_abon_selector.Items.Count == 0)
+            if (listBox_abon_selector.Items.Count == 0)
             {
                 _person.AbonementCurent = null;
                 return;
             }
+
+            // Уберем выделение в Списке Сгоревших абонементов.
+            listBox_NotValidAbons.SelectedIndex = -1;
 
             // Проверяем, изменился ли выбранный абонемент
             if (_person.AbonementCurent == listBox_abon_selector.SelectedItem as AbonementBasic) return;
 
             // Абонемент изменился
             _person.AbonementCurent = listBox_abon_selector.SelectedItem as AbonementBasic;
+            flowLayoutPanel1.Enabled = true;
         }
 
+        /// <summary>
+        /// Заходим сюда когда выбирается Сгоревший абонемент. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBox_NotValidAbons_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedIndex = listBox_NotValidAbons.SelectedIndex;
+            // Если не выбрано ничего - выходим
+            if (selectedIndex == -1 || listBox_NotValidAbons.Items.Count == 0) return;
+
+            listBox_abon_selector.SelectedIndex = -1;
+
+            var selectedAbonement = listBox_NotValidAbons.SelectedItem as AbonementBasic;
+
+            // Абонемент изменился
+            Logic.LoadShortInfo(groupBox_Info, selectedAbonement);
+            label_infoText.Text = @"Абонемент Сгорел";
+            flowLayoutPanel1.Enabled = false;
+
+        }
+
+
         #endregion
+
+        /// <summary>
+        /// Нужен для Активации Кнопок. Они выключаются на время отображения Сгоревших абонементов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBox_abon_selector_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (flowLayoutPanel1.Enabled) return;
+
+            flowLayoutPanel1.Enabled = true;
+            Logic.LoadShortInfo(groupBox_Info, _person);
+            UpdateControls(this, EventArgs.Empty);
+            UpdateInfoTextBoxField(this, EventArgs.Empty);
+        }
     }
 }

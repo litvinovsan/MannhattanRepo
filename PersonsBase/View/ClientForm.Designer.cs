@@ -36,6 +36,8 @@ namespace PersonsBase.View
             this.dateTimePicker_birthDate = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox_Abon_NotValid = new System.Windows.Forms.GroupBox();
+            this.listBox_NotValidAbons = new System.Windows.Forms.ListBox();
             this.groupBox_Abonements = new System.Windows.Forms.GroupBox();
             this.listBox_abon_selector = new System.Windows.Forms.ListBox();
             this.textBox_Notes = new System.Windows.Forms.TextBox();
@@ -76,10 +78,9 @@ namespace PersonsBase.View
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.button2 = new System.Windows.Forms.Button();
             this.button_Cancel = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.listBox_NotValidAbons = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox_Abon_NotValid.SuspendLayout();
             this.groupBox_Abonements.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -92,7 +93,6 @@ namespace PersonsBase.View
             this.tabPage_abon_history.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_history_abonements)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dateTimePicker_birthDate
@@ -128,7 +128,7 @@ namespace PersonsBase.View
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Controls.Add(this.groupBox_Abon_NotValid);
             this.tabPage1.Controls.Add(this.groupBox_Abonements);
             this.tabPage1.Controls.Add(this.textBox_Notes);
             this.tabPage1.Controls.Add(this.label2);
@@ -146,6 +146,31 @@ namespace PersonsBase.View
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Информация";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox_Abon_NotValid
+            // 
+            this.groupBox_Abon_NotValid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox_Abon_NotValid.Controls.Add(this.listBox_NotValidAbons);
+            this.groupBox_Abon_NotValid.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox_Abon_NotValid.ForeColor = System.Drawing.Color.Maroon;
+            this.groupBox_Abon_NotValid.Location = new System.Drawing.Point(952, 324);
+            this.groupBox_Abon_NotValid.Name = "groupBox_Abon_NotValid";
+            this.groupBox_Abon_NotValid.Size = new System.Drawing.Size(189, 142);
+            this.groupBox_Abon_NotValid.TabIndex = 15;
+            this.groupBox_Abon_NotValid.TabStop = false;
+            this.groupBox_Abon_NotValid.Text = "Закончились";
+            this.groupBox_Abon_NotValid.Visible = false;
+            // 
+            // listBox_NotValidAbons
+            // 
+            this.listBox_NotValidAbons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox_NotValidAbons.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listBox_NotValidAbons.FormattingEnabled = true;
+            this.listBox_NotValidAbons.ItemHeight = 18;
+            this.listBox_NotValidAbons.Location = new System.Drawing.Point(3, 21);
+            this.listBox_NotValidAbons.Name = "listBox_NotValidAbons";
+            this.listBox_NotValidAbons.Size = new System.Drawing.Size(183, 118);
+            this.listBox_NotValidAbons.TabIndex = 14;
             // 
             // groupBox_Abonements
             // 
@@ -170,6 +195,7 @@ namespace PersonsBase.View
             this.listBox_abon_selector.Name = "listBox_abon_selector";
             this.listBox_abon_selector.Size = new System.Drawing.Size(229, 131);
             this.listBox_abon_selector.TabIndex = 14;
+            this.listBox_abon_selector.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBox_abon_selector_MouseClick);
             this.listBox_abon_selector.SelectedIndexChanged += new System.EventHandler(this.listBox_abon_selector_SelectedIndexChanged);
             // 
             // textBox_Notes
@@ -386,7 +412,7 @@ namespace PersonsBase.View
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(1133, 626);
+            this.tabPage2.Size = new System.Drawing.Size(1151, 668);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Персональные данные";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -619,7 +645,7 @@ namespace PersonsBase.View
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1133, 626);
+            this.tabPage3.Size = new System.Drawing.Size(1151, 668);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Посещения";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -635,7 +661,7 @@ namespace PersonsBase.View
             this.dataGridView_Visits.Location = new System.Drawing.Point(3, 3);
             this.dataGridView_Visits.Name = "dataGridView_Visits";
             this.dataGridView_Visits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_Visits.Size = new System.Drawing.Size(1127, 620);
+            this.dataGridView_Visits.Size = new System.Drawing.Size(1145, 662);
             this.dataGridView_Visits.TabIndex = 0;
             // 
             // tabPage_abon_history
@@ -644,7 +670,7 @@ namespace PersonsBase.View
             this.tabPage_abon_history.Location = new System.Drawing.Point(4, 25);
             this.tabPage_abon_history.Name = "tabPage_abon_history";
             this.tabPage_abon_history.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_abon_history.Size = new System.Drawing.Size(1133, 626);
+            this.tabPage_abon_history.Size = new System.Drawing.Size(1151, 668);
             this.tabPage_abon_history.TabIndex = 3;
             this.tabPage_abon_history.Text = "Архив Абонементов";
             this.tabPage_abon_history.UseVisualStyleBackColor = true;
@@ -655,7 +681,7 @@ namespace PersonsBase.View
             this.dataGridView_history_abonements.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_history_abonements.Location = new System.Drawing.Point(3, 3);
             this.dataGridView_history_abonements.Name = "dataGridView_history_abonements";
-            this.dataGridView_history_abonements.Size = new System.Drawing.Size(1127, 620);
+            this.dataGridView_history_abonements.Size = new System.Drawing.Size(1145, 662);
             this.dataGridView_history_abonements.TabIndex = 0;
             // 
             // tableLayoutPanel4
@@ -704,30 +730,6 @@ namespace PersonsBase.View
             this.button_Cancel.UseVisualStyleBackColor = true;
             this.button_Cancel.Click += new System.EventHandler(this.button_Cancel_Click);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.listBox_NotValidAbons);
-            this.groupBox1.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.ForeColor = System.Drawing.Color.Maroon;
-            this.groupBox1.Location = new System.Drawing.Point(952, 324);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(189, 142);
-            this.groupBox1.TabIndex = 15;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Закончившиеся";
-            this.groupBox1.Visible = false;
-            // 
-            // listBox_NotValidAbons
-            // 
-            this.listBox_NotValidAbons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox_NotValidAbons.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.listBox_NotValidAbons.FormattingEnabled = true;
-            this.listBox_NotValidAbons.ItemHeight = 18;
-            this.listBox_NotValidAbons.Location = new System.Drawing.Point(3, 21);
-            this.listBox_NotValidAbons.Name = "listBox_NotValidAbons";
-            this.listBox_NotValidAbons.Size = new System.Drawing.Size(183, 118);
-            this.listBox_NotValidAbons.TabIndex = 14;
-            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -747,6 +749,7 @@ namespace PersonsBase.View
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.groupBox_Abon_NotValid.ResumeLayout(false);
             this.groupBox_Abonements.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
@@ -761,7 +764,6 @@ namespace PersonsBase.View
             this.tabPage_abon_history.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_history_abonements)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -828,7 +830,7 @@ namespace PersonsBase.View
         private DataGridView dataGridView_history_abonements;
         private ListBox listBox_abon_selector;
         private GroupBox groupBox_Abonements;
-        private GroupBox groupBox1;
+        private GroupBox groupBox_Abon_NotValid;
         private ListBox listBox_NotValidAbons;
     }
 }

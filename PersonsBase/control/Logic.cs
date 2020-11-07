@@ -629,6 +629,26 @@ namespace PersonsBase.control
             AddTableToGroupBox(table, gbBoxToShow);
         }
 
+        public static void LoadShortInfo(GroupBox gbBoxToShow, AbonementBasic abonement)
+        {
+            var labelTextBoxList = CreateLabelTextBoxList(abonement);
+
+            try
+            {
+                HighlightControls(ref labelTextBoxList);
+            }
+            catch (Exception)
+            {
+                SaveEverithing();
+                MessageBox.Show(@"Ошибка подсветки строк по определенным признакам в карточке клиента");
+            }
+
+            // Отрисовка Short Info
+            var table = CreateTable(labelTextBoxList); // Создаем таблицу c элементами из списка. Таблица: Лэйбл - Текстбокс
+
+            AddTableToGroupBox(table, gbBoxToShow);
+        }
+
         private static void HighlightControls(ref List<Tuple<Label, Control>> inputListOfCntrls)
         {
             // Условие подсветки. Если Тренировки только Утром
@@ -661,6 +681,12 @@ namespace PersonsBase.control
             grpBx.Controls.Add(table); // Выводим на групбокс нашу новую ShortInfo Table
         }
 
+        /// <summary>
+        /// Создает List с парами Лэйбл - Контрол. Заголовок строки - Контрол со значением.
+        /// Эта реализация метода подходит для персон с действующими абонементами.
+        /// </summary>
+        /// <param name="person"></param>
+        /// <returns></returns>
         private static List<Tuple<Label, Control>> CreateLabelTextBoxList(Person person)
         {
             var labelTextBoxList = new List<Tuple<Label, Control>>();
@@ -675,6 +701,32 @@ namespace PersonsBase.control
             {
                 labelTextBoxList.AddRange(TupleConverter(GetEmptyInfoList(person)));
             }
+
+            return labelTextBoxList;
+        }
+
+        /// <summary>
+        /// Создает List с парами Лэйбл - Контрол. Заголовок строки - Контрол со значением.
+        /// Перегруженная версия. На вход подаётся абонемент(Не действительный и кончившийся).
+        /// Нужен для отображения на форме клиентов в списке закончившихся абонементов
+        /// </summary>
+        /// <param name="abonement"></param>
+        /// <returns></returns>
+        private static List<Tuple<Label, Control>> CreateLabelTextBoxList(AbonementBasic abonement)
+        {
+            var labelTextBoxList = new List<Tuple<Label, Control>>();
+            if (abonement == null)
+            {
+                labelTextBoxList.AddRange(TupleConverter(GetEmptyInfoList(new Person(""))));
+            }
+            else
+            {
+                labelTextBoxList.AddRange(TupleConverter(abonement?.GetShortInfoList()));
+                // Добавляем Поле Статуса. Делаем тут потому что Person.abonem не знает об этом.
+                var status = "Абонемент Сгорел";
+                labelTextBoxList.Insert(1, CreateRowInfo("Текущий статус Клиента", status));
+            }
+
 
             return labelTextBoxList;
         }

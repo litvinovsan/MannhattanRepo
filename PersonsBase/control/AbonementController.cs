@@ -30,6 +30,7 @@ namespace PersonsBase.control
             CollectionChanged?.Invoke(this, EventArgs.Empty);
         }
         #endregion
+       
         #region ПОЛЯ и СВОЙСТВА
 
         private Dictionary<string, List<AbonementBasic>> _abonementsDictionary;
@@ -104,6 +105,25 @@ namespace PersonsBase.control
             if (string.IsNullOrEmpty(personName)) return null;
 
             return GetList(personName)?.Where(x => x.IsValid()).ToList();
+        }
+
+        /// <summary>
+        /// Возвращает первый Действующий абонемент Клиента
+        /// </summary>
+        /// <param name="personName"></param>
+        public AbonementBasic GetFirstValid(string personName)
+        {
+            // Получение списка Действительных абонементов
+            var abonListValid = GetListValid(personName);
+            // Проверка на пустоту в списке. Если Пустой - нет абонемента curAbon=null
+            if (abonListValid == null || abonListValid.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return abonListValid.FirstOrDefault();
+            }
         }
 
         /// <summary>
