@@ -84,6 +84,7 @@
     <Compile Include="control\Log.cs" />
     <Compile Include="control\Logic.cs" />
     <Compile Include="control\SerializableSaver.cs" />
+    <Compile Include="Converter\DbConverter.cs" />
     <Compile Include="data\Abonements\AbonementBasic.cs" />
     <Compile Include="data\Abonements\ByDays.cs" />
     <Compile Include="data\Abonements\ClubCard.cs" />
@@ -354,6 +355,7 @@
   <ItemGroup>
     <None Include="Resources\icons8-small.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

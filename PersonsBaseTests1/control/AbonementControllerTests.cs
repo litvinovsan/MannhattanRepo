@@ -29,34 +29,34 @@ namespace PersonsBase.control.Tests
         public void GetPersonAbonementsTest()
         {
             var inst = AbonementController.GetInstance();
-            inst.GetDictionary().Clear();
+            inst.GetPersonsDictn().Clear();
 
             // Коллекция пустая
-            Assert.AreEqual(inst.GetDictionary().Count, 0);
+            Assert.AreEqual(inst.GetPersonsDictn().Count, 0);
 
             var firstPerson = Guid.NewGuid().ToString();
             var secondPerson = Guid.NewGuid().ToString();
 
             // Добавляем в коллекцию клиентов
-            inst.GetDictionary().Add(firstPerson, new List<AbonementBasic>() { new AbonementByDays(Pay.Оплачено, TimeForTr.Утро, TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, DaysInAbon.На_10_посещений) });
-            Assert.AreEqual(1, inst.GetDictionary().Count);
+            inst.GetPersonsDictn().Add(firstPerson, new List<AbonementBasic>() { new AbonementByDays(Pay.Оплачено, TimeForTr.Утро, TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, DaysInAbon.На_10_посещений) });
+            Assert.AreEqual(1, inst.GetPersonsDictn().Count);
 
             // Проверяем основной метод
             var result = inst.GetList(firstPerson);
-            Assert.AreSame(inst.GetDictionary()[firstPerson], result);
+            Assert.AreSame(inst.GetPersonsDictn()[firstPerson], result);
 
             // Изменения в основной коллекции
             var testChanges1 = result.First().IsActivated;
             result.First().IsActivated = true;
             Assert.AreEqual(result.First().IsActivated, true);
 
-            Assert.AreEqual(inst.GetDictionary()[firstPerson].First().IsActivated, true);
+            Assert.AreEqual(inst.GetPersonsDictn()[firstPerson].First().IsActivated, true);
 
             var expect = result.ToList().Count;
             Assert.AreEqual(1, expect);
 
             // Проверка доступа по индексу
-            inst.GetDictionary().Add(secondPerson, new List<AbonementBasic>() { new AbonementByDays(Pay.Не_Оплачено, TimeForTr.Весь_День, TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, DaysInAbon.На_10_посещений) });
+            inst.GetPersonsDictn().Add(secondPerson, new List<AbonementBasic>() { new AbonementByDays(Pay.Не_Оплачено, TimeForTr.Весь_День, TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, DaysInAbon.На_10_посещений) });
 
         }
 
@@ -64,12 +64,12 @@ namespace PersonsBase.control.Tests
         public void CheckAccessByIndexTest()
         {
             var inst = AbonementController.GetInstance();
-            inst.GetDictionary().Clear();
+            inst.GetPersonsDictn().Clear();
             // Коллекция пустая
-            Assert.AreEqual(inst.GetDictionary().Count, 0);
+            Assert.AreEqual(inst.GetPersonsDictn().Count, 0);
             var firstPerson = Guid.NewGuid().ToString();
             // Добавляем в коллекцию клиентов
-            inst.GetDictionary().Add(firstPerson, new List<AbonementBasic>());
+            inst.GetPersonsDictn().Add(firstPerson, new List<AbonementBasic>());
             // Проверяем что клиент есть, но у него нет абонементов
             Assert.AreEqual(inst.GetListValid(firstPerson).Count(), 0);
             Assert.AreEqual(inst.GetListNotValid(firstPerson).Count(), 0);
@@ -93,8 +93,8 @@ namespace PersonsBase.control.Tests
             inst.AddAbonement(name, abonValid2);
             inst.AddAbonement(name, abonValid3);
 
-            Assert.AreEqual(inst.GetDictionary().Count, 2);
-            Assert.AreEqual(inst.GetDictionary()[name].Count, 4);
+            Assert.AreEqual(inst.GetPersonsDictn().Count, 2);
+            Assert.AreEqual(inst.GetPersonsDictn()[name].Count, 4);
 
             // Поиск по значению работает
             var t = inst.GetListValid("myPerson");
@@ -111,8 +111,8 @@ namespace PersonsBase.control.Tests
             int index = 2;
             var selectedAbon = validAbons.ToArray()[index]; // abon_valid_3
             selectedAbon.NumAerobicTr = 123;
-            var originalIndex = inst.GetDictionary()["myPerson"].IndexOf(selectedAbon);
-            var curentAbon = inst.GetDictionary()["myPerson"][originalIndex];
+            var originalIndex = inst.GetPersonsDictn()["myPerson"].IndexOf(selectedAbon);
+            var curentAbon = inst.GetPersonsDictn()["myPerson"][originalIndex];
             curentAbon.NumAerobicTr = 9;
         }
 
@@ -120,14 +120,14 @@ namespace PersonsBase.control.Tests
         public void GetListValidTest()
         {
             var inst = AbonementController.GetInstance();
-            inst.GetDictionary().Clear();
+            inst.GetPersonsDictn().Clear();
             var firstPerson = Guid.NewGuid().ToString();
             var l1 = inst.GetListValid(firstPerson);
             Assert.AreEqual(l1.Count, 0);
 
 
             inst.AddAbonement(firstPerson, new AbonementByDays(Pay.Оплачено, TimeForTr.Утро, TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, DaysInAbon.На_10_посещений));
-            var r = inst.GetDictionary().First().Value.Count;
+            var r = inst.GetPersonsDictn().First().Value.Count;
             Assert.AreEqual(r, 1);
 
             // Основная проверка
@@ -143,11 +143,11 @@ namespace PersonsBase.control.Tests
         public void GetOldAbonementsTest()
         {
             var inst = AbonementController.GetInstance();
-            inst.GetDictionary().Clear();
+            inst.GetPersonsDictn().Clear();
             var firstPerson = Guid.NewGuid().ToString();
-            inst.GetDictionary().Add(firstPerson, new List<AbonementBasic>() { new AbonementByDays(Pay.Оплачено, TimeForTr.Утро, TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, DaysInAbon.На_10_посещений) });
+            inst.GetPersonsDictn().Add(firstPerson, new List<AbonementBasic>() { new AbonementByDays(Pay.Оплачено, TimeForTr.Утро, TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, DaysInAbon.На_10_посещений) });
 
-            var r = inst.GetDictionary().First().Value.Count;
+            var r = inst.GetPersonsDictn().First().Value.Count;
             Assert.AreEqual(r, 1);
 
             // Основная проверка
@@ -159,13 +159,13 @@ namespace PersonsBase.control.Tests
         public void AddAbonementTest()
         {
             var inst = AbonementController.GetInstance();
-            inst.GetDictionary().Clear();
-            var actual = inst.GetDictionary().Count;
+            inst.GetPersonsDictn().Clear();
+            var actual = inst.GetPersonsDictn().Count;
             Assert.AreEqual(0, actual);
 
             var name = Guid.NewGuid().ToString();
             inst.AddAbonement(name, new AbonementByDays(Pay.Не_Оплачено, TimeForTr.Весь_День, TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, DaysInAbon.На_10_посещений));
-            Assert.IsTrue(inst.GetDictionary().ContainsKey(name));
+            Assert.IsTrue(inst.GetPersonsDictn().ContainsKey(name));
 
             Assert.AreEqual(1, inst.GetList(name).Count);
         }
@@ -174,8 +174,8 @@ namespace PersonsBase.control.Tests
         public void RemoveAbonementTest()
         {
             var inst = AbonementController.GetInstance();
-            inst.GetDictionary().Clear();
-            var actual = inst.GetDictionary().Count;
+            inst.GetPersonsDictn().Clear();
+            var actual = inst.GetPersonsDictn().Count;
             Assert.AreEqual(0, actual);
 
             var personName = Guid.NewGuid().ToString();
@@ -187,16 +187,16 @@ namespace PersonsBase.control.Tests
             var abonNotValid = new ClubCardA(Pay.Не_Оплачено, TimeForTr.Весь_День, TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, PeriodClubCard.На_1_Месяц)
             { BuyActivationDate = DateTime.Today.AddDays(-200) };
 
-            inst.GetDictionary().Add(personName, new List<AbonementBasic>());
-            inst.GetDictionary()[personName].Add(abonNotValid);
-            inst.GetDictionary()[personName].Add(abonValid1);
-            inst.GetDictionary()[personName].Add(abonValid2);
-            inst.GetDictionary()[personName].Add(abonValid3);
-            Assert.AreEqual(4, inst.GetDictionary()[personName].Count);
+            inst.GetPersonsDictn().Add(personName, new List<AbonementBasic>());
+            inst.GetPersonsDictn()[personName].Add(abonNotValid);
+            inst.GetPersonsDictn()[personName].Add(abonValid1);
+            inst.GetPersonsDictn()[personName].Add(abonValid2);
+            inst.GetPersonsDictn()[personName].Add(abonValid3);
+            Assert.AreEqual(4, inst.GetPersonsDictn()[personName].Count);
 
             // Проверяем удаление
             inst.RemoveAbonement(personName, abonValid3);
-            Assert.AreEqual(3, inst.GetDictionary()[personName].Count);
+            Assert.AreEqual(3, inst.GetPersonsDictn()[personName].Count);
 
             try
             {
@@ -213,8 +213,8 @@ namespace PersonsBase.control.Tests
         public void GetIndexGlobalTest()
         {
             var inst = AbonementController.GetInstance();
-            inst.GetDictionary().Clear();
-            var actual = inst.GetDictionary().Count;
+            inst.GetPersonsDictn().Clear();
+            var actual = inst.GetPersonsDictn().Count;
             Assert.AreEqual(0, actual);
 
             var abonValid1 = new AbonementByDays(Pay.Не_Оплачено, TimeForTr.Утро, TypeWorkout.МиниГруппа, SpaService.Спа, DaysInAbon.На_5_посещений);

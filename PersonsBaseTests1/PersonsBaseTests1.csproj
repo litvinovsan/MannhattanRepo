@@ -53,6 +53,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="control\AbonementControllerTests.cs" />
+    <Compile Include="Converter\DbConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

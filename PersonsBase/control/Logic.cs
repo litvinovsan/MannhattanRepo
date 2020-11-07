@@ -406,7 +406,7 @@ namespace PersonsBase.control
             // Переименование в контроллере абонементов
             if (isSuccess)
             {
-                AbonementController.GetInstance().GetDictionary().RenameKey(oldName, PrepareName(newName));
+                AbonementController.GetInstance().GetPersonsDictn().RenameKey(oldName, PrepareName(newName));
             }
             //
 

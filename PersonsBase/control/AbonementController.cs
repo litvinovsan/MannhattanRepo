@@ -70,7 +70,7 @@ namespace PersonsBase.control
         /// Возвращает ссылку на главный словарь этого класса. Содержит всех пользователей и их списки абонементов
         /// </summary>
         /// <returns></returns>
-        public ref Dictionary<string, List<AbonementBasic>> GetDictionary()
+        public ref Dictionary<string, List<AbonementBasic>> GetPersonsDictn()
         {
             return ref _abonementsDictionary;
         }
@@ -149,6 +149,12 @@ namespace PersonsBase.control
             OnAbonementsDictChanged();
         }
 
+        public void AddNewPerson(string personName)
+        {
+            if (_abonementsDictionary.ContainsKey(personName)) return;
+
+            _abonementsDictionary.Add(personName, new List<AbonementBasic>());
+        }
 
         /// <summary>
         /// Возвращает абонемент по индексу из коллекции которую сюда передаем в качестве параметра
