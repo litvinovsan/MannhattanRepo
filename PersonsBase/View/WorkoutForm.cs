@@ -29,39 +29,69 @@ namespace PersonsBase.View
             _treners = manhattanInfo.Treners;
             _schedule = manhattanInfo.Schedule;
 
-            // Скрываем Панели с РадиоБатоннами
+            // Скрываем Панели с Картинками
             panel_tren.Visible = false;
             panel_aero.Visible = false;
             panel_personal.Visible = false;
             panel_miniGroup.Visible = false;
+
+            // Скрываем радибатонны
+            //radioButton_tren.Visible = false;
+            //radioButton_aerob.Visible = false;
+            //radioButton_personal.Visible = false;
+            //radioButton_miniGr.Visible = false;
 
             switch (abonement)
             {
                 case ClubCardA clubCardA:
                     {
                         panel_tren.Visible = true;
+                        radioButton_tren.Visible = true;
+                        radioButton_tren.Checked = true;
+
                         panel_aero.Visible = (clubCardA.NumAerobicTr != 0);
+                        radioButton_aerob.Visible = (clubCardA.NumAerobicTr != 0);
+
                         panel_personal.Visible = clubCardA.NumPersonalTr != 0;
+                        radioButton_personal.Visible = clubCardA.NumPersonalTr != 0;
+
                         panel_miniGroup.Visible = clubCardA.NumMiniGroup > 0;
+                        radioButton_miniGr.Visible = clubCardA.NumMiniGroup > 0;
                         break;
                     }
                 case AbonementByDays byDays:
                     {
                         panel_tren.Visible = byDays.TypeWorkout == TypeWorkout.Тренажерный_Зал;
+                        radioButton_tren.Visible = byDays.TypeWorkout == TypeWorkout.Тренажерный_Зал;
+                        radioButton_tren.Checked = radioButton_tren.Visible ? true : false;
+
                         panel_aero.Visible = byDays.TypeWorkout == TypeWorkout.Аэробный_Зал;
+                        radioButton_aerob.Visible = byDays.TypeWorkout == TypeWorkout.Аэробный_Зал;
+                        radioButton_aerob.Checked = radioButton_aerob.Visible ? true : false;
+
                         panel_personal.Visible = byDays.TypeWorkout == TypeWorkout.Персональная;
+                        radioButton_personal.Visible = byDays.TypeWorkout == TypeWorkout.Персональная;
+                        radioButton_personal.Checked = radioButton_personal.Visible ? true : false;
+
                         panel_miniGroup.Visible = byDays.GetRemainderDays() > 0 && byDays.TypeWorkout == TypeWorkout.МиниГруппа;
+                        radioButton_miniGr.Visible = byDays.GetRemainderDays() > 0 && byDays.TypeWorkout == TypeWorkout.МиниГруппа;
+                        radioButton_miniGr.Checked = radioButton_miniGr.Visible ? true : false;
 
                         break;
                     }
                 case SingleVisit singleVisit:
                     {
                         panel_tren.Visible = false;
+                        radioButton_tren.Visible = false;
+
                         panel_aero.Visible = (singleVisit.TypeWorkout == TypeWorkout.Аэробный_Зал);
+                        radioButton_aerob.Visible = (singleVisit.TypeWorkout == TypeWorkout.Аэробный_Зал);
+
                         panel_personal.Visible = singleVisit.TypeWorkout == TypeWorkout.Персональная;
+                        radioButton_personal.Visible = singleVisit.TypeWorkout == TypeWorkout.Персональная;
 
                         panel_miniGroup.Visible = singleVisit.TypeWorkout == TypeWorkout.МиниГруппа;
-
+                        radioButton_miniGr.Visible = singleVisit.TypeWorkout == TypeWorkout.МиниГруппа;
                         break;
                     }
             }
