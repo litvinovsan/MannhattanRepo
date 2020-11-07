@@ -36,64 +36,93 @@ namespace PersonsBase.View
             panel_miniGroup.Visible = false;
 
             // Скрываем радибатонны
-            //radioButton_tren.Visible = false;
-            //radioButton_aerob.Visible = false;
-            //radioButton_personal.Visible = false;
-            //radioButton_miniGr.Visible = false;
+            radioButton_tren.Visible = false;
+            radioButton_aerob.Visible = false;
+            radioButton_personal.Visible = false;
+            radioButton_miniGr.Visible = false;
+
+            radioButton_tren.Enabled = false;
+            radioButton_aerob.Enabled = false;
+            radioButton_personal.Enabled = false;
+            radioButton_miniGr.Enabled = false;
 
             switch (abonement)
             {
                 case ClubCardA clubCardA:
                     {
-                        panel_tren.Visible = true;
-                        radioButton_tren.Visible = true;
-                        radioButton_tren.Checked = true;
+                        // Trenaj Zal
+                        SetRadioBtn(radioButton_tren, panel_tren, true);
 
-                        panel_aero.Visible = (clubCardA.NumAerobicTr != 0);
-                        radioButton_aerob.Visible = (clubCardA.NumAerobicTr != 0);
+                        // Aerobn Zal
+                        var isAero = clubCardA.NumAerobicTr != 0;
+                        SetRadioBtn(radioButton_aerob, panel_aero, isAero);
 
-                        panel_personal.Visible = clubCardA.NumPersonalTr != 0;
-                        radioButton_personal.Visible = clubCardA.NumPersonalTr != 0;
+                        // Personal 
+                        var isPers = clubCardA.NumPersonalTr != 0;
+                        SetRadioBtn(radioButton_personal, panel_personal, isPers);
 
-                        panel_miniGroup.Visible = clubCardA.NumMiniGroup > 0;
-                        radioButton_miniGr.Visible = clubCardA.NumMiniGroup > 0;
+                        // MiniGroups
+                        var isMgR = clubCardA.NumMiniGroup > 0;
+                        SetRadioBtn(radioButton_miniGr, panel_miniGroup, isMgR);
+
                         break;
                     }
                 case AbonementByDays byDays:
                     {
-                        panel_tren.Visible = byDays.TypeWorkout == TypeWorkout.Тренажерный_Зал;
-                        radioButton_tren.Visible = byDays.TypeWorkout == TypeWorkout.Тренажерный_Зал;
-                        radioButton_tren.Checked = radioButton_tren.Visible ? true : false;
+                        // Trenaj Zal
+                        var isTz = byDays.TypeWorkout == TypeWorkout.Тренажерный_Зал;
+                        SetRadioBtn(radioButton_tren, panel_tren, isTz);
 
-                        panel_aero.Visible = byDays.TypeWorkout == TypeWorkout.Аэробный_Зал;
-                        radioButton_aerob.Visible = byDays.TypeWorkout == TypeWorkout.Аэробный_Зал;
-                        radioButton_aerob.Checked = radioButton_aerob.Visible ? true : false;
+                        // Aerobn Zal
+                        var isAero = byDays.TypeWorkout == TypeWorkout.Аэробный_Зал;
+                        SetRadioBtn(radioButton_aerob, panel_aero, isAero);
 
-                        panel_personal.Visible = byDays.TypeWorkout == TypeWorkout.Персональная;
-                        radioButton_personal.Visible = byDays.TypeWorkout == TypeWorkout.Персональная;
-                        radioButton_personal.Checked = radioButton_personal.Visible ? true : false;
+                        // Personal 
+                        var isPers = byDays.TypeWorkout == TypeWorkout.Персональная;
+                        SetRadioBtn(radioButton_personal, panel_personal, isPers);
 
-                        panel_miniGroup.Visible = byDays.GetRemainderDays() > 0 && byDays.TypeWorkout == TypeWorkout.МиниГруппа;
-                        radioButton_miniGr.Visible = byDays.GetRemainderDays() > 0 && byDays.TypeWorkout == TypeWorkout.МиниГруппа;
-                        radioButton_miniGr.Checked = radioButton_miniGr.Visible ? true : false;
+                        // MiniGroups
+                        var isMgR = byDays.GetRemainderDays() > 0 && byDays.TypeWorkout == TypeWorkout.МиниГруппа;
+                        SetRadioBtn(radioButton_miniGr, panel_miniGroup, isMgR);
 
                         break;
                     }
                 case SingleVisit singleVisit:
                     {
-                        panel_tren.Visible = false;
-                        radioButton_tren.Visible = false;
+                        // Trenaj Zal
+                        SetRadioBtn(radioButton_tren, panel_tren, false);
 
-                        panel_aero.Visible = (singleVisit.TypeWorkout == TypeWorkout.Аэробный_Зал);
-                        radioButton_aerob.Visible = (singleVisit.TypeWorkout == TypeWorkout.Аэробный_Зал);
+                        // Aerobn Zal
+                        var isAero = singleVisit.TypeWorkout == TypeWorkout.Аэробный_Зал;
+                        SetRadioBtn(radioButton_aerob, panel_aero, isAero);
 
-                        panel_personal.Visible = singleVisit.TypeWorkout == TypeWorkout.Персональная;
-                        radioButton_personal.Visible = singleVisit.TypeWorkout == TypeWorkout.Персональная;
+                        // Personal 
+                        var isPers = singleVisit.TypeWorkout == TypeWorkout.Персональная;
+                        SetRadioBtn(radioButton_personal, panel_personal, isPers);
 
-                        panel_miniGroup.Visible = singleVisit.TypeWorkout == TypeWorkout.МиниГруппа;
-                        radioButton_miniGr.Visible = singleVisit.TypeWorkout == TypeWorkout.МиниГруппа;
+                        // MiniGroups
+                        var isMgR = singleVisit.TypeWorkout == TypeWorkout.МиниГруппа;
+                        SetRadioBtn(radioButton_miniGr, panel_miniGroup, isMgR);
                         break;
                     }
+            }
+        }
+
+        private void SetRadioBtn(RadioButton rbtn, Panel imgPanel, bool isActive)
+        {
+            if (isActive)
+            {
+                rbtn.Enabled = true;
+                rbtn.Visible = true;
+                rbtn.Checked = true;
+                imgPanel.Visible = true;
+            }
+            else
+            {
+                rbtn.Enabled = false;
+                rbtn.Visible = false;
+                rbtn.Checked = false;
+                imgPanel.Visible = false;
             }
         }
 

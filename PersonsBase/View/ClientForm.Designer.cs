@@ -151,7 +151,7 @@ namespace PersonsBase.View
             // 
             this.groupBox_Abon_NotValid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_Abon_NotValid.Controls.Add(this.listBox_NotValidAbons);
-            this.groupBox_Abon_NotValid.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox_Abon_NotValid.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox_Abon_NotValid.ForeColor = System.Drawing.Color.Maroon;
             this.groupBox_Abon_NotValid.Location = new System.Drawing.Point(952, 324);
             this.groupBox_Abon_NotValid.Name = "groupBox_Abon_NotValid";
@@ -164,18 +164,18 @@ namespace PersonsBase.View
             // listBox_NotValidAbons
             // 
             this.listBox_NotValidAbons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox_NotValidAbons.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listBox_NotValidAbons.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listBox_NotValidAbons.FormattingEnabled = true;
-            this.listBox_NotValidAbons.ItemHeight = 18;
-            this.listBox_NotValidAbons.Location = new System.Drawing.Point(3, 21);
+            this.listBox_NotValidAbons.ItemHeight = 19;
+            this.listBox_NotValidAbons.Location = new System.Drawing.Point(3, 22);
             this.listBox_NotValidAbons.Name = "listBox_NotValidAbons";
-            this.listBox_NotValidAbons.Size = new System.Drawing.Size(183, 118);
+            this.listBox_NotValidAbons.Size = new System.Drawing.Size(183, 117);
             this.listBox_NotValidAbons.TabIndex = 14;
             // 
             // groupBox_Abonements
             // 
             this.groupBox_Abonements.Controls.Add(this.listBox_abon_selector);
-            this.groupBox_Abonements.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox_Abonements.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox_Abonements.ForeColor = System.Drawing.Color.Green;
             this.groupBox_Abonements.Location = new System.Drawing.Point(8, 310);
             this.groupBox_Abonements.Name = "groupBox_Abonements";
@@ -188,12 +188,12 @@ namespace PersonsBase.View
             // listBox_abon_selector
             // 
             this.listBox_abon_selector.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox_abon_selector.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listBox_abon_selector.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listBox_abon_selector.FormattingEnabled = true;
-            this.listBox_abon_selector.ItemHeight = 18;
-            this.listBox_abon_selector.Location = new System.Drawing.Point(3, 21);
+            this.listBox_abon_selector.ItemHeight = 19;
+            this.listBox_abon_selector.Location = new System.Drawing.Point(3, 22);
             this.listBox_abon_selector.Name = "listBox_abon_selector";
-            this.listBox_abon_selector.Size = new System.Drawing.Size(229, 131);
+            this.listBox_abon_selector.Size = new System.Drawing.Size(229, 130);
             this.listBox_abon_selector.TabIndex = 14;
             this.listBox_abon_selector.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBox_abon_selector_MouseClick);
             this.listBox_abon_selector.SelectedIndexChanged += new System.EventHandler(this.listBox_abon_selector_SelectedIndexChanged);
@@ -325,7 +325,6 @@ namespace PersonsBase.View
             // button_Add_Abon
             // 
             this.button_Add_Abon.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button_Add_Abon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.button_Add_Abon.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_Add_Abon.Location = new System.Drawing.Point(2, 55);
             this.button_Add_Abon.Margin = new System.Windows.Forms.Padding(2);
@@ -353,7 +352,6 @@ namespace PersonsBase.View
             // button_Freeze
             // 
             this.button_Freeze.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button_Freeze.BackColor = System.Drawing.Color.LightSkyBlue;
             this.button_Freeze.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_Freeze.Location = new System.Drawing.Point(2, 161);
             this.button_Freeze.Margin = new System.Windows.Forms.Padding(2);
@@ -366,14 +364,13 @@ namespace PersonsBase.View
             // 
             // button_RemoveCurrentAbon
             // 
-            this.button_RemoveCurrentAbon.BackColor = System.Drawing.Color.LightSalmon;
-            this.button_RemoveCurrentAbon.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_RemoveCurrentAbon.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_RemoveCurrentAbon.Location = new System.Drawing.Point(2, 214);
             this.button_RemoveCurrentAbon.Margin = new System.Windows.Forms.Padding(2);
             this.button_RemoveCurrentAbon.Name = "button_RemoveCurrentAbon";
             this.button_RemoveCurrentAbon.Size = new System.Drawing.Size(233, 37);
             this.button_RemoveCurrentAbon.TabIndex = 2;
-            this.button_RemoveCurrentAbon.Text = "Удалить текущий Абонемент";
+            this.button_RemoveCurrentAbon.Text = "Удалить Абонемент";
             this.button_RemoveCurrentAbon.UseVisualStyleBackColor = false;
             this.button_RemoveCurrentAbon.Visible = false;
             this.button_RemoveCurrentAbon.Click += new System.EventHandler(this.button_remove_current_abon_Click);
@@ -452,7 +449,7 @@ namespace PersonsBase.View
             // 
             this.button_SavePersonalData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button_SavePersonalData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button_SavePersonalData.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_SavePersonalData.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_SavePersonalData.Location = new System.Drawing.Point(3, 587);
             this.button_SavePersonalData.Margin = new System.Windows.Forms.Padding(2);
             this.button_SavePersonalData.Name = "button_SavePersonalData";
@@ -720,7 +717,7 @@ namespace PersonsBase.View
             // button_Cancel
             // 
             this.button_Cancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_Cancel.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_Cancel.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_Cancel.Location = new System.Drawing.Point(2, 2);
             this.button_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.button_Cancel.Name = "button_Cancel";
