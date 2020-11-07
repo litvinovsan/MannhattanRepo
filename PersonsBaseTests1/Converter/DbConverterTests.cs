@@ -139,5 +139,29 @@ namespace PersonsBase.Converter.Tests
 
         }
 
+        [TestMethod()]
+        public void ConvertTestNoAbon()
+        {
+            List<Person> persons = new List<Person>();
+
+            // Empty List
+            var resultDict = DbConverter.Convert(persons);
+            Assert.AreEqual(0, resultDict.Count);
+
+            // Many Persons
+            {
+                int numMaxPersons = 100;
+
+                for (int i = 0; i < numMaxPersons; i++)
+                {
+                    persons.Add(new Person(i.ToString()));
+                    persons[i].AbonementCurent = null;
+                }
+                Assert.AreEqual(numMaxPersons, persons.Count);
+
+                resultDict = DbConverter.Convert(persons);
+                Assert.AreEqual(100, resultDict.Count);
+            }
+        }
     }
 }

@@ -8,6 +8,11 @@ namespace PersonsBase.Converter
 {
     public static class DbConverter
     {
+        /// <summary>
+        /// Возвращает коллекцию всех абонементов Клиента. То есть Текущий и все его из очереди
+        /// </summary>
+        /// <param name="person"></param>
+        /// <returns></returns>
         public static List<AbonementBasic> GetPersonAbonements(Person person)
         {
             var resultList = new List<AbonementBasic>();

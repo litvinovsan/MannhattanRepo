@@ -128,10 +128,9 @@ namespace PersonsBase.control
         {
             if (string.IsNullOrEmpty(personName) || abonement == null) return;
 
-            if (!_abonementsDictionary.ContainsKey(personName))
-            {
-                _abonementsDictionary.Add(personName, new List<AbonementBasic>());
-            }
+            // Add if not exist
+            AddNewPerson(personName);
+
             _abonementsDictionary[personName].Add(abonement);
             OnAbonementsDictChanged();
         }

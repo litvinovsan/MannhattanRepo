@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.control;
+using PersonsBase.Converter;
 using PersonsBase.data;
+using PersonsBase.data.Abonements;
 using PersonsBase.myStd;
 
 namespace PersonsBase.View
@@ -266,27 +269,41 @@ namespace PersonsBase.View
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var persons = DataBaseLevel.GetPersonsList();
-            var tempPersons = persons.Select(x => x).Where(x => x.Value.AbonementCurent != null).ToList();
-            //foreach (var keyValuePair in tempPersons)
+            // Способ 1. Для проверки вручную.
+            // var persons = DataBaseLevel.GetPersonsList().Values;
+            // Dictionary<string, List<AbonementBasic>> resultDictionary = new Dictionary<string, List<AbonementBasic>>();
+            //// Перебираем все абонементы и очередь абонементов. Добавляем в Коллекцию с архивом абонементов
+            //foreach (var person in persons)
             //{
-            //    keyValuePair.Value.AbonementsQueue.Add(keyValuePair.Value.AbonementCurent);
+            //    resultDictionary.Add(person.Name, new List<AbonementBasic>());
+
+            //    if (person.AbonementCurent != null)
+            //        resultDictionary[person.Name].Add(person.AbonementCurent);
+
+            //    if (person.AbonementsQueue != null && person?.AbonementsQueue.Count != 0)
+            //    {
+            //        foreach (var abonement in person?.AbonementsQueue)
+            //        {
+            //            // Do work
+            //            resultDictionary[person.Name].Add(abonement);
+            //        }
+            //    }
             //}
 
-            // Перебираем все абонементы и очередь абонементов. Добавляем в Коллекцию с архивом абонементов
-            foreach (var item in tempPersons)
-            {
-                PersonObject.SaveAbonementToHistory(item.Value, item.Value?.AbonementCurent);
 
-                if (item.Value?.AbonementsQueue != null && item.Value?.AbonementsQueue.Count != 0)
-                {
-                    foreach (var abonement in item.Value?.AbonementsQueue)
-                    {
-                        PersonObject.SaveAbonementToHistory(item.Value, abonement);
-                    }
-                }
-            }
+            // Способ 2. Конвертер
+            var persons = DataBaseLevel.GetPersonsList().Values;
+            var totalDict = DbConverter.Convert(persons);
 
+            //// Очистка очереди
+            //foreach (var person in persons)
+            //{
+               
+            //    if (person.AbonementsQueue != null && person?.AbonementsQueue.Count != 0)
+            //    {
+            //        person.AbonementsQueue.Clear();
+            //    }
+            //}
         }
 
     }

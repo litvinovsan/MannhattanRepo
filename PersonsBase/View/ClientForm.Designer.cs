@@ -279,7 +279,7 @@ namespace PersonsBase.View
             // button_CheckInWorkout
             // 
             this.button_CheckInWorkout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button_CheckInWorkout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.button_CheckInWorkout.BackColor = System.Drawing.Color.LightGreen;
             this.button_CheckInWorkout.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_CheckInWorkout.Location = new System.Drawing.Point(2, 2);
             this.button_CheckInWorkout.Margin = new System.Windows.Forms.Padding(2);
@@ -293,6 +293,7 @@ namespace PersonsBase.View
             // button_Add_Abon
             // 
             this.button_Add_Abon.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button_Add_Abon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.button_Add_Abon.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_Add_Abon.Location = new System.Drawing.Point(2, 55);
             this.button_Add_Abon.Margin = new System.Windows.Forms.Padding(2);
@@ -300,7 +301,7 @@ namespace PersonsBase.View
             this.button_Add_Abon.Size = new System.Drawing.Size(222, 49);
             this.button_Add_Abon.TabIndex = 4;
             this.button_Add_Abon.Text = "Добавить Абонемент";
-            this.button_Add_Abon.UseVisualStyleBackColor = true;
+            this.button_Add_Abon.UseVisualStyleBackColor = false;
             this.button_Add_Abon.Click += new System.EventHandler(this.button_Add_New_Abon_Click);
             // 
             // button_add_dop_tren
@@ -379,7 +380,7 @@ namespace PersonsBase.View
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(1133, 635);
+            this.tabPage2.Size = new System.Drawing.Size(1133, 626);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Персональные данные";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -612,7 +613,7 @@ namespace PersonsBase.View
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1133, 635);
+            this.tabPage3.Size = new System.Drawing.Size(1133, 626);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Посещения";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -628,7 +629,7 @@ namespace PersonsBase.View
             this.dataGridView_Visits.Location = new System.Drawing.Point(3, 3);
             this.dataGridView_Visits.Name = "dataGridView_Visits";
             this.dataGridView_Visits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_Visits.Size = new System.Drawing.Size(1127, 629);
+            this.dataGridView_Visits.Size = new System.Drawing.Size(1127, 620);
             this.dataGridView_Visits.TabIndex = 0;
             // 
             // tabPage_abon_history
@@ -637,7 +638,7 @@ namespace PersonsBase.View
             this.tabPage_abon_history.Location = new System.Drawing.Point(4, 25);
             this.tabPage_abon_history.Name = "tabPage_abon_history";
             this.tabPage_abon_history.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_abon_history.Size = new System.Drawing.Size(1133, 635);
+            this.tabPage_abon_history.Size = new System.Drawing.Size(1133, 626);
             this.tabPage_abon_history.TabIndex = 3;
             this.tabPage_abon_history.Text = "Архив Абонементов";
             this.tabPage_abon_history.UseVisualStyleBackColor = true;
@@ -648,7 +649,7 @@ namespace PersonsBase.View
             this.dataGridView_history_abonements.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_history_abonements.Location = new System.Drawing.Point(3, 3);
             this.dataGridView_history_abonements.Name = "dataGridView_history_abonements";
-            this.dataGridView_history_abonements.Size = new System.Drawing.Size(1127, 629);
+            this.dataGridView_history_abonements.Size = new System.Drawing.Size(1127, 620);
             this.dataGridView_history_abonements.TabIndex = 0;
             // 
             // tableLayoutPanel4
