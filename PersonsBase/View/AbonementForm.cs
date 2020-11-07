@@ -495,16 +495,14 @@ namespace PersonsBase.View
 
             if (comboBox_TypeTren.SelectedItem == null)
             {
-                comboBox_TypeTren.DropDownStyle = ComboBoxStyle.DropDown;
-                comboBox_TypeTren.BackColor = Color.Pink;
+                label2.BackColor = Color.Pink;
                 MessageBox.Show(@"Выберите Тип тренировки!", @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
 
             if (comboBox_Pay.SelectedItem == null)
             {
-                comboBox_Pay.DropDownStyle = ComboBoxStyle.DropDown;
-                comboBox_Pay.BackColor = Color.Pink;
+                label5.BackColor = Color.Pink;
                 MessageBox.Show(@"Уточните статус оплаты!", @"Оплата", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 
                 return;

@@ -773,12 +773,10 @@ namespace PersonsBase.View
             // Абонемент изменился
             Logic.LoadShortInfo(groupBox_Info, selectedAbonement);
             label_infoText.Text = @"Абонемент Сгорел";
-            flowLayoutPanel1.Enabled = false;
-
+            // Блокировка панели с кнопками если выбран Сгоревший абонемент. Блокируем если есть действующие абонементы
+            if (listBox_abon_selector.Items.Count != 0)
+                flowLayoutPanel1.Enabled = false;
         }
-
-
-        #endregion
 
         /// <summary>
         /// Нужен для Активации Кнопок. Они выключаются на время отображения Сгоревших абонементов
@@ -794,5 +792,6 @@ namespace PersonsBase.View
             UpdateControls(this, EventArgs.Empty);
             UpdateInfoTextBoxField(this, EventArgs.Empty);
         }
+        #endregion
     }
 }

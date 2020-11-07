@@ -126,7 +126,7 @@ namespace PersonsBase.View
             this.button_Aplly.Location = new System.Drawing.Point(3, 2);
             this.button_Aplly.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_Aplly.Name = "button_Aplly";
-            this.button_Aplly.Size = new System.Drawing.Size(633, 50);
+            this.button_Aplly.Size = new System.Drawing.Size(633, 51);
             this.button_Aplly.TabIndex = 0;
             this.button_Aplly.Text = "Применить";
             this.button_Aplly.UseVisualStyleBackColor = false;
@@ -137,10 +137,10 @@ namespace PersonsBase.View
             this.button2_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button2_Cancel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button2_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2_Cancel.Location = new System.Drawing.Point(3, 56);
+            this.button2_Cancel.Location = new System.Drawing.Point(3, 57);
             this.button2_Cancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2_Cancel.Name = "button2_Cancel";
-            this.button2_Cancel.Size = new System.Drawing.Size(633, 40);
+            this.button2_Cancel.Size = new System.Drawing.Size(633, 39);
             this.button2_Cancel.TabIndex = 1;
             this.button2_Cancel.Text = "Отмена";
             this.button2_Cancel.UseVisualStyleBackColor = true;
@@ -613,7 +613,7 @@ namespace PersonsBase.View
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(3, 97);
+            this.label1.Location = new System.Drawing.Point(3, 100);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(116, 18);
             this.label1.TabIndex = 11;
@@ -624,7 +624,7 @@ namespace PersonsBase.View
             this.comboBox_Personal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_Personal.Enabled = false;
             this.comboBox_Personal.FormattingEnabled = true;
-            this.comboBox_Personal.Location = new System.Drawing.Point(3, 118);
+            this.comboBox_Personal.Location = new System.Drawing.Point(3, 121);
             this.comboBox_Personal.Name = "comboBox_Personal";
             this.comboBox_Personal.Size = new System.Drawing.Size(134, 24);
             this.comboBox_Personal.TabIndex = 17;
@@ -633,7 +633,7 @@ namespace PersonsBase.View
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(3, 142);
+            this.label6.Location = new System.Drawing.Point(3, 148);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(78, 18);
             this.label6.TabIndex = 13;
@@ -644,7 +644,7 @@ namespace PersonsBase.View
             this.comboBox_Aerob.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_Aerob.Enabled = false;
             this.comboBox_Aerob.FormattingEnabled = true;
-            this.comboBox_Aerob.Location = new System.Drawing.Point(3, 163);
+            this.comboBox_Aerob.Location = new System.Drawing.Point(3, 169);
             this.comboBox_Aerob.Name = "comboBox_Aerob";
             this.comboBox_Aerob.Size = new System.Drawing.Size(134, 24);
             this.comboBox_Aerob.TabIndex = 17;
@@ -653,7 +653,7 @@ namespace PersonsBase.View
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(3, 187);
+            this.label7.Location = new System.Drawing.Point(3, 196);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(87, 18);
             this.label7.TabIndex = 15;
@@ -664,7 +664,7 @@ namespace PersonsBase.View
             this.comboBox_freez.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_freez.Enabled = false;
             this.comboBox_freez.FormattingEnabled = true;
-            this.comboBox_freez.Location = new System.Drawing.Point(3, 208);
+            this.comboBox_freez.Location = new System.Drawing.Point(3, 217);
             this.comboBox_freez.Name = "comboBox_freez";
             this.comboBox_freez.Size = new System.Drawing.Size(134, 24);
             this.comboBox_freez.TabIndex = 17;

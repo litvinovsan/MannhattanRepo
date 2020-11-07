@@ -618,7 +618,7 @@ namespace PersonsBase.View
 
         #region // Поле. Персональный номер
 
-        private string _editedPersonalNumber;
+        private string _editedPersonalNumber=string.Empty;
         private void textBox_Number_TextChanged(object sender, EventArgs e)
         {
             var tb = (TextBox)sender;
