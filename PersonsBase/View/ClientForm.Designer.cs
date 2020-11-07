@@ -163,13 +163,15 @@ namespace PersonsBase.View
             // 
             // listBox_NotValidAbons
             // 
-            this.listBox_NotValidAbons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox_NotValidAbons.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox_NotValidAbons.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listBox_NotValidAbons.FormattingEnabled = true;
             this.listBox_NotValidAbons.ItemHeight = 19;
-            this.listBox_NotValidAbons.Location = new System.Drawing.Point(3, 22);
+            this.listBox_NotValidAbons.Location = new System.Drawing.Point(3, 21);
             this.listBox_NotValidAbons.Name = "listBox_NotValidAbons";
-            this.listBox_NotValidAbons.Size = new System.Drawing.Size(183, 117);
+            this.listBox_NotValidAbons.Size = new System.Drawing.Size(180, 118);
             this.listBox_NotValidAbons.TabIndex = 14;
             // 
             // groupBox_Abonements
@@ -187,13 +189,15 @@ namespace PersonsBase.View
             // 
             // listBox_abon_selector
             // 
-            this.listBox_abon_selector.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox_abon_selector.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox_abon_selector.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listBox_abon_selector.FormattingEnabled = true;
             this.listBox_abon_selector.ItemHeight = 19;
-            this.listBox_abon_selector.Location = new System.Drawing.Point(3, 22);
+            this.listBox_abon_selector.Location = new System.Drawing.Point(9, 25);
             this.listBox_abon_selector.Name = "listBox_abon_selector";
-            this.listBox_abon_selector.Size = new System.Drawing.Size(229, 130);
+            this.listBox_abon_selector.Size = new System.Drawing.Size(220, 118);
             this.listBox_abon_selector.TabIndex = 14;
             this.listBox_abon_selector.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBox_abon_selector_MouseClick);
             this.listBox_abon_selector.SelectedIndexChanged += new System.EventHandler(this.listBox_abon_selector_SelectedIndexChanged);
@@ -205,12 +209,12 @@ namespace PersonsBase.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_Notes.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox_Notes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.textBox_Notes.Location = new System.Drawing.Point(10, 505);
+            this.textBox_Notes.Location = new System.Drawing.Point(10, 493);
             this.textBox_Notes.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_Notes.Multiline = true;
             this.textBox_Notes.Name = "textBox_Notes";
             this.textBox_Notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_Notes.Size = new System.Drawing.Size(1130, 139);
+            this.textBox_Notes.Size = new System.Drawing.Size(1130, 151);
             this.textBox_Notes.TabIndex = 5;
             this.textBox_Notes.TextChanged += new System.EventHandler(this.textBox_Notes_TextChanged);
             // 
@@ -219,7 +223,7 @@ namespace PersonsBase.View
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label2.Location = new System.Drawing.Point(8, 477);
+            this.label2.Location = new System.Drawing.Point(8, 465);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(106, 26);
             this.label2.TabIndex = 6;
