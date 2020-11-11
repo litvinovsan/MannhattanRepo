@@ -104,7 +104,7 @@ namespace PersonsBase.data
         public const int ValidPeriod12Month = 12;// нужны для расчета даты окончания абонемента. Срок годности абонемента 12 месяца
 
 
-        public const string CorrectPassword = "1234";
+        public const string CorrectPassword = "1306";
 
         #endregion
     }

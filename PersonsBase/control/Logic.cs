@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -26,8 +27,7 @@ namespace PersonsBase.control
 
         #region/// ОБЬЕКТЫ /////
 
-        [NonSerialized]
-        private static Logic _logicInstance;
+        [NonSerialized] private static Logic _logicInstance;
 
         // Маркеры для выделения красным цветом в таблице ShortInfo. Если текст равен...
         private const string StrMorning = "Утро";
@@ -88,6 +88,7 @@ namespace PersonsBase.control
             {
                 pictureBox.Image = null;
             }
+
             pictureBox.Refresh();
             return result;
         }
@@ -99,6 +100,7 @@ namespace PersonsBase.control
         {
             FormsRunner.RunPasswordForm();
         }
+
         public static void CheckForDigits(KeyPressEventArgs e)
         {
             var number = e.KeyChar;
@@ -110,9 +112,20 @@ namespace PersonsBase.control
 
         public static void SaveEverithing()
         {
-            Options.SaveProperties(); // Сохранение пользовательских настроек
-            DataBaseLevel.SerializeObjects();
-            AbonementController.GetInstance().Save();
+            try
+            {
+                Options.SaveProperties(); // Сохранение пользовательских настроек
+                DataBaseLevel.SerializeObjects();
+                AbonementController.GetInstance().Save();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                using (var sw = new StreamWriter("errors.log", true))
+                {
+                    sw.WriteLine(DateTime.Now + " " + e.Message);
+                }
+            }
         }
 
         #endregion
@@ -274,11 +287,12 @@ namespace PersonsBase.control
             var isSuccess = FormsRunner.RunCreatePersonForm(out var createdPersoName);
 
             if (!isSuccess) return false;
-            var res = MessageBox.Show(@"Желаете Добавить Абонемент?", @"Клиент Добавлен!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var res = MessageBox.Show(@"Желаете Добавить Абонемент?", @"Клиент Добавлен!", MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
             //  Создаем Абонемент если выбрали Да
             if (res == DialogResult.Yes) AddAbonement(createdPersoName);
             OpenPersonCard(createdPersoName);
-            SaveEverithing();//Сохраним в базу клиентов
+            SaveEverithing(); //Сохраним в базу клиентов
             return true;
         }
 
@@ -308,6 +322,7 @@ namespace PersonsBase.control
                     DataBaseLevel.GetPersonsAbonHistDict().Remove(selectedName);
                 }
             }
+
             SaveEverithing();
             return (response == ResponseCode.Success);
         }
@@ -345,6 +360,7 @@ namespace PersonsBase.control
             {
                 return "";
             }
+
             // Удаляет все пустые подстроки
             // text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
             string resultName = String.Empty;
@@ -361,6 +377,7 @@ namespace PersonsBase.control
                     tempWord = tempWord.Remove(0, 1);
                     if (tempWord.Length == 0) break;
                 }
+
                 var c = Char.ToUpper(tempWord[0]);
                 resultName += c + tempWord.Remove(0, 1) + " ";
             }
@@ -412,6 +429,7 @@ namespace PersonsBase.control
 
             return isSuccess;
         }
+
         public static string GetPersonShortName(string nameLong)
         {
             if (string.IsNullOrWhiteSpace(nameLong) || string.IsNullOrEmpty(nameLong)) return string.Empty;
@@ -429,9 +447,11 @@ namespace PersonsBase.control
 
             return totalString.ToString().Trim();
         }
+
         #endregion
 
         #region /// КАРТОЧКА КЛИЕНТА. СКАНЕР  ///
+
         /// <summary>
         /// Открывает карточку клиента namePerson
         /// </summary>
@@ -440,7 +460,17 @@ namespace PersonsBase.control
         {
             if (string.IsNullOrEmpty(namePerson)) return;
 
-            FormsRunner.RunClientForm(namePerson);
+            try
+            {
+                FormsRunner.RunClientForm(namePerson);
+            }
+            catch (Exception e)
+            {
+                using (var sw = new StreamWriter("errors.log", true))
+                {
+                    sw.WriteLine(DateTime.Now + " " + e.Message);
+                }
+            }
         }
 
         /// <summary>
@@ -475,6 +505,7 @@ namespace PersonsBase.control
         {
             return FormsRunner.RunBarCodeForm(out var namePerson) ? namePerson : "";
         }
+
         #endregion
 
         #region /// СОЗДАНИЕ ОТЧЕТА по КЛИЕНТАМ ///
@@ -505,7 +536,8 @@ namespace PersonsBase.control
 
         public static bool SellAbonement()
         {
-            if (!FormsRunner.RunSelectPersonForm(out var selectedName, "Выберите клиента для добавления Абонемента")) return false;
+            if (!FormsRunner.RunSelectPersonForm(out var selectedName, "Выберите клиента для добавления Абонемента"))
+                return false;
 
             if (string.IsNullOrEmpty(selectedName)) return false;
 
@@ -529,7 +561,12 @@ namespace PersonsBase.control
 
             var dialogResult = FormsRunner.CreateAbonementForm(person.Name);
 
-            return dialogResult == DialogResult.OK;
+            if (dialogResult == DialogResult.OK)
+            {
+                AbonementController.GetInstance().Save();
+                return true;
+            }
+            return false;
         }
 
         private static bool IsAbonementValid(ref Person person)
