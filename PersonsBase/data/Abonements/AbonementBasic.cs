@@ -62,7 +62,7 @@ namespace PersonsBase.data.Abonements
             {
                 return _endDate;
             }
-            protected set
+            set
             {
                 if (_endDate.Date.CompareTo(value.Date) == 0) return;
                 _endDate = value;

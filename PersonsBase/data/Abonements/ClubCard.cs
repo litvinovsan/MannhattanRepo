@@ -69,8 +69,10 @@ namespace PersonsBase.data.Abonements
             // Если 0, то даты совпали
             // Если -, то DateTime.Now раньше Конца абонемента
             var addFreezedDays = Freeze?.GetSpentDays();
-            if (_numberMonths != 0) EndDate = BuyActivationDate.AddMonths(_numberMonths).Date.AddDays((addFreezedDays ?? 0));
-            var checkDate = DateTime.Now.Date.CompareTo(EndDate.Date) <= 0;
+            DateTime finishDate = new DateTime();
+            if (_numberMonths != 0)
+                finishDate = EndDate.Date.AddDays((addFreezedDays ?? 0));
+            var checkDate = DateTime.Now.Date.CompareTo(finishDate.Date) <= 0;
             return checkDate;
         }
 

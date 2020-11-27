@@ -107,11 +107,12 @@ namespace PersonsBase.data.Abonements
             // Если +, то DateTime.Now позднее _endDate
             // Если 0, то даты совпали
             // Если -, то DateTime.Now раньше Конца абонемента
-            EndDate = (TypeWorkout == TypeWorkout.Персональная || TypeWorkout == TypeWorkout.МиниГруппа) ?
+
+            DateTime finishDate = (TypeWorkout == TypeWorkout.Персональная || TypeWorkout == TypeWorkout.МиниГруппа) ?
                 CalculateEndDate(BuyActivationDate, Options.ValidPeriod12Month) :
                 CalculateEndDate(BuyActivationDate, Options.ValidPeriodInMonth);
 
-            return ((DateTime.Now.Date.CompareTo(EndDate.Date) <= 0) && (GetRemainderDays() > 0));
+            return ((DateTime.Now.Date.CompareTo(finishDate.Date) <= 0) && (GetRemainderDays() > 0));
         }
 
         public override bool AddTrainingsToAbon(TypeWorkout type, int numberToAdd)

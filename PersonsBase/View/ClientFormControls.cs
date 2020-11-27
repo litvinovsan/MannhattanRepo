@@ -321,16 +321,16 @@ namespace PersonsBase.View
 
             dateTime.Value = initDate;
             _editedEndDate = initDate;
-            dateTime.Enabled = false;
-            // dateTime.ValueChanged += DateTime_EndDate_ValueChanged;
+            dateTime.Enabled = PwdForm.IsPassUnLocked();
+            dateTime.ValueChanged += DateTime_EndDate_ValueChanged;
 
-            //_saveDelegateChain += () =>
-            //{
-            //    if (_person.IsAbonementExist() && (_editedEndDate.CompareTo(_person.AbonementCurent.EndDate.Date) != 0) && !_typeClubCardChanged)
-            //    {
-            //        _person.AbonementCurent.EndDate = _editedEndDate;
-            //    }
-            //};
+            _saveDelegateChain += () =>
+            {
+                if (_person.IsAbonementExist() && (_editedEndDate.CompareTo(_person.AbonementCurent.EndDate.Date) != 0) && !_typeClubCardChanged)
+                {
+                    _person.AbonementCurent.EndDate = _editedEndDate;
+                }
+            };
             return new Tuple<Label, Control>(lableType, dateTime);
         }
 
