@@ -371,7 +371,6 @@ namespace PersonsBase.View
             if (radioButton.Checked)
             {
                 _selectedAbonementName = "Разовое Занятие";
-                RemAddMiniGroupItem(radioButton);
                 comboBox_Abonem.Visible = false;
                 comboBox_ClubCard.Visible = false;
                 comboBox_TypeTren.SelectedItem = TypeWorkout.Тренажерный_Зал.ToString();
@@ -379,10 +378,7 @@ namespace PersonsBase.View
                 radioButton_ClubCard.Checked = false;
                 radioButton_guest.Checked = false;
             }
-            else
-            {
-                RemAddMiniGroupItem(radioButton);
-            }
+
             UpdateCorrectFieldsEn();
         }
 

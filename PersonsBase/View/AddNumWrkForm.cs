@@ -77,7 +77,7 @@ namespace PersonsBase.View
             if (radioB.Name == radioButton_mini.Name)
             {
                 _selectedTypeWorkout = TypeWorkout.МиниГруппа;
-                numbersAvailable = Options.NumAvailMiniGroup;// 8 
+                numbersAvailable = Options.NumAvailMiniGroup;//1, 8 
             }
             // Сколько тренировок доступно для конкретного типа трени
             MyComboBox.Initialize(comboBox_num, numbersAvailable, numbersAvailable[0]);
