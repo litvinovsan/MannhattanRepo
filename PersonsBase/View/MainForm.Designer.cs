@@ -38,7 +38,7 @@ namespace PersonsBase.View
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.конфигурацииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -141,7 +141,7 @@ namespace PersonsBase.View
             // руководительToolStripMenuItem1
             // 
             this.руководительToolStripMenuItem1.Name = "руководительToolStripMenuItem1";
-            this.руководительToolStripMenuItem1.Size = new System.Drawing.Size(180, 26);
+            this.руководительToolStripMenuItem1.Size = new System.Drawing.Size(183, 26);
             this.руководительToolStripMenuItem1.Text = "Руководитель";
             this.руководительToolStripMenuItem1.Click += new System.EventHandler(this.руководительToolStripMenuItem1_Click);
             // 
@@ -149,14 +149,14 @@ namespace PersonsBase.View
             // 
             this.сохранитьВExcelToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.diskette;
             this.сохранитьВExcelToolStripMenuItem.Name = "сохранитьВExcelToolStripMenuItem";
-            this.сохранитьВExcelToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.сохранитьВExcelToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
             this.сохранитьВExcelToolStripMenuItem.Text = "Сохранить Базу";
             this.сохранитьВExcelToolStripMenuItem.Click += new System.EventHandler(this.сохранитьВExcelToolStripMenuItem_Click);
             // 
             // оПрограммеToolStripMenuItem
             // 
             this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 
@@ -164,7 +164,7 @@ namespace PersonsBase.View
             // 
             this.выходToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.exit;
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
@@ -276,7 +276,7 @@ namespace PersonsBase.View
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.Location = new System.Drawing.Point(1090, 45);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(190, 612);
+            this.groupBox1.Size = new System.Drawing.Size(190, 640);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             // 
@@ -426,7 +426,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1072, 604);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1072, 632);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // listView_MiniGroup
@@ -439,10 +439,11 @@ namespace PersonsBase.View
             this.listView_MiniGroup.FullRowSelect = true;
             this.listView_MiniGroup.GridLines = true;
             this.listView_MiniGroup.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listView_MiniGroup.HideSelection = false;
             this.listView_MiniGroup.Location = new System.Drawing.Point(6, 31);
             this.listView_MiniGroup.MultiSelect = false;
             this.listView_MiniGroup.Name = "listView_MiniGroup";
-            this.listView_MiniGroup.Size = new System.Drawing.Size(243, 567);
+            this.listView_MiniGroup.Size = new System.Drawing.Size(243, 595);
             this.listView_MiniGroup.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.listView_MiniGroup.TabIndex = 4;
             this.listView_MiniGroup.UseCompatibleStateImageBehavior = false;
@@ -470,16 +471,17 @@ namespace PersonsBase.View
             this.listView_Gym_Zal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView_Gym_Zal.FullRowSelect = true;
             this.listView_Gym_Zal.GridLines = true;
-            listViewGroup2.Header = "ListViewGroup";
-            listViewGroup2.Name = "listViewGroup1";
+            listViewGroup1.Header = "ListViewGroup";
+            listViewGroup1.Name = "listViewGroup1";
             this.listView_Gym_Zal.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup2});
+            listViewGroup1});
             this.listView_Gym_Zal.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listView_Gym_Zal.HideSelection = false;
             this.listView_Gym_Zal.Location = new System.Drawing.Point(762, 31);
             this.listView_Gym_Zal.MultiSelect = false;
             this.listView_Gym_Zal.Name = "listView_Gym_Zal";
             this.listView_Gym_Zal.ShowGroups = false;
-            this.listView_Gym_Zal.Size = new System.Drawing.Size(304, 567);
+            this.listView_Gym_Zal.Size = new System.Drawing.Size(304, 595);
             this.listView_Gym_Zal.TabIndex = 2;
             this.listView_Gym_Zal.UseCompatibleStateImageBehavior = false;
             this.listView_Gym_Zal.View = System.Windows.Forms.View.Details;
@@ -507,10 +509,11 @@ namespace PersonsBase.View
             this.listView_Personal.FullRowSelect = true;
             this.listView_Personal.GridLines = true;
             this.listView_Personal.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listView_Personal.HideSelection = false;
             this.listView_Personal.Location = new System.Drawing.Point(510, 31);
             this.listView_Personal.MultiSelect = false;
             this.listView_Personal.Name = "listView_Personal";
-            this.listView_Personal.Size = new System.Drawing.Size(243, 567);
+            this.listView_Personal.Size = new System.Drawing.Size(243, 595);
             this.listView_Personal.TabIndex = 2;
             this.listView_Personal.UseCompatibleStateImageBehavior = false;
             this.listView_Personal.View = System.Windows.Forms.View.Details;
@@ -538,10 +541,11 @@ namespace PersonsBase.View
             this.listView_Group.FullRowSelect = true;
             this.listView_Group.GridLines = true;
             this.listView_Group.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listView_Group.HideSelection = false;
             this.listView_Group.Location = new System.Drawing.Point(258, 31);
             this.listView_Group.MultiSelect = false;
             this.listView_Group.Name = "listView_Group";
-            this.listView_Group.Size = new System.Drawing.Size(243, 567);
+            this.listView_Group.Size = new System.Drawing.Size(243, 595);
             this.listView_Group.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.listView_Group.TabIndex = 2;
             this.listView_Group.UseCompatibleStateImageBehavior = false;
@@ -640,7 +644,7 @@ namespace PersonsBase.View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1292, 669);
+            this.ClientSize = new System.Drawing.Size(1292, 697);
             this.Controls.Add(this.label_SelectedDate);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.groupBox1);

@@ -470,12 +470,12 @@ namespace PersonsBase.View
         /// </summary>
         private void SetupVisitsDataGridView()
         {
-            var dt = Visit.GetVisitsTable(_person);
+            var dtable = Visit.GetVisitsTable(_person);
             var journalVisits = PersonObject.GetVisitsList(_person.Name);
 
             var helpStrings = (journalVisits != null && journalVisits.Count > 0) ? journalVisits.First().GetHeadersToolTipHelp() : new[] { "===" };
 
-            MyDataGridView.SetSourceDataGridView(dataGridView_Visits, dt);
+            MyDataGridView.SetSourceDataGridView(dataGridView_Visits, dtable);
             MyDataGridView.ImplementStyle(dataGridView_Visits);
             MyDataGridView.AddHeaderToolTips(dataGridView_Visits, helpStrings);
         }

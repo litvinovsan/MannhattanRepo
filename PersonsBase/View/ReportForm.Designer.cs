@@ -373,6 +373,7 @@
             this.dataGridView_Persons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_Persons.Size = new System.Drawing.Size(972, 451);
             this.dataGridView_Persons.TabIndex = 3;
+            this.dataGridView_Persons.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_Persons_MouseDoubleClick);
             // 
             // ReportForm
             // 

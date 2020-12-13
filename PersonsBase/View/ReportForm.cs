@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -451,7 +450,7 @@ namespace PersonsBase.View
         private async void ShowPersons(IEnumerable<KeyValuePair<string, Person>> personsToShow)
         {
             var dt = await Task.Run(() => DataBaseM.CreatePersonsTable(personsToShow, DataBaseM.GetPersonFieldsShort));
-           MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
+            MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
         }
 
         /// <summary>
@@ -495,7 +494,24 @@ namespace PersonsBase.View
 
         private async void ReportForm_Load(object sender, EventArgs e)
         {
-          await Task.Run((() => InitDataGridView()));
+            await Task.Run((() => InitDataGridView()));
+        }
+
+        private void dataGridView_Persons_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var dg = (DataGridView)sender;
+            var isSelected = dg.SelectedRows.Count > 0;
+            if (isSelected)
+            {
+                int rowindex = dg.CurrentCell.RowIndex;
+                // В Cell[0] Находится имя клиента
+                var resultName = dg.Rows[rowindex].Cells[0].Value.ToString();
+              //  string value = dg?.CurrentRow?.Cells[0].Value.ToString();
+
+                if (string.IsNullOrEmpty(resultName)) return;
+                FormsRunner.RunClientForm(resultName);
+            }
+
         }
     }
 }

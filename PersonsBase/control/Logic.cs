@@ -593,7 +593,6 @@ namespace PersonsBase.control
         {
             var person = PersonObject.GetLink(personName);
             if (person.AbonementCurent == null) return false;
-            person.AbonementCurent.TryActivate(); // Если не Активирован
 
             if (!IsAbonementValid(ref person)) return false;
 
@@ -607,6 +606,8 @@ namespace PersonsBase.control
                         var dlgResult = FormsRunner.RunWorkoutOptionsForm(ref selectedOptions, person.Name);
                         if (dlgResult == DialogResult.Cancel) return false;
 
+                        person.AbonementCurent.TryActivate(); // Если не Активирован
+
                         isSuccess = byDays.CheckInWorkout(selectedOptions.TypeWorkout);
                         if (!isSuccess) return false;
                         PersonObject.SaveCurentVisit(person, selectedOptions); // Сохраняет текущий визит 
@@ -617,6 +618,8 @@ namespace PersonsBase.control
                         var dlgResult = FormsRunner.RunWorkoutOptionsForm(ref selectedOptions, person.Name);
                         if (dlgResult == DialogResult.Cancel) return false;
 
+                        person.AbonementCurent.TryActivate(); // Если не Активирован
+
                         isSuccess = clubCardA.CheckInWorkout(selectedOptions.TypeWorkout);
                         if (!isSuccess) return false;
                         PersonObject.SaveCurentVisit(person, selectedOptions); // Сохраняет текущий визит 
@@ -626,6 +629,8 @@ namespace PersonsBase.control
                     {
                         var dlgResult = FormsRunner.RunWorkoutOptionsForm(ref selectedOptions, person.Name);
                         if (dlgResult == DialogResult.Cancel) return false;
+
+                        person.AbonementCurent.TryActivate(); // Если не Активирован
 
                         isSuccess = singleVisit.CheckInWorkout(person.AbonementCurent.TypeWorkout);
 

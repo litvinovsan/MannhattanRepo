@@ -27,7 +27,7 @@ namespace PersonsBase.View
             if (DataBaseLevel.ContainsNameKey(keyName))
             {
                 var clientFrm = new ClientForm(keyName);
-                clientFrm.ShowDialog();
+                clientFrm.Show();
             }
             else
             {

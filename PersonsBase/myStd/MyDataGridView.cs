@@ -10,33 +10,30 @@ namespace PersonsBase.myStd
 {
     public static class MyDataGridView
     {
-        // FIXME Перенести создание в метод. Не зачем делать это статическим, вдруг несколько мест использ будет
-        private static readonly BindingSource BindingSource1 = new BindingSource();
-
         #region /// ИНИЦИАЛИЗАЦИЯ ИСТОЧНИКА ДАННЫХ
 
         /// <summary>
         /// Инициализация DataGridView через BindingSource. На вход подается DataTable. Заголовок подключается автоматически
         /// если в датаТэйбл прописан заголовок. 
         /// </summary>
-        /// <param name="dataGridView1"></param>
+        /// <param name="dataGv"></param>
         /// <param name="dataTable"></param>
-        public static void SetSourceDataGridView(DataGridView dataGridView1, DataTable dataTable)
+        public static void SetSourceDataGridView(DataGridView dataGv, DataTable dataTable)
         {
             void Action(DataTable table)
             {
                 try
                 {
                     // Automatically generate the DataGridView columns.
-                    dataGridView1.AutoGenerateColumns = true;
+                    dataGv.AutoGenerateColumns = true;
 
                     // Set up the data source.
-                    BindingSource1.DataSource = table;
-                    dataGridView1.DataSource = BindingSource1;
+                    var bindingSource1 = new BindingSource {DataSource = table};
+                    dataGv.DataSource = bindingSource1;
 
                     // Automatically resize the visible rows.
-                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                    dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+                    dataGv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    dataGv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
                 }
                 catch (Exception e)
                 {
@@ -44,9 +41,9 @@ namespace PersonsBase.myStd
                 }
             }
 
-            if (dataGridView1.InvokeRequired)
+            if (dataGv.InvokeRequired)
             {
-                dataGridView1.Invoke(new Action<DataTable>(Action), dataTable);
+                dataGv.Invoke(new Action<DataTable>(table => Action(table)), dataTable);
             }
             else
             {
@@ -59,11 +56,11 @@ namespace PersonsBase.myStd
         /// Метод не тестирован.!!!!!!!!!!!!
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="dataGridView1"></param>
+        /// <param name="dataGv"></param>
         /// <param name="dataList"></param>
-        public static void SetSourceDataGridView<T>(DataGridView dataGridView1, List<T> dataList)
+        public static void SetSourceDataGridView<T>(DataGridView dataGv, List<T> dataList)
         {
-            if (dataGridView1 == null) return;
+            if (dataGv == null) return;
             if (dataList == null) return;
 
             try
@@ -71,10 +68,10 @@ namespace PersonsBase.myStd
                 // Set up the data source.
                 var bindingList = new BindingList<T>(dataList);
                 var source = new BindingSource(bindingList, null);
-                dataGridView1.DataSource = source;
+                dataGv.DataSource = source;
 
                 // Automatically generate the DataGridView columns.
-                dataGridView1.AutoGenerateColumns = true;
+                dataGv.AutoGenerateColumns = true;
             }
             catch (Exception)
             {
@@ -110,7 +107,7 @@ namespace PersonsBase.myStd
             }
             catch (Exception e)
             {
-                MessageBox.Show("Ошибка добавления заголовка " + e);
+                MessageBox.Show(@"Ошибка добавления заголовка " + e);
             }
 
         }
@@ -197,21 +194,59 @@ namespace PersonsBase.myStd
             }
         }
         #endregion
-    }
 
-    [Serializable]
-    public class DataGridItem
+
+        #region ///  ПОЛУЧЕНИЕ ЗНАЧЕНИЙ ЯЧЕЕК
+        //  В обработчике CellClick или SelectionChanged  или  MouseDoubleClick
+
+    //    string value =
+    //        datagridviewID.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString();
+
+    //    //   Или
+
+    //    var dg = (DataGridView)sender;
+    //        if (dg.SelectedCells.Count > 0)
+    //    {
+    //        int selectedrowindex = dg.SelectedCells[0].RowIndex;
+
+    //    DataGridViewRow selectedRow = dg.Rows[selectedrowindex];
+
+    //    string a = Convert.ToString(selectedRow.Cells["you have to mention you cell  corresponding column name"].Value);
+
+
+    //    int rowindex = dg.CurrentCell.RowIndex;
+    //    int columnindex = dg.CurrentCell.ColumnIndex;
+
+    //    var res1 = dg.Rows[rowindex].Cells[columnindex].Value.ToString();
+    //    var res2 = dg.Rows[rowindex].Cells[0].Value.ToString();
+
+    //}
+
+    ////   Или
+    //string value = dg?.CurrentRow?.Cells[0].Value.ToString();
+
+    ////   Или
+    //    private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
+    //    {
+    //        MessageBox.Show(dataGV.CurrentCell.Value.ToString());
+    //    }
+
+    #endregion
+}
+
+[Serializable]
+public class DataGridItem
+{
+    public string HeaderName;
+    public string Value;
+    public string HeaderToolTipHelp;
+
+    public DataGridItem(string header, string value, string helpText)
     {
-        public string HeaderName;
-        public string Value;
-        public string HeaderToolTipHelp;
-
-        public DataGridItem(string header, string value, string helpText)
-        {
-            HeaderName = header;
-            Value = value;
-            HeaderToolTipHelp = helpText;
-        }
-
+        HeaderName = header;
+        Value = value;
+        HeaderToolTipHelp = helpText;
     }
+
+}
 }
