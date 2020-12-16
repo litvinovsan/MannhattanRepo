@@ -113,23 +113,23 @@ namespace PersonsBase.control
 
         public static void SaveEverithing()
         {
-            var saveTask=new Task(() =>
-            {
-                try
-                {
-                    Options.SaveProperties(); // Сохранение пользовательских настроек
-                    DataBaseLevel.SerializeObjects();
-                    AbonementController.GetInstance().Save();
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                    using (var sw = new StreamWriter("errors.log", true))
-                    {
-                        sw.WriteLine(DateTime.Now + " " + e.Message);
-                    }
-                }
-            });
+            var saveTask = new Task(() =>
+              {
+                  try
+                  {
+                      Options.SaveProperties(); // Сохранение пользовательских настроек
+                      DataBaseLevel.SerializeObjects();
+                      AbonementController.GetInstance().Save();
+                  }
+                  catch (Exception e)
+                  {
+                      MessageBox.Show(e.Message);
+                      using (var sw = new StreamWriter("errors.log", true))
+                      {
+                          sw.WriteLine(DateTime.Now + " " + e.Message);
+                      }
+                  }
+              });
 
             saveTask.Start();
         }
@@ -282,7 +282,7 @@ namespace PersonsBase.control
 
         #endregion
 
-        #region /// КЛИЕНТ. СОЗДАНИЕ. УДАЛЕНИЕ. РЕДАКТИРОВАНИЕ ///
+        #region /// КЛИЕНТ. СОЗДАНИЕ. УДАЛЕНИЕ. РЕДАКТИРОВАНИЕ. ПРОВЕРКИ ///
 
         /// <summary>
         /// Запуск Формы создания клиента
@@ -392,6 +392,45 @@ namespace PersonsBase.control
         }
 
         /// <summary>
+        ///  Возвращает длинну  числовой строки содержащей маскировочные символы, например для телефона в maskedTextbox
+        /// То есть из строки "8(912) -  -" вернет только  длинну 8(912.
+        /// </summary>
+        /// <param name="maskedText"></param>
+        /// <returns></returns>
+        public static int GetLenght(string maskedText)
+        {
+            var resultString = maskedText;
+
+            while (resultString.Length > 0)
+            {
+                var lastIndex = resultString.Length - 1;
+                var lastCharInString = resultString[lastIndex];
+                if (char.IsDigit(lastCharInString))
+                {
+                    return lastIndex + 1;
+                }
+
+                resultString = resultString.Remove(lastIndex).Trim();
+            }
+
+            return resultString.Length;
+        }
+
+        /// <summary>
+        /// Возвращает строку содержащей маскировочные символы, например для телефона в maskedTextbox
+        /// То есть из строки "8(912) -  -" вернет только   8(912.
+        /// </summary>
+        /// <param name="inputString"></param>
+        /// <returns></returns>
+        public static string RemoveEmptySymbols(string inputString)
+        {
+            int length = Logic.GetLenght(inputString);
+            string resultString = inputString.Substring(0, length);
+
+            return resultString;
+        }
+
+        /// <summary>
         /// Метод пытается изменить Имя Клиента. Если Успешно, переименовывает файл с фотографией и перезаписывает Путь до фотки
         /// </summary>
         /// <param name="curentName"></param>
@@ -453,6 +492,7 @@ namespace PersonsBase.control
 
             return totalString.ToString().Trim();
         }
+
 
         #endregion
 

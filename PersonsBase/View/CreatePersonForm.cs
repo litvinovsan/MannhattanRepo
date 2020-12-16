@@ -232,7 +232,12 @@ namespace PersonsBase.View
             }
         }
 
-        private bool IsPhoneOk(string text)
+        /// <summary>
+        /// Проверка на наличие телефонного номера в базе
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        private bool IsPhoneExists(string text)
         {
             var person = DataBaseM.FindByPhone(_persons, text);
             _dataStateOk.Phone = (person == null);
@@ -343,7 +348,7 @@ namespace PersonsBase.View
 
         private void maskedTextBox_PhoneNumber_KeyUp(object sender, KeyEventArgs e)
         {
-            ProcessMaskedTextBox(_maskPhone, maskedTextBox_PhoneNumber, () => IsPhoneOk(maskedTextBox_PhoneNumber.Text));
+            ProcessMaskedTextBox(_maskPhone, maskedTextBox_PhoneNumber, () => IsPhoneExists(maskedTextBox_PhoneNumber.Text));
         }
 
         private void maskedTextBox_Passport_KeyUp(object sender, KeyEventArgs e)

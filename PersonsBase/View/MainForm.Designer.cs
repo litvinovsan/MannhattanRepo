@@ -38,7 +38,7 @@ namespace PersonsBase.View
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.конфигурацииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,7 +55,6 @@ namespace PersonsBase.View
             this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сomboBox_PersonsList = new System.Windows.Forms.ToolStripComboBox();
             this.сканироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.списокКлиентовToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button_Reset_Date = new System.Windows.Forms.Button();
@@ -89,6 +88,7 @@ namespace PersonsBase.View
             this.открытьКарточкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьЗаписьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label_SelectedDate = new System.Windows.Forms.Label();
+            this.maskedTextBox_PhoneNumber = new System.Windows.Forms.MaskedTextBox();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -117,8 +117,7 @@ namespace PersonsBase.View
             this.клиентыToolStripMenuItem,
             this.отчетыToolStripMenuItem,
             this.сomboBox_PersonsList,
-            this.сканироватьToolStripMenuItem,
-            this.списокКлиентовToolStripMenuItem1});
+            this.сканироватьToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
@@ -141,7 +140,7 @@ namespace PersonsBase.View
             // руководительToolStripMenuItem1
             // 
             this.руководительToolStripMenuItem1.Name = "руководительToolStripMenuItem1";
-            this.руководительToolStripMenuItem1.Size = new System.Drawing.Size(183, 26);
+            this.руководительToolStripMenuItem1.Size = new System.Drawing.Size(180, 26);
             this.руководительToolStripMenuItem1.Text = "Руководитель";
             this.руководительToolStripMenuItem1.Click += new System.EventHandler(this.руководительToolStripMenuItem1_Click);
             // 
@@ -149,14 +148,14 @@ namespace PersonsBase.View
             // 
             this.сохранитьВExcelToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.diskette;
             this.сохранитьВExcelToolStripMenuItem.Name = "сохранитьВExcelToolStripMenuItem";
-            this.сохранитьВExcelToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
+            this.сохранитьВExcelToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.сохранитьВExcelToolStripMenuItem.Text = "Сохранить Базу";
             this.сохранитьВExcelToolStripMenuItem.Click += new System.EventHandler(this.сохранитьВExcelToolStripMenuItem_Click);
             // 
             // оПрограммеToolStripMenuItem
             // 
             this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 
@@ -164,7 +163,7 @@ namespace PersonsBase.View
             // 
             this.выходToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.exit;
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
@@ -244,24 +243,15 @@ namespace PersonsBase.View
             this.сomboBox_PersonsList.Size = new System.Drawing.Size(400, 28);
             this.сomboBox_PersonsList.Sorted = true;
             this.сomboBox_PersonsList.SelectedIndexChanged += new System.EventHandler(this.сomboBox_PersonsListSelectedIndexChanged);
+            this.сomboBox_PersonsList.KeyUp += new System.Windows.Forms.KeyEventHandler(this.сomboBox_PersonsList_KeyUp);
             // 
             // сканироватьToolStripMenuItem
             // 
-            this.сканироватьToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.сканироватьToolStripMenuItem.Image = global::PersonsBase.Properties.Resources.sca;
             this.сканироватьToolStripMenuItem.Name = "сканироватьToolStripMenuItem";
-            this.сканироватьToolStripMenuItem.Size = new System.Drawing.Size(122, 28);
-            this.сканироватьToolStripMenuItem.Text = "Сканировать";
+            this.сканироватьToolStripMenuItem.Size = new System.Drawing.Size(162, 28);
+            this.сканироватьToolStripMenuItem.Text = "Сканировать Карту";
             this.сканироватьToolStripMenuItem.Click += new System.EventHandler(this.сканироватьToolStripMenuItem_Click);
-            // 
-            // списокКлиентовToolStripMenuItem1
-            // 
-            this.списокКлиентовToolStripMenuItem1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.списокКлиентовToolStripMenuItem1.Image = global::PersonsBase.Properties.Resources.list_all_participants;
-            this.списокКлиентовToolStripMenuItem1.Name = "списокКлиентовToolStripMenuItem1";
-            this.списокКлиентовToolStripMenuItem1.Size = new System.Drawing.Size(149, 28);
-            this.списокКлиентовToolStripMenuItem1.Text = "Список Клиентов";
-            this.списокКлиентовToolStripMenuItem1.Click += new System.EventHandler(this.списокКлиентовToolStripMenuItem1_Click);
             // 
             // groupBox1
             // 
@@ -471,10 +461,10 @@ namespace PersonsBase.View
             this.listView_Gym_Zal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView_Gym_Zal.FullRowSelect = true;
             this.listView_Gym_Zal.GridLines = true;
-            listViewGroup1.Header = "ListViewGroup";
-            listViewGroup1.Name = "listViewGroup1";
+            listViewGroup3.Header = "ListViewGroup";
+            listViewGroup3.Name = "listViewGroup1";
             this.listView_Gym_Zal.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1});
+            listViewGroup3});
             this.listView_Gym_Zal.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listView_Gym_Zal.HideSelection = false;
             this.listView_Gym_Zal.Location = new System.Drawing.Point(762, 31);
@@ -640,11 +630,25 @@ namespace PersonsBase.View
             this.label_SelectedDate.Text = "Посещения за:";
             this.label_SelectedDate.Visible = false;
             // 
+            // maskedTextBox_PhoneNumber
+            // 
+            this.maskedTextBox_PhoneNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.maskedTextBox_PhoneNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.maskedTextBox_PhoneNumber.Location = new System.Drawing.Point(716, 1);
+            this.maskedTextBox_PhoneNumber.Margin = new System.Windows.Forms.Padding(2);
+            this.maskedTextBox_PhoneNumber.Mask = "8(999) 000-00-00";
+            this.maskedTextBox_PhoneNumber.Name = "maskedTextBox_PhoneNumber";
+            this.maskedTextBox_PhoneNumber.Size = new System.Drawing.Size(164, 29);
+            this.maskedTextBox_PhoneNumber.TabIndex = 5;
+            this.maskedTextBox_PhoneNumber.Click += new System.EventHandler(this.maskedTextBox_PhoneNumber_Click);
+            this.maskedTextBox_PhoneNumber.KeyUp += new System.Windows.Forms.KeyEventHandler(this.maskedTextBox_PhoneNumber_KeyUp);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1292, 697);
+            this.Controls.Add(this.maskedTextBox_PhoneNumber);
             this.Controls.Add(this.label_SelectedDate);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.groupBox1);
@@ -705,7 +709,6 @@ namespace PersonsBase.View
         private ListView listView_Personal;
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
-        private ToolStripMenuItem списокКлиентовToolStripMenuItem1;
         private ToolStripMenuItem сохранитьВExcelToolStripMenuItem;
         private ToolStripComboBox сomboBox_PersonsList;
         private ToolStripMenuItem сканироватьToolStripMenuItem;
@@ -729,5 +732,6 @@ namespace PersonsBase.View
         private GroupBox groupBox4;
         private Button button_Reset_Date;
         private Label label_SelectedDate;
+        private MaskedTextBox maskedTextBox_PhoneNumber;
     }
 }

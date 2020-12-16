@@ -176,6 +176,7 @@ namespace PersonsBase.data
         }
         public static bool ContainsNameKey(string personName)
         {
+            if (personName == null) return false;
             lock (Locker)
             {
                 return _dataBaseList.ContainsKey(personName);

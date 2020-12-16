@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -253,11 +254,25 @@ namespace PersonsBase.View
             Application.Exit();
         }
 
+        // СПИСОК КЛИЕНТОВ COMBO_BOX
         private void сomboBox_PersonsListSelectedIndexChanged(object sender, EventArgs e)
         {
-            Logic.OpenPersonCard(сomboBox_PersonsList.SelectedItem.ToString());
+            Logic.OpenPersonCard(сomboBox_PersonsList?.SelectedItem?.ToString());
+        }
+        private void сomboBox_PersonsList_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) // Если нажат Enter
+            {
+                var name = сomboBox_PersonsList?.Text;
+                if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name)) return;
+
+                var perName = Logic.PrepareName(name);
+
+                if (DataBaseLevel.ContainsNameKey(perName)) Logic.OpenPersonCard(perName);
+            }
         }
 
+        // TIMER
         private void _time_ClockTick(object sender, EventArgs e)
         {
             label_Time.Text = Logic.ClockFormating();
@@ -297,10 +312,6 @@ namespace PersonsBase.View
             Logic.SellAbonement();
         }
 
-        private void списокКлиентовToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            Logic.SelectPerson();
-        }
 
         private void сохранитьВExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -566,5 +577,48 @@ namespace PersonsBase.View
         }
         #endregion
 
+
+        #region  MASKED TEXTBOX  Поле ввода номера телефона
+
+        /// <summary>
+        /// Смещаем курсор в начало текстового поля при клике.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void maskedTextBox_PhoneNumber_Click(object sender, EventArgs e)
+        {
+            var mskTxtBx = (MaskedTextBox)sender;
+
+            mskTxtBx.SelectionStart = Logic.GetLenght(mskTxtBx.Text);
+
+            // Очистим текущий введенный комбобокс
+            сomboBox_PersonsList.Text = string.Empty;
+        }
+
+
+        private void maskedTextBox_PhoneNumber_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (char.IsLetter((char)e.KeyCode) && e.KeyCode != Keys.Return) return;
+
+            string phoneNumber = maskedTextBox_PhoneNumber.Text;
+
+            // Удалим все пустые символы Маски. Останется введенный номер
+            var trimmedPhone = Logic.RemoveEmptySymbols(phoneNumber);
+
+            var persons = PersonsList.Where(x => x.Value.Phone.StartsWith(trimmedPhone)).Select(x => (object)x.Key).ToArray();
+
+            if (persons.Length == 0)
+            {
+                сomboBox_PersonsList?.Items?.Clear();
+                return;
+            }
+
+            сomboBox_PersonsList?.Items?.Clear();
+            сomboBox_PersonsList?.Items.AddRange(persons);
+
+            // Развернем Комбо бокс с списком имен
+            if (сomboBox_PersonsList != null && сomboBox_PersonsList.Items.Count > 0) сomboBox_PersonsList.DroppedDown = true;
+        } 
+        #endregion
     }
 }
