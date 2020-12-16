@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using PersonsBase.data.Abonements;
 
 namespace PersonsBase.data
@@ -21,6 +23,30 @@ namespace PersonsBase.data
             var dictVisits = DataBaseLevel.GetPersonsVisitDict();
 
             return !dictVisits.ContainsKey(name) ? null : dictVisits[name];
+        }
+
+        /// <summary>
+        /// Проверка на наличие в базе посещений за сегодняшний день.
+        /// Возвращает Тру если посещения сегодня были и строку с информацией о посещении.
+        /// </summary>
+        /// <param name="personName"></param>
+        /// <param name="infoMessage"></param>
+        /// <returns></returns>
+        public static bool IsVisitToday(string personName, out string infoMessage)
+        {
+            infoMessage = string.Empty;
+
+            if (string.IsNullOrEmpty(personName)) return false;
+
+            var visitsToday = GetVisitsList(personName).Where(x => x.DateTimeVisit.Date.Equals(DateTime.Today)).ToList();
+
+            if (visitsToday.Count == 0) return false;
+            else
+            {
+                var lastVisit = visitsToday.Last();
+                infoMessage = $"Админ: {lastVisit.CurrAdmName}, \r\n Визит: {lastVisit.DateTimeVisit}, \r\n Тип: {lastVisit.AbonementName}, \r\n Тренировка: {lastVisit.TypeWorkoutToday} ";
+                return true;
+            }
         }
 
         /// <summary>

@@ -109,6 +109,8 @@ namespace PersonsBase.control
             {
                 e.Handled = true;
             }
+            // KeyEventArgs e
+            // if (e.KeyCode == Keys.Enter) // Если нажат Enter
         }
 
         public static void SaveEverithing()
@@ -641,6 +643,17 @@ namespace PersonsBase.control
             if (person.AbonementCurent == null) return false;
 
             if (!IsAbonementValid(ref person)) return false;
+
+            // Проверка на дубляж посещений. Если сегодня уже клиент ходил - задать вопрос
+            var isAlreadyVisited = PersonObject.IsVisitToday(personName, out var infoMessage);
+            if (isAlreadyVisited)
+            {
+                var dialogResult = MessageBox.Show($@"Повторно отметить посещение?
+
+{infoMessage}", @"Сегодня клиент уже отмечался!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dialogResult == DialogResult.No) return false;
+            }
+
 
             var selectedOptions = new WorkoutOptions();
 
