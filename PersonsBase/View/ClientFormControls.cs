@@ -316,7 +316,10 @@ namespace PersonsBase.View
             Label lableType = CreateLabel(labelText);
             DateTimePicker dateTime = CreateDateTimePicker();
 
-            var initDate = (_person.AbonementCurent.EndDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? _person.AbonementCurent.EndDate.Date : dateTime.Value;
+            var freezedDays = _person.AbonementCurent?.Freeze?.GetSpentDays() ?? 0;
+
+            var initDate = _person.AbonementCurent != null && (_person.AbonementCurent.EndDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? 
+                _person.AbonementCurent.EndDate.Date.AddDays(freezedDays) : dateTime.Value;
 
 
             dateTime.Value = initDate;

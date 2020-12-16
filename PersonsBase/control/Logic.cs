@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using PersonsBase.data;
 using PersonsBase.data.Abonements;
@@ -112,20 +113,25 @@ namespace PersonsBase.control
 
         public static void SaveEverithing()
         {
-            try
+            var saveTask=new Task(() =>
             {
-                Options.SaveProperties(); // Сохранение пользовательских настроек
-                DataBaseLevel.SerializeObjects();
-                AbonementController.GetInstance().Save();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-                using (var sw = new StreamWriter("errors.log", true))
+                try
                 {
-                    sw.WriteLine(DateTime.Now + " " + e.Message);
+                    Options.SaveProperties(); // Сохранение пользовательских настроек
+                    DataBaseLevel.SerializeObjects();
+                    AbonementController.GetInstance().Save();
                 }
-            }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                    using (var sw = new StreamWriter("errors.log", true))
+                    {
+                        sw.WriteLine(DateTime.Now + " " + e.Message);
+                    }
+                }
+            });
+
+            saveTask.Start();
         }
 
         #endregion

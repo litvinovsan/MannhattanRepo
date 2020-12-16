@@ -71,7 +71,9 @@ namespace PersonsBase.data.Abonements
             var addFreezedDays = Freeze?.GetSpentDays();
             DateTime finishDate = new DateTime();
             if (_numberMonths != 0)
+            {
                 finishDate = EndDate.Date.AddDays((addFreezedDays ?? 0));
+            }
             var checkDate = DateTime.Now.Date.CompareTo(finishDate.Date) <= 0;
             return checkDate;
         }
@@ -193,6 +195,8 @@ namespace PersonsBase.data.Abonements
 
         public override IEnumerable<Tuple<string, string>> GetShortInfoList()
         {
+            var numFreezDays = Freeze?.GetSpentDays() ?? 0; //Продлим на замороженные дни
+
             // Информация о текущем состоянии Абонемента. Добавляем всё что должно выводиться для Пользователя
             var result = new List<Tuple<string, string>>
             {
@@ -202,7 +206,7 @@ namespace PersonsBase.data.Abonements
                 new Tuple<string, string>("Услуги", Spa.ToString()),
                 new Tuple<string, string>("Срок Клубной Карты", _numberMonths + "  мес."),
                 new Tuple<string, string>("Покупка / Активация", BuyActivationDate.ToString("d")),
-                new Tuple<string, string>("Дата Окончания", EndDate.Date.ToString("d")),
+                new Tuple<string, string>("Дата Окончания", EndDate.Date.AddDays(numFreezDays).ToString("d")),
                 new Tuple<string, string>("Осталось Дней", GetRemainderDays().ToString())
             };
             if (NumPersonalTr > 0)
@@ -229,8 +233,8 @@ namespace PersonsBase.data.Abonements
         public override int GetRemainderDays()
         {
             var numFreezDays = Freeze?.GetSpentDays() ?? 0; //Продлим на замороженные дни
-            DaysLeft = (EndDate.Date - DateTime.Now.Date).Days - numFreezDays;
-            return DaysLeft;
+            DaysLeft = (EndDate.Date - DateTime.Now.Date).Days + numFreezDays;
+            return (DaysLeft >= 0) ? DaysLeft : 0;
         }
 
         private void CalculateDaysLeft(object sender, EventArgs e)
