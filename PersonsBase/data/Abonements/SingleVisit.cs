@@ -78,7 +78,8 @@ namespace PersonsBase.data.Abonements
           {
               new Tuple<string, string>("Тип: ", AbonementName),
               new Tuple<string, string>("Доступные Тренировки ", TypeWorkout.ToString()),
-              new Tuple<string, string>("Услуги", Spa.ToString())
+              new Tuple<string, string>("Услуги", Spa.ToString()),
+              new Tuple<string, string>("Дата Покупки",BuyActivationDate.ToShortDateString())
           };
 
             if (NumPersonalTr > 0) { result.Add(new Tuple<string, string>("Осталось Персональных", NumPersonalTr.ToString())); }

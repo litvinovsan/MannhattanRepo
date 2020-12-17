@@ -598,7 +598,11 @@ namespace PersonsBase.View
 
         private void maskedTextBox_PhoneNumber_KeyUp(object sender, KeyEventArgs e)
         {
-            if (char.IsLetter((char)e.KeyCode) && e.KeyCode != Keys.Return) return;
+            var isNumPad = e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9;
+            var isDigit = char.IsDigit((char)e.KeyCode);
+            var isControlBtn = char.IsControl((char)e.KeyCode);
+
+            if (!isNumPad && !isDigit && !isControlBtn) { return; }
 
             string phoneNumber = maskedTextBox_PhoneNumber.Text;
 
@@ -618,7 +622,7 @@ namespace PersonsBase.View
 
             // Развернем Комбо бокс с списком имен
             if (сomboBox_PersonsList != null && сomboBox_PersonsList.Items.Count > 0) сomboBox_PersonsList.DroppedDown = true;
-        } 
+        }
         #endregion
     }
 }
