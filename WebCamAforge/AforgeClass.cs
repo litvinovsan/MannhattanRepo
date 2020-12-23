@@ -27,10 +27,13 @@ namespace WebCamAforge
         private string _monikerString;
         private Bitmap _cameraBitmap;
 
-        public FilterInfoCollection VideoCaptureDevices { get; }
+        public FilterInfoCollection WebCamDevices { get; }
         public VideoCaptureDevice CaptureDevice { get; set; }
-        public readonly List<FilterInfo> DevicesList = new List<FilterInfo>();
 
+        /// Список вебкамер
+        public readonly List<FilterInfo> CamList = new List<FilterInfo>();
+
+        // Итоговое изображение с вебки
         public Bitmap CameraBitmap
         {
             get
@@ -44,7 +47,7 @@ namespace WebCamAforge
             }
         }
 
-       
+
 
         #endregion
 
@@ -53,39 +56,52 @@ namespace WebCamAforge
         /// Событие при изменении картинки CameraBitmap
         /// </summary>
         [field: NonSerialized]
-        public event EventHandler CameraBitmapChanged;
+        public event EventHandler ImageRecieved;
 
         private void OnCameraBitmapChanged()
         {
-            CameraBitmapChanged?.Invoke(this, EventArgs.Empty);
+            ImageRecieved?.Invoke(this, EventArgs.Empty);
         }
         #endregion
 
         #region /// КОНСТРУКТОРЫ 
 
-        public AforgeClass()
+        /// <summary>
+        /// Конструктор когда не известен моникер камеры
+        /// </summary>
+        public AforgeClass() : this("")
+        { }
+
+        /// <summary>
+        /// Конструктор. Принимает Моникер строку камеры. Если передать пустую строку или камеры с таким моникером нет, то возьмется первая
+        /// по умолчанию камера в системе
+        /// </summary>
+        /// <param name="monikerString"></param>
+        public AforgeClass(string monikerString)
         {
+            _monikerString = monikerString ?? string.Empty;
 
             try
             {
                 _cameraBitmap = null;
-                VideoCaptureDevices = null;
+                WebCamDevices = null;
 
-                // Получаем список устройст видео
-                VideoCaptureDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+                // Получаем список устройств видео
+                WebCamDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
 
                 // Get All VideoCam Devices
-                foreach (FilterInfo device in VideoCaptureDevices)
+                foreach (FilterInfo device in WebCamDevices)
                 {
-                    DevicesList.Add(device);
+                    CamList.Add(device);
                 }
 
-                if (DevicesList.Count == 0) return;
+                if (CamList.Count == 0)
+                {
+                    MessageBox.Show("Веб камера не найдена!");
+                    return;
+                }
 
-                CaptureDevice = new VideoCaptureDevice(DevicesList.First().MonikerString);
-
-                // Подписываемся на получение нового фрейма 
-                CaptureDevice.NewFrame += UpdateCameraBitmap;
+                TryInitCamera(_monikerString);
 
             }
             catch (Exception e)
@@ -93,13 +109,70 @@ namespace WebCamAforge
                 MessageBox.Show("Ошибка записи видео. " + e.Message + " " + typeof(AforgeClass));
             }
 
-            CaptureDevice.Start();
-            //  FinalVideo.Stop();
 
         }
         #endregion
 
         #region /// МЕТОДЫ
+
+        #region ПУБЛИЧНЫЕ
+
+        /// <summary>
+        /// Закрывает источник видео сигнала с камеры. Удаляет настройки выбранной камеры
+        /// </summary>
+        public void CloseVideoSource()
+        {
+            try
+            {
+                if (CaptureDevice == null || !CaptureDevice.IsRunning) return;
+                CaptureDevice.SignalToStop();
+                CaptureDevice = null;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Запуск формы и старт видео
+        /// </summary>
+        public void StartVideo()
+        {
+            try
+            {
+                if (CaptureDevice == null || !CaptureDevice.IsRunning)
+                {
+                    MessageBox.Show("Камера не инициализирована. Запуск не возможен");
+                    return;
+                }
+                CaptureDevice.Start();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Остановка видео. Закрытие устройства
+        /// </summary>
+        public void StopVideo()
+        {
+            try
+            {
+                if (CaptureDevice == null || !CaptureDevice.IsRunning) return;
+                CaptureDevice.Stop();
+                CloseVideoSource();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
+
+        #region ПРИВАТНЫЕ
 
         /// <summary>
         /// Обработчик, обновляет общедоступную переменную CameraBitmap если получен новый фрейм с камеры
@@ -120,15 +193,36 @@ namespace WebCamAforge
             }
         }
 
-        public void CloseVideoSource()
+
+        /// <summary>
+        /// Пробуем инициализировать камеру с заданным моникером. Если не найдена такая камера - используется первая в системе.
+        /// </summary>
+        /// <param name="moniker"></param>
+        /// <returns></returns>
+        private bool TryInitCamera(string moniker)
         {
-            if (CaptureDevice == null || !CaptureDevice.IsRunning) return;
-            CaptureDevice.SignalToStop();
-            CaptureDevice = null;
+            string camMoniker = string.IsNullOrEmpty(moniker) ? string.Empty : moniker;
+
+            // Пробуем найти такую камеру в устройствах
+            var resultCam = CamList?.Find(x => x.MonikerString.Equals(camMoniker));
+
+            _monikerString = (resultCam == null) ? CamList?.First()?.MonikerString : resultCam.MonikerString;
+
+            if (string.IsNullOrEmpty(_monikerString))
+            {
+                return false;
+            }
+
+            CaptureDevice = new VideoCaptureDevice(_monikerString);
+
+            // Подписываемся на получение нового фрейма 
+            if (CaptureDevice != null)
+                CaptureDevice.NewFrame += UpdateCameraBitmap;
+
+            return true;
         }
 
-      //  public bool TryStartVideo(string )
-
+        #endregion
 
         #endregion
 
