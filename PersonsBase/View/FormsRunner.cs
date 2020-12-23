@@ -34,6 +34,26 @@ namespace PersonsBase.View
                 MessageBox.Show(@"Ошибка. Неправильное имя клиента");
             }
         }
+
+        /// <summary>
+        /// Возвращает true если форма с заданным именем уже открыта
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static bool CheckOpened(string name)
+        {
+            FormCollection fc = Application.OpenForms;
+
+            foreach (Form frm in fc)
+            {
+                if (frm.Text == name)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         #endregion
 
         #region /// СТРАНИЦА РУКОВОДИТЕЛЯ ///

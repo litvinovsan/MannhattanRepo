@@ -268,9 +268,9 @@ namespace PersonsBase.View
 
                 var perName = Logic.PrepareName(name);
 
-                if (DataBaseLevel.ContainsNameKey(perName))
+                if (!FormsRunner.CheckOpened("Карточка Клиента") && DataBaseLevel.ContainsNameKey(perName))
                 {
-                  //  Logic.OpenPersonCard(perName);
+                    Logic.OpenPersonCard(perName);
                 }
             }
         }
