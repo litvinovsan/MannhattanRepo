@@ -268,7 +268,10 @@ namespace PersonsBase.View
 
                 var perName = Logic.PrepareName(name);
 
-                if (DataBaseLevel.ContainsNameKey(perName)) Logic.OpenPersonCard(perName);
+                if (DataBaseLevel.ContainsNameKey(perName))
+                {
+                  //  Logic.OpenPersonCard(perName);
+                }
             }
         }
 
@@ -339,7 +342,7 @@ namespace PersonsBase.View
         }
         private void comboBox_BDay_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            Logic.OpenPersonCard(comboBox_BDay.SelectedItem.ToString());
+            Logic.OpenPersonCard(comboBox_BDay?.SelectedItem?.ToString());
         }
 
         private void администраторыToolStripMenuItem_Click(object sender, EventArgs e)

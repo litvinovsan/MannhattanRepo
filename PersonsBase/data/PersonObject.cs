@@ -38,9 +38,9 @@ namespace PersonsBase.data
 
             if (string.IsNullOrEmpty(personName)) return false;
 
-            var visitsToday = GetVisitsList(personName).Where(x => x.DateTimeVisit.Date.Equals(DateTime.Today)).ToList();
+            var visitsToday = GetVisitsList(personName)?.Where(x => x.DateTimeVisit.Date.Equals(DateTime.Today)).ToList();
 
-            if (visitsToday.Count == 0) return false;
+            if (visitsToday==null || visitsToday.Count == 0) return false;
             else
             {
                 var lastVisit = visitsToday.Last();
