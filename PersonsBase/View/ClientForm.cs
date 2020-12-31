@@ -725,12 +725,14 @@ namespace PersonsBase.View
 
         private void button_photo_cam_Click(object sender, EventArgs e)
         {
-            // Logic.SaveEverithing();
-            //// var success = FormsRunner.RunSnapshotForm(out var imageCam);
-            // if (imageCam == null || success == false) return;
+            // Открывает форму для получения снимка. 
+            var isPictOk = Logic.GetWebCamBmp(out Bitmap picture);
 
-            // var path = Photo.SaveToPhotoDir(imageCam, _person.Name);
-            // _person.PathToPhoto = Path.GetFileName(path);
+            if (!isPictOk || picture == null) return;
+
+            // Прописывает в персону имя файла фотки. Сохраняет копию изображения
+            var path = Photo.SaveToPhotoDir(picture, _person.Name);
+            _person.PathToPhoto = Path.GetFileName(path);
         }
 
         private void listBox_abon_selector_SelectedIndexChanged(object sender, EventArgs e)

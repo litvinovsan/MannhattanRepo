@@ -70,7 +70,7 @@ namespace PersonsBase.data
         /// Cохраняет копию изображения в папку с Клиентскими фотографиями. Возвращает путь до новой фотки
         /// </summary>
         /// <param name="inputImg"></param>
-        /// <param name="fileName"></param>
+        /// <param name="fileName">Корректное Имя клиента</param>
         /// <returns></returns>
         public static string SaveToPhotoDir(Image inputImg, string fileName)
         {

@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PersonsBaseTests1</RootNamespace>
     <AssemblyName>PersonsBaseTests1</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -60,6 +60,10 @@
     <ProjectReference Include="..\PersonsBase\PersonsBase.csproj">
       <Project>{B467CBF3-538C-45D0-999B-99B3F1844AF8}</Project>
       <Name>PersonsBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebCamAforge\WebCamAforge.csproj">
+      <Project>{e5d09b4a-6866-4444-aec6-04b668896c60}</Project>
+      <Name>WebCamAforge</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

@@ -11,6 +11,7 @@ using PersonsBase.data;
 using PersonsBase.data.Abonements;
 using PersonsBase.myStd;
 using PersonsBase.View;
+using WebCamAforge;
 
 namespace PersonsBase.control
 {
@@ -40,59 +41,7 @@ namespace PersonsBase.control
 
         #region /// РАЗНЫЕ МЕТОДЫ ///
 
-        /// <summary>
-        /// Загрузка фотографии в PictureBox на форме.
-        /// На вход подать либо полный путь, либо только имя файла.
-        /// Поиск в стандартных директориях
-        /// Выполняется проверка на существование фотки на диске
-        /// </summary>
-        /// <param name="pictureBox"></param>
-        /// <param name="pathOrNamePhoto"></param>
-        /// <param name="inputGender">Пол клиента</param>
-        public static bool TryLoadPhoto(PictureBox pictureBox, string pathOrNamePhoto, Gender inputGender)
-        {
-            var gender = inputGender;
-            var result = true;
-            var fileName = pathOrNamePhoto;
-            if (string.IsNullOrEmpty(fileName))
-            {
-                // Если разрешены фейковые фото и не присвоена реальная фотка
-                if (Options.SimpsonsPhoto)
-                {
-                    fileName = Photo.GetRndPhoto(gender);
-                }
-                else
-                {
-                    pictureBox.Image = null;
-                    return false;
-                }
-            }
 
-            try
-            {
-                if (string.IsNullOrEmpty(fileName)) return false;
-
-                var path = Photo.GetFullPathToPhoto(fileName);
-
-                if (MyFile.IsFileExist(path))
-                {
-                    pictureBox.Image = Photo.OpenPhoto(path);
-                    pictureBox.Invalidate();
-                }
-                else
-                {
-                    pictureBox.Image = null;
-                    result = false;
-                }
-            }
-            catch
-            {
-                pictureBox.Image = null;
-            }
-
-            pictureBox.Refresh();
-            return result;
-        }
 
         /// <summary>
         ///     Запрос Пароля Суперпользователя если необходимо. Запускает событие LockChangedEvent.
@@ -1043,6 +992,84 @@ namespace PersonsBase.control
         }
         #endregion
 
+        #region /// ФОТО ///
 
+        /// <summary>
+        /// Инициализация вебкамеры,запуск формы просмотра видео и сохранение изображения.
+        /// Возвращает true если изображение было сохранено в picture
+        /// </summary>
+        /// <param name="picture">Сохраненное изображение с камеры</param>
+        /// <returns></returns>
+        public static  bool GetWebCamBmp(out Bitmap picture)
+        {
+            picture = null;
+            bool result = false;
+
+            var webCam = new AforgeWraper();// Передавать сюда строку моникера из опций
+            if (!webCam.IsCameraConfigured) return false;
+
+            bool isImageOk = webCam.StartFormAndGetImage();
+            if (isImageOk)
+            {
+                picture = webCam.CameraBitmap;
+                result = true;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Загрузка фотографии в PictureBox на форме.
+        /// На вход подать либо полный путь, либо только имя файла.
+        /// Поиск в стандартных директориях
+        /// Выполняется проверка на существование фотки на диске
+        /// </summary>
+        /// <param name="pictureBox"></param>
+        /// <param name="pathOrNamePhoto"></param>
+        /// <param name="inputGender">Пол клиента</param>
+        public static bool TryLoadPhoto(PictureBox pictureBox, string pathOrNamePhoto, Gender inputGender)
+        {
+            var gender = inputGender;
+            var result = true;
+            var fileName = pathOrNamePhoto;
+            if (string.IsNullOrEmpty(fileName))
+            {
+                // Если разрешены фейковые фото и не присвоена реальная фотка
+                if (Options.SimpsonsPhoto)
+                {
+                    fileName = Photo.GetRndPhoto(gender);
+                }
+                else
+                {
+                    pictureBox.Image = null;
+                    return false;
+                }
+            }
+
+            try
+            {
+                if (string.IsNullOrEmpty(fileName)) return false;
+
+                var path = Photo.GetFullPathToPhoto(fileName);
+
+                if (MyFile.IsFileExist(path))
+                {
+                    pictureBox.Image = Photo.OpenPhoto(path);
+                    pictureBox.Invalidate();
+                }
+                else
+                {
+                    pictureBox.Image = null;
+                    result = false;
+                }
+            }
+            catch
+            {
+                pictureBox.Image = null;
+            }
+
+            pictureBox.Refresh();
+            return result;
+        }
+        #endregion
     }
 }
