@@ -80,6 +80,7 @@
             // 
             // comboBox_CamList
             // 
+            this.comboBox_CamList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_CamList.FormattingEnabled = true;
             this.comboBox_CamList.Location = new System.Drawing.Point(67, 6);
             this.comboBox_CamList.Name = "comboBox_CamList";
