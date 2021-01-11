@@ -226,6 +226,49 @@ namespace PersonsBase.View
         {
             ComboChangedMethod<Pay>(sender, out _editedPay, _person.AbonementCurent.PayStatus);
         }
+        #endregion
+
+        #region // Метод. Статус Активации
+        Activation _editedActivationStatus;
+
+        private Tuple<Label, Control> CreateActivationField()
+        {
+            const string labelText = "Статус Активации: ";
+            Label lableType = CreateLabel(labelText);
+            ComboBox comboBox = CreateComboBox(PwdForm.IsPassUnLocked());
+            _editedActivationStatus = _person.AbonementCurent.IsActivated ? Activation.Активирован : Activation.Не_Активирован;
+            // Инициализируем наши Контролы
+            var array = Enum.GetNames(typeof(Activation));
+            comboBox.Items.AddRange(array.ToArray<object>()); // Записываем Поля в Комбобокс
+            comboBox.SelectedItem = _person.AbonementCurent.IsActivated ? Activation.Активирован.ToString() : Activation.Не_Активирован.ToString(); // Выбор по умолчанию
+            // Подписываемся на событие по изменению
+            comboBox.SelectedIndexChanged += comboBox_Activation_SelectedIndexChanged;
+
+            _saveDelegateChain += () =>
+            {
+                var currentActivationStat = _person.AbonementCurent.IsActivated ? Activation.Активирован : Activation.Не_Активирован;
+                if (_person.AbonementCurent != null && _editedActivationStatus != currentActivationStat)
+                {
+                    _person.AbonementCurent.IsActivated = _editedActivationStatus == Activation.Активирован;
+                    var oldVal = _person.AbonementCurent.IsActivated
+                        ? Activation.Активирован.ToString()
+                        : Activation.Не_Активирован.ToString();
+                    ComboBoxColor(comboBox, oldVal, comboBox.SelectedItem.ToString());
+
+                    // Обновим текстовое поле на главной странице клиента
+                    UpdateInfoTextBoxField(this, EventArgs.Empty);
+                }
+            };
+
+            return new Tuple<Label, Control>(lableType, comboBox);
+        }
+
+        private void comboBox_Activation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var valueModifyed = _person.AbonementCurent.IsActivated ? Activation.Активирован : Activation.Не_Активирован;
+
+            ComboChangedMethod<Activation>(sender, out _editedActivationStatus, valueModifyed);
+        }
 
         #endregion
 
@@ -318,7 +361,7 @@ namespace PersonsBase.View
 
             var freezedDays = _person.AbonementCurent?.Freeze?.GetSpentDays() ?? 0;
 
-            var initDate = _person.AbonementCurent != null && (_person.AbonementCurent.EndDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? 
+            var initDate = _person.AbonementCurent != null && (_person.AbonementCurent.EndDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ?
                 _person.AbonementCurent.EndDate.Date.AddDays(freezedDays) : dateTime.Value;
 
 
@@ -621,7 +664,7 @@ namespace PersonsBase.View
 
         #region // Поле. Персональный номер
 
-        private string _editedPersonalNumber=string.Empty;
+        private string _editedPersonalNumber = string.Empty;
         private void textBox_Number_TextChanged(object sender, EventArgs e)
         {
             var tb = (TextBox)sender;
@@ -674,8 +717,6 @@ namespace PersonsBase.View
         private void ComboBoxColor(ComboBox comboBox, string oldVal, string curVal)
         {
             Logic.SetControlBackColor(comboBox, curVal, oldVal);
-            comboBox.SelectionLength = 0;
-            comboBox.Select(0, 0);
             button_SavePersonalData.Focus(); // Cнимаем выделение сменой фокуса.
         }
 

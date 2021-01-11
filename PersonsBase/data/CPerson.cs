@@ -14,6 +14,7 @@ namespace PersonsBase.data
         [field: NonSerialized] public event EventHandler StatusChanged;
         [field: NonSerialized] public event EventHandler PathToPhotoChanged;
         [field: NonSerialized] public event EventHandler AbonementCurentChanged;
+        [field: NonSerialized] public event EventHandler ActivationChanged;
         [field: NonSerialized] public event EventHandler<string> PhoneChanged;
         [field: NonSerialized] public event EventHandler<string> NameChanged;
         [field: NonSerialized] public event EventHandler<string> PassportChanged;
@@ -26,6 +27,10 @@ namespace PersonsBase.data
         private void OnStatusChanged()
         {
             StatusChanged?.Invoke(this, EventArgs.Empty);
+        }
+        private void OnActivationChanged()
+        {
+            ActivationChanged?.Invoke(this, EventArgs.Empty);
         }
         private void OnPathPhotoChanged()
         {
@@ -180,7 +185,7 @@ namespace PersonsBase.data
                 OnBirthDateChanged(_birthDate);
             }
         }
-        public ObservableCollection<AbonementBasic> AbonementsQueue;
+        public readonly ObservableCollection<AbonementBasic> AbonementsQueue;
         public AbonementBasic AbonementCurent
         {
             get
@@ -294,7 +299,7 @@ namespace PersonsBase.data
             return AbonementCurent != null && AbonementCurent.IsValid();
         }
 
-       #endregion
+        #endregion
 
         #region //Перегрузка операторов для сравнения клиентов
         /// <inheritdoc />

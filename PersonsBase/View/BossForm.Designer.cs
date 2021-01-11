@@ -66,7 +66,6 @@
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.comboBox_months = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.checkBox_faceDetector = new System.Windows.Forms.CheckBox();
             this.checkBox_CorrectOnCreateAbon = new System.Windows.Forms.CheckBox();
             this.checkBox_SimpsonPhoto = new System.Windows.Forms.CheckBox();
             this.checkBox_Passp_Drive = new System.Windows.Forms.CheckBox();
@@ -115,6 +114,7 @@
             this.listView_schedule.FullRowSelect = true;
             this.listView_schedule.GridLines = true;
             this.listView_schedule.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listView_schedule.HideSelection = false;
             this.listView_schedule.Location = new System.Drawing.Point(3, 17);
             this.listView_schedule.MultiSelect = false;
             this.listView_schedule.Name = "listView_schedule";
@@ -314,6 +314,7 @@
             this.listView_Admins.FullRowSelect = true;
             this.listView_Admins.GridLines = true;
             this.listView_Admins.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listView_Admins.HideSelection = false;
             this.listView_Admins.Location = new System.Drawing.Point(7, 22);
             this.listView_Admins.MultiSelect = false;
             this.listView_Admins.Name = "listView_Admins";
@@ -379,6 +380,7 @@
             this.listView_Tren.FullRowSelect = true;
             this.listView_Tren.GridLines = true;
             this.listView_Tren.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listView_Tren.HideSelection = false;
             this.listView_Tren.Location = new System.Drawing.Point(6, 22);
             this.listView_Tren.MultiSelect = false;
             this.listView_Tren.Name = "listView_Tren";
@@ -516,7 +518,6 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox9.Controls.Add(this.groupBox10);
             this.groupBox9.Controls.Add(this.button1);
-            this.groupBox9.Controls.Add(this.checkBox_faceDetector);
             this.groupBox9.Controls.Add(this.checkBox_CorrectOnCreateAbon);
             this.groupBox9.Controls.Add(this.checkBox_SimpsonPhoto);
             this.groupBox9.Controls.Add(this.checkBox_Passp_Drive);
@@ -559,18 +560,6 @@
             this.button1.Text = "Миграция Абонементов";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // checkBox_faceDetector
-            // 
-            this.checkBox_faceDetector.AutoSize = true;
-            this.checkBox_faceDetector.Enabled = false;
-            this.checkBox_faceDetector.Location = new System.Drawing.Point(6, 103);
-            this.checkBox_faceDetector.Name = "checkBox_faceDetector";
-            this.checkBox_faceDetector.Size = new System.Drawing.Size(213, 21);
-            this.checkBox_faceDetector.TabIndex = 2;
-            this.checkBox_faceDetector.Text = "Включить определение Лиц";
-            this.checkBox_faceDetector.UseVisualStyleBackColor = true;
-            this.checkBox_faceDetector.CheckedChanged += new System.EventHandler(this.checkBox_faceDetector_CheckedChanged);
             // 
             // checkBox_CorrectOnCreateAbon
             // 
@@ -684,7 +673,6 @@
         private System.Windows.Forms.CheckBox checkBox_Passp_Drive;
         private System.Windows.Forms.CheckBox checkBox_SimpsonPhoto;
         private System.Windows.Forms.CheckBox checkBox_CorrectOnCreateAbon;
-        private System.Windows.Forms.CheckBox checkBox_faceDetector;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.ComboBox comboBox_months;

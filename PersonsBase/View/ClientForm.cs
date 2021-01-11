@@ -101,7 +101,7 @@ namespace PersonsBase.View
                     };
 
             // Список закончившихся абонементов
-            this.listBox_NotValidAbons.SelectedIndexChanged += new System.EventHandler(this.listBox_NotValidAbons_SelectedIndexChanged);
+            listBox_NotValidAbons.SelectedIndexChanged += listBox_NotValidAbons_SelectedIndexChanged;
 
             // Вкладки Посещений и Архив абонементов
             SetupVisitsDataGridView();
@@ -538,6 +538,7 @@ namespace PersonsBase.View
             {
                 CreateNameField(),
                 CreateStatusField(),
+                CreateActivationField(),
                 CreateTypeWorkoutField(),
                 CreateSpaServiceField(),
                 CreatePayServiceField()
@@ -551,6 +552,7 @@ namespace PersonsBase.View
             {
                 CreateNameField(),
                 CreateStatusField(),
+                CreateActivationField(),
                 CreatePeriodClubCardField(),
                 CreateTypeWorkoutField(),
                 CreateTimeForTrField(),
@@ -570,6 +572,7 @@ namespace PersonsBase.View
             {
                 CreateNameField(),
                 CreateStatusField(),
+                CreateActivationField(),
                 CreateNumberDaysInAbonField(),
                 CreateTypeWorkoutField(),
                 CreateTimeForTrField(),
@@ -624,6 +627,7 @@ namespace PersonsBase.View
             Logic.SetControlsColorDefault(groupBox_Detailed);
             Logic.SetControlsColorDefault(tableLayoutPanel1);
             Logic.SaveEverithing();
+            Logic.ClearSelection(groupBox_Detailed);
         }
 
         private void ClientForm_Resize(object sender, EventArgs e)

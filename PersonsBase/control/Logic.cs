@@ -375,7 +375,7 @@ namespace PersonsBase.control
         /// <returns></returns>
         public static string RemoveEmptySymbols(string inputString)
         {
-            int length = Logic.GetLenght(inputString);
+            int length = GetLenght(inputString);
             string resultString = inputString.Substring(0, length);
 
             return resultString;
@@ -771,7 +771,7 @@ namespace PersonsBase.control
             }
             else
             {
-                labelTextBoxList.AddRange(TupleConverter(abonement?.GetShortInfoList()));
+                labelTextBoxList.AddRange(TupleConverter(abonement.GetShortInfoList()));
                 // Добавляем Поле Статуса. Делаем тут потому что Person.abonem не знает об этом.
                 var status = "Абонемент Сгорел";
                 labelTextBoxList.Insert(1, CreateRowInfo("Текущий статус Клиента", status));
@@ -1000,21 +1000,24 @@ namespace PersonsBase.control
         /// </summary>
         /// <param name="picture">Сохраненное изображение с камеры</param>
         /// <returns></returns>
-        public static  bool GetWebCamBmp(out Bitmap picture)
+        public static bool GetWebCamBmp(out Bitmap picture)
         {
             picture = null;
-            bool result = false;
 
-            var webCam = new AforgeWraper();// Передавать сюда строку моникера из опций
+            var webCam = new AforgeWraper(Options.CameraId);
+
             if (!webCam.IsCameraConfigured) return false;
 
-            bool isImageOk = webCam.StartFormAndGetImage();
-            if (isImageOk)
-            {
-                picture = webCam.CameraBitmap;
-                result = true;
-            }
-            return result;
+            var isImageOk = webCam.StartVideo();
+
+            if (!isImageOk) return false;
+
+            picture = webCam.GetCurentBitmap();
+
+            // Сохраним последнюю камеру
+            Options.CameraId = webCam.GetCameraMoniker();
+
+            return true;
         }
 
         /// <summary>
@@ -1040,8 +1043,7 @@ namespace PersonsBase.control
                 }
                 else
                 {
-                    pictureBox.Image = null;
-                    return false;
+                    fileName = "No_photo_available.jpg";
                 }
             }
 

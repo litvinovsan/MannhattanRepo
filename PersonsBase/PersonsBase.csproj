@@ -356,6 +356,7 @@
     <None Include="Resources\icons8-small.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\no-photo-available-icon-20.jpg" />
     <Content Include="WebCamAforge.dll" />
   </ItemGroup>
   <ItemGroup>

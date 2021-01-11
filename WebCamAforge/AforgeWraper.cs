@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using AForge;
 using AForge.Video;
 using AForge.Video.DirectShow;
 
@@ -13,8 +12,8 @@ namespace WebCamAforge
     /// AFORGE.net нужно подключить в референс библиотеки афордж.
     /// 1. Запуск конструктора.
     /// 2. Проверить IsCameraConfigured == true
-    /// 3. Запуск формы с видеопотоком StartFormAndGetImage()
-    /// 4. Готовое изображение в публичном CameraBitmap
+    /// 3. Запуск формы с видеопотоком StartVideo()
+    /// 4. Готовое изображение из метода GetBitmap
     /// 5. Настройки
     /// </summary>
     public class AforgeWraper
@@ -31,27 +30,27 @@ namespace WebCamAforge
         /// Список вебкамер
         private readonly List<FilterInfo> _camList = new List<FilterInfo>();
 
-        public bool IsCameraConfigured;
-
-        // Итоговое изображение с вебки
-        public Bitmap CameraBitmap
+        // Каждый апдейт с камеры сохраняется тут. 
+        private Bitmap CameraFrame
         {
             get
             {
-                return (Bitmap)_cameraBitmap.Clone();
+                return (Bitmap)_cameraBitmap?.Clone();
             }
-            private set
+            set
             {
                 _cameraBitmap = value;
                 OnCameraBitmapChanged();
             }
         }
 
+        public bool IsCameraConfigured { get; private set; }
+
         #endregion
 
         #region /// СОБЫТИЯ ///
         /// <summary>
-        /// Событие при изменении картинки CameraBitmap
+        /// Событие при изменении картинки CameraFrame
         /// </summary>
         [field: NonSerialized]
         public event EventHandler ImageRecieved;
@@ -64,6 +63,7 @@ namespace WebCamAforge
 
         #region /// КОНСТРУКТОРЫ 
 
+        /// <inheritdoc />
         /// <summary>
         /// Конструктор когда не известен моникер камеры
         /// </summary>
@@ -116,32 +116,34 @@ namespace WebCamAforge
         #region ПУБЛИЧНЫЕ
 
         /// <summary>
-        /// Запуск формы получения картинки с камеры. Возвращает true если снимок сделан и сохранен в переменную CameraBitmap
+        /// Главный метод класса
+        /// Запуск формы получения картинки с камеры.
+        /// Возвращает true если снимок сделан и сохранен
         /// </summary>
-        public bool StartFormAndGetImage()
+        public bool StartVideo()
         {
-            try
+            if (CaptureDevice == null || !IsCameraConfigured)
             {
-                if (CaptureDevice == null || !IsCameraConfigured)
-                {
-                    MessageBox.Show(@"Камера не инициализирована. Запуск не возможен");
-                    return false;
-                }
-
-                if (!CaptureDevice.IsRunning)
-                    CaptureDevice.Start();
-
-                _webCamForm = new WebCamForm(this);
-                var dlgResult = _webCamForm.ShowDialog();
-                var result = dlgResult == DialogResult.OK;
-
-                StopVideo();
-                return result;
+                MessageBox.Show(@"Камера не инициализирована. Запуск не возможен");
+                return false;
             }
-            catch (Exception)
+
+            if (!CaptureDevice.IsRunning)
+                CaptureDevice.Start();
+
+            _webCamForm = new WebCamForm(this);
+            var dlgResult = _webCamForm.ShowDialog();
+            var result = dlgResult == DialogResult.OK;
+
+            StopVideo();
+
+            // Получаем выбранное изображение с формы
+            if (result)
             {
-                throw;
+                CameraFrame = _webCamForm.GetBitmap();
             }
+
+            return result;
         }
 
         /// <summary>
@@ -152,15 +154,15 @@ namespace WebCamAforge
             try
             {
                 if (CaptureDevice == null /*|| !CaptureDevice.IsRunning*/) return;
-                CaptureDevice.NewFrame -= UpdateCameraBitmap;
+                CaptureDevice.NewFrame -= ImageRecievedUpdater;
                 CaptureDevice.SignalToStop();
 
                 // CaptureDevice = null;
                 IsCameraConfigured = false;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                MessageBox.Show(e.Message);
             }
         }
 
@@ -177,9 +179,18 @@ namespace WebCamAforge
         /// Возвращает ссылку на активную сконфигурированную камеру в классе 
         /// </summary>
         /// <returns></returns>
-        public VideoCaptureDevice GetCurrentWebCam()
+        public VideoCaptureDevice GetCurrentCamera()
         {
             return CaptureDevice;
+        }
+
+        /// <summary>
+        /// Возвращает копию картинки с последнего апдейта
+        /// </summary>
+        /// <returns></returns>
+        public Bitmap GetCurentBitmap()
+        {
+            return CameraFrame;
         }
 
         /// <summary>
@@ -213,17 +224,17 @@ namespace WebCamAforge
                 if (CaptureDevice != null)
                 {
                     IsCameraConfigured = true;
-                    CaptureDevice.NewFrame -= UpdateCameraBitmap;
-                    CaptureDevice.NewFrame += UpdateCameraBitmap;
+                    CaptureDevice.NewFrame -= ImageRecievedUpdater;
+                    CaptureDevice.NewFrame += ImageRecievedUpdater;
 
                     if (!CaptureDevice.IsRunning)
                         CaptureDevice.Start();
                 }
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                MessageBox.Show(e.Message);
             }
 
             return true;
@@ -233,30 +244,26 @@ namespace WebCamAforge
         /// Возвращает коллекцию РазрешениеКамеры - ПараметрыДляУстановкиРазрешения. Подается на вход функции SetResolution
         /// </summary>
         /// <returns></returns>
-        public Dictionary<Size, VideoCapabilities> GetCamResolutions()
+        public List<VideoCapabilities> GetAvailableResolutions()
         {
-            var dictionary = new Dictionary<Size, VideoCapabilities>();
-
-            var resolutions = CaptureDevice?.VideoCapabilities?.ToDictionary(x => x.FrameSize, x => x);
-
+            var resolutions = CaptureDevice?.VideoCapabilities?.ToList();
             return resolutions;
         }
 
         /// <summary>
         /// Устанавливает разрешение для активной камеры
         /// </summary>
-        /// <param name="camCapabilitiesWithResolution"></param>
-        public void SetResolution(VideoCapabilities camCapabilitiesWithResolution)
+        /// <param name="сapabilitiesWithResolution"></param>
+        public void SetResolution(VideoCapabilities сapabilitiesWithResolution)
         {
-            if (CaptureDevice == null || camCapabilitiesWithResolution == null) return;
+            if (CaptureDevice == null || сapabilitiesWithResolution == null) return;
             try
             {
-                CaptureDevice.VideoResolution = camCapabilitiesWithResolution;
+                CaptureDevice.VideoResolution = сapabilitiesWithResolution;
             }
             catch (Exception e)
             {
                 MessageBox.Show(typeof(AforgeWraper) + @"  " + e.Message);
-                throw;
             }
         }
 
@@ -269,29 +276,37 @@ namespace WebCamAforge
         {
             CaptureDevice?.SetCameraProperty(CameraControlProperty.Exposure, value, CameraControlFlags.Auto);
         }
+
+
+        /// <summary>
+        /// Возвращает моникер активной настроенной камеры
+        /// </summary>
+        /// <returns></returns>
+        public string GetCameraMoniker()
+        {
+            return _monikerString;
+        }
+
         #endregion
 
         #region ПРИВАТНЫЕ
 
         /// <summary>
-        /// Обработчик, обновляет общедоступную переменную CameraBitmap если получен новый фрейм с камеры
+        /// Обработчик, обновляет общедоступную переменную CameraFrame если получен новый фрейм с камеры
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="eventArgs"></param>
-        private void UpdateCameraBitmap(object sender, NewFrameEventArgs eventArgs)
+        private void ImageRecievedUpdater(object sender, NewFrameEventArgs eventArgs)
         {
             try
             {
-                CameraBitmap = (Bitmap)eventArgs.Frame.Clone();
+                CameraFrame = (Bitmap)eventArgs.Frame.Clone();
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message + @" " + typeof(AforgeWraper));
             }
         }
-
-
-
 
         #endregion
 
