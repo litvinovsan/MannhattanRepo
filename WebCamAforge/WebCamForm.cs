@@ -47,7 +47,7 @@ namespace WebCamAforge
             }
             catch (Exception e)
             {
-                MessageBox.Show(@"Ошибка 123 WebCamForm /" + e.Message);
+                MessageBox.Show(@"Ошибка 50 WebCamForm /" + e.Message);
             }
         }
 
@@ -91,7 +91,7 @@ namespace WebCamAforge
             }
             catch (Exception)
             {
-                MessageBox.Show(@"Ошибка смены веб камеры");
+                MessageBox.Show(@"Ошибка смены веб камеры" + typeof(WebCamForm));
             }
         }
 

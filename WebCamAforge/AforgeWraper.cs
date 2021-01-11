@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using AForge.Video;
 using AForge.Video.DirectShow;
@@ -106,7 +107,7 @@ namespace WebCamAforge
             }
             catch (Exception e)
             {
-                MessageBox.Show(@"Ошибка камеры. " + e.Message + @" " + typeof(AforgeWraper));
+                MessageBox.Show(@"Ошибка камеры. " + e.Message + @"line 109 " + typeof(AforgeWraper));
             }
         }
         #endregion
@@ -162,7 +163,7 @@ namespace WebCamAforge
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(e.Message + @" line 165" + typeof(AforgeWraper).ToString());
             }
         }
 
@@ -218,8 +219,6 @@ namespace WebCamAforge
 
                 CaptureDevice = new VideoCaptureDevice(_monikerString);
 
-                CaptureDevice.SetCameraProperty(CameraControlProperty.Exposure, 50, CameraControlFlags.Auto);
-
                 // Подписываемся на получение нового фрейма 
                 if (CaptureDevice != null)
                 {
@@ -234,7 +233,7 @@ namespace WebCamAforge
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(e.Message + @" line 236 " + typeof(AforgeWraper));
             }
 
             return true;
@@ -274,7 +273,12 @@ namespace WebCamAforge
         /// <param name="value"></param>
         public void SetExpo(int value)
         {
-            CaptureDevice?.SetCameraProperty(CameraControlProperty.Exposure, value, CameraControlFlags.Auto);
+            int minValue = 0;
+            int maxValue = 0;
+            CaptureDevice?.GetCameraPropertyRange(CameraControlProperty.Iris, out minValue, out maxValue, out int step, out int defValue, out CameraControlFlags cameraControl);
+
+            if (value >= minValue && value <= maxValue)
+                CaptureDevice?.SetCameraProperty(CameraControlProperty.Exposure, value, CameraControlFlags.Manual);
         }
 
 
