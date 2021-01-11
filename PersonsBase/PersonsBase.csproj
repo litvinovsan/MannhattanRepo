@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PersonsBase</RootNamespace>
     <AssemblyName>PersonsBase</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
@@ -355,7 +355,16 @@
   <ItemGroup>
     <None Include="Resources\icons8-small.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\no-photo-available-icon-20.jpg" />
+    <Content Include="WebCamAforge.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebCamAforge\WebCamAforge.csproj">
+      <Project>{e5d09b4a-6866-4444-aec6-04b668896c60}</Project>
+      <Name>WebCamAforge</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

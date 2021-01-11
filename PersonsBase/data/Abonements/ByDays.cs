@@ -133,7 +133,7 @@ namespace PersonsBase.data.Abonements
               new Tuple<string, string>("Осталось Занятий", GetRemainderDays().ToString()),
               new Tuple<string, string>("Услуги", Spa.ToString()),
               new Tuple<string, string>("Покупка / Активация", BuyActivationDate.ToString("d")),
-              new Tuple<string, string>("Дата Окончания", EndDate.ToString("d"))
+              new Tuple<string, string>("Дата Окончания", CalculateEndDate(BuyActivationDate, Options.ValidPeriodInMonth).ToString("d"))
           };
             if (PayStatus == Pay.Не_Оплачено) { result.Add(new Tuple<string, string>("Статус Оплаты ", PayStatus.ToString())); }
             return result;

@@ -10,7 +10,6 @@ namespace PersonsBase.data
 
         private static bool _checkPasspAndDriveId;
         private static bool _simpsonsPhoto;
-        private static bool _faceDetectorEn;
         private static bool _abonIsCorrectable;
 
         public static bool SimpsonsPhoto
@@ -37,12 +36,6 @@ namespace PersonsBase.data
             }
         }
 
-        public static bool FaceDetectorEn
-        {
-            get { return _faceDetectorEn; }
-            set { _faceDetectorEn = value; }
-        }
-
         public static int AbonementValidityMonths { get; set; }
 
         public static void SaveProperties()
@@ -50,8 +43,8 @@ namespace PersonsBase.data
             Properties.Settings.Default.SimpsonMode = SimpsonsPhoto;
             Properties.Settings.Default.PassAndDriveIdCheck = CheckPasspAndDriveId;
             Properties.Settings.Default.AllowAbonementChanges = AbonIsCorrectable; // На форме создания абонемента Галка "Разрешить" будет доступна
-            Properties.Settings.Default.FaceDetect = FaceDetectorEn;
             Properties.Settings.Default.AbonValidity = ValidPeriodInMonth;
+            Properties.Settings.Default.CameraId = CameraId;
 
             Properties.Settings.Default.Save();
         }
@@ -61,10 +54,10 @@ namespace PersonsBase.data
             Properties.Settings.Default.Reload();
 
             SimpsonsPhoto = Properties.Settings.Default.SimpsonMode;
-            FaceDetectorEn = Properties.Settings.Default.FaceDetect;
             AbonIsCorrectable = Properties.Settings.Default.AllowAbonementChanges;
             CheckPasspAndDriveId = Properties.Settings.Default.PassAndDriveIdCheck;
             ValidPeriodInMonth = Properties.Settings.Default.AbonValidity;
+            CameraId = Properties.Settings.Default.CameraId;
         }
 
         #endregion
@@ -100,11 +93,21 @@ namespace PersonsBase.data
         // Число тренировок для покупки
         public static readonly object[] NumAvailTrenToBuy = { "1", "5", "8", "10" };
         public static readonly object[] NumAvailMiniGroup = { "1", "8" };
+        private static string _cameraId;
         public static int ValidPeriodInMonth { get; set; }// нужны для расчета даты окончания абонемента. Срок годности абонемента 2 месяца
         public const int ValidPeriod12Month = 12;// нужны для расчета даты окончания абонемента. Срок годности абонемента 12 месяца
 
 
         public const string CorrectPassword = "1306";
+
+        public static string CameraId
+        {
+            get { return _cameraId; }
+            set
+            {
+               _cameraId = value;
+            }
+        }
 
         #endregion
     }

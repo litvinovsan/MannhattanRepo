@@ -46,6 +46,7 @@
             this.maskedTextBox_DriverID = new System.Windows.Forms.MaskedTextBox();
             this.maskedTextBox_number = new System.Windows.Forms.MaskedTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.button_add_foto = new System.Windows.Forms.Button();
             this.pictureBox_Client = new System.Windows.Forms.PictureBox();
             this.textBox_Notes = new System.Windows.Forms.TextBox();
@@ -100,7 +101,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Size = new System.Drawing.Size(388, 211);
+            this.groupBox3.Size = new System.Drawing.Size(388, 249);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Персональные данные";
@@ -146,7 +147,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(384, 190);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(384, 228);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // maskedTextBox_PhoneNumber
@@ -179,7 +180,7 @@
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(2, 35);
+            this.label5.Location = new System.Drawing.Point(2, 36);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(40, 20);
@@ -203,7 +204,7 @@
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(2, 91);
+            this.label3.Location = new System.Drawing.Point(2, 93);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(74, 20);
@@ -215,7 +216,7 @@
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(2, 63);
+            this.label4.Location = new System.Drawing.Point(2, 65);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(129, 20);
@@ -226,7 +227,7 @@
             // 
             this.maskedTextBox_Passport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.maskedTextBox_Passport.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maskedTextBox_Passport.Location = new System.Drawing.Point(182, 89);
+            this.maskedTextBox_Passport.Location = new System.Drawing.Point(182, 91);
             this.maskedTextBox_Passport.Margin = new System.Windows.Forms.Padding(2);
             this.maskedTextBox_Passport.Mask = "9999   № 999999";
             this.maskedTextBox_Passport.Name = "maskedTextBox_Passport";
@@ -240,7 +241,7 @@
             // 
             this.dateTimePicker_birthDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePicker_birthDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePicker_birthDate.Location = new System.Drawing.Point(182, 61);
+            this.dateTimePicker_birthDate.Location = new System.Drawing.Point(182, 63);
             this.dateTimePicker_birthDate.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker_birthDate.MinimumSize = new System.Drawing.Size(115, 22);
             this.dateTimePicker_birthDate.Name = "dateTimePicker_birthDate";
@@ -253,7 +254,7 @@
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(2, 119);
+            this.label6.Location = new System.Drawing.Point(2, 121);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(176, 20);
@@ -266,7 +267,7 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(2, 149);
+            this.label1.Location = new System.Drawing.Point(2, 151);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(176, 20);
@@ -277,7 +278,7 @@
             // 
             this.maskedTextBox_DriverID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.maskedTextBox_DriverID.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maskedTextBox_DriverID.Location = new System.Drawing.Point(182, 117);
+            this.maskedTextBox_DriverID.Location = new System.Drawing.Point(182, 119);
             this.maskedTextBox_DriverID.Margin = new System.Windows.Forms.Padding(2);
             this.maskedTextBox_DriverID.Mask = "9999   № 999999";
             this.maskedTextBox_DriverID.Name = "maskedTextBox_DriverID";
@@ -291,7 +292,7 @@
             // 
             this.maskedTextBox_number.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.maskedTextBox_number.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maskedTextBox_number.Location = new System.Drawing.Point(183, 146);
+            this.maskedTextBox_number.Location = new System.Drawing.Point(183, 148);
             this.maskedTextBox_number.Name = "maskedTextBox_number";
             this.maskedTextBox_number.Size = new System.Drawing.Size(198, 27);
             this.maskedTextBox_number.TabIndex = 7;
@@ -303,24 +304,35 @@
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.button_add_foto);
             this.groupBox2.Controls.Add(this.pictureBox_Client);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox2.Location = new System.Drawing.Point(404, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 254);
+            this.groupBox2.Size = new System.Drawing.Size(200, 308);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Фото";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(4, 231);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(194, 36);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Веб Камера";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button_Get_Photo_WebCam_Click);
+            // 
             // button_add_foto
             // 
             this.button_add_foto.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button_add_foto.Location = new System.Drawing.Point(3, 215);
+            this.button_add_foto.Location = new System.Drawing.Point(3, 269);
             this.button_add_foto.Name = "button_add_foto";
             this.button_add_foto.Size = new System.Drawing.Size(194, 36);
             this.button_add_foto.TabIndex = 1;
-            this.button_add_foto.Text = "Загрузить Фото";
+            this.button_add_foto.Text = "Загрузить из файла";
             this.button_add_foto.UseVisualStyleBackColor = true;
             this.button_add_foto.Click += new System.EventHandler(this.button_add_foto_Click);
             // 
@@ -331,7 +343,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox_Client.Location = new System.Drawing.Point(6, 23);
             this.pictureBox_Client.Name = "pictureBox_Client";
-            this.pictureBox_Client.Size = new System.Drawing.Size(188, 189);
+            this.pictureBox_Client.Size = new System.Drawing.Size(188, 202);
             this.pictureBox_Client.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox_Client.TabIndex = 0;
             this.pictureBox_Client.TabStop = false;
@@ -346,7 +358,7 @@
             this.textBox_Notes.Multiline = true;
             this.textBox_Notes.Name = "textBox_Notes";
             this.textBox_Notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_Notes.Size = new System.Drawing.Size(585, 99);
+            this.textBox_Notes.Size = new System.Drawing.Size(585, 106);
             this.textBox_Notes.TabIndex = 8;
             this.textBox_Notes.Text = "Заметки о Клиенте";
             this.textBox_Notes.TextChanged += new System.EventHandler(this.textBox_Notes_TextChanged);
@@ -356,7 +368,7 @@
             this.button_Add_New_Person.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button_Add_New_Person.Enabled = false;
             this.button_Add_New_Person.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_Add_New_Person.Location = new System.Drawing.Point(0, 414);
+            this.button_Add_New_Person.Location = new System.Drawing.Point(0, 459);
             this.button_Add_New_Person.Name = "button_Add_New_Person";
             this.button_Add_New_Person.Size = new System.Drawing.Size(616, 52);
             this.button_Add_New_Person.TabIndex = 7;
@@ -370,9 +382,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_Notes.Controls.Add(this.textBox_Notes);
-            this.groupBox_Notes.Location = new System.Drawing.Point(13, 289);
+            this.groupBox_Notes.Location = new System.Drawing.Point(13, 327);
             this.groupBox_Notes.Name = "groupBox_Notes";
-            this.groupBox_Notes.Size = new System.Drawing.Size(591, 118);
+            this.groupBox_Notes.Size = new System.Drawing.Size(591, 125);
             this.groupBox_Notes.TabIndex = 8;
             this.groupBox_Notes.TabStop = false;
             this.groupBox_Notes.Text = "Дополнительная информация:";
@@ -381,7 +393,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(616, 466);
+            this.ClientSize = new System.Drawing.Size(616, 511);
             this.Controls.Add(this.groupBox_Notes);
             this.Controls.Add(this.button_Add_New_Person);
             this.Controls.Add(this.groupBox2);
@@ -431,5 +443,6 @@
         private System.Windows.Forms.MaskedTextBox maskedTextBox_number;
         private System.Windows.Forms.ComboBox comboBox_Names;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button button1;
     }
 }

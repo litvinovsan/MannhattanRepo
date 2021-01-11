@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.control;
 using PersonsBase.Converter;
 using PersonsBase.data;
-using PersonsBase.data.Abonements;
 using PersonsBase.myStd;
 
 namespace PersonsBase.View
@@ -48,7 +46,6 @@ namespace PersonsBase.View
             checkBox_Passp_Drive.Checked = Options.CheckPasspAndDriveId;
             checkBox_SimpsonPhoto.Checked = Options.SimpsonsPhoto;
             checkBox_CorrectOnCreateAbon.Checked = Options.AbonIsCorrectable;
-            checkBox_faceDetector.Checked = Options.FaceDetectorEn;
 
             // Период действия абонемента в месяцах.
             var nums = Enumerable.Range(1, 12).Select(x => (object)x).ToArray(); // отображаются в комбобоксе
@@ -228,11 +225,6 @@ namespace PersonsBase.View
         private void checkBox_CorrectOnCreateAbon_CheckedChanged(object sender, EventArgs e)
         {
             Options.AbonIsCorrectable = checkBox_CorrectOnCreateAbon.Checked;
-        }
-
-        private void checkBox_faceDetector_CheckedChanged(object sender, EventArgs e)
-        {
-            Options.FaceDetectorEn = checkBox_faceDetector.Checked;
         }
 
         private void comboBox_months_SelectedIndexChanged(object sender, EventArgs e)

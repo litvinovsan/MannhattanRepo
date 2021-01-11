@@ -406,5 +406,19 @@ namespace PersonsBase.View
         {
             maskedTextBox_DriverID.SelectionStart = 0;
         }
+
+        private void button_Get_Photo_WebCam_Click(object sender, EventArgs e)
+        {
+            // Открывает форму для получения снимка. 
+            var isPictOk = Logic.GetWebCamBmp(out Bitmap picture);
+
+            if (!isPictOk || picture == null) return;
+
+            // Прописывает в персону имя файла фотки. Сохраняет копию изображения
+            var path = Photo.SaveToPhotoDir(picture, _dataStruct.Name);
+            _dataStruct.photoName = Path.GetFileName(path);
+
+            Logic.TryLoadPhoto(pictureBox_Client, _dataStruct.photoName, _dataStruct.Gender);
+        }
     }
 }

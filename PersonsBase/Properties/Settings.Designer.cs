@@ -73,25 +73,25 @@ namespace PersonsBase.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool FaceDetect {
-            get {
-                return ((bool)(this["FaceDetect"]));
-            }
-            set {
-                this["FaceDetect"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("6")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
         public int AbonValidity {
             get {
                 return ((int)(this["AbonValidity"]));
             }
             set {
                 this["AbonValidity"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CameraId {
+            get {
+                return ((string)(this["CameraId"]));
+            }
+            set {
+                this["CameraId"] = value;
             }
         }
     }

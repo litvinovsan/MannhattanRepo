@@ -159,6 +159,15 @@ namespace PersonsBase.data
             VisitDateTime = DateTime.Now;
         }
     }
+
+    [Serializable]
+    public enum Activation
+    {
+        Активирован,
+        Не_Активирован
+    }
+   
+
     #endregion
 
     #region /// КЛАССЫ ///

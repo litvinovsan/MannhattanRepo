@@ -101,7 +101,7 @@ namespace PersonsBase.View
                     };
 
             // Список закончившихся абонементов
-            this.listBox_NotValidAbons.SelectedIndexChanged += new System.EventHandler(this.listBox_NotValidAbons_SelectedIndexChanged);
+            listBox_NotValidAbons.SelectedIndexChanged += listBox_NotValidAbons_SelectedIndexChanged;
 
             // Вкладки Посещений и Архив абонементов
             SetupVisitsDataGridView();
@@ -538,6 +538,7 @@ namespace PersonsBase.View
             {
                 CreateNameField(),
                 CreateStatusField(),
+                CreateActivationField(),
                 CreateTypeWorkoutField(),
                 CreateSpaServiceField(),
                 CreatePayServiceField()
@@ -551,6 +552,7 @@ namespace PersonsBase.View
             {
                 CreateNameField(),
                 CreateStatusField(),
+                CreateActivationField(),
                 CreatePeriodClubCardField(),
                 CreateTypeWorkoutField(),
                 CreateTimeForTrField(),
@@ -570,6 +572,7 @@ namespace PersonsBase.View
             {
                 CreateNameField(),
                 CreateStatusField(),
+                CreateActivationField(),
                 CreateNumberDaysInAbonField(),
                 CreateTypeWorkoutField(),
                 CreateTimeForTrField(),
@@ -624,6 +627,7 @@ namespace PersonsBase.View
             Logic.SetControlsColorDefault(groupBox_Detailed);
             Logic.SetControlsColorDefault(tableLayoutPanel1);
             Logic.SaveEverithing();
+            Logic.ClearSelection(groupBox_Detailed);
         }
 
         private void ClientForm_Resize(object sender, EventArgs e)
@@ -725,12 +729,14 @@ namespace PersonsBase.View
 
         private void button_photo_cam_Click(object sender, EventArgs e)
         {
-            // Logic.SaveEverithing();
-            //// var success = FormsRunner.RunSnapshotForm(out var imageCam);
-            // if (imageCam == null || success == false) return;
+            // Открывает форму для получения снимка. 
+            var isPictOk = Logic.GetWebCamBmp(out Bitmap picture);
 
-            // var path = Photo.SaveToPhotoDir(imageCam, _person.Name);
-            // _person.PathToPhoto = Path.GetFileName(path);
+            if (!isPictOk || picture == null) return;
+
+            // Прописывает в персону имя файла фотки. Сохраняет копию изображения
+            var path = Photo.SaveToPhotoDir(picture, _person.Name);
+            _person.PathToPhoto = Path.GetFileName(path);
         }
 
         private void listBox_abon_selector_SelectedIndexChanged(object sender, EventArgs e)
