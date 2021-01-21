@@ -53,6 +53,8 @@
             this.groupBox_Activation = new System.Windows.Forms.GroupBox();
             this.checkedListBox_Activation = new System.Windows.Forms.CheckedListBox();
             this.dataGridView_Persons = new System.Windows.Forms.DataGridView();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkedListBox_Tren_Name = new System.Windows.Forms.CheckedListBox();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox_All_Options.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -66,6 +68,7 @@
             this.groupBox_Age.SuspendLayout();
             this.groupBox_Activation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Persons)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -127,6 +130,7 @@
             this.flowLayoutPanel2.Controls.Add(this.groupBox_Pay);
             this.flowLayoutPanel2.Controls.Add(this.groupBox_Age);
             this.flowLayoutPanel2.Controls.Add(this.groupBox_Activation);
+            this.flowLayoutPanel2.Controls.Add(this.groupBox2);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 20);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
@@ -375,6 +379,28 @@
             this.dataGridView_Persons.TabIndex = 3;
             this.dataGridView_Persons.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_Persons_MouseDoubleClick);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.checkedListBox_Tren_Name);
+            this.groupBox2.Location = new System.Drawing.Point(3, 722);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(186, 70);
+            this.groupBox2.TabIndex = 8;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Тренировка";
+            // 
+            // checkedListBox_Tren_Name
+            // 
+            this.checkedListBox_Tren_Name.CheckOnClick = true;
+            this.checkedListBox_Tren_Name.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBox_Tren_Name.FormattingEnabled = true;
+            this.checkedListBox_Tren_Name.Location = new System.Drawing.Point(3, 20);
+            this.checkedListBox_Tren_Name.Name = "checkedListBox_Tren_Name";
+            this.checkedListBox_Tren_Name.Size = new System.Drawing.Size(180, 47);
+            this.checkedListBox_Tren_Name.TabIndex = 2;
+            this.checkedListBox_Tren_Name.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_Tren_Name_SelectedIndexChanged);
+            // 
             // ReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -404,6 +430,7 @@
             this.groupBox_Age.ResumeLayout(false);
             this.groupBox_Activation.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Persons)).EndInit();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -434,5 +461,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DateTimePicker dateTimePicker_Visit;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckedListBox checkedListBox_Tren_Name;
     }
 }

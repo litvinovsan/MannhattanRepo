@@ -24,6 +24,8 @@ namespace PersonsBase.View
         private IEnumerable<KeyValuePair<string, Person>> _reqAbonType;
         private IEnumerable<KeyValuePair<string, Person>> _reqTimeTren;
         private IEnumerable<KeyValuePair<string, Person>> _reqActivation;
+        private IEnumerable<KeyValuePair<string, Person>> _reqTrenName;
+
 
         private const string NotMatter = "Не Важно";
 
@@ -45,10 +47,15 @@ namespace PersonsBase.View
             NotMatter,
             "Больше 1 месяца"
         };
+
+        private readonly List<string> _listOfNamesSchedule;
+
         #endregion
 
         public ReportForm()
         {
+            _listOfNamesSchedule = DataBaseLevel.GetManhattanInfo().Schedule.Select(x => x.WorkoutsName).ToList();
+
             InitializeComponent();
 
             // Инициализация всех группбоксов стартовыми значениями
@@ -61,7 +68,7 @@ namespace PersonsBase.View
             InitCheckedListBoxTypeAbon();
             InitCheckedListBoxTimeTren();
             InitCheckedListBoxActivation();
-
+            InitCheckedListBoxTrenName();
 
         }
 
@@ -410,6 +417,37 @@ namespace PersonsBase.View
 
         #endregion
 
+        #region /// МЕТОДЫ. НАЗВАНИЕ ТРЕНИРОВКИ ГРУППОВОЙ
+        /// <summary>
+        /// Устанавливает стартовые значения CheckedListBox при загрузке формы. Список строк и галочку.
+        /// </summary>
+        private void InitCheckedListBoxTrenName()
+        {
+            checkedListBox_Tren_Name.Items.Clear();
+            checkedListBox_Tren_Name.Items.AddRange(_listOfNamesSchedule.ToArray<object>());
+        }
+
+        private void checkedListBox_Tren_Name_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var checkedIndexes = checkedListBox_Tren_Name.CheckedIndices;
+
+            // Сортировка по этому признаку не важна. Содержит 2 поля(Оплачено, Не оплачено)
+            if ((checkedIndexes.Count == 0))
+            {
+                _reqActivation = _personsAll;
+            }
+            else
+            {
+                
+            }
+
+            MyCheckedListBox.ClearSelection(checkedListBox_Activation);
+          //  var result = await GetUpdatedRequestsAsync();
+          //  ShowPersons(result);
+        }
+
+        #endregion
+
         /// <summary>
         /// Функция пробегает по всем запросам со всех полей и обьединяет в единый итоговый запрос-список.
         /// </summary>
@@ -506,12 +544,13 @@ namespace PersonsBase.View
                 int rowindex = dg.CurrentCell.RowIndex;
                 // В Cell[0] Находится имя клиента
                 var resultName = dg.Rows[rowindex].Cells[0].Value.ToString();
-              //  string value = dg?.CurrentRow?.Cells[0].Value.ToString();
 
                 if (string.IsNullOrEmpty(resultName)) return;
                 FormsRunner.RunClientForm(resultName);
             }
 
         }
+
+
     }
 }
