@@ -66,6 +66,7 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -207,6 +208,10 @@
     <Compile Include="View\WorkoutForm.Designer.cs">
       <DependentUpon>WorkoutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="wcf\Client.cs" />
+    <Compile Include="wcf\IContract.cs" />
+    <Compile Include="wcf\Server.cs" />
+    <Compile Include="wcf\Service.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -365,6 +370,7 @@
       <Name>WebCamAforge</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
