@@ -15,6 +15,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -66,6 +67,7 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -207,6 +209,10 @@
     <Compile Include="View\WorkoutForm.Designer.cs">
       <DependentUpon>WorkoutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="wcf\Client.cs" />
+    <Compile Include="wcf\IContract.cs" />
+    <Compile Include="wcf\Server.cs" />
+    <Compile Include="wcf\MyService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

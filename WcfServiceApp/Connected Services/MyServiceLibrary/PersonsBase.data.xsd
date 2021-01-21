@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PersonsBase.data" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PersonsBase.data" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="Pay">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Не_Оплачено" />
+      <xs:enumeration value="Оплачено" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Pay" nillable="true" type="tns:Pay" />
+  <xs:simpleType name="SpaService">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Без_Спа" />
+      <xs:enumeration value="Спа" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="SpaService" nillable="true" type="tns:SpaService" />
+  <xs:simpleType name="TimeForTr">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Утро" />
+      <xs:enumeration value="Весь_День" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TimeForTr" nillable="true" type="tns:TimeForTr" />
+  <xs:simpleType name="TypeWorkout">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Тренажерный_Зал" />
+      <xs:enumeration value="Аэробный_Зал" />
+      <xs:enumeration value="Персональная" />
+      <xs:enumeration value="МиниГруппа" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TypeWorkout" nillable="true" type="tns:TypeWorkout" />
+</xs:schema>

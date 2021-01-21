@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.ServiceModel;
 using System.Windows.Forms;
 using PersonsBase.control;
 using PersonsBase.data;
 using PersonsBase.myStd;
+using PersonsBase.wcf;
+using TypeWorkout = PersonsBase.data.TypeWorkout;
 
 namespace PersonsBase.View
 {
@@ -67,6 +69,14 @@ namespace PersonsBase.View
             toolTip1.SetToolTip(tableLayoutPanel1, "Для удаления записы, выделите и нажмите клавишу Delete на клавиатуре");
             toolTip1.SetToolTip(monthCalendar1, "Для просмотра посещений по дням - выберите необходимую дату.");
 
+
+            #region /// WCF обмен сообщениями
+            // Start WCF Server
+
+            Server wcfServer = new Server();
+
+
+            #endregion
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace PersonsBase.data.Abonements
 {
-
+    [DataContract]
     [Serializable]
     public abstract class AbonementBasic
     {
@@ -26,14 +27,20 @@ namespace PersonsBase.data.Abonements
         #endregion
 
         // ПОЛЯ и СВОЙСТВА
+        [DataMember]
         public abstract string AbonementName { get; }
+
+        [DataMember]
         public abstract string InfoMessageEnd { get; }
 
+        [DataMember]
         public abstract int NumAerobicTr { get; set; }
 
+        [DataMember]
         public abstract int NumPersonalTr { get; set; }
         // Количество Персональных тренировок. Могут быть добавлены к Клубному абонементу.
 
+        [DataMember]
         public int NumMiniGroup
         {
             get { return _numMiniGroup; }
@@ -44,18 +51,34 @@ namespace PersonsBase.data.Abonements
             }
         }
 
+        [DataMember]
         public SpaService Spa;               // Услуги спа
+
+        [DataMember]
         public Pay PayStatus;                // Оплачен?
+
+        [DataMember]
         public TimeForTr TimeTraining;       // Время занятий
+
+        [DataMember]
         public TypeWorkout TypeWorkout;    // Доступные тренировки
+
+        [DataMember]
         public DateTime BuyActivationDate;             // Дата покупки// Дата активации
+
+        [DataMember]
         public FreezeClass Freeze;
+
+        [DataMember]
         public bool IsActivated;             // Активирован? Дата окончания отсчитывается с момента
+
+        [DataMember]
         protected int DaysLeft { get; set; }  //Дней до конца абонемента, от активации,т.е. с первого посещения. 
 
         private DateTime _endDate;             // Дата завершения абонемента. 
         private int _numMiniGroup;
 
+        [DataMember]
         public DateTime EndDate
         {
             get
