@@ -201,7 +201,7 @@ namespace PersonsBase.View
         {
             const string labelText = "Статус Оплаты: ";
             Label lableType = CreateLabel(labelText);
-            ComboBox comboBox = CreateComboBox(PwdForm.IsPassUnLocked());
+            ComboBox comboBox = CreateComboBox(true);
             comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             _editedPay = _person.AbonementCurent.PayStatus;
             // Инициализируем наши Контролы

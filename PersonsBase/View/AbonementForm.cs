@@ -190,13 +190,13 @@ namespace PersonsBase.View
                     }
                 case "Разовое Занятие":
                     {
-                        abonementNew = new SingleVisit(_typeWorkout, _spa, _pay, _timeTren);
+                        abonementNew = new SingleVisit(_typeWorkout, _spa,Pay.Оплачено, _timeTren);
                         break;
                     }
                 case "Гостевой визит":
                     {
                         // Создаем новый абонемент
-                        abonementNew = new SingleVisit(_typeWorkout, _spa, Pay.Не_Оплачено, _timeTren);
+                        abonementNew = new SingleVisit(_typeWorkout, _spa, Pay.Оплачено, _timeTren);
                         abonementNew.TryActivate();
                         // Выбираем опции абонемента
                         var selectedOptions = new WorkoutOptions();
@@ -379,6 +379,9 @@ namespace PersonsBase.View
                 radioButton_guest.Checked = false;
             }
 
+            // Для блокировки оплаты для разовых
+            comboBox_Pay.Enabled = !radioButton.Checked;
+
             UpdateCorrectFieldsEn();
         }
 
@@ -496,7 +499,7 @@ namespace PersonsBase.View
                 return;
             }
 
-            if (comboBox_Pay.SelectedItem == null)
+            if (comboBox_Pay.SelectedItem == null && !radioButton_Single.Checked)
             {
                 label5.BackColor = Color.Pink;
                 MessageBox.Show(@"Уточните статус оплаты!", @"Оплата", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
