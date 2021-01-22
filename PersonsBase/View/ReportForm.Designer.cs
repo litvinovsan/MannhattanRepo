@@ -30,6 +30,7 @@
         {
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.button3 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox_All_Options = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
@@ -38,7 +39,6 @@
             this.groupBox_LastVisit = new System.Windows.Forms.GroupBox();
             this.comboBox_LastVisit = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.dateTimePicker_Visit = new System.Windows.Forms.DateTimePicker();
             this.groupBox_Gender = new System.Windows.Forms.GroupBox();
             this.checkedListBox_Gender = new System.Windows.Forms.CheckedListBox();
@@ -52,9 +52,9 @@
             this.checkedListBox_Age = new System.Windows.Forms.CheckedListBox();
             this.groupBox_Activation = new System.Windows.Forms.GroupBox();
             this.checkedListBox_Activation = new System.Windows.Forms.CheckedListBox();
-            this.dataGridView_Persons = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkedListBox_Tren_Name = new System.Windows.Forms.CheckedListBox();
+            this.dataGridView_Persons = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox_All_Options.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -67,18 +67,19 @@
             this.groupBox_Pay.SuspendLayout();
             this.groupBox_Age.SuspendLayout();
             this.groupBox_Activation.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Persons)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Persons)).BeginInit();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.button3);
+            this.flowLayoutPanel1.Controls.Add(this.button1);
             this.flowLayoutPanel1.Controls.Add(this.button2);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 469);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 780);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1229, 40);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1311, 40);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // button3
@@ -92,9 +93,19 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button_Click_SaveExcel);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(218, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(177, 33);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Сброс фильтров";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button_resetDate_Click);
+            // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(219, 4);
+            this.button2.Location = new System.Drawing.Point(402, 4);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(207, 32);
@@ -108,9 +119,9 @@
             this.groupBox_All_Options.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox_All_Options.Controls.Add(this.flowLayoutPanel2);
-            this.groupBox_All_Options.Location = new System.Drawing.Point(4, 12);
+            this.groupBox_All_Options.Location = new System.Drawing.Point(12, 12);
             this.groupBox_All_Options.Name = "groupBox_All_Options";
-            this.groupBox_All_Options.Size = new System.Drawing.Size(235, 451);
+            this.groupBox_All_Options.Size = new System.Drawing.Size(401, 762);
             this.groupBox_All_Options.TabIndex = 2;
             this.groupBox_All_Options.TabStop = false;
             this.groupBox_All_Options.Text = "Параметры клиентов";
@@ -118,9 +129,6 @@
             // flowLayoutPanel2
             // 
             this.flowLayoutPanel2.AutoScroll = true;
-            this.flowLayoutPanel2.AutoSize = true;
-            this.flowLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flowLayoutPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flowLayoutPanel2.Controls.Add(this.groupBox_Status);
             this.flowLayoutPanel2.Controls.Add(this.groupBox_LastVisit);
             this.flowLayoutPanel2.Controls.Add(this.groupBox1);
@@ -134,7 +142,7 @@
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 20);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(229, 428);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(395, 739);
             this.flowLayoutPanel2.TabIndex = 0;
             // 
             // groupBox_Status
@@ -163,7 +171,7 @@
             // 
             this.groupBox_LastVisit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_LastVisit.Controls.Add(this.comboBox_LastVisit);
-            this.groupBox_LastVisit.Location = new System.Drawing.Point(3, 68);
+            this.groupBox_LastVisit.Location = new System.Drawing.Point(195, 6);
             this.groupBox_LastVisit.Name = "groupBox_LastVisit";
             this.groupBox_LastVisit.Size = new System.Drawing.Size(186, 52);
             this.groupBox_LastVisit.TabIndex = 8;
@@ -183,24 +191,13 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.dateTimePicker_Visit);
-            this.groupBox1.Location = new System.Drawing.Point(3, 126);
+            this.groupBox1.Location = new System.Drawing.Point(3, 68);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(186, 86);
+            this.groupBox1.Size = new System.Drawing.Size(186, 51);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Дата Посещения";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(3, 50);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(177, 29);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Сброс";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button_resetDate_Click);
             // 
             // dateTimePicker_Visit
             // 
@@ -215,9 +212,9 @@
             // 
             this.groupBox_Gender.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_Gender.Controls.Add(this.checkedListBox_Gender);
-            this.groupBox_Gender.Location = new System.Drawing.Point(3, 218);
+            this.groupBox_Gender.Location = new System.Drawing.Point(195, 68);
             this.groupBox_Gender.Name = "groupBox_Gender";
-            this.groupBox_Gender.Size = new System.Drawing.Size(186, 86);
+            this.groupBox_Gender.Size = new System.Drawing.Size(186, 65);
             this.groupBox_Gender.TabIndex = 1;
             this.groupBox_Gender.TabStop = false;
             this.groupBox_Gender.Text = "Пол";
@@ -229,11 +226,10 @@
             this.checkedListBox_Gender.FormattingEnabled = true;
             this.checkedListBox_Gender.Items.AddRange(new object[] {
             "М",
-            "Ж",
-            "H"});
+            "Ж"});
             this.checkedListBox_Gender.Location = new System.Drawing.Point(3, 20);
             this.checkedListBox_Gender.Name = "checkedListBox_Gender";
-            this.checkedListBox_Gender.Size = new System.Drawing.Size(180, 63);
+            this.checkedListBox_Gender.Size = new System.Drawing.Size(180, 42);
             this.checkedListBox_Gender.TabIndex = 1;
             this.checkedListBox_Gender.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_Gender_SelectedIndexChanged);
             // 
@@ -241,7 +237,7 @@
             // 
             this.groupBox_TypeAbon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_TypeAbon.Controls.Add(this.checkedListBox_TypeAbon);
-            this.groupBox_TypeAbon.Location = new System.Drawing.Point(3, 310);
+            this.groupBox_TypeAbon.Location = new System.Drawing.Point(3, 139);
             this.groupBox_TypeAbon.Name = "groupBox_TypeAbon";
             this.groupBox_TypeAbon.Size = new System.Drawing.Size(186, 89);
             this.groupBox_TypeAbon.TabIndex = 5;
@@ -267,7 +263,7 @@
             // 
             this.groupBox_TimeTren.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_TimeTren.Controls.Add(this.checkedListBox_TimeTren);
-            this.groupBox_TimeTren.Location = new System.Drawing.Point(3, 405);
+            this.groupBox_TimeTren.Location = new System.Drawing.Point(195, 149);
             this.groupBox_TimeTren.Name = "groupBox_TimeTren";
             this.groupBox_TimeTren.Size = new System.Drawing.Size(186, 69);
             this.groupBox_TimeTren.TabIndex = 6;
@@ -292,7 +288,7 @@
             // 
             this.groupBox_Pay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_Pay.Controls.Add(this.checkedListBox_Pay);
-            this.groupBox_Pay.Location = new System.Drawing.Point(3, 480);
+            this.groupBox_Pay.Location = new System.Drawing.Point(3, 242);
             this.groupBox_Pay.Name = "groupBox_Pay";
             this.groupBox_Pay.Size = new System.Drawing.Size(186, 69);
             this.groupBox_Pay.TabIndex = 4;
@@ -317,7 +313,7 @@
             // 
             this.groupBox_Age.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_Age.Controls.Add(this.checkedListBox_Age);
-            this.groupBox_Age.Location = new System.Drawing.Point(3, 555);
+            this.groupBox_Age.Location = new System.Drawing.Point(195, 234);
             this.groupBox_Age.Name = "groupBox_Age";
             this.groupBox_Age.Size = new System.Drawing.Size(186, 85);
             this.groupBox_Age.TabIndex = 0;
@@ -343,7 +339,7 @@
             // 
             this.groupBox_Activation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_Activation.Controls.Add(this.checkedListBox_Activation);
-            this.groupBox_Activation.Location = new System.Drawing.Point(3, 646);
+            this.groupBox_Activation.Location = new System.Drawing.Point(3, 325);
             this.groupBox_Activation.Name = "groupBox_Activation";
             this.groupBox_Activation.Size = new System.Drawing.Size(186, 70);
             this.groupBox_Activation.TabIndex = 7;
@@ -364,28 +360,12 @@
             this.checkedListBox_Activation.TabIndex = 2;
             this.checkedListBox_Activation.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_Activation_SelectedIndexChanged);
             // 
-            // dataGridView_Persons
-            // 
-            this.dataGridView_Persons.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView_Persons.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            this.dataGridView_Persons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_Persons.Location = new System.Drawing.Point(245, 12);
-            this.dataGridView_Persons.MultiSelect = false;
-            this.dataGridView_Persons.Name = "dataGridView_Persons";
-            this.dataGridView_Persons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_Persons.Size = new System.Drawing.Size(972, 451);
-            this.dataGridView_Persons.TabIndex = 3;
-            this.dataGridView_Persons.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_Persons_MouseDoubleClick);
-            // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.checkedListBox_Tren_Name);
-            this.groupBox2.Location = new System.Drawing.Point(3, 722);
+            this.groupBox2.Location = new System.Drawing.Point(3, 401);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(186, 70);
+            this.groupBox2.Size = new System.Drawing.Size(378, 335);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Тренировка";
@@ -397,15 +377,30 @@
             this.checkedListBox_Tren_Name.FormattingEnabled = true;
             this.checkedListBox_Tren_Name.Location = new System.Drawing.Point(3, 20);
             this.checkedListBox_Tren_Name.Name = "checkedListBox_Tren_Name";
-            this.checkedListBox_Tren_Name.Size = new System.Drawing.Size(180, 47);
+            this.checkedListBox_Tren_Name.Size = new System.Drawing.Size(372, 312);
             this.checkedListBox_Tren_Name.TabIndex = 2;
             this.checkedListBox_Tren_Name.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_Tren_Name_SelectedIndexChanged);
+            // 
+            // dataGridView_Persons
+            // 
+            this.dataGridView_Persons.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView_Persons.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dataGridView_Persons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_Persons.Location = new System.Drawing.Point(419, 21);
+            this.dataGridView_Persons.MultiSelect = false;
+            this.dataGridView_Persons.Name = "dataGridView_Persons";
+            this.dataGridView_Persons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_Persons.Size = new System.Drawing.Size(880, 750);
+            this.dataGridView_Persons.TabIndex = 3;
+            this.dataGridView_Persons.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_Persons_MouseDoubleClick);
             // 
             // ReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1229, 509);
+            this.ClientSize = new System.Drawing.Size(1311, 820);
             this.Controls.Add(this.dataGridView_Persons);
             this.Controls.Add(this.groupBox_All_Options);
             this.Controls.Add(this.flowLayoutPanel1);
@@ -418,7 +413,6 @@
             this.Load += new System.EventHandler(this.ReportForm_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.groupBox_All_Options.ResumeLayout(false);
-            this.groupBox_All_Options.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
             this.groupBox_Status.ResumeLayout(false);
             this.groupBox_LastVisit.ResumeLayout(false);
@@ -429,8 +423,8 @@
             this.groupBox_Pay.ResumeLayout(false);
             this.groupBox_Age.ResumeLayout(false);
             this.groupBox_Activation.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Persons)).EndInit();
             this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Persons)).EndInit();
             this.ResumeLayout(false);
 
         }

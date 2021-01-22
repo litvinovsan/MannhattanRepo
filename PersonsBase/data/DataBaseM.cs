@@ -134,7 +134,7 @@ namespace PersonsBase.data
         }
         public static bool EditPersonalNumber(string namePerson, int newNumber)
         {
-            var isExist = FindByPersonalNumber(DataBaseLevel.GetPersonsList(), newNumber, out var person);
+            var isExist = FindByPersonalNumber(DataBaseLevel.GetPersonsList(), newNumber, out _);
 
             if (isExist)
             {
@@ -227,10 +227,11 @@ namespace PersonsBase.data
         /// <returns></returns>
         public static DataTable CreatePersonsTable()
         {
-            var persons = DataBaseLevel.GetPersonsList();
+            var persons = DataBaseLevel.GetPersonsList().Select(x => x.Value);
             var dt = CreatePersonsTable(persons, GetPersonFieldsFull);
             return dt;
         }
+
 
         /// <summary>
         /// Возвращает DataTable для произвольного количества клиентов из списка inputList. Для экспорта в Excel
@@ -238,22 +239,22 @@ namespace PersonsBase.data
         /// <param name="inputList"></param>
         /// <param name="getFieldsFunc"></param>
         /// <returns></returns>
-        public static DataTable CreatePersonsTable(IEnumerable<KeyValuePair<string, Person>> inputList,
-            Func<KeyValuePair<string, Person>, IEnumerable<PersonField>> getFieldsFunc)
+        public static DataTable CreatePersonsTable(IEnumerable<Person> inputList,
+            Func<Person, IEnumerable<PersonField>> getFieldsFunc)
         {
             var dt = new DataTable();
             if (inputList == null) return dt;
 
             // Если пустая коллекция человеков
-            var keyValuePairs = inputList.ToList();
-            if (!keyValuePairs.Any()) return dt;
+            var list = inputList.ToList();
+            if (!list.Any()) return dt;
 
             // Заголовки Таблицы
             var headers = GetHeaders(getFieldsFunc);
             dt.Columns.AddRange(headers);
 
             // Данные всех Клиентов
-            foreach (var item in keyValuePairs)
+            foreach (var item in list)
             {
                 var personFields = getFieldsFunc(item);
                 var myDataRowsList = personFields.Select(x => x.Value).ToArray<object>();
@@ -263,10 +264,10 @@ namespace PersonsBase.data
         }
 
         public static async Task<DataTable> CreatePersonsTableAsync(
-            IEnumerable<KeyValuePair<string, Person>> inputList,
-            Func<KeyValuePair<string, Person>, IEnumerable<PersonField>> getFieldsFunc)
+            IEnumerable<Person> inputList,
+            Func<Person, IEnumerable<PersonField>> getFieldsFunc)
         {
-           return await Task.Run(() => CreatePersonsTable(inputList, getFieldsFunc)).ConfigureAwait(false);
+            return await Task.Run(() => CreatePersonsTable(inputList, getFieldsFunc)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -274,7 +275,7 @@ namespace PersonsBase.data
         /// На вход подается функция создающая поля поля и заголовки
         /// </summary>
         /// <returns></returns>
-        private static DataColumn[] GetHeaders(Func<KeyValuePair<string, Person>, IEnumerable<PersonField>> getFieldsFunc)
+        private static DataColumn[] GetHeaders(Func<Person, IEnumerable<PersonField>> getFieldsFunc)
         {
             // Создаем массив с полями и заголовками будущей таблицы по текущему посещению
             var persons = DataBaseLevel.GetPersonsList();
@@ -284,13 +285,16 @@ namespace PersonsBase.data
             // Это условие нужно на тот случай если в списке нет клиентов с абонементами
             if (p.Key == null || p.Value == null)
             {
-                var tempPerson = new KeyValuePair<string, Person>("temp", new Person("temp"));
-                tempPerson.Value.AbonementCurent = new SingleVisit(TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, Pay.Не_Оплачено, TimeForTr.Утро);
+                var tempPerson = new Person("temp")
+                {
+                    AbonementCurent = new SingleVisit(TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, Pay.Не_Оплачено,
+                        TimeForTr.Утро)
+                };
                 personFields = getFieldsFunc(tempPerson);
             }
             else
             {
-                personFields = getFieldsFunc(p);
+                personFields = getFieldsFunc(p.Value);
             }
 
             var headerNames = personFields.Select(x => x.HeaderName).ToArray();
@@ -309,9 +313,9 @@ namespace PersonsBase.data
         /// </summary>
         /// <param name="first"></param>
         /// <returns></returns>
-        public static IEnumerable<PersonField> GetPersonFieldsFull(KeyValuePair<string, Person> first)
+        public static IEnumerable<PersonField> GetPersonFieldsFull(Person first)
         {// FIXME  Попробовать тут Рефлексию
-            var person = first.Value;
+            var person = first;
             var abon = person.AbonementCurent;
             var isAbonExist = abon != null;
             var personFields = new List<PersonField>
@@ -351,15 +355,15 @@ namespace PersonsBase.data
         /// </summary>
         /// <param name="first"></param>
         /// <returns></returns>
-        public static IEnumerable<PersonField> GetPersonFieldsShort(KeyValuePair<string, Person> first)
+        public static IEnumerable<PersonField> GetPersonFieldsShort(Person first)
         {
-            var person = first.Value;
+            var person = first;
             // Главные поля, всегда отображаются
             var personFields = new List<PersonField>
             {
                 new PersonField {HeaderName = "Имя", Value = person.Name},
                 new PersonField {HeaderName = "Телефон", Value = person.Phone},
-                new PersonField {HeaderName = "Статус", Value = person.Status.ToString()},
+              //  new PersonField {HeaderName = "Статус", Value = person.Status.ToString()},
             };
 
             // Все что касается Абонемента
@@ -376,8 +380,8 @@ namespace PersonsBase.data
                 var lastVisit = journal.Last().DateTimeVisit.Date; //.ToString("MM/dd/yyyy");
                 var numDays = (DateTime.Now - lastVisit).Days;
                 personFields.Add(numDays == 0
-                    ? new PersonField {HeaderName = "Был (дн. назад)", Value = $"Сегодня"}
-                    : new PersonField {HeaderName = "Был (дн. назад)", Value = $"  {numDays}"});
+                    ? new PersonField { HeaderName = "Был (дн. назад)", Value = $"Сегодня" }
+                    : new PersonField { HeaderName = "Был (дн. назад)", Value = $"  {numDays}" });
             }
             else
             {

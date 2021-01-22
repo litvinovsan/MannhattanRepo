@@ -15,16 +15,22 @@ namespace PersonsBase.View
         // Список всех персон. Исходная коллекция со всеми клиентами
         private readonly SortedList<string, Person> _personsAll = DataBaseLevel.GetPersonsList();
 
+        // Список названий тренировок
+        private readonly List<string> _listOfNamesSchedule = DataBaseLevel.GetManhattanInfo().Schedule.Select(x => x.GetTimeAndNameStr()).ToList();
+
+        // Список аэробных посещений 
+        private readonly List<AerobItem> _aerobVisits = DailyVisits.GetInstance().AerobList;
+
         // ВЫБОРКИ по параметрам
-        private IEnumerable<KeyValuePair<string, Person>> _reqStatuses;
-        private IEnumerable<KeyValuePair<string, Person>> _reqLastVisit;
-        private IEnumerable<KeyValuePair<string, Person>> _reqPay;
-        private IEnumerable<KeyValuePair<string, Person>> _reqAge;
-        private IEnumerable<KeyValuePair<string, Person>> _reqGender;
-        private IEnumerable<KeyValuePair<string, Person>> _reqAbonType;
-        private IEnumerable<KeyValuePair<string, Person>> _reqTimeTren;
-        private IEnumerable<KeyValuePair<string, Person>> _reqActivation;
-        private IEnumerable<KeyValuePair<string, Person>> _reqTrenName;
+        private IEnumerable<Person> _reqStatuses;
+        private IEnumerable<Person> _reqLastVisit;
+        private IEnumerable<Person> _reqPay;
+        private IEnumerable<Person> _reqAge;
+        private IEnumerable<Person> _reqGender;
+        private IEnumerable<Person> _reqAbonType;
+        private IEnumerable<Person> _reqTimeTren;
+        private IEnumerable<Person> _reqActivation;
+        private IEnumerable<Person> _reqTrenName;
 
 
         private const string NotMatter = "Не Важно";
@@ -48,13 +54,13 @@ namespace PersonsBase.View
             "Больше 1 месяца"
         };
 
-        private readonly List<string> _listOfNamesSchedule;
+
 
         #endregion
 
         public ReportForm()
         {
-            _listOfNamesSchedule = DataBaseLevel.GetManhattanInfo().Schedule.Select(x => x.WorkoutsName).ToList();
+
 
             InitializeComponent();
 
@@ -88,12 +94,12 @@ namespace PersonsBase.View
         {
             if (comboBox_Status.SelectedItem.ToString().Equals(NotMatter)) // Если не важен статус выводим всех элементов
             {
-                _reqStatuses = _personsAll;
+                _reqStatuses = _personsAll.Values;
             }
             else
             {
                 var status = MyComboBox.GetComboBoxValue<StatusPerson>(comboBox_Status);
-                _reqStatuses = _personsAll.Where(x => x.Value?.Status == status);
+                _reqStatuses = _personsAll.Where(x => x.Value?.Status == status).Select(x => x.Value);
             }
 
             var result = GetUpdatedRequestsAsync();
@@ -117,14 +123,14 @@ namespace PersonsBase.View
             // Если последний визит не важен -выходим
             if (lVisit.Equals(_lastVisits[0]))
             {
-                _reqLastVisit = _personsAll;
+                _reqLastVisit = _personsAll.Values;
             }
             else
             {
                 var dataInPast = DateTime.Now.Subtract(new TimeSpan(30, 0, 0, 0)).Date;//Вычитаем 30 дней
                 var fullJournal = DataBaseLevel.GetPersonsVisitDict();
-                var resultByCondition = fullJournal.Where(x => x.Value?.Last().DateTimeVisit.CompareTo(dataInPast) <= 0);
-                var resultConverted = resultByCondition.Select(y => new KeyValuePair<string, Person>(y.Key, PersonObject.GetLink(y.Key)));
+                var resultByCondition = fullJournal.Where(x => x.Value?.Last().DateTimeVisit.CompareTo(dataInPast) <= 0).Select(x => x.Key);
+                var resultConverted = resultByCondition.Select(PersonObject.GetLink);
                 _reqLastVisit = resultConverted.ToList();
             }
             var result = await GetUpdatedRequestsAsync();
@@ -152,13 +158,13 @@ namespace PersonsBase.View
             // Если последний визит не важен -выходим
             if (lVisit.CompareTo(DateTime.Now.Date) == 0)
             {
-                _reqLastVisit = _personsAll;
+                _reqLastVisit = _personsAll.Values;
             }
             else
             {
                 var fullJournal = DataBaseLevel.GetPersonsVisitDict();
-                var resultByCondition = fullJournal.Where(x => x.Value.Any(y => y.DateTimeVisit.Date.CompareTo(lVisit) == 0));
-                var resultConverted = resultByCondition.Select(y => new KeyValuePair<string, Person>(y.Key, PersonObject.GetLink(y.Key)));
+                var resultByCondition = fullJournal.Where(x => x.Value.Any(y => y.DateTimeVisit.Date.CompareTo(lVisit) == 0)).Select(x => x.Key);
+                var resultConverted = resultByCondition.Select(PersonObject.GetLink);
                 _reqLastVisit = resultConverted.ToList();
             }
             var result = await GetUpdatedRequestsAsync();
@@ -185,12 +191,12 @@ namespace PersonsBase.View
             // Сортировка по этому признаку не важна. Содержит 2 поля(Оплачено, Не оплачено)
             if ((checkedIndexes.Count == 2) || (checkedIndexes.Count == 0))
             {
-                _reqPay = _personsAll;
+                _reqPay = _personsAll.Values;
             }
             else
             {
                 var payment = (MyCheckedListBox.IsChecked(checkedListBox_Pay, 0)) ? Pay.Не_Оплачено : Pay.Оплачено;
-                _reqPay = _personsAll.Where(x => x.Value?.AbonementCurent?.PayStatus == payment);
+                _reqPay = _personsAll.Where(x => x.Value?.AbonementCurent?.PayStatus == payment).Select(x => x.Value);
             }
 
             MyCheckedListBox.ClearSelection(checkedListBox_Pay);
@@ -213,9 +219,9 @@ namespace PersonsBase.View
         {
             var checkedIndexes = checkedListBox_Age.CheckedIndices;
 
-            IEnumerable<KeyValuePair<string, Person>> r1 = new List<KeyValuePair<string, Person>>();
-            IEnumerable<KeyValuePair<string, Person>> r2 = new List<KeyValuePair<string, Person>>();
-            IEnumerable<KeyValuePair<string, Person>> r3 = new List<KeyValuePair<string, Person>>();
+            IEnumerable<Person> r1 = new List<Person>();
+            IEnumerable<Person> r2 = new List<Person>();
+            IEnumerable<Person> r3 = new List<Person>();
 
             if ((checkedIndexes.Count != 3) && (checkedIndexes.Count != 0))
             {
@@ -223,7 +229,7 @@ namespace PersonsBase.View
                 if (MyCheckedListBox.IsChecked(checkedListBox_Age, 0))
                 {
                     var data = DateTime.Now.AddYears(-30); // Дата проверки для 30 летних
-                    r1 = _personsAll.Where(x => x.Value?.BirthDate.Date.CompareTo(data) >= 0);
+                    r1 = _personsAll.Where(x => x.Value?.BirthDate.Date.CompareTo(data) >= 0).Select(x => x.Value);
                 }
 
                 // 30 - 40
@@ -232,21 +238,21 @@ namespace PersonsBase.View
                     var dataFrom = DateTime.Now.AddYears(-40);
                     var dataTo = DateTime.Now.AddYears(-30);
                     r2 = _personsAll.Where(x => (x.Value?.BirthDate.Date.CompareTo(dataFrom) >= 0
-                                                     && x.Value?.BirthDate.Date.CompareTo(dataTo) <= 0));
+                                                     && x.Value?.BirthDate.Date.CompareTo(dataTo) <= 0)).Select(x => x.Value);
                 }
 
                 // От 40
                 if (MyCheckedListBox.IsChecked(checkedListBox_Age, 2))
                 {
                     var data = DateTime.Now.AddYears(-40);
-                    r3 = _personsAll.Where(x => x.Value?.BirthDate.Date.CompareTo(data) <= 0);
+                    r3 = _personsAll.Where(x => x.Value?.BirthDate.Date.CompareTo(data) <= 0).Select(x => x.Value);
 
                 }
                 _reqAge = r1.Union(r2).Union(r3);
             }
             else
             {
-                _reqAge = _personsAll; //  Если не нужна выборка по этому признаку
+                _reqAge = _personsAll.Values; //  Если не нужна выборка по этому признаку
             }
 
             MyCheckedListBox.ClearSelection(checkedListBox_Age);
@@ -263,7 +269,7 @@ namespace PersonsBase.View
         private void InitCheckedListBoxGender()
         {
             checkedListBox_Gender.Items.Clear();
-            var genderNames = Enum.GetNames(typeof(Gender)).ToArray<object>();
+            var genderNames = Enum.GetNames(typeof(Gender)).Where(x => !x.Contains(Gender.Неизвестен.ToString())).ToArray<object>();
             checkedListBox_Gender.Items.AddRange(genderNames);
         }
 
@@ -271,32 +277,26 @@ namespace PersonsBase.View
         {
             var checkedIndexes = checkedListBox_Gender.CheckedIndices;
 
-            IEnumerable<KeyValuePair<string, Person>> r1 = new List<KeyValuePair<string, Person>>();
-            IEnumerable<KeyValuePair<string, Person>> r2 = new List<KeyValuePair<string, Person>>();
-            IEnumerable<KeyValuePair<string, Person>> r3 = new List<KeyValuePair<string, Person>>();
+            IEnumerable<Person> r1 = new List<Person>();
+            IEnumerable<Person> r2 = new List<Person>();
 
-            if ((checkedIndexes.Count != 3) && (checkedIndexes.Count != 0))
+            if ((checkedIndexes.Count != 2) && (checkedIndexes.Count != 0))
             {
                 // Мужчины
                 if ((MyCheckedListBox.IsChecked(checkedListBox_Gender, 0)))
                 {
-                    r1 = _personsAll.Where(x => x.Value.GenderType == Gender.Мужской);
+                    r1 = _personsAll.Where(x => x.Value.GenderType == Gender.Мужской).Select(x => x.Value);
                 }
                 // Женщины
                 if (MyCheckedListBox.IsChecked(checkedListBox_Gender, 1))
                 {
-                    r2 = _personsAll.Where(x => (x.Value.GenderType == Gender.Женский));
+                    r2 = _personsAll.Where(x => (x.Value.GenderType == Gender.Женский)).Select(x => x.Value);
                 }
-                // Неизвестно
-                if (MyCheckedListBox.IsChecked(checkedListBox_Gender, 2))
-                {
-                    r3 = _personsAll.Where(x => (x.Value.GenderType == Gender.Неизвестен));
-                }
-                _reqGender = r1.Union(r2).Union(r3);
+                _reqGender = r1.Union(r2);
             }
             else
             {
-                _reqGender = _personsAll; //  Если не нужна выборка по этому признаку
+                _reqGender = _personsAll.Values; //  Если не нужна выборка по этому признаку
             }
 
             MyCheckedListBox.ClearSelection(checkedListBox_Gender);
@@ -320,29 +320,29 @@ namespace PersonsBase.View
         {
             var checkedIndexes = checkedListBox_TypeAbon.CheckedIndices;
 
-            IEnumerable<KeyValuePair<string, Person>> r1 = new List<KeyValuePair<string, Person>>();
-            IEnumerable<KeyValuePair<string, Person>> r2 = new List<KeyValuePair<string, Person>>();
-            IEnumerable<KeyValuePair<string, Person>> r3 = new List<KeyValuePair<string, Person>>();
+            IEnumerable<Person> r1 = new List<Person>();
+            IEnumerable<Person> r2 = new List<Person>();
+            IEnumerable<Person> r3 = new List<Person>();
 
             if ((checkedIndexes.Count != 3) && (checkedIndexes.Count != 0))
             {
                 if ((MyCheckedListBox.IsChecked(checkedListBox_TypeAbon, 0)))
                 {
-                    r1 = _personsAll.Where(x => x.Value?.AbonementCurent?.AbonementName == AbonementByDays.NameAbonement);
+                    r1 = _personsAll.Where(x => x.Value?.AbonementCurent?.AbonementName == AbonementByDays.NameAbonement).Select(x => x.Value);
                 }
                 if (MyCheckedListBox.IsChecked(checkedListBox_TypeAbon, 1))
                 {
-                    r2 = _personsAll.Where(x => x.Value?.AbonementCurent?.AbonementName == ClubCardA.NameAbonement);
+                    r2 = _personsAll.Where(x => x.Value?.AbonementCurent?.AbonementName == ClubCardA.NameAbonement).Select(x => x.Value);
                 }
                 if (MyCheckedListBox.IsChecked(checkedListBox_TypeAbon, 2))
                 {
-                    r3 = _personsAll.Where(x => x.Value?.AbonementCurent?.AbonementName == SingleVisit.NameAbonement);
+                    r3 = _personsAll.Where(x => x.Value?.AbonementCurent?.AbonementName == SingleVisit.NameAbonement).Select(x => x.Value);
                 }
                 _reqAbonType = r1.Union(r2).Union(r3);
             }
             else
             {
-                _reqAbonType = _personsAll; //  Если не нужна выборка по этому признаку
+                _reqAbonType = _personsAll.Values; //  Если не нужна выборка по этому признаку
             }
 
             MyCheckedListBox.ClearSelection(checkedListBox_TypeAbon);
@@ -370,12 +370,12 @@ namespace PersonsBase.View
             // Сортировка по этому признаку не важна. Содержит 2 поля(Оплачено, Не оплачено)
             if ((checkedIndexes.Count == 2) || (checkedIndexes.Count == 0))
             {
-                _reqTimeTren = _personsAll;
+                _reqTimeTren = _personsAll.Values;
             }
             else
             {
                 var timeTren = (MyCheckedListBox.IsChecked(checkedListBox_TimeTren, 0)) ? TimeForTr.Утро : TimeForTr.Весь_День;
-                _reqTimeTren = _personsAll.Where(x => x.Value?.AbonementCurent?.TimeTraining == timeTren);
+                _reqTimeTren = _personsAll.Where(x => x.Value?.AbonementCurent?.TimeTraining == timeTren).Select(x => x.Value);
             }
 
             MyCheckedListBox.ClearSelection(checkedListBox_TimeTren);
@@ -402,12 +402,12 @@ namespace PersonsBase.View
             // Сортировка по этому признаку не важна. Содержит 2 поля(Оплачено, Не оплачено)
             if ((checkedIndexes.Count == 2) || (checkedIndexes.Count == 0))
             {
-                _reqActivation = _personsAll;
+                _reqActivation = _personsAll.Values;
             }
             else
             {
                 var activation = MyCheckedListBox.IsChecked(checkedListBox_Activation, 0);
-                _reqActivation = _personsAll.Where(x => x.Value?.AbonementCurent?.IsActivated == activation);
+                _reqActivation = _personsAll.Where(x => x.Value?.AbonementCurent?.IsActivated == activation).Select(x => x.Value);
             }
 
             MyCheckedListBox.ClearSelection(checkedListBox_Activation);
@@ -431,19 +431,31 @@ namespace PersonsBase.View
         {
             var checkedIndexes = checkedListBox_Tren_Name.CheckedIndices;
 
-            // Сортировка по этому признаку не важна. Содержит 2 поля(Оплачено, Не оплачено)
-            if ((checkedIndexes.Count == 0))
+            var pList = new List<Person>();
+            _reqTrenName = _personsAll.Values;
+            if (checkedIndexes.Count != 0)
             {
-                _reqActivation = _personsAll;
+                foreach (var item in checkedIndexes)
+                {
+                    var checkedItem = checkedListBox_Tren_Name.Items[(int)item].ToString();
+                    var r2 = _aerobVisits.Where(x => x.GroupTimeName == checkedItem).Select(y => y.NamePerson).Distinct().ToList();
+
+                    foreach (var name in r2)
+                    {
+                        pList.Add(PersonObject.GetLink(name));
+                    }
+
+                    _reqTrenName = _reqTrenName.Intersect(pList).Distinct();
+                }
             }
             else
             {
-                
+                _reqTrenName = _personsAll.Values; //  Если не нужна выборка по этому признаку
             }
 
-            MyCheckedListBox.ClearSelection(checkedListBox_Activation);
-          //  var result = await GetUpdatedRequestsAsync();
-          //  ShowPersons(result);
+            MyCheckedListBox.ClearSelection(checkedListBox_Tren_Name);
+            var result = GetUpdatedRequestsAsync();
+            ShowPersons(result.Result);
         }
 
         #endregion
@@ -452,31 +464,17 @@ namespace PersonsBase.View
         /// Функция пробегает по всем запросам со всех полей и обьединяет в единый итоговый запрос-список.
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<KeyValuePair<string, Person>> GetUpdatedRequests()
+        private IEnumerable<Person> GetUpdatedRequests()
         {
-            var personsSelected = (IEnumerable<KeyValuePair<string, Person>>)_personsAll;
+            var personsSelected = _personsAll.Select(x => x.Value);
 
-            // Статусы
-            personsSelected = ProcessRequest(personsSelected, _reqStatuses);
-            // Последний Визит
-            personsSelected = ProcessRequest(personsSelected, _reqLastVisit);
-            // Оплата
-            personsSelected = ProcessRequest(personsSelected, _reqPay);
-            // Возраст
-            personsSelected = ProcessRequest(personsSelected, _reqAge);
-            // Пол
-            personsSelected = ProcessRequest(personsSelected, _reqGender);
-            // Тип Абонемента
-            personsSelected = ProcessRequest(personsSelected, _reqAbonType);
-            // Время Тренировок
-            personsSelected = ProcessRequest(personsSelected, _reqTimeTren);
-            // Активация
-            personsSelected = ProcessRequest(personsSelected, _reqActivation);
+            personsSelected = ProcessRequest(personsSelected, _reqStatuses, _reqLastVisit, _reqPay, _reqAge, _reqGender,
+                _reqAbonType, _reqTimeTren, _reqActivation, _reqTrenName);
 
             return personsSelected;
         }
 
-        public async Task<IEnumerable<KeyValuePair<string, Person>>> GetUpdatedRequestsAsync()
+        private async Task<IEnumerable<Person>> GetUpdatedRequestsAsync()
         {
             return await Task.Run(() => GetUpdatedRequests()).ConfigureAwait(false);
         }
@@ -485,7 +483,7 @@ namespace PersonsBase.View
         /// Выводит в DataGrid всех Клиентов из коллекции которую подавать на вход надо
         /// </summary>
         /// <param name="personsToShow"></param>
-        private async void ShowPersons(IEnumerable<KeyValuePair<string, Person>> personsToShow)
+        private async void ShowPersons(IEnumerable<Person> personsToShow)
         {
             var dt = await Task.Run(() => DataBaseM.CreatePersonsTable(personsToShow, DataBaseM.GetPersonFieldsShort));
             MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
@@ -495,11 +493,14 @@ namespace PersonsBase.View
         /// Хелп функция, нужна только для функции GetUpdatedRequests. Просто оборачивает вызов обьединения запросов через Intersect
         /// </summary>
         /// <param name="allPersons"></param>
-        /// <param name="inputRequest"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        private static IEnumerable<KeyValuePair<string, Person>> ProcessRequest(IEnumerable<KeyValuePair<string, Person>> allPersons, IEnumerable<KeyValuePair<string, Person>> inputRequest)
+        private static IEnumerable<Person> ProcessRequest(IEnumerable<Person> allPersons, params IEnumerable<Person>[] parameters)
         {
-            if (inputRequest != null) allPersons = allPersons.Intersect(inputRequest);
+            if (parameters != null && parameters.Length != 0)
+            {
+                allPersons = parameters.Where(item => item != null).Aggregate(allPersons, (current, item) => current.Intersect(item));
+            }
             return allPersons;
         }
 
@@ -508,7 +509,7 @@ namespace PersonsBase.View
         /// </summary>
         private void InitDataGridView()
         {
-            var dt = DataBaseM.CreatePersonsTable(_personsAll, DataBaseM.GetPersonFieldsShort);
+            var dt = DataBaseM.CreatePersonsTable(_personsAll.Values, DataBaseM.GetPersonFieldsShort);
             MyDataGridView.SetSourceDataGridView(dataGridView_Persons, dt);
             MyDataGridView.ImplementStyle(dataGridView_Persons);
         }
@@ -528,6 +529,19 @@ namespace PersonsBase.View
         private void button_resetDate_Click(object sender, EventArgs e)
         {
             dateTimePicker_Visit.Value = DateTime.Now;
+
+            InitCBoxStatus();
+            InitCBoxLastVisit();
+            InitDateVisit();
+            InitCheckedListBoxPay();
+            InitCheckedListBoxAge();
+            InitCheckedListBoxGender();
+            InitCheckedListBoxTypeAbon();
+            InitCheckedListBoxTimeTren();
+            InitCheckedListBoxActivation();
+            InitCheckedListBoxTrenName();
+
+            GetUpdatedRequests();
         }
 
         private async void ReportForm_Load(object sender, EventArgs e)
