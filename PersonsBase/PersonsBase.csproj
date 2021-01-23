@@ -111,6 +111,7 @@
     <Compile Include="myStd\MyDataGridView.cs" />
     <Compile Include="myStd\MyListView.cs" />
     <Compile Include="myStd\MyReflection.cs" />
+    <Compile Include="myStd\MyRichTextBox.cs" />
     <Compile Include="myStd\ObservablDictionary.cs" />
     <Compile Include="myStd\SerializeOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

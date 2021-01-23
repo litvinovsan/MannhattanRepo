@@ -20,6 +20,7 @@ namespace PersonsBase.View
         private bool _isAnythingChanged;
         private readonly AbonementController _abonementController;
 
+
         #endregion
 
         #region /// КОНСТРУКТОР. ЗАПУСК. ЗАКРЫТИЕ ФОРМЫ ///
@@ -327,7 +328,7 @@ namespace PersonsBase.View
         }
         private void _person_SpecialNotesChanged(object sender, string e)
         {
-            textBox_Notes.Text = _person.SpecialNotes;
+            MyRichTextBox.Load(richTextBox_notes, _person.SpecialNotes);
         }
 
         private void _person_DriverIdChanged(object sender, string e)
@@ -412,10 +413,10 @@ namespace PersonsBase.View
             MyComboBox.Initialize(comboBox_Gender, gendRange, gendSelected);
 
             // Особые Отметки
-            textBox_Notes.Text = _person.SpecialNotes;
             _editedSpecialNote = _person.SpecialNotes;
-        }
 
+            MyRichTextBox.Load(richTextBox_notes, _person.SpecialNotes);
+        }
 
         /// <summary>
         /// Инициализирует ЛистБокс с всеми абонементами Клиента. Вызывает прерывание на изменение индекса ЛистБокса
@@ -798,6 +799,55 @@ namespace PersonsBase.View
             UpdateControls(this, EventArgs.Empty);
             UpdateInfoTextBoxField(this, EventArgs.Empty);
         }
+
+        // Кнопки управвления цветом в Заметках
+        private void button_Clear_Selection_Click(object sender, EventArgs e)
+        {
+            MyRichTextBox.ClearFormat(richTextBox_notes);
+        }
+
+        private void button_Bold_Click(object sender, EventArgs e)
+        {
+            MyRichTextBox.ToggleBold(richTextBox_notes);
+        }
+
+        private void button_Green_Click(object sender, EventArgs e)
+        {
+            MyRichTextBox.ToggleColor(richTextBox_notes, Color.Green);
+        }
+
+        private void button_Blue_Click(object sender, EventArgs e)
+        {
+            MyRichTextBox.ToggleColor(richTextBox_notes, Color.DarkBlue);
+        }
+
+        private void button_Red_Click(object sender, EventArgs e)
+        {
+            MyRichTextBox.ToggleColor(richTextBox_notes, Color.Red);
+        }
+        private void toolStripMenuItem_Red_Click(object sender, EventArgs e)
+        {
+            MyRichTextBox.ToggleColor(richTextBox_notes, Color.Red);
+        }
+
+        private void toolStripMenuItem_Green_Click(object sender, EventArgs e)
+        {
+            MyRichTextBox.ToggleColor(richTextBox_notes, Color.Green);
+        }
+
+        private void toolStripMenuItem_Blue_Click(object sender, EventArgs e)
+        {
+            MyRichTextBox.ToggleColor(richTextBox_notes, Color.DarkBlue);
+        }
+
+        private void toolStripMenuItem_Bold_Click(object sender, EventArgs e)
+        {
+            MyRichTextBox.ToggleBold(richTextBox_notes);
+        }
+
+
         #endregion
+
+
     }
 }

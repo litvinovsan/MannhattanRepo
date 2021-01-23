@@ -71,14 +71,14 @@ namespace PersonsBase.View
                 if (_person.Status != StatusPerson.Гостевой)
                 {
                     var updatedarray = array.Where(x => ((x != StatusPerson.Гостевой.ToString()))).Select(x => x);
-                    array = updatedarray.ToArray<string>();
+                    array = updatedarray.ToArray();
                 }
             }
             // Удалим из Массива Заморожен если не Клубная Карта .
             if (!(_person.AbonementCurent is ClubCardA))
             {
                 var updatedarray = array.Where(x => (x != StatusPerson.Заморожен.ToString()) && ((x != StatusPerson.Гостевой.ToString()))).Select(x => x);
-                array = updatedarray.ToArray<string>();
+                array = updatedarray.ToArray();
             }
 
 
@@ -107,7 +107,7 @@ namespace PersonsBase.View
         }
         private void ComboStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboChangedMethod<StatusPerson>(sender, out _editedStatusPerson, _person.Status);
+            ComboChangedMethod(sender, out _editedStatusPerson, _person.Status);
         }
         #endregion
 
@@ -153,7 +153,7 @@ namespace PersonsBase.View
         }
         private void comboBox_TypeWorkout_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboChangedMethod<TypeWorkout>(sender, out _editedTypeWorkout, _person.AbonementCurent.TypeWorkout);
+            ComboChangedMethod(sender, out _editedTypeWorkout, _person.AbonementCurent.TypeWorkout);
         }
 
         #endregion
@@ -189,7 +189,7 @@ namespace PersonsBase.View
         }
         private void comboBox_SpaService_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboChangedMethod<SpaService>(sender, out _editedSpaService, _person.AbonementCurent.Spa);
+            ComboChangedMethod(sender, out _editedSpaService, _person.AbonementCurent.Spa);
         }
 
         #endregion
@@ -224,7 +224,7 @@ namespace PersonsBase.View
         }
         private void comboBox_Pay_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboChangedMethod<Pay>(sender, out _editedPay, _person.AbonementCurent.PayStatus);
+            ComboChangedMethod(sender, out _editedPay, _person.AbonementCurent.PayStatus);
         }
         #endregion
 
@@ -267,7 +267,7 @@ namespace PersonsBase.View
         {
             var valueModifyed = _person.AbonementCurent.IsActivated ? Activation.Активирован : Activation.Не_Активирован;
 
-            ComboChangedMethod<Activation>(sender, out _editedActivationStatus, valueModifyed);
+            ComboChangedMethod(sender, out _editedActivationStatus, valueModifyed);
         }
 
         #endregion
@@ -581,7 +581,7 @@ namespace PersonsBase.View
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("Exception 1");
+                        MessageBox.Show(@"Exception 1");
                     }
 
                 };
@@ -677,10 +677,10 @@ namespace PersonsBase.View
 
         #region // Поле. Особые отметки
         private string _editedSpecialNote;
-        private void textBox_Notes_TextChanged(object sender, EventArgs e)
+        private void richTextBox_notes_TextChanged(object sender, EventArgs e)
         {
-            var tb = (TextBox)sender;
-            _editedSpecialNote = tb.Text;
+            var tb = (RichTextBox)sender;
+            _editedSpecialNote = tb.Rtf;
         }
 
         #endregion
@@ -705,7 +705,7 @@ namespace PersonsBase.View
         }
         private void SaveSpecialNotes()
         {
-            if (_editedSpecialNote != _person.SpecialNotes) _person.SpecialNotes = _editedSpecialNote;
+            if (_editedSpecialNote != null && _editedSpecialNote != _person.SpecialNotes) _person.SpecialNotes = _editedSpecialNote;
         }
         private void IsChangedUpdateStatus(string oldArg, string newArg)
         {
@@ -720,8 +720,7 @@ namespace PersonsBase.View
             button_SavePersonalData.Focus(); // Cнимаем выделение сменой фокуса.
         }
 
-        // /////////////////////////////// ФУНКЦИИ СОЗДАНИЯ КОНТРОЛОВ ///////////////////////////////////
-
+        #region // ФУНКЦИИ СОЗДАНИЯ КОНТРОЛОВ ///////////////////////////////////
         // TextBox
         private static TextBox CreateTextBox(bool isReadOnly)
         {
@@ -790,5 +789,8 @@ namespace PersonsBase.View
             ComboBoxColor(tb, originVar.ToString(), tb.SelectedItem.ToString());
             IsChangedUpdateStatus(originVar.ToString(), tb.SelectedItem.ToString());
         }
+
+        #endregion
+
     }
 }
