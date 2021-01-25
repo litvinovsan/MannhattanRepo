@@ -45,5 +45,8 @@ namespace PersonsBase.data.Abonements
 
         [Description("Мини")]
         public string NumMini { get; set; }
+
+        [Description("Покупка")]
+        public string BuyDate { get; set; }
     }
 }

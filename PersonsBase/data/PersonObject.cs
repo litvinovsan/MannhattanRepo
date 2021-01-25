@@ -40,7 +40,7 @@ namespace PersonsBase.data
 
             var visitsToday = GetVisitsList(personName)?.Where(x => x.DateTimeVisit.Date.Equals(DateTime.Today)).ToList();
 
-            if (visitsToday==null || visitsToday.Count == 0) return false;
+            if (visitsToday == null || visitsToday.Count == 0) return false;
             else
             {
                 var lastVisit = visitsToday.Last();
@@ -138,7 +138,8 @@ namespace PersonsBase.data
                 LengthAbonOrClubCard = lengAbonOrClCa,
                 NumAerobn = (abon is AbonementByDays days && days.TypeWorkout == TypeWorkout.Аэробный_Зал) ? days.GetRemainderDays().ToString() : abon.NumAerobicTr.ToString(),
                 NumMini = (abon is AbonementByDays daysM && daysM.TypeWorkout == TypeWorkout.МиниГруппа) ? daysM.GetRemainderDays().ToString() : abon.NumMiniGroup.ToString(),
-                NumPerson = (abon is AbonementByDays daysP && daysP.TypeWorkout == TypeWorkout.Персональная) ? daysP.GetRemainderDays().ToString() : abon.NumPersonalTr.ToString()
+                NumPerson = (abon is AbonementByDays daysP && daysP.TypeWorkout == TypeWorkout.Персональная) ? daysP.GetRemainderDays().ToString() : abon.NumPersonalTr.ToString(),
+                BuyDate = abon.BuyDate.ToShortDateString()
             };
 
             // Список всех абонементов для всех клиентов
@@ -150,7 +151,7 @@ namespace PersonsBase.data
             }
             else
             {
-                personsAbonHistDict.Add(person.Name, new List<AbonHistory> { abonHistory });
+                personsAbonHistDict.Add(person.Name, new List<AbonHistory> { abonHistory});
             }
         }
         #endregion

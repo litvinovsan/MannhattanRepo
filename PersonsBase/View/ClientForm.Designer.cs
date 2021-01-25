@@ -54,6 +54,11 @@ namespace PersonsBase.View
             this.pictureBox_ClientPhoto = new System.Windows.Forms.PictureBox();
             this.button_photo_cam = new System.Windows.Forms.Button();
             this.richTextBox_notes = new System.Windows.Forms.RichTextBox();
+            this.contextMenuStrip_RichTextBox = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem_Red = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem_Green = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem_Blue = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem_Bold = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label_infoText = new System.Windows.Forms.Label();
             this.label_PersonName = new System.Windows.Forms.Label();
@@ -86,11 +91,6 @@ namespace PersonsBase.View
             this.button_Green = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button_Cancel = new System.Windows.Forms.Button();
-            this.contextMenuStrip_RichTextBox = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem_Red = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem_Green = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem_Blue = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem_Bold = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -101,6 +101,7 @@ namespace PersonsBase.View
             this.groupBox_Abon_NotValid.SuspendLayout();
             this.groupBox_Abonements.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).BeginInit();
+            this.contextMenuStrip_RichTextBox.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -111,7 +112,6 @@ namespace PersonsBase.View
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_history_abonements)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
-            this.contextMenuStrip_RichTextBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // dateTimePicker_birthDate
@@ -144,9 +144,10 @@ namespace PersonsBase.View
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1312, 959);
+            this.tabControl1.Size = new System.Drawing.Size(1312, 764);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 2;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -156,7 +157,7 @@ namespace PersonsBase.View
             this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Size = new System.Drawing.Size(1304, 921);
+            this.tabPage1.Size = new System.Drawing.Size(1304, 726);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Информация";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -184,8 +185,8 @@ namespace PersonsBase.View
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.richTextBox_notes);
-            this.splitContainer1.Size = new System.Drawing.Size(1291, 624);
-            this.splitContainer1.SplitterDistance = 469;
+            this.splitContainer1.Size = new System.Drawing.Size(1291, 675);
+            this.splitContainer1.SplitterDistance = 475;
             this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.TabIndex = 16;
             // 
@@ -195,7 +196,7 @@ namespace PersonsBase.View
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label7.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label7.Location = new System.Drawing.Point(2, 441);
+            this.label7.Location = new System.Drawing.Point(2, 447);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(106, 26);
             this.label7.TabIndex = 6;
@@ -290,7 +291,7 @@ namespace PersonsBase.View
             this.groupBox_Abon_NotValid.ForeColor = System.Drawing.Color.Maroon;
             this.groupBox_Abon_NotValid.Location = new System.Drawing.Point(1022, 282);
             this.groupBox_Abon_NotValid.Name = "groupBox_Abon_NotValid";
-            this.groupBox_Abon_NotValid.Size = new System.Drawing.Size(268, 157);
+            this.groupBox_Abon_NotValid.Size = new System.Drawing.Size(268, 163);
             this.groupBox_Abon_NotValid.TabIndex = 15;
             this.groupBox_Abon_NotValid.TabStop = false;
             this.groupBox_Abon_NotValid.Text = "Закончились";
@@ -305,7 +306,7 @@ namespace PersonsBase.View
             this.listBox_NotValidAbons.ItemHeight = 19;
             this.listBox_NotValidAbons.Location = new System.Drawing.Point(3, 22);
             this.listBox_NotValidAbons.Name = "listBox_NotValidAbons";
-            this.listBox_NotValidAbons.Size = new System.Drawing.Size(262, 132);
+            this.listBox_NotValidAbons.Size = new System.Drawing.Size(262, 138);
             this.listBox_NotValidAbons.TabIndex = 14;
             // 
             // groupBox_Info
@@ -318,7 +319,7 @@ namespace PersonsBase.View
             this.groupBox_Info.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_Info.Name = "groupBox_Info";
             this.groupBox_Info.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox_Info.Size = new System.Drawing.Size(741, 435);
+            this.groupBox_Info.Size = new System.Drawing.Size(741, 441);
             this.groupBox_Info.TabIndex = 4;
             this.groupBox_Info.TabStop = false;
             this.groupBox_Info.Text = "Информация";
@@ -332,7 +333,7 @@ namespace PersonsBase.View
             this.groupBox_Abonements.ForeColor = System.Drawing.Color.Green;
             this.groupBox_Abonements.Location = new System.Drawing.Point(13, 277);
             this.groupBox_Abonements.Name = "groupBox_Abonements";
-            this.groupBox_Abonements.Size = new System.Drawing.Size(235, 162);
+            this.groupBox_Abonements.Size = new System.Drawing.Size(235, 168);
             this.groupBox_Abonements.TabIndex = 7;
             this.groupBox_Abonements.TabStop = false;
             this.groupBox_Abonements.Text = "Действующие";
@@ -347,7 +348,7 @@ namespace PersonsBase.View
             this.listBox_abon_selector.ItemHeight = 19;
             this.listBox_abon_selector.Location = new System.Drawing.Point(3, 22);
             this.listBox_abon_selector.Name = "listBox_abon_selector";
-            this.listBox_abon_selector.Size = new System.Drawing.Size(229, 137);
+            this.listBox_abon_selector.Size = new System.Drawing.Size(229, 143);
             this.listBox_abon_selector.TabIndex = 14;
             this.listBox_abon_selector.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBox_abon_selector_MouseClick);
             this.listBox_abon_selector.SelectedIndexChanged += new System.EventHandler(this.listBox_abon_selector_SelectedIndexChanged);
@@ -391,18 +392,62 @@ namespace PersonsBase.View
             // 
             // richTextBox_notes
             // 
+            this.richTextBox_notes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox_notes.ContextMenuStrip = this.contextMenuStrip_RichTextBox;
-            this.richTextBox_notes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox_notes.Font = new System.Drawing.Font("Arial", 14F);
             this.richTextBox_notes.ForeColor = System.Drawing.Color.Black;
             this.richTextBox_notes.HideSelection = false;
-            this.richTextBox_notes.Location = new System.Drawing.Point(0, 0);
+            this.richTextBox_notes.Location = new System.Drawing.Point(3, 3);
             this.richTextBox_notes.Name = "richTextBox_notes";
             this.richTextBox_notes.ShowSelectionMargin = true;
-            this.richTextBox_notes.Size = new System.Drawing.Size(1291, 147);
+            this.richTextBox_notes.Size = new System.Drawing.Size(1282, 178);
             this.richTextBox_notes.TabIndex = 6;
             this.richTextBox_notes.Text = "";
             this.richTextBox_notes.TextChanged += new System.EventHandler(this.richTextBox_notes_TextChanged);
+            // 
+            // contextMenuStrip_RichTextBox
+            // 
+            this.contextMenuStrip_RichTextBox.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem_Red,
+            this.toolStripMenuItem_Green,
+            this.toolStripMenuItem_Blue,
+            this.toolStripMenuItem_Bold});
+            this.contextMenuStrip_RichTextBox.Name = "contextMenuStrip_RichTextBox";
+            this.contextMenuStrip_RichTextBox.Size = new System.Drawing.Size(112, 92);
+            // 
+            // toolStripMenuItem_Red
+            // 
+            this.toolStripMenuItem_Red.ForeColor = System.Drawing.Color.Red;
+            this.toolStripMenuItem_Red.Name = "toolStripMenuItem_Red";
+            this.toolStripMenuItem_Red.Size = new System.Drawing.Size(111, 22);
+            this.toolStripMenuItem_Red.Text = "Red";
+            this.toolStripMenuItem_Red.Click += new System.EventHandler(this.toolStripMenuItem_Red_Click);
+            // 
+            // toolStripMenuItem_Green
+            // 
+            this.toolStripMenuItem_Green.ForeColor = System.Drawing.Color.Green;
+            this.toolStripMenuItem_Green.Name = "toolStripMenuItem_Green";
+            this.toolStripMenuItem_Green.Size = new System.Drawing.Size(111, 22);
+            this.toolStripMenuItem_Green.Text = "Green";
+            this.toolStripMenuItem_Green.Click += new System.EventHandler(this.toolStripMenuItem_Green_Click);
+            // 
+            // toolStripMenuItem_Blue
+            // 
+            this.toolStripMenuItem_Blue.ForeColor = System.Drawing.Color.DarkBlue;
+            this.toolStripMenuItem_Blue.Name = "toolStripMenuItem_Blue";
+            this.toolStripMenuItem_Blue.Size = new System.Drawing.Size(111, 22);
+            this.toolStripMenuItem_Blue.Text = "Blue";
+            this.toolStripMenuItem_Blue.Click += new System.EventHandler(this.toolStripMenuItem_Blue_Click);
+            // 
+            // toolStripMenuItem_Bold
+            // 
+            this.toolStripMenuItem_Bold.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.toolStripMenuItem_Bold.Name = "toolStripMenuItem_Bold";
+            this.toolStripMenuItem_Bold.Size = new System.Drawing.Size(111, 22);
+            this.toolStripMenuItem_Bold.Text = "Bold";
+            this.toolStripMenuItem_Bold.Click += new System.EventHandler(this.toolStripMenuItem_Bold_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -454,7 +499,7 @@ namespace PersonsBase.View
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(1304, 921);
+            this.tabPage2.Size = new System.Drawing.Size(1304, 726);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Подробные данные";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -469,7 +514,7 @@ namespace PersonsBase.View
             this.groupBox_Detailed.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_Detailed.Name = "groupBox_Detailed";
             this.groupBox_Detailed.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox_Detailed.Size = new System.Drawing.Size(927, 887);
+            this.groupBox_Detailed.Size = new System.Drawing.Size(927, 718);
             this.groupBox_Detailed.TabIndex = 1;
             this.groupBox_Detailed.TabStop = false;
             this.groupBox_Detailed.Text = "Детальная информация";
@@ -485,7 +530,7 @@ namespace PersonsBase.View
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(341, 704);
+            this.groupBox2.Size = new System.Drawing.Size(341, 718);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Персональные данные";
@@ -495,7 +540,7 @@ namespace PersonsBase.View
             this.button_SavePersonalData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button_SavePersonalData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.button_SavePersonalData.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_SavePersonalData.Location = new System.Drawing.Point(3, 646);
+            this.button_SavePersonalData.Location = new System.Drawing.Point(3, 660);
             this.button_SavePersonalData.Margin = new System.Windows.Forms.Padding(2);
             this.button_SavePersonalData.Name = "button_SavePersonalData";
             this.button_SavePersonalData.Size = new System.Drawing.Size(334, 54);
@@ -687,7 +732,7 @@ namespace PersonsBase.View
             this.tabPage3.Location = new System.Drawing.Point(4, 34);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1304, 921);
+            this.tabPage3.Size = new System.Drawing.Size(1304, 726);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Посещения";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -703,7 +748,7 @@ namespace PersonsBase.View
             this.dataGridView_Visits.Location = new System.Drawing.Point(3, 3);
             this.dataGridView_Visits.Name = "dataGridView_Visits";
             this.dataGridView_Visits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_Visits.Size = new System.Drawing.Size(1298, 915);
+            this.dataGridView_Visits.Size = new System.Drawing.Size(1298, 720);
             this.dataGridView_Visits.TabIndex = 0;
             // 
             // tabPage_abon_history
@@ -712,7 +757,7 @@ namespace PersonsBase.View
             this.tabPage_abon_history.Location = new System.Drawing.Point(4, 34);
             this.tabPage_abon_history.Name = "tabPage_abon_history";
             this.tabPage_abon_history.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_abon_history.Size = new System.Drawing.Size(1304, 921);
+            this.tabPage_abon_history.Size = new System.Drawing.Size(1304, 726);
             this.tabPage_abon_history.TabIndex = 3;
             this.tabPage_abon_history.Text = "Архив Абонементов";
             this.tabPage_abon_history.UseVisualStyleBackColor = true;
@@ -723,7 +768,7 @@ namespace PersonsBase.View
             this.dataGridView_history_abonements.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_history_abonements.Location = new System.Drawing.Point(3, 3);
             this.dataGridView_history_abonements.Name = "dataGridView_history_abonements";
-            this.dataGridView_history_abonements.Size = new System.Drawing.Size(1298, 915);
+            this.dataGridView_history_abonements.Size = new System.Drawing.Size(1298, 720);
             this.dataGridView_history_abonements.TabIndex = 0;
             // 
             // button_Bold
@@ -764,7 +809,7 @@ namespace PersonsBase.View
             // 
             this.tableLayoutPanel4.AutoSize = true;
             this.tableLayoutPanel4.ColumnCount = 4;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 350F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 349F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -772,7 +817,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel4.Controls.Add(this.button2, 3, 0);
             this.tableLayoutPanel4.Controls.Add(this.button_Cancel, 0, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 709);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 768);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
@@ -787,7 +832,7 @@ namespace PersonsBase.View
             this.flowLayoutPanel2.Controls.Add(this.button_Blue);
             this.flowLayoutPanel2.Controls.Add(this.button_Green);
             this.flowLayoutPanel2.Controls.Add(this.button_Red);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(353, 3);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(352, 3);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.flowLayoutPanel2.Size = new System.Drawing.Size(597, 34);
@@ -838,59 +883,17 @@ namespace PersonsBase.View
             this.button_Cancel.Location = new System.Drawing.Point(2, 2);
             this.button_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.button_Cancel.Name = "button_Cancel";
-            this.button_Cancel.Size = new System.Drawing.Size(346, 36);
+            this.button_Cancel.Size = new System.Drawing.Size(345, 36);
             this.button_Cancel.TabIndex = 3;
             this.button_Cancel.Text = "Закрыть";
             this.button_Cancel.UseVisualStyleBackColor = true;
             this.button_Cancel.Click += new System.EventHandler(this.button_Cancel_Click);
             // 
-            // contextMenuStrip_RichTextBox
-            // 
-            this.contextMenuStrip_RichTextBox.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem_Red,
-            this.toolStripMenuItem_Green,
-            this.toolStripMenuItem_Blue,
-            this.toolStripMenuItem_Bold});
-            this.contextMenuStrip_RichTextBox.Name = "contextMenuStrip_RichTextBox";
-            this.contextMenuStrip_RichTextBox.Size = new System.Drawing.Size(181, 114);
-            // 
-            // toolStripMenuItem_Red
-            // 
-            this.toolStripMenuItem_Red.ForeColor = System.Drawing.Color.Red;
-            this.toolStripMenuItem_Red.Name = "toolStripMenuItem_Red";
-            this.toolStripMenuItem_Red.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem_Red.Text = "Red";
-            this.toolStripMenuItem_Red.Click += new System.EventHandler(this.toolStripMenuItem_Red_Click);
-            // 
-            // toolStripMenuItem_Green
-            // 
-            this.toolStripMenuItem_Green.ForeColor = System.Drawing.Color.Green;
-            this.toolStripMenuItem_Green.Name = "toolStripMenuItem_Green";
-            this.toolStripMenuItem_Green.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem_Green.Text = "Green";
-            this.toolStripMenuItem_Green.Click += new System.EventHandler(this.toolStripMenuItem_Green_Click);
-            // 
-            // toolStripMenuItem_Blue
-            // 
-            this.toolStripMenuItem_Blue.ForeColor = System.Drawing.Color.DarkBlue;
-            this.toolStripMenuItem_Blue.Name = "toolStripMenuItem_Blue";
-            this.toolStripMenuItem_Blue.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem_Blue.Text = "Blue";
-            this.toolStripMenuItem_Blue.Click += new System.EventHandler(this.toolStripMenuItem_Blue_Click);
-            // 
-            // toolStripMenuItem_Bold
-            // 
-            this.toolStripMenuItem_Bold.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.toolStripMenuItem_Bold.Name = "toolStripMenuItem_Bold";
-            this.toolStripMenuItem_Bold.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem_Bold.Text = "Bold";
-            this.toolStripMenuItem_Bold.Click += new System.EventHandler(this.toolStripMenuItem_Bold_Click);
-            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1312, 749);
+            this.ClientSize = new System.Drawing.Size(1312, 808);
             this.Controls.Add(this.tableLayoutPanel4);
             this.Controls.Add(this.tabControl1);
             this.DoubleBuffered = true;
@@ -913,6 +916,7 @@ namespace PersonsBase.View
             this.groupBox_Abon_NotValid.ResumeLayout(false);
             this.groupBox_Abonements.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).EndInit();
+            this.contextMenuStrip_RichTextBox.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tabPage2.ResumeLayout(false);
@@ -925,7 +929,6 @@ namespace PersonsBase.View
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_history_abonements)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
-            this.contextMenuStrip_RichTextBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -77,7 +77,7 @@
             this.flowLayoutPanel1.Controls.Add(this.button1);
             this.flowLayoutPanel1.Controls.Add(this.button2);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 780);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 709);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1311, 40);
             this.flowLayoutPanel1.TabIndex = 1;
@@ -121,7 +121,7 @@
             this.groupBox_All_Options.Controls.Add(this.flowLayoutPanel2);
             this.groupBox_All_Options.Location = new System.Drawing.Point(12, 12);
             this.groupBox_All_Options.Name = "groupBox_All_Options";
-            this.groupBox_All_Options.Size = new System.Drawing.Size(401, 762);
+            this.groupBox_All_Options.Size = new System.Drawing.Size(417, 762);
             this.groupBox_All_Options.TabIndex = 2;
             this.groupBox_All_Options.TabStop = false;
             this.groupBox_All_Options.Text = "Параметры клиентов";
@@ -142,7 +142,7 @@
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 20);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(395, 739);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(411, 739);
             this.flowLayoutPanel2.TabIndex = 0;
             // 
             // groupBox_Status
@@ -378,6 +378,7 @@
             this.checkedListBox_Tren_Name.Location = new System.Drawing.Point(3, 20);
             this.checkedListBox_Tren_Name.Name = "checkedListBox_Tren_Name";
             this.checkedListBox_Tren_Name.Size = new System.Drawing.Size(372, 312);
+            this.checkedListBox_Tren_Name.Sorted = true;
             this.checkedListBox_Tren_Name.TabIndex = 2;
             this.checkedListBox_Tren_Name.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_Tren_Name_SelectedIndexChanged);
             // 
@@ -388,11 +389,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView_Persons.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.dataGridView_Persons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_Persons.Location = new System.Drawing.Point(419, 21);
+            this.dataGridView_Persons.Location = new System.Drawing.Point(435, 21);
             this.dataGridView_Persons.MultiSelect = false;
             this.dataGridView_Persons.Name = "dataGridView_Persons";
             this.dataGridView_Persons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_Persons.Size = new System.Drawing.Size(880, 750);
+            this.dataGridView_Persons.Size = new System.Drawing.Size(864, 750);
             this.dataGridView_Persons.TabIndex = 3;
             this.dataGridView_Persons.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_Persons_MouseDoubleClick);
             // 
@@ -400,7 +401,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1311, 820);
+            this.ClientSize = new System.Drawing.Size(1311, 749);
             this.Controls.Add(this.dataGridView_Persons);
             this.Controls.Add(this.groupBox_All_Options);
             this.Controls.Add(this.flowLayoutPanel1);

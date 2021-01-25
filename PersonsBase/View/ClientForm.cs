@@ -542,7 +542,9 @@ namespace PersonsBase.View
                 CreateActivationField(),
                 CreateTypeWorkoutField(),
                 CreateSpaServiceField(),
-                CreatePayServiceField()
+                CreatePayServiceField(),
+                CreateBuyDateField(),
+                CreateActivationDateField(),
             };
 
             return list;
@@ -563,6 +565,7 @@ namespace PersonsBase.View
                 CreateRemainderDaysField(),
                 CreatePayServiceField(),
                 CreateBuyDateField(),
+                CreateActivationDateField(),
                 CreateEndDateField()
             };
             return list;
@@ -581,6 +584,7 @@ namespace PersonsBase.View
                 CreateRemainderDaysField(),
                 CreatePayServiceField(),
                 CreateBuyDateField(),
+                CreateActivationDateField(),
                 CreateEndDateField()
             };
 
@@ -845,6 +849,10 @@ namespace PersonsBase.View
             MyRichTextBox.ToggleBold(richTextBox_notes);
         }
 
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            flowLayoutPanel2.Visible = tabControl1.SelectedIndex == 0;
+        }
 
         #endregion
 

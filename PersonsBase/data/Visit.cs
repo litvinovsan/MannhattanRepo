@@ -33,7 +33,8 @@ namespace PersonsBase.data
         private int NumAllDaysAbon { get; }
         private int NumAerobicTr { get; }
         private int NumPersonalTr { get; }
-        private  int NumMiniGroup { get; }
+        private int NumMiniGroup { get; }
+        private DateTime AbonBuyDate { get; } // FIXME Переделать даты в абонементе
 
         // Конструкторы
         public Visit(AbonementBasic abon, WorkoutOptions workoutOptions, string administratorName)
@@ -55,6 +56,7 @@ namespace PersonsBase.data
                 ? NameUnknown
                 : workoutOptions.PersonalTrener.Name;
             GroupInfo = workoutOptions.GroupInfo;
+            AbonBuyDate = abon.BuyDate;
         }
         public Visit()
         {
@@ -73,6 +75,7 @@ namespace PersonsBase.data
             CurrAdmName = "";
             PeronalTrenerName = "";
             GroupInfo = new Group();
+            AbonBuyDate = DateTime.Now;
         }
 
         #region // Cоздание таблицы для вывода на форму в DataGridView 
@@ -104,8 +107,9 @@ namespace PersonsBase.data
             reportRowsList.Add(new DataGridItem("Тренер", trenerName, "Имя Тренера, проводившего тренировку. Если известно"));
             reportRowsList.Add(new DataGridItem("Расписание", groupTimeNameInfo, "Название и время Групповой тренировки. Если известно."));
             reportRowsList.Add(new DataGridItem("Админ.", CurrAdmName, "Администратор в клубе на момент посещения"));
-            reportRowsList.Add(new DataGridItem("Покупка А.", $"{AbonStartDate:d}", "Дата Покупки абонемента"));
-            reportRowsList.Add(new DataGridItem("Конец А.", $"{AbonEndDate:d}", "Дата Конеца абонемента"));
+            reportRowsList.Add(new DataGridItem("Покупка", $"{AbonBuyDate:d}", "Дата Покупки абонемента"));
+            reportRowsList.Add(new DataGridItem("Активация", $"{AbonStartDate:d}", "Дата Активации абонемента"));
+            reportRowsList.Add(new DataGridItem("Конец А.", $"{AbonEndDate:d}", "Дата Окончания абонемента"));
 
             return reportRowsList;
         }

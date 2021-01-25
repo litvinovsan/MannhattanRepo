@@ -524,23 +524,16 @@ namespace PersonsBase.View
         private DateTime _editedBuyDate;
         private Tuple<Label, Control> CreateBuyDateField()
         {
-            const string labelText = "Дата Покупки/Активации Карты ";
+            const string labelText = "Дата Покупки Карты ";
             Label lableType = CreateLabel(labelText);
             DateTimePicker dateTime = CreateDateTimePicker();
-            var init = (_person.AbonementCurent.BuyActivationDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? _person.AbonementCurent.BuyActivationDate.Date : dateTime.Value;
+            var init = (_person.AbonementCurent.BuyDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? _person.AbonementCurent.BuyDate.Date : dateTime.Value;
 
             dateTime.Value = init;
             _editedBuyDate = init;
             dateTime.Enabled = false;
             dateTime.ValueChanged += DateTime_BuyDate_ValueChanged;
 
-            //_saveDelegateChain += () =>
-            //{
-            //    if (_person.IsAbonementExist() && _editedBuyDate.CompareTo(_person.AbonementCurent.BuyActivationDate.Date) != 0)
-            //    {
-            //        _person.AbonementCurent.BuyActivationDate = _editedBuyDate;
-            //    }
-            //};
             return new Tuple<Label, Control>(lableType, dateTime);
         }
 
@@ -550,6 +543,18 @@ namespace PersonsBase.View
             _editedBuyDate = tb.Value.Date;
         }
 
+        private Tuple<Label, Control> CreateActivationDateField()
+        {
+            const string labelText = "Дата Активации Карты";
+            Label lableType = CreateLabel(labelText);
+            DateTimePicker dateTime = CreateDateTimePicker();
+            var init = (_person.AbonementCurent.BuyActivationDate.Date.CompareTo(DateTime.Parse("01.01.0001")) > 0) ? _person.AbonementCurent.BuyActivationDate.Date : dateTime.Value;
+
+            dateTime.Value = init;
+            dateTime.Enabled = false;
+           
+            return new Tuple<Label, Control>(lableType, dateTime);
+        }
         #endregion
 
         #region // Метод. Количество дней в Абонементе

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace PersonsBase.data.Abonements
 {
@@ -55,6 +56,7 @@ namespace PersonsBase.data.Abonements
 
         private DateTime _endDate;             // Дата завершения абонемента. 
         private int _numMiniGroup;
+        private DateTime _buyDate;
 
         public DateTime EndDate
         {
@@ -70,6 +72,25 @@ namespace PersonsBase.data.Abonements
             }
         }
 
+        public DateTime BuyDate
+        {
+            get
+            {
+
+                if (_buyDate.CompareTo(DefaultDateTime)==0)
+                {
+                    return BuyActivationDate;
+                }
+                else
+                {
+                    return _buyDate;
+                }
+            }
+            private set { _buyDate = value; }
+        } // Дата покупки
+
+        private static readonly DateTime DefaultDateTime = DateTime.Parse("01.01.0001");
+
         // КОНСТРУКТОР
         protected AbonementBasic(Pay payStatus, TimeForTr time, TypeWorkout tr, SpaService spa)
         {
@@ -79,6 +100,7 @@ namespace PersonsBase.data.Abonements
             this.Spa = spa;
             IsActivated = false;
             BuyActivationDate = DateTime.Now.Date;
+            BuyDate = DateTime.Now.Date;
         }
         protected AbonementBasic()
         {
@@ -88,6 +110,7 @@ namespace PersonsBase.data.Abonements
             this.Spa = SpaService.Спа;
             IsActivated = false;
             BuyActivationDate = DateTime.Now.Date;
+            BuyDate = DateTime.Now.Date;
         }
 
         //МЕТОДЫ АБСТРАКТНЫЕ
