@@ -34,8 +34,7 @@ namespace ManhattatProject
         [STAThread]
         static void Main()
         {
-            try
-            {
+            
                 using (var mutex = new Mutex(true, "ManhattatProject"))
                 {
                     if (mutex.WaitOne(500, false))
@@ -51,11 +50,8 @@ namespace ManhattatProject
                         SetForegroundWindow(wndHandle); //делаем окно активным
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
+            
+           
         }
     }
 }

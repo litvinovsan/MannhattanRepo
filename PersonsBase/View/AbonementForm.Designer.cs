@@ -45,7 +45,7 @@ namespace PersonsBase.View
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_Guest = new System.Windows.Forms.PictureBox();
             this.radioButton_guest = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel_TypeTren = new System.Windows.Forms.Panel();
@@ -86,7 +86,7 @@ namespace PersonsBase.View
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Guest)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel_TypeTren.SuspendLayout();
             this.panel_Spa.SuspendLayout();
@@ -157,7 +157,7 @@ namespace PersonsBase.View
             this.tableLayoutPanel2.Controls.Add(this.pictureBox1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.pictureBox2, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.pictureBox3, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.pictureBox8, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.pictureBox_Guest, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.radioButton_guest, 1, 3);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 2);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -291,15 +291,15 @@ namespace PersonsBase.View
             this.pictureBox3.TabIndex = 10;
             this.pictureBox3.TabStop = false;
             // 
-            // pictureBox8
+            // pictureBox_Guest
             // 
-            this.pictureBox8.Image = global::PersonsBase.Properties.Resources.user_male_add;
-            this.pictureBox8.Location = new System.Drawing.Point(3, 126);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(43, 35);
-            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox8.TabIndex = 12;
-            this.pictureBox8.TabStop = false;
+            this.pictureBox_Guest.Image = global::PersonsBase.Properties.Resources.user_male_add;
+            this.pictureBox_Guest.Location = new System.Drawing.Point(3, 126);
+            this.pictureBox_Guest.Name = "pictureBox_Guest";
+            this.pictureBox_Guest.Size = new System.Drawing.Size(43, 35);
+            this.pictureBox_Guest.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_Guest.TabIndex = 12;
+            this.pictureBox_Guest.TabStop = false;
             // 
             // radioButton_guest
             // 
@@ -731,7 +731,7 @@ namespace PersonsBase.View
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Guest)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.panel_TypeTren.ResumeLayout(false);
@@ -801,7 +801,7 @@ namespace PersonsBase.View
         private PictureBox pictureBox7;
         private Label label9;
         private ComboBox comboBox_Tren;
-        private PictureBox pictureBox8;
+        private PictureBox pictureBox_Guest;
         private RadioButton radioButton_guest;
         private FlowLayoutPanel flowLayoutPanel1;
         private GroupBox groupBox_Details;

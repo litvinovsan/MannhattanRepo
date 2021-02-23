@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PersonsBase.control;
 using PersonsBase.data.Abonements;
+using PersonsBase.myStd;
 
 namespace PersonsBase.data
 {
@@ -314,9 +316,32 @@ namespace PersonsBase.data
         /// <param name="first"></param>
         /// <returns></returns>
         public static IEnumerable<PersonField> GetPersonFieldsFull(Person first)
-        {// FIXME  Попробовать тут Рефлексию
+        {
             var person = first;
-            var abon = person.AbonementCurent;
+
+            var instAbonContr = AbonementController.GetInstance();
+            var abonHistoriesOld = PersonObject.GetAbonHistoryList(person.Name);
+            var abonListAll = instAbonContr.GetList(person.Name);
+            var abonValid = instAbonContr.GetFirstValid(person.Name);
+
+            // Создается текстовый список всех абонементов.
+            var abonHistString = new StringBuilder();
+            foreach (var item in abonListAll)
+            {
+                abonHistString.AppendLine(item?.AbonementName + $"({item?.BuyDate.Date}), ");
+            }
+
+            if (abonHistoriesOld != null)
+                foreach (var item in abonHistoriesOld)
+                {
+                    abonHistString.Append(item?.AbonementName + $"({item?.BuyDate}), ");
+                }
+            // Для выдергивания не форматированного текста в заметки.
+            RichTextBox tempSpecialNotesRtb = new RichTextBox();
+            MyRichTextBox.Load(tempSpecialNotesRtb, person.SpecialNotes);
+
+            var abon = abonValid ?? abonListAll?.LastOrDefault();
+
             var isAbonExist = abon != null;
             var personFields = new List<PersonField>
             {
@@ -328,7 +353,6 @@ namespace PersonsBase.data
                 new PersonField {HeaderName = "ID номер", Value = person.PersonalNumber.ToString()},
                 new PersonField {HeaderName = "Паспорт", Value = person.Passport},
                 new PersonField {HeaderName = "Права", Value = person.DriverIdNum},
-                new PersonField { HeaderName = "Фото", Value = Path.GetFileName(person.PathToPhoto)},
                 // Абонемент
                 new PersonField { HeaderName = "Название", Value = (isAbonExist) ?abon.AbonementName: "" },
                 new PersonField { HeaderName = "Доступное время", Value = (isAbonExist) ?abon.TimeTraining.ToString():"" },
@@ -340,11 +364,13 @@ namespace PersonsBase.data
                 new PersonField { HeaderName = "Спа услуги", Value = (isAbonExist) ?abon.Spa.ToString():"" },
                 new PersonField { HeaderName = "Доступный тип", Value =(isAbonExist) ?abon.TypeWorkout.ToString():"" },
                 new PersonField { HeaderName = "Оплата", Value = (isAbonExist) ?abon.PayStatus.ToString():"" },
+                new PersonField { HeaderName = "Абон. Покупка", Value =(isAbonExist) ? $"{abon.BuyDate:MM/dd/yyyy}" :""},
                 new PersonField { HeaderName = "Абон. Активация", Value =(isAbonExist) ? $"{abon.BuyActivationDate:MM/dd/yyyy}" :""},
-                new PersonField { HeaderName = "Абон. Конец", Value =(isAbonExist) ? $"{person.AbonementCurent.EndDate:MM/dd/yyyy}":"" },
+                new PersonField { HeaderName = "Абон. Конец", Value =(isAbonExist) ? $"{abon.EndDate:MM/dd/yyyy}":"" },
                 new PersonField { HeaderName = "Активация", Value = (isAbonExist) ?abon.IsActivated.ToString():"" },
-                new PersonField { HeaderName = "Заметки", Value = person.SpecialNotes },
-                new PersonField { HeaderName = "Заморозки", Value = GetFreezeString(person) }
+                new PersonField { HeaderName = "Заметки", Value = tempSpecialNotesRtb.Text },
+                new PersonField { HeaderName = "Заморозки", Value = GetFreezeString(person) },
+                new PersonField { HeaderName = "История Абон.", Value =abonHistString.ToString() }
             };
 
             return personFields;
@@ -367,11 +393,13 @@ namespace PersonsBase.data
             };
 
             // Все что касается Абонемента
-            if (person.AbonementCurent == null) return personFields;
+            var instAbonContr = AbonementController.GetInstance();
+            var lastAbonement = instAbonContr.GetFirstValid(person.Name) ?? instAbonContr.GetList(person.Name).LastOrDefault();
+            if (lastAbonement == null) return personFields;
 
-            personFields.Add(new PersonField { HeaderName = "Название", Value = person.AbonementCurent.AbonementName });
-            personFields.Add(new PersonField { HeaderName = "Покупка", Value = $"{person.AbonementCurent.BuyActivationDate:dd/MM/yyyy}" });
-            personFields.Add(new PersonField { HeaderName = "Конец", Value = $"{person.AbonementCurent.EndDate:dd/MM/yyyy}" });
+            personFields.Add(new PersonField { HeaderName = "Название", Value = lastAbonement.AbonementName });
+            personFields.Add(new PersonField { HeaderName = "Покупка", Value = $"{lastAbonement.BuyActivationDate:dd/MM/yyyy}" });
+            personFields.Add(new PersonField { HeaderName = "Конец", Value = $"{lastAbonement.EndDate:dd/MM/yyyy}" });
 
             // Последнее посещение в журнале
             var journal = PersonObject.GetVisitsList(person.Name);
@@ -379,6 +407,8 @@ namespace PersonsBase.data
             {
                 var lastVisit = journal.Last().DateTimeVisit.Date; //.ToString("MM/dd/yyyy");
                 var numDays = (DateTime.Now - lastVisit).Days;
+                personFields.Add(new PersonField { HeaderName = "Посл.Визит", Value = lastVisit.ToString("MM/dd/yyyy") });
+
                 personFields.Add(numDays == 0
                     ? new PersonField { HeaderName = "Был (дн. назад)", Value = $"Сегодня" }
                     : new PersonField { HeaderName = "Был (дн. назад)", Value = $"  {numDays}" });

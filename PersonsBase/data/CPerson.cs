@@ -265,8 +265,9 @@ namespace PersonsBase.data
 
             if (Status == StatusPerson.Гостевой)
             {
-                //if (AbonementCurent == null) return;
-                return;
+                _abonementCurent = AbonementController.GetInstance().GetFirstValid(Name);
+
+                if (AbonementCurent == null) return;
             }
 
             // Нет Карты

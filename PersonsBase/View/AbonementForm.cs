@@ -69,8 +69,10 @@ namespace PersonsBase.View
 
             // Гостевой визит Радиобатон показывается если не были посещения
             var lastVisits = PersonObject.GetVisitsList(_person.Name);
-            radioButton_guest.Visible = lastVisits == null || lastVisits.Count == 0;
-            pictureBox8.Visible = lastVisits == null || lastVisits.Count == 0;
+            var isAbonementsExists = (AbonementController.GetInstance()?.GetList(_person.Name)?.Count!=0);
+
+            radioButton_guest.Visible = (lastVisits == null || lastVisits.Count == 0) && !isAbonementsExists;
+            pictureBox_Guest.Visible = (lastVisits == null || lastVisits.Count == 0) && !isAbonementsExists;
         }
 
         private void SetInitialValues()
@@ -400,8 +402,6 @@ namespace PersonsBase.View
                 radioButton_Single.Checked = false;
                 groupBox_Correctable.Enabled = false;
             }
-
-
         }
 
         private void UpdateCorrectFieldsEn()

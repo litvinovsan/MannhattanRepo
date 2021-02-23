@@ -178,8 +178,12 @@ namespace PersonsBase.myStd
 
             ws.Columns().AdjustToContents();
 
-            // Adjust column widths to their content
-            ws.Columns(2, 25).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            // Заметки
+            ws.Columns(22, 22).Width=35;
+            // Абонементы
+            ws.Columns(23, 23).Width = 20;
+            //  ws.Columns(22, 22). Cells().Style.Alignment.SetWrapText(true); // Its single statement
+
             ws.Rows(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
         }
 

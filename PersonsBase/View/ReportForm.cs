@@ -437,8 +437,28 @@ namespace PersonsBase.View
             {
                 foreach (var item in checkedIndexes)
                 {
-                    var checkedItem = checkedListBox_Tren_Name.Items[(int)item].ToString();
-                    var r2 = _aerobVisits.Where(x => x.GroupTimeName == checkedItem).Select(y => y.NamePerson).Distinct().ToList();
+                    var checkedItemString = checkedListBox_Tren_Name.Items[(int)item].ToString();
+                    var indexOfBrace = checkedItemString.IndexOf('(');
+
+                    string trimmedCheckedItemString;
+                    if (indexOfBrace > 0)
+                    {
+                        trimmedCheckedItemString = checkedItemString.Substring(0, checkedItemString.IndexOf('(')).Trim();
+                    }
+                    else
+                    {
+                        trimmedCheckedItemString = checkedItemString;
+                    }
+
+                    var r2 = _aerobVisits.Where(x =>
+                    {
+                        string groupTrName= x.GroupTimeName;
+                        if (groupTrName.Contains("("))
+                        {
+                            groupTrName= groupTrName.Substring(0, x.GroupTimeName.IndexOf('(')).Trim();
+                        }
+                        return groupTrName == trimmedCheckedItemString;
+                    }).Select(y => y.NamePerson).Distinct().ToList();
 
                     foreach (var name in r2)
                     {
