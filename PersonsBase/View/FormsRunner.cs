@@ -88,26 +88,6 @@ namespace PersonsBase.View
             return result;
         }
 
-        /// <summary>
-        /// Метод запускает форму Абонемента для просмотра или редактирования.
-        /// Это зависит от статуса пароля администратора
-        /// </summary>
-        /// <param name="abonToShow"></param>
-        /// <returns></returns>
-        public static DialogResult CreateAbonementForm(ref AbonementBasic abonToShow)
-        {
-            var result = DialogResult.Cancel;
-
-            using (var form = new AbonementForm(ref abonToShow))
-            {
-                if (form.ShowDialog() != DialogResult.OK) return result;
-
-                form.ApplyChanges();
-                result = DialogResult.OK;
-            }
-            return result;
-        }
-
         #endregion
 
         #region /// ЗАМОРОЗКА Абонемента ///
@@ -261,18 +241,6 @@ namespace PersonsBase.View
             var frm = new AdminSelectForm();
             frm.ShowDialog();
         }
-        #endregion
-
-        #region /// СФОТОГРАФИРОВАТЬ КЛИЕНТА ///
-        //public static bool RunSnapshotForm(out Image imageFromCamera)
-        //{
-        //    //imageFromCamera = null;
-        //    //var snapshot = new SnapshotForm();
-
-        //    //if (snapshot.ShowDialog() != DialogResult.OK) return false;
-        //    //imageFromCamera = snapshot.GetImage();
-        //    return true;
-        //}
         #endregion
     }
 }

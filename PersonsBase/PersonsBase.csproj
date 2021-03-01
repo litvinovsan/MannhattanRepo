@@ -166,6 +166,10 @@
     <Compile Include="View\FreezeForm.Designer.cs">
       <DependentUpon>FreezeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\ImportForm.cs" />
+    <Compile Include="View\ImportForm.Designer.cs">
+      <DependentUpon>ImportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

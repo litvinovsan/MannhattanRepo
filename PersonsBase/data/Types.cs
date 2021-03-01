@@ -166,7 +166,7 @@ namespace PersonsBase.data
         Активирован,
         Не_Активирован
     }
-   
+
 
     #endregion
 

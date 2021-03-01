@@ -627,5 +627,10 @@ namespace PersonsBase.View
             if (сomboBox_PersonsList != null && сomboBox_PersonsList.Items.Count > 0) сomboBox_PersonsList.DroppedDown = true;
         }
         #endregion
+
+        private void импортИзExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Logic.ImportPersons();
+        }
     }
 }

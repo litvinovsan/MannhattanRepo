@@ -236,6 +236,15 @@ namespace PersonsBase.control
         #region /// КЛИЕНТ. СОЗДАНИЕ. УДАЛЕНИЕ. РЕДАКТИРОВАНИЕ. ПРОВЕРКИ ///
 
         /// <summary>
+        /// Запуск формы импорта клиентов, Загружает файл Excel
+        /// </summary>
+        public static void ImportPersons()
+        {
+            var frm = new ImportForm();
+            var dlgResult = frm.ShowDialog();
+        }
+
+        /// <summary>
         /// Запуск Формы создания клиента
         /// </summary>
         /// <returns></returns>
@@ -1073,5 +1082,7 @@ namespace PersonsBase.control
             return result;
         }
         #endregion
+
+
     }
 }
