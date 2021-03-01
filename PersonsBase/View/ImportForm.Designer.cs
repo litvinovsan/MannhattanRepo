@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.bindingSource_Process = new System.Windows.Forms.BindingSource(this.components);
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.dataGridView_ToResolve = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -52,20 +53,12 @@
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.dataGridView_File = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Notes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridView_ToResolve = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource_Process)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ToResolve)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_File)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ToResolve)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -88,6 +81,21 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1060, 664);
             this.tableLayoutPanel1.TabIndex = 2;
+            // 
+            // dataGridView_ToResolve
+            // 
+            this.dataGridView_ToResolve.AllowUserToOrderColumns = true;
+            this.dataGridView_ToResolve.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView_ToResolve.AutoGenerateColumns = false;
+            this.dataGridView_ToResolve.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_ToResolve.DataSource = this.bindingSource_Process;
+            this.dataGridView_ToResolve.Location = new System.Drawing.Point(509, 75);
+            this.dataGridView_ToResolve.MultiSelect = false;
+            this.dataGridView_ToResolve.Name = "dataGridView_ToResolve";
+            this.dataGridView_ToResolve.Size = new System.Drawing.Size(548, 586);
+            this.dataGridView_ToResolve.TabIndex = 5;
             // 
             // label1
             // 
@@ -173,7 +181,7 @@
             this.textBox_Phone_Column.Name = "textBox_Phone_Column";
             this.textBox_Phone_Column.Size = new System.Drawing.Size(100, 20);
             this.textBox_Phone_Column.TabIndex = 1;
-            this.textBox_Phone_Column.TextChanged += new System.EventHandler(this.textBox_Phone_Column_TextChanged);
+            this.textBox_Phone_Column.TextChanged += new System.EventHandler(this.textBox_Phone_Column_TextChanged_1);
             // 
             // textBox_Name_Column
             // 
@@ -182,7 +190,7 @@
             this.textBox_Name_Column.Name = "textBox_Name_Column";
             this.textBox_Name_Column.Size = new System.Drawing.Size(100, 20);
             this.textBox_Name_Column.TabIndex = 1;
-            this.textBox_Name_Column.TextChanged += new System.EventHandler(this.textBox_Name_Column_TextChanged);
+            this.textBox_Name_Column.TextChanged += new System.EventHandler(this.textBox_Name_Column_TextChanged_1);
             // 
             // button_start
             // 
@@ -193,7 +201,7 @@
             this.button_start.TabIndex = 0;
             this.button_start.Text = "Start";
             this.button_start.UseVisualStyleBackColor = true;
-            this.button_start.Click += new System.EventHandler(this.button_start_Click);
+            this.button_start.Click += new System.EventHandler(this.button_start_Click_1);
             // 
             // button_OpenFile
             // 
@@ -204,7 +212,7 @@
             this.button_OpenFile.TabIndex = 0;
             this.button_OpenFile.Text = "Open";
             this.button_OpenFile.UseVisualStyleBackColor = true;
-            this.button_OpenFile.Click += new System.EventHandler(this.button_OpenFile_Click);
+            this.button_OpenFile.Click += new System.EventHandler(this.button_OpenFile_Click_1);
             // 
             // panel2
             // 
@@ -299,109 +307,40 @@
             // dataGridView_File
             // 
             this.dataGridView_File.AllowUserToOrderColumns = true;
-            this.dataGridView_File.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.dataGridView_File.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView_File.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_File.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Id,
-            this.Phone,
-            this.Notes});
             this.dataGridView_File.Location = new System.Drawing.Point(3, 75);
             this.dataGridView_File.MultiSelect = false;
             this.dataGridView_File.Name = "dataGridView_File";
             this.dataGridView_File.Size = new System.Drawing.Size(500, 586);
             this.dataGridView_File.TabIndex = 4;
             // 
-            // Id
-            // 
-            this.Id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Id.HeaderText = "№";
-            this.Id.Name = "Id";
-            this.Id.Width = 43;
-            // 
-            // 
-            // Phone
-            // 
-            this.Phone.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Phone.HeaderText = "Phone";
-            this.Phone.Name = "Phone";
-            // 
-            // Notes
-            // 
-            this.Notes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Notes.HeaderText = "Notes";
-            this.Notes.Name = "Notes";
-            // 
-            // dataGridView_ToResolve
-            // 
-            this.dataGridView_ToResolve.AllowUserToOrderColumns = true;
-            this.dataGridView_ToResolve.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView_ToResolve.AutoGenerateColumns = false;
-            this.dataGridView_ToResolve.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_ToResolve.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4});
-            this.dataGridView_ToResolve.DataSource = this.bindingSource_Process;
-            this.dataGridView_ToResolve.Location = new System.Drawing.Point(509, 75);
-            this.dataGridView_ToResolve.MultiSelect = false;
-            this.dataGridView_ToResolve.Name = "dataGridView_ToResolve";
-            this.dataGridView_ToResolve.Size = new System.Drawing.Size(548, 586);
-            this.dataGridView_ToResolve.TabIndex = 5;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.dataGridViewTextBoxColumn1.HeaderText = "№";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 43;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Phone";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Notes";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
-            // ExcelForm
+            // ImportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1060, 664);
             this.Controls.Add(this.tableLayoutPanel1);
             this.DoubleBuffered = true;
-            this.Name = "ExcelForm";
-            this.Text = "ExcelForm";
+            this.Name = "ImportForm";
+            this.Text = "ImportForm";
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource_Process)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ToResolve)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_File)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ToResolve)).EndInit();
             this.ResumeLayout(false);
 
         }
 
-
         #endregion
+
         private System.Windows.Forms.BindingSource bindingSource_Process;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label1;
@@ -425,13 +364,6 @@
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.DataGridView dataGridView_File;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Phone;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Notes;
         private System.Windows.Forms.DataGridView dataGridView_ToResolve;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
     }
 }
