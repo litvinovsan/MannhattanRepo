@@ -58,9 +58,9 @@ namespace PersonsBase.control
             {
                 _abonementsDictionary = Load<AbonementBasic>();
             }
-            catch (Exception e)
+            catch (Exception )
             {
-                Console.WriteLine(e);
+                //ignore
             }
         }
         #endregion

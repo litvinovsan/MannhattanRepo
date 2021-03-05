@@ -10,7 +10,26 @@ namespace PersonsBase.data.Abonements
         private int _numAerobicTr;
         private int _numberMonths;
         private PeriodClubCard _periodAbonem;
+        private DateTime _buyActivationDate;
         public const string NameAbonement = "Клубная Карта";
+
+        public new DateTime BuyActivationDate
+        {
+            private get
+            {
+                return _buyActivationDate;
+            }
+            set
+            {
+                if (DateTime.Now.Date.CompareTo(value) < 0) return;
+                _buyActivationDate = value;
+                var date = value.AddMonths(_numberMonths).Date;
+                if (EndDate.Date.CompareTo(date) != 0)
+                    EndDate = date;
+
+                _buyActivationDate = value;
+            }
+        }
 
         // Конструктор
         public ClubCardA(Pay payStatus, TimeForTr time, TypeWorkout typeTr, SpaService spa,

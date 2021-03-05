@@ -22,56 +22,135 @@ namespace PersonsBase.myStd
         {
             DataTable dt = new DataTable();
             //Open the Excel file using ClosedXML.
-            using (var workBook = new XLWorkbook(path))
+            try
             {
-                //Read the first Sheet from Excel file.
-                IXLWorksheet workSheet = workBook.Worksheets.First();
-
-                //Create a new DataTable.
-
-                //Loop through the Worksheet rows.
-                bool firstRow = true;
-                foreach (IXLRow row in workSheet.Rows())
+                using (var workBook = new XLWorkbook(path))
                 {
-                    //Use the first row to add columns to DataTable.
-                    if (firstRow)
-                    {
-                        foreach (IXLCell cell in row.Cells())
-                        {
-                            if (!String.IsNullOrEmpty(cell.Value.ToString()))
-                            {
-                                dt.Columns.Add(cell.Value.ToString());
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
+                    //Read the first Sheet from Excel file.
+                    IXLWorksheet workSheet = workBook.Worksheets.First();
 
-                        firstRow = false;
-                    }
-                    else
-                    {
-                        int i = 0;
-                        DataRow toInsert = dt.NewRow();
-                        foreach (IXLCell cell in row.Cells(1, dt.Columns.Count))
-                        {
-                            try
-                            {
-                                toInsert[i] = cell.Value.ToString();
-                            }
-                            catch (Exception)
-                            {
-                                // ignored
-                            }
-                            i++;
-                        }
+                    //Create a new DataTable.
 
-                        dt.Rows.Add(toInsert);
+                    //Loop through the Worksheet rows.
+                    bool firstRow = true;
+                    foreach (IXLRow row in workSheet.Rows())
+                    {
+                        //Use the first row to add columns to DataTable.
+                        if (firstRow)
+                        {
+                            foreach (IXLCell cell in row.Cells())
+                            {
+                                if (!String.IsNullOrEmpty(cell.Value.ToString()))
+                                {
+
+                                    dt.Columns.Add(cell.Value.ToString());
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+
+                            firstRow = false;
+                        }
+                        else
+                        {
+                            int i = 0;
+                            DataRow toInsert = dt.NewRow();
+                            foreach (IXLCell cell in row.Cells(1, dt.Columns.Count))
+                            {
+                                try
+                                {
+                                    toInsert[i] = cell.Value.ToString();
+                                }
+                                catch (Exception)
+                                {
+                                    // ignored
+                                }
+                                i++;
+                            }
+
+                            dt.Rows.Add(toInsert);
+                        }
                     }
+
+                    return dt;
                 }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(@"Документ открыт. Закройте!");
+                return null;
+            }
+        }
 
-                return dt;
+        /// <summary>
+        /// Получает данные из Excel в таблицу DataTable. Первая строка создает заголовки Таблицы.
+        /// Считывается maximumColumns колонок из файла
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="maximumColumns"></param>
+        /// <returns></returns>
+        public static DataTable GetFromExcel(string path, int maximumColumns)
+        {
+            DataTable dt = new DataTable();
+            //Open the Excel file using ClosedXML.
+            try
+            {
+                using (var workBook = new XLWorkbook(path))
+                {
+                    //Read the first Sheet from Excel file.
+                    IXLWorksheet workSheet = workBook.Worksheets.First();
+
+                    //Create a new DataTable.
+
+                    //Loop through the Worksheet rows.
+                    bool firstRow = true;
+                    foreach (IXLRow row in workSheet.Rows())
+                    {
+                        //Use the first row to add columns to DataTable.
+                        if (firstRow)
+                        {
+                            var rowArray = row.Cells().ToArray();
+                            var l = (rowArray.Length <= maximumColumns) ? rowArray.Length : maximumColumns;
+                            for (int i = 0; i < l; i++)
+                            {
+                                dt.Columns.Add(rowArray[i].Value.ToString());
+                            }
+
+                            firstRow = false;
+                        }
+                        else
+                        {
+                            int i = 0;
+                            DataRow toInsert = dt.NewRow();
+
+                            foreach (IXLCell cell in row.Cells(1, dt.Columns.Count))
+                            {
+                                try
+                                {
+                                    toInsert[i] = cell.Value.ToString();
+                                }
+                                catch (Exception e)
+                                {
+                                    MessageBox.Show(e.Message);
+                                }
+
+                                i++;
+                            }
+
+                            dt.Rows.Add(toInsert);
+                        }
+                    }
+
+                    return dt;
+                }
+            }
+            catch (Exception e)
+            {
+
+                MessageBox.Show(e.Message);
+                return null;
             }
         }
 
@@ -179,7 +258,7 @@ namespace PersonsBase.myStd
             ws.Columns().AdjustToContents();
 
             // Заметки
-            ws.Columns(22, 22).Width=35;
+            ws.Columns(22, 22).Width = 35;
             // Абонементы
             ws.Columns(23, 23).Width = 20;
             //  ws.Columns(22, 22). Cells().Style.Alignment.SetWrapText(true); // Its single statement

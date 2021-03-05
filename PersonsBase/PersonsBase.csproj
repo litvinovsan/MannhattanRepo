@@ -85,6 +85,7 @@
     <Compile Include="control\Logic.cs" />
     <Compile Include="control\SerializableSaver.cs" />
     <Compile Include="Converter\DbConverter.cs" />
+    <Compile Include="Converter\Import.cs" />
     <Compile Include="data\Abonements\AbonementBasic.cs" />
     <Compile Include="data\Abonements\ByDays.cs" />
     <Compile Include="data\Abonements\ClubCard.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="data\Visit.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="myStd\MyCheckedListBox.cs" />
+    <Compile Include="myStd\MyDataTable.cs" />
     <Compile Include="myStd\MyFile.cs" />
     <Compile Include="myStd\MyComboBox.cs" />
     <Compile Include="myStd\MyDataGridView.cs" />

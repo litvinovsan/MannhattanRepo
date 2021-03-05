@@ -233,7 +233,7 @@ namespace PersonsBase.control
 
         #endregion
 
-        #region /// КЛИЕНТ. СОЗДАНИЕ. УДАЛЕНИЕ. РЕДАКТИРОВАНИЕ. ПРОВЕРКИ ///
+        #region /// КЛИЕНТ. СОЗДАНИЕ. УДАЛЕНИЕ. РЕДАКТИРОВАНИЕ///
 
         /// <summary>
         /// Запуск формы импорта клиентов, Загружает файл Excel
@@ -313,42 +313,6 @@ namespace PersonsBase.control
                 SpecialNotes = dataStruct.SpecialNotes,
             };
             return p;
-        }
-
-        /// <summary>
-        /// Подготавливает строку с именем, приводит в  заглавный формат Фамилия Имя Отчество вместо  фамилия имя отчество
-        /// </summary>
-        /// <param name="fio"></param>
-        /// <returns></returns>
-        public static string PrepareName(string fio)
-        {
-            if (String.IsNullOrWhiteSpace(fio) || String.IsNullOrEmpty(fio))
-            {
-                return "";
-            }
-
-            // Удаляет все пустые подстроки
-            // text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
-            string resultName = String.Empty;
-            var minimumSpaces = Regex.Replace(fio.ToLower().Trim(), @"[^\S\r\n]+", " "); // Уплотняем пробелы
-            var lowercase = minimumSpaces.ToLower();
-
-            var fioArray = lowercase.Split(' ');
-
-            foreach (var item in fioArray)
-            {
-                var tempWord = item;
-                if (!Char.IsLetterOrDigit(item[0]))
-                {
-                    tempWord = tempWord.Remove(0, 1);
-                    if (tempWord.Length == 0) break;
-                }
-
-                var c = Char.ToUpper(tempWord[0]);
-                resultName += c + tempWord.Remove(0, 1) + " ";
-            }
-
-            return resultName.Trim();
         }
 
         /// <summary>
@@ -435,6 +399,49 @@ namespace PersonsBase.control
             return isSuccess;
         }
 
+
+        #endregion
+
+        #region /// ПРОВЕРКИ, ПОИСКИ, ДУБЛИКАТЫ, ПОДГОТОВКА СТРОК
+
+
+
+        /// <summary>
+        /// Подготавливает строку с именем, приводит в  заглавный формат Фамилия Имя Отчество вместо  фамилия имя отчество
+        /// </summary>
+        /// <param name="fio"></param>
+        /// <returns></returns>
+        public static string PrepareName(string fio)
+        {
+            if (String.IsNullOrWhiteSpace(fio) || String.IsNullOrEmpty(fio))
+            {
+                return "";
+            }
+
+            // Удаляет все пустые подстроки
+            // text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            string resultName = String.Empty;
+            var minimumSpaces = Regex.Replace(fio.ToLower().Trim(), @"[^\S\r\n]+", " "); // Уплотняем пробелы
+            var lowercase = minimumSpaces.ToLower();
+
+            var fioArray = lowercase.Split(' ');
+
+            foreach (var item in fioArray)
+            {
+                var tempWord = item;
+                if (!Char.IsLetterOrDigit(item[0]))
+                {
+                    tempWord = tempWord.Remove(0, 1);
+                    if (tempWord.Length == 0) break;
+                }
+
+                var c = Char.ToUpper(tempWord[0]);
+                resultName += c + tempWord.Remove(0, 1) + " ";
+            }
+
+            return resultName.Trim();
+        }
+
         public static string GetPersonShortName(string nameLong)
         {
             if (string.IsNullOrWhiteSpace(nameLong) || string.IsNullOrEmpty(nameLong)) return string.Empty;
@@ -452,7 +459,6 @@ namespace PersonsBase.control
 
             return totalString.ToString().Trim();
         }
-
 
         #endregion
 

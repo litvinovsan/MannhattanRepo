@@ -10,6 +10,8 @@ namespace PersonsBase.myStd
 {
     public static class MyDataGridView
     {
+        // https://www.c-sharpcorner.com/UploadFile/ee01e6/different-way-to-convert-datatable-to-list/
+
         #region /// ИНИЦИАЛИЗАЦИЯ ИСТОЧНИКА ДАННЫХ
 
         /// <summary>
