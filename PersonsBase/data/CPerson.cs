@@ -88,6 +88,7 @@ namespace PersonsBase.data
         private Gender _genderType;
         private StatusPerson _status;
         private AbonementBasic _abonementCurent;
+        private string notes;
         #endregion
 
         #region/// ПУБЛИЧНЫЕ ПОЛЯ, ДОСТУПНЫЕ ДАННЫЕ О КЛИЕНТЕ ////////////
@@ -247,6 +248,12 @@ namespace PersonsBase.data
             _abonementCurent = null;
 
             AbonementsQueue = new ObservableCollection<AbonementBasic>();
+        }
+
+        public Person(string nameFio, string phone, string notes) : this(nameFio)
+        {
+            Phone = phone;
+            this.notes = notes;
         }
 
         #endregion

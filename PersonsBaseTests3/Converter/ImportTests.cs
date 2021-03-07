@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PersonsBase.Converter;
+using PersonsBase.data;
 
 namespace PersonsBase.Converter.Tests
 {
@@ -58,7 +59,54 @@ namespace PersonsBase.Converter.Tests
             var actual = Import.GetPhonesDuplicateListAsync(actualPersonslList, procPersonsList).Result.ToList();
 
             // Assert 
-            Assert.AreEqual(procPersonsList.Count-1, actual.Count);
+            Assert.AreEqual(procPersonsList.Count - 1, actual.Count);
+        }
+
+        [TestMethod()]
+        public void TryAddToDataBase_Ok_Test()
+        {
+            // Arrange
+            SortedList<string, Person> dBase = new SortedList<string, Person>();
+
+            var pInfo = new PersonInfo("A1", "111", "N1");
+
+            // Action
+            var actual = Import.TryAddToDataBase(dBase, pInfo);
+
+            //Assert
+            Assert.IsTrue(actual);
+        }
+
+        [TestMethod()]
+        public void TryAddToDataBase_Fail_Test()
+        {
+            // Arrange
+            SortedList<string, Person> dBase = new SortedList<string, Person>();
+
+            var pInfo = new PersonInfo("A1", "111", "N1");
+            Import.TryAddToDataBase(dBase, pInfo);
+
+            // Action
+            var actual = Import.TryAddToDataBase(dBase, pInfo);
+
+            //Assert
+            Assert.IsFalse(actual);
+        }
+
+        [TestMethod()]
+        public void TryAddToDataBase_Fail_Pfone_Test()
+        {
+            // Arrange
+            SortedList<string, Person> dBase = new SortedList<string, Person>();
+
+            var pInfo = new PersonInfo("A1", "111", "N1");
+            Import.TryAddToDataBase(dBase, pInfo);
+
+            // Action
+            var actual = Import.TryAddToDataBase(dBase, new PersonInfo("B1", "111", "N1"));
+
+            //Assert
+            Assert.IsFalse(actual);
         }
     }
 }
@@ -93,7 +141,7 @@ namespace PersonsBaseTests3.Converter
             var actual = Import.GetNamesDuplicateListAsync(actualPersonslList, procPersonsList).Result.ToList();
 
             // Assert 
-            Assert.AreEqual(procPersonsList.Count-1, actual.Count);
+            Assert.AreEqual(procPersonsList.Count - 1, actual.Count);
         }
 
         [TestMethod()]

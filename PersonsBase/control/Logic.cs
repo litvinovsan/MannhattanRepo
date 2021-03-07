@@ -241,7 +241,7 @@ namespace PersonsBase.control
         public static void ImportPersons()
         {
             var frm = new ImportForm();
-            var dlgResult = frm.ShowDialog();
+            frm.Show();
         }
 
         /// <summary>
@@ -404,7 +404,15 @@ namespace PersonsBase.control
 
         #region /// ПРОВЕРКИ, ПОИСКИ, ДУБЛИКАТЫ, ПОДГОТОВКА СТРОК
 
-
+        /// <summary>
+        /// Возвращает телефонный номер в формате 8(000) 000-00-00
+        /// </summary>
+        /// <param name="phoneNumber"></param>
+        /// <returns></returns>
+        public static string PreparePhone(string phoneNumber)
+        {
+            return MyRegex.FormatPhone(phoneNumber);
+        }
 
         /// <summary>
         /// Подготавливает строку с именем, приводит в  заглавный формат Фамилия Имя Отчество вместо  фамилия имя отчество

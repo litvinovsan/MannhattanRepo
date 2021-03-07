@@ -56,7 +56,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="control\LogicTests.cs" />
     <Compile Include="Converter\ImportTests.cs" />
+    <Compile Include="myStd\MyRegexTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

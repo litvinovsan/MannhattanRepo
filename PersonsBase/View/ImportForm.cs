@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PersonsBase.control;
 using PersonsBase.Converter;
 using PersonsBase.data;
 using PersonsBase.myStd;
@@ -19,16 +20,13 @@ namespace PersonsBase.View
         #region Propetries
 
         private int NameColumn { get; set; } = 1;
-
         private int PhoneColumn { get; set; } = 2;
-
         private int NotesColumn { get; set; } = 3;
 
-        private int PageNum { get; set; } = 1;
 
-        private string NamePerson { get; set; }
-        private string Phone { get; set; }
-        private string Notes { get; set; }
+        private string EditedName { get; set; }
+        private string EditedPhone { get; set; }
+        private string EditedNotes { get; set; }
         private string _path;
         #endregion
 
@@ -68,8 +66,6 @@ namespace PersonsBase.View
             MyDataGridView.ImplementStyle(dataGridViewLeft);
 
             _dataBaseConverted = new List<PersonInfo>(_dataBaseList.Select(x => new PersonInfo(x.Key, x.Value.Phone, string.Empty)).ToList());
-
-            // _bindRightName.DataSource = _dataBaseList.Select(x => new { x.Key, x.Value.Phone, string.Empty }).Take(40);
         }
 
         #region Text Boxes
@@ -105,23 +101,39 @@ namespace PersonsBase.View
         }
         private void textBoxNameMod_TextChanged(object sender, EventArgs e)
         {
-            NamePerson = textBox6.Text;
+            EditedName = textBox_Edit_Name.Text;
         }
 
         private void textBoxPhoneMod_TextChanged(object sender, EventArgs e)
         {
-            Phone = textBox5.Text;
+            EditedPhone = textBox_Edit_Phone.Text;
         }
 
         private void textBoxNoteMod_TextChanged(object sender, EventArgs e)
         {
-            Notes = textBox4.Text;
+            EditedNotes = textBox_Edit_Notes.Text;
         }
 
         #endregion
 
         #region Buttons
+        private void button_Add_Uniq_Click(object sender, EventArgs e)
+        {
+            List<bool> result = new List<bool>(_unicList.Count);
+            foreach (var item in _unicList)
+            {
+                var state = Import.TryAddToDataBase(_dataBaseList, item);
+                result.Add(state);
+                if (!state) break;
+            }
 
+            if (result.Contains(false))
+            {
+                MessageBox.Show($@"Ошибка добавления. {_unicList[result.IndexOf(false)]}");
+            }
+
+            button_Add_Uniq.Enabled = false;
+        }
         private void button_OpenFile_Click(object sender, EventArgs e)
         {
             _path = MyFile.OpenFileDialogStr();
@@ -131,14 +143,14 @@ namespace PersonsBase.View
 
             button_start.Enabled = true;
         }
-
         private async void button_start_Click_1(object sender, EventArgs e)
         {
             try
             {
                 _fileOpenedList = new List<PersonInfo>(_dt?.AsEnumerable()?.Select(x =>
-                                                            new PersonInfo(x.ItemArray[NameColumn - 1].ToString(),
-                                                                x.ItemArray[PhoneColumn - 1].ToString(),
+                                                            new PersonInfo(
+                                                                Logic.PrepareName(x.ItemArray[NameColumn - 1].ToString()),
+                                                                Logic.PreparePhone(x.ItemArray[PhoneColumn - 1].ToString()),
                                                                 x.ItemArray[NotesColumn - 1].ToString())).ToList() ?? throw new InvalidOperationException());
             }
             catch (Exception exception)
@@ -156,7 +168,6 @@ namespace PersonsBase.View
 
 
         #region Methods
-        //8(999) 000-00-00
         private async Task StartAnalysis()
         {
             var dNames = Import.GetNamesDuplicateListAsync(_dataBaseConverted, _fileOpenedList);
@@ -170,13 +181,129 @@ namespace PersonsBase.View
             _bindRightName.DataSource = _duplicateNameList;
             _bindRightPhone.DataSource = _duplicatePhoneList;
             _bindRightUnic.DataSource = _unicList;
+
+            // Uniq
+            button_Add_Uniq.Text += _unicList.Count.ToString();
+            button_Add_Uniq.Enabled = true;
         }
 
 
 
         #endregion
-    }
 
+
+        /// <summary>
+        /// При нажатии мышкой на любой из строчек- Заполняются текстбоксы для редактирования записей
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dataGridViewRight_MouseClick(object sender, MouseEventArgs e)
+        {
+            var selectedRow = (sender as DataGridView)?.CurrentRow;
+            if (selectedRow == null) return;
+
+            var name = selectedRow.Cells[0];
+            var phone = selectedRow.Cells[1];
+            var note = selectedRow.Cells[2];
+
+            textBox_Edit_Name.Text = name.Value.ToString();
+            textBox_Edit_Phone.Text = phone.Value.ToString();
+            textBox_Edit_Notes.Text = note.Value.ToString();
+
+            try
+            {
+                Person p = DataBaseM.FindByPhone(_dataBaseList, Logic.PreparePhone(textBox_Edit_Phone.Text));
+                if (p == null)
+                {
+                    p = PersonObject.GetLink(Logic.PrepareName(textBox_Edit_Name.Text));
+                }
+
+                if (p != null)
+                {
+                    textBox_Base_Name.Text = p.Name;
+                    textBox_Base_Phone.Text = p.Phone;
+                    textBox_Base_Note.Text = p.SpecialNotes;
+                }
+
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show(@"Error dataGridViewRight_MouseClick()");
+            }
+        }
+
+        /// <summary>
+        /// Сохранение в базу отредактированного Клиента
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button1_Click_Save_Edited(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBox_Edit_Name.Text) || string.IsNullOrEmpty(textBox_Edit_Phone.Text)) return;
+
+            var name = Logic.PrepareName(textBox_Edit_Name.Text);
+            var phone = Logic.PreparePhone(textBox_Edit_Phone.Text);
+
+            var pInfo = new PersonInfo(name, phone, textBox_Edit_Notes.Text);
+
+            var isSuccess = Import.TryAddToDataBase(_dataBaseList, pInfo);
+            if (!isSuccess)
+            {
+                MessageBox.Show($@"Ошибка добавления. Телефон или Имя существуют. ");
+                return;
+            }
+
+            RemoveSelectedRow();
+        }
+
+        private void RemoveSelectedRow()
+        {
+            // Удаление отредактированных данных из списков
+            DataGridView dgrid;
+            switch (tabControl1.SelectedIndex)
+            {
+                case 0:
+                    {
+                        dgrid = dataGridViewRight_Name;
+                        break;
+                    }
+                case 1:
+                    {
+                        dgrid = dataGridViewRight_Phone;
+                        break;
+                    }
+                case 2:
+                    {
+                        dgrid = dataGridViewRight_Unic;
+                        break;
+                    }
+                default:
+                    return;
+            }
+
+            try
+            {
+                int delet = dgrid.SelectedCells[0].RowIndex;
+                dgrid.Rows.RemoveAt(delet);
+                dgrid.Refresh();
+                textBox_Edit_Name.Text = "";
+                textBox_Edit_Phone.Text = "";
+                textBox_Edit_Notes.Text = "";
+            }
+            catch
+            {
+
+                MessageBox.Show(@"Сначала загрузите файл и нажмите кнопку Старт");
+            }
+        }
+
+        private void button_Delete_Click(object sender, EventArgs e)
+        {
+            RemoveSelectedRow();
+
+        }
+    }
 }
 
 

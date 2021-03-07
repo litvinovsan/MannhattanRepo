@@ -88,7 +88,7 @@ namespace PersonsBase.data
         {
             lock (Locker)
             {
-                return _dataBaseList;
+                return _dataBaseList ?? (_dataBaseList = new SortedList<string, Person>(StringComparer.OrdinalIgnoreCase));
             }
         }
 
@@ -109,18 +109,21 @@ namespace PersonsBase.data
         }
 
         /// Возвращает ответ Базы Данных об успешности Добавления новой персоны.Success если успех. Код Поля- ошибки или Fail в непонятных случаях.
-        public static ResponseCode PersonAdd(Person person)
+        public static ResponseCode PersonAdd(SortedList<string, Person> dBaseList, Person person)
         {
+            if (dBaseList == null) throw new ArgumentNullException(nameof(dBaseList));
+
             ResponseCode response;
 
             lock (Locker)
             {
-                var containsCopy = DataBaseM.IsContainsCopyOfValues(_dataBaseList, person, out response);
+                var db = dBaseList;
+                var containsCopy = DataBaseM.IsContainsCopyOfValues(db, person, out response);
                 if (containsCopy == false && (!string.IsNullOrEmpty(person.Name)))
                 {
                     try
                     {
-                        _dataBaseList.Add(person.Name, person);
+                        db.Add(person.Name, person);
                         response = ResponseCode.Success;
                         OnListChanged();
                     }
@@ -133,6 +136,15 @@ namespace PersonsBase.data
 
             return response;
         }
+
+        public static ResponseCode PersonAdd(Person person)
+        {
+            if (person == null) throw new ArgumentNullException(nameof(person));
+            var response = PersonAdd(GetPersonsList(), person);
+
+            return response;
+        }
+
         public static ResponseCode PersonRemove(string nameKey)
         {
             var result = ResponseCode.Fail;
@@ -251,7 +263,7 @@ namespace PersonsBase.data
             // Список ежедневных Групповых Тренировок
             _groupScheduleList = new List<ScheduleNote>();
             SerializeClass.DeSerialize(ref _groupScheduleList, currentPath + Options.GroupSchFile);
-         
+
             // Списки посещений по группам. Отображаются на главной форме.
             DailyVisits.GetInstance().DeSerialize();
         }

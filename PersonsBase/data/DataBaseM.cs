@@ -22,6 +22,7 @@ namespace PersonsBase.data
         /// </summary>
         public static bool IsContainsCopyOfValues(SortedList<string, Person> inputDict, Person person, out ResponseCode response)
         {
+            if (inputDict == null) throw new ArgumentNullException(nameof(inputDict));
             var containsCopy = false;
             response = ResponseCode.Success;
             //Если пустая коллекция

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using PersonsBase.data;
 
 namespace PersonsBase.Converter
 {
@@ -14,7 +16,7 @@ namespace PersonsBase.Converter
         public PersonInfo(string name, string phone, string notes)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
-            Phone = phone ?? throw new ArgumentNullException(nameof(phone));
+            Phone =  phone ?? throw new ArgumentNullException(nameof(phone));
             Notes = notes;
         }
 
@@ -36,7 +38,7 @@ namespace PersonsBase.Converter
             if (obj.GetType() != this.GetType()) return false;
             return Equals((PersonInfo)obj);
         }
-        
+
         public override int GetHashCode()
         {
             unchecked
@@ -62,6 +64,7 @@ namespace PersonsBase.Converter
 
     public static class Import
     {
+        #region Фильтрация входных списков. Асинхронно
         private static IEnumerable<PersonInfo> GetNamesDuplicateList(List<PersonInfo> dataBaseConverted, List<PersonInfo> fileOpenedList)
         {
             if (dataBaseConverted == null) throw new ArgumentNullException(nameof(dataBaseConverted));
@@ -75,7 +78,6 @@ namespace PersonsBase.Converter
             return resultList;
         }
 
-        delegate bool Cmp(PersonInfo a, PersonInfo b);
         private static IEnumerable<PersonInfo> GetPhonesDuplicateList(List<PersonInfo> dataBaseConverted, List<PersonInfo> fileOpenedList)
         {
             if (dataBaseConverted == null) throw new ArgumentNullException(nameof(dataBaseConverted));
@@ -125,5 +127,20 @@ namespace PersonsBase.Converter
             task.Start();
             return await task;
         }
+        #endregion
+
+        #region Создание клиентов
+
+        public static bool TryAddToDataBase(SortedList<string, Person> dBase, PersonInfo person)
+        {
+            var personToAdd = new Person(person.Name, person.Phone, person.Notes);
+            var result = DataBaseLevel.PersonAdd(dBase,personToAdd);
+            if (result == ResponseCode.Success) return true;
+          //  DataBaseM.ExplainResponse(result);
+            return false;
+        }
+
+        #endregion
+
     }
 }

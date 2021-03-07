@@ -44,19 +44,27 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBox_Edit_Notes = new System.Windows.Forms.TextBox();
+            this.textBox_Edit_Phone = new System.Windows.Forms.TextBox();
+            this.textBox_Edit_Name = new System.Windows.Forms.TextBox();
             this.dataGridViewLeft = new System.Windows.Forms.DataGridView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_Name = new System.Windows.Forms.TabPage();
             this.tabPage_Phone = new System.Windows.Forms.TabPage();
             this.dataGridViewRight_Phone = new System.Windows.Forms.DataGridView();
             this.tabPage_Unic = new System.Windows.Forms.TabPage();
+            this.button_Add_Uniq = new System.Windows.Forms.Button();
             this.dataGridViewRight_Unic = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox_Base_Name = new System.Windows.Forms.TextBox();
+            this.textBox_Base_Note = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBox_Base_Phone = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource_Process)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRight_Name)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLeft)).BeginInit();
@@ -72,6 +80,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewRight_Name
@@ -86,59 +95,60 @@
             this.dataGridViewRight_Name.Location = new System.Drawing.Point(6, 6);
             this.dataGridViewRight_Name.MultiSelect = false;
             this.dataGridViewRight_Name.Name = "dataGridViewRight_Name";
-            this.dataGridViewRight_Name.Size = new System.Drawing.Size(765, 643);
+            this.dataGridViewRight_Name.Size = new System.Drawing.Size(673, 643);
             this.dataGridViewRight_Name.TabIndex = 5;
+            this.dataGridViewRight_Name.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewRight_MouseClick);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 152);
+            this.label5.Location = new System.Drawing.Point(319, 15);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(73, 13);
+            this.label5.Size = new System.Drawing.Size(53, 13);
             this.label5.TabIndex = 2;
-            this.label5.Text = "Notes Column";
+            this.label5.Text = "Notes Col";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 112);
+            this.label4.Location = new System.Drawing.Point(250, 13);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(76, 13);
+            this.label4.Size = new System.Drawing.Size(56, 13);
             this.label4.TabIndex = 2;
-            this.label4.Text = "Phone Column";
+            this.label4.Text = "Phone Col";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 72);
+            this.label3.Location = new System.Drawing.Point(181, 15);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 13);
+            this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Name Column";
+            this.label3.Text = "Name Col";
             // 
             // textBox_Note_Column
             // 
-            this.textBox_Note_Column.Location = new System.Drawing.Point(6, 169);
+            this.textBox_Note_Column.Location = new System.Drawing.Point(322, 31);
             this.textBox_Note_Column.Name = "textBox_Note_Column";
-            this.textBox_Note_Column.Size = new System.Drawing.Size(73, 20);
+            this.textBox_Note_Column.Size = new System.Drawing.Size(52, 20);
             this.textBox_Note_Column.TabIndex = 1;
             this.textBox_Note_Column.Text = "3";
             this.textBox_Note_Column.TextChanged += new System.EventHandler(this.textBox_Note_Column_TextChanged);
             // 
             // textBox_Phone_Column
             // 
-            this.textBox_Phone_Column.Location = new System.Drawing.Point(6, 129);
+            this.textBox_Phone_Column.Location = new System.Drawing.Point(253, 31);
             this.textBox_Phone_Column.Name = "textBox_Phone_Column";
-            this.textBox_Phone_Column.Size = new System.Drawing.Size(73, 20);
+            this.textBox_Phone_Column.Size = new System.Drawing.Size(52, 20);
             this.textBox_Phone_Column.TabIndex = 1;
             this.textBox_Phone_Column.Text = "2";
             this.textBox_Phone_Column.TextChanged += new System.EventHandler(this.textBox_Phone_Column_TextChanged_1);
             // 
             // textBox_Name_Column
             // 
-            this.textBox_Name_Column.Location = new System.Drawing.Point(6, 89);
+            this.textBox_Name_Column.Location = new System.Drawing.Point(184, 31);
             this.textBox_Name_Column.Name = "textBox_Name_Column";
-            this.textBox_Name_Column.Size = new System.Drawing.Size(73, 20);
+            this.textBox_Name_Column.Size = new System.Drawing.Size(52, 20);
             this.textBox_Name_Column.TabIndex = 1;
             this.textBox_Name_Column.Text = "1";
             this.textBox_Name_Column.TextChanged += new System.EventHandler(this.textBox_Name_Column_TextChanged_1);
@@ -146,9 +156,9 @@
             // button_start
             // 
             this.button_start.Enabled = false;
-            this.button_start.Location = new System.Drawing.Point(6, 231);
+            this.button_start.Location = new System.Drawing.Point(90, 14);
             this.button_start.Name = "button_start";
-            this.button_start.Size = new System.Drawing.Size(75, 37);
+            this.button_start.Size = new System.Drawing.Size(67, 37);
             this.button_start.TabIndex = 0;
             this.button_start.Text = "Start";
             this.button_start.UseVisualStyleBackColor = true;
@@ -156,9 +166,9 @@
             // 
             // button_OpenFile
             // 
-            this.button_OpenFile.Location = new System.Drawing.Point(6, 19);
+            this.button_OpenFile.Location = new System.Drawing.Point(6, 14);
             this.button_OpenFile.Name = "button_OpenFile";
-            this.button_OpenFile.Size = new System.Drawing.Size(75, 37);
+            this.button_OpenFile.Size = new System.Drawing.Size(67, 37);
             this.button_OpenFile.TabIndex = 0;
             this.button_OpenFile.Text = "Open";
             this.button_OpenFile.UseVisualStyleBackColor = true;
@@ -166,21 +176,23 @@
             // 
             // button_Delete
             // 
-            this.button_Delete.Location = new System.Drawing.Point(6, 175);
+            this.button_Delete.Location = new System.Drawing.Point(9, 299);
             this.button_Delete.Name = "button_Delete";
-            this.button_Delete.Size = new System.Drawing.Size(121, 29);
+            this.button_Delete.Size = new System.Drawing.Size(182, 29);
             this.button_Delete.TabIndex = 9;
             this.button_Delete.Text = "Delete";
             this.button_Delete.UseVisualStyleBackColor = true;
+            this.button_Delete.Click += new System.EventHandler(this.button_Delete_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(6, 139);
+            this.button1.Location = new System.Drawing.Point(9, 263);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(121, 30);
+            this.button1.Size = new System.Drawing.Size(182, 30);
             this.button1.TabIndex = 9;
             this.button1.Text = "Save";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_Save_Edited);
             // 
             // label6
             // 
@@ -209,29 +221,30 @@
             this.label8.TabIndex = 8;
             this.label8.Text = "Name ";
             // 
-            // textBox4
+            // textBox_Edit_Notes
             // 
-            this.textBox4.Location = new System.Drawing.Point(6, 113);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(121, 20);
-            this.textBox4.TabIndex = 3;
-            this.textBox4.TextChanged += new System.EventHandler(this.textBoxNoteMod_TextChanged);
+            this.textBox_Edit_Notes.Location = new System.Drawing.Point(6, 113);
+            this.textBox_Edit_Notes.Multiline = true;
+            this.textBox_Edit_Notes.Name = "textBox_Edit_Notes";
+            this.textBox_Edit_Notes.Size = new System.Drawing.Size(182, 144);
+            this.textBox_Edit_Notes.TabIndex = 3;
+            this.textBox_Edit_Notes.TextChanged += new System.EventHandler(this.textBoxNoteMod_TextChanged);
             // 
-            // textBox5
+            // textBox_Edit_Phone
             // 
-            this.textBox5.Location = new System.Drawing.Point(6, 73);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(121, 20);
-            this.textBox5.TabIndex = 4;
-            this.textBox5.TextChanged += new System.EventHandler(this.textBoxPhoneMod_TextChanged);
+            this.textBox_Edit_Phone.Location = new System.Drawing.Point(6, 73);
+            this.textBox_Edit_Phone.Name = "textBox_Edit_Phone";
+            this.textBox_Edit_Phone.Size = new System.Drawing.Size(182, 20);
+            this.textBox_Edit_Phone.TabIndex = 4;
+            this.textBox_Edit_Phone.TextChanged += new System.EventHandler(this.textBoxPhoneMod_TextChanged);
             // 
-            // textBox6
+            // textBox_Edit_Name
             // 
-            this.textBox6.Location = new System.Drawing.Point(6, 33);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(121, 20);
-            this.textBox6.TabIndex = 5;
-            this.textBox6.TextChanged += new System.EventHandler(this.textBoxNameMod_TextChanged);
+            this.textBox_Edit_Name.Location = new System.Drawing.Point(6, 33);
+            this.textBox_Edit_Name.Name = "textBox_Edit_Name";
+            this.textBox_Edit_Name.Size = new System.Drawing.Size(182, 20);
+            this.textBox_Edit_Name.TabIndex = 5;
+            this.textBox_Edit_Name.TextChanged += new System.EventHandler(this.textBoxNameMod_TextChanged);
             // 
             // dataGridViewLeft
             // 
@@ -240,10 +253,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewLeft.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewLeft.Location = new System.Drawing.Point(106, 31);
+            this.dataGridViewLeft.Location = new System.Drawing.Point(10, 69);
             this.dataGridViewLeft.MultiSelect = false;
             this.dataGridViewLeft.Name = "dataGridViewLeft";
-            this.dataGridViewLeft.Size = new System.Drawing.Size(372, 652);
+            this.dataGridViewLeft.Size = new System.Drawing.Size(451, 627);
             this.dataGridViewLeft.TabIndex = 4;
             // 
             // tabControl1
@@ -257,7 +270,7 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(785, 681);
+            this.tabControl1.Size = new System.Drawing.Size(693, 700);
             this.tabControl1.TabIndex = 6;
             // 
             // tabPage_Name
@@ -266,7 +279,7 @@
             this.tabPage_Name.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Name.Name = "tabPage_Name";
             this.tabPage_Name.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Name.Size = new System.Drawing.Size(777, 655);
+            this.tabPage_Name.Size = new System.Drawing.Size(685, 674);
             this.tabPage_Name.TabIndex = 0;
             this.tabPage_Name.Text = "Дубликат по Имени (Тел. отличается)";
             this.tabPage_Name.UseVisualStyleBackColor = true;
@@ -277,7 +290,7 @@
             this.tabPage_Phone.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Phone.Name = "tabPage_Phone";
             this.tabPage_Phone.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Phone.Size = new System.Drawing.Size(777, 655);
+            this.tabPage_Phone.Size = new System.Drawing.Size(710, 674);
             this.tabPage_Phone.TabIndex = 1;
             this.tabPage_Phone.Text = "Дубликат по Телефону (Имя отличается)";
             this.tabPage_Phone.UseVisualStyleBackColor = true;
@@ -294,19 +307,34 @@
             this.dataGridViewRight_Phone.Location = new System.Drawing.Point(6, 6);
             this.dataGridViewRight_Phone.MultiSelect = false;
             this.dataGridViewRight_Phone.Name = "dataGridViewRight_Phone";
-            this.dataGridViewRight_Phone.Size = new System.Drawing.Size(700, 634);
+            this.dataGridViewRight_Phone.Size = new System.Drawing.Size(698, 662);
             this.dataGridViewRight_Phone.TabIndex = 6;
+            this.dataGridViewRight_Phone.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewRight_MouseClick);
             // 
             // tabPage_Unic
             // 
+            this.tabPage_Unic.Controls.Add(this.button_Add_Uniq);
             this.tabPage_Unic.Controls.Add(this.dataGridViewRight_Unic);
             this.tabPage_Unic.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Unic.Name = "tabPage_Unic";
             this.tabPage_Unic.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Unic.Size = new System.Drawing.Size(777, 655);
+            this.tabPage_Unic.Size = new System.Drawing.Size(685, 674);
             this.tabPage_Unic.TabIndex = 2;
             this.tabPage_Unic.Text = "Уникальные";
             this.tabPage_Unic.UseVisualStyleBackColor = true;
+            // 
+            // button_Add_Uniq
+            // 
+            this.button_Add_Uniq.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_Add_Uniq.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_Add_Uniq.Location = new System.Drawing.Point(6, 635);
+            this.button_Add_Uniq.Name = "button_Add_Uniq";
+            this.button_Add_Uniq.Size = new System.Drawing.Size(676, 36);
+            this.button_Add_Uniq.TabIndex = 7;
+            this.button_Add_Uniq.Text = "Добавить в Базу всех! ";
+            this.button_Add_Uniq.UseVisualStyleBackColor = true;
+            this.button_Add_Uniq.Click += new System.EventHandler(this.button_Add_Uniq_Click);
             // 
             // dataGridViewRight_Unic
             // 
@@ -320,8 +348,9 @@
             this.dataGridViewRight_Unic.Location = new System.Drawing.Point(6, 6);
             this.dataGridViewRight_Unic.MultiSelect = false;
             this.dataGridViewRight_Unic.Name = "dataGridViewRight_Unic";
-            this.dataGridViewRight_Unic.Size = new System.Drawing.Size(765, 643);
+            this.dataGridViewRight_Unic.Size = new System.Drawing.Size(673, 623);
             this.dataGridViewRight_Unic.TabIndex = 6;
+            this.dataGridViewRight_Unic.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewRight_MouseClick);
             // 
             // groupBox1
             // 
@@ -329,14 +358,14 @@
             this.groupBox1.Controls.Add(this.button_Delete);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.textBox6);
-            this.groupBox1.Controls.Add(this.textBox4);
+            this.groupBox1.Controls.Add(this.textBox_Edit_Name);
+            this.groupBox1.Controls.Add(this.textBox_Edit_Notes);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.textBox5);
-            this.groupBox1.Location = new System.Drawing.Point(790, 12);
+            this.groupBox1.Controls.Add(this.textBox_Edit_Phone);
+            this.groupBox1.Location = new System.Drawing.Point(702, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(140, 216);
+            this.groupBox1.Size = new System.Drawing.Size(197, 334);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Редактирование";
@@ -353,7 +382,7 @@
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Location = new System.Drawing.Point(12, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(88, 277);
+            this.groupBox2.Size = new System.Drawing.Size(449, 53);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Открыть";
@@ -371,17 +400,86 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.groupBox3);
             this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(1418, 687);
-            this.splitContainer1.SplitterDistance = 481;
+            this.splitContainer1.Size = new System.Drawing.Size(1370, 706);
+            this.splitContainer1.SplitterDistance = 464;
             this.splitContainer1.TabIndex = 7;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.label1);
+            this.groupBox3.Controls.Add(this.textBox_Base_Name);
+            this.groupBox3.Controls.Add(this.textBox_Base_Note);
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.textBox_Base_Phone);
+            this.groupBox3.Location = new System.Drawing.Point(702, 371);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(197, 270);
+            this.groupBox3.TabIndex = 0;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "В Базе если есть:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 98);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Notes ";
+            // 
+            // textBox_Base_Name
+            // 
+            this.textBox_Base_Name.Location = new System.Drawing.Point(6, 33);
+            this.textBox_Base_Name.Name = "textBox_Base_Name";
+            this.textBox_Base_Name.Size = new System.Drawing.Size(182, 20);
+            this.textBox_Base_Name.TabIndex = 5;
+            this.textBox_Base_Name.TextChanged += new System.EventHandler(this.textBoxNameMod_TextChanged);
+            // 
+            // textBox_Base_Note
+            // 
+            this.textBox_Base_Note.Location = new System.Drawing.Point(6, 113);
+            this.textBox_Base_Note.Multiline = true;
+            this.textBox_Base_Note.Name = "textBox_Base_Note";
+            this.textBox_Base_Note.Size = new System.Drawing.Size(182, 144);
+            this.textBox_Base_Note.TabIndex = 3;
+            this.textBox_Base_Note.TextChanged += new System.EventHandler(this.textBoxNoteMod_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 57);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(41, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Phone ";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 18);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(38, 13);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "Name ";
+            // 
+            // textBox_Base_Phone
+            // 
+            this.textBox_Base_Phone.Location = new System.Drawing.Point(6, 73);
+            this.textBox_Base_Phone.Name = "textBox_Base_Phone";
+            this.textBox_Base_Phone.Size = new System.Drawing.Size(182, 20);
+            this.textBox_Base_Phone.TabIndex = 4;
+            this.textBox_Base_Phone.TextChanged += new System.EventHandler(this.textBoxPhoneMod_TextChanged);
             // 
             // ImportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1418, 687);
+            this.ClientSize = new System.Drawing.Size(1370, 706);
             this.Controls.Add(this.splitContainer1);
             this.DoubleBuffered = true;
             this.Name = "ImportForm";
@@ -403,6 +501,8 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -423,9 +523,9 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBox_Edit_Notes;
+        private System.Windows.Forms.TextBox textBox_Edit_Phone;
+        private System.Windows.Forms.TextBox textBox_Edit_Name;
         private System.Windows.Forms.DataGridView dataGridViewLeft;
         private System.Windows.Forms.DataGridView dataGridViewRight_Name;
         private System.Windows.Forms.TabControl tabControl1;
@@ -437,5 +537,13 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Button button_Add_Uniq;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox_Base_Name;
+        private System.Windows.Forms.TextBox textBox_Base_Note;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBox_Base_Phone;
     }
 }
