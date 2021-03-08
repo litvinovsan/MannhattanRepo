@@ -236,6 +236,18 @@ namespace PersonsBase.control
         #region /// КЛИЕНТ. СОЗДАНИЕ. УДАЛЕНИЕ. РЕДАКТИРОВАНИЕ///
 
         /// <summary>
+        /// Убирает все символы форматирования и возвращает чистый текст
+        /// </summary>
+        /// <param name="rtbFormattedText"></param>
+        /// <returns></returns>
+        public static string ConvertRichTextBoxToString(string rtbFormattedText)
+        {
+            RichTextBox tempSpecialNotesRtb = new RichTextBox();
+            MyRichTextBox.Load(tempSpecialNotesRtb, rtbFormattedText);
+            return tempSpecialNotesRtb.Text;
+        }
+
+        /// <summary>
         /// Запуск формы импорта клиентов, Загружает файл Excel
         /// </summary>
         public static void ImportPersons()

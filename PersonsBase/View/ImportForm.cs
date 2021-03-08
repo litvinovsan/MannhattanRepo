@@ -138,7 +138,7 @@ namespace PersonsBase.View
         {
             _path = MyFile.OpenFileDialogStr();
             _dt = null;
-            _dt = MyFile.GetFromExcel(_path, 5);
+            _dt = MyFile.GetFromExcel(_path, 7);
             MyDataGridView.SetSourceDataGridView(dataGridViewLeft, _dt);
 
             button_start.Enabled = true;
@@ -218,17 +218,15 @@ namespace PersonsBase.View
                     p = PersonObject.GetLink(Logic.PrepareName(textBox_Edit_Name.Text));
                 }
 
-                if (p != null)
-                {
-                    textBox_Base_Name.Text = p.Name;
-                    textBox_Base_Phone.Text = p.Phone;
-                    textBox_Base_Note.Text = p.SpecialNotes;
-                }
+                if (p == null) return;
+
+                textBox_Base_Name.Text = p.Name;
+                textBox_Base_Phone.Text = p.Phone;
+                textBox_Base_Note.Text = Logic.ConvertRichTextBoxToString(p.SpecialNotes);
 
             }
             catch (Exception)
             {
-
                 MessageBox.Show(@"Error dataGridViewRight_MouseClick()");
             }
         }
