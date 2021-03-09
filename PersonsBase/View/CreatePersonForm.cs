@@ -292,7 +292,7 @@ namespace PersonsBase.View
         }
         private bool IsPersonNumberOk(string number)
         {
-            var isParsingOk = int.TryParse(number, out var tempNum);
+            var isParsingOk = long.TryParse(number, out var tempNum);
 
             if (!isParsingOk)
             {

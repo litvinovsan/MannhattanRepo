@@ -107,7 +107,7 @@ namespace PersonsBase.data
         public string DriveId;
         public string photoName;
         public string SpecialNotes;
-        public int PersonalNumber;
+        public long PersonalNumber;
         public Gender Gender;
         public DateTime BDate;
     }

@@ -47,7 +47,7 @@
             // 
             // pictureBoxScaner
             // 
-            this.pictureBoxScaner.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.pictureBoxScaner.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxScaner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxScaner.Image = global::PersonsBase.Properties.Resources.barcode__1_;
@@ -60,18 +60,17 @@
             // 
             // textBox_Code
             // 
-            this.textBox_Code.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBox_Code.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_Code.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox_Code.ForeColor = System.Drawing.Color.MidnightBlue;
             this.textBox_Code.Location = new System.Drawing.Point(12, 197);
-            this.textBox_Code.MaxLength = 12;
+            this.textBox_Code.MaxLength = 13;
             this.textBox_Code.Name = "textBox_Code";
             this.textBox_Code.Size = new System.Drawing.Size(247, 30);
             this.textBox_Code.TabIndex = 1;
             this.textBox_Code.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox_Code.UseWaitCursor = true;
-            this.textBox_Code.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_Code_KeyPress);
+            this.textBox_Code.TextChanged += new System.EventHandler(this.textBox_Code_TextChanged);
             // 
             // BarCodeForm
             // 

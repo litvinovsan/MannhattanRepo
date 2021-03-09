@@ -703,7 +703,7 @@ namespace PersonsBase.View
 
             if (!_editedPersonalNumber.Equals(_person.PersonalNumber.ToString()))
             {
-                int.TryParse(_editedPersonalNumber, out var num);
+                long.TryParse(_editedPersonalNumber, out var num);
                 DataBaseM.EditPersonalNumber(_person.Name, num);
             }
             SaveSpecialNotes();

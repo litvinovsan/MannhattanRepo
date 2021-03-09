@@ -402,7 +402,7 @@ namespace PersonsBase.View
             this.richTextBox_notes.Location = new System.Drawing.Point(3, 3);
             this.richTextBox_notes.Name = "richTextBox_notes";
             this.richTextBox_notes.ShowSelectionMargin = true;
-            this.richTextBox_notes.Size = new System.Drawing.Size(1282, 160);
+            this.richTextBox_notes.Size = new System.Drawing.Size(1282, 156);
             this.richTextBox_notes.TabIndex = 6;
             this.richTextBox_notes.Text = "";
             this.richTextBox_notes.TextChanged += new System.EventHandler(this.richTextBox_notes_TextChanged);
@@ -716,6 +716,7 @@ namespace PersonsBase.View
             this.textBox_Number.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox_Number.Location = new System.Drawing.Point(130, 149);
             this.textBox_Number.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_Number.MaxLength = 13;
             this.textBox_Number.Name = "textBox_Number";
             this.textBox_Number.Size = new System.Drawing.Size(190, 29);
             this.textBox_Number.TabIndex = 5;

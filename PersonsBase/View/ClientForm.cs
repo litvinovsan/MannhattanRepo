@@ -320,7 +320,7 @@ namespace PersonsBase.View
             }
         }
 
-        private void _person_PersonalNumberChanged(object sender, int e)
+        private void _person_PersonalNumberChanged(object sender, long e)
         {
             if (!textBox_Number.Text.Equals(_person.PersonalNumber.ToString()))
                 textBox_Number.Text = _person.PersonalNumber.ToString();

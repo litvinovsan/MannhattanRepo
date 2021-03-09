@@ -20,7 +20,7 @@ namespace PersonsBase.data
         [field: NonSerialized] public event EventHandler<string> PassportChanged;
         [field: NonSerialized] public event EventHandler<string> DriverIdChanged;
         [field: NonSerialized] public event EventHandler<string> SpecialNotesChanged;
-        [field: NonSerialized] public event EventHandler<int> PersonalNumberChanged;
+        [field: NonSerialized] public event EventHandler<long> PersonalNumberChanged;
         [field: NonSerialized] public event EventHandler<DateTime> BirthDateChanged;
         [field: NonSerialized] public event EventHandler<Gender> GenderTypeChanged;
 
@@ -61,7 +61,7 @@ namespace PersonsBase.data
         {
             SpecialNotesChanged?.Invoke(this, text);
         }
-        private void OnPersonalNumberChanged(int number)
+        private void OnPersonalNumberChanged(long number)
         {
             PersonalNumberChanged?.Invoke(this, number);
         }
@@ -83,7 +83,7 @@ namespace PersonsBase.data
         private string _passport;
         private string _driverIdNum;
         private string _specialNotes;
-        private int _personalNumber;
+        private long _personalNumber;
         private DateTime _birthDate;
         private Gender _genderType;
         private StatusPerson _status;
@@ -154,7 +154,7 @@ namespace PersonsBase.data
                 OnSpecialNotesChanged(_specialNotes);
             }
         }
-        public int PersonalNumber
+        public long PersonalNumber
         {
             get { return _personalNumber; }
             set
@@ -435,7 +435,7 @@ namespace PersonsBase.data
                 hashCode = (hashCode * 397) ^ (int)_status;
                 hashCode = (hashCode * 397) ^ (int)GenderType;
                 hashCode = (hashCode * 397) ^ (AbonementCurent != null ? AbonementCurent.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ PersonalNumber;
+                hashCode = (hashCode * 397) ^ (int)PersonalNumber;
                 hashCode = (hashCode * 397) ^ BirthDate.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Passport != null ? Passport.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (PathToPhoto != null ? PathToPhoto.GetHashCode() : 0);

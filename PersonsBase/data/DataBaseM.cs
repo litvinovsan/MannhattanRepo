@@ -118,7 +118,7 @@ namespace PersonsBase.data
             return findedPerson;
         }
         // Personal Number
-        public static bool FindByPersonalNumber(SortedList<string, Person> inputCollection, int number, out Person findedPerson)
+        public static bool FindByPersonalNumber(SortedList<string, Person> inputCollection, long number, out Person findedPerson)
         {
             findedPerson = null;
 
@@ -134,7 +134,7 @@ namespace PersonsBase.data
             }
             return true;
         }
-        public static bool EditPersonalNumber(string namePerson, int newNumber)
+        public static bool EditPersonalNumber(string namePerson, long newNumber)
         {
             var isExist = FindByPersonalNumber(DataBaseLevel.GetPersonsList(), newNumber, out _);
 

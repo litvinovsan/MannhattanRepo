@@ -7,8 +7,7 @@ namespace PersonsBase.View
 {
     public partial class BarCodeForm : Form
     {
-        private static int _charsCount; // Счетчик количества цифр. Нужен потому что сканер вставляет цифры в текстовое поле по символьно
-        private const int NumsInBarString = 12; // Всего в считанном номере 13 позиций
+        private const int NumsInBarString = 13; // Всего в считанном номере 13 позиций
         private string _nameFinded = string.Empty;
 
         private string _barCodeString;
@@ -61,36 +60,27 @@ namespace PersonsBase.View
         /// <param name="e"></param>
         private void BarCodeForm_BarcodeStringChanged(object sender, EventArgs e)
         {
-            var isSuccess = int.TryParse(BarCodeString, out var number);
-            if (!isSuccess)
-            {
-                MessageBox.Show(@"Ошибка Распознавания Номера.", @"Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            if (string.IsNullOrEmpty(BarCodeString)) return;
+            if (!long.TryParse(BarCodeString, out var number)) return;
 
             var isFinded = DataBaseM.FindByPersonalNumber(DataBaseLevel.GetPersonsList(), number, out var person);
             if (isFinded)
             {
                 _nameFinded = person.Name;
+                textBox_Code.Text = "";
                 DialogResult = DialogResult.OK;
             }
-            textBox_Code.Text = "";
         }
 
         #endregion
 
         // Обработчики стандартные
-        private void textBox_Code_KeyPress(object sender, KeyPressEventArgs e)
-        {   
-            Logic.CheckForDigits(e); // Проверка на цифры. Если не цифры отбрасываем
-
-            if (_charsCount < NumsInBarString)
+        private void textBox_Code_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox_Code.Text.Trim().Length >= NumsInBarString)
             {
-                _charsCount++;
-                return; // Если не получили все символы строки
+                BarCodeString = textBox_Code.Text;
             }
-            _charsCount = 0;
-            BarCodeString = textBox_Code.Text;
         }
     }
 }
