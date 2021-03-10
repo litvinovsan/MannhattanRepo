@@ -607,6 +607,17 @@ namespace PersonsBase.control
             var selectedOptions = new WorkoutOptions();
 
             bool isSuccess;
+
+            // Проверка на случай если абон не активирован, а они по  ошибке тычут
+            if (!person.AbonementCurent.IsActivated)
+            {
+                var dialogResult = MessageBox.Show($@"Активировать: {person.AbonementCurent.AbonementName}?
+
+{infoMessage}", $@"Активация будет с сегодняшнего дня.", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dialogResult == DialogResult.No) return false;
+            }
+
+
             switch (person.AbonementCurent)
             {
                 case AbonementByDays byDays:
