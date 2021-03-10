@@ -281,7 +281,7 @@
             this.tabPage_Name.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage_Name.Size = new System.Drawing.Size(685, 674);
             this.tabPage_Name.TabIndex = 0;
-            this.tabPage_Name.Text = "Дубликат по Имени (Тел. отличается)";
+            this.tabPage_Name.Text = "Новые Телефоны(Имена могут повторяться)";
             this.tabPage_Name.UseVisualStyleBackColor = true;
             // 
             // tabPage_Phone
@@ -290,9 +290,9 @@
             this.tabPage_Phone.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Phone.Name = "tabPage_Phone";
             this.tabPage_Phone.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Phone.Size = new System.Drawing.Size(710, 674);
+            this.tabPage_Phone.Size = new System.Drawing.Size(685, 674);
             this.tabPage_Phone.TabIndex = 1;
-            this.tabPage_Phone.Text = "Дубликат по Телефону (Имя отличается)";
+            this.tabPage_Phone.Text = "Дубликат по Телефону (Уже есть в базе)";
             this.tabPage_Phone.UseVisualStyleBackColor = true;
             // 
             // dataGridViewRight_Phone
@@ -307,8 +307,9 @@
             this.dataGridViewRight_Phone.Location = new System.Drawing.Point(6, 6);
             this.dataGridViewRight_Phone.MultiSelect = false;
             this.dataGridViewRight_Phone.Name = "dataGridViewRight_Phone";
-            this.dataGridViewRight_Phone.Size = new System.Drawing.Size(698, 662);
+            this.dataGridViewRight_Phone.Size = new System.Drawing.Size(673, 662);
             this.dataGridViewRight_Phone.TabIndex = 6;
+            this.dataGridViewRight_Phone.SelectionChanged += new System.EventHandler(this.dataGridViewRight_Phone_SelectionChanged);
             this.dataGridViewRight_Phone.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewRight_MouseClick);
             // 
             // tabPage_Unic
@@ -320,7 +321,7 @@
             this.tabPage_Unic.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage_Unic.Size = new System.Drawing.Size(685, 674);
             this.tabPage_Unic.TabIndex = 2;
-            this.tabPage_Unic.Text = "Уникальные";
+            this.tabPage_Unic.Text = "Уникальные. Имя и тел нет в базе";
             this.tabPage_Unic.UseVisualStyleBackColor = true;
             // 
             // button_Add_Uniq
@@ -350,6 +351,7 @@
             this.dataGridViewRight_Unic.Name = "dataGridViewRight_Unic";
             this.dataGridViewRight_Unic.Size = new System.Drawing.Size(673, 623);
             this.dataGridViewRight_Unic.TabIndex = 6;
+            this.dataGridViewRight_Unic.SelectionChanged += new System.EventHandler(this.dataGridViewRight_Unic_SelectionChanged);
             this.dataGridViewRight_Unic.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewRight_MouseClick);
             // 
             // groupBox1

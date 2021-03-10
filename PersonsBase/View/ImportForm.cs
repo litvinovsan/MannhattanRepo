@@ -35,13 +35,12 @@ namespace PersonsBase.View
         private readonly BindingSource _bindRightUnic = new BindingSource();
 
         private List<PersonInfo> _fileOpenedList = new List<PersonInfo>();
-        private List<PersonInfo> _duplicateNameList = new List<PersonInfo>();
+        private List<PersonInfo> _newPhonesList = new List<PersonInfo>();
         private List<PersonInfo> _duplicatePhoneList = new List<PersonInfo>();
         private List<PersonInfo> _unicList = new List<PersonInfo>();
 
-        private readonly SortedList<string, Person> _dataBaseList = DataBaseLevel.GetPersonsList();
-        private readonly List<PersonInfo> _dataBaseConverted;
-
+        private readonly SortedList<string, Person> _dataBase = DataBaseLevel.GetPersonsList();
+        private List<PersonInfo> _failList = new List<PersonInfo>();
         private DataTable _dt;
 
         public ImportForm()
@@ -65,7 +64,6 @@ namespace PersonsBase.View
 
             MyDataGridView.ImplementStyle(dataGridViewLeft);
 
-            _dataBaseConverted = new List<PersonInfo>(_dataBaseList.Select(x => new PersonInfo(x.Key, x.Value.Phone, string.Empty)).ToList());
         }
 
         #region Text Boxes
@@ -119,20 +117,18 @@ namespace PersonsBase.View
         #region Buttons
         private void button_Add_Uniq_Click(object sender, EventArgs e)
         {
-            List<bool> result = new List<bool>(_unicList.Count);
+            _failList = new List<PersonInfo>();
             foreach (var item in _unicList)
             {
-                var state = Import.TryAddToDataBase(_dataBaseList, item);
-                result.Add(state);
-                if (!state) break;
+                var state = Import.TryAddToDataBase(_dataBase, item);
+                if (!state)
+                {
+                    _failList.Add(item);
+                }
             }
-
-            if (result.Contains(false))
-            {
-                MessageBox.Show($@"Ошибка добавления. {_unicList[result.IndexOf(false)]}");
-            }
-
-            button_Add_Uniq.Enabled = false;
+            // MessageBox.Show($@"Дубликатов по имени {_failList.Count.ToString()}");
+            _bindRightUnic.DataSource = _failList.Distinct(new PersonInfoPhoneComparer());
+            button_Add_Uniq.Text = @"Добавить в базу " + _failList.Count.ToString();
         }
         private void button_OpenFile_Click(object sender, EventArgs e)
         {
@@ -147,11 +143,21 @@ namespace PersonsBase.View
         {
             try
             {
-                _fileOpenedList = new List<PersonInfo>(_dt?.AsEnumerable()?.Select(x =>
-                                                            new PersonInfo(
-                                                                Logic.PrepareName(x.ItemArray[NameColumn - 1].ToString()),
-                                                                Logic.PreparePhone(x.ItemArray[PhoneColumn - 1].ToString()),
-                                                                x.ItemArray[NotesColumn - 1].ToString())).ToList() ?? throw new InvalidOperationException());
+                _fileOpenedList = new List<PersonInfo>();
+                foreach (var item in _dt.AsEnumerable())
+                {
+                    var name = Logic.PrepareName(item.ItemArray[NameColumn - 1].ToString());
+                    var phone = Logic.PreparePhone(item.ItemArray[PhoneColumn - 1].ToString());
+                    var note = item.ItemArray[NotesColumn - 1].ToString();
+                    if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(phone))
+                    {
+                        var pInfo = new PersonInfo(name, phone, note);
+
+                        _fileOpenedList.Add(pInfo);
+                    }
+                }
+
+                _fileOpenedList = _fileOpenedList.Distinct().ToList();
             }
             catch (Exception exception)
             {
@@ -159,32 +165,39 @@ namespace PersonsBase.View
                 return;
             }
 
+
             // Обновляем левую часть ещё раз
             MyDataGridView.SetSourceDataGridView(dataGridViewLeft, _fileOpenedList);
 
             await StartAnalysis();
         }
+
         #endregion
 
 
         #region Methods
         private async Task StartAnalysis()
         {
-            var dNames = Import.GetNamesDuplicateListAsync(_dataBaseConverted, _fileOpenedList);
-            var dPhone = Import.GetPhonesDuplicateListAsync(_dataBaseConverted, _fileOpenedList);
-            var dUnic = Import.GetUnicDuplicateListAsync(_dataBaseConverted, _fileOpenedList);
+            var dNames = Import.GetNewPersonsNotExistsAsync(_dataBase, _fileOpenedList);
+            var dPhone = Import.GetPhonesAlreadyExistsAsync(_dataBase, _fileOpenedList);
+            var dUnic = Import.GetUnicPersonsAsync(_dataBase, _fileOpenedList);
 
-            _duplicateNameList = (await dNames).ToList();
+            _newPhonesList = (await dNames).ToList();
             _duplicatePhoneList = (await dPhone).ToList();
             _unicList = (await dUnic).ToList();
 
-            _bindRightName.DataSource = _duplicateNameList;
-            _bindRightPhone.DataSource = _duplicatePhoneList;
-            _bindRightUnic.DataSource = _unicList;
+            if (dNames.IsCompleted && dPhone.IsCompleted && dUnic.IsCompleted)
+            {
+                _newPhonesList = _newPhonesList.Except(_unicList, new PersonInfoPhoneComparer()).ToList();
 
-            // Uniq
-            button_Add_Uniq.Text += _unicList.Count.ToString();
-            button_Add_Uniq.Enabled = true;
+                _bindRightName.DataSource = _newPhonesList;
+                _bindRightPhone.DataSource = _duplicatePhoneList;
+                _bindRightUnic.DataSource = _unicList;
+
+                // Uniq
+                button_Add_Uniq.Text += _unicList.Count.ToString();
+                button_Add_Uniq.Enabled = true;
+            }
         }
 
 
@@ -199,6 +212,11 @@ namespace PersonsBase.View
         /// <param name="e"></param>
         private void dataGridViewRight_MouseClick(object sender, MouseEventArgs e)
         {
+            UpdateTextFields(sender);
+        }
+
+        private void UpdateTextFields(object sender)
+        {
             var selectedRow = (sender as DataGridView)?.CurrentRow;
             if (selectedRow == null) return;
 
@@ -212,7 +230,7 @@ namespace PersonsBase.View
 
             try
             {
-                Person p = DataBaseM.FindByPhone(_dataBaseList, Logic.PreparePhone(textBox_Edit_Phone.Text));
+                Person p = DataBaseM.FindByPhone(_dataBase, Logic.PreparePhone(textBox_Edit_Phone.Text));
                 if (p == null)
                 {
                     p = PersonObject.GetLink(Logic.PrepareName(textBox_Edit_Name.Text));
@@ -223,7 +241,6 @@ namespace PersonsBase.View
                 textBox_Base_Name.Text = p.Name;
                 textBox_Base_Phone.Text = p.Phone;
                 textBox_Base_Note.Text = Logic.ConvertRichTextBoxToString(p.SpecialNotes);
-
             }
             catch (Exception)
             {
@@ -245,7 +262,7 @@ namespace PersonsBase.View
 
             var pInfo = new PersonInfo(name, phone, textBox_Edit_Notes.Text);
 
-            var isSuccess = Import.TryAddToDataBase(_dataBaseList, pInfo);
+            var isSuccess = Import.TryAddToDataBase(_dataBase, pInfo);
             if (!isSuccess)
             {
                 MessageBox.Show($@"Ошибка добавления. Телефон или Имя существуют. ");
@@ -300,6 +317,16 @@ namespace PersonsBase.View
         {
             RemoveSelectedRow();
 
+        }
+
+        private void dataGridViewRight_Phone_SelectionChanged(object sender, EventArgs e)
+        {
+            UpdateTextFields(sender);
+        }
+
+        private void dataGridViewRight_Unic_SelectionChanged(object sender, EventArgs e)
+        {
+            UpdateTextFields(sender);
         }
     }
 }

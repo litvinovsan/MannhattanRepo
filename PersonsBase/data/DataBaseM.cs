@@ -76,7 +76,7 @@ namespace PersonsBase.data
                     message = "Имя Уже существует!!!";
                     break;
                 case ResponseCode.KeyExist:
-                    message = "Ключ/Имя/Код уже существуют";
+                    message = "Ключ уже существуют";
                     break;
                 case ResponseCode.IdNumberExist:
                     message = "Персональный код Уже существует";

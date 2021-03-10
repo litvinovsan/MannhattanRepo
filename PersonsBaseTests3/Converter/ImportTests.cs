@@ -13,53 +13,50 @@ namespace PersonsBase.Converter.Tests
         public void GetUnicDuplicateListAsyncTest()
         {
             // Arrange
-            List<PersonInfo> actualPersonslList = new List<PersonInfo>(4)
-            {
-                new PersonInfo("A1", "111", "N1"),
-                new PersonInfo("A2", "222", "N2"),
-                new PersonInfo("A3", "333", "N3"),
-                new PersonInfo("A4", "444", "N4")
-            };
+            SortedList<string, Person> dataBase = DataBaseLevel.GetPersonsList();
+            dataBase.Add("A1", new Person("A1", "111", "N1"));
+            dataBase.Add("A2", new Person("A2", "222", "N2"));
+            dataBase.Add("A3", new Person("A3", "333", "N3"));
+            dataBase.Add("A4", new Person("A4", "444", "N4"));
 
             List<PersonInfo> procPersonsList = new List<PersonInfo>(4)
             {
                 new PersonInfo("A1", "000", "Копия по имени"),
                 new PersonInfo("B2", "222", "Копия по телефону"),
                 new PersonInfo("A3", "333", "Копия полная"),
-                new PersonInfo("Unic!", "123", "Уникальнй")  // 1
-
+                new PersonInfo("Unic!", "123", "Уникальнй1"),
+                new PersonInfo("Unic2!", "555", "Уникальнй2")  // 2
             };
 
             // Action 
-            var actual = Import.GetUnicDuplicateListAsync(actualPersonslList, procPersonsList).Result.ToList();
+            var actual = Import.GetUnicPersonsAsync(dataBase, procPersonsList).Result.ToList();
 
             // Assert 
-            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(2, actual.Count);
         }
 
         [TestMethod()]
         public void GetPhonesDuplicateListAsyncTest()
         {
             // Arrange
-            List<PersonInfo> actualPersonslList = new List<PersonInfo>(4)
-            {
-                new PersonInfo("A1", "111", "N1"),
-                new PersonInfo("A2", "222", "N2"),
-                new PersonInfo("A3", "333", "N3"),
-                new PersonInfo("A4", "444", "N4")
-            };
+            SortedList<string, Person> dataBase = DataBaseLevel.GetPersonsList();
+            dataBase.Add("A1", new Person("A1", "111", "N1"));
+            dataBase.Add("A2", new Person("A2", "222", "N2"));
+            dataBase.Add("A3", new Person("A3", "333", "N3"));
+            dataBase.Add("A4", new Person("A4", "444", "N4"));
+
 
             List<PersonInfo> procPersonsList = new List<PersonInfo>(4)
             {
                 new PersonInfo("A44", "444", "000"),
-                new PersonInfo("A3", "333", "N3") // Полная копия, не должна учитываться.
+                new PersonInfo("A3", "333", "N3")
             };
 
             // Action 
-            var actual = Import.GetPhonesDuplicateListAsync(actualPersonslList, procPersonsList).Result.ToList();
+            var actual = Import.GetPhonesAlreadyExistsAsync(dataBase, procPersonsList).Result.ToList();
 
             // Assert 
-            Assert.AreEqual(procPersonsList.Count - 1, actual.Count);
+            Assert.AreEqual(procPersonsList.Count, actual.Count);
         }
 
         [TestMethod()]
@@ -120,16 +117,15 @@ namespace PersonsBaseTests3.Converter
     public class ImportTests
     {
         [TestMethod()]
-        public void GetNamesDuplicateListAsyncTest()
+        public void GetNewPersonsTest()
         {
             // Arrange
-            List<PersonInfo> actualPersonslList = new List<PersonInfo>(4)
-            {
-                new PersonInfo("A1", "111", "N1"),
-                new PersonInfo("A2", "222", "N2"),
-                new PersonInfo("A3", "333", "N3"),
-                new PersonInfo("A4", "444", "N4")
-            };
+            SortedList<string, Person> dataBase = DataBaseLevel.GetPersonsList();
+            dataBase.Add("A1", new Person("A1", "111", "N1"));
+            dataBase.Add("A2", new Person("A2", "222", "N2"));
+            dataBase.Add("A3", new Person("A3", "333", "N3"));
+            dataBase.Add("A4", new Person("A4", "444", "N4"));
+
 
             List<PersonInfo> procPersonsList = new List<PersonInfo>(4)
             {
@@ -138,31 +134,33 @@ namespace PersonsBaseTests3.Converter
             };
 
             // Action 
-            var actual = Import.GetNamesDuplicateListAsync(actualPersonslList, procPersonsList).Result.ToList();
+            var actual = Import.GetNewPersonsNotExistsAsync(dataBase, procPersonsList).Result.ToList();
 
             // Assert 
-            Assert.AreEqual(procPersonsList.Count - 1, actual.Count);
+            Assert.AreEqual(1, actual.Count);
         }
 
         [TestMethod()]
-        public void GetNamesDuplicateListAsyncTest1()
+        public void GetNewPersons_Test1()
         {
             // Arrange
-            List<PersonInfo> actualPersonslList = new List<PersonInfo>(4)
-            {
-                new PersonInfo("A1", "111", "N1"),
-                new PersonInfo("A2", "222", "N2"),
-                new PersonInfo("A3", "333", "N3"),
-                new PersonInfo("A4", "444", "N4")
-            };
+            SortedList<string, Person> dataBase = DataBaseLevel.GetPersonsList();
+            dataBase.Add("A1", new Person("A1", "111", "N1"));
+            dataBase.Add("A2", new Person("A2", "222", "N2"));
+            dataBase.Add("A3", new Person("A3", "333", "N3"));
+            dataBase.Add("A4", new Person("A4", "444", "N4"));
+
+
 
             List<PersonInfo> procPersonsList = new List<PersonInfo>(4)
             {
+                new PersonInfo("A1", "111", "000"),
                 new PersonInfo("A4", "000", "000"),
+                new PersonInfo("A5", "555", "000")
             };
 
             // Action 
-            var actual = Import.GetNamesDuplicateListAsync(actualPersonslList, procPersonsList).Result.ToList();
+            var actual = Import.GetNewPersonsNotExistsAsync(dataBase, procPersonsList).Result.ToList();
 
             // Assert 
             Assert.AreEqual(procPersonsList.Count, actual.Count);
@@ -172,18 +170,16 @@ namespace PersonsBaseTests3.Converter
         public void GetNamesDuplicateListAsync_NotFound_Test()
         {
             // Arrange
-            List<PersonInfo> actualPersonslList = new List<PersonInfo>(4)
-            {
-                new PersonInfo("A1", "111", "N1"),
-                new PersonInfo("A2", "222", "N2"),
-                new PersonInfo("A3", "333", "N3"),
-                new PersonInfo("A4", "444", "N4")
-            };
+            SortedList<string, Person> dataBase = DataBaseLevel.GetPersonsList();
+            dataBase.Add("A1", new Person("A1", "111", "N1"));
+            dataBase.Add("A2", new Person("A2", "222", "N2"));
+            dataBase.Add("A3", new Person("A3", "333", "N3"));
+            dataBase.Add("A4", new Person("A4", "444", "N4"));
 
             List<PersonInfo> procPersonsList = new List<PersonInfo>(4);
 
             // Action 
-            var actual = Import.GetNamesDuplicateListAsync(actualPersonslList, procPersonsList).Result.ToList();
+            var actual = Import.GetNewPersonsNotExistsAsync(dataBase, procPersonsList).Result.ToList();
 
             // Assert 
             Assert.AreEqual(procPersonsList.Count, actual.Count); //0  0 
