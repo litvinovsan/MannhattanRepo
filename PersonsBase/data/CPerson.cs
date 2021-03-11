@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using PersonsBase.control;
 using PersonsBase.data.Abonements;
 
@@ -20,7 +21,7 @@ namespace PersonsBase.data
         [field: NonSerialized] public event EventHandler<string> PassportChanged;
         [field: NonSerialized] public event EventHandler<string> DriverIdChanged;
         [field: NonSerialized] public event EventHandler<string> SpecialNotesChanged;
-        [field: NonSerialized] public event EventHandler<int> PersonalNumberChanged;
+        [field: NonSerialized] public event EventHandler<string> PersonalNumberChanged;
         [field: NonSerialized] public event EventHandler<DateTime> BirthDateChanged;
         [field: NonSerialized] public event EventHandler<Gender> GenderTypeChanged;
 
@@ -61,7 +62,7 @@ namespace PersonsBase.data
         {
             SpecialNotesChanged?.Invoke(this, text);
         }
-        private void OnPersonalNumberChanged(int number)
+        private void OnPersonalNumberChanged(string number)
         {
             PersonalNumberChanged?.Invoke(this, number);
         }
@@ -83,11 +84,12 @@ namespace PersonsBase.data
         private string _passport;
         private string _driverIdNum;
         private string _specialNotes;
-        private int _personalNumber;
+        private int _personalNumber; // Устарело. Не используется.
         private DateTime _birthDate;
         private Gender _genderType;
         private StatusPerson _status;
         private AbonementBasic _abonementCurent;
+        private string _idString;
         #endregion
 
         #region/// ПУБЛИЧНЫЕ ПОЛЯ, ДОСТУПНЫЕ ДАННЫЕ О КЛИЕНТЕ ////////////
@@ -154,13 +156,16 @@ namespace PersonsBase.data
                 OnSpecialNotesChanged(_specialNotes);
             }
         }
+        /// <summary>
+        /// Устарело, не используется. Вместо этого параметра использовать IdString
+        /// </summary>
         public int PersonalNumber
         {
             get { return _personalNumber; }
             set
             {
                 _personalNumber = value;
-                OnPersonalNumberChanged(_personalNumber);
+                //  OnPersonalNumberChanged(_personalNumber);
             }
         }
         public StatusPerson Status
@@ -211,13 +216,36 @@ namespace PersonsBase.data
             }
         }
 
+        /// <summary>
+        /// Хранит персональный номер клиента. На карточке. Строка.
+        /// </summary>
+        public string IdString
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_idString) && PersonalNumber != 0)
+                {
+                    _idString = Logic.NormalizeBarCodeNumber(PersonalNumber.ToString());
+                }
+                return _idString;
+            }
+            set
+            {
+                if (_idString == value) return;
+                _idString = Logic.NormalizeBarCodeNumber(value);
+                OnPersonalNumberChanged(_idString);
+            }
+        }
+
+
+
         #endregion
 
         #region/// КОНСТРУКТОРЫ.  ///////////////////////////
         public Person(string nameFio)
         {
             Name = nameFio;
-            PersonalNumber = 0;
+            _personalNumber = 0;
             _status = StatusPerson.Нет_Карты;
             GenderType = Gender.Неизвестен;
             BirthDate = DateTime.Parse("02.02.2000");
@@ -230,11 +258,12 @@ namespace PersonsBase.data
             _abonementCurent = null;
 
             AbonementsQueue = new ObservableCollection<AbonementBasic>();
+            _idString = string.Empty;
         }
         public Person()
         {
             Name = "Empty Name";
-            PersonalNumber = 0;
+            _personalNumber = 0;
             _status = StatusPerson.Нет_Карты;
             GenderType = Gender.Неизвестен;
             BirthDate = DateTime.Parse("02.02.2000");
@@ -247,6 +276,8 @@ namespace PersonsBase.data
             _abonementCurent = null;
 
             AbonementsQueue = new ObservableCollection<AbonementBasic>();
+            _idString = string.Empty;
+
         }
 
         #endregion
@@ -316,7 +347,7 @@ namespace PersonsBase.data
             bool fullNameResult;
             bool driverIdResult;
 
-            var personalNumber = other.PersonalNumber == PersonalNumber || (PersonalNumber == 0 && other.PersonalNumber == 0);
+            var personalNumber = other.IdString == IdString || (IdString == string.Empty && other.IdString == string.Empty);
 
             if (other.Passport == null && Passport == null)
             {
@@ -370,7 +401,7 @@ namespace PersonsBase.data
                 return true;
             }
 
-            if (PersonalNumber != 0 && other.PersonalNumber != 0 && PersonalNumber == other.PersonalNumber)
+            if (!string.IsNullOrEmpty(IdString) && !string.IsNullOrEmpty(other.IdString) && IdString == other.IdString)
             {
                 response = ResponseCode.IdNumberExist;
                 return true;
@@ -435,7 +466,7 @@ namespace PersonsBase.data
                 hashCode = (hashCode * 397) ^ (int)_status;
                 hashCode = (hashCode * 397) ^ (int)GenderType;
                 hashCode = (hashCode * 397) ^ (AbonementCurent != null ? AbonementCurent.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ PersonalNumber;
+                hashCode = (hashCode * 397) ^ IdString.GetHashCode();
                 hashCode = (hashCode * 397) ^ BirthDate.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Passport != null ? Passport.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (PathToPhoto != null ? PathToPhoto.GetHashCode() : 0);

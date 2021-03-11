@@ -292,18 +292,11 @@ namespace PersonsBase.View
         }
         private bool IsPersonNumberOk(string number)
         {
-            var isParsingOk = int.TryParse(number, out var tempNum);
-
-            if (!isParsingOk)
+            var isExist = DataBaseM.FindByPersonalNumber(DataBaseLevel.GetPersonsList(), number, out var person);
+            if (!isExist)
             {
-                _dataStruct.PersonalNumber = 0;
-
-                return false;
+                _dataStruct.IdString = Logic.NormalizeBarCodeNumber(number);
             }
-
-            _dataStruct.PersonalNumber = tempNum;
-            var isExist = DataBaseM.FindByPersonalNumber(DataBaseLevel.GetPersonsList(), tempNum, out var person);
-
             return !isExist;
         }
         #endregion

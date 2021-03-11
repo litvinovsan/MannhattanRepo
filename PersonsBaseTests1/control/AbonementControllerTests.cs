@@ -84,8 +84,8 @@ namespace PersonsBase.control.Tests
 
             var abonNotValid = new ClubCardA(Pay.Не_Оплачено, TimeForTr.Весь_День, TypeWorkout.Аэробный_Зал,
                     SpaService.Без_Спа, PeriodClubCard.На_1_Месяц)
-            { BuyActivationDate = DateTime.Today.AddDays(-200), IsActivated = true };
-
+            { IsActivated = true };
+            abonNotValid.SetBuyActivatDate(DateTime.Today.AddDays(-200));
 
             string name = "myPerson";
             inst.AddAbonement(name, abonNotValid);
@@ -221,8 +221,8 @@ namespace PersonsBase.control.Tests
             var abonValid2 = new SingleVisit(TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, Pay.Не_Оплачено, TimeForTr.Весь_День) { IsActivated = true };
             var abonValid3 = new AbonementByDays(Pay.Оплачено, TimeForTr.Утро, TypeWorkout.МиниГруппа, SpaService.Спа, DaysInAbon.На_5_посещений);
             var abonNotValid = new ClubCardA(Pay.Не_Оплачено, TimeForTr.Весь_День, TypeWorkout.Аэробный_Зал, SpaService.Без_Спа, PeriodClubCard.На_1_Месяц)
-            { BuyActivationDate = DateTime.Today.AddDays(-200) };
-
+            ;
+            abonNotValid.SetBuyActivatDate(DateTime.Today.AddDays(-200));
             // Если нет пользователя
             var result = inst.GetGlobalIndex("nameDummy", abonValid1);
             Assert.AreEqual(-1, result);

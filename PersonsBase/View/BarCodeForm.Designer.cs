@@ -65,7 +65,7 @@
             this.textBox_Code.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox_Code.ForeColor = System.Drawing.Color.MidnightBlue;
             this.textBox_Code.Location = new System.Drawing.Point(12, 197);
-            this.textBox_Code.MaxLength = 12;
+            this.textBox_Code.MaxLength = 13;
             this.textBox_Code.Name = "textBox_Code";
             this.textBox_Code.Size = new System.Drawing.Size(247, 30);
             this.textBox_Code.TabIndex = 1;

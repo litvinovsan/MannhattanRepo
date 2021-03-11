@@ -118,15 +118,15 @@ namespace PersonsBase.data
             return findedPerson;
         }
         // Personal Number
-        public static bool FindByPersonalNumber(SortedList<string, Person> inputCollection, int number, out Person findedPerson)
+        public static bool FindByPersonalNumber(SortedList<string, Person> inputCollection, string number, out Person findedPerson)
         {
             findedPerson = null;
 
-            if (inputCollection == null || number <= 0 || inputCollection.Count <= 0) return false;
+            if (inputCollection == null ||string.IsNullOrEmpty(number) || inputCollection.Count <= 0) return false;
 
             try
             {
-                findedPerson = inputCollection.Values.First(x => x.PersonalNumber == number);
+                findedPerson = inputCollection.Values.First(x => x.IdString == number);
             }
             catch
             {
@@ -134,22 +134,23 @@ namespace PersonsBase.data
             }
             return true;
         }
-        public static bool EditPersonalNumber(string namePerson, int newNumber)
+        public static bool EditPersonalNumber(string namePerson, string newNumber)
         {
             var isExist = FindByPersonalNumber(DataBaseLevel.GetPersonsList(), newNumber, out _);
 
             if (isExist)
             {
-                MessageBox.Show(@"Такой номер уже назначен клиенту: \n\r {person.Name}", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($@"Такой номер уже назначен клиенту: 
+ {namePerson}", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
-            else if (newNumber <= 0)
+            else if (string.IsNullOrEmpty(newNumber))
             {
-                MessageBox.Show($@"Личный номер удалён", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                PersonObject.GetLink(namePerson).PersonalNumber = 0;
+               // MessageBox.Show($@"Личный номер удалён", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                PersonObject.GetLink(namePerson).IdString = string.Empty;
                 return false;
             }
-            PersonObject.GetLink(namePerson).PersonalNumber = newNumber;
+            PersonObject.GetLink(namePerson).IdString = newNumber;
             return true;
         }
 
@@ -350,7 +351,7 @@ namespace PersonsBase.data
                 new PersonField {HeaderName = "Дата Рождения", Value = $"{person.BirthDate.Date:MM/dd/yyyy}"},
                 new PersonField {HeaderName = "Пол", Value = person.GenderType.ToString()},
                 new PersonField {HeaderName = "Статус", Value = person.Status.ToString()},
-                new PersonField {HeaderName = "ID номер", Value = person.PersonalNumber.ToString()},
+                new PersonField {HeaderName = "ID номер", Value = person.IdString},
                 new PersonField {HeaderName = "Паспорт", Value = person.Passport},
                 new PersonField {HeaderName = "Права", Value = person.DriverIdNum},
                 // Абонемент

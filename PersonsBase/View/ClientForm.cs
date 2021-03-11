@@ -320,11 +320,11 @@ namespace PersonsBase.View
             }
         }
 
-        private void _person_PersonalNumberChanged(object sender, int e)
+        private void _person_PersonalNumberChanged(object sender, string e)
         {
-            if (!textBox_Number.Text.Equals(_person.PersonalNumber.ToString()))
-                textBox_Number.Text = _person.PersonalNumber.ToString();
-            Logic.SetControlBackColor(textBox_Number, _person.PersonalNumber.ToString(), textBox_Number.Text);
+            if (!textBox_Number.Text.Equals(_person.IdString))
+                textBox_Number.Text = _person.IdString.ToString();
+            Logic.SetControlBackColor(textBox_Number, _person.IdString.ToString(), textBox_Number.Text);
         }
         private void _person_SpecialNotesChanged(object sender, string e)
         {
@@ -395,7 +395,7 @@ namespace PersonsBase.View
             // Права
             maskedTextBox_DriverID.Text = _person.DriverIdNum;
             // Персональный Номер
-            textBox_Number.Text = _person.PersonalNumber.ToString();
+            textBox_Number.Text = _person.IdString;
 
             // День Рождения
             try
@@ -722,14 +722,6 @@ namespace PersonsBase.View
             var success = Photo.OpenPhoto(out var img);
             var path = Photo.SaveToPhotoDir(img, _person.Name);
             if (success) _person.PathToPhoto = Path.GetFileName(path);
-        }
-
-        private void textBox_Number_Click(object sender, EventArgs e)
-        {
-            if (textBox_Number.Text.Equals("0"))
-            {
-                textBox_Number.Text = "";
-            }
         }
 
         private void button_photo_cam_Click(object sender, EventArgs e)

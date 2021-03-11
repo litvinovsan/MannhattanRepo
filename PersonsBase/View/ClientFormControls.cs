@@ -552,7 +552,7 @@ namespace PersonsBase.View
 
             dateTime.Value = init;
             dateTime.Enabled = false;
-           
+
             return new Tuple<Label, Control>(lableType, dateTime);
         }
         #endregion
@@ -673,9 +673,15 @@ namespace PersonsBase.View
         private void textBox_Number_TextChanged(object sender, EventArgs e)
         {
             var tb = (TextBox)sender;
-            _editedPersonalNumber = tb.Text;
-            Logic.SetControlBackColor(tb, _editedPersonalNumber, _person.PersonalNumber.ToString());
-            IsChangedUpdateStatus(_editedPersonalNumber, _person.PersonalNumber.ToString());
+            var t = tb.Text;
+
+            var numberLen = t.StartsWith("1") ? 13 : 12;
+            if (t.Length == numberLen)
+            {
+                _editedPersonalNumber = Logic.NormalizeBarCodeNumber(tb.Text);
+                Logic.SetControlBackColor(tb, _editedPersonalNumber, _person.IdString);
+                IsChangedUpdateStatus(_editedPersonalNumber, _person.IdString);
+            }
         }
 
         #endregion
@@ -701,10 +707,10 @@ namespace PersonsBase.View
             if (_editedDr.CompareTo(_person.BirthDate) != 0) _person.BirthDate = _editedDr;
             if (!Equals(_editedGender, _person.GenderType)) _person.GenderType = _editedGender;
 
-            if (!_editedPersonalNumber.Equals(_person.PersonalNumber.ToString()))
+            if (!_editedPersonalNumber.Equals(_person.IdString))
             {
-                int.TryParse(_editedPersonalNumber, out var num);
-                DataBaseM.EditPersonalNumber(_person.Name, num);
+                // int.TryParse(_editedPersonalNumber, out var num);
+                DataBaseM.EditPersonalNumber(_person.Name, _editedPersonalNumber);
             }
             SaveSpecialNotes();
         }

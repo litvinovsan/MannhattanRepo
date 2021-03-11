@@ -121,7 +121,7 @@ namespace PersonsBase.View
             // Права
             maskedTextBox_DriverID.Text = person.DriverIdNum ?? "";
             // ID
-            maskedTextBox_number.Text = person.PersonalNumber.ToString();
+            maskedTextBox_number.Text = person.IdString;
 
             // Фото
             var isSuccess = Logic.TryLoadPhoto(pictureBox_Client, person.PathToPhoto, person.GenderType);

@@ -107,7 +107,7 @@ namespace PersonsBase.data
         public string DriveId;
         public string photoName;
         public string SpecialNotes;
-        public int PersonalNumber;
+        public string IdString;
         public Gender Gender;
         public DateTime BDate;
     }
@@ -166,7 +166,7 @@ namespace PersonsBase.data
         Активирован,
         Не_Активирован
     }
-   
+
 
     #endregion
 

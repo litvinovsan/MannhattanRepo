@@ -244,7 +244,7 @@ namespace PersonsBase.data.Abonements
             OnValuesChanged();
         }
 
-        private void SetBuyActivatDate(DateTime startDate)
+        public void SetBuyActivatDate(DateTime startDate)
         {
 
             // Если +, то DateTime.Now позднее startDate

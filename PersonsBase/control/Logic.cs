@@ -54,7 +54,7 @@ namespace PersonsBase.control
         public static void CheckForDigits(KeyPressEventArgs e)
         {
             var number = e.KeyChar;
-            if (!char.IsDigit(number) && number != 8) // цифры и клавиша BackSpace
+            if (!Char.IsDigit(number) && number != 8) // цифры и клавиша BackSpace
             {
                 e.Handled = true;
             }
@@ -257,7 +257,7 @@ namespace PersonsBase.control
         {
             if (!FormsRunner.RunSelectPersonForm(out var selectedName, "УДАЛЕНИЕ КЛИЕНТА")) return false;
 
-            if (string.IsNullOrEmpty(selectedName)) return false;
+            if (String.IsNullOrEmpty(selectedName)) return false;
 
             var res = MessageBox.Show($@"{selectedName}", @"Удалить клиента из базы???", MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
@@ -299,7 +299,7 @@ namespace PersonsBase.control
                 DriverIdNum = dataStruct.DriveId,
                 Passport = dataStruct.Passport,
                 PathToPhoto = dataStruct.photoName,
-                PersonalNumber = dataStruct.PersonalNumber,
+                IdString = dataStruct.IdString,
                 Phone = dataStruct.Phone,
                 SpecialNotes = dataStruct.SpecialNotes,
             };
@@ -356,7 +356,7 @@ namespace PersonsBase.control
             {
                 var lastIndex = resultString.Length - 1;
                 var lastCharInString = resultString[lastIndex];
-                if (char.IsDigit(lastCharInString))
+                if (Char.IsDigit(lastCharInString))
                 {
                     return lastIndex + 1;
                 }
@@ -389,9 +389,9 @@ namespace PersonsBase.control
         /// <returns></returns>
         public static bool ChangePersonName(string curentName, string newName)
         {
-            if (string.IsNullOrEmpty(curentName) || string.IsNullOrEmpty(newName)) return false;
+            if (String.IsNullOrEmpty(curentName) || String.IsNullOrEmpty(newName)) return false;
 
-            var oldName = string.Copy(curentName);
+            var oldName = String.Copy(curentName);
             // Получаем обьекты для работы
             var person = PersonObject.GetLink(oldName);
             // Если текущее имя совпадает с новым
@@ -428,7 +428,7 @@ namespace PersonsBase.control
 
         public static string GetPersonShortName(string nameLong)
         {
-            if (string.IsNullOrWhiteSpace(nameLong) || string.IsNullOrEmpty(nameLong)) return string.Empty;
+            if (String.IsNullOrWhiteSpace(nameLong) || String.IsNullOrEmpty(nameLong)) return String.Empty;
 
             var longNameArray = PrepareName(nameLong).Split(' ');
 
@@ -455,7 +455,7 @@ namespace PersonsBase.control
         /// <param name="namePerson"></param>
         public static void OpenPersonCard(string namePerson)
         {
-            if (string.IsNullOrEmpty(namePerson)) return;
+            if (String.IsNullOrEmpty(namePerson)) return;
 
             try
             {
@@ -503,6 +503,36 @@ namespace PersonsBase.control
             return FormsRunner.RunBarCodeForm(out var namePerson) ? namePerson : "";
         }
 
+        /// <summary>
+        /// Добавляет или удаляет символы к строке, получаемой со сканера штрихкода.
+        /// Сканер выдает 13 символов если номер вида 1000000000710 и почему-то 12 если номер 000000000710 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string NormalizeBarCodeNumber(string str)
+        {
+            if (string.IsNullOrEmpty(str)) return string.Empty;
+            var zeroCnt = str.Count(x => x.Equals('0'));
+            if (zeroCnt == str.Length) return string.Empty;
+
+            if (str.Length == 13) return str; // Если длинна строки с номером максимальная
+
+            StringBuilder sb = new StringBuilder(str);
+            if (str.Length < 13)
+            {
+                var n = 13 - sb.Length;
+                sb.Insert(0, "0", n);
+                return sb.ToString();
+            }
+            else
+            {
+                var n = sb.Length - 13;
+
+                if (sb[0] == '0') return sb.Remove(0, n).ToString();
+                else return sb.Remove(sb.Length - n, n).ToString();
+            }
+        }
+
         #endregion
 
         #region /// СОЗДАНИЕ ОТЧЕТА по КЛИЕНТАМ ///
@@ -536,7 +566,7 @@ namespace PersonsBase.control
             if (!FormsRunner.RunSelectPersonForm(out var selectedName, "Выберите клиента для добавления Абонемента"))
                 return false;
 
-            if (string.IsNullOrEmpty(selectedName)) return false;
+            if (String.IsNullOrEmpty(selectedName)) return false;
 
             var res = MessageBox.Show($@"{selectedName}", @"Добавить абонемент?", MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
@@ -718,7 +748,7 @@ namespace PersonsBase.control
 
             // Условие подсветки. Мало занятий
             var indexNum = inputListOfCntrls.FindIndex(x =>
-                x.Item1.Text.Contains("Осталось Занятий") && (int.Parse(x.Item2.Text) <= 3));
+                x.Item1.Text.Contains("Осталось Занятий") && (Int32.Parse(x.Item2.Text) <= 3));
             if (indexNum != -1) inputListOfCntrls[indexNum].Item2.BackColor = Color.Orange;
 
         }
@@ -1034,7 +1064,7 @@ namespace PersonsBase.control
             var gender = inputGender;
             var result = true;
             var fileName = pathOrNamePhoto;
-            if (string.IsNullOrEmpty(fileName))
+            if (String.IsNullOrEmpty(fileName))
             {
                 // Если разрешены фейковые фото и не присвоена реальная фотка
                 if (Options.SimpsonsPhoto)
@@ -1049,7 +1079,7 @@ namespace PersonsBase.control
 
             try
             {
-                if (string.IsNullOrEmpty(fileName)) return false;
+                if (String.IsNullOrEmpty(fileName)) return false;
 
                 var path = Photo.GetFullPathToPhoto(fileName);
 
