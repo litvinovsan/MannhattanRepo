@@ -603,15 +603,15 @@ namespace PersonsBase.View
 
         private void button_CheckInWorkout_Click(object sender, EventArgs e)
         {
-            var result = _logic.CheckInWorkout(_person.Name);
+            var isOk = _logic.CheckInWorkout(_person.Name);
 
-            if (result)
+            if (isOk)
             {
                 // Обновление всех полей и состояний
-                Logic.LoadShortInfo(groupBox_Info, _person);
-                LoadEditableData();
+               // Logic.LoadShortInfo(groupBox_Info, _person);
+               // LoadEditableData();
                 // Для обновления списка посещений при добавлении новой тренировки
-                MyDataGridView.SetSourceDataGridView(dataGridView_Visits, Visit.GetVisitsTable(_person));
+                //MyDataGridView.SetSourceDataGridView(dataGridView_Visits, Visit.GetVisitsTable(_person));
                 Close();
             }
 

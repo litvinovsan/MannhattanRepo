@@ -12,9 +12,8 @@ namespace PersonsBase.data
 
         public static Person GetLink(string name)
         {
-            if (!DataBaseLevel.ContainsNameKey(name)) return null;
-            _person = DataBaseLevel.GetPersonsList()[name];
-            return _person;
+            var isOk = DataBaseLevel.GetPersonsList().TryGetValue(name, out _person);
+            return isOk ? _person : null;
         }
 
         #region /// Журнал посещений пользователя
@@ -151,7 +150,7 @@ namespace PersonsBase.data
             }
             else
             {
-                personsAbonHistDict.Add(person.Name, new List<AbonHistory> { abonHistory});
+                personsAbonHistDict.Add(person.Name, new List<AbonHistory> { abonHistory });
             }
         }
         #endregion

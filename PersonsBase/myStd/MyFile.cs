@@ -89,7 +89,7 @@ namespace PersonsBase.myStd
                 var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase + "\\" + Options.FolderNameExcel + "\\";
 
                 SaveToExcel(table, $"{currentPath}CписокКлиентов" + "_" + DateTime.Now.ToShortDateString());
-                SaveToExcel(table, $"{currentPath}CписокКлиентов");
+               // SaveToExcel(table, $"{currentPath}CписокКлиентов");
             }
         }
 

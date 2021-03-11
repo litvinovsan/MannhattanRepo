@@ -37,7 +37,7 @@ namespace ManhattatProject
             
                 using (var mutex = new Mutex(true, "ManhattatProject"))
                 {
-                    if (mutex.WaitOne(500, false))
+                    if (mutex.WaitOne(10000, false))
                     {
                         Application.EnableVisualStyles();
                         Application.SetCompatibleTextRenderingDefault(false);

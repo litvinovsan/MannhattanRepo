@@ -122,7 +122,7 @@ namespace PersonsBase.data
         {
             findedPerson = null;
 
-            if (inputCollection == null ||string.IsNullOrEmpty(number) || inputCollection.Count <= 0) return false;
+            if (inputCollection == null || string.IsNullOrEmpty(number) || inputCollection.Count <= 0) return false;
 
             try
             {
@@ -146,7 +146,7 @@ namespace PersonsBase.data
             }
             else if (string.IsNullOrEmpty(newNumber))
             {
-               // MessageBox.Show($@"Личный номер удалён", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // MessageBox.Show($@"Личный номер удалён", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 PersonObject.GetLink(namePerson).IdString = string.Empty;
                 return false;
             }
@@ -233,6 +233,13 @@ namespace PersonsBase.data
             var persons = DataBaseLevel.GetPersonsList().Select(x => x.Value);
             var dt = CreatePersonsTable(persons, GetPersonFieldsFull);
             return dt;
+        }
+
+        public static async Task<DataTable> CreatePersonsTableAsync()
+        {
+            var task = new Task<DataTable>(CreatePersonsTable);
+            task.Start();
+            return await task;
         }
 
 

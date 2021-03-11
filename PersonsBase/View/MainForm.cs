@@ -73,17 +73,18 @@ namespace PersonsBase.View
         {
             Options.SaveProperties(); // Сохранение пользовательских настроек
 
-            // База клиентов сохраняется автоматически, в деструкторе класса DataBaseLevel
-
-            //Сохранение в Эксель
-            MyFile.ExportToExcel(DataBaseM.CreatePersonsTable(), false); // Автоматическое Сохранение в Excel всей базы на всякий случай
-
             if (MessageBox.Show(@"Вы хотите закрыть приложение?", @"Завершение работы", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
                 e.Cancel = true;
             }
+            // База клиентов сохраняется автоматически, в деструкторе класса DataBaseLevel
         }
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+             //Сохранение в Эксель
+            MyFile.ExportToExcel( DataBaseM.CreatePersonsTable(), false); // Автоматическое Сохранение в Excel всей базы на всякий случай
 
+        }
         #endregion
 
         #region /// МЕТОДЫ ///
@@ -316,7 +317,7 @@ namespace PersonsBase.View
         }
 
 
-        private void сохранитьВExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void сохранитьВExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (DataBaseLevel.GetNumberOfPersons() == 0)
             {
@@ -327,8 +328,8 @@ namespace PersonsBase.View
             //Сохраним и Базу данных
             Logic.SaveEverithing();
             // Сохранение в Excel
-            var table = DataBaseM.CreatePersonsTable();
-            MyFile.ExportToExcel(table, true);
+            var table = DataBaseM.CreatePersonsTableAsync();
+            MyFile.ExportToExcel(await table, true);
         }
 
         private void сканироватьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -627,5 +628,7 @@ namespace PersonsBase.View
             if (сomboBox_PersonsList != null && сomboBox_PersonsList.Items.Count > 0) сomboBox_PersonsList.DroppedDown = true;
         }
         #endregion
+
+       
     }
 }
