@@ -77,12 +77,12 @@ namespace PersonsBase.View
             {
                 e.Cancel = true;
             }
-            // База клиентов сохраняется автоматически, в деструкторе класса DataBaseLevel
+            DataBaseLevel.SerializeObjects();
         }
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-             //Сохранение в Эксель
-            MyFile.ExportToExcel( DataBaseM.CreatePersonsTable(), false); // Автоматическое Сохранение в Excel всей базы на всякий случай
+            //Сохранение в Эксель
+            MyFile.ExportToExcel(DataBaseM.CreatePersonsTable(), false); // Автоматическое Сохранение в Excel всей базы на всякий случай
 
         }
         #endregion
@@ -629,6 +629,6 @@ namespace PersonsBase.View
         }
         #endregion
 
-       
+
     }
 }

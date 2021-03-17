@@ -466,7 +466,7 @@ namespace PersonsBase.data
                 hashCode = (hashCode * 397) ^ (int)_status;
                 hashCode = (hashCode * 397) ^ (int)GenderType;
                 hashCode = (hashCode * 397) ^ (AbonementCurent != null ? AbonementCurent.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ IdString.GetHashCode();
+                hashCode = (hashCode * 397) ^ (string.IsNullOrEmpty(IdString) ? 0 : IdString.GetHashCode());
                 hashCode = (hashCode * 397) ^ BirthDate.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Passport != null ? Passport.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (PathToPhoto != null ? PathToPhoto.GetHashCode() : 0);
