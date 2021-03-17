@@ -155,18 +155,7 @@ namespace PersonsBase.data
                 OnSpecialNotesChanged(_specialNotes);
             }
         }
-        /// <summary>
-        /// Устарело, не используется. Вместо этого параметра использовать IdString
-        /// </summary>
-        //public int PersonalNumber
-        //{
-        //    get { return _personalNumber; }
-        //    set
-        //    {
-        //        _personalNumber = value;
-        //        //  OnPersonalNumberChanged(_personalNumber);
-        //    }
-        //}
+
         public StatusPerson Status
         {
             get
@@ -189,7 +178,6 @@ namespace PersonsBase.data
                 OnBirthDateChanged(_birthDate);
             }
         }
-        public readonly ObservableCollection<AbonementBasic> AbonementsQueue;
         public AbonementBasic AbonementCurent
         {
             get
@@ -222,7 +210,7 @@ namespace PersonsBase.data
         {
             get
             {
-               
+
                 return _idString;
             }
             set
@@ -252,7 +240,6 @@ namespace PersonsBase.data
             _pathToPhoto = string.Empty;
             _abonementCurent = null;
 
-            AbonementsQueue = new ObservableCollection<AbonementBasic>();
             _idString = string.Empty;
         }
         public Person()
@@ -269,7 +256,6 @@ namespace PersonsBase.data
             _pathToPhoto = string.Empty;
             _abonementCurent = null;
 
-            AbonementsQueue = new ObservableCollection<AbonementBasic>();
             _idString = string.Empty;
 
         }

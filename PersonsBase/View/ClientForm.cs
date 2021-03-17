@@ -136,6 +136,7 @@ namespace PersonsBase.View
             // Блокируем админскую учетку на всякий случай
             PwdForm.LockPassword();
             _abonementController.Save();
+            GC.Collect();
         }
         #endregion
 
@@ -472,13 +473,8 @@ namespace PersonsBase.View
         private void SetupVisitsDataGridView()
         {
             var dtable = Visit.GetVisitsTable(_person);
-            var journalVisits = PersonObject.GetVisitsList(_person.Name);
-
-            var helpStrings = (journalVisits != null && journalVisits.Count > 0) ? journalVisits.First().GetHeadersToolTipHelp() : new[] { "===" };
-
             MyDataGridView.SetSourceDataGridView(dataGridView_Visits, dtable);
             MyDataGridView.ImplementStyle(dataGridView_Visits);
-            MyDataGridView.AddHeaderToolTips(dataGridView_Visits, helpStrings);
         }
 
         #region Вкладка Архив Абонементов
@@ -608,8 +604,8 @@ namespace PersonsBase.View
             if (isOk)
             {
                 // Обновление всех полей и состояний
-               // Logic.LoadShortInfo(groupBox_Info, _person);
-               // LoadEditableData();
+                // Logic.LoadShortInfo(groupBox_Info, _person);
+                // LoadEditableData();
                 // Для обновления списка посещений при добавлении новой тренировки
                 //MyDataGridView.SetSourceDataGridView(dataGridView_Visits, Visit.GetVisitsTable(_person));
                 Close();
