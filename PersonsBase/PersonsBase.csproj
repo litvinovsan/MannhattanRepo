@@ -84,7 +84,6 @@
     <Compile Include="control\Log.cs" />
     <Compile Include="control\Logic.cs" />
     <Compile Include="control\SerializableSaver.cs" />
-    <Compile Include="Converter\DbConverter.cs" />
     <Compile Include="data\Abonements\AbonementBasic.cs" />
     <Compile Include="data\Abonements\ByDays.cs" />
     <Compile Include="data\Abonements\ClubCard.cs" />

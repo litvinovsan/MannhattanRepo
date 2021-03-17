@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.control;
-using PersonsBase.Converter;
 using PersonsBase.data;
 using PersonsBase.myStd;
 
@@ -284,8 +283,6 @@ namespace PersonsBase.View
 
 
             // Способ 2. Конвертер
-            var persons = DataBaseLevel.GetPersonsList().Values;
-            var totalDict = DbConverter.Convert(persons);
 
             //// Очистка очереди
             //foreach (var person in persons)

@@ -84,7 +84,6 @@ namespace PersonsBase.data
         private string _passport;
         private string _driverIdNum;
         private string _specialNotes;
-        private int _personalNumber; // Устарело. Не используется.
         private DateTime _birthDate;
         private Gender _genderType;
         private StatusPerson _status;
@@ -159,15 +158,15 @@ namespace PersonsBase.data
         /// <summary>
         /// Устарело, не используется. Вместо этого параметра использовать IdString
         /// </summary>
-        public int PersonalNumber
-        {
-            get { return _personalNumber; }
-            set
-            {
-                _personalNumber = value;
-                //  OnPersonalNumberChanged(_personalNumber);
-            }
-        }
+        //public int PersonalNumber
+        //{
+        //    get { return _personalNumber; }
+        //    set
+        //    {
+        //        _personalNumber = value;
+        //        //  OnPersonalNumberChanged(_personalNumber);
+        //    }
+        //}
         public StatusPerson Status
         {
             get
@@ -223,10 +222,7 @@ namespace PersonsBase.data
         {
             get
             {
-                if (string.IsNullOrEmpty(_idString) && PersonalNumber != 0)
-                {
-                    _idString = Logic.NormalizeBarCodeNumber(PersonalNumber.ToString());
-                }
+               
                 return _idString;
             }
             set
@@ -245,7 +241,6 @@ namespace PersonsBase.data
         public Person(string nameFio)
         {
             Name = nameFio;
-            _personalNumber = 0;
             _status = StatusPerson.Нет_Карты;
             GenderType = Gender.Неизвестен;
             BirthDate = DateTime.Parse("02.02.2000");
@@ -263,7 +258,6 @@ namespace PersonsBase.data
         public Person()
         {
             Name = "Empty Name";
-            _personalNumber = 0;
             _status = StatusPerson.Нет_Карты;
             GenderType = Gender.Неизвестен;
             BirthDate = DateTime.Parse("02.02.2000");
