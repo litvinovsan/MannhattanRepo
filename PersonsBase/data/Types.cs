@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using PersonsBase.control;
 
 namespace PersonsBase.data
@@ -90,12 +91,20 @@ namespace PersonsBase.data
         На_12_посещений = 12
     }
 
+    // FIXME Удалить!
     [Serializable]
     public struct Employee
     {
         public string Name;
         public string Phone;
         public bool IsTrener;
+    }
+
+    [Serializable]
+    public enum EmploeeType
+    {
+        Администратор,
+        Тренер
     }
 
     [Serializable]

@@ -10,6 +10,8 @@ namespace PersonsBase.MyControllers
 {
     public class SaverBinary : ISaver
     {
+        public string FileExtension { get; } = ".bin";
+
         public T Load<T>(string fileName)
         {
             var formatter = new BinaryFormatter();

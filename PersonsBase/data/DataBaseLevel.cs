@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.data.Abonements;
 using PersonsBase.myStd;
+using PersonsBase.MyControllers;
 
 namespace PersonsBase.data
 {
@@ -208,6 +210,10 @@ namespace PersonsBase.data
                 SerializeClass.Serialize(_groupScheduleList, currentPath + "\\" + Options.GroupSchFile);
                 // Сериализация списков посещений. Списки отображаются на главной форме(4 колонки)
                 DailyVisits.GetInstance().Serialize();
+
+
+                // Новое сохранение
+                EmploeesController.GetInstance().Save();
             }
         }
 
@@ -251,6 +257,22 @@ namespace PersonsBase.data
 
             // Списки посещений по группам. Отображаются на главной форме.
             DailyVisits.GetInstance().DeSerialize();
+
+            // FIXME
+            #region Новый вид сохранения и загрузки Раскомментровать
+            //// Текущий Администратор на Ресепшн
+            var emplCtrl = EmploeesController.GetInstance();
+            emplCtrl.Load();
+            _adminCurrent = new Administrator(emplCtrl.CurrentAdministrator.Name, emplCtrl.CurrentAdministrator.Phone);
+
+            // База Тренеров
+            _trenersList = emplCtrl.Emploees.Values.Where(tren => tren.EmploeeType == EmploeeType.Тренер)
+                .Select(x => new Trener(x.Name, x.Phone)).ToList();
+            // База Администраторов  
+            _adminsList = emplCtrl.Emploees.Values.Where(admin => admin.EmploeeType == EmploeeType.Администратор)
+                .Select(x => new Administrator(x.Name, x.Phone)).ToList();
+
+            #endregion
         }
 
         #endregion

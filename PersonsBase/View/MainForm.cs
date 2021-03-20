@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using PersonsBase.control;
 using PersonsBase.data;
 using PersonsBase.myStd;
+using PersonsBase.MyControllers;
 
 namespace PersonsBase.View
 {
@@ -627,8 +628,13 @@ namespace PersonsBase.View
             // Развернем Комбо бокс с списком имен
             if (сomboBox_PersonsList != null && сomboBox_PersonsList.Items.Count > 0) сomboBox_PersonsList.DroppedDown = true;
         }
+
         #endregion
 
-
+        private void миграцииToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EmploeesController emploeesController = EmploeesController.GetInstance();
+            emploeesController.StartMigration();
+        }
     }
 }

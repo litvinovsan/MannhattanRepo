@@ -121,6 +121,7 @@
     <Compile Include="data\CAdministrator.cs" />
     <Compile Include="data\CWorkout.cs" />
     <Compile Include="data\DailyVisits.cs" />
+    <Compile Include="data\MyEmploee.cs" />
     <Compile Include="data\PersonObject.cs" />
     <Compile Include="data\ExtensionMethods.cs" />
     <Compile Include="data\Photo.cs" />
@@ -132,7 +133,10 @@
     <Compile Include="data\CTrener.cs" />
     <Compile Include="data\Visit.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="MyControllers\EmploeesController.cs" />
     <Compile Include="MyControllers\ISaver.cs" />
+    <Compile Include="MyControllers\PersonsController.cs" />
+    <Compile Include="MyControllers\SaverBase.cs" />
     <Compile Include="MyControllers\SaverBinary.cs" />
     <Compile Include="MyControllers\SaverJSon.cs" />
     <Compile Include="myStd\MyCheckedListBox.cs" />

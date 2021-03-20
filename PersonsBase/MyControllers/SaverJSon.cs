@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.Unicode;
 using System.Threading.Tasks;
+using PersonsBase.data;
 
 namespace PersonsBase.MyControllers
 {
@@ -17,13 +21,18 @@ namespace PersonsBase.MyControllers
     public class SaverJSon : ISaver
     {
         #region Опции
+
+        public string FileExtension { get; } = ".json";
+
         static readonly JsonSerializerOptions Options = new JsonSerializerOptions
         {
+            AllowTrailingCommas = true,
             WriteIndented = true,
             IncludeFields = true,
             IgnoreNullValues = false,
             IgnoreReadOnlyFields = false,
             IgnoreReadOnlyProperties = false,
+            Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
             Converters = { new JsonStringEnumConverter() }
         };
 
