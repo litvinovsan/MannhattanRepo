@@ -85,6 +85,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="control\LogicTests.cs" />
+    <Compile Include="MyControllers\PersonsControllerTests.cs" />
     <Compile Include="MyControllers\SaverJSonTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

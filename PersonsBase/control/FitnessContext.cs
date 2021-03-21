@@ -16,5 +16,6 @@ namespace PersonsBase.control
 
         public DbSet<MyEmploee> Employees { get; set; }
         public DbSet<Person> Persons { get; set; }
+        public DbSet<Visit> Visits { get; set; }
     }
 }

@@ -23,6 +23,11 @@ namespace PersonsBase.MyControllers
 
         }
 
+        public Task<T> LoadAsync<T>(string fileName)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Save<T>(T obj, string fileName)
         {
             var formatter = new BinaryFormatter();
@@ -30,6 +35,11 @@ namespace PersonsBase.MyControllers
             {
                 formatter.Serialize(fileStream, obj);
             }
+        }
+
+        public Task SaveAsync<T>(T obj, string fileName)
+        {
+            throw new NotImplementedException();
         }
     }
 }

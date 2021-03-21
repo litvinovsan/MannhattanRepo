@@ -17,33 +17,60 @@ namespace PersonsBase.data
         // Текстовые константы
         private const string NameUnknown = "Имя неизвестно";
 
-        public TypeWorkout TypeWorkoutToday { get; }
-        public DateTime DateTimeVisit { get; }
+        [JsonInclude]
+        public TypeWorkout TypeWorkoutToday { get; set; }
 
-        public readonly Group GroupInfo;
-        public readonly string PeronalTrenerName;
-        public readonly string CurrAdmName;
-        public readonly string AbonementName;
+        [JsonInclude]
+        public DateTime DateTimeVisit { get; set; }
+
+        [JsonInclude]
+        public Group GroupInfo;
+        [JsonInclude]
+        public string PeronalTrenerName;
+        [JsonInclude]
+        public string CurrAdmName;
+        [JsonInclude]
+        public string AbonementName;
 
         // Свойства абонемента на момент посещения
-        private SpaService SpaStatus { get; }
-        private Pay PayStatus { get; }
-        private TimeForTr AvailableTimeTren { get; }
-        private DateTime AbonStartDate { get; }
-        private DateTime AbonEndDate { get; }
-        private int NumAllDaysAbon { get; }
-        private int NumAerobicTr { get; }
-        private int NumPersonalTr { get; }
-        private int NumMiniGroup { get; }
-        private DateTime AbonBuyDate { get; }
+        [JsonInclude]
+        public SpaService SpaStatus { get; set; }
 
+        [JsonInclude]
+        public Pay PayStatus { get; set; }
+
+        [JsonInclude]
+        public TimeForTr AvailableTimeTren { get; set; }
+
+        [JsonInclude]
+        public DateTime AbonStartDate { get; set; }
+
+        [JsonInclude]
+        public DateTime AbonEndDate { get; set; }
+
+        [JsonInclude]
+        public int NumAllDaysAbon { get; set; }
+
+        [JsonInclude]
+        public int NumAerobicTr { get; set; }
+
+        [JsonInclude]
+        public int NumPersonalTr { get; set; }
+
+        [JsonInclude]
+        public int NumMiniGroup { get; set; }
+
+        [JsonInclude]
+        public DateTime AbonBuyDate { get; set; }
+
+        // Новые свойства
         [JsonInclude]
         public int Id { get; set; }
         [JsonInclude]
         public int PersonId { get; set; }
         [JsonInclude]
         public int AbonementId { get; set; }
-       
+
         // Конструкторы
         public Visit(AbonementBasic abon, WorkoutOptions workoutOptions, string administratorName)
         {

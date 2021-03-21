@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using PersonsBase.data;
 
@@ -27,6 +28,29 @@ namespace PersonsBase.MyControllers
                 throw;
             }
         }
+
+        #region Async Version
+
+        protected async void SaveAsync<T>(T obj, string fileName)
+        {
+            await _saveManager.SaveAsync(obj, fileName);
+        }
+
+        protected async Task<T> LoadAsync<T>(string fileName)
+        {
+            try
+            {
+                var result = await _saveManager.LoadAsync<T>(fileName);
+                return result;
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, typeof(T).FullName);
+                throw;
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// Возвращает строку с полным путём до папки сохранения из Опций. Указывается имя файла без расширения и пути

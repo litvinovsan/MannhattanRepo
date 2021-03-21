@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonsBaseTests1", "Person
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCamAforge", "WebCamAforge\WebCamAforge.csproj", "{E5D09B4A-6866-4444-AEC6-04B668896C60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonsBaseTests4", "PersonsBaseTests4\PersonsBaseTests4.csproj", "{6B983C75-26EA-4439-AB2E-12AFEA335F8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonsBaseTests", "PersonsBaseTests4\PersonsBaseTests.csproj", "{6B983C75-26EA-4439-AB2E-12AFEA335F8A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

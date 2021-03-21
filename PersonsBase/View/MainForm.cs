@@ -639,6 +639,11 @@ namespace PersonsBase.View
             PersonsController personsController=PersonsController.GetInstance();
             personsController.StartMigration();
 
+          //  Сначала Абонементов Миграция
+
+            VisitsController visitsController=VisitsController.GetInstance();
+            visitsController.StartMigration();
+
         }
     }
 }

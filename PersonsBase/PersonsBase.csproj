@@ -133,12 +133,14 @@
     <Compile Include="data\CTrener.cs" />
     <Compile Include="data\Visit.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="MyControllers\AbonHistoryController.cs" />
     <Compile Include="MyControllers\EmploeesController.cs" />
     <Compile Include="MyControllers\ISaver.cs" />
     <Compile Include="MyControllers\PersonsController.cs" />
     <Compile Include="MyControllers\SaverBase.cs" />
     <Compile Include="MyControllers\SaverBinary.cs" />
     <Compile Include="MyControllers\SaverJSon.cs" />
+    <Compile Include="MyControllers\VisitsController.cs" />
     <Compile Include="myStd\MyCheckedListBox.cs" />
     <Compile Include="myStd\MyFile.cs" />
     <Compile Include="myStd\MyComboBox.cs" />

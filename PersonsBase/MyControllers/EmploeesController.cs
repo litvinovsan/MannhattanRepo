@@ -17,7 +17,6 @@ namespace PersonsBase.MyControllers
         #region Синглтон
         [NonSerialized]
         private static EmploeesController _instance;  //Singleton.
-
         public static EmploeesController GetInstance()
         {
             return _instance ?? (_instance = new EmploeesController());
@@ -27,7 +26,13 @@ namespace PersonsBase.MyControllers
         #region Поля
         public MyEmploee CurrentAdministrator;
         public Dictionary<string, MyEmploee> Emploees { get; set; }
-        private static int IdCounter { get; set; }
+
+        private static int _idCounter;
+        private static int IdCounter
+        {
+            get { return ++_idCounter; }
+            set { _idCounter = value; }
+        }
 
         #endregion
 
@@ -63,7 +68,10 @@ namespace PersonsBase.MyControllers
             // List of Emploeers
             filename = GetPath(FName);
             if (MyFile.IsFileExist(filename))
+            {
                 Emploees = Load<Dictionary<string, MyEmploee>>(filename);
+                IdCounter = Emploees.Count;
+            }
         }
         #endregion
 
@@ -92,20 +100,33 @@ namespace PersonsBase.MyControllers
             var adminCurrent = new Administrator();
             SerializeClass.DeSerialize(ref adminCurrent, currentPath + Options.AdminCurrFile);
 
-            int id = 0;
-
+            Emploees.Clear();
+            IdCounter = 0;
             foreach (var item in trenersList)
             {
-                Emploees.Add(item.Name, new MyEmploee(item.Name, EmploeeType.Тренер, item.Phone) { Id = ++id });
+                try
+                {
+                    Emploees.Add(item.Name, new MyEmploee(item.Name, EmploeeType.Тренер, item.Phone) { Id = IdCounter });
+                }
+                catch
+                {
+                    // ignored
+                }
             }
 
             foreach (var item in adminsList)
             {
-                Emploees.Add(item.Name, new MyEmploee(item.Name, EmploeeType.Администратор, item.Phone) { Id = ++id });
+                try
+                {
+                    Emploees.Add(item.Name, new MyEmploee(item.Name, EmploeeType.Администратор, item.Phone) { Id = IdCounter });
+                }
+                catch
+                {
+                    // ignored
+                }
             }
 
             Emploees.TryGetValue(adminCurrent.Name, out CurrentAdministrator);
-            IdCounter = ++id;
             Save();
         }
         #endregion

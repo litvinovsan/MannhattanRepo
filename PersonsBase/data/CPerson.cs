@@ -223,8 +223,6 @@ namespace PersonsBase.data
             }
         }
 
-
-
         #endregion
 
         #region/// КОНСТРУКТОРЫ.  ///////////////////////////

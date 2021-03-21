@@ -14,10 +14,10 @@ namespace PersonsBase.MyControllers
     public class PersonsController : SaverBase
     {
         const string FName = "Persons";
+
         #region Синглтон
         [NonSerialized]
         private static PersonsController _instance;  //Singleton.
-
         public static PersonsController GetInstance()
         {
             return _instance ?? (_instance = new PersonsController());
@@ -26,7 +26,15 @@ namespace PersonsBase.MyControllers
 
         #region Поля
         public SortedList<string, Person> Persons { get; set; }
-        private static int IdCounter { get; set; }
+
+        private static int _idCounter;
+        // Содержит последний использованный Id. Всегда увеличивается
+        private static int IdCounter
+        {
+            get { return ++_idCounter; }
+            set { _idCounter = value; }
+        }
+
         #endregion
 
         #region Конструктор
@@ -42,7 +50,6 @@ namespace PersonsBase.MyControllers
 
         public void Save()
         {
-            //  сохраняем весь персонал
             if (Persons != null && Persons.Count != 0)
                 Save(Persons, GetPath(FName));
         }
@@ -52,13 +59,35 @@ namespace PersonsBase.MyControllers
             // List of Emploeers
             var filename = GetPath(FName);
             if (MyFile.IsFileExist(filename))
+            {
                 Persons = Load<SortedList<string, Person>>(filename);
+                IdCounter = Persons.Count;
+            }
         }
 
         #endregion
 
         #region Методы
         // FIXME Переместить методы сюда по удалению добавлению изменению клиентво
+
+
+        /// <summary>
+        /// Возвращает Id персоны по имени
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Если персоны нет,то -1 вернет</returns>
+        public int GetId(string name)
+        {
+            if (name == null) throw new ArgumentNullException(nameof(name));
+            try
+            {
+                return Persons[name].Id;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+        }
         #endregion
 
         #region FIXME MIGRATIONS
@@ -69,23 +98,23 @@ namespace PersonsBase.MyControllers
             var currentPath = Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase + "\\";
 
             // База Клиентов
-            var dataBaseList = new SortedList<string, Person>(StringComparer.OrdinalIgnoreCase);
-            SerializeClass.DeSerialize(ref dataBaseList, currentPath + Options.PersonsDbFile);
+            var dataBaseList = DataBaseLevel.GetPersonsList();
 
-            int id = 0;
             var abonCntrl = AbonementController.GetInstance();
+            Persons.Clear();
+            IdCounter = 0;
             foreach (var item in dataBaseList)
             {
                 var itmVal = item.Value;
                 Persons.Add(item.Key, new Person(itmVal.Name)
                 {
-                    Id = ++id,
+                    Id = IdCounter,
+                    IdString = itmVal.IdString,
                     Phone = itmVal.Phone,
                     AbonementCurent = abonCntrl.GetFirstValid(itmVal.Name),
                     BirthDate = itmVal.BirthDate,
                     DriverIdNum = itmVal.DriverIdNum,
                     GenderType = itmVal.GenderType,
-                    IdString = itmVal.IdString,
                     Passport = itmVal.Passport,
                     PathToPhoto = itmVal.PathToPhoto,
                     SpecialNotes = itmVal.SpecialNotes,
@@ -93,9 +122,10 @@ namespace PersonsBase.MyControllers
                 });
             }
 
-            IdCounter = ++id;
             Save();
         }
         #endregion
+
+
     }
 }

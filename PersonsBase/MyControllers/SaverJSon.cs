@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using System.Threading.Tasks;
-using PersonsBase.data;
+using System.Windows.Forms;
 
 namespace PersonsBase.MyControllers
 {
@@ -24,7 +20,7 @@ namespace PersonsBase.MyControllers
 
         public string FileExtension { get; } = ".json";
 
-        static readonly JsonSerializerOptions Options = new JsonSerializerOptions
+        private static readonly JsonSerializerOptions Options = new JsonSerializerOptions
         {
             AllowTrailingCommas = true,
             WriteIndented = true,
@@ -60,19 +56,11 @@ namespace PersonsBase.MyControllers
             if (obj == null) throw new ArgumentNullException(nameof(obj));
             if (fileName == null) throw new ArgumentNullException(nameof(fileName));
 
-            try
-            {
-                var jsonString = JsonSerializer.Serialize(obj, Options);
-                File.WriteAllText(fileName, jsonString);
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            var jsonString = JsonSerializer.Serialize(obj, Options);
+            File.WriteAllText(fileName, jsonString);
         }
 
-        public async void SaveAsync<T>(T obj, string fileName)
+        public async Task SaveAsync<T>(T obj, string fileName)
         {
             if (obj == null) throw new ArgumentNullException(nameof(obj));
             if (fileName == null) throw new ArgumentNullException(nameof(fileName));
@@ -84,8 +72,9 @@ namespace PersonsBase.MyControllers
                     await JsonSerializer.SerializeAsync(createStream, obj, Options);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                MessageBox.Show(e.Message, typeof(T).Name);
                 throw;
             }
         }
@@ -102,9 +91,9 @@ namespace PersonsBase.MyControllers
                 T result = JsonSerializer.Deserialize<T>(jsonString, Options);
                 return result;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                MessageBox.Show(e.Message, typeof(T).Name);
                 throw;
             }
         }

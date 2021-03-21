@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace PersonsBase.data
 {
     [Serializable]
     public class ScheduleNote // Одна запись в планировщике
     {
-        private MyTime _time;
-        private string _nameWorkout;
-        private string _timeAndName;
+        [JsonInclude]
+        public MyTime _time;
+        [JsonInclude]
+        public string _nameWorkout;
+        [JsonInclude]
+        public string _timeAndName;
 
         #region /// ПУБЛИЧНЫЕ ///
 

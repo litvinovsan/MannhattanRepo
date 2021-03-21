@@ -1,15 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PersonsBase.control;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PersonsBase.control;
 using PersonsBase.data;
 using PersonsBase.data.Abonements;
 
-namespace PersonsBase.control.Tests
+namespace PersonsBaseTests1.control
 {
     [TestClass()]
     public class AbonementControllerTests

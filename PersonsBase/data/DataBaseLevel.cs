@@ -215,6 +215,7 @@ namespace PersonsBase.data
                 // Новое сохранение
                 EmploeesController.GetInstance().Save();
                 PersonsController.GetInstance().Save();
+                VisitsController.GetInstance().Save();
             }
         }
 
@@ -259,8 +260,8 @@ namespace PersonsBase.data
             // Списки посещений по группам. Отображаются на главной форме.
             DailyVisits.GetInstance().DeSerialize();
 
-            // FIXME
-            #region Новый вид сохранения и загрузки Раскомментровать
+            // FIXME Раскомментировать
+            #region Новый вид сохранения и загрузки Раскомментровать всё для перехода на новый тип данных сохранения
             //// Текущий Администратор на Ресепшн
             var emplCtrl = EmploeesController.GetInstance();
             emplCtrl.Load();
@@ -276,7 +277,12 @@ namespace PersonsBase.data
             // База Клиентов
             var persCntrl = PersonsController.GetInstance();
             persCntrl.Load();
-           // _dataBaseList = persCntrl.Persons;
+            // _dataBaseList = persCntrl.Persons;
+
+            // Журнал посещений клиентов
+            VisitsController.GetInstance().Load();
+            // FIXME Метод асинхронный, поэтому нужно ждать иначе коллекция пустая 
+            // _visitsDictionary = VisitsController.GetInstance().Visits;
 
             #endregion
         }
