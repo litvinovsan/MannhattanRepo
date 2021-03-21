@@ -214,6 +214,7 @@ namespace PersonsBase.data
 
                 // Новое сохранение
                 EmploeesController.GetInstance().Save();
+                PersonsController.GetInstance().Save();
             }
         }
 
@@ -263,14 +264,19 @@ namespace PersonsBase.data
             //// Текущий Администратор на Ресепшн
             var emplCtrl = EmploeesController.GetInstance();
             emplCtrl.Load();
-            _adminCurrent = new Administrator(emplCtrl.CurrentAdministrator.Name, emplCtrl.CurrentAdministrator.Phone);
+            //_adminCurrent = new Administrator(emplCtrl.CurrentAdministrator.Name, emplCtrl.CurrentAdministrator.Phone);
 
-            // База Тренеров
-            _trenersList = emplCtrl.Emploees.Values.Where(tren => tren.EmploeeType == EmploeeType.Тренер)
-                .Select(x => new Trener(x.Name, x.Phone)).ToList();
-            // База Администраторов  
-            _adminsList = emplCtrl.Emploees.Values.Where(admin => admin.EmploeeType == EmploeeType.Администратор)
-                .Select(x => new Administrator(x.Name, x.Phone)).ToList();
+            //// База Тренеров
+            //_trenersList = emplCtrl.Emploees.Values.Where(tren => tren.EmploeeType == EmploeeType.Тренер)
+            //    .Select(x => new Trener(x.Name, x.Phone)).ToList();
+            //// База Администраторов  
+            //_adminsList = emplCtrl.Emploees.Values.Where(admin => admin.EmploeeType == EmploeeType.Администратор)
+            //    .Select(x => new Administrator(x.Name, x.Phone)).ToList();
+
+            // База Клиентов
+            var persCntrl = PersonsController.GetInstance();
+            persCntrl.Load();
+           // _dataBaseList = persCntrl.Persons;
 
             #endregion
         }

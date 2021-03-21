@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using PersonsBase.data;
 
@@ -15,7 +12,7 @@ namespace PersonsBase.MyControllers
 
         protected void Save<T>(T obj, string fileName)
         {
-            _saveManager.Save<T>(obj, fileName);
+            _saveManager.Save(obj, fileName);
         }
 
         protected T Load<T>(string fileName)
@@ -36,9 +33,9 @@ namespace PersonsBase.MyControllers
         /// </summary>
         /// <param name="filename">Имя файла без расширения</param>
         /// <returns></returns>
-        public string GetPath(string filename)
+        protected string GetPath(string filename)
         {
-            StringBuilder currentPath = new StringBuilder(Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase + "\\");
+            var currentPath = new StringBuilder(Directory.GetCurrentDirectory() + "\\" + Options.FolderNameDataBase + "\\");
             currentPath.Append(filename);
             currentPath.Append(_saveManager.FileExtension);
             return currentPath.ToString();

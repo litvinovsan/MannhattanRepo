@@ -38,7 +38,12 @@ namespace PersonsBase.data
             _nameWorkout = nameWorkout;
             _timeAndName = $"{_time.HourMinuteTime} - {_nameWorkout}";
         }
-
+        public ScheduleNote()
+        {
+            _time = null;
+            _nameWorkout = "";
+            _timeAndName = "";
+        }
         #endregion
 
         #region /// MEТОДЫ ///

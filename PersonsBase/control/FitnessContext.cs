@@ -15,5 +15,6 @@ namespace PersonsBase.control
         public FitnessContext() : base("DbConnection") { }
 
         public DbSet<MyEmploee> Employees { get; set; }
+        public DbSet<Person> Persons { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
+using System.Text.Json.Serialization;
 using PersonsBase.control;
 using PersonsBase.data.Abonements;
 
@@ -87,12 +86,15 @@ namespace PersonsBase.data
         private DateTime _birthDate;
         private Gender _genderType;
         private StatusPerson _status;
+        [JsonIgnore]
         private AbonementBasic _abonementCurent;
         private string _idString;
         #endregion
 
         #region/// ПУБЛИЧНЫЕ ПОЛЯ, ДОСТУПНЫЕ ДАННЫЕ О КЛИЕНТЕ ////////////
 
+        [JsonInclude]
+        public int Id { get; set; }
         public string Name
         {
             get { return _name; }
@@ -178,6 +180,7 @@ namespace PersonsBase.data
                 OnBirthDateChanged(_birthDate);
             }
         }
+        [JsonIgnore]
         public AbonementBasic AbonementCurent
         {
             get
@@ -210,7 +213,6 @@ namespace PersonsBase.data
         {
             get
             {
-
                 return _idString;
             }
             set

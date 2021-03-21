@@ -12,6 +12,8 @@ namespace PersonsBase.MyControllers
     // FIXME ПОменять имена файлов на те что  в ОПЦИЯХ
     public class EmploeesController : SaverBase
     {
+        const string FName = "Emploees";
+        private const string FNameAdmin = "CurrentAdmin";
         #region Синглтон
         [NonSerialized]
         private static EmploeesController _instance;  //Singleton.
@@ -25,6 +27,7 @@ namespace PersonsBase.MyControllers
         #region Поля
         public MyEmploee CurrentAdministrator;
         public Dictionary<string, MyEmploee> Emploees { get; set; }
+        private static int IdCounter { get; set; }
 
         #endregion
 
@@ -39,34 +42,34 @@ namespace PersonsBase.MyControllers
         #endregion
 
         #region Сохранение Загрузка
-
-        #endregion
-
-        #region Методы
-
         public void Save()
         {
             //  сохраняем весь персонал
             if (Emploees != null && Emploees.Count != 0)
-                Save(Emploees, GetPath("Emploees"));
+                Save(Emploees, GetPath(FName));
 
             // Сохраняем текущего Админа
             if (CurrentAdministrator != null)
-                Save(CurrentAdministrator, GetPath("CurrentAdmin"));
+                Save(CurrentAdministrator, GetPath(FNameAdmin));
         }
 
         public void Load()
         {
             //  Last Admin
-            string filename = GetPath("CurrentAdmin");
+            string filename = GetPath(FNameAdmin);
             if (MyFile.IsFileExist(filename))
                 CurrentAdministrator = Load<MyEmploee>(filename);
 
             // List of Emploeers
-            filename = GetPath("Emploees");
+            filename = GetPath(FName);
             if (MyFile.IsFileExist(filename))
                 Emploees = Load<Dictionary<string, MyEmploee>>(filename);
         }
+        #endregion
+
+        #region Методы
+
+
 
         #endregion
 
@@ -102,7 +105,7 @@ namespace PersonsBase.MyControllers
             }
 
             Emploees.TryGetValue(adminCurrent.Name, out CurrentAdministrator);
-
+            IdCounter = ++id;
             Save();
         }
         #endregion

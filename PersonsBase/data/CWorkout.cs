@@ -21,6 +21,7 @@ namespace PersonsBase.data
         {
             ScheduleNote = new ScheduleNote(new MyTime(0, 0), "");
             TrenerName = "Имя неизвестно";
+            Notes = "";
         }
         #endregion
     }

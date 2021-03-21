@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text.Json.Serialization;
 using PersonsBase.data.Abonements;
 using PersonsBase.myStd;
 
@@ -28,14 +29,21 @@ namespace PersonsBase.data
         private SpaService SpaStatus { get; }
         private Pay PayStatus { get; }
         private TimeForTr AvailableTimeTren { get; }
-        private DateTime AbonStartDate { get; } // FIXME Переделать даты в абонементе
-        private DateTime AbonEndDate { get; } // FIXME Переделать даты в абонементе
+        private DateTime AbonStartDate { get; }
+        private DateTime AbonEndDate { get; }
         private int NumAllDaysAbon { get; }
         private int NumAerobicTr { get; }
         private int NumPersonalTr { get; }
         private int NumMiniGroup { get; }
-        private DateTime AbonBuyDate { get; } // FIXME Переделать даты в абонементе
+        private DateTime AbonBuyDate { get; }
 
+        [JsonInclude]
+        public int Id { get; set; }
+        [JsonInclude]
+        public int PersonId { get; set; }
+        [JsonInclude]
+        public int AbonementId { get; set; }
+       
         // Конструкторы
         public Visit(AbonementBasic abon, WorkoutOptions workoutOptions, string administratorName)
         {

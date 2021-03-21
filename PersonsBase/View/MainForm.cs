@@ -635,6 +635,10 @@ namespace PersonsBase.View
         {
             EmploeesController emploeesController = EmploeesController.GetInstance();
             emploeesController.StartMigration();
+
+            PersonsController personsController=PersonsController.GetInstance();
+            personsController.StartMigration();
+
         }
     }
 }

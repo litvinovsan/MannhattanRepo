@@ -211,6 +211,10 @@ namespace PersonsBase.data
 
             HourMinuteTime = Logic.ClockFormating(hour, minute);
         }
+
+        public MyTime()
+        {
+        }
     }
 
 

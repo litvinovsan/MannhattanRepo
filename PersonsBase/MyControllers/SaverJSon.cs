@@ -86,7 +86,6 @@ namespace PersonsBase.MyControllers
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
