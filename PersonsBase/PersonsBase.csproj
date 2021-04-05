@@ -133,7 +133,7 @@
     <Compile Include="data\CTrener.cs" />
     <Compile Include="data\Visit.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="MyControllers\AbonHistoryController.cs" />
+    <Compile Include="MyControllers\HistoryAbonementsController.cs" />
     <Compile Include="MyControllers\EmploeesController.cs" />
     <Compile Include="MyControllers\ISaver.cs" />
     <Compile Include="MyControllers\PersonsController.cs" />

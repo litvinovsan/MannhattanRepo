@@ -99,7 +99,7 @@ namespace PersonsBase.View
             else
             {
                 var status = MyComboBox.GetComboBoxValue<StatusPerson>(comboBox_Status);
-                _reqStatuses = _personsAll.Where(x => x.Value?.Status == status).Select(x => x.Value);
+                _reqStatuses = _personsAll.Where(x => x.Value?.Status == status).Select(x => x.Value).ToList();
             }
 
             var result = GetUpdatedRequestsAsync();
@@ -158,7 +158,7 @@ namespace PersonsBase.View
             // Если последний визит не важен -выходим
             if (lVisit.CompareTo(DateTime.Now.Date) == 0)
             {
-                _reqLastVisit = _personsAll.Values;
+                _reqLastVisit = _personsAll.Values.ToList();
             }
             else
             {
@@ -191,12 +191,12 @@ namespace PersonsBase.View
             // Сортировка по этому признаку не важна. Содержит 2 поля(Оплачено, Не оплачено)
             if ((checkedIndexes.Count == 2) || (checkedIndexes.Count == 0))
             {
-                _reqPay = _personsAll.Values;
+                _reqPay = _personsAll.Values.ToList();
             }
             else
             {
                 var payment = (MyCheckedListBox.IsChecked(checkedListBox_Pay, 0)) ? Pay.Не_Оплачено : Pay.Оплачено;
-                _reqPay = _personsAll.Where(x => x.Value?.AbonementCurent?.PayStatus == payment).Select(x => x.Value);
+                _reqPay = _personsAll.Where(x => x.Value?.AbonementCurent?.PayStatus == payment).Select(x => x.Value).ToList();
             }
 
             MyCheckedListBox.ClearSelection(checkedListBox_Pay);
@@ -292,11 +292,11 @@ namespace PersonsBase.View
                 {
                     r2 = _personsAll.Where(x => (x.Value.GenderType == Gender.Женский)).Select(x => x.Value);
                 }
-                _reqGender = r1.Union(r2);
+                _reqGender = r1.Union(r2).ToList();
             }
             else
             {
-                _reqGender = _personsAll.Values; //  Если не нужна выборка по этому признаку
+                _reqGender = _personsAll.Values.ToList(); //  Если не нужна выборка по этому признаку
             }
 
             MyCheckedListBox.ClearSelection(checkedListBox_Gender);
@@ -338,11 +338,11 @@ namespace PersonsBase.View
                 {
                     r3 = _personsAll.Where(x => x.Value?.AbonementCurent?.AbonementName == SingleVisit.NameAbonement).Select(x => x.Value);
                 }
-                _reqAbonType = r1.Union(r2).Union(r3);
+                _reqAbonType = r1.Union(r2).Union(r3).ToList();
             }
             else
             {
-                _reqAbonType = _personsAll.Values; //  Если не нужна выборка по этому признаку
+                _reqAbonType = _personsAll.Values.ToList(); //  Если не нужна выборка по этому признаку
             }
 
             MyCheckedListBox.ClearSelection(checkedListBox_TypeAbon);
@@ -402,12 +402,12 @@ namespace PersonsBase.View
             // Сортировка по этому признаку не важна. Содержит 2 поля(Оплачено, Не оплачено)
             if ((checkedIndexes.Count == 2) || (checkedIndexes.Count == 0))
             {
-                _reqActivation = _personsAll.Values;
+                _reqActivation = _personsAll.Values.ToList();
             }
             else
             {
                 var activation = MyCheckedListBox.IsChecked(checkedListBox_Activation, 0);
-                _reqActivation = _personsAll.Where(x => x.Value?.AbonementCurent?.IsActivated == activation).Select(x => x.Value);
+                _reqActivation = _personsAll.Where(x => x.Value?.AbonementCurent?.IsActivated == activation).Select(x => x.Value).ToList();
             }
 
             MyCheckedListBox.ClearSelection(checkedListBox_Activation);
@@ -452,10 +452,10 @@ namespace PersonsBase.View
 
                     var r2 = _aerobVisits.Where(x =>
                     {
-                        string groupTrName= x.GroupTimeName;
+                        string groupTrName = x.GroupTimeName;
                         if (groupTrName.Contains("("))
                         {
-                            groupTrName= groupTrName.Substring(0, x.GroupTimeName.IndexOf('(')).Trim();
+                            groupTrName = groupTrName.Substring(0, x.GroupTimeName.IndexOf('(')).Trim();
                         }
                         return groupTrName == trimmedCheckedItemString;
                     }).Select(y => y.NamePerson).Distinct().ToList();
@@ -465,12 +465,12 @@ namespace PersonsBase.View
                         pList.Add(PersonObject.GetLink(name));
                     }
 
-                    _reqTrenName = _reqTrenName.Intersect(pList).Distinct();
+                    _reqTrenName = _reqTrenName.Intersect(pList).Distinct().ToList();
                 }
             }
             else
             {
-                _reqTrenName = _personsAll.Values; //  Если не нужна выборка по этому признаку
+                _reqTrenName = _personsAll.Values.ToList(); //  Если не нужна выборка по этому признаку
             }
 
             MyCheckedListBox.ClearSelection(checkedListBox_Tren_Name);
@@ -491,7 +491,7 @@ namespace PersonsBase.View
             personsSelected = ProcessRequest(personsSelected, _reqStatuses, _reqLastVisit, _reqPay, _reqAge, _reqGender,
                 _reqAbonType, _reqTimeTren, _reqActivation, _reqTrenName);
 
-            return personsSelected;
+            return personsSelected.ToList();
         }
 
         private async Task<IEnumerable<Person>> GetUpdatedRequestsAsync()
