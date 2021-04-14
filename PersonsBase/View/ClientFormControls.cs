@@ -327,8 +327,6 @@ namespace PersonsBase.View
                     if (_person.AbonementCurent == null || _editedTypeClubCard == clubCard.GetTypeClubCard()) return;
                     clubCard.SetTypeClubCard(_editedTypeClubCard);
                     ComboBoxColor(comboBox, clubCard.GetTypeClubCard().ToString(), _editedTypeClubCard.ToString());
-
-                    // (_person.AbonementCurent as ClubCardA)?.SetNewEndDate();
                 };
             }
             // Подписываемся на событие по изменению комбобокса

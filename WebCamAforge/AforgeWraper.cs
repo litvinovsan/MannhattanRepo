@@ -26,7 +26,7 @@ namespace WebCamAforge
         private WebCamForm _webCamForm;
 
         private FilterInfoCollection WebCamDevices { get; }
-        private VideoCaptureDevice CaptureDevice { get; set; }
+        public VideoCaptureDevice CaptureDevice { get; set; }
 
         /// Список вебкамер
         private readonly List<FilterInfo> _camList = new List<FilterInfo>();
@@ -36,7 +36,7 @@ namespace WebCamAforge
         {
             get
             {
-                return (Bitmap)_cameraBitmap?.Clone();
+                return _cameraBitmap;
             }
             set
             {
@@ -223,16 +223,19 @@ namespace WebCamAforge
                 if (CaptureDevice != null)
                 {
                     IsCameraConfigured = true;
-                    CaptureDevice.NewFrame -= ImageRecievedUpdater;
-                    CaptureDevice.NewFrame += ImageRecievedUpdater;
+                   // CaptureDevice.NewFrame -= ImageRecievedUpdater;
+                   CaptureDevice.NewFrame += ImageRecievedUpdater;
 
                     if (!CaptureDevice.IsRunning)
+                    {
                         CaptureDevice.Start();
+                    }
                 }
 
             }
             catch (Exception e)
             {
+                CaptureDevice.NewFrame -= ImageRecievedUpdater;
                 MessageBox.Show(e.Message + @" line 236 " + typeof(AforgeWraper));
             }
 
@@ -305,6 +308,7 @@ namespace WebCamAforge
             try
             {
                 CameraFrame = (Bitmap)eventArgs.Frame.Clone();
+                eventArgs.Frame.Dispose();
             }
             catch (Exception e)
             {

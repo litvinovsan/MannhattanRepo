@@ -588,11 +588,11 @@ namespace PersonsBase.control
 
             var dialogResult = FormsRunner.CreateAbonementForm(person.Name);
 
-            if (dialogResult == DialogResult.OK)
-            {
-                AbonementController.GetInstance().Save();
-                return true;
-            }
+            //if (dialogResult == DialogResult.OK)
+            //{
+            //    AbonementController.GetInstance().Save();
+            //    return true;
+            //}
             return false;
         }
 
@@ -682,7 +682,9 @@ namespace PersonsBase.control
 
             IsAbonementValid(ref person);
             MessageBox.Show(@"Тренировка Учтена!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            SaveEverithing();
+
+          //  AbonementController.GetInstance().Save();
+            //  SaveEverithing();
             return true;
         }
         #endregion

@@ -402,7 +402,7 @@ namespace PersonsBase.View
             this.richTextBox_notes.Location = new System.Drawing.Point(3, 3);
             this.richTextBox_notes.Name = "richTextBox_notes";
             this.richTextBox_notes.ShowSelectionMargin = true;
-            this.richTextBox_notes.Size = new System.Drawing.Size(1282, 160);
+            this.richTextBox_notes.Size = new System.Drawing.Size(1282, 156);
             this.richTextBox_notes.TabIndex = 6;
             this.richTextBox_notes.Text = "";
             this.richTextBox_notes.TextChanged += new System.EventHandler(this.richTextBox_notes_TextChanged);

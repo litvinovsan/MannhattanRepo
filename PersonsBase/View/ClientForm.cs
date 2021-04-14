@@ -11,7 +11,7 @@ using PersonsBase.myStd;
 
 namespace PersonsBase.View
 {
-    public partial class ClientForm : Form
+    public partial class ClientForm : Form, IDisposable
     {
         #region /// ОСНОВНЫЕ ОБЬЕКТЫ ///
 
@@ -19,7 +19,6 @@ namespace PersonsBase.View
         private readonly Person _person;
         private bool _isAnythingChanged;
         private readonly AbonementController _abonementController;
-
 
         #endregion
 
@@ -32,6 +31,27 @@ namespace PersonsBase.View
             _logic = Logic.GetInstance();
             _abonementController = AbonementController.GetInstance();
         }
+
+        private void UnsubscribeEvents()
+        {
+            _person.NameChanged -= _person_NameChanged;
+            _person.PathToPhotoChanged -= PathToPhotoChangedMethod;
+            _person.PhoneChanged -= _person_PhoneChanged;
+            _person.PassportChanged -= _person_PassportChanged;
+            _person.DriverIdChanged -= _person_DriverIdChanged;
+            _person.PersonalNumberChanged -= _person_PersonalNumberChanged;
+            _person.SpecialNotesChanged -= _person_SpecialNotesChanged;
+            _person.AbonementCurentChanged -= CurentAbonementChanged;
+            _person.AbonementCurentChanged -= OnPersonOnAbonementCurentChanged;
+
+            _person.StatusChanged -= UpdateInfoTextBoxField;
+            _person.StatusChanged -= UpdateControls;
+            _person.StatusChanged -= UpdateVisitsTable;
+            PwdForm.LockChangedEvent -= PwdForm_LockChangedEvent;
+            _abonementController.CollectionChanged -= OnAbonementControllerOnCollectionChanged;
+            listBox_NotValidAbons.SelectedIndexChanged -= listBox_NotValidAbons_SelectedIndexChanged;
+        }
+
 
         private void ClientForm_Load(object sender, EventArgs e)
         {
@@ -64,13 +84,7 @@ namespace PersonsBase.View
 
             // Когда изменился какой-либо параметр Абонемента
             _person.AbonementCurentChanged += CurentAbonementChanged;
-            _person.AbonementCurentChanged += (o, args) =>
-            {
-                UpdateInfoTextBoxField(this, EventArgs.Empty);
-                UpdateControls(this, EventArgs.Empty);
-                Logic.LoadShortInfo(groupBox_Info, _person);
-                LoadEditableData();
-            };
+            _person.AbonementCurentChanged += OnPersonOnAbonementCurentChanged;
 
             // Когда изменилась заморозка абонемента - Обновим Инфо поле
             if (_person.AbonementCurent?.Freeze != null)
@@ -91,15 +105,7 @@ namespace PersonsBase.View
             PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
 
             // Изменение коллекции абонементов в АбонКонтроллере
-            _abonementController.CollectionChanged += (o, args) =>
-                    {
-                        _person.AbonementCurent = _abonementController.GetFirstValid(_person.Name);
-
-                        UpdateAbonementsListBox(listBox_abon_selector, _abonementController.GetListValid(_person.Name));
-                        UpdateControls(this, EventArgs.Empty);
-                        Logic.LoadShortInfo(groupBox_Info, _person);
-                        LoadEditableData();
-                    };
+            _abonementController.CollectionChanged += OnAbonementControllerOnCollectionChanged;
 
             // Список закончившихся абонементов
             listBox_NotValidAbons.SelectedIndexChanged += listBox_NotValidAbons_SelectedIndexChanged;
@@ -107,6 +113,24 @@ namespace PersonsBase.View
             // Вкладки Посещений и Архив абонементов
             SetupVisitsDataGridView();
             SetupHistoryAbonement(); //Настройка дата грид вью на вкладке истории абонементов
+        }
+
+        private void OnAbonementControllerOnCollectionChanged(object o, EventArgs args)
+        {
+            _person.AbonementCurent = _abonementController.GetFirstValid(_person.Name);
+
+            UpdateAbonementsListBox(listBox_abon_selector, _abonementController.GetListValid(_person.Name));
+            UpdateControls(this, EventArgs.Empty);
+            Logic.LoadShortInfo(groupBox_Info, _person);
+            LoadEditableData();
+        }
+
+        private void OnPersonOnAbonementCurentChanged(object o, EventArgs args)
+        {
+            UpdateInfoTextBoxField(this, EventArgs.Empty);
+            UpdateControls(this, EventArgs.Empty);
+            Logic.LoadShortInfo(groupBox_Info, _person);
+            LoadEditableData();
         }
 
         private void RunStatusDirector(object sender, EventArgs e)
@@ -134,9 +158,10 @@ namespace PersonsBase.View
             }
 
             // Блокируем админскую учетку на всякий случай
+
             PwdForm.LockPassword();
             _abonementController.Save();
-            GC.Collect();
+            UnsubscribeEvents();
         }
         #endregion
 
@@ -375,7 +400,6 @@ namespace PersonsBase.View
             }
             LoadEditableData();
             Logic.ClearSelection(groupBox_Detailed);
-            Invalidate();
         }
         private void PathToPhotoChangedMethod(object sender, EventArgs e)
         {
@@ -434,8 +458,9 @@ namespace PersonsBase.View
 
             // Диспетчер Абонементов в ListBox
             listBox.DataSource = abonementsToShow;
-            listBox.DisplayMember = "AbonementName";
+            listBox.DisplayMember = "AbonementName" ;
             listBox.ValueMember = "AbonementName";
+            
         }
 
         #endregion
@@ -592,6 +617,7 @@ namespace PersonsBase.View
             _saveDelegateChain?.Invoke(); //Цепочка делегатов на сохранение всех полей
             _isAnythingChanged = false;
             _typeClubCardChanged = false;
+            _saveDelegateChain = null;
         }
         #endregion
 

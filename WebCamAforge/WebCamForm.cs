@@ -8,10 +8,6 @@ namespace WebCamAforge
 {
     public partial class WebCamForm : Form
     {
-        #region /// СОБЫТИЯ ///
-
-        #endregion
-
         #region /// ПОЛЯ
 
         private readonly AforgeWraper _aforgeWraper;
@@ -97,18 +93,13 @@ namespace WebCamAforge
 
         private void Update_PictureBox(object sender, EventArgs e)
         {
-            try
+
+            Invoke((MethodInvoker)delegate
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    if (_aforgeWraper != null && pictureBox_img != null)
-                        pictureBox_img.Image = _aforgeWraper.GetCurentBitmap();
-                });
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
+                if (_aforgeWraper != null && pictureBox_img != null)
+                    pictureBox_img.Image = _aforgeWraper.GetCurentBitmap();
+            });
+
         }
 
         private void button_Cancel_Click(object sender, EventArgs e)
