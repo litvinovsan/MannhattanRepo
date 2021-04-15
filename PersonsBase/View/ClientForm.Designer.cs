@@ -63,7 +63,6 @@ namespace PersonsBase.View
             this.label_infoText = new System.Windows.Forms.Label();
             this.label_PersonName = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox_Detailed = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button_SavePersonalData = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -91,6 +90,50 @@ namespace PersonsBase.View
             this.button_Green = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button_Cancel = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBox_name_Person = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.comboBox6 = new System.Windows.Forms.ComboBox();
+            this.comboBox7 = new System.Windows.Forms.ComboBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -112,6 +155,22 @@ namespace PersonsBase.View
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_history_abonements)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.flowLayoutPanel3.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.panel6.SuspendLayout();
+            this.panel7.SuspendLayout();
+            this.panel8.SuspendLayout();
+            this.panel9.SuspendLayout();
+            this.panel10.SuspendLayout();
+            this.panel11.SuspendLayout();
+            this.panel12.SuspendLayout();
+            this.panel13.SuspendLayout();
+            this.panel14.SuspendLayout();
             this.SuspendLayout();
             // 
             // dateTimePicker_birthDate
@@ -144,7 +203,7 @@ namespace PersonsBase.View
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1312, 676);
+            this.tabControl1.Size = new System.Drawing.Size(1281, 681);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 2;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
@@ -402,7 +461,7 @@ namespace PersonsBase.View
             this.richTextBox_notes.Location = new System.Drawing.Point(3, 3);
             this.richTextBox_notes.Name = "richTextBox_notes";
             this.richTextBox_notes.ShowSelectionMargin = true;
-            this.richTextBox_notes.Size = new System.Drawing.Size(1282, 156);
+            this.richTextBox_notes.Size = new System.Drawing.Size(1282, 152);
             this.richTextBox_notes.TabIndex = 6;
             this.richTextBox_notes.Text = "";
             this.richTextBox_notes.TextChanged += new System.EventHandler(this.richTextBox_notes_TextChanged);
@@ -493,30 +552,16 @@ namespace PersonsBase.View
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.groupBox_Detailed);
+            this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Location = new System.Drawing.Point(4, 34);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(1304, 638);
+            this.tabPage2.Size = new System.Drawing.Size(1273, 643);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Подробные данные";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // groupBox_Detailed
-            // 
-            this.groupBox_Detailed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox_Detailed.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox_Detailed.Location = new System.Drawing.Point(370, 4);
-            this.groupBox_Detailed.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox_Detailed.Name = "groupBox_Detailed";
-            this.groupBox_Detailed.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox_Detailed.Size = new System.Drawing.Size(927, 626);
-            this.groupBox_Detailed.TabIndex = 1;
-            this.groupBox_Detailed.TabStop = false;
-            this.groupBox_Detailed.Text = "Детальная информация";
             // 
             // groupBox2
             // 
@@ -813,12 +858,12 @@ namespace PersonsBase.View
             this.tableLayoutPanel4.Controls.Add(this.button2, 3, 0);
             this.tableLayoutPanel4.Controls.Add(this.button_Cancel, 0, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 680);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 685);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1312, 40);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1281, 40);
             this.tableLayoutPanel4.TabIndex = 2;
             // 
             // flowLayoutPanel2
@@ -862,7 +907,7 @@ namespace PersonsBase.View
             // 
             this.button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(1135, 2);
+            this.button2.Location = new System.Drawing.Point(1104, 2);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(175, 34);
@@ -885,11 +930,430 @@ namespace PersonsBase.View
             this.button_Cancel.UseVisualStyleBackColor = true;
             this.button_Cancel.Click += new System.EventHandler(this.button_Cancel_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.flowLayoutPanel3);
+            this.groupBox1.Location = new System.Drawing.Point(362, 15);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(903, 620);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Детальные данные";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 13);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(97, 16);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Имя клиента:";
+            // 
+            // textBox_name_Person
+            // 
+            this.textBox_name_Person.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_name_Person.Location = new System.Drawing.Point(208, 6);
+            this.textBox_name_Person.Name = "textBox_name_Person";
+            this.textBox_name_Person.Size = new System.Drawing.Size(428, 23);
+            this.textBox_name_Person.TabIndex = 1;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(8, 10);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(58, 16);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Cтатус:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(8, 10);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(82, 16);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Активация:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(8, 11);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(118, 16);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Тип Карты/Абон:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(8, 9);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(120, 16);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Доступные Трен:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(8, 10);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(134, 16);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "Время Посещения:";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(8, 9);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(85, 16);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Услуги Спа:";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 8);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(176, 16);
+            this.label14.TabIndex = 0;
+            this.label14.Text = "Осталось Персональных:";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(8, 10);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(62, 16);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "Оплата:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(8, 9);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(100, 16);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "Дата Покупки:";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(8, 8);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(118, 16);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "Дата Активации:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(8, 9);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(120, 16);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "Дата Окончания:";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(8, 11);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(113, 16);
+            this.label21.TabIndex = 0;
+            this.label21.Text = "Осталось Дней:";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(8, 10);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(144, 16);
+            this.label23.TabIndex = 0;
+            this.label23.Text = "Осталось Аэробных:";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(208, 2);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(428, 24);
+            this.comboBox1.TabIndex = 2;
+            // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.flowLayoutPanel3.Controls.Add(this.panel1);
+            this.flowLayoutPanel3.Controls.Add(this.panel4);
+            this.flowLayoutPanel3.Controls.Add(this.panel2);
+            this.flowLayoutPanel3.Controls.Add(this.panel6);
+            this.flowLayoutPanel3.Controls.Add(this.panel5);
+            this.flowLayoutPanel3.Controls.Add(this.panel3);
+            this.flowLayoutPanel3.Controls.Add(this.panel10);
+            this.flowLayoutPanel3.Controls.Add(this.panel12);
+            this.flowLayoutPanel3.Controls.Add(this.panel11);
+            this.flowLayoutPanel3.Controls.Add(this.panel9);
+            this.flowLayoutPanel3.Controls.Add(this.panel8);
+            this.flowLayoutPanel3.Controls.Add(this.panel7);
+            this.flowLayoutPanel3.Controls.Add(this.panel13);
+            this.flowLayoutPanel3.Controls.Add(this.panel14);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(156, 34);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(653, 568);
+            this.flowLayoutPanel3.TabIndex = 3;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.textBox_name_Person);
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(637, 34);
+            this.panel1.TabIndex = 4;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel2.Controls.Add(this.comboBox2);
+            this.panel2.Controls.Add(this.label9);
+            this.panel2.Location = new System.Drawing.Point(3, 83);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(637, 34);
+            this.panel2.TabIndex = 5;
+            // 
+            // panel3
+            // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Controls.Add(this.comboBox5);
+            this.panel3.Controls.Add(this.label10);
+            this.panel3.Location = new System.Drawing.Point(3, 203);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(637, 34);
+            this.panel3.TabIndex = 6;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.label8);
+            this.panel4.Controls.Add(this.comboBox1);
+            this.panel4.Location = new System.Drawing.Point(3, 43);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(637, 34);
+            this.panel4.TabIndex = 6;
+            // 
+            // panel5
+            // 
+            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel5.Controls.Add(this.comboBox4);
+            this.panel5.Controls.Add(this.label15);
+            this.panel5.Location = new System.Drawing.Point(3, 163);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(637, 34);
+            this.panel5.TabIndex = 6;
+            // 
+            // panel6
+            // 
+            this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel6.Controls.Add(this.comboBox3);
+            this.panel6.Controls.Add(this.label12);
+            this.panel6.Location = new System.Drawing.Point(3, 123);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(637, 34);
+            this.panel6.TabIndex = 6;
+            // 
+            // panel7
+            // 
+            this.panel7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel7.Controls.Add(this.dateTimePicker1);
+            this.panel7.Controls.Add(this.label16);
+            this.panel7.Location = new System.Drawing.Point(3, 443);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(637, 34);
+            this.panel7.TabIndex = 6;
+            // 
+            // panel8
+            // 
+            this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel8.Controls.Add(this.textBox3);
+            this.panel8.Controls.Add(this.label23);
+            this.panel8.Location = new System.Drawing.Point(3, 403);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(637, 34);
+            this.panel8.TabIndex = 6;
+            // 
+            // panel9
+            // 
+            this.panel9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel9.Controls.Add(this.textBox2);
+            this.panel9.Controls.Add(this.label14);
+            this.panel9.Location = new System.Drawing.Point(3, 363);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(637, 34);
+            this.panel9.TabIndex = 6;
+            // 
+            // panel10
+            // 
+            this.panel10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel10.Controls.Add(this.comboBox6);
+            this.panel10.Controls.Add(this.label11);
+            this.panel10.Location = new System.Drawing.Point(3, 243);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(637, 34);
+            this.panel10.TabIndex = 6;
+            // 
+            // panel11
+            // 
+            this.panel11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel11.Controls.Add(this.textBox1);
+            this.panel11.Controls.Add(this.label21);
+            this.panel11.Location = new System.Drawing.Point(3, 323);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(637, 34);
+            this.panel11.TabIndex = 6;
+            // 
+            // panel12
+            // 
+            this.panel12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel12.Controls.Add(this.comboBox7);
+            this.panel12.Controls.Add(this.label13);
+            this.panel12.Location = new System.Drawing.Point(3, 283);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(637, 34);
+            this.panel12.TabIndex = 6;
+            // 
+            // panel13
+            // 
+            this.panel13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel13.Controls.Add(this.dateTimePicker2);
+            this.panel13.Controls.Add(this.label17);
+            this.panel13.Location = new System.Drawing.Point(3, 483);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(637, 34);
+            this.panel13.TabIndex = 6;
+            // 
+            // panel14
+            // 
+            this.panel14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel14.Controls.Add(this.dateTimePicker3);
+            this.panel14.Controls.Add(this.label18);
+            this.panel14.Location = new System.Drawing.Point(3, 523);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(637, 34);
+            this.panel14.TabIndex = 6;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(208, 2);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(428, 24);
+            this.comboBox2.TabIndex = 3;
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Location = new System.Drawing.Point(208, 3);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(428, 24);
+            this.comboBox3.TabIndex = 4;
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Location = new System.Drawing.Point(208, 3);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(428, 24);
+            this.comboBox4.TabIndex = 4;
+            // 
+            // comboBox5
+            // 
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Location = new System.Drawing.Point(208, 3);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(428, 24);
+            this.comboBox5.TabIndex = 4;
+            // 
+            // comboBox6
+            // 
+            this.comboBox6.FormattingEnabled = true;
+            this.comboBox6.Location = new System.Drawing.Point(208, 3);
+            this.comboBox6.Name = "comboBox6";
+            this.comboBox6.Size = new System.Drawing.Size(428, 24);
+            this.comboBox6.TabIndex = 5;
+            // 
+            // comboBox7
+            // 
+            this.comboBox7.FormattingEnabled = true;
+            this.comboBox7.Location = new System.Drawing.Point(208, 1);
+            this.comboBox7.Name = "comboBox7";
+            this.comboBox7.Size = new System.Drawing.Size(428, 24);
+            this.comboBox7.TabIndex = 6;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.Location = new System.Drawing.Point(208, 4);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(428, 23);
+            this.textBox1.TabIndex = 2;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox2.Location = new System.Drawing.Point(208, 3);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(428, 23);
+            this.textBox2.TabIndex = 3;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox3.Location = new System.Drawing.Point(208, 3);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(428, 23);
+            this.textBox3.TabIndex = 3;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(208, 8);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(151, 23);
+            this.dateTimePicker1.TabIndex = 1;
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Location = new System.Drawing.Point(208, 8);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(151, 23);
+            this.dateTimePicker2.TabIndex = 1;
+            // 
+            // dateTimePicker3
+            // 
+            this.dateTimePicker3.Location = new System.Drawing.Point(208, 8);
+            this.dateTimePicker3.Name = "dateTimePicker3";
+            this.dateTimePicker3.Size = new System.Drawing.Size(151, 23);
+            this.dateTimePicker3.TabIndex = 1;
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1312, 720);
+            this.ClientSize = new System.Drawing.Size(1281, 725);
             this.Controls.Add(this.tableLayoutPanel4);
             this.Controls.Add(this.tabControl1);
             this.DoubleBuffered = true;
@@ -925,6 +1389,36 @@ namespace PersonsBase.View
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_history_abonements)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.flowLayoutPanel3.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
+            this.panel11.ResumeLayout(false);
+            this.panel11.PerformLayout();
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
+            this.panel13.ResumeLayout(false);
+            this.panel13.PerformLayout();
+            this.panel14.ResumeLayout(false);
+            this.panel14.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -967,7 +1461,6 @@ namespace PersonsBase.View
         private Label label5;
         private ComboBox comboBox_Gender;
         private Button button_SavePersonalData;
-        private GroupBox groupBox_Detailed;
         private PictureBox pictureBox_ClientPhoto;
         private Button button_CheckInWorkout;
         private Button button_Add_Abon;
@@ -1005,5 +1498,49 @@ namespace PersonsBase.View
         private ToolStripMenuItem toolStripMenuItem_Green;
         private ToolStripMenuItem toolStripMenuItem_Blue;
         private ToolStripMenuItem toolStripMenuItem_Bold;
+        private GroupBox groupBox1;
+        private FlowLayoutPanel flowLayoutPanel3;
+        private Panel panel1;
+        private Label label2;
+        private TextBox textBox_name_Person;
+        private Panel panel4;
+        private Label label8;
+        private ComboBox comboBox1;
+        private Panel panel2;
+        private ComboBox comboBox2;
+        private Label label9;
+        private Panel panel6;
+        private ComboBox comboBox3;
+        private Label label12;
+        private Panel panel5;
+        private ComboBox comboBox4;
+        private Label label15;
+        private Panel panel3;
+        private ComboBox comboBox5;
+        private Label label10;
+        private Panel panel10;
+        private ComboBox comboBox6;
+        private Label label11;
+        private Panel panel12;
+        private ComboBox comboBox7;
+        private Label label13;
+        private Panel panel11;
+        private TextBox textBox1;
+        private Label label21;
+        private Panel panel9;
+        private TextBox textBox2;
+        private Label label14;
+        private Panel panel8;
+        private TextBox textBox3;
+        private Label label23;
+        private Panel panel7;
+        private DateTimePicker dateTimePicker1;
+        private Label label16;
+        private Panel panel13;
+        private DateTimePicker dateTimePicker2;
+        private Label label17;
+        private Panel panel14;
+        private DateTimePicker dateTimePicker3;
+        private Label label18;
     }
 }
