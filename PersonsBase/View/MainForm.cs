@@ -40,7 +40,6 @@ namespace PersonsBase.View
             DataBaseLevel.PersonsListChangedEvent += UpdateBirthDateComboBox; // Поле Сегодняшних Дней рождений
 
             DataBaseLevel.OnListChanged(); // Событие запускающееся при изменении количества Клиентов в списке.
-            PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
 
             // События для Колонок и  т д
             DailyVisits.NumberDailyPersonsEvent += DailyVisits_NumberDailyPersonsEvent;// Счетчик пользователей
@@ -198,11 +197,7 @@ namespace PersonsBase.View
             MyListViewEx.MaximizeLastColumn(listView_Personal);
         }
 
-        private void PwdForm_LockChangedEvent()
-        {
-            // MessageBox.Show("Изменен Пароль В гл Форме");
-        }
-
+   
         private void UpdateBirthDateComboBox(EventArgs e)
         {
             comboBox_BDay.SelectedIndexChanged -= comboBox_BDay_SelectedIndexChanged_1;

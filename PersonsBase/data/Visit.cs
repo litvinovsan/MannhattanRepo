@@ -210,7 +210,7 @@ namespace PersonsBase.data
         public static DataTable GetVisitsTable(Person person)
         {
             var table = new DataTable();
-            var journal = PersonObject.GetVisitsList(person.Name);
+            var journal = PersonObject.GetVisitsList(person.Name).Take(50).ToList();
             var journalVisits = journal ?? new List<Visit>();
             if (journalVisits.Count == 0)
             {
