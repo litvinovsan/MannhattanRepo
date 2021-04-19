@@ -63,7 +63,6 @@ namespace PersonsBase.View
             UpdateAbonementsListBox(listBox_NotValidAbons, _abonementController.GetListNotValid(_person.Name));
             UpdateAbonementsListBox(listBox_abon_selector, _abonementController.GetListValid(_person.Name));
 
-            LoadEditableData();
             Logic.LoadShortInfo(groupBox_Info, _person);
             UpdateControls(this, EventArgs.Empty);
             CurentAbonementChanged(this, EventArgs.Empty);
@@ -122,7 +121,6 @@ namespace PersonsBase.View
             UpdateAbonementsListBox(listBox_abon_selector, _abonementController.GetListValid(_person.Name));
             UpdateControls(this, EventArgs.Empty);
             Logic.LoadShortInfo(groupBox_Info, _person);
-            LoadEditableData();
         }
 
         private void OnPersonOnAbonementCurentChanged(object o, EventArgs args)
@@ -130,7 +128,6 @@ namespace PersonsBase.View
             UpdateInfoTextBoxField(this, EventArgs.Empty);
             UpdateControls(this, EventArgs.Empty);
             Logic.LoadShortInfo(groupBox_Info, _person);
-            LoadEditableData();
         }
 
         private void RunStatusDirector(object sender, EventArgs e)
@@ -398,8 +395,6 @@ namespace PersonsBase.View
                 // Например, админ должен менять статус оплаты
                 textBox_Number.Enabled = false;
             }
-            LoadEditableData();
-            Logic.ClearSelection(groupBox_Detailed);
         }
         private void PathToPhotoChangedMethod(object sender, EventArgs e)
         {
@@ -466,31 +461,6 @@ namespace PersonsBase.View
         #endregion
 
         #region // Хелп Методы для Загрузки и обновления пользовательских данных
-        private void LoadEditableData()
-        {
-            // Данные подробные,разрешено редактирование через события.
-            var table = Logic.CreateTable(CreateControlsFields(_person.AbonementCurent));
-            if (groupBox_Detailed.Controls.Count != 0) groupBox_Detailed.Controls.Clear();
-
-            table.Font = new Font("Arial", 11);
-
-            groupBox_Detailed.Controls.Add(table);
-            _isAnythingChanged = false;
-        }
-
-        private void UpdateEditableData()
-        {
-            var listUpdated = CreateControlsFields(_person.AbonementCurent);
-            var lst = new List<Control>();
-            Logic.ForAllControls(groupBox_Detailed, x =>
-            {
-                if (x is TextBox || x is ComboBox) lst.Add(x); //Получили только нужные Контролы в массив lst
-            });
-
-            for (var i = 0; i < lst.Count; i++) lst[i].Text = listUpdated[i].Item2.Text;
-            _isAnythingChanged = false;
-            Logic.ClearSelection(groupBox_Detailed);
-        }
 
         /// <summary>
         /// Настройка Источника, Внешнего вида и Помощи для Списка Посещений на вкладке в Карточке клиента
@@ -650,17 +620,10 @@ namespace PersonsBase.View
         {
             SaveData();
             Logic.LoadShortInfo(groupBox_Info, _person);
-            LoadEditableData();
-            Logic.SetControlsColorDefault(groupBox_Detailed);
             Logic.SetControlsColorDefault(tableLayoutPanel1);
             Logic.SaveEverithing();
-            Logic.ClearSelection(groupBox_Detailed);
         }
 
-        private void ClientForm_Resize(object sender, EventArgs e)
-        {
-            Logic.ClearSelection(groupBox_Detailed);
-        }
 
         private void button_Add_New_Abon_Click(object sender, EventArgs e)
         {
@@ -681,7 +644,6 @@ namespace PersonsBase.View
                     // FIXME Убрать эти функции отсюда, возвращать диалог резалт
                     // Обновляем Если выбрано что-то.
                     Logic.LoadShortInfo(groupBox_Info, _person);
-                    LoadEditableData();
                 }
                 else
                 {
@@ -736,7 +698,6 @@ namespace PersonsBase.View
 
             // Для обновления
             Logic.LoadShortInfo(groupBox_Info, _person);
-            UpdateEditableData();
         }
 
         private void button_photo_Click(object sender, EventArgs e)
