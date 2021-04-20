@@ -433,7 +433,7 @@ namespace PersonsBase.View
          this.richTextBox_notes.Location = new System.Drawing.Point(3, 3);
          this.richTextBox_notes.Name = "richTextBox_notes";
          this.richTextBox_notes.ShowSelectionMargin = true;
-         this.richTextBox_notes.Size = new System.Drawing.Size(1282, 140);
+         this.richTextBox_notes.Size = new System.Drawing.Size(1282, 132);
          this.richTextBox_notes.TabIndex = 6;
          this.richTextBox_notes.Text = "";
          this.richTextBox_notes.TextChanged += new System.EventHandler(this.richTextBox_notes_TextChanged);
@@ -896,6 +896,8 @@ namespace PersonsBase.View
          this.textBox_name_Person.Name = "textBox_name_Person";
          this.textBox_name_Person.Size = new System.Drawing.Size(629, 26);
          this.textBox_name_Person.TabIndex = 1;
+         this.textBox_name_Person.TextChanged += new System.EventHandler(this.textBox_name_Person_TextChanged);
+         this.textBox_name_Person.Leave += new System.EventHandler(this.textBox_name_Person_Leave);
          // 
          // label2
          // 

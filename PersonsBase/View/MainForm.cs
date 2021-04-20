@@ -311,7 +311,6 @@ namespace PersonsBase.View
             Logic.SellAbonement();
         }
 
-
         private async void сохранитьВExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (DataBaseLevel.GetNumberOfPersons() == 0)
@@ -576,7 +575,6 @@ namespace PersonsBase.View
         }
         #endregion
 
-
         #region  MASKED TEXTBOX  Поле ввода номера телефона
 
         /// <summary>
@@ -623,7 +621,5 @@ namespace PersonsBase.View
             if (сomboBox_PersonsList != null && сomboBox_PersonsList.Items.Count > 0) сomboBox_PersonsList.DroppedDown = true;
         }
         #endregion
-
-
     }
 }

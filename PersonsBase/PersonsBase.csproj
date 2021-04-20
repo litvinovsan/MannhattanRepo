@@ -125,6 +125,10 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ViewPresenters\ClientFormPresenter.cs" />
+    <Compile Include="ViewPresenters\IClientForm.cs" />
+    <Compile Include="ViewPresenters\IPresenter.cs" />
+    <Compile Include="ViewPresenters\IView.cs" />
     <Compile Include="View\AdminSelectForm.cs">
       <SubType>Form</SubType>
     </Compile>
