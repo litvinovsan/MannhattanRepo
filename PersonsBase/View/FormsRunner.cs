@@ -22,18 +22,6 @@ namespace PersonsBase.View
         #endregion
 
         #region /// КАРТОЧКА КЛИЕНТА ///
-        public static void RunClientForm(string keyName)
-        {
-            if (DataBaseLevel.ContainsNameKey(keyName))
-            {
-                var clientFrm = new ClientForm(keyName);
-                clientFrm.Show();
-            }
-            else
-            {
-                MessageBox.Show(@"Ошибка. Неправильное имя клиента");
-            }
-        }
 
         /// <summary>
         /// Возвращает true если форма с заданным именем уже открыта

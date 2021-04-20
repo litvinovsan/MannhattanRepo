@@ -21,15 +21,11 @@ namespace PersonsBase.View
 
         private Tuple<Label, Control> CreateNameField()
         {
-            const string nameLabel = "Имя Клиента";
 
-            var lableType = CreateLabel(nameLabel);
-            var textbox = CreateTextBox(false);
             _editedName = _person.Name;
             // Инициализируем наши Контролы
             textbox.Text = _person.Name;
             // Подписываемся на событие по изменению
-            textbox.TextChanged += Textbox_NameChanged;
 
             _saveDelegateChain += () =>
             {
@@ -37,14 +33,6 @@ namespace PersonsBase.View
                 Logic.SetControlBackColor(textbox, _editedName, _person.Name);
             };
 
-            return new Tuple<Label, Control>(lableType, textbox);
-        }
-        private void Textbox_NameChanged(object sender, EventArgs e)
-        {
-            var tb = (TextBox)sender;
-            _editedName = tb.Text;
-            Logic.SetControlBackColor(tb, _editedName, _person.Name);
-            IsChangedUpdateStatus(_editedName, _person.Name);
         }
 
         #endregion
