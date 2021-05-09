@@ -681,7 +681,7 @@ namespace PersonsBase.View
             this.checkBox_Activated.UseVisualStyleBackColor = true;
             this.checkBox_Activated.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBox_Activated_MouseClick);
             // 
-            // flowLayoutPanel1
+            // flowLayoutPanel_MainButtons
             // 
             this.flowLayoutPanel1.Controls.Add(this.tableLayoutPanel2);
             this.flowLayoutPanel1.Controls.Add(this.tableLayoutPanel3);
@@ -689,7 +689,7 @@ namespace PersonsBase.View
             this.flowLayoutPanel1.Controls.Add(this.groupBox_Details);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 12);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Name = "flowLayoutPanel_MainButtons";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(697, 447);
             this.flowLayoutPanel1.TabIndex = 11;
             // 
