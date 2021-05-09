@@ -39,7 +39,7 @@ namespace PersonsBase.View
          this.tabPage1 = new System.Windows.Forms.TabPage();
          this.splitContainer1 = new System.Windows.Forms.SplitContainer();
          this.label7 = new System.Windows.Forms.Label();
-         this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+         this.flowLayoutPanel_MainButtons = new System.Windows.Forms.FlowLayoutPanel();
          this.button_CheckInWorkout = new System.Windows.Forms.Button();
          this.button_Add_Abon = new System.Windows.Forms.Button();
          this.button_add_dop_tren = new System.Windows.Forms.Button();
@@ -126,7 +126,7 @@ namespace PersonsBase.View
          this.splitContainer1.Panel1.SuspendLayout();
          this.splitContainer1.Panel2.SuspendLayout();
          this.splitContainer1.SuspendLayout();
-         this.flowLayoutPanel1.SuspendLayout();
+         this.flowLayoutPanel_MainButtons.SuspendLayout();
          this.groupBox_Abon_NotValid.SuspendLayout();
          this.groupBox_Abonements.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).BeginInit();
@@ -205,7 +205,7 @@ namespace PersonsBase.View
          // splitContainer1.Panel1
          // 
          this.splitContainer1.Panel1.Controls.Add(this.label7);
-         this.splitContainer1.Panel1.Controls.Add(this.flowLayoutPanel1);
+         this.splitContainer1.Panel1.Controls.Add(this.flowLayoutPanel_MainButtons);
          this.splitContainer1.Panel1.Controls.Add(this.groupBox_Abon_NotValid);
          this.splitContainer1.Panel1.Controls.Add(this.groupBox_Info);
          this.splitContainer1.Panel1.Controls.Add(this.groupBox_Abonements);
@@ -217,7 +217,7 @@ namespace PersonsBase.View
          // 
          this.splitContainer1.Panel2.Controls.Add(this.richTextBox_notes);
          this.splitContainer1.Size = new System.Drawing.Size(1291, 587);
-         this.splitContainer1.SplitterDistance = 413;
+         this.splitContainer1.SplitterDistance = 434;
          this.splitContainer1.SplitterWidth = 8;
          this.splitContainer1.TabIndex = 16;
          // 
@@ -227,24 +227,24 @@ namespace PersonsBase.View
          this.label7.AutoSize = true;
          this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
          this.label7.ForeColor = System.Drawing.Color.DarkBlue;
-         this.label7.Location = new System.Drawing.Point(2, 385);
+         this.label7.Location = new System.Drawing.Point(2, 406);
          this.label7.Name = "label7";
          this.label7.Size = new System.Drawing.Size(106, 26);
          this.label7.TabIndex = 6;
          this.label7.Text = "Заметки";
          // 
-         // flowLayoutPanel1
+         // flowLayoutPanel_MainButtons
          // 
-         this.flowLayoutPanel1.Controls.Add(this.button_CheckInWorkout);
-         this.flowLayoutPanel1.Controls.Add(this.button_Add_Abon);
-         this.flowLayoutPanel1.Controls.Add(this.button_add_dop_tren);
-         this.flowLayoutPanel1.Controls.Add(this.button_Freeze);
-         this.flowLayoutPanel1.Controls.Add(this.button_RemoveCurrentAbon);
-         this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-         this.flowLayoutPanel1.Location = new System.Drawing.Point(13, 12);
-         this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-         this.flowLayoutPanel1.Size = new System.Drawing.Size(248, 259);
-         this.flowLayoutPanel1.TabIndex = 0;
+         this.flowLayoutPanel_MainButtons.Controls.Add(this.button_CheckInWorkout);
+         this.flowLayoutPanel_MainButtons.Controls.Add(this.button_Add_Abon);
+         this.flowLayoutPanel_MainButtons.Controls.Add(this.button_add_dop_tren);
+         this.flowLayoutPanel_MainButtons.Controls.Add(this.button_Freeze);
+         this.flowLayoutPanel_MainButtons.Controls.Add(this.button_RemoveCurrentAbon);
+         this.flowLayoutPanel_MainButtons.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+         this.flowLayoutPanel_MainButtons.Location = new System.Drawing.Point(13, 12);
+         this.flowLayoutPanel_MainButtons.Name = "flowLayoutPanel_MainButtons";
+         this.flowLayoutPanel_MainButtons.Size = new System.Drawing.Size(248, 259);
+         this.flowLayoutPanel_MainButtons.TabIndex = 0;
          // 
          // button_CheckInWorkout
          // 
@@ -322,11 +322,10 @@ namespace PersonsBase.View
          this.groupBox_Abon_NotValid.ForeColor = System.Drawing.Color.Maroon;
          this.groupBox_Abon_NotValid.Location = new System.Drawing.Point(1022, 282);
          this.groupBox_Abon_NotValid.Name = "groupBox_Abon_NotValid";
-         this.groupBox_Abon_NotValid.Size = new System.Drawing.Size(268, 101);
+         this.groupBox_Abon_NotValid.Size = new System.Drawing.Size(238, 142);
          this.groupBox_Abon_NotValid.TabIndex = 15;
          this.groupBox_Abon_NotValid.TabStop = false;
          this.groupBox_Abon_NotValid.Text = "Закончились";
-         this.groupBox_Abon_NotValid.Visible = false;
          // 
          // listBox_NotValidAbons
          // 
@@ -337,8 +336,9 @@ namespace PersonsBase.View
          this.listBox_NotValidAbons.ItemHeight = 19;
          this.listBox_NotValidAbons.Location = new System.Drawing.Point(3, 22);
          this.listBox_NotValidAbons.Name = "listBox_NotValidAbons";
-         this.listBox_NotValidAbons.Size = new System.Drawing.Size(262, 76);
+         this.listBox_NotValidAbons.Size = new System.Drawing.Size(232, 117);
          this.listBox_NotValidAbons.TabIndex = 14;
+         this.listBox_NotValidAbons.SelectedIndexChanged += new System.EventHandler(this.listBox_NotValidAbons_SelectedIndexChanged);
          // 
          // groupBox_Info
          // 
@@ -350,7 +350,7 @@ namespace PersonsBase.View
          this.groupBox_Info.Margin = new System.Windows.Forms.Padding(2);
          this.groupBox_Info.Name = "groupBox_Info";
          this.groupBox_Info.Padding = new System.Windows.Forms.Padding(2);
-         this.groupBox_Info.Size = new System.Drawing.Size(741, 379);
+         this.groupBox_Info.Size = new System.Drawing.Size(741, 420);
          this.groupBox_Info.TabIndex = 4;
          this.groupBox_Info.TabStop = false;
          this.groupBox_Info.Text = "Информация";
@@ -364,11 +364,10 @@ namespace PersonsBase.View
          this.groupBox_Abonements.ForeColor = System.Drawing.Color.Green;
          this.groupBox_Abonements.Location = new System.Drawing.Point(13, 277);
          this.groupBox_Abonements.Name = "groupBox_Abonements";
-         this.groupBox_Abonements.Size = new System.Drawing.Size(235, 106);
+         this.groupBox_Abonements.Size = new System.Drawing.Size(248, 127);
          this.groupBox_Abonements.TabIndex = 7;
          this.groupBox_Abonements.TabStop = false;
          this.groupBox_Abonements.Text = "Действующие";
-         this.groupBox_Abonements.Visible = false;
          // 
          // listBox_abon_selector
          // 
@@ -379,7 +378,7 @@ namespace PersonsBase.View
          this.listBox_abon_selector.ItemHeight = 19;
          this.listBox_abon_selector.Location = new System.Drawing.Point(3, 22);
          this.listBox_abon_selector.Name = "listBox_abon_selector";
-         this.listBox_abon_selector.Size = new System.Drawing.Size(229, 81);
+         this.listBox_abon_selector.Size = new System.Drawing.Size(242, 102);
          this.listBox_abon_selector.TabIndex = 14;
          this.listBox_abon_selector.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBox_abon_selector_MouseClick);
          this.listBox_abon_selector.SelectedIndexChanged += new System.EventHandler(this.listBox_abon_selector_SelectedIndexChanged);
@@ -433,7 +432,7 @@ namespace PersonsBase.View
          this.richTextBox_notes.Location = new System.Drawing.Point(3, 3);
          this.richTextBox_notes.Name = "richTextBox_notes";
          this.richTextBox_notes.ShowSelectionMargin = true;
-         this.richTextBox_notes.Size = new System.Drawing.Size(1282, 132);
+         this.richTextBox_notes.Size = new System.Drawing.Size(1282, 127);
          this.richTextBox_notes.TabIndex = 6;
          this.richTextBox_notes.Text = "";
          this.richTextBox_notes.TextChanged += new System.EventHandler(this.richTextBox_notes_TextChanged);
@@ -621,6 +620,7 @@ namespace PersonsBase.View
          this.dateTimePicker_End.Name = "dateTimePicker_End";
          this.dateTimePicker_End.Size = new System.Drawing.Size(629, 26);
          this.dateTimePicker_End.TabIndex = 1;
+         this.dateTimePicker_End.ValueChanged += new System.EventHandler(this.dateTimePicker_End_ValueChanged);
          // 
          // dateTimePicker_Activation
          // 
@@ -631,6 +631,7 @@ namespace PersonsBase.View
          this.dateTimePicker_Activation.Name = "dateTimePicker_Activation";
          this.dateTimePicker_Activation.Size = new System.Drawing.Size(629, 26);
          this.dateTimePicker_Activation.TabIndex = 1;
+         this.dateTimePicker_Activation.ValueChanged += new System.EventHandler(this.dateTimePicker_Activation_ValueChanged);
          // 
          // label18
          // 
@@ -676,6 +677,8 @@ namespace PersonsBase.View
          this.textBox_Ostalos_Aerob.Name = "textBox_Ostalos_Aerob";
          this.textBox_Ostalos_Aerob.Size = new System.Drawing.Size(629, 26);
          this.textBox_Ostalos_Aerob.TabIndex = 3;
+         this.textBox_Ostalos_Aerob.TextChanged += new System.EventHandler(this.textBox_Ostalos_Aerob_TextChanged);
+         this.textBox_Ostalos_Aerob.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_Ostalos_Aerob_KeyPress);
          // 
          // label16
          // 
@@ -698,6 +701,8 @@ namespace PersonsBase.View
          this.textBox_Ostalos_Person.Name = "textBox_Ostalos_Person";
          this.textBox_Ostalos_Person.Size = new System.Drawing.Size(629, 26);
          this.textBox_Ostalos_Person.TabIndex = 3;
+         this.textBox_Ostalos_Person.TextChanged += new System.EventHandler(this.textBox_Ostalos_Person_TextChanged);
+         this.textBox_Ostalos_Person.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_Ostalos_Person_KeyPress);
          // 
          // label23
          // 
@@ -720,6 +725,8 @@ namespace PersonsBase.View
          this.textBox_Ostalos_Dney.Name = "textBox_Ostalos_Dney";
          this.textBox_Ostalos_Dney.Size = new System.Drawing.Size(629, 26);
          this.textBox_Ostalos_Dney.TabIndex = 2;
+         this.textBox_Ostalos_Dney.TextChanged += new System.EventHandler(this.textBox_Ostalos_Dney_TextChanged);
+         this.textBox_Ostalos_Dney.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_Ostalos_Dney_KeyPress);
          // 
          // label14
          // 
@@ -744,6 +751,7 @@ namespace PersonsBase.View
          this.comboBox_Spa.Name = "comboBox_Spa";
          this.comboBox_Spa.Size = new System.Drawing.Size(629, 26);
          this.comboBox_Spa.TabIndex = 6;
+         this.comboBox_Spa.SelectedIndexChanged += new System.EventHandler(this.comboBox_Spa_SelectedIndexChanged);
          // 
          // label21
          // 
@@ -768,6 +776,7 @@ namespace PersonsBase.View
          this.comboBox_TrenTypes.Name = "comboBox_TrenTypes";
          this.comboBox_TrenTypes.Size = new System.Drawing.Size(629, 26);
          this.comboBox_TrenTypes.TabIndex = 5;
+         this.comboBox_TrenTypes.SelectedIndexChanged += new System.EventHandler(this.comboBox_TrenTypes_SelectedIndexChanged);
          // 
          // label13
          // 
@@ -792,6 +801,7 @@ namespace PersonsBase.View
          this.comboBox_Type.Name = "comboBox_Type";
          this.comboBox_Type.Size = new System.Drawing.Size(629, 26);
          this.comboBox_Type.TabIndex = 4;
+         this.comboBox_Type.SelectedIndexChanged += new System.EventHandler(this.comboBox_Type_SelectedIndexChanged);
          // 
          // label11
          // 
@@ -800,9 +810,9 @@ namespace PersonsBase.View
          this.label11.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
          this.label11.Location = new System.Drawing.Point(3, 192);
          this.label11.Name = "label11";
-         this.label11.Size = new System.Drawing.Size(129, 32);
+         this.label11.Size = new System.Drawing.Size(179, 32);
          this.label11.TabIndex = 0;
-         this.label11.Text = "Доступные Трен:";
+         this.label11.Text = "Доступные Тренировки:";
          this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
          // 
          // comboBox_timeVisit
@@ -816,6 +826,7 @@ namespace PersonsBase.View
          this.comboBox_timeVisit.Name = "comboBox_timeVisit";
          this.comboBox_timeVisit.Size = new System.Drawing.Size(629, 26);
          this.comboBox_timeVisit.TabIndex = 4;
+         this.comboBox_timeVisit.SelectedIndexChanged += new System.EventHandler(this.comboBox_timeVisit_SelectedIndexChanged);
          // 
          // label10
          // 
@@ -824,9 +835,9 @@ namespace PersonsBase.View
          this.label10.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
          this.label10.Location = new System.Drawing.Point(3, 160);
          this.label10.Name = "label10";
-         this.label10.Size = new System.Drawing.Size(127, 32);
+         this.label10.Size = new System.Drawing.Size(188, 32);
          this.label10.TabIndex = 0;
-         this.label10.Text = "Тип Карты/Абон:";
+         this.label10.Text = "Тип Карты / Абонемента:";
          this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
          // 
          // comboBox_activation
@@ -840,6 +851,7 @@ namespace PersonsBase.View
          this.comboBox_activation.Name = "comboBox_activation";
          this.comboBox_activation.Size = new System.Drawing.Size(629, 26);
          this.comboBox_activation.TabIndex = 3;
+         this.comboBox_activation.SelectedIndexChanged += new System.EventHandler(this.comboBox_activation_SelectedIndexChanged);
          // 
          // label12
          // 
@@ -863,6 +875,7 @@ namespace PersonsBase.View
          this.comboBox_status.Name = "comboBox_status";
          this.comboBox_status.Size = new System.Drawing.Size(629, 26);
          this.comboBox_status.TabIndex = 2;
+         this.comboBox_status.SelectedIndexChanged += new System.EventHandler(this.comboBox_status_SelectedIndexChanged);
          // 
          // label9
          // 
@@ -891,6 +904,7 @@ namespace PersonsBase.View
          // textBox_name_Person
          // 
          this.textBox_name_Person.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.textBox_name_Person.Enabled = false;
          this.textBox_name_Person.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
          this.textBox_name_Person.Location = new System.Drawing.Point(214, 3);
          this.textBox_name_Person.Name = "textBox_name_Person";
@@ -933,9 +947,12 @@ namespace PersonsBase.View
          this.comboBox_Payment.Name = "comboBox_Payment";
          this.comboBox_Payment.Size = new System.Drawing.Size(629, 26);
          this.comboBox_Payment.TabIndex = 4;
+         this.comboBox_Payment.SelectedIndexChanged += new System.EventHandler(this.comboBox_Payment_SelectedIndexChanged);
          // 
          // groupBox2
          // 
+         this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
          this.groupBox2.Controls.Add(this.button_SavePersonalData);
          this.groupBox2.Controls.Add(this.tableLayoutPanel1);
          this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -943,7 +960,7 @@ namespace PersonsBase.View
          this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
          this.groupBox2.Name = "groupBox2";
          this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-         this.groupBox2.Size = new System.Drawing.Size(341, 631);
+         this.groupBox2.Size = new System.Drawing.Size(341, 620);
          this.groupBox2.TabIndex = 0;
          this.groupBox2.TabStop = false;
          this.groupBox2.Text = "Персональные данные";
@@ -953,7 +970,7 @@ namespace PersonsBase.View
          this.button_SavePersonalData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
          this.button_SavePersonalData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
          this.button_SavePersonalData.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.button_SavePersonalData.Location = new System.Drawing.Point(3, 573);
+         this.button_SavePersonalData.Location = new System.Drawing.Point(3, 562);
          this.button_SavePersonalData.Margin = new System.Windows.Forms.Padding(2);
          this.button_SavePersonalData.Name = "button_SavePersonalData";
          this.button_SavePersonalData.Size = new System.Drawing.Size(334, 54);
@@ -1137,6 +1154,7 @@ namespace PersonsBase.View
          this.textBox_Number.TabIndex = 5;
          this.textBox_Number.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          this.textBox_Number.TextChanged += new System.EventHandler(this.textBox_Number_TextChanged);
+         this.textBox_Number.Leave += new System.EventHandler(this.textBox_Number_Leave);
          // 
          // tabPage3
          // 
@@ -1323,7 +1341,7 @@ namespace PersonsBase.View
          this.splitContainer1.Panel2.ResumeLayout(false);
          ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
          this.splitContainer1.ResumeLayout(false);
-         this.flowLayoutPanel1.ResumeLayout(false);
+         this.flowLayoutPanel_MainButtons.ResumeLayout(false);
          this.groupBox_Abon_NotValid.ResumeLayout(false);
          this.groupBox_Abonements.ResumeLayout(false);
          ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).EndInit();
@@ -1395,7 +1413,7 @@ namespace PersonsBase.View
         private Button button_RemoveCurrentAbon;
         private Button button2;
         private Button button_photo;
-        private FlowLayoutPanel flowLayoutPanel1;
+        private FlowLayoutPanel flowLayoutPanel_MainButtons;
         private TabPage tabPage3;
         private DataGridView dataGridView_Visits;
         private TableLayoutPanel tableLayoutPanel2;

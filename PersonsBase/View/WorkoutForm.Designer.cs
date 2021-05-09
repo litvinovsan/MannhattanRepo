@@ -218,14 +218,14 @@ namespace PersonsBase.View
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Тип Тренировки:";
             // 
-            // flowLayoutPanel1
+            // flowLayoutPanel_MainButtons
             // 
             this.flowLayoutPanel1.Controls.Add(this.panel_tren);
             this.flowLayoutPanel1.Controls.Add(this.panel_aero);
             this.flowLayoutPanel1.Controls.Add(this.panel_personal);
             this.flowLayoutPanel1.Controls.Add(this.panel_miniGroup);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(260, 27);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Name = "flowLayoutPanel_MainButtons";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(63, 196);
             this.flowLayoutPanel1.TabIndex = 10;
             // 

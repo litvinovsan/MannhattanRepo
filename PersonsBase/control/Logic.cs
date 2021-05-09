@@ -455,7 +455,7 @@ namespace PersonsBase.control
       /// </summary>
       /// <param name="namePerson"></param>
       public static void OpenPersonCard(string namePerson)
-      {
+      { 
          if (string.IsNullOrEmpty(namePerson)) return;
          if (!DataBaseLevel.ContainsNameKey(namePerson))
          {
@@ -463,8 +463,9 @@ namespace PersonsBase.control
             return;
          }
 
-         var current = AbonementController.GetInstance().GetFirstValid(namePerson);
-         var presenterClientForm = new ClientFormPresenter(new ClientForm(namePerson), PersonObject.GetLink(namePerson), current);
+         var currentAbonement = AbonementController.GetInstance().GetFirstValid(namePerson);
+
+         var presenterClientForm = new ClientFormPresenter(PersonObject.GetLink(namePerson), currentAbonement);
          presenterClientForm.Run();
       }
 
@@ -642,7 +643,7 @@ namespace PersonsBase.control
                   var dlgResult = FormsRunner.RunWorkoutOptionsForm(ref selectedOptions, person.Name);
                   if (dlgResult == DialogResult.Cancel) return false;
 
-                  person.AbonementCurent.TryActivate(); // Если не Активирован
+                  person.AbonementCurent.TryActivate(DateTime.Now.Date); // Если не Активирован
 
                   isSuccess = byDays.CheckInWorkout(selectedOptions.TypeWorkout);
                   if (!isSuccess) return false;
@@ -654,7 +655,7 @@ namespace PersonsBase.control
                   var dlgResult = FormsRunner.RunWorkoutOptionsForm(ref selectedOptions, person.Name);
                   if (dlgResult == DialogResult.Cancel) return false;
 
-                  person.AbonementCurent.TryActivate(); // Если не Активирован
+                  person.AbonementCurent.TryActivate(DateTime.Now.Date); // Если не Активирован
 
                   isSuccess = clubCardA.CheckInWorkout(selectedOptions.TypeWorkout);
                   if (!isSuccess) return false;
@@ -666,7 +667,7 @@ namespace PersonsBase.control
                   var dlgResult = FormsRunner.RunWorkoutOptionsForm(ref selectedOptions, person.Name);
                   if (dlgResult == DialogResult.Cancel) return false;
 
-                  person.AbonementCurent.TryActivate(); // Если не Активирован
+                  person.AbonementCurent.TryActivate(DateTime.Now.Date); // Если не Активирован
 
                   isSuccess = singleVisit.CheckInWorkout(person.AbonementCurent.TypeWorkout);
 
@@ -709,25 +710,6 @@ namespace PersonsBase.control
          AddTableToGroupBox(table, gbBoxToShow);
       }
 
-      public static void LoadShortInfo(GroupBox gbBoxToShow, AbonementBasic abonement)
-      {
-         var labelTextBoxList = CreateLabelTextBoxList(abonement);
-
-         try
-         {
-            HighlightControls(ref labelTextBoxList);
-         }
-         catch (Exception)
-         {
-            SaveEverithing();
-            MessageBox.Show(@"Ошибка подсветки строк по определенным признакам в карточке клиента");
-         }
-
-         // Отрисовка Short Info
-         var table = CreateTable(labelTextBoxList); // Создаем таблицу c элементами из списка. Таблица: Лэйбл - Текстбокс
-
-         AddTableToGroupBox(table, gbBoxToShow);
-      }
 
       private static void HighlightControls(ref List<Tuple<Label, Control>> inputListOfCntrls)
       {
@@ -906,6 +888,11 @@ namespace PersonsBase.control
       /// </summary>
       public static void SetControlBackColor(Control ctrl, string current, string expected)
       {
+         if (current == null || expected == null)
+         {
+            return;
+         }
+
          Color clrSuccess = SystemColors.Window;
          Color clrFail = Color.Yellow;
          ctrl.BackColor = current == expected ? clrSuccess : clrFail;
@@ -948,6 +935,9 @@ namespace PersonsBase.control
                   break;
                case TextBox textBox:
                   textBox.BackColor = SystemColors.Window;
+                  break;
+               case Label label:
+                  label.BackColor = SystemColors.Window;
                   break;
             }
          });
@@ -1060,7 +1050,7 @@ namespace PersonsBase.control
       /// <param name="pathOrNamePhoto"></param>
       /// <param name="inputGender">Пол клиента</param>
       public static bool TryLoadPhoto(PictureBox pictureBox, string pathOrNamePhoto, Gender inputGender)
-      {
+      {//FIXME проверять наличие фотки по имени файла-клиента. Не нужна запись pathOrNamePhoto
          var gender = inputGender;
          var result = true;
          var fileName = pathOrNamePhoto;

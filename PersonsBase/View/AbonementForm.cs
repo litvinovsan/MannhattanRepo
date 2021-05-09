@@ -199,7 +199,7 @@ namespace PersonsBase.View
                     {
                         // Создаем новый абонемент
                         abonementNew = new SingleVisit(_typeWorkout, _spa, Pay.Оплачено, _timeTren);
-                        abonementNew.TryActivate();
+                        abonementNew.TryActivate(DateTime.Now.Date);
                         // Выбираем опции абонемента
                         var selectedOptions = new WorkoutOptions();
                         _person.AbonementCurent = abonementNew;

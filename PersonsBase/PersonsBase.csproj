@@ -128,6 +128,7 @@
     <Compile Include="ViewPresenters\ClientFormPresenter.cs" />
     <Compile Include="ViewPresenters\IClientForm.cs" />
     <Compile Include="ViewPresenters\IPresenter.cs" />
+    <Compile Include="ViewPresenters\IPresenterProperty.cs" />
     <Compile Include="ViewPresenters\IView.cs" />
     <Compile Include="View\AdminSelectForm.cs">
       <SubType>Form</SubType>
