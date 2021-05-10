@@ -9,7 +9,7 @@ namespace PersonsBase.ViewPresenters
    public class ClientFormPresenter : IPresenter, IPresenterProperty
    {
       #region Поля и Свойства
-      private readonly IDetailsInfo _viewForm;
+      private readonly IClientsForm _viewForm;
       private readonly Person _person;
       private readonly AbonementController _abonementController = AbonementController.GetInstance();
 
@@ -24,9 +24,12 @@ namespace PersonsBase.ViewPresenters
          AbonementCurent = current;
 
          _person = person;
-         _viewForm = new ClientForm(_person.Name, this);
 
-         SetCurrentAbonement(AbonementCurent);
+         _viewForm = new ClientForm(_person.Name, this);
+         _viewForm.InitializeControls();
+
+         SetCurrentAbonement(ref current);
+         _viewForm.UpdateDataOnForm();
       }
 
       /// <summary>
@@ -51,8 +54,7 @@ namespace PersonsBase.ViewPresenters
          _viewForm.ActivationDateChanged += _viewForm_ActivationDateChanged;
          _viewForm.EndDateChanged += _viewForm_EndDateChanged;
 
-         _viewForm.ListValidSelectionChanged += _viewForm_ListValidSelectionChanged;
-         _viewForm.ListNotValidSelectionChanged += _viewForm_ListNotValidSelectionChanged;
+         _viewForm.ActiveAbonementChanged += _viewForm_ListValidSelectionChanged;
          _viewForm.RemoveAbonement += _viewForm_RemoveAbonement;
          _viewForm.ClosingForm += _viewForm_ClosingForm;
          _viewForm.SaveButtonPressed += _viewForm_SaveButtonPressed;
@@ -65,8 +67,7 @@ namespace PersonsBase.ViewPresenters
       {
          PwdForm.LockChangedEvent -= _viewForm.LockControlsPwd;
          _viewForm.NameChanged -= _view_NameChanged;
-         _viewForm.ListValidSelectionChanged -= _viewForm_ListValidSelectionChanged;
-         _viewForm.ListNotValidSelectionChanged -= _viewForm_ListNotValidSelectionChanged;
+         _viewForm.ActiveAbonementChanged -= _viewForm_ListValidSelectionChanged;
          _viewForm.RemoveAbonement -= _viewForm_RemoveAbonement;
          _viewForm.StatusChanged -= _viewForm_StatusChanged;
          _viewForm.ActivationChanged -= _viewForm_ActivationChanged;
@@ -89,7 +90,7 @@ namespace PersonsBase.ViewPresenters
       /// <summary>
       ///  Загрузка на форму значений по умолчанию при старте
       /// </summary>
-      public void Load()
+      public void SetDataOnForm()
       {
          // Всегда отображаемые параметры
          _viewForm.SetNameTextBox(_person.Name);
@@ -143,11 +144,12 @@ namespace PersonsBase.ViewPresenters
       /// текущий абонемент
       /// </summary>
       /// <param name="abonement"></param>
-      public void SetCurrentAbonement(AbonementBasic abonement)
+      public void SetCurrentAbonement(ref AbonementBasic abonement)
       {
          Unsubscribe();
+         AbonementCurent = abonement;
          _person.AbonementCurent = abonement;
-         Load();
+         SetDataOnForm();
          Subscribe();
       }
 
@@ -168,24 +170,21 @@ namespace PersonsBase.ViewPresenters
       #region Обработчики всех событий с формы КЛиента
       private void _abonementController_CollectionChanged(object sender, EventArgs e)
       {
-         _viewForm.ListValidSelectionChanged -= _viewForm_ListValidSelectionChanged;
-         _viewForm.ListNotValidSelectionChanged -= _viewForm_ListNotValidSelectionChanged;
+         _viewForm.ActiveAbonementChanged -= _viewForm_ListValidSelectionChanged;
 
-         _viewForm.UpdateNotValidAbonements(_abonementController.GetListNotValid(_person.Name));
-         _viewForm.UpdateValidAbonements(_abonementController.GetListValid(_person.Name));
+         _viewForm.UpdateAbonementsCollection(_abonementController.GetListValid(_person.Name));
 
-         _viewForm.ListNotValidSelectionChanged += _viewForm_ListNotValidSelectionChanged;
-         _viewForm.ListValidSelectionChanged += _viewForm_ListValidSelectionChanged;
+         _viewForm.ActiveAbonementChanged += _viewForm_ListValidSelectionChanged;
 
          // Обновляем контролы на форме
-         _viewForm.UpdateControls();
+         _viewForm.UpdateButtonsState();
       }
 
       private void _viewForm_ActivationChanged(Activation obj)
       {
          _person.AbonementCurent.IsActivated = obj == Activation.Активирован;
-         _viewForm.UpdateControls();
-         _viewForm.UpdateForm();
+         _viewForm.UpdateButtonsState();
+         _viewForm.UpdateDataOnForm();
       }
 
       private void _viewForm_TimeForTrenningChanged(TimeForTr obj)
@@ -320,14 +319,14 @@ namespace PersonsBase.ViewPresenters
          _abonementController.RemoveAbonement(arg1, arg2);
       }
 
-      private void _viewForm_ListNotValidSelectionChanged(AbonementBasic obj)
-      {
-         SetCurrentAbonement(obj);
-      }
+   
 
       private void _viewForm_ListValidSelectionChanged(AbonementBasic obj)
       {
-         SetCurrentAbonement(obj);
+         SetCurrentAbonement(ref obj);
+        // SetDataOnForm();
+         _viewForm.UpdateDataOnForm();
+
       }
 
       private void _view_NameChanged(string nameNew)
@@ -342,7 +341,7 @@ namespace PersonsBase.ViewPresenters
 
       private void _viewForm_SaveButtonPressed()
       {
-         Load(); // Обновляем форму во время сохранения
+         SetDataOnForm(); // Обновляем форму во время сохранения
        //  _abonementController.Save();
       }
       #endregion
