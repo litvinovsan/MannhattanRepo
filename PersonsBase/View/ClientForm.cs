@@ -12,7 +12,7 @@ using PersonsBase.ViewPresenters;
 
 namespace PersonsBase.View
 {
-   public partial class ClientForm : Form, IDetailsInfo
+   public partial class ClientForm : Form, IClientsForm
    {
       #region /// ОСНОВНЫЕ ОБЬЕКТЫ ///
 
@@ -24,8 +24,7 @@ namespace PersonsBase.View
       public event Action<StatusPerson> StatusChanged;
       public event Action<Activation> ActivationChanged;
       public event Action<TimeForTr> TimeForTrenningChanged;
-      public event Action<AbonementBasic> ListValidSelectionChanged;
-      public event Action<AbonementBasic> ListNotValidSelectionChanged;
+      public event Action<AbonementBasic> ActiveAbonementChanged;
       public event Action<string, AbonementBasic> RemoveAbonement;
       public event Action ClosingForm;
       public event Action<Pay> PayChanged;
@@ -50,15 +49,6 @@ namespace PersonsBase.View
          _person = PersonObject.GetLink(keyName) ?? new Person();
          _logic = Logic.GetInstance();
          _presenter = presenter;
-
-         // Инициализация контролов
-         MyComboBox.Initialize<StatusPerson>(comboBox_status);
-         MyComboBox.Initialize<Activation>(comboBox_activation);
-         MyComboBox.Initialize<TimeForTr>(comboBox_timeVisit);
-         MyComboBox.Initialize<Pay>(comboBox_Payment);
-         MyComboBox.Initialize<TypeWorkout>(comboBox_TrenTypes);
-         MyComboBox.Initialize<SpaService>(comboBox_Spa);
-         // Поле Доступные тренировки загружаются каждый раз из Презентера. т.к 2 типа существует
       }
 
       private void UnsubscribeEvents()
@@ -85,11 +75,6 @@ namespace PersonsBase.View
          // Заполнение стартовое всех полей
          LoadUserData();
 
-         Logic.LoadShortInfo(groupBox_Info, _person);
-         UpdateControls(this, EventArgs.Empty);
-         CurentAbonementChanged(this, EventArgs.Empty);
-         UpdateInfoTextBoxField(this, EventArgs.Empty);
-
          Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto, _person.GenderType);
 
          // Подписка на События
@@ -103,7 +88,7 @@ namespace PersonsBase.View
 
          // Когда изменился какой-либо параметр Абонемента
          _person.AbonementCurentChanged += CurentAbonementChanged;
-         _person.AbonementCurentChanged += OnPersonOnAbonementCurentChanged;
+         //  _person.AbonementCurentChanged += OnPersonOnAbonementCurentChanged;
          _person.AbonementCurentChanged += HideControls;
 
          // Когда изменилась заморозка абонемента - Обновим Инфо поле
@@ -570,7 +555,7 @@ namespace PersonsBase.View
       }
       #endregion
 
-     
+
       #endregion
 
       #region /// СТАНДАРТНЫЕ ОБРАБОТЧИКИ ////
@@ -599,6 +584,7 @@ namespace PersonsBase.View
          Logic.SetControlsColorDefault(tableLayoutPanel3);
          Logic.SaveEverithing();
          SaveButtonPressed?.Invoke();
+         MessageBox.Show("Данные Сохранены!");
       }
 
       private void button_Add_New_Abon_Click(object sender, EventArgs e)
@@ -694,43 +680,17 @@ namespace PersonsBase.View
          _person.PathToPhoto = Path.GetFileName(path);
       }
 
-      private void listBox_abon_selector_SelectedIndexChanged(object sender, EventArgs e)
-      {
-         var selectedIndex = listBox_abon_selector.SelectedIndex;
-         if (selectedIndex == -1) return;
-         // Если не выбрано ничего - выходим
-         if (listBox_abon_selector.Items.Count == 0)
-         {
-            _presenter.AbonementCurent = null;
-            return;
-         }
-
-         // Уберем выделение в Списке Сгоревших абонементов.
-         listBox_NotValidAbons.SelectedIndex = -1;
-         var selectedAbon = listBox_abon_selector.SelectedItem as AbonementBasic;
-         // Проверяем, изменился ли выбранный абонемент
-         if (_presenter.AbonementCurent == selectedAbon) return;
-
-         ListValidSelectionChanged?.Invoke(selectedAbon);
-         flowLayoutPanel_MainButtons.Enabled = true;
-      }
-
-
-
       /// <summary>
       /// Нужен для Активации Кнопок. Они выключаются на время отображения Сгоревших абонементов
       /// </summary>
       /// <param name="sender"></param>
       /// <param name="e"></param>
-      private void listBox_abon_selector_MouseClick(object sender, MouseEventArgs e)
-      {
-         if (flowLayoutPanel_MainButtons.Enabled) return;
-
-         flowLayoutPanel_MainButtons.Enabled = true;
-         Logic.LoadShortInfo(groupBox_Info, _person);
-         UpdateControls(this, EventArgs.Empty);
-         UpdateInfoTextBoxField(this, EventArgs.Empty);
-      }
+      //private void listBox_abon_selector_MouseClick(object sender, MouseEventArgs e)
+      //{
+      //   Logic.LoadShortInfo(groupBox_Info, _person);
+      //   UpdateControls(this, EventArgs.Empty);
+      //   UpdateInfoTextBoxField(this, EventArgs.Empty);
+      //}
 
       // Кнопки управвления цветом в Заметках
       private void button_Clear_Selection_Click(object sender, EventArgs e)
@@ -787,45 +747,15 @@ namespace PersonsBase.View
 
       #region // Списки Валидных и Невалидных абонементов и карт
 
-      public void UpdateValidAbonements(List<AbonementBasic> abonements)
+      public void UpdateAbonementsCollection(List<AbonementBasic> abonements)
       {
          UpdateAbonementsListBox(listBox_abon_selector, abonements);
-      }
-
-      public void UpdateNotValidAbonements(List<AbonementBasic> abonements)
-      {
-         UpdateAbonementsListBox(listBox_NotValidAbons, abonements);
-      }
-      /// <summary>
-      /// Заходим сюда когда выбирается Сгоревший абонемент. 
-      /// </summary>
-      /// <param name="sender"></param>
-      /// <param name="e"></param>
-      private void listBox_NotValidAbons_SelectedIndexChanged(object sender, EventArgs e)
-      {
-         var selectedIndex = listBox_NotValidAbons.SelectedIndex;
-         // Если не выбрано ничего - выходим
-         if (selectedIndex == -1 || listBox_NotValidAbons.Items.Count == 0) return;
-
-         listBox_abon_selector.SelectedIndex = -1;
-
-         var selectedAbonement = listBox_NotValidAbons.SelectedItem as AbonementBasic;
-         // Проверяем, изменился ли выбранный абонемент
-         if (_presenter.AbonementCurent == selectedAbonement) return;
-         // Абонемент изменился
-         label_infoText.Text = @"Абонемент Сгорел";
-         // Блокировка панели с кнопками если выбран Сгоревший абонемент. Блокируем если есть действующие абонементы
-         if (listBox_abon_selector.Items.Count != 0)
-         {
-            ListNotValidSelectionChanged?.Invoke(selectedAbonement);
-            flowLayoutPanel_MainButtons.Enabled = false;
-         }
       }
 
       #endregion
 
       #region // Контролы общие. Блокировка, Обновление
-      public void UpdateControls()
+      public void UpdateButtonsState()
       {
          UpdateControls(this, EventArgs.Empty);
       }
@@ -848,7 +778,7 @@ namespace PersonsBase.View
          // Кнопка удаления абонемента
          button_RemoveCurrentAbon.Visible = isUnLocked;
       }
-     
+
       #endregion
 
       #region // Метод. Дата Окончания Карты
@@ -1122,7 +1052,7 @@ namespace PersonsBase.View
       /// <param name="value"></param>
       public void SetTypeCardComboBox(PeriodClubCard value)
       {
-          MyComboBox.SetComboBoxEnumValue(comboBox_Type, value);
+         MyComboBox.SetComboBoxEnumValue(comboBox_Type, value);
       }
       /// <summary>
       /// Этот метод нужен для заполнения значениями т.к. есть два типа - Клубная карта и Абонемент
@@ -1138,9 +1068,30 @@ namespace PersonsBase.View
          throw new NotImplementedException();
       }
 
-      public void UpdateForm()
+      public void UpdateDataOnForm()
       {
+         Logic.LoadShortInfo(groupBox_Info, _person);
+         UpdateControls(this, EventArgs.Empty);
+         CurentAbonementChanged(this, EventArgs.Empty);
          UpdateInfoTextBoxField(this, EventArgs.Empty);
+      }
+
+      public void InitializeControls()
+      {
+         // FIXME Перенести эту инициализацию в презентер. Презентер должен знать о списках абонменетов и устанавливать их все во время стартапа
+         // Инициализация контролов
+         MyComboBox.Initialize<StatusPerson>(comboBox_status);
+         MyComboBox.Initialize<Activation>(comboBox_activation);
+         MyComboBox.Initialize<TimeForTr>(comboBox_timeVisit);
+         MyComboBox.Initialize<Pay>(comboBox_Payment);
+         MyComboBox.Initialize<TypeWorkout>(comboBox_TrenTypes);
+         MyComboBox.Initialize<SpaService>(comboBox_Spa);
+         // Поле Доступные тренировки загружаются каждый раз из Презентера. т.к 2 типа существует
+
+         // Списки абонементов Валидный - Невуалидный
+         // FIXME Перенести эту инициализацию в презентер. Презентер должен знать о списках абонменетов и устанавливать их все во время стартапа
+         var abonContr = AbonementController.GetInstance();
+         UpdateAbonementsListBox(listBox_abon_selector, abonContr.GetListValid(_person.Name));
       }
 
       #endregion

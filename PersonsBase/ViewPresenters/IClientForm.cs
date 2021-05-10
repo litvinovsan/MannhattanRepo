@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace PersonsBase.ViewPresenters
 {
    // контракт, по которому представитель будет взаимодействовать с формой
-   public interface IDetailsInfo : IView
+   public interface IClientsForm : IView
    {
       #region События Изменения внутри формы. Вкладка детальных данных
       event Action<string> NameChanged;
@@ -35,8 +35,11 @@ namespace PersonsBase.ViewPresenters
 
       #region События Кнопок и Формы
       event Action<string, AbonementBasic> RemoveAbonement;
-      event Action<AbonementBasic> ListValidSelectionChanged;
-      event Action<AbonementBasic> ListNotValidSelectionChanged;
+      /// <summary>
+      /// Событие вызываемое в случае изменения текущего активного абонемента, отображаемого на форме клиента. 
+      /// Когда выбирается новый действующий или не валидный абонемент - вызывается это событие
+      /// </summary>
+      event Action<AbonementBasic> ActiveAbonementChanged;
       event Action ClosingForm;
       event Action SaveButtonPressed;
 
@@ -63,15 +66,18 @@ namespace PersonsBase.ViewPresenters
       void SetTypeCardComboBox(PeriodClubCard value);
       void InitComboBoxTypeCard<T>();
 
+      void InitializeControls();
       void LockControlsPwd(bool isLocked);
-      void UpdateControls();
-      void UpdateForm();
-      // Списки Абонементов Пользователя. Валидный и Невалидный
-      void UpdateValidAbonements(List<AbonementBasic> abonements);
-      void UpdateNotValidAbonements(List<AbonementBasic> abonements);
+      void UpdateButtonsState();
+      void UpdateDataOnForm();
 
       // Персональные данные
       void SetPersonalNumber(string number);
       #endregion
+
+
+      // Списки Абонементов Пользователя. Валидный и Невалидный
+      void UpdateAbonementsCollection(List<AbonementBasic> abonements);
+
    }
 }
