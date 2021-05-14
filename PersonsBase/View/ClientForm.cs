@@ -39,6 +39,7 @@ namespace PersonsBase.View
       public event Action<DateTime> EndDateChanged;
       public event Action SaveButtonPressed;
       public event Action<string, string> PersonalNumberChanged;
+      public event Action<bool> ShowValidOrNotValidListChanged;
 
       #endregion
 
@@ -499,25 +500,6 @@ namespace PersonsBase.View
          MyRichTextBox.Load(richTextBox_notes, _person.SpecialNotes);
       }
 
-      /// <summary>
-      /// Инициализирует ЛистБокс с всеми абонементами Клиента. Вызывает прерывание на изменение индекса ЛистБокса
-      /// </summary>
-      /// <param name="listBox"></param>
-      /// <param name="abonementsToShow"></param>
-      private void UpdateAbonementsListBox(ListBox listBox, List<AbonementBasic> abonementsToShow)
-      {
-         if (abonementsToShow == null)
-         {
-            listBox.DataSource = null;
-            return;
-         }
-
-         // Диспетчер Абонементов в ListBox
-         listBox.DataSource = abonementsToShow;
-         listBox.DisplayMember = "AbonementName";
-         listBox.ValueMember = "AbonementName";
-      }
-
       #endregion
 
       #region // Хелп Методы для Загрузки и обновления пользовательских данных
@@ -747,9 +729,17 @@ namespace PersonsBase.View
 
       #region // Списки Валидных и Невалидных абонементов и карт
 
-      public void UpdateAbonementsCollection(List<AbonementBasic> abonements)
+      public void SetAbonementsListView(List<AbonementBasic> abonements)
       {
-         UpdateAbonementsListBox(listBox_abon_selector, abonements);
+         if (abonements == null ) return;
+        //if (abonements.Count == 0) return;
+
+         listView_Abonements.Items.Clear();
+        
+         foreach (var item in abonements)
+         {
+            MyListViewEx.AddNote(listView_Abonements, item.AbonementName, item.GetAbonementType());
+         }
       }
 
       #endregion
@@ -1076,6 +1066,9 @@ namespace PersonsBase.View
          UpdateInfoTextBoxField(this, EventArgs.Empty);
       }
 
+      /// <summary>
+      /// Устанавливает значения по умолчанию и заполняет комбобоксы значениями из енумов
+      /// </summary>
       public void InitializeControls()
       {
          // FIXME Перенести эту инициализацию в презентер. Презентер должен знать о списках абонменетов и устанавливать их все во время стартапа
@@ -1091,11 +1084,48 @@ namespace PersonsBase.View
          // Списки абонементов Валидный - Невуалидный
          // FIXME Перенести эту инициализацию в презентер. Презентер должен знать о списках абонменетов и устанавливать их все во время стартапа
          var abonContr = AbonementController.GetInstance();
-         UpdateAbonementsListBox(listBox_abon_selector, abonContr.GetListValid(_person.Name));
+         SetAbonementsListView(abonContr.GetListValid(_person.Name));
       }
+
 
       #endregion
 
+      private void listView_Abonements_MouseClick(object sender, MouseEventArgs e)
+      {
+         // FIXME
+         //var selectedIndex = listBox_abon_selector.SelectedIndex;
+         //if (selectedIndex == -1) return;
+         //// Если не выбрано ничего - выходим
+         //if (listBox_abon_selector.Items.Count == 0)
+         //{
+         //   _presenter.AbonementCurent = null;
+         //   return;
+         //}
 
+         //// Уберем выделение в Списке Сгоревших абонементов.
+         //var selectedAbon = listBox_abon_selector.SelectedItem as AbonementBasic;
+         //// Проверяем, изменился ли выбранный абонемент
+         //if (_presenter.AbonementCurent == selectedAbon) return;
+
+         //ActiveAbonementChanged?.Invoke(selectedAbon);
+      }
+
+      private void listView_Abonements_SelectedIndexChanged(object sender, EventArgs e)
+      {
+
+      }
+
+      private void radioButton_Valid_Selected_CheckedChanged(object sender, EventArgs e)
+      {
+         flowLayoutPanel_MainButtons.Enabled = radioButton_Valid_Selected.Checked;
+
+         ShowValidOrNotValidListChanged?.Invoke(radioButton_Valid_Selected.Checked);
+         // По идее если чекаем или анчекаем, то всегда должно генерироваться событие. И достаточно вызывать событие только тут.
+      }
+
+      private void radioButton_NotValid_selected_CheckedChanged(object sender, EventArgs e)
+      {
+         flowLayoutPanel_MainButtons.Enabled = !radioButton_NotValid_selected.Checked;
+      }
    }
 }

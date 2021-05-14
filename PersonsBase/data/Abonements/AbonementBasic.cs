@@ -142,5 +142,13 @@ namespace PersonsBase.data.Abonements
       /// </summary>
       /// <returns></returns>
       public abstract int GetRemainderDays(); // Осталось дней
+      /// <summary>
+      /// Возвращает Тип Абонемента/Карты.
+      /// Для Клубной Карты это длительность в месяцах
+      /// Для Абонемента - Тип тренировок Минигруппа, Персоналка и т д
+      /// </summary>
+      /// <returns></returns>
+      public abstract string GetAbonementType();
+
    }
 }

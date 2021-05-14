@@ -175,7 +175,7 @@ namespace PersonsBase.View
          this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
          this.tabControl1.Name = "tabControl1";
          this.tabControl1.SelectedIndex = 0;
-         this.tabControl1.Size = new System.Drawing.Size(1324, 706);
+         this.tabControl1.Size = new System.Drawing.Size(1324, 696);
          this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
          this.tabControl1.TabIndex = 2;
          this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
@@ -190,7 +190,7 @@ namespace PersonsBase.View
          this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
          this.tabPage1.Name = "tabPage1";
          this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-         this.tabPage1.Size = new System.Drawing.Size(1316, 668);
+         this.tabPage1.Size = new System.Drawing.Size(1316, 658);
          this.tabPage1.TabIndex = 0;
          this.tabPage1.Text = "Информация";
          this.tabPage1.UseVisualStyleBackColor = true;
@@ -204,7 +204,7 @@ namespace PersonsBase.View
          this.groupBox_AbonLists.Controls.Add(this.radioButton_NotValid_selected);
          this.groupBox_AbonLists.Location = new System.Drawing.Point(10, 315);
          this.groupBox_AbonLists.Name = "groupBox_AbonLists";
-         this.groupBox_AbonLists.Size = new System.Drawing.Size(293, 348);
+         this.groupBox_AbonLists.Size = new System.Drawing.Size(293, 338);
          this.groupBox_AbonLists.TabIndex = 19;
          this.groupBox_AbonLists.TabStop = false;
          this.groupBox_AbonLists.Text = "Абонементы";
@@ -216,15 +216,18 @@ namespace PersonsBase.View
          this.listView_Abonements.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader_Name,
             this.columnHeader_Type});
+         this.listView_Abonements.FullRowSelect = true;
          this.listView_Abonements.GridLines = true;
          this.listView_Abonements.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
          this.listView_Abonements.Location = new System.Drawing.Point(8, 48);
          this.listView_Abonements.MultiSelect = false;
          this.listView_Abonements.Name = "listView_Abonements";
-         this.listView_Abonements.Size = new System.Drawing.Size(279, 288);
+         this.listView_Abonements.Size = new System.Drawing.Size(279, 278);
          this.listView_Abonements.TabIndex = 19;
          this.listView_Abonements.UseCompatibleStateImageBehavior = false;
          this.listView_Abonements.View = System.Windows.Forms.View.Details;
+         this.listView_Abonements.SelectedIndexChanged += new System.EventHandler(this.listView_Abonements_SelectedIndexChanged);
+         this.listView_Abonements.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listView_Abonements_MouseClick);
          // 
          // columnHeader_Name
          // 
@@ -249,6 +252,7 @@ namespace PersonsBase.View
          this.radioButton_Valid_Selected.TabStop = true;
          this.radioButton_Valid_Selected.Text = "Действуют";
          this.radioButton_Valid_Selected.UseVisualStyleBackColor = true;
+         this.radioButton_Valid_Selected.CheckedChanged += new System.EventHandler(this.radioButton_Valid_Selected_CheckedChanged);
          // 
          // radioButton_NotValid_selected
          // 
@@ -261,6 +265,7 @@ namespace PersonsBase.View
          this.radioButton_NotValid_selected.TabIndex = 18;
          this.radioButton_NotValid_selected.Text = "Закончились";
          this.radioButton_NotValid_selected.UseVisualStyleBackColor = true;
+         this.radioButton_NotValid_selected.CheckedChanged += new System.EventHandler(this.radioButton_NotValid_selected_CheckedChanged);
          // 
          // splitContainer1
          // 
@@ -281,8 +286,8 @@ namespace PersonsBase.View
          // splitContainer1.Panel2
          // 
          this.splitContainer1.Panel2.Controls.Add(this.richTextBox_notes);
-         this.splitContainer1.Size = new System.Drawing.Size(999, 612);
-         this.splitContainer1.SplitterDistance = 405;
+         this.splitContainer1.Size = new System.Drawing.Size(999, 602);
+         this.splitContainer1.SplitterDistance = 398;
          this.splitContainer1.SplitterWidth = 8;
          this.splitContainer1.TabIndex = 16;
          // 
@@ -295,7 +300,7 @@ namespace PersonsBase.View
          this.groupBox_Info.Margin = new System.Windows.Forms.Padding(2);
          this.groupBox_Info.Name = "groupBox_Info";
          this.groupBox_Info.Padding = new System.Windows.Forms.Padding(2);
-         this.groupBox_Info.Size = new System.Drawing.Size(754, 399);
+         this.groupBox_Info.Size = new System.Drawing.Size(754, 392);
          this.groupBox_Info.TabIndex = 4;
          this.groupBox_Info.TabStop = false;
          this.groupBox_Info.Text = "Информация";
@@ -349,7 +354,7 @@ namespace PersonsBase.View
          this.richTextBox_notes.Location = new System.Drawing.Point(0, 3);
          this.richTextBox_notes.Name = "richTextBox_notes";
          this.richTextBox_notes.ShowSelectionMargin = true;
-         this.richTextBox_notes.Size = new System.Drawing.Size(994, 185);
+         this.richTextBox_notes.Size = new System.Drawing.Size(994, 186);
          this.richTextBox_notes.TabIndex = 6;
          this.richTextBox_notes.Text = "";
          this.richTextBox_notes.TextChanged += new System.EventHandler(this.richTextBox_notes_TextChanged);
@@ -1246,7 +1251,7 @@ namespace PersonsBase.View
          this.tableLayoutPanel4.Controls.Add(this.button2, 3, 0);
          this.tableLayoutPanel4.Controls.Add(this.button_Cancel, 0, 0);
          this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-         this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 710);
+         this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 700);
          this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
          this.tableLayoutPanel4.Name = "tableLayoutPanel4";
          this.tableLayoutPanel4.RowCount = 1;
@@ -1322,7 +1327,7 @@ namespace PersonsBase.View
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(1324, 750);
+         this.ClientSize = new System.Drawing.Size(1324, 740);
          this.Controls.Add(this.tableLayoutPanel4);
          this.Controls.Add(this.tabControl1);
          this.DoubleBuffered = true;
