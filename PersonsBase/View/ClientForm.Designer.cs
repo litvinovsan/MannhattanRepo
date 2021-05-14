@@ -175,7 +175,7 @@ namespace PersonsBase.View
          this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
          this.tabControl1.Name = "tabControl1";
          this.tabControl1.SelectedIndex = 0;
-         this.tabControl1.Size = new System.Drawing.Size(1324, 696);
+         this.tabControl1.Size = new System.Drawing.Size(1324, 685);
          this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
          this.tabControl1.TabIndex = 2;
          this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
@@ -190,7 +190,7 @@ namespace PersonsBase.View
          this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
          this.tabPage1.Name = "tabPage1";
          this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-         this.tabPage1.Size = new System.Drawing.Size(1316, 658);
+         this.tabPage1.Size = new System.Drawing.Size(1316, 647);
          this.tabPage1.TabIndex = 0;
          this.tabPage1.Text = "Информация";
          this.tabPage1.UseVisualStyleBackColor = true;
@@ -204,30 +204,30 @@ namespace PersonsBase.View
          this.groupBox_AbonLists.Controls.Add(this.radioButton_NotValid_selected);
          this.groupBox_AbonLists.Location = new System.Drawing.Point(10, 315);
          this.groupBox_AbonLists.Name = "groupBox_AbonLists";
-         this.groupBox_AbonLists.Size = new System.Drawing.Size(293, 338);
+         this.groupBox_AbonLists.Size = new System.Drawing.Size(293, 327);
          this.groupBox_AbonLists.TabIndex = 19;
          this.groupBox_AbonLists.TabStop = false;
          this.groupBox_AbonLists.Text = "Абонементы";
          // 
          // listView_Abonements
          // 
-         this.listView_Abonements.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+         this.listView_Abonements.BorderStyle = System.Windows.Forms.BorderStyle.None;
          this.listView_Abonements.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader_Name,
             this.columnHeader_Type});
+         this.listView_Abonements.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
          this.listView_Abonements.FullRowSelect = true;
          this.listView_Abonements.GridLines = true;
-         this.listView_Abonements.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+         this.listView_Abonements.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+         this.listView_Abonements.HideSelection = false;
          this.listView_Abonements.Location = new System.Drawing.Point(8, 48);
          this.listView_Abonements.MultiSelect = false;
          this.listView_Abonements.Name = "listView_Abonements";
-         this.listView_Abonements.Size = new System.Drawing.Size(279, 278);
+         this.listView_Abonements.Size = new System.Drawing.Size(279, 273);
          this.listView_Abonements.TabIndex = 19;
          this.listView_Abonements.UseCompatibleStateImageBehavior = false;
          this.listView_Abonements.View = System.Windows.Forms.View.Details;
          this.listView_Abonements.SelectedIndexChanged += new System.EventHandler(this.listView_Abonements_SelectedIndexChanged);
-         this.listView_Abonements.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listView_Abonements_MouseClick);
          // 
          // columnHeader_Name
          // 
@@ -286,8 +286,8 @@ namespace PersonsBase.View
          // splitContainer1.Panel2
          // 
          this.splitContainer1.Panel2.Controls.Add(this.richTextBox_notes);
-         this.splitContainer1.Size = new System.Drawing.Size(999, 602);
-         this.splitContainer1.SplitterDistance = 398;
+         this.splitContainer1.Size = new System.Drawing.Size(999, 591);
+         this.splitContainer1.SplitterDistance = 390;
          this.splitContainer1.SplitterWidth = 8;
          this.splitContainer1.TabIndex = 16;
          // 
@@ -300,7 +300,7 @@ namespace PersonsBase.View
          this.groupBox_Info.Margin = new System.Windows.Forms.Padding(2);
          this.groupBox_Info.Name = "groupBox_Info";
          this.groupBox_Info.Padding = new System.Windows.Forms.Padding(2);
-         this.groupBox_Info.Size = new System.Drawing.Size(754, 392);
+         this.groupBox_Info.Size = new System.Drawing.Size(754, 384);
          this.groupBox_Info.TabIndex = 4;
          this.groupBox_Info.TabStop = false;
          this.groupBox_Info.Text = "Информация";
@@ -309,7 +309,7 @@ namespace PersonsBase.View
          // 
          this.button_photo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
          this.button_photo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.button_photo.Location = new System.Drawing.Point(761, 316);
+         this.button_photo.Location = new System.Drawing.Point(761, 259);
          this.button_photo.Margin = new System.Windows.Forms.Padding(2);
          this.button_photo.Name = "button_photo";
          this.button_photo.Size = new System.Drawing.Size(234, 42);
@@ -322,10 +322,10 @@ namespace PersonsBase.View
          // 
          this.pictureBox_ClientPhoto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
          this.pictureBox_ClientPhoto.Image = global::PersonsBase.Properties.Resources.no_photo_available_icon_20;
-         this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(761, 12);
+         this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(761, -18);
          this.pictureBox_ClientPhoto.Margin = new System.Windows.Forms.Padding(2);
          this.pictureBox_ClientPhoto.Name = "pictureBox_ClientPhoto";
-         this.pictureBox_ClientPhoto.Size = new System.Drawing.Size(233, 252);
+         this.pictureBox_ClientPhoto.Size = new System.Drawing.Size(233, 227);
          this.pictureBox_ClientPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
          this.pictureBox_ClientPhoto.TabIndex = 0;
          this.pictureBox_ClientPhoto.TabStop = false;
@@ -335,7 +335,7 @@ namespace PersonsBase.View
          this.button_photo_cam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
          this.button_photo_cam.BackgroundImage = global::PersonsBase.Properties.Resources.icons8_камера_100;
          this.button_photo_cam.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-         this.button_photo_cam.Location = new System.Drawing.Point(761, 270);
+         this.button_photo_cam.Location = new System.Drawing.Point(761, 213);
          this.button_photo_cam.Name = "button_photo_cam";
          this.button_photo_cam.Size = new System.Drawing.Size(233, 42);
          this.button_photo_cam.TabIndex = 13;
@@ -347,6 +347,7 @@ namespace PersonsBase.View
          this.richTextBox_notes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+         this.richTextBox_notes.BorderStyle = System.Windows.Forms.BorderStyle.None;
          this.richTextBox_notes.ContextMenuStrip = this.contextMenuStrip_RichTextBox;
          this.richTextBox_notes.Font = new System.Drawing.Font("Arial", 14F);
          this.richTextBox_notes.ForeColor = System.Drawing.Color.Black;
@@ -354,7 +355,7 @@ namespace PersonsBase.View
          this.richTextBox_notes.Location = new System.Drawing.Point(0, 3);
          this.richTextBox_notes.Name = "richTextBox_notes";
          this.richTextBox_notes.ShowSelectionMargin = true;
-         this.richTextBox_notes.Size = new System.Drawing.Size(994, 186);
+         this.richTextBox_notes.Size = new System.Drawing.Size(994, 187);
          this.richTextBox_notes.TabIndex = 6;
          this.richTextBox_notes.Text = "";
          this.richTextBox_notes.TextChanged += new System.EventHandler(this.richTextBox_notes_TextChanged);
@@ -533,7 +534,7 @@ namespace PersonsBase.View
          this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
          this.tabPage2.Name = "tabPage2";
          this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-         this.tabPage2.Size = new System.Drawing.Size(1316, 668);
+         this.tabPage2.Size = new System.Drawing.Size(1316, 647);
          this.tabPage2.TabIndex = 1;
          this.tabPage2.Text = "Подробные данные";
          this.tabPage2.UseVisualStyleBackColor = true;
@@ -1166,7 +1167,7 @@ namespace PersonsBase.View
          this.tabPage3.Location = new System.Drawing.Point(4, 34);
          this.tabPage3.Name = "tabPage3";
          this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-         this.tabPage3.Size = new System.Drawing.Size(1316, 668);
+         this.tabPage3.Size = new System.Drawing.Size(1316, 647);
          this.tabPage3.TabIndex = 2;
          this.tabPage3.Text = "Посещения";
          this.tabPage3.UseVisualStyleBackColor = true;
@@ -1182,7 +1183,7 @@ namespace PersonsBase.View
          this.dataGridView_Visits.Location = new System.Drawing.Point(3, 3);
          this.dataGridView_Visits.Name = "dataGridView_Visits";
          this.dataGridView_Visits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-         this.dataGridView_Visits.Size = new System.Drawing.Size(1310, 662);
+         this.dataGridView_Visits.Size = new System.Drawing.Size(1310, 641);
          this.dataGridView_Visits.TabIndex = 0;
          // 
          // tabPage_abon_history
@@ -1191,7 +1192,7 @@ namespace PersonsBase.View
          this.tabPage_abon_history.Location = new System.Drawing.Point(4, 34);
          this.tabPage_abon_history.Name = "tabPage_abon_history";
          this.tabPage_abon_history.Padding = new System.Windows.Forms.Padding(3);
-         this.tabPage_abon_history.Size = new System.Drawing.Size(1316, 668);
+         this.tabPage_abon_history.Size = new System.Drawing.Size(1316, 647);
          this.tabPage_abon_history.TabIndex = 3;
          this.tabPage_abon_history.Text = "Архив Абонементов";
          this.tabPage_abon_history.UseVisualStyleBackColor = true;
@@ -1202,7 +1203,7 @@ namespace PersonsBase.View
          this.dataGridView_history_abonements.Dock = System.Windows.Forms.DockStyle.Fill;
          this.dataGridView_history_abonements.Location = new System.Drawing.Point(3, 3);
          this.dataGridView_history_abonements.Name = "dataGridView_history_abonements";
-         this.dataGridView_history_abonements.Size = new System.Drawing.Size(1310, 662);
+         this.dataGridView_history_abonements.Size = new System.Drawing.Size(1310, 641);
          this.dataGridView_history_abonements.TabIndex = 0;
          // 
          // button_Bold
@@ -1251,7 +1252,7 @@ namespace PersonsBase.View
          this.tableLayoutPanel4.Controls.Add(this.button2, 3, 0);
          this.tableLayoutPanel4.Controls.Add(this.button_Cancel, 0, 0);
          this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-         this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 700);
+         this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 689);
          this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
          this.tableLayoutPanel4.Name = "tableLayoutPanel4";
          this.tableLayoutPanel4.RowCount = 1;
@@ -1327,7 +1328,7 @@ namespace PersonsBase.View
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(1324, 740);
+         this.ClientSize = new System.Drawing.Size(1324, 729);
          this.Controls.Add(this.tableLayoutPanel4);
          this.Controls.Add(this.tabControl1);
          this.DoubleBuffered = true;
