@@ -21,8 +21,7 @@ namespace PersonsBase.data.Abonements
          NumAerobicTr = 0;
          NumPersonalTr = 0;
          _validityPeriod = (typeTr == TypeWorkout.Персональная || typeTr == TypeWorkout.МиниГруппа)
-             ? Options.ValidPeriod12Month
-             : Options.ValidPeriodInMonth;
+             ? Options.ValidPeriod12Month: Options.ValidPeriodInMonth;
          // 12 месяцев - длительность абонемента с персональными тренировками
          EndDate = CalculateEndDate(DateTime.Now, _validityPeriod);
       }

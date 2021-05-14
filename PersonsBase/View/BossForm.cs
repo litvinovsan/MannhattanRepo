@@ -47,9 +47,9 @@ namespace PersonsBase.View
             checkBox_CorrectOnCreateAbon.Checked = Options.AbonIsCorrectable;
 
             // Период действия абонемента в месяцах.
-            var nums = Enumerable.Range(1, 12).Select(x => (object)x).ToArray(); // отображаются в комбобоксе
-            comboBox_months.Items.AddRange(nums);
-            comboBox_months.SelectedIndex = --Options.ValidPeriodInMonth; // декремент т.к. у нас массив начинается с 1
+          //  var nums = Enumerable.Range(1, 12).Select(x => (object)x).ToArray(); // отображаются в комбобоксе
+          //  comboBox_months.Items.AddRange(nums);
+          //  comboBox_months.SelectedIndex = --Options.ValidPeriodInMonth; // декремент т.к. у нас массив начинается с 1
 
         }
         private void BossForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -231,7 +231,7 @@ namespace PersonsBase.View
             if (comboBox_months.SelectedItem == null) return;
             var comboB = (ComboBox)sender;
             var months = int.Parse(comboB.SelectedItem.ToString());
-            Options.ValidPeriodInMonth = months;
+        //    Options.ValidPeriodInMonth = months;
         }
         #endregion
 

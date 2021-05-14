@@ -20,6 +20,14 @@ namespace PersonsBase.View
       private readonly Person _person;
       private IPresenterProperty _presenter;
 
+      /// <summary>
+      /// Содержит коллекцию Абонементов, отображаемую в ListView валидных-невалидных абонементов.
+      /// Эта коллекция обновляется ТОЛЬКО из метода SetAbonementsListview. 
+      /// Нужна только для идентификации текущего выбранного абонемента
+      /// </summary>
+      private List<AbonementBasic> CurrentListViewCollection { get; set; } = null;
+      private int ListViewSelectedIndex { get; set; }
+
       public event Action<string> NameChanged;
       public event Action<StatusPerson> StatusChanged;
       public event Action<Activation> ActivationChanged;
@@ -39,7 +47,7 @@ namespace PersonsBase.View
       public event Action<DateTime> EndDateChanged;
       public event Action SaveButtonPressed;
       public event Action<string, string> PersonalNumberChanged;
-      public event Action<bool> ShowValidOrNotValidListChanged;
+      public event Action<bool> ToggleValidNotValidAbonsChanged;
 
       #endregion
 
@@ -62,7 +70,6 @@ namespace PersonsBase.View
          _person.PersonalNumberChanged -= _person_PersonalNumberChanged;
          _person.SpecialNotesChanged -= _person_SpecialNotesChanged;
          _person.AbonementCurentChanged -= CurentAbonementChanged;
-         _person.AbonementCurentChanged -= OnPersonOnAbonementCurentChanged;
          _person.AbonementCurentChanged -= HideControls;
 
          _person.StatusChanged -= UpdateInfoTextBoxField;
@@ -274,14 +281,14 @@ namespace PersonsBase.View
          }
 
          // Подписываемся на изменения в обонементе когда абонемент существует
-         if (_presenter.AbonementCurent != null)
-         {
-            _presenter.AbonementCurent.ValuesChanged -= UpdateInfoTextBoxField;
-            _presenter.AbonementCurent.ValuesChanged += UpdateInfoTextBoxField;
+         //if (_presenter.AbonementCurent != null)
+         //{
+         //   _presenter.AbonementCurent.ValuesChanged -= UpdateInfoTextBoxField;
+         //   _presenter.AbonementCurent.ValuesChanged += UpdateInfoTextBoxField;
 
-            _presenter.AbonementCurent.ValuesChanged -= UpdateControls;
-            _presenter.AbonementCurent.ValuesChanged += UpdateControls;
-         }
+         //   _presenter.AbonementCurent.ValuesChanged -= UpdateControls;
+         //   _presenter.AbonementCurent.ValuesChanged += UpdateControls;
+         //}
 
          // Тут брать данные изменившегося абонемента и отрисовывать на форме изменения.
          //switch (_presenter.AbonementCurent)
@@ -607,7 +614,8 @@ namespace PersonsBase.View
 
          if (result != DialogResult.Yes) return;
 
-         RemoveAbonement?.Invoke(_person.Name, _presenter.AbonementCurent);
+         var abonToRemove = CurrentListViewCollection[ListViewSelectedIndex];
+         RemoveAbonement?.Invoke(_person.Name, abonToRemove);
       }
 
       private void button_Password_Click(object sender, EventArgs e)
@@ -731,15 +739,23 @@ namespace PersonsBase.View
 
       public void SetAbonementsListView(List<AbonementBasic> abonements)
       {
-         if (abonements == null ) return;
-        //if (abonements.Count == 0) return;
+         if (abonements == null) return;
+         if (abonements.Count == 0)
+            listView_Abonements.Items.Clear();
+
+         // Сохраняем текущий список абонементов для дальнейшей идентификации по индексу во время выбора 
+         CurrentListViewCollection = abonements;
 
          listView_Abonements.Items.Clear();
-        
+
          foreach (var item in abonements)
          {
             MyListViewEx.AddNote(listView_Abonements, item.AbonementName, item.GetAbonementType());
          }
+
+         if (listView_Abonements.Items.Count == 0) return;
+         listView_Abonements.Focus();
+         listView_Abonements.Items[0].Selected = true;
       }
 
       #endregion
@@ -1069,7 +1085,7 @@ namespace PersonsBase.View
       /// <summary>
       /// Устанавливает значения по умолчанию и заполняет комбобоксы значениями из енумов
       /// </summary>
-      public void InitializeControls()
+      public void InitializeFormControls()
       {
          // FIXME Перенести эту инициализацию в презентер. Презентер должен знать о списках абонменетов и устанавливать их все во время стартапа
          // Инициализация контролов
@@ -1089,37 +1105,23 @@ namespace PersonsBase.View
 
 
       #endregion
-
-      private void listView_Abonements_MouseClick(object sender, MouseEventArgs e)
-      {
-         // FIXME
-         //var selectedIndex = listBox_abon_selector.SelectedIndex;
-         //if (selectedIndex == -1) return;
-         //// Если не выбрано ничего - выходим
-         //if (listBox_abon_selector.Items.Count == 0)
-         //{
-         //   _presenter.AbonementCurent = null;
-         //   return;
-         //}
-
-         //// Уберем выделение в Списке Сгоревших абонементов.
-         //var selectedAbon = listBox_abon_selector.SelectedItem as AbonementBasic;
-         //// Проверяем, изменился ли выбранный абонемент
-         //if (_presenter.AbonementCurent == selectedAbon) return;
-
-         //ActiveAbonementChanged?.Invoke(selectedAbon);
-      }
-
       private void listView_Abonements_SelectedIndexChanged(object sender, EventArgs e)
       {
+         var selectedIndex = listView_Abonements.SelectedIndices;
 
+         if (selectedIndex.Count == 0 || listView_Abonements.Items.Count == 0) return;
+
+         var selectedAbon = CurrentListViewCollection[selectedIndex[0]];
+         if (_presenter.AbonementCurent == selectedAbon) return;
+         ListViewSelectedIndex = selectedIndex[0];
+         ActiveAbonementChanged?.Invoke(selectedAbon);
       }
 
       private void radioButton_Valid_Selected_CheckedChanged(object sender, EventArgs e)
       {
          flowLayoutPanel_MainButtons.Enabled = radioButton_Valid_Selected.Checked;
 
-         ShowValidOrNotValidListChanged?.Invoke(radioButton_Valid_Selected.Checked);
+         ToggleValidNotValidAbonsChanged?.Invoke(radioButton_Valid_Selected.Checked);
          // По идее если чекаем или анчекаем, то всегда должно генерироваться событие. И достаточно вызывать событие только тут.
       }
 

@@ -42,7 +42,7 @@ namespace PersonsBase.ViewPresenters
       /// <summary>
       /// Если true, на форме выбрано Отображение Списка Валидных абонементов
       /// </summary>
-      event Action<bool> ShowValidOrNotValidListChanged;
+      event Action<bool> ToggleValidNotValidAbonsChanged;
 
       #endregion
 
@@ -67,7 +67,7 @@ namespace PersonsBase.ViewPresenters
       void SetTypeCardComboBox(PeriodClubCard value);
       void InitComboBoxTypeCard<T>();
 
-      void InitializeControls();
+      void InitializeFormControls();
       void LockControlsPwd(bool isLocked);
       void UpdateButtonsState();
       void UpdateDataOnForm();

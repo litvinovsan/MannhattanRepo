@@ -26,7 +26,7 @@ namespace PersonsBase.ViewPresenters
          _person = person;
 
          _viewForm = new ClientForm(_person.Name, this);
-         _viewForm.InitializeControls();
+         _viewForm.InitializeFormControls();
 
          SetCurrentAbonement(ref current);
          _viewForm.UpdateDataOnForm();
@@ -58,9 +58,9 @@ namespace PersonsBase.ViewPresenters
          _viewForm.RemoveAbonement += _viewForm_RemoveAbonement;
          _viewForm.ClosingForm += _viewForm_ClosingForm;
          _viewForm.SaveButtonPressed += _viewForm_SaveButtonPressed;
-         _viewForm.ShowValidOrNotValidListChanged += _viewForm_ShowValidOrNotValidListChanged;
+         _viewForm.ToggleValidNotValidAbonsChanged += _viewForm_ShowValidOrNotValidListChanged;
 
-         // Если Добавили новый абонемент в общую коллекцию абонементов.
+         // Если Добавили новый абонемент в общую коллекцию абонементов или удалили.
          _abonementController.CollectionChanged += _abonementController_CollectionChanged;
       }
 
@@ -84,7 +84,7 @@ namespace PersonsBase.ViewPresenters
          _viewForm.ActivationDateChanged -= _viewForm_ActivationDateChanged;
          _viewForm.EndDateChanged -= _viewForm_EndDateChanged;
          _viewForm.SaveButtonPressed -= _viewForm_SaveButtonPressed;
-         _viewForm.ShowValidOrNotValidListChanged -= _viewForm_ShowValidOrNotValidListChanged;
+         _viewForm.ToggleValidNotValidAbonsChanged -= _viewForm_ShowValidOrNotValidListChanged;
 
          _abonementController.CollectionChanged -= _abonementController_CollectionChanged;
       }
@@ -99,23 +99,23 @@ namespace PersonsBase.ViewPresenters
          _viewForm.SetStatusComboBox(_person.Status);
 
          // Отображаются если есть абонемент
-         if (_person.AbonementCurent != null)
+         if (AbonementCurent != null)
          {
-            _viewForm.SetActivationComboBox(_person.AbonementCurent.IsActivated ? Activation.Активирован : Activation.Не_Активирован);
-            _viewForm.SetTimeForTrenning(_person.AbonementCurent.TimeTraining);
-            _viewForm.SetPayComboBox(_person.AbonementCurent.PayStatus);
-            _viewForm.SetTypeWorkout(_person.AbonementCurent.TypeWorkout);
-            _viewForm.SetSpaComboBoxa(_person.AbonementCurent.Spa);
-            _viewForm.SetOstDaysComboBox(_person.AbonementCurent.GetRemainderDays());
-            _viewForm.SetOstPersonalsComboBox(_person.AbonementCurent.NumPersonalTr);
-            _viewForm.SetOstAerobComboBox(_person.AbonementCurent.NumAerobicTr);
-            _viewForm.SetBuyDate(_person.AbonementCurent.BuyDate);
-            _viewForm.SetActivationDate(_person.AbonementCurent.BuyActivationDate);
-            _viewForm.SetEndDate(_person.AbonementCurent.EndDate);
+            _viewForm.SetActivationComboBox(AbonementCurent.IsActivated ? Activation.Активирован : Activation.Не_Активирован);
+            _viewForm.SetTimeForTrenning(AbonementCurent.TimeTraining);
+            _viewForm.SetPayComboBox(AbonementCurent.PayStatus);
+            _viewForm.SetTypeWorkout(AbonementCurent.TypeWorkout);
+            _viewForm.SetSpaComboBoxa(AbonementCurent.Spa);
+            _viewForm.SetOstDaysComboBox(AbonementCurent.GetRemainderDays());
+            _viewForm.SetOstPersonalsComboBox(AbonementCurent.NumPersonalTr);
+            _viewForm.SetOstAerobComboBox(AbonementCurent.NumAerobicTr);
+            _viewForm.SetBuyDate(AbonementCurent.BuyDate);
+            _viewForm.SetActivationDate(AbonementCurent.BuyActivationDate);
+            _viewForm.SetEndDate(AbonementCurent.EndDate);
 
 
             // Настройки зависящие от типа абонемента
-            switch (_person.AbonementCurent)
+            switch (AbonementCurent)
             {
                case AbonementByDays byDays:
                   {
@@ -336,9 +336,7 @@ namespace PersonsBase.ViewPresenters
       private void _viewForm_ListValidSelectionChanged(AbonementBasic obj)
       {
          SetCurrentAbonement(ref obj);
-         // SetDataOnForm();
          _viewForm.UpdateDataOnForm();
-
       }
 
       private void _view_NameChanged(string nameNew)
