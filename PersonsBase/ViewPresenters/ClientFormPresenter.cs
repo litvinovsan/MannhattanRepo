@@ -58,8 +58,9 @@ namespace PersonsBase.ViewPresenters
          _viewForm.RemoveAbonement += _viewForm_RemoveAbonement;
          _viewForm.ClosingForm += _viewForm_ClosingForm;
          _viewForm.SaveButtonPressed += _viewForm_SaveButtonPressed;
+         _viewForm.ShowValidOrNotValidListChanged += _viewForm_ShowValidOrNotValidListChanged;
 
-         // Если изменился
+         // Если Добавили новый абонемент в общую коллекцию абонементов.
          _abonementController.CollectionChanged += _abonementController_CollectionChanged;
       }
 
@@ -83,6 +84,7 @@ namespace PersonsBase.ViewPresenters
          _viewForm.ActivationDateChanged -= _viewForm_ActivationDateChanged;
          _viewForm.EndDateChanged -= _viewForm_EndDateChanged;
          _viewForm.SaveButtonPressed -= _viewForm_SaveButtonPressed;
+         _viewForm.ShowValidOrNotValidListChanged -= _viewForm_ShowValidOrNotValidListChanged;
 
          _abonementController.CollectionChanged -= _abonementController_CollectionChanged;
       }
@@ -121,7 +123,7 @@ namespace PersonsBase.ViewPresenters
                      break;
                   }
                case ClubCardA clubCardA:
-                  { 
+                  {
                      _viewForm.SetTypeCardComboBox(clubCardA.PeriodAbonem);
                      break;
                   }
@@ -172,12 +174,22 @@ namespace PersonsBase.ViewPresenters
       {
          _viewForm.ActiveAbonementChanged -= _viewForm_ListValidSelectionChanged;
 
-         _viewForm.UpdateAbonementsCollection(_abonementController.GetListValid(_person.Name));
+         _viewForm.SetAbonementsListView(_abonementController.GetListValid(_person.Name));
 
          _viewForm.ActiveAbonementChanged += _viewForm_ListValidSelectionChanged;
 
          // Обновляем контролы на форме
          _viewForm.UpdateButtonsState();
+      }
+
+      private void _viewForm_ShowValidOrNotValidListChanged(bool obj)
+      {
+         // Загрузить в Листбокс список Валидных если obj ==true
+         if (obj)
+            _viewForm.SetAbonementsListView(_abonementController.GetListValid(_person.Name));
+         // Загрузить в Листбокс список Не Валидных если obj ==false
+         else
+            _viewForm.SetAbonementsListView(_abonementController.GetListNotValid(_person.Name));
       }
 
       private void _viewForm_ActivationChanged(Activation obj)
@@ -319,12 +331,12 @@ namespace PersonsBase.ViewPresenters
          _abonementController.RemoveAbonement(arg1, arg2);
       }
 
-   
+
 
       private void _viewForm_ListValidSelectionChanged(AbonementBasic obj)
       {
          SetCurrentAbonement(ref obj);
-        // SetDataOnForm();
+         // SetDataOnForm();
          _viewForm.UpdateDataOnForm();
 
       }
@@ -342,7 +354,7 @@ namespace PersonsBase.ViewPresenters
       private void _viewForm_SaveButtonPressed()
       {
          SetDataOnForm(); // Обновляем форму во время сохранения
-       //  _abonementController.Save();
+                          //  _abonementController.Save();
       }
       #endregion
    }

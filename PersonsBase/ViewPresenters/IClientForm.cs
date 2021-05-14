@@ -8,7 +8,9 @@ namespace PersonsBase.ViewPresenters
    // контракт, по которому представитель будет взаимодействовать с формой
    public interface IClientsForm : IView
    {
-      #region События Изменения внутри формы. Вкладка детальных данных
+      #region События Изменения внутри формы. 
+
+      // Вкладка детальных данных
       event Action<string> NameChanged;
       event Action<StatusPerson> StatusChanged;
       event Action<Activation> ActivationChanged;
@@ -23,25 +25,24 @@ namespace PersonsBase.ViewPresenters
       event Action<int> OstMiniGroupChanged;
       event Action<DateTime> ActivationDateChanged;
       event Action<DateTime> EndDateChanged;
-      #endregion
 
-      #region События. Персональные данные клиента
       /// <summary>
       /// Old, New Values
       /// </summary>
       event Action<string, string> PersonalNumberChanged;
-
-      #endregion
-
-      #region События Кнопок и Формы
       event Action<string, AbonementBasic> RemoveAbonement;
+      event Action ClosingForm;
+      event Action SaveButtonPressed;
+
       /// <summary>
       /// Событие вызываемое в случае изменения текущего активного абонемента, отображаемого на форме клиента. 
       /// Когда выбирается новый действующий или не валидный абонемент - вызывается это событие
       /// </summary>
       event Action<AbonementBasic> ActiveAbonementChanged;
-      event Action ClosingForm;
-      event Action SaveButtonPressed;
+      /// <summary>
+      /// Если true, на форме выбрано Отображение Списка Валидных абонементов
+      /// </summary>
+      event Action<bool> ShowValidOrNotValidListChanged;
 
       #endregion
 
@@ -73,11 +74,17 @@ namespace PersonsBase.ViewPresenters
 
       // Персональные данные
       void SetPersonalNumber(string number);
+
+
+      /// <summary>
+      /// Загружает в ListBox Списки Абонементов Пользователя. Валидный и Невалидный
+      /// </summary>
+      /// <param name="abonements">Список абонементов который будет загружен в листвьюху</param>
+      void SetAbonementsListView(List<AbonementBasic> abonements);
+
       #endregion
 
 
-      // Списки Абонементов Пользователя. Валидный и Невалидный
-      void UpdateAbonementsCollection(List<AbonementBasic> abonements);
 
    }
 }

@@ -70,7 +70,7 @@ namespace PersonsBase.data.Abonements
 
          if (IsActivated) return; // Уже Активирован.
          IsActivated = true;
-         
+
          if (_validityPeriod == 0) _validityPeriod = Options.ValidPeriodInMonth;
          var date = newDate.AddMonths(_validityPeriod).Date;
          if (EndDate.Date.CompareTo(date) != 0)
@@ -163,6 +163,11 @@ namespace PersonsBase.data.Abonements
       private static DateTime CalculateEndDate(DateTime startDate, int months)
       {
          return startDate.AddMonths(months).Date;
+      }
+
+      public override string GetAbonementType()
+      {
+         return TypeWorkout.ToString();
       }
    }
 }

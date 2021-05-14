@@ -94,5 +94,10 @@ namespace PersonsBase.data.Abonements
       {
          return false; //  Заглушка
       }
+
+      public override string GetAbonementType()
+      {
+         return TypeWorkout.ToString();
+      }
    }
 }

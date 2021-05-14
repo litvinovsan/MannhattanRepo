@@ -73,8 +73,8 @@ namespace PersonsBase.data.Abonements
          if (_numberMonths == 0)
          { throw new Exception("Ошибка в методе IsValid Клубной карты. _numberMonths =0" + this.GetType()); }
 
-       // FIXME Проверить как работает Валидация клубной карты
-      //   if (!IsActivated && DateTime.Now.Date.CompareTo(BuyActivationDate.AddMonths(12).Date) <= 0) return true;
+         // FIXME Проверить как работает Валидация клубной карты
+         //   if (!IsActivated && DateTime.Now.Date.CompareTo(BuyActivationDate.AddMonths(12).Date) <= 0) return true;
 
          var addFreezedDays = Freeze?.GetSpentDays();
          DateTime finishDate = new DateTime();
@@ -256,9 +256,23 @@ namespace PersonsBase.data.Abonements
          }
       }
 
+      /// <summary>
+      /// Метод очень узкий только для Клубной Карты. Хотя можно  было сделать универсальным по названию для всех типов
+      /// </summary>
+      /// <returns></returns>
       public PeriodClubCard GetTypeClubCard()
       {
          return PeriodAbonem;
+      }
+
+      /// <summary>
+      /// Метод такой же как и GetTypeClubCard() только универсально называется, для всех разновидностей абонементов, возвращает строку с типом.
+      /// 
+      /// </summary>
+      /// <returns></returns>
+      public override string GetAbonementType()
+      {
+         return PeriodAbonem.ToString().Replace("На_", "");
       }
    }
 }
