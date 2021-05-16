@@ -94,7 +94,7 @@ namespace PersonsBase.data
         public static readonly object[] NumAvailTrenToBuy = { "1", "5", "8", "10" };
         public static readonly object[] NumAvailMiniGroup = { "1", "8" };
         private static string _cameraId;
-        public static int ValidPeriodInMonth { get;  } = 3;// нужны для расчета даты окончания абонемента. Срок годности абонемента 2 месяца
+        public static int ValidPeriodInMonth { get;  } = 3;// нужны для расчета даты окончания абонемента. Срок годности абонемента 3 месяца
         public const int ValidPeriod12Month = 12;// нужны для расчета даты окончания абонемента. Срок годности абонемента 12 месяца
 
 

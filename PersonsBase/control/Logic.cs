@@ -455,7 +455,7 @@ namespace PersonsBase.control
       /// </summary>
       /// <param name="namePerson"></param>
       public static void OpenPersonCard(string namePerson)
-      { 
+      {
          if (string.IsNullOrEmpty(namePerson)) return;
          if (!DataBaseLevel.ContainsNameKey(namePerson))
          {
@@ -690,9 +690,20 @@ namespace PersonsBase.control
 
       #region /// ДЛЯ Создания ТАБЛИЦ на ClientForms /// Подготовка для отображения на Клиентской форме
 
-      public static void LoadShortInfo(GroupBox gbBoxToShow, Person person)
+
+      #endregion
+
+      #region /// ДЛЯ Создания ТАБЛИЦ на ClientForms /// Подготовка для отображения на Клиентской форме
+
+
+      public static async Task LoadShortInfoAsync(GroupBox gbBoxToShow, StatusPerson status, AbonementBasic abonement)
       {
-         var labelTextBoxList = CreateLabelTextBoxList(person);
+         await Task.Run(() => { LoadShortInfo(gbBoxToShow, status, abonement); });
+      }
+
+      public static void LoadShortInfo(GroupBox gbBoxToShow, StatusPerson status, AbonementBasic abonement)
+      {
+         var labelTextBoxList = CreateLabelTextBoxList(status, abonement);
 
          try
          {
@@ -709,7 +720,6 @@ namespace PersonsBase.control
 
          AddTableToGroupBox(table, gbBoxToShow);
       }
-
 
       private static void HighlightControls(ref List<Tuple<Label, Control>> inputListOfCntrls)
       {
@@ -749,19 +759,18 @@ namespace PersonsBase.control
       /// </summary>
       /// <param name="person"></param>
       /// <returns></returns>
-      private static List<Tuple<Label, Control>> CreateLabelTextBoxList(Person person)
+      private static List<Tuple<Label, Control>> CreateLabelTextBoxList(StatusPerson status, AbonementBasic abonement)
       {
          var labelTextBoxList = new List<Tuple<Label, Control>>();
-         if (person.IsAbonementExist())
+         if (abonement != null)
          {
-            labelTextBoxList.AddRange(TupleConverter(person.AbonementCurent.GetShortInfoList()));
+            labelTextBoxList.AddRange(TupleConverter(abonement.GetShortInfoList()));
             // Добавляем Поле Статуса. Делаем тут потому что Person.abonem не знает об этом.
-            var status = person.Status.ToString();
-            labelTextBoxList.Insert(1, CreateRowInfo("Текущий статус Клиента", status));
+            labelTextBoxList.Insert(1, CreateRowInfo("Текущий статус Клиента", status.ToString()));
          }
          else
          {
-            labelTextBoxList.AddRange(TupleConverter(GetEmptyInfoList(person)));
+            labelTextBoxList.AddRange(TupleConverter(GetEmptyInfoList(abonement)));
          }
 
          return labelTextBoxList;
@@ -779,7 +788,7 @@ namespace PersonsBase.control
          var labelTextBoxList = new List<Tuple<Label, Control>>();
          if (abonement == null)
          {
-            labelTextBoxList.AddRange(TupleConverter(GetEmptyInfoList(new Person(""))));
+            labelTextBoxList.AddRange(TupleConverter(GetEmptyInfoList(null)));
          }
          else
          {
@@ -814,10 +823,10 @@ namespace PersonsBase.control
          return tableInfo;
       }
 
-      private static IEnumerable<Tuple<string, string>> GetEmptyInfoList(Person person)
+      private static IEnumerable<Tuple<string, string>> GetEmptyInfoList(AbonementBasic abonement)
       {
          string statusAbonemens = @"Нет карты";
-         if (person.AbonementCurent != null && person.AbonementCurent.IsValid() == false)
+         if (abonement != null && abonement.IsValid() == false)
          {
             statusAbonemens = @"Абонемент сгорел";
          }

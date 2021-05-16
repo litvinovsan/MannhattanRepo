@@ -20,19 +20,13 @@ namespace PersonsBase.View
       private readonly Person _person;
       private IPresenterProperty _presenter;
 
-      /// <summary>
-      /// Содержит коллекцию Абонементов, отображаемую в ListView валидных-невалидных абонементов.
-      /// Эта коллекция обновляется ТОЛЬКО из метода SetAbonementsListview. 
-      /// Нужна только для идентификации текущего выбранного абонемента
-      /// </summary>
-      private List<AbonementBasic> CurrentListViewCollection { get; set; } = null;
-      private int ListViewSelectedIndex { get; set; }
+      private int _listViewSelectedIndex { get; set; }
 
       public event Action<string> NameChanged;
       public event Action<StatusPerson> StatusChanged;
       public event Action<Activation> ActivationChanged;
       public event Action<TimeForTr> TimeForTrenningChanged;
-      public event Action<AbonementBasic> ActiveAbonementChanged;
+      public event Action<AbonementBasic> AbonementOnFormChanged;
       public event Action<string, AbonementBasic> RemoveAbonement;
       public event Action ClosingForm;
       public event Action<Pay> PayChanged;
@@ -60,6 +54,17 @@ namespace PersonsBase.View
          _presenter = presenter;
       }
 
+      private void SubscribeEvents()
+      {
+         // Подписка на События
+         _person.NameChanged += _person_NameChanged;
+         _person.PathToPhotoChanged += PathToPhotoChangedMethod;
+         _person.PhoneChanged += _person_PhoneChanged;
+         _person.PassportChanged += _person_PassportChanged;
+         _person.DriverIdChanged += _person_DriverIdChanged;
+         _person.PersonalNumberChanged += _person_PersonalNumberChanged;
+         _person.SpecialNotesChanged += _person_SpecialNotesChanged;
+      }
       private void UnsubscribeEvents()
       {
          _person.NameChanged -= _person_NameChanged;
@@ -69,60 +74,41 @@ namespace PersonsBase.View
          _person.DriverIdChanged -= _person_DriverIdChanged;
          _person.PersonalNumberChanged -= _person_PersonalNumberChanged;
          _person.SpecialNotesChanged -= _person_SpecialNotesChanged;
-         _person.AbonementCurentChanged -= CurentAbonementChanged;
-         _person.AbonementCurentChanged -= HideControls;
 
-         _person.StatusChanged -= UpdateInfoTextBoxField;
-         _person.StatusChanged -= UpdateControls;
-         _person.StatusChanged -= UpdateVisitsTable;
+         //_person.StatusChanged -= UpdateInfoTextBoxField;
+         //_person.StatusChanged -= UpdateControls;
+         //_person.StatusChanged -= GuestVisitHappend;
       }
-
 
       private void ClientForm_Load(object sender, EventArgs e)
       {
          // Заполнение стартовое всех полей
-         LoadUserData();
-
-         Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto, _person.GenderType);
-
-         // Подписка на События
-         _person.NameChanged += _person_NameChanged;
-         _person.PathToPhotoChanged += PathToPhotoChangedMethod;
-         _person.PhoneChanged += _person_PhoneChanged;
-         _person.PassportChanged += _person_PassportChanged;
-         _person.DriverIdChanged += _person_DriverIdChanged;
-         _person.PersonalNumberChanged += _person_PersonalNumberChanged;
-         _person.SpecialNotesChanged += _person_SpecialNotesChanged;
-
-         // Когда изменился какой-либо параметр Абонемента
-         _person.AbonementCurentChanged += CurentAbonementChanged;
-         //  _person.AbonementCurentChanged += OnPersonOnAbonementCurentChanged;
-         _person.AbonementCurentChanged += HideControls;
-
-         // Когда изменилась заморозка абонемента - Обновим Инфо поле
-         if (_presenter.AbonementCurent?.Freeze != null)
-         {
-            _presenter.AbonementCurent.Freeze.FreezeChanged -= RunStatusDirector;
-            _presenter.AbonementCurent.Freeze.FreezeChanged += RunStatusDirector;
-            _presenter.AbonementCurent.Freeze.FreezeChanged -= UpdateInfoTextBoxField;
-            _presenter.AbonementCurent.Freeze.FreezeChanged += UpdateInfoTextBoxField;
-            _presenter.AbonementCurent.Freeze.FreezeChanged -= UpdateControls;
-            _presenter.AbonementCurent.Freeze.FreezeChanged += UpdateControls;
-         }
-
-         // Когда изменился Статус Абонемента
-         _person.StatusChanged += UpdateInfoTextBoxField;
-         _person.StatusChanged += UpdateControls;
-         _person.StatusChanged += UpdateVisitsTable;
+         //  LoadUserData();
+         SubscribeEvents();
 
          // Вкладки Посещений и Архив абонементов
          SetupVisitsDataGridView();
          SetupHistoryAbonement(); //Настройка дата грид вью на вкладке истории абонементов
-      }
 
-      private void RunStatusDirector(object sender, EventArgs e)
-      {
-         _person.StatusDirector();
+         Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto, _person.GenderType);
+
+         // Когда изменился какой-либо параметр Абонемента
+         //_person.AbonementCurentChanged += FreezeStateChanged;
+         ////  _person.AbonementCurentChanged += OnPersonOnAbonementCurentChanged;
+         //_person.AbonementCurentChanged += HideControls;
+
+         //// Когда изменилась заморозка абонемента - Обновим Инфо поле
+         //if (_presenter.AbonementCurent?.Freeze != null)
+         //{
+         //   _presenter.AbonementCurent.Freeze.FreezeChanged += RunStatusDirector;
+         //   _presenter.AbonementCurent.Freeze.FreezeChanged += UpdateInfoTextBoxField;
+         //   _presenter.AbonementCurent.Freeze.FreezeChanged += UpdateControls;
+         //}
+
+         // Когда изменился Статус Абонемента
+         //_person.StatusChanged += UpdateInfoTextBoxField;
+         //_person.StatusChanged += UpdateControls;
+         //_person.StatusChanged += GuestVisitHappend;
       }
 
       private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -136,8 +122,6 @@ namespace PersonsBase.View
             pictureBox_ClientPhoto.Image = null;
          }
 
-         // Блокируем админскую учетку на всякий случай
-
          PwdForm.LockPassword();
 
          UnsubscribeEvents();
@@ -145,8 +129,107 @@ namespace PersonsBase.View
       }
       #endregion
 
-      #region /// ОБРАБОТЧИКИ ПОДПИСОК ///
+      #region /// ОБРАБОТЧИКИ ПОДПИСОК ПЕРСОНАЛЬНЫЕ ДАННЫЕ ///
 
+      /// <summary>
+      /// Обновляет таблицу с посещениями на вкладке посещений.
+      /// Сейчас только для Гостевого посещения. Костыль
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
+      private void GuestVisitHappend(object sender, EventArgs e)
+      {
+         if (_person.Status == StatusPerson.Гостевой)
+         {
+            MyDataGridView.SetSourceDataGridView(dataGridView_Visits, Visit.GetVisitsTable(_person));
+         }
+      }
+
+      private void _person_PersonalNumberChanged(object sender, string e)
+      {
+         if (!textBox_Number.Text.Equals(_person.IdString))
+            textBox_Number.Text = _person.IdString;
+         Logic.SetControlBackColor(textBox_Number, _person.IdString.ToString(), textBox_Number.Text);
+      }
+      private void textBox_Number_Leave(object sender, EventArgs e)
+      {
+
+      }
+      private void _person_SpecialNotesChanged(object sender, string e)
+      {
+         MyRichTextBox.Load(richTextBox_notes, _person.SpecialNotes);
+      }
+      private void _person_DriverIdChanged(object sender, string e)
+      {
+         if (!maskedTextBox_DriverID.Text.Equals(_person.DriverIdNum))
+            maskedTextBox_DriverID.Text = _person.DriverIdNum;
+         Logic.SetControlBackColor(maskedTextBox_DriverID, _editedDriveId, _person.DriverIdNum);
+      }
+      private void _person_PassportChanged(object sender, string e)
+      {
+         if (!maskedTextBox_Passport.Text.Equals(_person.Passport))
+            maskedTextBox_Passport.Text = _person.Passport;
+         Logic.SetControlBackColor(maskedTextBox_Passport, _editedPassport, _person.Passport);
+      }
+      private void _person_NameChanged(object sender, string e)
+      {
+         Text = @"Карточка Клиента:    " + _person.Name; // Имя формы
+         label_PersonName.Text = _person.Name;
+      }
+      private void _person_PhoneChanged(object sender, string e)
+      {
+         if (!maskedTextBox_PhoneNumber.Text.Equals(_person.Phone))
+            maskedTextBox_PhoneNumber.Text = _person.Phone;
+         Logic.SetControlBackColor(maskedTextBox_PhoneNumber, maskedTextBox_PhoneNumber.Text, _person.Phone);
+      }
+      private void PathToPhotoChangedMethod(object sender, EventArgs e)
+      {
+         Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto, _person.GenderType);
+      }
+      #endregion
+
+      #region /// МЕТОДЫ. ОБНОВЛЕНИЯ ДАННЫХ НА ФОРМЕ
+      public async void UpdateDataOnForm()
+      {
+         LoadUserData();
+         UpdateInfoTextBoxField(this, EventArgs.Empty);
+         UpdateControls(this, EventArgs.Empty);
+         FreezeStateChanged(this, EventArgs.Empty);
+         await Logic.LoadShortInfoAsync(groupBox_Info, _person.Status, _presenter.AbonementCurent);
+      }
+      private void LoadUserData()
+      {
+         // Имя Клиента
+         if (label_PersonName.Text != _person.Name) label_PersonName.Text = _person.Name;
+         // Телефон
+         if (maskedTextBox_PhoneNumber.Text != _person.Phone) maskedTextBox_PhoneNumber.Text = _person.Phone;
+         // Паспорт
+         if (maskedTextBox_Passport.Text != _person.Passport) maskedTextBox_Passport.Text = _person.Passport;
+         // Права
+         if (maskedTextBox_DriverID.Text != _person.DriverIdNum) maskedTextBox_DriverID.Text = _person.DriverIdNum;
+         // Персональный Номер
+         if (textBox_Number.Text != _person.IdString) textBox_Number.Text = _person.IdString;
+
+         // День Рождения
+         try
+         {
+            if (dateTimePicker_birthDate.Value != _person.BirthDate) dateTimePicker_birthDate.Value = _person.BirthDate;
+         }
+         catch (Exception)
+         {
+            dateTimePicker_birthDate.Value = DateTime.Now;
+         }
+
+         // Пол
+         var gendRange = Enum.GetNames(typeof(Gender)).ToArray<object>();
+         var gendSelected = _person.GenderType.ToString();
+         MyComboBox.Initialize(comboBox_Gender, gendRange, gendSelected);
+
+         // Особые Отметки
+         if (_editedSpecialNote != _person.SpecialNotes) _editedSpecialNote = _person.SpecialNotes;
+
+         MyRichTextBox.Load(richTextBox_notes, _person.SpecialNotes);
+      }
       // Информационное текстовое поле
       private void UpdateInfoTextBoxField(object sender, EventArgs e)
       {
@@ -202,9 +285,7 @@ namespace PersonsBase.View
             case null:
                break;
          }
-
       }
-
       // Кнопки
       private void UpdateControls(object sender, EventArgs e)
       {
@@ -269,43 +350,14 @@ namespace PersonsBase.View
                throw new ArgumentOutOfRangeException();
          }
       }
-
       // Абонементы
-      private void CurentAbonementChanged(object sender, EventArgs e)
+      private void FreezeStateChanged(object sender, EventArgs e)
       {
          // Подписываемся на заморозку если появился абонемент
          if (_presenter.AbonementCurent?.Freeze != null)
          {
-            _presenter.AbonementCurent.Freeze.FreezeChanged -= UpdateInfoTextBoxField;
             _presenter.AbonementCurent.Freeze.FreezeChanged += UpdateInfoTextBoxField;
          }
-
-         // Подписываемся на изменения в обонементе когда абонемент существует
-         //if (_presenter.AbonementCurent != null)
-         //{
-         //   _presenter.AbonementCurent.ValuesChanged -= UpdateInfoTextBoxField;
-         //   _presenter.AbonementCurent.ValuesChanged += UpdateInfoTextBoxField;
-
-         //   _presenter.AbonementCurent.ValuesChanged -= UpdateControls;
-         //   _presenter.AbonementCurent.ValuesChanged += UpdateControls;
-         //}
-
-         // Тут брать данные изменившегося абонемента и отрисовывать на форме изменения.
-         //switch (_presenter.AbonementCurent)
-         //{
-         //    case AbonementByDays byDays:
-         //        {
-         //            break;
-         //        }
-         //    case ClubCardA clubCardA:
-         //        {
-         //            break;
-         //        }
-         //    case SingleVisit singleVisit:
-         //        {
-         //            break;
-         //        }
-         //}
       }
 
       /// <summary>
@@ -403,113 +455,14 @@ namespace PersonsBase.View
          }
       }
 
-      private void OnPersonOnAbonementCurentChanged(object o, EventArgs args)
-      {
-         UpdateInfoTextBoxField(this, EventArgs.Empty);
-         UpdateControls(this, EventArgs.Empty);
-         Logic.LoadShortInfo(groupBox_Info, _person);
-      }
-
-      /// <summary>
-      /// Обновляет таблицу с посещениями на вкладке посещений.
-      /// Сейчас только для Гостевого посещения. Костыль
-      /// </summary>
-      /// <param name="sender"></param>
-      /// <param name="e"></param>
-      private void UpdateVisitsTable(object sender, EventArgs e)
-      {
-         if (_person.Status == StatusPerson.Гостевой)
-         {
-            MyDataGridView.SetSourceDataGridView(dataGridView_Visits, Visit.GetVisitsTable(_person));
-         }
-      }
-
-      private void _person_PersonalNumberChanged(object sender, string e)
-      {
-         if (!textBox_Number.Text.Equals(_person.IdString))
-            textBox_Number.Text = _person.IdString;
-         Logic.SetControlBackColor(textBox_Number, _person.IdString.ToString(), textBox_Number.Text);
-      }
-      private void textBox_Number_Leave(object sender, EventArgs e)
-      {
-
-      }
-
-      private void _person_SpecialNotesChanged(object sender, string e)
-      {
-         MyRichTextBox.Load(richTextBox_notes, _person.SpecialNotes);
-      }
-
-      private void _person_DriverIdChanged(object sender, string e)
-      {
-         if (!maskedTextBox_DriverID.Text.Equals(_person.DriverIdNum))
-            maskedTextBox_DriverID.Text = _person.DriverIdNum;
-         Logic.SetControlBackColor(maskedTextBox_DriverID, _editedDriveId, _person.DriverIdNum);
-      }
-      private void _person_PassportChanged(object sender, string e)
-      {
-         if (!maskedTextBox_Passport.Text.Equals(_person.Passport))
-            maskedTextBox_Passport.Text = _person.Passport;
-         Logic.SetControlBackColor(maskedTextBox_Passport, _editedPassport, _person.Passport);
-      }
-      private void _person_NameChanged(object sender, string e)
-      {
-         Text = @"Карточка Клиента:    " + _person.Name; // Имя формы
-         label_PersonName.Text = _person.Name;
-      }
-      private void _person_PhoneChanged(object sender, string e)
-      {
-         if (!maskedTextBox_PhoneNumber.Text.Equals(_person.Phone))
-            maskedTextBox_PhoneNumber.Text = _person.Phone;
-         Logic.SetControlBackColor(maskedTextBox_PhoneNumber, maskedTextBox_PhoneNumber.Text, _person.Phone);
-      }
-
-
-      private void PathToPhotoChangedMethod(object sender, EventArgs e)
-      {
-         Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto, _person.GenderType);
-      }
       #endregion
 
       #region  /// МЕТОДЫ
 
-      private void LoadUserData()
+      private void RunStatusDirector(object sender, EventArgs e)
       {
-         // Имя Клиента
-         label_PersonName.Text = _person.Name;
-         // Телефон
-         maskedTextBox_PhoneNumber.Text = _person.Phone;
-         // Паспорт
-         maskedTextBox_Passport.Text = _person.Passport;
-         // Права
-         maskedTextBox_DriverID.Text = _person.DriverIdNum;
-         // Персональный Номер
-         textBox_Number.Text = _person.IdString;
-
-         // День Рождения
-         try
-         {
-            dateTimePicker_birthDate.Value = _person.BirthDate;
-         }
-         catch (Exception)
-         {
-            dateTimePicker_birthDate.Value = DateTime.Now;
-         }
-
-         // Пол
-         var gendRange = Enum.GetNames(typeof(Gender)).ToArray<object>();
-         var gendSelected = _person.GenderType.ToString();
-         MyComboBox.Initialize(comboBox_Gender, gendRange, gendSelected);
-
-         // Особые Отметки
-         _editedSpecialNote = _person.SpecialNotes;
-
-         MyRichTextBox.Load(richTextBox_notes, _person.SpecialNotes);
+         _person.StatusDirector();
       }
-
-      #endregion
-
-      #region // Хелп Методы для Загрузки и обновления пользовательских данных
 
       /// <summary>
       /// Настройка Источника, Внешнего вида и Помощи для Списка Посещений на вкладке в Карточке клиента
@@ -544,7 +497,6 @@ namespace PersonsBase.View
       }
       #endregion
 
-
       #endregion
 
       #region /// СТАНДАРТНЫЕ ОБРАБОТЧИКИ ////
@@ -565,15 +517,15 @@ namespace PersonsBase.View
          Close();
       }
 
-      private void button_SavePersonalData_Click(object sender, EventArgs e)
+      private async void button_SavePersonalData_Click(object sender, EventArgs e)
       {
          SaveUserData();
-         Logic.LoadShortInfo(groupBox_Info, _person);
          Logic.SetControlsColorDefault(tableLayoutPanel1);
          Logic.SetControlsColorDefault(tableLayoutPanel3);
          Logic.SaveEverithing();
          SaveButtonPressed?.Invoke();
          MessageBox.Show("Данные Сохранены!");
+         await Logic.LoadShortInfoAsync(groupBox_Info, _person.Status, _presenter.AbonementCurent);
       }
 
       private void button_Add_New_Abon_Click(object sender, EventArgs e)
@@ -583,9 +535,8 @@ namespace PersonsBase.View
          button_CheckInWorkout.Focus();
       }
 
-      private void button_add_dop_tren_Click(object sender, EventArgs e)
+      private async void button_add_dop_tren_Click(object sender, EventArgs e)
       {
-         //FIXME  Перенести в Логику. 
          using (var form = new NumWorkoutForm(_presenter.AbonementCurent))
          {
             if (form.ShowDialog() == DialogResult.OK)
@@ -594,7 +545,7 @@ namespace PersonsBase.View
                PersonObject.SaveAbonementToHistory(_person, _presenter.AbonementCurent);
                // FIXME Убрать эти функции отсюда, возвращать диалог резалт
                // Обновляем Если выбрано что-то.
-               Logic.LoadShortInfo(groupBox_Info, _person);
+               await Logic.LoadShortInfoAsync(groupBox_Info, _person.Status, _presenter.AbonementCurent);
             }
             else
             {
@@ -614,7 +565,7 @@ namespace PersonsBase.View
 
          if (result != DialogResult.Yes) return;
 
-         var abonToRemove = CurrentListViewCollection[ListViewSelectedIndex];
+         var abonToRemove = _presenter.CurrentListViewCollection[_listViewSelectedIndex];
          RemoveAbonement?.Invoke(_person.Name, abonToRemove);
       }
 
@@ -648,7 +599,7 @@ namespace PersonsBase.View
          }
 
          // Для обновления
-         Logic.LoadShortInfo(groupBox_Info, _person);
+         Logic.LoadShortInfo(groupBox_Info, _person.Status, _presenter.AbonementCurent);
       }
 
       private void button_photo_Click(object sender, EventArgs e)
@@ -669,18 +620,6 @@ namespace PersonsBase.View
          var path = Photo.SaveToPhotoDir(picture, _person.Name);
          _person.PathToPhoto = Path.GetFileName(path);
       }
-
-      /// <summary>
-      /// Нужен для Активации Кнопок. Они выключаются на время отображения Сгоревших абонементов
-      /// </summary>
-      /// <param name="sender"></param>
-      /// <param name="e"></param>
-      //private void listBox_abon_selector_MouseClick(object sender, MouseEventArgs e)
-      //{
-      //   Logic.LoadShortInfo(groupBox_Info, _person);
-      //   UpdateControls(this, EventArgs.Empty);
-      //   UpdateInfoTextBoxField(this, EventArgs.Empty);
-      //}
 
       // Кнопки управвления цветом в Заметках
       private void button_Clear_Selection_Click(object sender, EventArgs e)
@@ -740,11 +679,6 @@ namespace PersonsBase.View
       public void SetAbonementsListView(List<AbonementBasic> abonements)
       {
          if (abonements == null) return;
-         if (abonements.Count == 0)
-            listView_Abonements.Items.Clear();
-
-         // Сохраняем текущий список абонементов для дальнейшей идентификации по индексу во время выбора 
-         CurrentListViewCollection = abonements;
 
          listView_Abonements.Items.Clear();
 
@@ -761,10 +695,6 @@ namespace PersonsBase.View
       #endregion
 
       #region // Контролы общие. Блокировка, Обновление
-      public void UpdateButtonsState()
-      {
-         UpdateControls(this, EventArgs.Empty);
-      }
       public void LockControlsPwd(bool isUnLocked)
       {
          // Детальная информация. Вкладка для редактирования
@@ -1074,14 +1004,6 @@ namespace PersonsBase.View
          throw new NotImplementedException();
       }
 
-      public void UpdateDataOnForm()
-      {
-         Logic.LoadShortInfo(groupBox_Info, _person);
-         UpdateControls(this, EventArgs.Empty);
-         CurentAbonementChanged(this, EventArgs.Empty);
-         UpdateInfoTextBoxField(this, EventArgs.Empty);
-      }
-
       /// <summary>
       /// Устанавливает значения по умолчанию и заполняет комбобоксы значениями из енумов
       /// </summary>
@@ -1111,10 +1033,10 @@ namespace PersonsBase.View
 
          if (selectedIndex.Count == 0 || listView_Abonements.Items.Count == 0) return;
 
-         var selectedAbon = CurrentListViewCollection[selectedIndex[0]];
+         var selectedAbon = _presenter.CurrentListViewCollection[selectedIndex[0]];
          if (_presenter.AbonementCurent == selectedAbon) return;
-         ListViewSelectedIndex = selectedIndex[0];
-         ActiveAbonementChanged?.Invoke(selectedAbon);
+         _listViewSelectedIndex = selectedIndex[0];
+         AbonementOnFormChanged?.Invoke(selectedAbon);
       }
 
       private void radioButton_Valid_Selected_CheckedChanged(object sender, EventArgs e)

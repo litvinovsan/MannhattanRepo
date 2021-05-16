@@ -309,7 +309,7 @@ namespace PersonsBase.View
          // 
          this.button_photo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
          this.button_photo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.button_photo.Location = new System.Drawing.Point(761, 259);
+         this.button_photo.Location = new System.Drawing.Point(761, 285);
          this.button_photo.Margin = new System.Windows.Forms.Padding(2);
          this.button_photo.Name = "button_photo";
          this.button_photo.Size = new System.Drawing.Size(234, 42);
@@ -322,7 +322,7 @@ namespace PersonsBase.View
          // 
          this.pictureBox_ClientPhoto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
          this.pictureBox_ClientPhoto.Image = global::PersonsBase.Properties.Resources.no_photo_available_icon_20;
-         this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(761, -18);
+         this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(761, 1);
          this.pictureBox_ClientPhoto.Margin = new System.Windows.Forms.Padding(2);
          this.pictureBox_ClientPhoto.Name = "pictureBox_ClientPhoto";
          this.pictureBox_ClientPhoto.Size = new System.Drawing.Size(233, 227);
@@ -335,7 +335,7 @@ namespace PersonsBase.View
          this.button_photo_cam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
          this.button_photo_cam.BackgroundImage = global::PersonsBase.Properties.Resources.icons8_камера_100;
          this.button_photo_cam.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-         this.button_photo_cam.Location = new System.Drawing.Point(761, 213);
+         this.button_photo_cam.Location = new System.Drawing.Point(761, 232);
          this.button_photo_cam.Name = "button_photo_cam";
          this.button_photo_cam.Size = new System.Drawing.Size(233, 42);
          this.button_photo_cam.TabIndex = 13;
@@ -344,18 +344,16 @@ namespace PersonsBase.View
          // 
          // richTextBox_notes
          // 
-         this.richTextBox_notes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
          this.richTextBox_notes.BorderStyle = System.Windows.Forms.BorderStyle.None;
          this.richTextBox_notes.ContextMenuStrip = this.contextMenuStrip_RichTextBox;
+         this.richTextBox_notes.Dock = System.Windows.Forms.DockStyle.Fill;
          this.richTextBox_notes.Font = new System.Drawing.Font("Arial", 14F);
          this.richTextBox_notes.ForeColor = System.Drawing.Color.Black;
          this.richTextBox_notes.HideSelection = false;
-         this.richTextBox_notes.Location = new System.Drawing.Point(0, 3);
+         this.richTextBox_notes.Location = new System.Drawing.Point(0, 0);
          this.richTextBox_notes.Name = "richTextBox_notes";
          this.richTextBox_notes.ShowSelectionMargin = true;
-         this.richTextBox_notes.Size = new System.Drawing.Size(994, 187);
+         this.richTextBox_notes.Size = new System.Drawing.Size(999, 193);
          this.richTextBox_notes.TabIndex = 6;
          this.richTextBox_notes.Text = "";
          this.richTextBox_notes.TextChanged += new System.EventHandler(this.richTextBox_notes_TextChanged);

@@ -38,7 +38,7 @@ namespace PersonsBase.ViewPresenters
       /// Событие вызываемое в случае изменения текущего активного абонемента, отображаемого на форме клиента. 
       /// Когда выбирается новый действующий или не валидный абонемент - вызывается это событие
       /// </summary>
-      event Action<AbonementBasic> ActiveAbonementChanged;
+      event Action<AbonementBasic> AbonementOnFormChanged;
       /// <summary>
       /// Если true, на форме выбрано Отображение Списка Валидных абонементов
       /// </summary>
@@ -69,7 +69,6 @@ namespace PersonsBase.ViewPresenters
 
       void InitializeFormControls();
       void LockControlsPwd(bool isLocked);
-      void UpdateButtonsState();
       void UpdateDataOnForm();
 
       // Персональные данные
@@ -83,8 +82,5 @@ namespace PersonsBase.ViewPresenters
       void SetAbonementsListView(List<AbonementBasic> abonements);
 
       #endregion
-
-
-
    }
 }

@@ -55,7 +55,7 @@ namespace PersonsBase.View
             tableLayoutPanel3.Visible = false;
             groupBox_Details.Visible = true;
 
-            Logic.LoadShortInfo(groupBox_Details, _person);
+            Logic.LoadShortInfo(groupBox_Details, _person.Status,abonToShow);
 
         }
 
