@@ -90,13 +90,13 @@ namespace PersonsBase.View
             {
                 listBox_persons.SelectedItem = SelectedName;
             }
-            UpdatePersonalContols();
+            UpdatePersonalControls();
         }
 
         /// <summary>
         /// Обновляет все элементы на форме при любом выборе нового Клиента. 
         /// </summary>
-        private void UpdatePersonalContols()
+        private void UpdatePersonalControls()
         {
             // Получили Персону
             var person = PersonObject.GetLink(SelectedName);
@@ -127,7 +127,7 @@ namespace PersonsBase.View
             var isSuccess = Logic.TryLoadPhoto(pictureBox_Client, person.PathToPhoto, person.GenderType);
             if (!isSuccess && !string.IsNullOrEmpty(person.PathToPhoto)) person.PathToPhoto = "";
             // Краткая инфа об абонементе
-            Logic.LoadShortInfo(groupBox_AbonInfo, person);
+            Logic.LoadShortInfo(groupBox_AbonInfo, person.Status, person.AbonementCurent);
         }
 
         #endregion

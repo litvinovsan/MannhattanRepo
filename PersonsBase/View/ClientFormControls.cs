@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using PersonsBase.control;
 using PersonsBase.data;
-using PersonsBase.data.Abonements;
 
 namespace PersonsBase.View
 {

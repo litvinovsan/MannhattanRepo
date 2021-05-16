@@ -3,6 +3,7 @@ using PersonsBase.data;
 using PersonsBase.data.Abonements;
 using PersonsBase.View;
 using System;
+using System.Collections.Generic;
 
 namespace PersonsBase.ViewPresenters
 {
@@ -12,8 +13,19 @@ namespace PersonsBase.ViewPresenters
       private readonly IClientsForm _viewForm;
       private readonly Person _person;
       private readonly AbonementController _abonementController = AbonementController.GetInstance();
+      private AbonementBasic _abonementCurent;
 
-      public AbonementBasic AbonementCurent { get; set; }
+      public event Action<AbonementBasic> AbonementCurentChanged;
+      public AbonementBasic AbonementCurent
+      {
+         get => _abonementCurent;
+         set
+         {
+            _abonementCurent = value;
+            AbonementCurentChanged?.Invoke(_abonementCurent);
+         }
+      }
+      public List<AbonementBasic> CurrentListViewCollection { get; set; } = null;
 
       #endregion
 
@@ -21,10 +33,8 @@ namespace PersonsBase.ViewPresenters
 
       public ClientFormPresenter(Person person, AbonementBasic current)
       {
-         AbonementCurent = current;
-
+         _abonementCurent = current;
          _person = person;
-
          _viewForm = new ClientForm(_person.Name, this);
          _viewForm.InitializeFormControls();
 
@@ -54,7 +64,7 @@ namespace PersonsBase.ViewPresenters
          _viewForm.ActivationDateChanged += _viewForm_ActivationDateChanged;
          _viewForm.EndDateChanged += _viewForm_EndDateChanged;
 
-         _viewForm.ActiveAbonementChanged += _viewForm_ListValidSelectionChanged;
+         _viewForm.AbonementOnFormChanged += _viewForm_ListValidSelectionChanged;
          _viewForm.RemoveAbonement += _viewForm_RemoveAbonement;
          _viewForm.ClosingForm += _viewForm_ClosingForm;
          _viewForm.SaveButtonPressed += _viewForm_SaveButtonPressed;
@@ -62,13 +72,17 @@ namespace PersonsBase.ViewPresenters
 
          // Если Добавили новый абонемент в общую коллекцию абонементов или удалили.
          _abonementController.CollectionChanged += _abonementController_CollectionChanged;
+
+         // Подписка на Бизнес Логику
+
+
       }
 
       private void Unsubscribe()
       {
          PwdForm.LockChangedEvent -= _viewForm.LockControlsPwd;
          _viewForm.NameChanged -= _view_NameChanged;
-         _viewForm.ActiveAbonementChanged -= _viewForm_ListValidSelectionChanged;
+         _viewForm.AbonementOnFormChanged -= _viewForm_ListValidSelectionChanged;
          _viewForm.RemoveAbonement -= _viewForm_RemoveAbonement;
          _viewForm.StatusChanged -= _viewForm_StatusChanged;
          _viewForm.ActivationChanged -= _viewForm_ActivationChanged;
@@ -153,6 +167,7 @@ namespace PersonsBase.ViewPresenters
          _person.AbonementCurent = abonement;
          SetDataOnForm();
          Subscribe();
+         AbonementCurentChanged?.Invoke(abonement);
       }
 
       public void Run()
@@ -172,14 +187,9 @@ namespace PersonsBase.ViewPresenters
       #region Обработчики всех событий с формы КЛиента
       private void _abonementController_CollectionChanged(object sender, EventArgs e)
       {
-         _viewForm.ActiveAbonementChanged -= _viewForm_ListValidSelectionChanged;
-
+         _viewForm.AbonementOnFormChanged -= _viewForm_ListValidSelectionChanged;
          _viewForm.SetAbonementsListView(_abonementController.GetListValid(_person.Name));
-
-         _viewForm.ActiveAbonementChanged += _viewForm_ListValidSelectionChanged;
-
-         // Обновляем контролы на форме
-         _viewForm.UpdateButtonsState();
+         _viewForm.AbonementOnFormChanged += _viewForm_ListValidSelectionChanged;
       }
 
       private void _viewForm_ShowValidOrNotValidListChanged(bool obj)
@@ -195,7 +205,6 @@ namespace PersonsBase.ViewPresenters
       private void _viewForm_ActivationChanged(Activation obj)
       {
          _person.AbonementCurent.IsActivated = obj == Activation.Активирован;
-         _viewForm.UpdateButtonsState();
          _viewForm.UpdateDataOnForm();
       }
 
