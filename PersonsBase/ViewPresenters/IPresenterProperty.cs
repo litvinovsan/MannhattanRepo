@@ -12,7 +12,7 @@ namespace PersonsBase.ViewPresenters
       /// <summary>
       /// Текущий Отображаемый абонемент на форме
       /// </summary>
-      AbonementBasic AbonementCurent { get; set; }
+      AbonementBasic AbonementCurent { get; }
       /// <summary>
       /// Срабатывает когда изменяется Отображаемый абонемент на форме
       /// </summary>
