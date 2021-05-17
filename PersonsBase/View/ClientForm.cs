@@ -83,7 +83,6 @@ namespace PersonsBase.View
       private void ClientForm_Load(object sender, EventArgs e)
       {
          // Заполнение стартовое всех полей
-         //  LoadUserData();
          SubscribeEvents();
 
          // Вкладки Посещений и Архив абонементов
@@ -189,13 +188,14 @@ namespace PersonsBase.View
       #endregion
 
       #region /// МЕТОДЫ. ОБНОВЛЕНИЯ ДАННЫХ НА ФОРМЕ
-      public async void UpdateDataOnForm()
+      public void UpdateDataOnForm()
       {
          LoadUserData();
          UpdateInfoTextBoxField(this, EventArgs.Empty);
          UpdateControls(this, EventArgs.Empty);
          FreezeStateChanged(this, EventArgs.Empty);
-         await Logic.LoadShortInfoAsync(groupBox_Info, _person.Status, _presenter.AbonementCurent);
+         HideControls();
+         Logic.LoadShortInfo(groupBox_Info, _person.Status, _presenter.AbonementCurent);
       }
       private void LoadUserData()
       {
@@ -356,6 +356,7 @@ namespace PersonsBase.View
          // Подписываемся на заморозку если появился абонемент
          if (_presenter.AbonementCurent?.Freeze != null)
          {
+            _presenter.AbonementCurent.Freeze.FreezeChanged -= UpdateInfoTextBoxField;
             _presenter.AbonementCurent.Freeze.FreezeChanged += UpdateInfoTextBoxField;
          }
       }
@@ -365,7 +366,7 @@ namespace PersonsBase.View
       /// </summary>
       /// <param name="sender"></param>
       /// <param name="e"></param>
-      private void HideControls(object sender, EventArgs e)
+      private void HideControls()
       {
          if (_presenter.AbonementCurent == null)
          {
@@ -517,7 +518,7 @@ namespace PersonsBase.View
          Close();
       }
 
-      private async void button_SavePersonalData_Click(object sender, EventArgs e)
+      private void button_SavePersonalData_Click(object sender, EventArgs e)
       {
          SaveUserData();
          Logic.SetControlsColorDefault(tableLayoutPanel1);
@@ -525,7 +526,7 @@ namespace PersonsBase.View
          Logic.SaveEverithing();
          SaveButtonPressed?.Invoke();
          MessageBox.Show("Данные Сохранены!");
-         await Logic.LoadShortInfoAsync(groupBox_Info, _person.Status, _presenter.AbonementCurent);
+         Logic.LoadShortInfo(groupBox_Info, _person.Status, _presenter.AbonementCurent);
       }
 
       private void button_Add_New_Abon_Click(object sender, EventArgs e)
@@ -535,7 +536,7 @@ namespace PersonsBase.View
          button_CheckInWorkout.Focus();
       }
 
-      private async void button_add_dop_tren_Click(object sender, EventArgs e)
+      private void button_add_dop_tren_Click(object sender, EventArgs e)
       {
          using (var form = new NumWorkoutForm(_presenter.AbonementCurent))
          {
@@ -545,7 +546,7 @@ namespace PersonsBase.View
                PersonObject.SaveAbonementToHistory(_person, _presenter.AbonementCurent);
                // FIXME Убрать эти функции отсюда, возвращать диалог резалт
                // Обновляем Если выбрано что-то.
-               await Logic.LoadShortInfoAsync(groupBox_Info, _person.Status, _presenter.AbonementCurent);
+               Logic.LoadShortInfo(groupBox_Info, _person.Status, _presenter.AbonementCurent);
             }
             else
             {
@@ -564,9 +565,11 @@ namespace PersonsBase.View
              @"Удаление Абонемента!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
          if (result != DialogResult.Yes) return;
-
-         var abonToRemove = _presenter.CurrentListViewCollection[_listViewSelectedIndex];
-         RemoveAbonement?.Invoke(_person.Name, abonToRemove);
+         if (_presenter.CurrentListViewCollection != null && _presenter.CurrentListViewCollection.Count != 0)
+         {
+            var abonToRemove = _presenter.CurrentListViewCollection[_listViewSelectedIndex];
+            RemoveAbonement?.Invoke(_person.Name, abonToRemove);
+         }
       }
 
       private void button_Password_Click(object sender, EventArgs e)
@@ -679,7 +682,7 @@ namespace PersonsBase.View
       public void SetAbonementsListView(List<AbonementBasic> abonements)
       {
          if (abonements == null) return;
-
+         this.listView_Abonements.SelectedIndexChanged -= new System.EventHandler(this.listView_Abonements_SelectedIndexChanged);
          listView_Abonements.Items.Clear();
 
          foreach (var item in abonements)
@@ -690,6 +693,8 @@ namespace PersonsBase.View
          if (listView_Abonements.Items.Count == 0) return;
          listView_Abonements.Focus();
          listView_Abonements.Items[0].Selected = true;
+
+         this.listView_Abonements.SelectedIndexChanged += new System.EventHandler(this.listView_Abonements_SelectedIndexChanged);
       }
 
       #endregion
@@ -1020,9 +1025,7 @@ namespace PersonsBase.View
          // Поле Доступные тренировки загружаются каждый раз из Презентера. т.к 2 типа существует
 
          // Списки абонементов Валидный - Невуалидный
-         // FIXME Перенести эту инициализацию в презентер. Презентер должен знать о списках абонменетов и устанавливать их все во время стартапа
-         var abonContr = AbonementController.GetInstance();
-         SetAbonementsListView(abonContr.GetListValid(_person.Name));
+         SetAbonementsListView(_presenter.CurrentListViewCollection);
       }
 
 
@@ -1032,11 +1035,13 @@ namespace PersonsBase.View
          var selectedIndex = listView_Abonements.SelectedIndices;
 
          if (selectedIndex.Count == 0 || listView_Abonements.Items.Count == 0) return;
-
-         var selectedAbon = _presenter.CurrentListViewCollection[selectedIndex[0]];
-         if (_presenter.AbonementCurent == selectedAbon) return;
-         _listViewSelectedIndex = selectedIndex[0];
-         AbonementOnFormChanged?.Invoke(selectedAbon);
+         if (_presenter?.CurrentListViewCollection != null && _presenter?.CurrentListViewCollection.Count != 0)
+         {
+            var selectedAbon = _presenter?.CurrentListViewCollection[selectedIndex[0]];
+            if (_presenter.AbonementCurent == selectedAbon) return;
+            _listViewSelectedIndex = selectedIndex[0];
+            AbonementOnFormChanged?.Invoke(selectedAbon);
+         }
       }
 
       private void radioButton_Valid_Selected_CheckedChanged(object sender, EventArgs e)

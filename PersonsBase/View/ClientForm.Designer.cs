@@ -211,7 +211,6 @@ namespace PersonsBase.View
          // 
          // listView_Abonements
          // 
-         this.listView_Abonements.BorderStyle = System.Windows.Forms.BorderStyle.None;
          this.listView_Abonements.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader_Name,
             this.columnHeader_Type});
@@ -220,14 +219,14 @@ namespace PersonsBase.View
          this.listView_Abonements.GridLines = true;
          this.listView_Abonements.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
          this.listView_Abonements.HideSelection = false;
-         this.listView_Abonements.Location = new System.Drawing.Point(8, 48);
+         this.listView_Abonements.Location = new System.Drawing.Point(8, 66);
          this.listView_Abonements.MultiSelect = false;
          this.listView_Abonements.Name = "listView_Abonements";
-         this.listView_Abonements.Size = new System.Drawing.Size(279, 273);
+         this.listView_Abonements.Size = new System.Drawing.Size(279, 255);
          this.listView_Abonements.TabIndex = 19;
          this.listView_Abonements.UseCompatibleStateImageBehavior = false;
          this.listView_Abonements.View = System.Windows.Forms.View.Details;
-         this.listView_Abonements.SelectedIndexChanged += new System.EventHandler(this.listView_Abonements_SelectedIndexChanged);
+         
          // 
          // columnHeader_Name
          // 
@@ -245,7 +244,7 @@ namespace PersonsBase.View
          this.radioButton_Valid_Selected.Checked = true;
          this.radioButton_Valid_Selected.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
          this.radioButton_Valid_Selected.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-         this.radioButton_Valid_Selected.Location = new System.Drawing.Point(6, 22);
+         this.radioButton_Valid_Selected.Location = new System.Drawing.Point(35, 22);
          this.radioButton_Valid_Selected.Name = "radioButton_Valid_Selected";
          this.radioButton_Valid_Selected.Size = new System.Drawing.Size(102, 20);
          this.radioButton_Valid_Selected.TabIndex = 18;
@@ -259,7 +258,7 @@ namespace PersonsBase.View
          this.radioButton_NotValid_selected.AutoSize = true;
          this.radioButton_NotValid_selected.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
          this.radioButton_NotValid_selected.ForeColor = System.Drawing.Color.Maroon;
-         this.radioButton_NotValid_selected.Location = new System.Drawing.Point(114, 22);
+         this.radioButton_NotValid_selected.Location = new System.Drawing.Point(143, 22);
          this.radioButton_NotValid_selected.Name = "radioButton_NotValid_selected";
          this.radioButton_NotValid_selected.Size = new System.Drawing.Size(119, 20);
          this.radioButton_NotValid_selected.TabIndex = 18;
@@ -344,7 +343,7 @@ namespace PersonsBase.View
          // 
          // richTextBox_notes
          // 
-         this.richTextBox_notes.BorderStyle = System.Windows.Forms.BorderStyle.None;
+         this.richTextBox_notes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.richTextBox_notes.ContextMenuStrip = this.contextMenuStrip_RichTextBox;
          this.richTextBox_notes.Dock = System.Windows.Forms.DockStyle.Fill;
          this.richTextBox_notes.Font = new System.Drawing.Font("Arial", 14F);

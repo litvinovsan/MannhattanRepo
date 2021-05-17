@@ -463,9 +463,7 @@ namespace PersonsBase.control
             return;
          }
 
-         var currentAbonement = AbonementController.GetInstance().GetFirstValid(namePerson);
-
-         var presenterClientForm = new ClientFormPresenter(PersonObject.GetLink(namePerson), currentAbonement);
+         var presenterClientForm = new ClientFormPresenter(PersonObject.GetLink(namePerson));
          presenterClientForm.Run();
       }
 
@@ -695,12 +693,6 @@ namespace PersonsBase.control
 
       #region /// ДЛЯ Создания ТАБЛИЦ на ClientForms /// Подготовка для отображения на Клиентской форме
 
-
-      public static async Task LoadShortInfoAsync(GroupBox gbBoxToShow, StatusPerson status, AbonementBasic abonement)
-      {
-         await Task.Run(() => { LoadShortInfo(gbBoxToShow, status, abonement); });
-      }
-
       public static void LoadShortInfo(GroupBox gbBoxToShow, StatusPerson status, AbonementBasic abonement)
       {
          var labelTextBoxList = CreateLabelTextBoxList(status, abonement);
@@ -746,11 +738,14 @@ namespace PersonsBase.control
       }
       private static void AddTableToGroupBox(TableLayoutPanel table, GroupBox grpBx)
       {
-         if (grpBx.Controls.Count != 0)
-         {
-            grpBx.Controls.Clear();
-         }
-         grpBx.Controls.Add(table); // Выводим на групбокс нашу новую ShortInfo Table
+        
+           // Выводим на групбокс нашу новую ShortInfo Table}
+
+           grpBx.Controls.Clear();
+           grpBx.Controls.Add(table);
+
+  
+
       }
 
       /// <summary>

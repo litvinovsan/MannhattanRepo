@@ -19,27 +19,49 @@ namespace PersonsBase.ViewPresenters
       public AbonementBasic AbonementCurent
       {
          get => _abonementCurent;
-         set
+         private set
          {
             _abonementCurent = value;
             AbonementCurentChanged?.Invoke(_abonementCurent);
          }
       }
-      public List<AbonementBasic> CurrentListViewCollection { get; set; } = null;
+      public List<AbonementBasic> CurrentListViewCollection { get; set; }
 
       #endregion
 
       #region Конструктор и Загрузка стартовая
 
-      public ClientFormPresenter(Person person, AbonementBasic current)
+      public ClientFormPresenter(Person person)
       {
-         _abonementCurent = current;
          _person = person;
+
+         CurrentListViewCollection = _abonementController.GetListValid(_person.Name);
+
+         if (CurrentListViewCollection != null && CurrentListViewCollection.Count != 0)
+            _abonementCurent = CurrentListViewCollection[0];
+
          _viewForm = new ClientForm(_person.Name, this);
+
          _viewForm.InitializeFormControls();
 
-         SetCurrentAbonement(ref current);
-         _viewForm.UpdateDataOnForm();
+         SetCurrentAbonement(ref _abonementCurent);
+
+      }
+
+      /// <summary>
+      /// Устанавливает конкретной персоне новый текущий Абонемент. 
+      /// Вызываются методы загрузки обновленных данных на форме. А также присваивается персоне новый
+      /// текущий абонемент
+      /// </summary>
+      /// <param name="abonement"></param>
+      public void SetCurrentAbonement(ref AbonementBasic abonement)
+      {
+         Unsubscribe();
+         _abonementCurent = abonement;
+         _person.AbonementCurent = abonement;
+         SetDataOnForm();
+         Subscribe();
+         AbonementCurentChanged?.Invoke(abonement);
       }
 
       /// <summary>
@@ -73,9 +95,13 @@ namespace PersonsBase.ViewPresenters
          // Если Добавили новый абонемент в общую коллекцию абонементов или удалили.
          _abonementController.CollectionChanged += _abonementController_CollectionChanged;
 
-         // Подписка на Бизнес Логику
+         AbonementCurentChanged += ClientFormPresenter_AbonementCurentChanged;
 
+      }
 
+      private void ClientFormPresenter_AbonementCurentChanged(AbonementBasic obj)
+      {
+         _viewForm.UpdateDataOnForm();
       }
 
       private void Unsubscribe()
@@ -154,21 +180,7 @@ namespace PersonsBase.ViewPresenters
 
       #region Методы общие
 
-      /// <summary>
-      /// Устанавливает конкретной персоне новый текущий Абонемент. 
-      /// Вызываются методы загрузки обновленных данных на форме. А также присваивается персоне новый
-      /// текущий абонемент
-      /// </summary>
-      /// <param name="abonement"></param>
-      public void SetCurrentAbonement(ref AbonementBasic abonement)
-      {
-         Unsubscribe();
-         AbonementCurent = abonement;
-         _person.AbonementCurent = abonement;
-         SetDataOnForm();
-         Subscribe();
-         AbonementCurentChanged?.Invoke(abonement);
-      }
+
 
       public void Run()
       {
@@ -188,28 +200,43 @@ namespace PersonsBase.ViewPresenters
       private void _abonementController_CollectionChanged(object sender, EventArgs e)
       {
          _viewForm.AbonementOnFormChanged -= _viewForm_ListValidSelectionChanged;
-         _viewForm.SetAbonementsListView(_abonementController.GetListValid(_person.Name));
+         CurrentListViewCollection = _abonementController.GetListValid(_person.Name);
+         _viewForm.SetAbonementsListView(CurrentListViewCollection);
          _viewForm.AbonementOnFormChanged += _viewForm_ListValidSelectionChanged;
+         _viewForm.UpdateDataOnForm();
       }
 
       private void _viewForm_ShowValidOrNotValidListChanged(bool obj)
       {
          // Загрузить в Листбокс список Валидных если obj ==true
          if (obj)
-            _viewForm.SetAbonementsListView(_abonementController.GetListValid(_person.Name));
+         {
+            CurrentListViewCollection = _abonementController.GetListValid(_person.Name);
+         }
          // Загрузить в Листбокс список Не Валидных если obj ==false
          else
-            _viewForm.SetAbonementsListView(_abonementController.GetListNotValid(_person.Name));
+         {
+            CurrentListViewCollection = _abonementController.GetListNotValid(_person.Name);
+         }
+         _viewForm.SetAbonementsListView(CurrentListViewCollection);
+
+         AbonementBasic curentAbon = null;
+         if (CurrentListViewCollection.Count != 0)
+            curentAbon = CurrentListViewCollection[0];
+
+         SetCurrentAbonement(ref curentAbon);
       }
 
       private void _viewForm_ActivationChanged(Activation obj)
       {
+         AbonementCurent.IsActivated = obj == Activation.Активирован;
          _person.AbonementCurent.IsActivated = obj == Activation.Активирован;
          _viewForm.UpdateDataOnForm();
       }
 
       private void _viewForm_TimeForTrenningChanged(TimeForTr obj)
       {
+         AbonementCurent.TimeTraining = obj;
          _person.AbonementCurent.TimeTraining = obj;
       }
 
@@ -219,21 +246,24 @@ namespace PersonsBase.ViewPresenters
       }
       private void _viewForm_PayChanged(Pay obj)
       {
+         AbonementCurent.PayStatus = obj;
          _person.AbonementCurent.PayStatus = obj;
       }
 
       private void _viewForm_TypeCardPeriodChanged(object obj)
       {
          // Настройки зависящие от типа абонемента
-         switch (_person.AbonementCurent)
+         switch (AbonementCurent)
          {
             case AbonementByDays byDays:
                {
+                  (AbonementCurent as AbonementByDays).TypeAbonement = (DaysInAbon)obj;
                   (_person.AbonementCurent as AbonementByDays).TypeAbonement = (DaysInAbon)obj;
                   break;
                }
             case ClubCardA clubCardA:
                {
+                  (AbonementCurent as ClubCardA).PeriodAbonem = (PeriodClubCard)obj;
                   (_person.AbonementCurent as ClubCardA).PeriodAbonem = (PeriodClubCard)obj;
                   break;
                }
@@ -249,6 +279,7 @@ namespace PersonsBase.ViewPresenters
          if (_person.AbonementCurent is AbonementByDays abonementByDays)
          {
             _person.AbonementCurent.TypeWorkout = obj;
+            AbonementCurent.TypeWorkout = obj;
             if (obj == TypeWorkout.Персональная)
             {
                var newEndDate = abonementByDays.BuyActivationDate.AddMonths(Options.ValidPeriod12Month).Date;
@@ -335,17 +366,14 @@ namespace PersonsBase.ViewPresenters
 
       }
 
-      private void _viewForm_RemoveAbonement(string arg1, AbonementBasic arg2)
+      private void _viewForm_RemoveAbonement(string personName, AbonementBasic abonementToremove)
       {
-         _abonementController.RemoveAbonement(arg1, arg2);
+         _abonementController.RemoveAbonement(personName, abonementToremove);
       }
-
-
 
       private void _viewForm_ListValidSelectionChanged(AbonementBasic obj)
       {
          SetCurrentAbonement(ref obj);
-         _viewForm.UpdateDataOnForm();
       }
 
       private void _view_NameChanged(string nameNew)
