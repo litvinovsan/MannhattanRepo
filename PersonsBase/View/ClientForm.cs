@@ -75,9 +75,9 @@ namespace PersonsBase.View
          _person.PersonalNumberChanged -= _person_PersonalNumberChanged;
          _person.SpecialNotesChanged -= _person_SpecialNotesChanged;
 
-         //_person.StatusChanged -= UpdateInfoTextBoxField;
-         //_person.StatusChanged -= UpdateControls;
-         //_person.StatusChanged -= GuestVisitHappend;
+         _person.StatusChanged -= UpdateInfoTextBoxField;
+         _person.StatusChanged -= UpdateControls;
+         _person.StatusChanged -= GuestVisitHappend;
       }
 
       private void ClientForm_Load(object sender, EventArgs e)
@@ -90,6 +90,7 @@ namespace PersonsBase.View
          SetupHistoryAbonement(); //Настройка дата грид вью на вкладке истории абонементов
 
          Logic.TryLoadPhoto(pictureBox_ClientPhoto, _person.PathToPhoto, _person.GenderType);
+         LoadUserData();
 
          // Когда изменился какой-либо параметр Абонемента
          //_person.AbonementCurentChanged += FreezeStateChanged;
@@ -97,12 +98,7 @@ namespace PersonsBase.View
          //_person.AbonementCurentChanged += HideControls;
 
          //// Когда изменилась заморозка абонемента - Обновим Инфо поле
-         //if (_presenter.AbonementCurent?.Freeze != null)
-         //{
-         //   _presenter.AbonementCurent.Freeze.FreezeChanged += RunStatusDirector;
-         //   _presenter.AbonementCurent.Freeze.FreezeChanged += UpdateInfoTextBoxField;
-         //   _presenter.AbonementCurent.Freeze.FreezeChanged += UpdateControls;
-         //}
+      
 
          // Когда изменился Статус Абонемента
          //_person.StatusChanged += UpdateInfoTextBoxField;
@@ -190,7 +186,6 @@ namespace PersonsBase.View
       #region /// МЕТОДЫ. ОБНОВЛЕНИЯ ДАННЫХ НА ФОРМЕ
       public void UpdateDataOnForm()
       {
-         LoadUserData();
          UpdateInfoTextBoxField(this, EventArgs.Empty);
          UpdateControls(this, EventArgs.Empty);
          FreezeStateChanged(this, EventArgs.Empty);
@@ -526,7 +521,6 @@ namespace PersonsBase.View
          Logic.SaveEverithing();
          SaveButtonPressed?.Invoke();
          MessageBox.Show("Данные Сохранены!");
-         Logic.LoadShortInfo(groupBox_Info, _person.Status, _presenter.AbonementCurent);
       }
 
       private void button_Add_New_Abon_Click(object sender, EventArgs e)
@@ -602,7 +596,7 @@ namespace PersonsBase.View
          }
 
          // Для обновления
-         Logic.LoadShortInfo(groupBox_Info, _person.Status, _presenter.AbonementCurent);
+         UpdateDataOnForm();
       }
 
       private void button_photo_Click(object sender, EventArgs e)
@@ -674,28 +668,6 @@ namespace PersonsBase.View
          flowLayoutPanel2.Visible = tabControl1.SelectedIndex == 0;
       }
 
-
-      #endregion
-
-      #region // Списки Валидных и Невалидных абонементов и карт
-
-      public void SetAbonementsListView(List<AbonementBasic> abonements)
-      {
-         if (abonements == null) return;
-         this.listView_Abonements.SelectedIndexChanged -= new System.EventHandler(this.listView_Abonements_SelectedIndexChanged);
-         listView_Abonements.Items.Clear();
-
-         foreach (var item in abonements)
-         {
-            MyListViewEx.AddNote(listView_Abonements, item.AbonementName, item.GetAbonementType());
-         }
-
-         if (listView_Abonements.Items.Count == 0) return;
-         listView_Abonements.Focus();
-         listView_Abonements.Items[0].Selected = true;
-
-         this.listView_Abonements.SelectedIndexChanged += new System.EventHandler(this.listView_Abonements_SelectedIndexChanged);
-      }
 
       #endregion
 
@@ -1023,25 +995,28 @@ namespace PersonsBase.View
          MyComboBox.Initialize<TypeWorkout>(comboBox_TrenTypes);
          MyComboBox.Initialize<SpaService>(comboBox_Spa);
          // Поле Доступные тренировки загружаются каждый раз из Презентера. т.к 2 типа существует
-
-         // Списки абонементов Валидный - Невуалидный
-         SetAbonementsListView(_presenter.CurrentListViewCollection);
       }
 
 
       #endregion
-      private void listView_Abonements_SelectedIndexChanged(object sender, EventArgs e)
-      {
-         var selectedIndex = listView_Abonements.SelectedIndices;
 
-         if (selectedIndex.Count == 0 || listView_Abonements.Items.Count == 0) return;
-         if (_presenter?.CurrentListViewCollection != null && _presenter?.CurrentListViewCollection.Count != 0)
+      #region // Списки Валидных и Невалидных абонементов и карт
+
+      public void SetAbonementsListView(List<AbonementBasic> abonements)
+      {// FIXME Проверить когда абонементов нет
+         if (abonements == null) return;
+
+         listView_Abonements.Items.Clear();
+
+         foreach (var item in abonements)
          {
-            var selectedAbon = _presenter?.CurrentListViewCollection[selectedIndex[0]];
-            if (_presenter.AbonementCurent == selectedAbon) return;
-            _listViewSelectedIndex = selectedIndex[0];
-            AbonementOnFormChanged?.Invoke(selectedAbon);
+            MyListViewEx.AddNote(listView_Abonements, item.AbonementName, item.GetAbonementType());
          }
+
+         if (listView_Abonements.Items.Count == 0) return;
+         listView_Abonements.Focus();
+         listView_Abonements.Items[0].Selected = true;
+         listView_Abonements.Items[0].Checked = true;
       }
 
       private void radioButton_Valid_Selected_CheckedChanged(object sender, EventArgs e)
@@ -1051,10 +1026,41 @@ namespace PersonsBase.View
          ToggleValidNotValidAbonsChanged?.Invoke(radioButton_Valid_Selected.Checked);
          // По идее если чекаем или анчекаем, то всегда должно генерироваться событие. И достаточно вызывать событие только тут.
       }
-
       private void radioButton_NotValid_selected_CheckedChanged(object sender, EventArgs e)
       {
          flowLayoutPanel_MainButtons.Enabled = !radioButton_NotValid_selected.Checked;
+      }
+
+      private void listView_Abonements_MouseClick(object sender, MouseEventArgs e)
+      {
+         var selectedIndex = listView_Abonements.SelectedIndices;
+         if (selectedIndex.Count == 0 || listView_Abonements.Items.Count == 0) return;
+         
+         if (_presenter?.CurrentListViewCollection != null && _presenter?.CurrentListViewCollection.Count != 0)
+         {
+            var selectedAbon = _presenter?.CurrentListViewCollection[selectedIndex[0]];
+            if (_presenter.AbonementCurent == selectedAbon) return;
+
+            foreach (int index in listView_Abonements.CheckedIndices)
+            {
+               if (index >= 0 && listView_Abonements.Items.Count != 0)
+                  listView_Abonements.Items[index].Checked = false;
+               else break;
+            }
+
+            AbonementOnFormChanged?.Invoke(selectedAbon);
+            listView_Abonements.Items[_listViewSelectedIndex].Checked = true;
+         }
+      }
+
+      #endregion
+
+      private void listView_Abonements_SelectedIndexChanged(object sender, EventArgs e)
+      {
+         var selectedIndex = listView_Abonements.SelectedIndices;
+         if (selectedIndex.Count == 0 || listView_Abonements.Items.Count == 0) return;
+
+         _listViewSelectedIndex = selectedIndex[0];
       }
    }
 }

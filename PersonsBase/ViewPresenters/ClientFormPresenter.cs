@@ -44,8 +44,9 @@ namespace PersonsBase.ViewPresenters
 
          _viewForm.InitializeFormControls();
 
+         // Списки абонементов Валидный - Невуалидный
+         _viewForm.SetAbonementsListView(CurrentListViewCollection);
          SetCurrentAbonement(ref _abonementCurent);
-
       }
 
       /// <summary>
@@ -60,8 +61,9 @@ namespace PersonsBase.ViewPresenters
          _abonementCurent = abonement;
          _person.AbonementCurent = abonement;
          SetDataOnForm();
+         _viewForm.UpdateDataOnForm();
          Subscribe();
-         AbonementCurentChanged?.Invoke(abonement);
+         AbonementCurent = abonement;
       }
 
       /// <summary>
@@ -86,29 +88,23 @@ namespace PersonsBase.ViewPresenters
          _viewForm.ActivationDateChanged += _viewForm_ActivationDateChanged;
          _viewForm.EndDateChanged += _viewForm_EndDateChanged;
 
-         _viewForm.AbonementOnFormChanged += _viewForm_ListValidSelectionChanged;
+
          _viewForm.RemoveAbonement += _viewForm_RemoveAbonement;
          _viewForm.ClosingForm += _viewForm_ClosingForm;
          _viewForm.SaveButtonPressed += _viewForm_SaveButtonPressed;
          _viewForm.ToggleValidNotValidAbonsChanged += _viewForm_ShowValidOrNotValidListChanged;
 
-         // Если Добавили новый абонемент в общую коллекцию абонементов или удалили.
-         _abonementController.CollectionChanged += _abonementController_CollectionChanged;
-
-         AbonementCurentChanged += ClientFormPresenter_AbonementCurentChanged;
-
+         _viewForm.AbonementOnFormChanged += _abonementOnFormChanged;
+         _abonementController.CollectionChanged += _abonementController_CollectionChanged; // Если Добавили новый абонемент в общую коллекцию абонементов или удалили.
       }
 
-      private void ClientFormPresenter_AbonementCurentChanged(AbonementBasic obj)
-      {
-         _viewForm.UpdateDataOnForm();
-      }
+
 
       private void Unsubscribe()
       {
          PwdForm.LockChangedEvent -= _viewForm.LockControlsPwd;
          _viewForm.NameChanged -= _view_NameChanged;
-         _viewForm.AbonementOnFormChanged -= _viewForm_ListValidSelectionChanged;
+         _viewForm.AbonementOnFormChanged -= _abonementOnFormChanged;
          _viewForm.RemoveAbonement -= _viewForm_RemoveAbonement;
          _viewForm.StatusChanged -= _viewForm_StatusChanged;
          _viewForm.ActivationChanged -= _viewForm_ActivationChanged;
@@ -199,11 +195,18 @@ namespace PersonsBase.ViewPresenters
       #region Обработчики всех событий с формы КЛиента
       private void _abonementController_CollectionChanged(object sender, EventArgs e)
       {
-         _viewForm.AbonementOnFormChanged -= _viewForm_ListValidSelectionChanged;
          CurrentListViewCollection = _abonementController.GetListValid(_person.Name);
          _viewForm.SetAbonementsListView(CurrentListViewCollection);
-         _viewForm.AbonementOnFormChanged += _viewForm_ListValidSelectionChanged;
-         _viewForm.UpdateDataOnForm();
+
+         if (CurrentListViewCollection.Count != 0)
+         {
+            _abonementCurent = CurrentListViewCollection[0];
+         }
+         else
+         {
+            _abonementCurent = null;
+         }
+         SetCurrentAbonement(ref _abonementCurent);
       }
 
       private void _viewForm_ShowValidOrNotValidListChanged(bool obj)
@@ -369,9 +372,11 @@ namespace PersonsBase.ViewPresenters
       private void _viewForm_RemoveAbonement(string personName, AbonementBasic abonementToremove)
       {
          _abonementController.RemoveAbonement(personName, abonementToremove);
+        // CurrentListViewCollection = _abonementController.GetListValid(_person.Name);
       }
 
-      private void _viewForm_ListValidSelectionChanged(AbonementBasic obj)
+
+      private void _abonementOnFormChanged(AbonementBasic obj)
       {
          SetCurrentAbonement(ref obj);
       }
@@ -389,7 +394,8 @@ namespace PersonsBase.ViewPresenters
       private void _viewForm_SaveButtonPressed()
       {
          SetDataOnForm(); // Обновляем форму во время сохранения
-                          //  _abonementController.Save();
+         _viewForm.UpdateDataOnForm();
+         //  _abonementController.Save();
       }
       #endregion
    }
