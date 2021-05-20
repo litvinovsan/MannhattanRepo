@@ -761,7 +761,7 @@ namespace PersonsBase.control
          {
             labelTextBoxList.AddRange(TupleConverter(abonement.GetShortInfoList()));
             // Добавляем Поле Статуса. Делаем тут потому что Person.abonem не знает об этом.
-            labelTextBoxList.Insert(1, CreateRowInfo("Текущий статус Клиента", status.ToString()));
+          //  labelTextBoxList.Insert(1, CreateRowInfo("Текущий статус Клиента", status.ToString()));
          }
          else
          {

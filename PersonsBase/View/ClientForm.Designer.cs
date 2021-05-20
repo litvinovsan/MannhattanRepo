@@ -38,11 +38,11 @@ namespace PersonsBase.View
          this.tabControl1 = new System.Windows.Forms.TabControl();
          this.tabPage1 = new System.Windows.Forms.TabPage();
          this.groupBox_AbonLists = new System.Windows.Forms.GroupBox();
+         this.radioButton_NotValid_selected = new System.Windows.Forms.RadioButton();
+         this.radioButton_Valid_Selected = new System.Windows.Forms.RadioButton();
          this.listView_Abonements = new System.Windows.Forms.ListView();
          this.columnHeader_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
          this.columnHeader_Type = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-         this.radioButton_Valid_Selected = new System.Windows.Forms.RadioButton();
-         this.radioButton_NotValid_selected = new System.Windows.Forms.RadioButton();
          this.splitContainer1 = new System.Windows.Forms.SplitContainer();
          this.groupBox_Info = new System.Windows.Forms.GroupBox();
          this.button_photo = new System.Windows.Forms.Button();
@@ -199,9 +199,9 @@ namespace PersonsBase.View
          // 
          this.groupBox_AbonLists.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-         this.groupBox_AbonLists.Controls.Add(this.listView_Abonements);
-         this.groupBox_AbonLists.Controls.Add(this.radioButton_Valid_Selected);
          this.groupBox_AbonLists.Controls.Add(this.radioButton_NotValid_selected);
+         this.groupBox_AbonLists.Controls.Add(this.radioButton_Valid_Selected);
+         this.groupBox_AbonLists.Controls.Add(this.listView_Abonements);
          this.groupBox_AbonLists.Location = new System.Drawing.Point(10, 315);
          this.groupBox_AbonLists.Name = "groupBox_AbonLists";
          this.groupBox_AbonLists.Size = new System.Drawing.Size(293, 327);
@@ -209,24 +209,58 @@ namespace PersonsBase.View
          this.groupBox_AbonLists.TabStop = false;
          this.groupBox_AbonLists.Text = "Абонементы";
          // 
+         // radioButton_NotValid_selected
+         // 
+         this.radioButton_NotValid_selected.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+         this.radioButton_NotValid_selected.AutoSize = true;
+         this.radioButton_NotValid_selected.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.radioButton_NotValid_selected.ForeColor = System.Drawing.Color.Maroon;
+         this.radioButton_NotValid_selected.Location = new System.Drawing.Point(152, 299);
+         this.radioButton_NotValid_selected.Name = "radioButton_NotValid_selected";
+         this.radioButton_NotValid_selected.Size = new System.Drawing.Size(132, 23);
+         this.radioButton_NotValid_selected.TabIndex = 18;
+         this.radioButton_NotValid_selected.Text = "Закончились";
+         this.radioButton_NotValid_selected.UseVisualStyleBackColor = true;
+         this.radioButton_NotValid_selected.CheckedChanged += new System.EventHandler(this.radioButton_NotValid_selected_CheckedChanged);
+         // 
+         // radioButton_Valid_Selected
+         // 
+         this.radioButton_Valid_Selected.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+         this.radioButton_Valid_Selected.AutoSize = true;
+         this.radioButton_Valid_Selected.Checked = true;
+         this.radioButton_Valid_Selected.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.radioButton_Valid_Selected.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+         this.radioButton_Valid_Selected.Location = new System.Drawing.Point(8, 299);
+         this.radioButton_Valid_Selected.Name = "radioButton_Valid_Selected";
+         this.radioButton_Valid_Selected.Size = new System.Drawing.Size(115, 23);
+         this.radioButton_Valid_Selected.TabIndex = 18;
+         this.radioButton_Valid_Selected.TabStop = true;
+         this.radioButton_Valid_Selected.Text = "Действуют";
+         this.radioButton_Valid_Selected.UseVisualStyleBackColor = true;
+         this.radioButton_Valid_Selected.CheckedChanged += new System.EventHandler(this.radioButton_Valid_Selected_CheckedChanged);
+         // 
          // listView_Abonements
          // 
+         this.listView_Abonements.CheckBoxes = true;
          this.listView_Abonements.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader_Name,
             this.columnHeader_Type});
          this.listView_Abonements.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
          this.listView_Abonements.FullRowSelect = true;
          this.listView_Abonements.GridLines = true;
-         this.listView_Abonements.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+         this.listView_Abonements.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
          this.listView_Abonements.HideSelection = false;
-         this.listView_Abonements.Location = new System.Drawing.Point(8, 66);
+         this.listView_Abonements.Location = new System.Drawing.Point(8, 22);
          this.listView_Abonements.MultiSelect = false;
          this.listView_Abonements.Name = "listView_Abonements";
-         this.listView_Abonements.Size = new System.Drawing.Size(279, 255);
+         this.listView_Abonements.Size = new System.Drawing.Size(279, 271);
          this.listView_Abonements.TabIndex = 19;
          this.listView_Abonements.UseCompatibleStateImageBehavior = false;
          this.listView_Abonements.View = System.Windows.Forms.View.Details;
-         
+         this.listView_Abonements.SelectedIndexChanged += new System.EventHandler(this.listView_Abonements_SelectedIndexChanged);
+         this.listView_Abonements.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listView_Abonements_MouseClick);
          // 
          // columnHeader_Name
          // 
@@ -237,34 +271,6 @@ namespace PersonsBase.View
          // 
          this.columnHeader_Type.Text = "Type";
          this.columnHeader_Type.Width = 131;
-         // 
-         // radioButton_Valid_Selected
-         // 
-         this.radioButton_Valid_Selected.AutoSize = true;
-         this.radioButton_Valid_Selected.Checked = true;
-         this.radioButton_Valid_Selected.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.radioButton_Valid_Selected.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-         this.radioButton_Valid_Selected.Location = new System.Drawing.Point(35, 22);
-         this.radioButton_Valid_Selected.Name = "radioButton_Valid_Selected";
-         this.radioButton_Valid_Selected.Size = new System.Drawing.Size(102, 20);
-         this.radioButton_Valid_Selected.TabIndex = 18;
-         this.radioButton_Valid_Selected.TabStop = true;
-         this.radioButton_Valid_Selected.Text = "Действуют";
-         this.radioButton_Valid_Selected.UseVisualStyleBackColor = true;
-         this.radioButton_Valid_Selected.CheckedChanged += new System.EventHandler(this.radioButton_Valid_Selected_CheckedChanged);
-         // 
-         // radioButton_NotValid_selected
-         // 
-         this.radioButton_NotValid_selected.AutoSize = true;
-         this.radioButton_NotValid_selected.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.radioButton_NotValid_selected.ForeColor = System.Drawing.Color.Maroon;
-         this.radioButton_NotValid_selected.Location = new System.Drawing.Point(143, 22);
-         this.radioButton_NotValid_selected.Name = "radioButton_NotValid_selected";
-         this.radioButton_NotValid_selected.Size = new System.Drawing.Size(119, 20);
-         this.radioButton_NotValid_selected.TabIndex = 18;
-         this.radioButton_NotValid_selected.Text = "Закончились";
-         this.radioButton_NotValid_selected.UseVisualStyleBackColor = true;
-         this.radioButton_NotValid_selected.CheckedChanged += new System.EventHandler(this.radioButton_NotValid_selected_CheckedChanged);
          // 
          // splitContainer1
          // 
@@ -286,7 +292,7 @@ namespace PersonsBase.View
          // 
          this.splitContainer1.Panel2.Controls.Add(this.richTextBox_notes);
          this.splitContainer1.Size = new System.Drawing.Size(999, 591);
-         this.splitContainer1.SplitterDistance = 390;
+         this.splitContainer1.SplitterDistance = 399;
          this.splitContainer1.SplitterWidth = 8;
          this.splitContainer1.TabIndex = 16;
          // 
@@ -299,7 +305,7 @@ namespace PersonsBase.View
          this.groupBox_Info.Margin = new System.Windows.Forms.Padding(2);
          this.groupBox_Info.Name = "groupBox_Info";
          this.groupBox_Info.Padding = new System.Windows.Forms.Padding(2);
-         this.groupBox_Info.Size = new System.Drawing.Size(754, 384);
+         this.groupBox_Info.Size = new System.Drawing.Size(754, 393);
          this.groupBox_Info.TabIndex = 4;
          this.groupBox_Info.TabStop = false;
          this.groupBox_Info.Text = "Информация";
@@ -343,7 +349,6 @@ namespace PersonsBase.View
          // 
          // richTextBox_notes
          // 
-         this.richTextBox_notes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.richTextBox_notes.ContextMenuStrip = this.contextMenuStrip_RichTextBox;
          this.richTextBox_notes.Dock = System.Windows.Forms.DockStyle.Fill;
          this.richTextBox_notes.Font = new System.Drawing.Font("Arial", 14F);
@@ -352,7 +357,7 @@ namespace PersonsBase.View
          this.richTextBox_notes.Location = new System.Drawing.Point(0, 0);
          this.richTextBox_notes.Name = "richTextBox_notes";
          this.richTextBox_notes.ShowSelectionMargin = true;
-         this.richTextBox_notes.Size = new System.Drawing.Size(999, 193);
+         this.richTextBox_notes.Size = new System.Drawing.Size(999, 184);
          this.richTextBox_notes.TabIndex = 6;
          this.richTextBox_notes.Text = "";
          this.richTextBox_notes.TextChanged += new System.EventHandler(this.richTextBox_notes_TextChanged);
@@ -962,7 +967,7 @@ namespace PersonsBase.View
          this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
          this.groupBox2.Name = "groupBox2";
          this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-         this.groupBox2.Size = new System.Drawing.Size(341, 620);
+         this.groupBox2.Size = new System.Drawing.Size(341, 639);
          this.groupBox2.TabIndex = 0;
          this.groupBox2.TabStop = false;
          this.groupBox2.Text = "Персональные данные";
@@ -972,7 +977,7 @@ namespace PersonsBase.View
          this.button_SavePersonalData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
          this.button_SavePersonalData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
          this.button_SavePersonalData.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.button_SavePersonalData.Location = new System.Drawing.Point(3, 562);
+         this.button_SavePersonalData.Location = new System.Drawing.Point(4, 577);
          this.button_SavePersonalData.Margin = new System.Windows.Forms.Padding(2);
          this.button_SavePersonalData.Name = "button_SavePersonalData";
          this.button_SavePersonalData.Size = new System.Drawing.Size(334, 54);
