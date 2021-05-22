@@ -37,10 +37,16 @@ namespace PersonsBase.View
          this.dateTimePicker_birthDate = new System.Windows.Forms.DateTimePicker();
          this.tabControl1 = new System.Windows.Forms.TabControl();
          this.tabPage1 = new System.Windows.Forms.TabPage();
-         this.groupBox_Photo = new System.Windows.Forms.GroupBox();
-         this.pictureBox_ClientPhoto = new System.Windows.Forms.PictureBox();
-         this.button_photo_cam = new System.Windows.Forms.Button();
+         this.groupBox_PhotoButtons = new System.Windows.Forms.GroupBox();
          this.button_photo = new System.Windows.Forms.Button();
+         this.label7 = new System.Windows.Forms.Label();
+         this.groupBox_buttons = new System.Windows.Forms.GroupBox();
+         this.flowLayoutPanel_MainButtons = new System.Windows.Forms.FlowLayoutPanel();
+         this.button_CheckInWorkout = new System.Windows.Forms.Button();
+         this.button_Add_Abon = new System.Windows.Forms.Button();
+         this.button_add_dop_tren = new System.Windows.Forms.Button();
+         this.button_Freeze = new System.Windows.Forms.Button();
+         this.button_RemoveCurrentAbon = new System.Windows.Forms.Button();
          this.splitContainer1 = new System.Windows.Forms.SplitContainer();
          this.groupBox_AbonLists = new System.Windows.Forms.GroupBox();
          this.radioButton_NotValid_selected = new System.Windows.Forms.RadioButton();
@@ -55,16 +61,11 @@ namespace PersonsBase.View
          this.toolStripMenuItem_Green = new System.Windows.Forms.ToolStripMenuItem();
          this.toolStripMenuItem_Blue = new System.Windows.Forms.ToolStripMenuItem();
          this.toolStripMenuItem_Bold = new System.Windows.Forms.ToolStripMenuItem();
-         this.flowLayoutPanel_MainButtons = new System.Windows.Forms.FlowLayoutPanel();
-         this.button_CheckInWorkout = new System.Windows.Forms.Button();
-         this.button_Add_Abon = new System.Windows.Forms.Button();
-         this.button_add_dop_tren = new System.Windows.Forms.Button();
-         this.button_Freeze = new System.Windows.Forms.Button();
-         this.button_RemoveCurrentAbon = new System.Windows.Forms.Button();
          this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
          this.label_infoText = new System.Windows.Forms.Label();
          this.label_PersonName = new System.Windows.Forms.Label();
          this.tabPage2 = new System.Windows.Forms.TabPage();
+         this.button_SavePersonalData = new System.Windows.Forms.Button();
          this.groupBox1 = new System.Windows.Forms.GroupBox();
          this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
          this.dateTimePicker_End = new System.Windows.Forms.DateTimePicker();
@@ -96,7 +97,6 @@ namespace PersonsBase.View
          this.label15 = new System.Windows.Forms.Label();
          this.comboBox_Payment = new System.Windows.Forms.ComboBox();
          this.groupBox2 = new System.Windows.Forms.GroupBox();
-         this.button_SavePersonalData = new System.Windows.Forms.Button();
          this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
          this.label4 = new System.Windows.Forms.Label();
          this.label6 = new System.Windows.Forms.Label();
@@ -122,18 +122,19 @@ namespace PersonsBase.View
          this.button_Green = new System.Windows.Forms.Button();
          this.button2 = new System.Windows.Forms.Button();
          this.button_Cancel = new System.Windows.Forms.Button();
-         this.groupBox_buttons = new System.Windows.Forms.GroupBox();
+         this.button_photo_cam = new System.Windows.Forms.Button();
+         this.pictureBox_ClientPhoto = new System.Windows.Forms.PictureBox();
          this.tabControl1.SuspendLayout();
          this.tabPage1.SuspendLayout();
-         this.groupBox_Photo.SuspendLayout();
-         ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).BeginInit();
+         this.groupBox_PhotoButtons.SuspendLayout();
+         this.groupBox_buttons.SuspendLayout();
+         this.flowLayoutPanel_MainButtons.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
          this.splitContainer1.Panel1.SuspendLayout();
          this.splitContainer1.Panel2.SuspendLayout();
          this.splitContainer1.SuspendLayout();
          this.groupBox_AbonLists.SuspendLayout();
          this.contextMenuStrip_RichTextBox.SuspendLayout();
-         this.flowLayoutPanel_MainButtons.SuspendLayout();
          this.tableLayoutPanel2.SuspendLayout();
          this.tabPage2.SuspendLayout();
          this.groupBox1.SuspendLayout();
@@ -146,7 +147,7 @@ namespace PersonsBase.View
          ((System.ComponentModel.ISupportInitialize)(this.dataGridView_history_abonements)).BeginInit();
          this.tableLayoutPanel4.SuspendLayout();
          this.flowLayoutPanel2.SuspendLayout();
-         this.groupBox_buttons.SuspendLayout();
+         ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).BeginInit();
          this.SuspendLayout();
          // 
          // dateTimePicker_birthDate
@@ -186,8 +187,9 @@ namespace PersonsBase.View
          // 
          // tabPage1
          // 
+         this.tabPage1.Controls.Add(this.label7);
+         this.tabPage1.Controls.Add(this.pictureBox_ClientPhoto);
          this.tabPage1.Controls.Add(this.groupBox_buttons);
-         this.tabPage1.Controls.Add(this.groupBox_Photo);
          this.tabPage1.Controls.Add(this.splitContainer1);
          this.tabPage1.Controls.Add(this.tableLayoutPanel2);
          this.tabPage1.Location = new System.Drawing.Point(4, 34);
@@ -199,55 +201,135 @@ namespace PersonsBase.View
          this.tabPage1.Text = "Информация";
          this.tabPage1.UseVisualStyleBackColor = true;
          // 
-         // groupBox_Photo
+         // groupBox_PhotoButtons
          // 
-         this.groupBox_Photo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-         this.groupBox_Photo.Controls.Add(this.pictureBox_ClientPhoto);
-         this.groupBox_Photo.Controls.Add(this.button_photo_cam);
-         this.groupBox_Photo.Controls.Add(this.button_photo);
-         this.groupBox_Photo.Location = new System.Drawing.Point(7, 376);
-         this.groupBox_Photo.Name = "groupBox_Photo";
-         this.groupBox_Photo.Size = new System.Drawing.Size(248, 282);
-         this.groupBox_Photo.TabIndex = 14;
-         this.groupBox_Photo.TabStop = false;
-         // 
-         // pictureBox_ClientPhoto
-         // 
-         this.pictureBox_ClientPhoto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-         this.pictureBox_ClientPhoto.Image = global::PersonsBase.Properties.Resources.no_photo_available_icon_20;
-         this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(5, 21);
-         this.pictureBox_ClientPhoto.Margin = new System.Windows.Forms.Padding(2);
-         this.pictureBox_ClientPhoto.Name = "pictureBox_ClientPhoto";
-         this.pictureBox_ClientPhoto.Size = new System.Drawing.Size(238, 212);
-         this.pictureBox_ClientPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-         this.pictureBox_ClientPhoto.TabIndex = 0;
-         this.pictureBox_ClientPhoto.TabStop = false;
-         // 
-         // button_photo_cam
-         // 
-         this.button_photo_cam.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-         this.button_photo_cam.BackgroundImage = global::PersonsBase.Properties.Resources.icons8_камера_100;
-         this.button_photo_cam.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-         this.button_photo_cam.Location = new System.Drawing.Point(121, 238);
-         this.button_photo_cam.Name = "button_photo_cam";
-         this.button_photo_cam.Size = new System.Drawing.Size(121, 32);
-         this.button_photo_cam.TabIndex = 13;
-         this.button_photo_cam.UseVisualStyleBackColor = true;
-         this.button_photo_cam.Click += new System.EventHandler(this.button_photo_cam_Click);
+         this.groupBox_PhotoButtons.Controls.Add(this.button_photo);
+         this.groupBox_PhotoButtons.Controls.Add(this.button_photo_cam);
+         this.groupBox_PhotoButtons.Location = new System.Drawing.Point(3, 253);
+         this.groupBox_PhotoButtons.Name = "groupBox_PhotoButtons";
+         this.groupBox_PhotoButtons.Size = new System.Drawing.Size(230, 86);
+         this.groupBox_PhotoButtons.TabIndex = 14;
+         this.groupBox_PhotoButtons.TabStop = false;
+         this.groupBox_PhotoButtons.Text = "Фото";
+         this.groupBox_PhotoButtons.Visible = false;
          // 
          // button_photo
          // 
-         this.button_photo.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+         this.button_photo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.button_photo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.button_photo.Location = new System.Drawing.Point(6, 238);
+         this.button_photo.Location = new System.Drawing.Point(9, 21);
          this.button_photo.Margin = new System.Windows.Forms.Padding(2);
          this.button_photo.Name = "button_photo";
-         this.button_photo.Size = new System.Drawing.Size(110, 32);
+         this.button_photo.Size = new System.Drawing.Size(216, 24);
          this.button_photo.TabIndex = 4;
          this.button_photo.Text = "Из файла";
          this.button_photo.UseVisualStyleBackColor = true;
          this.button_photo.Click += new System.EventHandler(this.button_photo_Click);
+         // 
+         // label7
+         // 
+         this.label7.AutoSize = true;
+         this.label7.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.label7.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+         this.label7.Location = new System.Drawing.Point(3, 225);
+         this.label7.Name = "label7";
+         this.label7.Size = new System.Drawing.Size(268, 16);
+         this.label7.TabIndex = 18;
+         this.label7.Text = "Двойной клик для добавления фото";
+         // 
+         // groupBox_buttons
+         // 
+         this.groupBox_buttons.Controls.Add(this.flowLayoutPanel_MainButtons);
+         this.groupBox_buttons.Location = new System.Drawing.Point(13, 249);
+         this.groupBox_buttons.Name = "groupBox_buttons";
+         this.groupBox_buttons.Size = new System.Drawing.Size(247, 409);
+         this.groupBox_buttons.TabIndex = 17;
+         this.groupBox_buttons.TabStop = false;
+         // 
+         // flowLayoutPanel_MainButtons
+         // 
+         this.flowLayoutPanel_MainButtons.Controls.Add(this.button_CheckInWorkout);
+         this.flowLayoutPanel_MainButtons.Controls.Add(this.button_Add_Abon);
+         this.flowLayoutPanel_MainButtons.Controls.Add(this.button_add_dop_tren);
+         this.flowLayoutPanel_MainButtons.Controls.Add(this.button_Freeze);
+         this.flowLayoutPanel_MainButtons.Controls.Add(this.button_RemoveCurrentAbon);
+         this.flowLayoutPanel_MainButtons.Controls.Add(this.groupBox_PhotoButtons);
+         this.flowLayoutPanel_MainButtons.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.flowLayoutPanel_MainButtons.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+         this.flowLayoutPanel_MainButtons.Location = new System.Drawing.Point(3, 19);
+         this.flowLayoutPanel_MainButtons.Name = "flowLayoutPanel_MainButtons";
+         this.flowLayoutPanel_MainButtons.Size = new System.Drawing.Size(241, 387);
+         this.flowLayoutPanel_MainButtons.TabIndex = 0;
+         // 
+         // button_CheckInWorkout
+         // 
+         this.button_CheckInWorkout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+         this.button_CheckInWorkout.BackColor = System.Drawing.Color.LightGreen;
+         this.button_CheckInWorkout.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.button_CheckInWorkout.Location = new System.Drawing.Point(2, 2);
+         this.button_CheckInWorkout.Margin = new System.Windows.Forms.Padding(2);
+         this.button_CheckInWorkout.Name = "button_CheckInWorkout";
+         this.button_CheckInWorkout.Size = new System.Drawing.Size(231, 46);
+         this.button_CheckInWorkout.TabIndex = 3;
+         this.button_CheckInWorkout.Text = "Отметить Посещение";
+         this.button_CheckInWorkout.UseVisualStyleBackColor = false;
+         this.button_CheckInWorkout.Click += new System.EventHandler(this.button_CheckInWorkout_Click);
+         // 
+         // button_Add_Abon
+         // 
+         this.button_Add_Abon.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+         this.button_Add_Abon.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.button_Add_Abon.Location = new System.Drawing.Point(2, 52);
+         this.button_Add_Abon.Margin = new System.Windows.Forms.Padding(2);
+         this.button_Add_Abon.Name = "button_Add_Abon";
+         this.button_Add_Abon.Size = new System.Drawing.Size(231, 46);
+         this.button_Add_Abon.TabIndex = 4;
+         this.button_Add_Abon.Text = "Добавить Абонемент";
+         this.button_Add_Abon.UseVisualStyleBackColor = false;
+         this.button_Add_Abon.Click += new System.EventHandler(this.button_Add_New_Abon_Click);
+         // 
+         // button_add_dop_tren
+         // 
+         this.button_add_dop_tren.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+         this.button_add_dop_tren.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.button_add_dop_tren.Location = new System.Drawing.Point(2, 102);
+         this.button_add_dop_tren.Margin = new System.Windows.Forms.Padding(2);
+         this.button_add_dop_tren.Name = "button_add_dop_tren";
+         this.button_add_dop_tren.Size = new System.Drawing.Size(231, 46);
+         this.button_add_dop_tren.TabIndex = 6;
+         this.button_add_dop_tren.Text = "Добавить Тренировки";
+         this.button_add_dop_tren.UseVisualStyleBackColor = true;
+         this.button_add_dop_tren.Visible = false;
+         this.button_add_dop_tren.Click += new System.EventHandler(this.button_add_dop_tren_Click);
+         // 
+         // button_Freeze
+         // 
+         this.button_Freeze.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+         this.button_Freeze.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.button_Freeze.Location = new System.Drawing.Point(2, 152);
+         this.button_Freeze.Margin = new System.Windows.Forms.Padding(2);
+         this.button_Freeze.Name = "button_Freeze";
+         this.button_Freeze.Size = new System.Drawing.Size(231, 46);
+         this.button_Freeze.TabIndex = 5;
+         this.button_Freeze.Text = "Заморозка";
+         this.button_Freeze.UseVisualStyleBackColor = false;
+         this.button_Freeze.Click += new System.EventHandler(this.button_Freeze_Click);
+         // 
+         // button_RemoveCurrentAbon
+         // 
+         this.button_RemoveCurrentAbon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+         this.button_RemoveCurrentAbon.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.button_RemoveCurrentAbon.Location = new System.Drawing.Point(2, 202);
+         this.button_RemoveCurrentAbon.Margin = new System.Windows.Forms.Padding(2);
+         this.button_RemoveCurrentAbon.Name = "button_RemoveCurrentAbon";
+         this.button_RemoveCurrentAbon.Size = new System.Drawing.Size(232, 46);
+         this.button_RemoveCurrentAbon.TabIndex = 2;
+         this.button_RemoveCurrentAbon.Text = "Удалить Абонемент";
+         this.button_RemoveCurrentAbon.UseVisualStyleBackColor = false;
+         this.button_RemoveCurrentAbon.Visible = false;
+         this.button_RemoveCurrentAbon.Click += new System.EventHandler(this.button_remove_current_abon_Click);
          // 
          // splitContainer1
          // 
@@ -322,19 +404,20 @@ namespace PersonsBase.View
          this.listView_Abonements.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+         this.listView_Abonements.BorderStyle = System.Windows.Forms.BorderStyle.None;
          this.listView_Abonements.CheckBoxes = true;
          this.listView_Abonements.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader_Name,
             this.columnHeader_Type});
-         this.listView_Abonements.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.listView_Abonements.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
          this.listView_Abonements.FullRowSelect = true;
          this.listView_Abonements.GridLines = true;
-         this.listView_Abonements.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+         this.listView_Abonements.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
          this.listView_Abonements.HideSelection = false;
-         this.listView_Abonements.Location = new System.Drawing.Point(8, 22);
+         this.listView_Abonements.Location = new System.Drawing.Point(8, 32);
          this.listView_Abonements.MultiSelect = false;
          this.listView_Abonements.Name = "listView_Abonements";
-         this.listView_Abonements.Size = new System.Drawing.Size(276, 369);
+         this.listView_Abonements.Size = new System.Drawing.Size(276, 359);
          this.listView_Abonements.TabIndex = 19;
          this.listView_Abonements.UseCompatibleStateImageBehavior = false;
          this.listView_Abonements.View = System.Windows.Forms.View.Details;
@@ -423,89 +506,6 @@ namespace PersonsBase.View
          this.toolStripMenuItem_Bold.Text = "Bold";
          this.toolStripMenuItem_Bold.Click += new System.EventHandler(this.toolStripMenuItem_Bold_Click);
          // 
-         // flowLayoutPanel_MainButtons
-         // 
-         this.flowLayoutPanel_MainButtons.Controls.Add(this.button_CheckInWorkout);
-         this.flowLayoutPanel_MainButtons.Controls.Add(this.button_Add_Abon);
-         this.flowLayoutPanel_MainButtons.Controls.Add(this.button_add_dop_tren);
-         this.flowLayoutPanel_MainButtons.Controls.Add(this.button_Freeze);
-         this.flowLayoutPanel_MainButtons.Controls.Add(this.button_RemoveCurrentAbon);
-         this.flowLayoutPanel_MainButtons.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.flowLayoutPanel_MainButtons.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-         this.flowLayoutPanel_MainButtons.Location = new System.Drawing.Point(3, 19);
-         this.flowLayoutPanel_MainButtons.Name = "flowLayoutPanel_MainButtons";
-         this.flowLayoutPanel_MainButtons.Size = new System.Drawing.Size(236, 256);
-         this.flowLayoutPanel_MainButtons.TabIndex = 0;
-         // 
-         // button_CheckInWorkout
-         // 
-         this.button_CheckInWorkout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-         this.button_CheckInWorkout.BackColor = System.Drawing.Color.LightGreen;
-         this.button_CheckInWorkout.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.button_CheckInWorkout.Location = new System.Drawing.Point(2, 2);
-         this.button_CheckInWorkout.Margin = new System.Windows.Forms.Padding(2);
-         this.button_CheckInWorkout.Name = "button_CheckInWorkout";
-         this.button_CheckInWorkout.Size = new System.Drawing.Size(231, 46);
-         this.button_CheckInWorkout.TabIndex = 3;
-         this.button_CheckInWorkout.Text = "Отметить Посещение";
-         this.button_CheckInWorkout.UseVisualStyleBackColor = false;
-         this.button_CheckInWorkout.Click += new System.EventHandler(this.button_CheckInWorkout_Click);
-         // 
-         // button_Add_Abon
-         // 
-         this.button_Add_Abon.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-         this.button_Add_Abon.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.button_Add_Abon.Location = new System.Drawing.Point(2, 52);
-         this.button_Add_Abon.Margin = new System.Windows.Forms.Padding(2);
-         this.button_Add_Abon.Name = "button_Add_Abon";
-         this.button_Add_Abon.Size = new System.Drawing.Size(231, 46);
-         this.button_Add_Abon.TabIndex = 4;
-         this.button_Add_Abon.Text = "Добавить Абонемент";
-         this.button_Add_Abon.UseVisualStyleBackColor = false;
-         this.button_Add_Abon.Click += new System.EventHandler(this.button_Add_New_Abon_Click);
-         // 
-         // button_add_dop_tren
-         // 
-         this.button_add_dop_tren.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-         this.button_add_dop_tren.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.button_add_dop_tren.Location = new System.Drawing.Point(2, 102);
-         this.button_add_dop_tren.Margin = new System.Windows.Forms.Padding(2);
-         this.button_add_dop_tren.Name = "button_add_dop_tren";
-         this.button_add_dop_tren.Size = new System.Drawing.Size(231, 46);
-         this.button_add_dop_tren.TabIndex = 6;
-         this.button_add_dop_tren.Text = "Добавить Тренировки";
-         this.button_add_dop_tren.UseVisualStyleBackColor = true;
-         this.button_add_dop_tren.Visible = false;
-         this.button_add_dop_tren.Click += new System.EventHandler(this.button_add_dop_tren_Click);
-         // 
-         // button_Freeze
-         // 
-         this.button_Freeze.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-         this.button_Freeze.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.button_Freeze.Location = new System.Drawing.Point(2, 152);
-         this.button_Freeze.Margin = new System.Windows.Forms.Padding(2);
-         this.button_Freeze.Name = "button_Freeze";
-         this.button_Freeze.Size = new System.Drawing.Size(231, 46);
-         this.button_Freeze.TabIndex = 5;
-         this.button_Freeze.Text = "Заморозка";
-         this.button_Freeze.UseVisualStyleBackColor = false;
-         this.button_Freeze.Click += new System.EventHandler(this.button_Freeze_Click);
-         // 
-         // button_RemoveCurrentAbon
-         // 
-         this.button_RemoveCurrentAbon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-         this.button_RemoveCurrentAbon.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.button_RemoveCurrentAbon.Location = new System.Drawing.Point(2, 202);
-         this.button_RemoveCurrentAbon.Margin = new System.Windows.Forms.Padding(2);
-         this.button_RemoveCurrentAbon.Name = "button_RemoveCurrentAbon";
-         this.button_RemoveCurrentAbon.Size = new System.Drawing.Size(231, 46);
-         this.button_RemoveCurrentAbon.TabIndex = 2;
-         this.button_RemoveCurrentAbon.Text = "Удалить Абонемент";
-         this.button_RemoveCurrentAbon.UseVisualStyleBackColor = false;
-         this.button_RemoveCurrentAbon.Visible = false;
-         this.button_RemoveCurrentAbon.Click += new System.EventHandler(this.button_remove_current_abon_Click);
-         // 
          // tableLayoutPanel2
          // 
          this.tableLayoutPanel2.ColumnCount = 2;
@@ -560,6 +560,20 @@ namespace PersonsBase.View
          this.tabPage2.TabIndex = 1;
          this.tabPage2.Text = "Подробные данные";
          this.tabPage2.UseVisualStyleBackColor = true;
+         // 
+         // button_SavePersonalData
+         // 
+         this.button_SavePersonalData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+         this.button_SavePersonalData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+         this.button_SavePersonalData.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.button_SavePersonalData.Location = new System.Drawing.Point(4, 596);
+         this.button_SavePersonalData.Margin = new System.Windows.Forms.Padding(2);
+         this.button_SavePersonalData.Name = "button_SavePersonalData";
+         this.button_SavePersonalData.Size = new System.Drawing.Size(251, 54);
+         this.button_SavePersonalData.TabIndex = 2;
+         this.button_SavePersonalData.Text = "Сохранить";
+         this.button_SavePersonalData.UseVisualStyleBackColor = false;
+         this.button_SavePersonalData.Click += new System.EventHandler(this.button_SavePersonalData_Click);
          // 
          // groupBox1
          // 
@@ -991,20 +1005,6 @@ namespace PersonsBase.View
          this.groupBox2.TabStop = false;
          this.groupBox2.Text = "Персональные данные";
          // 
-         // button_SavePersonalData
-         // 
-         this.button_SavePersonalData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-         this.button_SavePersonalData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-         this.button_SavePersonalData.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.button_SavePersonalData.Location = new System.Drawing.Point(4, 596);
-         this.button_SavePersonalData.Margin = new System.Windows.Forms.Padding(2);
-         this.button_SavePersonalData.Name = "button_SavePersonalData";
-         this.button_SavePersonalData.Size = new System.Drawing.Size(251, 54);
-         this.button_SavePersonalData.TabIndex = 2;
-         this.button_SavePersonalData.Text = "Сохранить";
-         this.button_SavePersonalData.UseVisualStyleBackColor = false;
-         this.button_SavePersonalData.Click += new System.EventHandler(this.button_SavePersonalData_Click);
-         // 
          // tableLayoutPanel1
          // 
          this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1345,14 +1345,30 @@ namespace PersonsBase.View
          this.button_Cancel.UseVisualStyleBackColor = true;
          this.button_Cancel.Click += new System.EventHandler(this.button_Cancel_Click);
          // 
-         // groupBox_buttons
+         // button_photo_cam
          // 
-         this.groupBox_buttons.Controls.Add(this.flowLayoutPanel_MainButtons);
-         this.groupBox_buttons.Location = new System.Drawing.Point(13, 51);
-         this.groupBox_buttons.Name = "groupBox_buttons";
-         this.groupBox_buttons.Size = new System.Drawing.Size(242, 278);
-         this.groupBox_buttons.TabIndex = 17;
-         this.groupBox_buttons.TabStop = false;
+         this.button_photo_cam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+         this.button_photo_cam.BackgroundImage = global::PersonsBase.Properties.Resources.icons8_камера_100;
+         this.button_photo_cam.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+         this.button_photo_cam.Location = new System.Drawing.Point(9, 49);
+         this.button_photo_cam.Name = "button_photo_cam";
+         this.button_photo_cam.Size = new System.Drawing.Size(216, 32);
+         this.button_photo_cam.TabIndex = 13;
+         this.button_photo_cam.UseVisualStyleBackColor = true;
+         this.button_photo_cam.Click += new System.EventHandler(this.button_photo_cam_Click);
+         // 
+         // pictureBox_ClientPhoto
+         // 
+         this.pictureBox_ClientPhoto.Image = global::PersonsBase.Properties.Resources.No_photo_available;
+         this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(10, 46);
+         this.pictureBox_ClientPhoto.Margin = new System.Windows.Forms.Padding(2);
+         this.pictureBox_ClientPhoto.Name = "pictureBox_ClientPhoto";
+         this.pictureBox_ClientPhoto.Size = new System.Drawing.Size(250, 177);
+         this.pictureBox_ClientPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+         this.pictureBox_ClientPhoto.TabIndex = 0;
+         this.pictureBox_ClientPhoto.TabStop = false;
+         this.pictureBox_ClientPhoto.DoubleClick += new System.EventHandler(this.pictureBox_ClientPhoto_DoubleClick);
          // 
          // ClientForm
          // 
@@ -1370,8 +1386,10 @@ namespace PersonsBase.View
          this.Load += new System.EventHandler(this.ClientForm_Load);
          this.tabControl1.ResumeLayout(false);
          this.tabPage1.ResumeLayout(false);
-         this.groupBox_Photo.ResumeLayout(false);
-         ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).EndInit();
+         this.tabPage1.PerformLayout();
+         this.groupBox_PhotoButtons.ResumeLayout(false);
+         this.groupBox_buttons.ResumeLayout(false);
+         this.flowLayoutPanel_MainButtons.ResumeLayout(false);
          this.splitContainer1.Panel1.ResumeLayout(false);
          this.splitContainer1.Panel2.ResumeLayout(false);
          ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -1379,7 +1397,6 @@ namespace PersonsBase.View
          this.groupBox_AbonLists.ResumeLayout(false);
          this.groupBox_AbonLists.PerformLayout();
          this.contextMenuStrip_RichTextBox.ResumeLayout(false);
-         this.flowLayoutPanel_MainButtons.ResumeLayout(false);
          this.tableLayoutPanel2.ResumeLayout(false);
          this.tableLayoutPanel2.PerformLayout();
          this.tabPage2.ResumeLayout(false);
@@ -1395,7 +1412,7 @@ namespace PersonsBase.View
          ((System.ComponentModel.ISupportInitialize)(this.dataGridView_history_abonements)).EndInit();
          this.tableLayoutPanel4.ResumeLayout(false);
          this.flowLayoutPanel2.ResumeLayout(false);
-         this.groupBox_buttons.ResumeLayout(false);
+         ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ClientPhoto)).EndInit();
          this.ResumeLayout(false);
          this.PerformLayout();
 
@@ -1506,7 +1523,8 @@ namespace PersonsBase.View
       private ListView listView_Abonements;
       private ColumnHeader columnHeader_Name;
       private ColumnHeader columnHeader_Type;
-      private GroupBox groupBox_Photo;
       private GroupBox groupBox_buttons;
+      private Label label7;
+      private GroupBox groupBox_PhotoButtons;
    }
 }

@@ -690,6 +690,8 @@ namespace PersonsBase.View
 
          // Кнопка удаления абонемента
          button_RemoveCurrentAbon.Visible = isUnLocked;
+         // Видимость Кнопок с фотографиями
+         groupBox_PhotoButtons.Visible= isUnLocked;
       }
 
       #endregion
@@ -1061,6 +1063,19 @@ namespace PersonsBase.View
          if (selectedIndex.Count == 0 || listView_Abonements.Items.Count == 0) return;
 
          _listViewSelectedIndex = selectedIndex[0];
+      }
+
+
+      private void pictureBox_ClientPhoto_DoubleClick(object sender, EventArgs e)
+      {
+         // Открывает форму для получения снимка. 
+         var isPictOk = Logic.GetWebCamBmp(out Bitmap picture);
+
+         if (!isPictOk || picture == null) return;
+
+         // Прописывает в персону имя файла фотки. Сохраняет копию изображения
+         var path = Photo.SaveToPhotoDir(picture, _person.Name);
+         _person.PathToPhoto = Path.GetFileName(path);
       }
    }
 }

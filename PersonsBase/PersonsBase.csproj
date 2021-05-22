@@ -361,6 +361,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\no-photo-available-icon-20.jpg" />
+    <None Include="Resources\No_photo_available.jpg" />
     <Content Include="WebCamAforge.dll" />
   </ItemGroup>
   <ItemGroup>
