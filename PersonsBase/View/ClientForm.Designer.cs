@@ -292,7 +292,7 @@ namespace PersonsBase.View
          // 
          this.splitContainer1.Panel2.Controls.Add(this.richTextBox_notes);
          this.splitContainer1.Size = new System.Drawing.Size(999, 591);
-         this.splitContainer1.SplitterDistance = 399;
+         this.splitContainer1.SplitterDistance = 423;
          this.splitContainer1.SplitterWidth = 8;
          this.splitContainer1.TabIndex = 16;
          // 
@@ -305,7 +305,7 @@ namespace PersonsBase.View
          this.groupBox_Info.Margin = new System.Windows.Forms.Padding(2);
          this.groupBox_Info.Name = "groupBox_Info";
          this.groupBox_Info.Padding = new System.Windows.Forms.Padding(2);
-         this.groupBox_Info.Size = new System.Drawing.Size(754, 393);
+         this.groupBox_Info.Size = new System.Drawing.Size(754, 417);
          this.groupBox_Info.TabIndex = 4;
          this.groupBox_Info.TabStop = false;
          this.groupBox_Info.Text = "Информация";
@@ -357,7 +357,7 @@ namespace PersonsBase.View
          this.richTextBox_notes.Location = new System.Drawing.Point(0, 0);
          this.richTextBox_notes.Name = "richTextBox_notes";
          this.richTextBox_notes.ShowSelectionMargin = true;
-         this.richTextBox_notes.Size = new System.Drawing.Size(999, 184);
+         this.richTextBox_notes.Size = new System.Drawing.Size(999, 160);
          this.richTextBox_notes.TabIndex = 6;
          this.richTextBox_notes.Text = "";
          this.richTextBox_notes.TextChanged += new System.EventHandler(this.richTextBox_notes_TextChanged);
