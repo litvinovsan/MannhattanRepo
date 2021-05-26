@@ -70,18 +70,16 @@ namespace PersonsBase.View
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Options.SaveProperties(); // Сохранение пользовательских настроек
-
             if (MessageBox.Show(@"Вы хотите закрыть приложение?", @"Завершение работы", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
                 e.Cancel = true;
             }
-            DataBaseLevel.SerializeObjects();
-        }
+            Logic.SaveEverithing();
+      }
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             //Сохранение в Эксель
-            MyFile.ExportToExcel(DataBaseM.CreatePersonsTable(), false); // Автоматическое Сохранение в Excel всей базы на всякий случай
+         //   MyFile.ExportToExcel(DataBaseM.CreatePersonsTable(), false); // Автоматическое Сохранение в Excel всей базы на всякий случай
 
         }
         #endregion
@@ -505,7 +503,6 @@ namespace PersonsBase.View
                 DailyVisits.GetInstance().RemoveFromLog(name, typeW);
                 // Удаление с экрана
                 MyListViewEx.RemoveSelectedItem((ListView)control);
-                Logic.SaveEverithing();
                 PwdForm.LockPassword();
             }
             catch (Exception)

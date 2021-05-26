@@ -97,17 +97,13 @@ namespace PersonsBase.data
             reportRowsList.Add(new DataGridItem("Дата", $"{DateTimeVisit:g}", "Дата и время посещения"));
             reportRowsList.Add(new DataGridItem("Вид Карты", AbonementName, "Тип карты/абонемента клиента. (Клубная Карта / Абонемент / Разовое Занятие"));
             reportRowsList.Add(new DataGridItem("Тренировка", TypeWorkoutToday.ToString().Replace("_", " "), "Тип тренировки в указанную дату (Аэробная, Персональная или Тренажерный залл)"));
-            reportRowsList.Add(new DataGridItem("Разрешенное Время", AvailableTimeTren.ToString().Replace("_", " "), "Время занятий (Утро или Весь день)"));
-            reportRowsList.Add(new DataGridItem("Оплата", PayStatus.ToString().Replace("_", " "), "Статус Оплата в указанную дату"));
             reportRowsList.Add(new DataGridItem("Занятий ост.", numTrenZal, "Осталось занятий в тренажерном зале или всего занятий если у клиента Абонемент"));
             reportRowsList.Add(new DataGridItem("Групповые", numAerob, "Остаток Групповых тренировок"));
             reportRowsList.Add(new DataGridItem("Персоны", numPersonal, "Остаток Персональных тренировок"));
             reportRowsList.Add(new DataGridItem("МиниГруп.", numMiniGr, "Остаток Мини Групп"));
-            reportRowsList.Add(new DataGridItem("Спа", SpaStatus.ToString().Replace("_", " "), "Разрешена ли Спа зона"));
             reportRowsList.Add(new DataGridItem("Тренер", trenerName, "Имя Тренера, проводившего тренировку. Если известно"));
-            reportRowsList.Add(new DataGridItem("Расписание", groupTimeNameInfo, "Название и время Групповой тренировки. Если известно."));
+           // reportRowsList.Add(new DataGridItem("Расписание", groupTimeNameInfo, "Название и время Групповой тренировки. Если известно."));
             reportRowsList.Add(new DataGridItem("Админ.", CurrAdmName, "Администратор в клубе на момент посещения"));
-            reportRowsList.Add(new DataGridItem("Покупка", $"{AbonBuyDate:d}", "Дата Покупки абонемента"));
             reportRowsList.Add(new DataGridItem("Активация", $"{AbonStartDate:d}", "Дата Активации абонемента"));
             reportRowsList.Add(new DataGridItem("Конец А.", $"{AbonEndDate:d}", "Дата Окончания абонемента"));
 
@@ -210,7 +206,8 @@ namespace PersonsBase.data
         public static DataTable GetVisitsTable(Person person)
         {
             var table = new DataTable();
-            var journal = PersonObject.GetVisitsList(person.Name).Take(30).ToList();
+            var journal = PersonObject.GetVisitsList(person.Name);
+
             var journalVisits = journal ?? new List<Visit>();
             if (journalVisits.Count == 0)
             {

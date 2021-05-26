@@ -63,27 +63,27 @@ namespace PersonsBase.control
          // if (e.KeyCode == Keys.Enter) // Если нажат Enter
       }
 
+      private static object _locker = new object();
+
       public static void SaveEverithing()
       {
-         var saveTask = new Task(() =>
-           {
-              try
-              {
-                 Options.SaveProperties(); // Сохранение пользовательских настроек
-                 DataBaseLevel.SerializeObjects();
-                 AbonementController.GetInstance().Save();
-              }
-              catch (Exception e)
-              {
-                 MessageBox.Show(e.Message);
-                 using (var sw = new StreamWriter("errors.log", true))
-                 {
-                    sw.WriteLine(DateTime.Now + " " + e.Message);
-                 }
-              }
-           });
-
-         saveTask.Start();
+         try
+         {
+            lock (_locker)
+            {
+               Options.SaveProperties(); // Сохранение пользовательских настроек
+               DataBaseLevel.SerializeObjects();
+               AbonementController.GetInstance().Save();
+            }
+         }
+         catch (Exception e)
+         {
+            MessageBox.Show(e.Message);
+            using (var sw = new StreamWriter("errors.log", true))
+            {
+               sw.WriteLine(DateTime.Now + " " + e.Message);
+            }
+         }
       }
 
       #endregion
@@ -571,7 +571,7 @@ namespace PersonsBase.control
          if (res == DialogResult.No) return false;
 
          var isSuccess = AddAbonement(selectedName);
-         SaveEverithing();
+         AbonementController.GetInstance().Save();
          return (isSuccess);
       }
 
@@ -703,8 +703,7 @@ namespace PersonsBase.control
          }
          catch (Exception)
          {
-            SaveEverithing();
-            MessageBox.Show(@"Ошибка подсветки строк по определенным признакам в карточке клиента");
+            throw new Exception("Сфотографируйте это сообщение" + "Logic.cs 706");
          }
 
          // Отрисовка Short Info
@@ -738,13 +737,13 @@ namespace PersonsBase.control
       }
       private static void AddTableToGroupBox(TableLayoutPanel table, GroupBox grpBx)
       {
-        
-           // Выводим на групбокс нашу новую ShortInfo Table}
 
-           grpBx.Controls.Clear();
-           grpBx.Controls.Add(table);
+         // Выводим на групбокс нашу новую ShortInfo Table}
 
-  
+         grpBx.Controls.Clear();
+         grpBx.Controls.Add(table);
+
+
 
       }
 
@@ -761,7 +760,7 @@ namespace PersonsBase.control
          {
             labelTextBoxList.AddRange(TupleConverter(abonement.GetShortInfoList()));
             // Добавляем Поле Статуса. Делаем тут потому что Person.abonem не знает об этом.
-          //  labelTextBoxList.Insert(1, CreateRowInfo("Текущий статус Клиента", status.ToString()));
+            //  labelTextBoxList.Insert(1, CreateRowInfo("Текущий статус Клиента", status.ToString()));
          }
          else
          {
