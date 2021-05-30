@@ -70,11 +70,12 @@ namespace PersonsBase.View
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show(@"Вы хотите закрыть приложение?", @"Завершение работы", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+         Logic.SaveEverithing();
+         if (MessageBox.Show(@"Вы хотите закрыть приложение?", @"Завершение работы", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
                 e.Cancel = true;
             }
-            Logic.SaveEverithing();
+           
       }
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {

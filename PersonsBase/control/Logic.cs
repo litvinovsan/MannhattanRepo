@@ -680,8 +680,10 @@ namespace PersonsBase.control
          IsAbonementValid(ref person);
          MessageBox.Show(@"Тренировка Учтена!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-         //  AbonementController.GetInstance().Save();
-         //  SaveEverithing();
+         AbonementController.GetInstance().Save();
+         DailyVisits.GetInstance().Serialize();
+
+         
          return true;
       }
       #endregion

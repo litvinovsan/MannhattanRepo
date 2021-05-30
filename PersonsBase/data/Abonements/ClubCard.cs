@@ -74,7 +74,7 @@ namespace PersonsBase.data.Abonements
          { throw new Exception("Ошибка в методе IsValid Клубной карты. _numberMonths =0" + this.GetType()); }
 
          // FIXME Проверить как работает Валидация клубной карты
-         //   if (!IsActivated && DateTime.Now.Date.CompareTo(BuyActivationDate.AddMonths(12).Date) <= 0) return true;
+         if (!IsActivated && DateTime.Now.Date.CompareTo(BuyActivationDate.AddMonths(12).Date) <= 0) return true;
 
          var addFreezedDays = Freeze?.GetSpentDays();
          DateTime finishDate = new DateTime();
