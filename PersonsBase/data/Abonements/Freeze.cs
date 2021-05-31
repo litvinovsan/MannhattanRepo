@@ -232,7 +232,7 @@ namespace PersonsBase.data.Abonements
         /// <returns></returns>
         public bool TrySetFreeze(int numDays, DateTime startDate)
         {
-            if (!IsPossibleToFreeze(numDays, startDate)) return false;
+            if (!IsPossibleToFreeze(numDays)) return false;
 
             AllFreezes.Add(new FreezePeriod(startDate, numDays));
             TotalDaysFreezed += numDays;
@@ -290,12 +290,6 @@ namespace PersonsBase.data.Abonements
             return result;
         }
 
-        private bool IsPossibleToFreeze(int numDaysToFreeze, DateTime dateStart)
-        {
-            if (numDaysToFreeze == 0) return false;
-            var dateCmpr = (DateTime.Now.Date.CompareTo(dateStart.Date) <= 0);// Дата заморозки в будущем
-            return IsPossibleToFreeze(numDaysToFreeze) && dateCmpr;
-        }
         private bool IsPossibleToFreeze(int numDaysToFreeze)
         {
             if (numDaysToFreeze == 0) return false;

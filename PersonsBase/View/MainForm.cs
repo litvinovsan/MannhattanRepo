@@ -40,7 +40,6 @@ namespace PersonsBase.View
             DataBaseLevel.PersonsListChangedEvent += UpdateBirthDateComboBox; // Поле Сегодняшних Дней рождений
 
             DataBaseLevel.OnListChanged(); // Событие запускающееся при изменении количества Клиентов в списке.
-            PwdForm.LockChangedEvent += PwdForm_LockChangedEvent;
 
             // События для Колонок и  т д
             DailyVisits.NumberDailyPersonsEvent += DailyVisits_NumberDailyPersonsEvent;// Счетчик пользователей
@@ -71,18 +70,17 @@ namespace PersonsBase.View
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Options.SaveProperties(); // Сохранение пользовательских настроек
-
-            if (MessageBox.Show(@"Вы хотите закрыть приложение?", @"Завершение работы", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+         Logic.SaveEverithing();
+         if (MessageBox.Show(@"Вы хотите закрыть приложение?", @"Завершение работы", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
                 e.Cancel = true;
             }
-            DataBaseLevel.SerializeObjects();
-        }
+           
+      }
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             //Сохранение в Эксель
-            MyFile.ExportToExcel(DataBaseM.CreatePersonsTable(), false); // Автоматическое Сохранение в Excel всей базы на всякий случай
+         //   MyFile.ExportToExcel(DataBaseM.CreatePersonsTable(), false); // Автоматическое Сохранение в Excel всей базы на всякий случай
 
         }
         #endregion
@@ -198,11 +196,7 @@ namespace PersonsBase.View
             MyListViewEx.MaximizeLastColumn(listView_Personal);
         }
 
-        private void PwdForm_LockChangedEvent()
-        {
-            // MessageBox.Show("Изменен Пароль В гл Форме");
-        }
-
+   
         private void UpdateBirthDateComboBox(EventArgs e)
         {
             comboBox_BDay.SelectedIndexChanged -= comboBox_BDay_SelectedIndexChanged_1;
@@ -315,7 +309,6 @@ namespace PersonsBase.View
         {
             Logic.SellAbonement();
         }
-
 
         private async void сохранитьВExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -511,7 +504,6 @@ namespace PersonsBase.View
                 DailyVisits.GetInstance().RemoveFromLog(name, typeW);
                 // Удаление с экрана
                 MyListViewEx.RemoveSelectedItem((ListView)control);
-                Logic.SaveEverithing();
                 PwdForm.LockPassword();
             }
             catch (Exception)
@@ -581,7 +573,6 @@ namespace PersonsBase.View
         }
         #endregion
 
-
         #region  MASKED TEXTBOX  Поле ввода номера телефона
 
         /// <summary>
@@ -628,7 +619,5 @@ namespace PersonsBase.View
             if (сomboBox_PersonsList != null && сomboBox_PersonsList.Items.Count > 0) сomboBox_PersonsList.DroppedDown = true;
         }
         #endregion
-
-
     }
 }

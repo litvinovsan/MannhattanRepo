@@ -71,14 +71,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Persons)).BeginInit();
             this.SuspendLayout();
             // 
-            // flowLayoutPanel1
+            // flowLayoutPanel_MainButtons
             // 
             this.flowLayoutPanel1.Controls.Add(this.button3);
             this.flowLayoutPanel1.Controls.Add(this.button1);
             this.flowLayoutPanel1.Controls.Add(this.button2);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 447);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Name = "flowLayoutPanel_MainButtons";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1311, 40);
             this.flowLayoutPanel1.TabIndex = 1;
             // 

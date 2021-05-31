@@ -74,7 +74,7 @@ namespace PersonsBase.myStd
         //    }
 
         //  bool ok = SerializeStatic.Save(typeof(A), "c:\\tests\\a.dat");
-        //  bool ok2 = SerializeStatic.Load(typeof(A), "c:\\tests\\a.dat");
+        //  bool ok2 = SerializeStatic.SetDataOnForm(typeof(A), "c:\\tests\\a.dat");
 
         //
         #endregion

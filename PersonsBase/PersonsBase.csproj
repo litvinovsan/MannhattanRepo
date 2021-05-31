@@ -111,7 +111,6 @@
     <Compile Include="myStd\MyListView.cs" />
     <Compile Include="myStd\MyReflection.cs" />
     <Compile Include="myStd\MyRichTextBox.cs" />
-    <Compile Include="myStd\ObservablDictionary.cs" />
     <Compile Include="myStd\SerializeOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -125,6 +124,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ViewPresenters\ClientFormPresenter.cs" />
+    <Compile Include="ViewPresenters\IClientForm.cs" />
+    <Compile Include="ViewPresenters\IPresenter.cs" />
+    <Compile Include="ViewPresenters\IPresenterProperty.cs" />
+    <Compile Include="ViewPresenters\IView.cs" />
     <Compile Include="View\AdminSelectForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -357,6 +361,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\no-photo-available-icon-20.jpg" />
+    <None Include="Resources\No_photo_available.jpg" />
     <Content Include="WebCamAforge.dll" />
   </ItemGroup>
   <ItemGroup>
