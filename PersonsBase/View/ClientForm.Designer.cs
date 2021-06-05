@@ -37,9 +37,6 @@ namespace PersonsBase.View
          this.dateTimePicker_birthDate = new System.Windows.Forms.DateTimePicker();
          this.tabControl1 = new System.Windows.Forms.TabControl();
          this.tabPage1 = new System.Windows.Forms.TabPage();
-         this.groupBox_PhotoButtons = new System.Windows.Forms.GroupBox();
-         this.button_photo = new System.Windows.Forms.Button();
-         this.label7 = new System.Windows.Forms.Label();
          this.groupBox_buttons = new System.Windows.Forms.GroupBox();
          this.flowLayoutPanel_MainButtons = new System.Windows.Forms.FlowLayoutPanel();
          this.button_CheckInWorkout = new System.Windows.Forms.Button();
@@ -47,6 +44,8 @@ namespace PersonsBase.View
          this.button_add_dop_tren = new System.Windows.Forms.Button();
          this.button_Freeze = new System.Windows.Forms.Button();
          this.button_RemoveCurrentAbon = new System.Windows.Forms.Button();
+         this.groupBox_PhotoButtons = new System.Windows.Forms.GroupBox();
+         this.button_photo = new System.Windows.Forms.Button();
          this.splitContainer1 = new System.Windows.Forms.SplitContainer();
          this.groupBox_AbonLists = new System.Windows.Forms.GroupBox();
          this.radioButton_NotValid_selected = new System.Windows.Forms.RadioButton();
@@ -122,13 +121,13 @@ namespace PersonsBase.View
          this.button_Green = new System.Windows.Forms.Button();
          this.button2 = new System.Windows.Forms.Button();
          this.button_Cancel = new System.Windows.Forms.Button();
-         this.button_photo_cam = new System.Windows.Forms.Button();
          this.pictureBox_ClientPhoto = new System.Windows.Forms.PictureBox();
+         this.button_photo_cam = new System.Windows.Forms.Button();
          this.tabControl1.SuspendLayout();
          this.tabPage1.SuspendLayout();
-         this.groupBox_PhotoButtons.SuspendLayout();
          this.groupBox_buttons.SuspendLayout();
          this.flowLayoutPanel_MainButtons.SuspendLayout();
+         this.groupBox_PhotoButtons.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
          this.splitContainer1.Panel1.SuspendLayout();
          this.splitContainer1.Panel2.SuspendLayout();
@@ -187,7 +186,6 @@ namespace PersonsBase.View
          // 
          // tabPage1
          // 
-         this.tabPage1.Controls.Add(this.label7);
          this.tabPage1.Controls.Add(this.pictureBox_ClientPhoto);
          this.tabPage1.Controls.Add(this.groupBox_buttons);
          this.tabPage1.Controls.Add(this.splitContainer1);
@@ -201,45 +199,10 @@ namespace PersonsBase.View
          this.tabPage1.Text = "Информация";
          this.tabPage1.UseVisualStyleBackColor = true;
          // 
-         // groupBox_PhotoButtons
-         // 
-         this.groupBox_PhotoButtons.Controls.Add(this.button_photo);
-         this.groupBox_PhotoButtons.Controls.Add(this.button_photo_cam);
-         this.groupBox_PhotoButtons.Location = new System.Drawing.Point(3, 253);
-         this.groupBox_PhotoButtons.Name = "groupBox_PhotoButtons";
-         this.groupBox_PhotoButtons.Size = new System.Drawing.Size(230, 86);
-         this.groupBox_PhotoButtons.TabIndex = 14;
-         this.groupBox_PhotoButtons.TabStop = false;
-         this.groupBox_PhotoButtons.Text = "Фото";
-         this.groupBox_PhotoButtons.Visible = false;
-         // 
-         // button_photo
-         // 
-         this.button_photo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-         this.button_photo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.button_photo.Location = new System.Drawing.Point(9, 21);
-         this.button_photo.Margin = new System.Windows.Forms.Padding(2);
-         this.button_photo.Name = "button_photo";
-         this.button_photo.Size = new System.Drawing.Size(216, 24);
-         this.button_photo.TabIndex = 4;
-         this.button_photo.Text = "Из файла";
-         this.button_photo.UseVisualStyleBackColor = true;
-         this.button_photo.Click += new System.EventHandler(this.button_photo_Click);
-         // 
-         // label7
-         // 
-         this.label7.AutoSize = true;
-         this.label7.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-         this.label7.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-         this.label7.Location = new System.Drawing.Point(3, 225);
-         this.label7.Name = "label7";
-         this.label7.Size = new System.Drawing.Size(268, 16);
-         this.label7.TabIndex = 18;
-         this.label7.Text = "Двойной клик для добавления фото";
-         // 
          // groupBox_buttons
          // 
+         this.groupBox_buttons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
          this.groupBox_buttons.Controls.Add(this.flowLayoutPanel_MainButtons);
          this.groupBox_buttons.Location = new System.Drawing.Point(13, 249);
          this.groupBox_buttons.Name = "groupBox_buttons";
@@ -331,6 +294,32 @@ namespace PersonsBase.View
          this.button_RemoveCurrentAbon.Visible = false;
          this.button_RemoveCurrentAbon.Click += new System.EventHandler(this.button_remove_current_abon_Click);
          // 
+         // groupBox_PhotoButtons
+         // 
+         this.groupBox_PhotoButtons.Controls.Add(this.button_photo);
+         this.groupBox_PhotoButtons.Controls.Add(this.button_photo_cam);
+         this.groupBox_PhotoButtons.Location = new System.Drawing.Point(3, 253);
+         this.groupBox_PhotoButtons.Name = "groupBox_PhotoButtons";
+         this.groupBox_PhotoButtons.Size = new System.Drawing.Size(230, 86);
+         this.groupBox_PhotoButtons.TabIndex = 14;
+         this.groupBox_PhotoButtons.TabStop = false;
+         this.groupBox_PhotoButtons.Text = "Фото";
+         this.groupBox_PhotoButtons.Visible = false;
+         // 
+         // button_photo
+         // 
+         this.button_photo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+         this.button_photo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+         this.button_photo.Location = new System.Drawing.Point(9, 21);
+         this.button_photo.Margin = new System.Windows.Forms.Padding(2);
+         this.button_photo.Name = "button_photo";
+         this.button_photo.Size = new System.Drawing.Size(216, 24);
+         this.button_photo.TabIndex = 4;
+         this.button_photo.Text = "Из файла";
+         this.button_photo.UseVisualStyleBackColor = true;
+         this.button_photo.Click += new System.EventHandler(this.button_photo_Click);
+         // 
          // splitContainer1
          // 
          this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -405,7 +394,6 @@ namespace PersonsBase.View
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
          this.listView_Abonements.BorderStyle = System.Windows.Forms.BorderStyle.None;
-         this.listView_Abonements.CheckBoxes = true;
          this.listView_Abonements.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader_Name,
             this.columnHeader_Type});
@@ -427,12 +415,12 @@ namespace PersonsBase.View
          // columnHeader_Name
          // 
          this.columnHeader_Name.Text = "Name";
-         this.columnHeader_Name.Width = 133;
+         this.columnHeader_Name.Width = 127;
          // 
          // columnHeader_Type
          // 
          this.columnHeader_Type.Text = "Type";
-         this.columnHeader_Type.Width = 131;
+         this.columnHeader_Type.Width = 137;
          // 
          // groupBox_Info
          // 
@@ -1345,6 +1333,19 @@ namespace PersonsBase.View
          this.button_Cancel.UseVisualStyleBackColor = true;
          this.button_Cancel.Click += new System.EventHandler(this.button_Cancel_Click);
          // 
+         // pictureBox_ClientPhoto
+         // 
+         this.pictureBox_ClientPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.pictureBox_ClientPhoto.Image = global::PersonsBase.Properties.Resources.No_Photo;
+         this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(10, 51);
+         this.pictureBox_ClientPhoto.Margin = new System.Windows.Forms.Padding(2);
+         this.pictureBox_ClientPhoto.Name = "pictureBox_ClientPhoto";
+         this.pictureBox_ClientPhoto.Size = new System.Drawing.Size(250, 193);
+         this.pictureBox_ClientPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+         this.pictureBox_ClientPhoto.TabIndex = 0;
+         this.pictureBox_ClientPhoto.TabStop = false;
+         this.pictureBox_ClientPhoto.DoubleClick += new System.EventHandler(this.pictureBox_ClientPhoto_DoubleClick);
+         // 
          // button_photo_cam
          // 
          this.button_photo_cam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1357,18 +1358,6 @@ namespace PersonsBase.View
          this.button_photo_cam.TabIndex = 13;
          this.button_photo_cam.UseVisualStyleBackColor = true;
          this.button_photo_cam.Click += new System.EventHandler(this.button_photo_cam_Click);
-         // 
-         // pictureBox_ClientPhoto
-         // 
-         this.pictureBox_ClientPhoto.Image = global::PersonsBase.Properties.Resources.No_photo_available;
-         this.pictureBox_ClientPhoto.Location = new System.Drawing.Point(10, 46);
-         this.pictureBox_ClientPhoto.Margin = new System.Windows.Forms.Padding(2);
-         this.pictureBox_ClientPhoto.Name = "pictureBox_ClientPhoto";
-         this.pictureBox_ClientPhoto.Size = new System.Drawing.Size(250, 177);
-         this.pictureBox_ClientPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-         this.pictureBox_ClientPhoto.TabIndex = 0;
-         this.pictureBox_ClientPhoto.TabStop = false;
-         this.pictureBox_ClientPhoto.DoubleClick += new System.EventHandler(this.pictureBox_ClientPhoto_DoubleClick);
          // 
          // ClientForm
          // 
@@ -1386,10 +1375,9 @@ namespace PersonsBase.View
          this.Load += new System.EventHandler(this.ClientForm_Load);
          this.tabControl1.ResumeLayout(false);
          this.tabPage1.ResumeLayout(false);
-         this.tabPage1.PerformLayout();
-         this.groupBox_PhotoButtons.ResumeLayout(false);
          this.groupBox_buttons.ResumeLayout(false);
          this.flowLayoutPanel_MainButtons.ResumeLayout(false);
+         this.groupBox_PhotoButtons.ResumeLayout(false);
          this.splitContainer1.Panel1.ResumeLayout(false);
          this.splitContainer1.Panel2.ResumeLayout(false);
          ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -1524,7 +1512,6 @@ namespace PersonsBase.View
       private ColumnHeader columnHeader_Name;
       private ColumnHeader columnHeader_Type;
       private GroupBox groupBox_buttons;
-      private Label label7;
       private GroupBox groupBox_PhotoButtons;
    }
 }

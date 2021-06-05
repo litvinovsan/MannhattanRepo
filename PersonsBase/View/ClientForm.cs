@@ -1018,7 +1018,7 @@ namespace PersonsBase.View
          if (listView_Abonements.Items.Count == 0) return;
          listView_Abonements.Focus();
          listView_Abonements.Items[0].Selected = true;
-         listView_Abonements.Items[0].Checked = true;
+       //  listView_Abonements.Items[0].Checked = true;
       }
 
       private void radioButton_Valid_Selected_CheckedChanged(object sender, EventArgs e)
@@ -1043,15 +1043,15 @@ namespace PersonsBase.View
             var selectedAbon = _presenter?.CurrentListViewCollection[selectedIndex[0]];
             if (_presenter.AbonementCurent == selectedAbon) return;
 
-            foreach (int index in listView_Abonements.CheckedIndices)
-            {
-               if (index >= 0 && listView_Abonements.Items.Count != 0)
-                  listView_Abonements.Items[index].Checked = false;
-               else break;
-            }
+            //foreach (int index in listView_Abonements.CheckedIndices)
+            //{
+            //   if (index >= 0 && listView_Abonements.Items.Count != 0)
+            //      listView_Abonements.Items[index].Checked = false;
+            //   else break;
+            //}
 
             AbonementOnFormChanged?.Invoke(selectedAbon);
-            listView_Abonements.Items[_listViewSelectedIndex].Checked = true;
+            //listView_Abonements.Items[_listViewSelectedIndex].Checked = true;
          }
       }
 

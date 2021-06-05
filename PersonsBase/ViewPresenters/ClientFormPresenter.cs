@@ -186,7 +186,6 @@ namespace PersonsBase.ViewPresenters
       public void Dispose()
       {
          Unsubscribe();
-         _abonementController.Save();
       }
 
 

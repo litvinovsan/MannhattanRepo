@@ -189,6 +189,7 @@ namespace PersonsBase.data.Abonements
       public override IEnumerable<Tuple<string, string>> GetShortInfoList()
       {
          var numFreezDays = Freeze?.GetSpentDays() ?? 0; //Продлим на замороженные дни
+         var clubCardEndDate = IsActivated ? EndDate.Date.AddDays(numFreezDays).ToString("d") : BuyDate.AddMonths(12).ToString("d");
 
          // Информация о текущем состоянии Абонемента. Добавляем всё что должно выводиться для Пользователя
          var result = new List<Tuple<string, string>>
@@ -200,7 +201,7 @@ namespace PersonsBase.data.Abonements
                 new Tuple<string, string>("Срок Клубной Карты", _numberMonths + "  мес."),
                 new Tuple<string, string>("Дата Покупки", BuyDate.ToString("d")),
                 new Tuple<string, string>("Дата Активации", BuyActivationDate.ToString("d")),
-                new Tuple<string, string>("Дата Окончания", EndDate.Date.AddDays(numFreezDays).ToString("d")),
+                new Tuple<string, string>("Дата Окончания", clubCardEndDate),
                 new Tuple<string, string>("Осталось Дней", GetRemainderDays().ToString())
             };
          if (NumPersonalTr > 0)

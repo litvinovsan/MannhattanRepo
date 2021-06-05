@@ -213,19 +213,9 @@ namespace PersonsBase.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap No_photo_available {
+        internal static System.Drawing.Bitmap No_Photo {
             get {
-                object obj = ResourceManager.GetObject("No_photo_available", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap no_photo_available_icon_20 {
-            get {
-                object obj = ResourceManager.GetObject("no-photo-available-icon-20", resourceCulture);
+                object obj = ResourceManager.GetObject("No_Photo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

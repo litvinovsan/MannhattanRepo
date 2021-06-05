@@ -113,12 +113,12 @@
     <Compile Include="myStd\MyRichTextBox.cs" />
     <Compile Include="myStd\SerializeOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="data\Options.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="data\Options.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -360,8 +360,9 @@
     <None Include="Resources\icons8-small.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\no-photo-available-icon-20.jpg" />
-    <None Include="Resources\No_photo_available.jpg" />
+    <None Include="Resources\No_Photo.png" />
+    <None Include="Resources\No_Photo1.png" />
+    <None Include="Resources\No_Photo2.png" />
     <Content Include="WebCamAforge.dll" />
   </ItemGroup>
   <ItemGroup>

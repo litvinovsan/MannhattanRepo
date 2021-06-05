@@ -67,22 +67,11 @@ namespace PersonsBase.control
 
       public static void SaveEverithing()
       {
-         try
+         lock (_locker)
          {
-            lock (_locker)
-            {
-               Options.SaveProperties(); // Сохранение пользовательских настроек
-               DataBaseLevel.SerializeObjects();
-               AbonementController.GetInstance().Save();
-            }
-         }
-         catch (Exception e)
-         {
-            MessageBox.Show(e.Message);
-            using (var sw = new StreamWriter("errors.log", true))
-            {
-               sw.WriteLine(DateTime.Now + " " + e.Message);
-            }
+            Options.SaveProperties(); // Сохранение пользовательских настроек
+            DataBaseLevel.SerializeObjects();
+            AbonementController.GetInstance().Save();
          }
       }
 
@@ -680,7 +669,7 @@ namespace PersonsBase.control
          IsAbonementValid(ref person);
          MessageBox.Show(@"Тренировка Учтена!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-         AbonementController.GetInstance().Save();
+       //  AbonementController.GetInstance().Save();
          DailyVisits.GetInstance().Serialize();
 
          
